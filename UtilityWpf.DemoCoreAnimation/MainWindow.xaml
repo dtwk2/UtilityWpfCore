@@ -1,0 +1,50 @@
+﻿<Window x:Class="UtilityWpf.DemoAnimation.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ani="clr-namespace:UtilityWpf.Animation;assembly=UtilityWpf.AnimationCore"
+        xmlns:local="clr-namespace:UtilityWpf.DemoAnimation"
+        xmlns:nb="http://www.aptof.com/"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <TabControl>
+            <TabItem Header="BarControl">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top">
+                        <nb:NumberBox x:Name="height" Number="60" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" ></nb:NumberBox>
+                        <nb:NumberBox x:Name="duration" Number="600" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" ></nb:NumberBox>
+                    </StackPanel>
+                    <Grid>
+                        <ani:BarControl Size="{Binding ElementName=height1,Path=Number}" Duration="{Binding ElementName=duration,Path=Number}"></ani:BarControl>
+                    </Grid>
+                </DockPanel>
+            </TabItem>
+            <TabItem Header="BlinkControl">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top">
+                        <nb:NumberBox x:Name="duration1" Number="600" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" ></nb:NumberBox>
+                    </StackPanel>
+                    <Grid>
+                        <ani:BlinkControl  Duration="{Binding ElementName=duration1,Path=Number}"></ani:BlinkControl>
+                    </Grid>
+                </DockPanel>
+            </TabItem>
+
+            <TabItem Header="BeatControl">
+                <DockPanel>
+                    <DockPanel.DataContext>
+                        <local:BeatViewModel></local:BeatViewModel>
+                    </DockPanel.DataContext>
+                    <StackPanel DockPanel.Dock="Top">
+                        <nb:NumberBox  VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" Number="{Binding Rate}" ></nb:NumberBox>
+                    </StackPanel>
+                    <Grid>
+                        <ani:BeatControl  Beat="{Binding Beat}"></ani:BeatControl>
+                    </Grid>
+                </DockPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

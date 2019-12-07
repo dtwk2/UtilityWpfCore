@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="UtilityWpf.DemoApp.DynamicDataGridUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:UtilityWpf.DemoApp"
+             xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.ViewCore"
+             mc:Ignorable="d"
+
+                xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <!--<UserControl.Resources>
+
+        <Specialized:ListDictionary x:Key="MasterSlidesFileNames"
+                                    xmlns:Specialized="clr-namespace:System.Collections.Specialized;assembly=System">
+            <sys:String x:Key="long">Ya long yes ni</sys:String>
+            <sys:String x:Key="Sun">Waterfall</sys:String>
+            <sys:String x:Key="lorem ipsum">hello wOrld</sys:String>
+        </Specialized:ListDictionary>
+</UserControl.Resources>-->
+        <Grid>
+
+        <view:DynamicDataGrid ItemsSource="{Binding }" />
+    </Grid>
+</UserControl>

@@ -1,0 +1,102 @@
+﻿<UserControl x:Class="UtilityWpf.DemoApp.PathButtonUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:UtilityWpf.DemoApp"
+             xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.ViewCore"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:int="clr-namespace:UtilityWpf.Behavior;assembly=UtilityWpf.CommonCore"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <TabControl>
+        <TabItem Header="Interactivity">
+
+            <Grid Width="200" Height="60">
+                <Button x:Name="optionsButton" FontSize="20">
+                    Option
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <int:SetterAction PropertyName="Visibility" Value="Collapsed" />
+                            <int:SetterAction PropertyName="Visibility" TargetObject="{Binding ElementName=optionsBackButton}" Value="Visible" />
+                            <!--<int:SetterAction PropertyName="Visibility" TargetObject="{Binding ElementName=optionsPanel}" Value="Visible" />-->
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+
+                <Button x:Name="optionsBackButton" Visibility="Collapsed" FontSize="20">
+                    Back
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <int:SetterAction PropertyName="Visibility" Value="Collapsed" />
+                            <int:SetterAction PropertyName="Visibility" TargetObject="{Binding ElementName=optionsButton}" Value="Visible" />
+                            <!--<int:SetterAction PropertyName="Visibility" TargetObject="{Binding ElementName=optionsPanel}" Value="Collapsed" />-->
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Path">
+            <UniformGrid Columns="1">
+                <view:PathButton HoverBackground="Blue" Height="70">
+                    <view:PathButton.PathData>
+                        <PathGeometry>
+                            <PathGeometry.Figures>
+                                <PathFigure StartPoint="0.5,0">
+                                    <LineSegment Point="-1,0" />
+                                </PathFigure>
+                                <PathFigure StartPoint="-0.5,0">
+                                    <LineSegment Point="1,0" />
+                                </PathFigure>
+                            </PathGeometry.Figures>
+                        </PathGeometry>
+                    </view:PathButton.PathData>
+                </view:PathButton>
+
+                <view:PathButton />
+                <view:XButton />
+            </UniformGrid>
+        </TabItem>
+
+        <TabItem Header="Image">
+
+            <view:ToggleButtonEx x:Name="toggle"
+                                                  Grid.Column="0"
+                                                Margin="15,0,15,0"
+                                                FrontImageSource="/Images/Settings.png"
+                                                BackImageSource="/Images/bar-chart.png" />
+        </TabItem>
+
+        <TabItem Header="Default Enum">
+        </TabItem>
+        <TabItem Header="Enum">
+            <StackPanel>
+             <Label>Default</Label>
+                <view:EnumToggleButton HorizontalAlignment="Center" Margin="10"></view:EnumToggleButton>
+                <Label>Using enum</Label>
+                <Grid HorizontalAlignment="Center"  Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                <TextBlock Text="{Binding ElementName=etb,Path=Output}"></TextBlock>
+                <view:EnumToggleButton Grid.Row="1" x:Name="etb" Enum="{x:Type local:Connected}"></view:EnumToggleButton>
+                    <view:EnumToggleButton Grid.Row="2" x:Name="etb2" Enum="{x:Type local:Connected}" UseEnumAsContent="False"></view:EnumToggleButton>
+                </Grid>
+                <!--<TextBlock Text="{Binding ElementName=TenseControl,Path=Output}"></TextBlock>-->
+
+                <Viewbox  Width="200" Height="50">
+                    <view:TenseSwitch x:Name="TenseControl" HorizontalAlignment="Center"></view:TenseSwitch>
+                </Viewbox>
+            </StackPanel>
+        </TabItem>
+
+        <TabItem Header="EnumButtons">
+            <StackPanel>
+                <view:ButtonDefinitionsControl x:Name="bdc" Type="{x:Type local:EmotionEnum}" />
+                <TextBox Text="{Binding ElementName=bdc, Path=Output}" />
+            </StackPanel>
+        </TabItem>
+    </TabControl>
+</UserControl>

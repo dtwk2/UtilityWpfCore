@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:UtilityWpf.View"
+                   xmlns:utility="clr-namespace:UtilityWpf;assembly=UtilityWpf.CommonCore">
+
+    <Style x:Key="PageNavigatorStyle"  TargetType="{x:Type  local:PageNavigatorControl  }">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:PageNavigatorControl }">
+
+                    <StackPanel Orientation="Horizontal">
+                        <local:NavigatorControl x:Name="NavigatorControl"
+                                                ></local:NavigatorControl>
+                        <local:SizeControl Width="200" x:Name="SizeControl"
+                                           Size="{Binding PageSize,RelativeSource={RelativeSource TemplatedParent},Mode=OneWayToSource}" />
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ToggleSwitch="clr-namespace:ToggleSwitch;assembly=ToggleSwitch"
+                    xmlns:local="clr-namespace:UtilityWpf.View">
+
+    <Grid x:Key="Cross">
+        <Path Data="M0,0 L25,25" Stroke="White" Stretch="UniformToFill" StrokeThickness="6" />
+        <Path Data="M0,25 L25,0" Stroke="White" Stretch="UniformToFill" StrokeThickness="6" />
+    </Grid>
+
+    <Path x:Key="Tick" Fill="White" Stretch="UniformToFill" Data="M 21.7,52.2 L 74.4,0 L 74.4,18.667 L 22,70.708 L 0.,49 L 0,29.8 L 21.7,52.2 Z" />
+
+    <Style x:Key="EnumToggleButtonStyle" TargetType="{x:Type local:EnumToggleButton}" BasedOn="{StaticResource {x:Type ToggleSwitch:HorizontalToggleSwitch}}">
+    </Style>
+</ResourceDictionary>

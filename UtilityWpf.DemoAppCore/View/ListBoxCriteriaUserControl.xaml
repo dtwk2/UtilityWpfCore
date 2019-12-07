@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="UtilityWpf.DemoApp.ListBoxCriteriaUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:UtilityWpf.DemoApp"
+             xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.ViewCore"
+                  xmlns:util="clr-namespace:UtilityWpf.Behavior;assembly=UtilityWpf.CommonCore"
+                           xmlns:conv="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf.CommonCore"
+             xmlns:command="clr-namespace:UtilityWpf.Command;assembly=UtilityWpf.CommonCore"
+             mc:Ignorable="d"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <DockPanel>
+
+        <Grid DockPanel.Dock="Left">
+            <Grid.Resources>
+                <conv:Converter x:Key="Converter"></conv:Converter>
+            </Grid.Resources>
+            <view:ListBoxCriteria x:Name="passFail">
+                <ListBox.ItemContainerStyle>
+                    <Style>
+                        <Setter Property="view:CriteriaItem.MeetsCriteria" Value="{Binding Expired, Converter={StaticResource Converter}}" />
+                        <!--<Setter Property="ListBoxItem.IsSelected" Value="{Binding Converter={StaticResource Converter}}" />-->
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <view:ListBoxCriteria.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel  Width="200" Orientation="Horizontal">
+                            <TextBlock Text="{Binding Key}" FontSize="16"    HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </DataTemplate>
+                </view:ListBoxCriteria.ItemTemplate>
+                <i:Interaction.Triggers>
+
+                    <i:EventTrigger EventName="CriteriaMet">
+                        <util:EventCommandExecuter Command="{Binding  ElementName=oc,Path=.}" EventArgsConverter="{StaticResource Converter}" ></util:EventCommandExecuter>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </view:ListBoxCriteria>
+        </Grid>
+        <command:OutputCommand x:Name="oc" DockPanel.Dock="Right" Width="200">
+            <command:OutputCommand.Resources>
+                <local:ListConverter x:Key="listConverter"></local:ListConverter>
+            </command:OutputCommand.Resources>
+            <command:OutputCommand.Style>
+                <Style  TargetType="{x:Type  command:OutputCommand}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type  command:OutputCommand}">
+                                <ItemsControl ItemsSource="{TemplateBinding Output}">
+                                </ItemsControl>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </command:OutputCommand.Style>
+        </command:OutputCommand>
+    </DockPanel>
+</UserControl>
