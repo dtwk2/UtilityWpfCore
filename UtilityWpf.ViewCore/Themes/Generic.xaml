@@ -19,5 +19,6 @@
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/SliderItemsControl.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/DatesList.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/PathButton.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/MasterDetailView.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

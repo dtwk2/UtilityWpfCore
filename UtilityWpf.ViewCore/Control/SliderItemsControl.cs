@@ -125,11 +125,11 @@ namespace UtilityWpf.View
 
         public SliderItemsControl()
         {
-            GetSubject(nameof(Data))
-        .CombineLatest(GetSubject(nameof(Key)),
-         GetSubject(nameof(Value)),
-        GetSubject(nameof(Min)).StartWith(new object[] { null }),
-    GetSubject(nameof(Max)).StartWith(new object[] { null }),
+            GetChanges(nameof(Data))
+        .CombineLatest(GetChanges(nameof(Key)),
+         GetChanges(nameof(Value)),
+        GetChanges(nameof(Min)).StartWith(new object[] { null }),
+    GetChanges(nameof(Max)).StartWith(new object[] { null }),
    (data, key, value, min, max) => new { data, key, value, min, max })
         .Subscribe(async _ =>
         {
@@ -151,7 +151,7 @@ namespace UtilityWpf.View
            }, System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken))));
         });
 
-            GetSubject(nameof(ShowKeyValuePanel)).Subscribe(_ =>
+            GetChanges(nameof(ShowKeyValuePanel)).Subscribe(_ =>
             {
                 this.Dispatcher.Invoke(() =>
                 {

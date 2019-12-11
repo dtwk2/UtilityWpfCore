@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
@@ -11,9 +12,32 @@ namespace UtilityWpf.View
     {
         private Dictionary<string, ISubject<object>> Subjects = new Dictionary<string, ISubject<object>>();
 
-        public ISubject<object> GetSubject(string name)
+        public IObservable<object> GetChanges(string name)
         {
-            Subjects[name] = Subjects.ContainsKey(name) ? Subjects[name] : new Subject<object>(); return Subjects[name];
+            Subjects[name] = Subjects.ContainsKey(name) ? Subjects[name] : new Subject<object>();
+            return Subjects[name];
+        }
+
+        public IObservable<T> GetChanges<T>(string name = null)
+        {
+            var type = typeof(T);
+            if (string.IsNullOrEmpty(name))
+            {
+                var props = this.GetType().GetProperties();
+                var where = props.Where(a => a.PropertyType == type).ToArray();
+                if(where.Any())
+                {
+                    if (where.Length == 1)
+                        name = where.Single().Name;
+                    else
+                        throw new Exception("UnExpected multiple types");
+                }
+                else
+                    throw new Exception("No types match");
+            }
+
+            Subjects[name] = Subjects.ContainsKey(name) ? Subjects[name] : new Subject<object>();
+            return Subjects[name].Select(x => (T)x);
         }
 
         public void OnNext(DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)

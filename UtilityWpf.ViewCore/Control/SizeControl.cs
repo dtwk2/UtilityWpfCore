@@ -40,7 +40,7 @@ namespace UtilityWpf.View
             ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
             Style = resourceDictionary["SizeControlStyle"] as Style;
 
-            base.GetSubject(nameof(Size)).Select(_ => (int)_).Subscribe(RaiseSelectedSizeEvent);
+            base.GetChanges(nameof(Size)).Select(_ => (int)_).Subscribe(RaiseSelectedSizeEvent);
         }
 
         public static readonly RoutedEvent SelectedSizeChangedEvent = EventManager.RegisterRoutedEvent("SelectedSizeChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(SizeControl));

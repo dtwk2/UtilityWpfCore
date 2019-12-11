@@ -3,6 +3,10 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <UseWPF>true</UseWPF>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors />
+    <Company />
+    <RootNamespace>UtilityWpf.View</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,7 +20,9 @@
 
   <ItemGroup>
     <PackageReference Include="AutoBogus" Version="2.7.3" />
-    <PackageReference Include="MaterialDesignThemes" Version="3.0.0-ci802" />
+    <PackageReference Include="MaterialDesignColors" Version="1.2.1" />
+    <PackageReference Include="MaterialDesignThemes" Version="3.0.0" />
+    <PackageReference Include="PropertyTools" Version="3.0.0" />
     <PackageReference Include="PropertyTools.Wpf" Version="3.0.0" />
     <PackageReference Include="ToggleSwitch" Version="1.1.2" />
   </ItemGroup>
