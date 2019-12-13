@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace UtilityWpf.Converter
+namespace UtilityWpf
 {
     public class Converter : IValueConverter
     {

@@ -3,11 +3,12 @@ using System.Threading.Tasks;
 
 namespace UtilityWpf
 {
-    public interface IContext
+    public interface IDispatcher
     {
-        //bool IsSynchronized { get; }
         void Invoke(Action action);
 
         Task InvokeAsync(Action action);
+
+        bool CheckAccess();
     }
 }
