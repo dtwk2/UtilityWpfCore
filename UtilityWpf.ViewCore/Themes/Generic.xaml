@@ -20,5 +20,7 @@
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/DatesList.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/PathButton.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/MasterDetailView.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/LogViewer.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/Foreign/TimeBar.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

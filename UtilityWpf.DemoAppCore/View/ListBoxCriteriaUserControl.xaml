@@ -15,7 +15,7 @@
 
         <Grid DockPanel.Dock="Left">
             <Grid.Resources>
-                <conv:Converter x:Key="Converter"></conv:Converter>
+                <conv:DefaultConverter x:Key="Converter"></conv:DefaultConverter>
             </Grid.Resources>
             <view:ListBoxCriteria x:Name="passFail">
                 <ListBox.ItemContainerStyle>

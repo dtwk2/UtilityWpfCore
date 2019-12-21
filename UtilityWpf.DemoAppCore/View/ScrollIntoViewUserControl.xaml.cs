@@ -11,17 +11,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace UtilityWpf.DemoAppCore.View
+namespace UtilityWpf.DemoAppCore
 {
     /// <summary>
-    /// Interaction logic for VirtualisationUserControl.xaml
+    /// Interaction logic for ScrollIntoViewUserControl.xaml
     /// </summary>
-    public partial class VirtualisationUserControl : UserControl
+    public partial class ScrollIntoViewUserControl : UserControl
     {
-        public VirtualisationUserControl()
+        public ScrollIntoViewUserControl()
         {
             InitializeComponent();
-     
         }
     }
 }

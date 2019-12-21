@@ -6,16 +6,73 @@
              xmlns:sample="BF"
              xmlns:alauda="clr-namespace:Alauda;assembly=Alauda"
              xmlns:pt="http://propertytools.org/wpf"
-             DataContext="local:ProfileCollection" 
+           
              xmlns:local="clr-namespace:UtilityWpf.DemoAppCore"
              xmlns:foreign="clr-namespace:UtilityWpf.View.Foreign;assembly=UtilityWpf.ViewCore"
+             xmlns:wpftk="clr-namespace:WpfToolkit.Controls;assembly=VirtualizingWrapPanel"
              d:DataContext="{d:DesignInstance local:ProfileCollection}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <local:ProfileCollection x:Key="DesignViewModel"/>
+        <local:ProfileCollection2 x:Key="Design2ViewModel"/>
     </UserControl.Resources>
-    <Grid>
+    <UniformGrid Rows="1">
+   
+            <Grid x:Name="Grid1">
+
+            <Grid.DataContext>
+                <Binding Source="{StaticResource Design2ViewModel}"></Binding>
+            </Grid.DataContext>
+            <Grid.Resources>
+                <CollectionViewSource x:Key="GroupedProfiles" Source="{Binding Profiles}">
+                    <CollectionViewSource.GroupDescriptions>
+                        <PropertyGroupDescription PropertyName="Occupation"/>
+                    </CollectionViewSource.GroupDescriptions>
+                </CollectionViewSource>
+            </Grid.Resources>
+            <ListView  
+                        Margin="0,2,0,0"
+                            ItemsSource="{Binding Source={StaticResource GroupedProfiles}}"                   
+                        VirtualizingPanel.CacheLengthUnit="Page"
+                        VirtualizingPanel.CacheLength="10"
+                        VirtualizingPanel.ScrollUnit="Item"
+                        VirtualizingPanel.VirtualizationMode="Recycling"
+                        VirtualizingPanel.IsVirtualizingWhenGrouping="True">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+
+                        <Setter Property="LayoutTransform">
+                            <Setter.Value>
+                                <ScaleTransform ScaleX="0.5" ScaleY="0.5"/>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <wpftk:VirtualizingWrapPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.GroupStyle>
+                <GroupStyle HidesIfEmpty="True">
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock HorizontalAlignment="Left" FontWeight="Bold" FontSize="14" Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                    <GroupStyle.Panel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </GroupStyle.Panel>
+                </GroupStyle>
+            </ListView.GroupStyle>
+                </ListView>
+
+        </Grid>
+ 
+        <Grid>
         <Grid.DataContext>
             <Binding Source="{StaticResource DesignViewModel}"></Binding>
         </Grid.DataContext>
@@ -63,5 +120,6 @@
          
             </ListBox.ItemTemplate>-->
         </ListBox>
-    </Grid>
+        </Grid>
+    </UniformGrid>
 </UserControl>

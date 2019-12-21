@@ -1,8 +1,10 @@
 ﻿using BFF.DataVirtualizingCollection;
+using DynamicData;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
@@ -13,29 +15,28 @@ using System.Windows.Media.Imaging;
 namespace UtilityWpf.DemoAppCore
 {
 
-    public class ProfileCollection:ReactiveObject
+    public class ProfileCollection : ReactiveObject
     {
-        IList<ProfileViewModel> GetProfiles(int i) 
+        IList<ProfileViewModel> GetProfiles(int i)
         {
             var ProfilePool = ProfileFactory.BuildPool();
-           return DataVirtualizingCollectionBuilder<ProfileViewModel>
-            .Build(i)
-            .NonPreloading()
-            .Hoarding()
-            .NonTaskBasedFetchers(
-                (offset, pageSize) =>
-                {
-                    Console.WriteLine($"{nameof(Profiles)}: Loading page with offset {offset}");
-                    var range = Enumerable.Range(offset, pageSize).Select(i => ProfilePool[i % ProfilePool.Count]).ToArray();
-                    return range;
-                },
-                () =>
-                {
-                    Console.WriteLine($"{nameof(Profiles)}: Loading count");
-                    return 420420;
-                })
-            .SyncIndexAccess();
-
+            return DataVirtualizingCollectionBuilder<ProfileViewModel>
+             .Build(i)
+             .NonPreloading()
+             .Hoarding()
+             .NonTaskBasedFetchers(
+                 (offset, pageSize) =>
+                 {
+                     Console.WriteLine($"{nameof(Profiles)}: Loading page with offset {offset}");
+                     var range = Enumerable.Range(offset, pageSize).Select(i => ProfilePool[i % ProfilePool.Count]).ToArray();
+                     return range;
+                 },
+                 () =>
+                 {
+                     Console.WriteLine($"{nameof(Profiles)}: Loading count");
+                     return 420420;
+                 })
+             .SyncIndexAccess();
         }
 
         public IList<ProfileViewModel> Profiles => profiles.Value;
@@ -48,10 +49,62 @@ namespace UtilityWpf.DemoAppCore
 
         public ProfileCollection()
         {
-            profiles =this.WhenAnyValue(a => a.Value).Select(a=> GetProfiles(a)).ToProperty(this, a => a.Profiles);
+            profiles = this.WhenAnyValue(a => a.Value).Select(a => GetProfiles(a)).ToProperty(this, a => a.Profiles);
         }
     }
 
+    public class ProfileCollection2
+    {
+        private readonly ReadOnlyObservableCollection<ProfileViewModel> profiles;
+
+        public ReadOnlyObservableCollection<ProfileViewModel> Profiles => profiles;
+
+        public ProfileCollection2()
+        { var pool = ProfileFactory.BuildPool();
+            _ = Observable.Interval(TimeSpan.FromSeconds(3))
+                .ObserveOnDispatcher()
+                       .SelectMany(a => pool.OrderBy(a => Guid.NewGuid()).Take(1))
+                 .ToObservableChangeSet()
+                 .Sort(new comparer())
+                 .Bind(out profiles).Subscribe();
+        }
+
+        class comparer : IComparer<ProfileViewModel>
+        {
+            public int Compare([AllowNull] ProfileViewModel x, [AllowNull] ProfileViewModel y)
+            {
+               return x.Name.CompareTo(y.Name);
+            }
+        }
+    }
+
+
+    public class ProfileCollectionSlow
+    {
+        private readonly ReadOnlyObservableCollection<ProfileViewModel> profiles;
+
+        public ReadOnlyObservableCollection<ProfileViewModel> Profiles => profiles;
+
+        public ProfileCollectionSlow()
+        {
+            var pool = ProfileFactory.BuildPool();
+            _ = Observable.Interval(TimeSpan.FromSeconds(6))
+                .ObserveOnDispatcher()
+                 .SelectMany(a => pool.OrderBy(a=>Guid.NewGuid()).Take(1))
+                 .StartWith(pool)
+                 .ToObservableChangeSet()
+                 .Sort(new comparer())
+                 .Bind(out profiles).Subscribe();
+        }
+
+        class comparer : IComparer<ProfileViewModel>
+        {
+            public int Compare([AllowNull] ProfileViewModel x, [AllowNull] ProfileViewModel y)
+            {
+                return x.Name.CompareTo(y.Name);
+            }
+        }
+    }
 
     /// <summary>
     /// https://github.com/Yeah69/BFF.DataVirtualizingCollection
@@ -63,7 +116,7 @@ namespace UtilityWpf.DemoAppCore
         {
         }
         private static BitmapImage GetImage(string path) => new BitmapImage(new Uri(System.IO.Path.GetFullPath("..\\..\\..\\" + path)));
-        public static IReadOnlyList<ProfileViewModel> BuildPool()=>
+        public static IReadOnlyList<ProfileViewModel> BuildPool() =>
                 new ReadOnlyCollection<ProfileViewModel>(
                     new List<ProfileViewModel>
                     {

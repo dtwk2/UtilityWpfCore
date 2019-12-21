@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Media;
 
-namespace UtilityWpf.Common.Utility
+namespace UtilityWpf
 {
     //also
     //LogicalTreeHelper.FindLogicalNode(DependencyObject depObj, string elementName)
@@ -27,8 +27,8 @@ namespace UtilityWpf.Common.Utility
         //        return null;
         //    }
         //}
-
-        public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
+     
+        public static IEnumerable<T> FindVisualChildren<T>(this DependencyObject depObj) where T : DependencyObject
         {
             if (depObj != null)
             {
@@ -39,7 +39,7 @@ namespace UtilityWpf.Common.Utility
                     {
                         yield return (T)child;
                     }
-
+                  
                     foreach (T childOfChild in FindVisualChildren<T>(child))
                     {
                         yield return childOfChild;

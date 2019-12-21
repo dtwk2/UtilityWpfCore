@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
           xmlns:local="clr-namespace:UtilityWpf.View"
                     xmlns:pt="http://propertytools.org/wpf"
-                       xmlns:utility="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.ViewCore"
+                       xmlns:utility="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf.CommonCore"
                     xmlns:utilitywpf="clr-namespace:UtilityWpf;assembly=UtilityWpf.CommonCore"
                     xmlns:local1="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf.CommonCore">
 
@@ -23,7 +23,7 @@
                                 <TextBlock Grid.Column="1" Text="{Binding Directory}" />
                             </Grid>
                         </DataTemplate>-->
-                        <local1:Converter x:Key="Converter"></local1:Converter>
+                        <utility:DefaultConverter x:Key="Converter"></utility:DefaultConverter>
                     </ControlTemplate.Resources>
                     <DockPanel x:Name="DockPanel">
                         <DockPanel.Resources>

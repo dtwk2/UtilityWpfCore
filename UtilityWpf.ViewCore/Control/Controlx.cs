@@ -5,12 +5,27 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
+using UtilityWpf.Common;
 
 namespace UtilityWpf.View
 {
     public class Controlx : Control
     {
         private Dictionary<string, ISubject<object>> Subjects = new Dictionary<string, ISubject<object>>();
+        public ISubject<DependencyObject> ControlChanges = new Subject<DependencyObject>();
+
+        public List<string> ControlNames = new List<string>();
+
+        public override void OnApplyTemplate()
+        {
+            var elements = this.FindVisualChildren<FrameworkElement>().Where(c => string.IsNullOrEmpty(c.Name) == false).ToArray();
+            foreach (var element in elements)
+                this.ControlChanges.OnNext(element);
+            //foreach (string name in ControlNames)
+            //{
+            //    this.ControlChanges.OnNext(this.GetTemplateChild(name));
+            //}
+        }
 
         public IObservable<object> GetChanges(string name)
         {
@@ -25,7 +40,7 @@ namespace UtilityWpf.View
             {
                 var props = this.GetType().GetProperties();
                 var where = props.Where(a => a.PropertyType == type).ToArray();
-                if(where.Any())
+                if (where.Any())
                 {
                     if (where.Length == 1)
                         name = where.Single().Name;
@@ -68,5 +83,6 @@ namespace UtilityWpf.View
                 return new System.Reactive.Disposables.CompositeDisposable(xx);
             });
         }
+
     }
 }

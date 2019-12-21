@@ -68,17 +68,16 @@ namespace UtilityWpf.View
         }
         #endregion properties
 
-        protected ISubject<FrameworkElement> ControlChanges = new Subject<FrameworkElement>();
         protected ISubject<string> GroupNameChanges = new Subject<string>();
         protected ISubject<string> NameChanges = new Subject<string>();
 
         //protected ISubject<PropertyGroupDescription> PropertyGroupDescriptionChanges { get; } = new Subject<PropertyGroupDescription>();
 
-        public override void OnApplyTemplate()
-        {
-            this.ControlChanges.OnNext(this.GetTemplateChild("DockPanel") as DockPanel);
-            this.ControlChanges.OnNext(this.GetTemplateChild("TextBlock1") as TextBlock);
-        }
+        //public override void OnApplyTemplate()
+        //{
+        //    this.ControlChanges.OnNext(this.GetTemplateChild("DockPanel") as DockPanel);
+        //    this.ControlChanges.OnNext(this.GetTemplateChild("TextBlock1") as TextBlock);
+        //}
 
         static MasterDetailView()
         {
@@ -112,7 +111,7 @@ namespace UtilityWpf.View
             GetChanges<PropertyGroupDescription>().StartWith(PropertyGroupDescription)
                 .CombineLatest(ControlChanges.Where(c => c.GetType() == typeof(DockPanel)).Take(1), (pgd, DockPanel) => (pgd, DockPanel)).Subscribe(_ =>
             {
-                var collectionViewSource = _.DockPanel?.FindResource("GroupedItems") as CollectionViewSource;
+                var collectionViewSource = (_.DockPanel as DockPanel)?.FindResource("GroupedItems") as CollectionViewSource;
                 if (collectionViewSource != null)
                     collectionViewSource.GroupDescriptions.Add(_.pgd);
             });
