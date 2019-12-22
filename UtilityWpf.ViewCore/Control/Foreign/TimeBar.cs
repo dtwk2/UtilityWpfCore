@@ -6,12 +6,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 
 
-namespace UtilityWpf.View.Foreign
-{
+namespace UtilityWpf.View.Handy
+{ 
     /// <summary>
-    ///     时间条
+    ///   HandyControls TimeBar  时间条
     /// </summary>
-    [TemplatePart(Name = ElementBorderTop, Type = typeof(Border))]
+[TemplatePart(Name = ElementBorderTop, Type = typeof(Border))]
     [TemplatePart(Name = ElementTextBlockMove, Type = typeof(TextBlock))]
     [TemplatePart(Name = ElementTextBlockSelected, Type = typeof(TextBlock))]
     [TemplatePart(Name = ElementCanvasSpe, Type = typeof(Canvas))]
@@ -556,35 +556,6 @@ namespace UtilityWpf.View.Foreign
         public T Info { get; set; }
     }
 
-    public class SimplePanel : Panel
-    {
-        protected override Size MeasureOverride(Size availableSize)
-        {
-            var maxSize = new Size();
-
-            foreach (UIElement child in InternalChildren)
-            {
-                if (child != null)
-                {
-                    child.Measure(availableSize);
-                    maxSize.Width = Math.Max(maxSize.Width, child.DesiredSize.Width);
-                    maxSize.Height = Math.Max(maxSize.Height, child.DesiredSize.Height);
-                }
-            }
-
-            return maxSize;
-        }
-
-        protected override Size ArrangeOverride(Size arrangeSize)
-        {
-            foreach (UIElement child in InternalChildren)
-            {
-                child?.Arrange(new Rect(arrangeSize));
-            }
-
-            return arrangeSize;
-        }
-    }
-
+   
 
 }
