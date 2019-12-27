@@ -11,15 +11,16 @@ namespace UtilityWpf.View
     {
         //private const string PART_Pathx = "PART_Pathx";
 
-        public static readonly DependencyProperty PathProperty = DependencyProperty.Register("PathData", typeof(System.Windows.Media.Geometry), typeof(PathButton), new PropertyMetadata(pathData));
+        public static readonly DependencyProperty PathDataProperty = DependencyProperty.Register("PathData", typeof(System.Windows.Media.Geometry), typeof(PathButton), new PropertyMetadata(pathData));
 
         public System.Windows.Media.Geometry PathData
         {
-            get { return (System.Windows.Media.Geometry)GetValue(PathProperty); }
-            set { SetValue(PathProperty, value); }
+            get { return (System.Windows.Media.Geometry)GetValue(PathDataProperty); }
+            set { SetValue(PathDataProperty, value); }
         }
 
         private static System.Windows.Media.Geometry pathData;
+
         public static readonly DependencyProperty HoverBackgroundProperty = DependencyProperty.Register("HoverBackground", typeof(System.Windows.Media.Brush), typeof(PathButton), new PropertyMetadata(new SolidColorBrush(Color.FromArgb(255, 255, 139, 0))));
 
         public System.Windows.Media.Brush HoverBackground
@@ -28,15 +29,23 @@ namespace UtilityWpf.View
             set { SetValue(HoverBackgroundProperty, value); }
         }
 
+        public override void OnApplyTemplate()
+        {
+            //(this.GetTemplateChild("ButtonPath") as Path).Data = PathData;
+
+            base.OnApplyTemplate();
+        }
+
         static PathButton()
         {
-            //  Set the style key, so that our control template is used.
+
             DefaultStyleKeyProperty.OverrideMetadata(typeof(PathButton), new FrameworkPropertyMetadata(typeof(PathButton)));
 
-            Path path = new Path();
-            string sData = "M 250,40 L200,20 L200,60 Z";
+           Path path = new Path();
+           string sData = "M 250,40 L200,20 L200,60 Z";
             var converter = System.ComponentModel.TypeDescriptor.GetConverter(typeof(System.Windows.Media.Geometry));
             pathData = (System.Windows.Media.Geometry)converter.ConvertFrom(sData);
+
         }
 
         public PathButton()
@@ -45,10 +54,10 @@ namespace UtilityWpf.View
             //ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
             //Style = resourceDictionary["PathButtonStyle"] as Style;
 
-            if (PathData == null)
-            {
-                PathData = pathData;
-            }
+            //if (PathData == null)
+            //{
+            //    PathData = pathData;
+            //}
         }
     }
 }

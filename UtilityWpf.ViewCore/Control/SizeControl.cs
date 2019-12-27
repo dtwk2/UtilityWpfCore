@@ -34,13 +34,19 @@ namespace UtilityWpf.View
             set { SetValue(TotalSizeProperty, value); }
         }
 
+        static SizeControl()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(SizeControl), new FrameworkPropertyMetadata(typeof(SizeControl)));
+        }
+
+
         public SizeControl()
         {
-            Uri resourceLocater = new Uri("/UtilityWpf.ViewCore;component/Themes/SizeControlStyle.xaml", System.UriKind.Relative);
-            ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
-            Style = resourceDictionary["SizeControlStyle"] as Style;
+            //Uri resourceLocater = new Uri("/UtilityWpf.ViewCore;component/Themes/SizeControlStyle.xaml", System.UriKind.Relative);
+            //ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
+            //Style = resourceDictionary["SizeControlStyle"] as Style;
 
-            base.GetChanges(nameof(Size)).Select(_ => (int)_).Subscribe(RaiseSelectedSizeEvent);
+            base.SelectChanges(nameof(Size)).Select(_ => (int)_).Subscribe(RaiseSelectedSizeEvent);
         }
 
         public static readonly RoutedEvent SelectedSizeChangedEvent = EventManager.RegisterRoutedEvent("SelectedSizeChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(SizeControl));

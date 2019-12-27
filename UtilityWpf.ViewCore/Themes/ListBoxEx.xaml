@@ -257,7 +257,7 @@
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="SnapsToDevicePixels" Value="true" />
-        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <!--<Setter Property="OverridesDefaultStyle" Value="true" />-->
         <Setter Property="ItemContainerStyle" Value="{StaticResource HorizontalPanelItemStyle}" />
         <Setter Property="ItemsPanel">
             <Setter.Value>
@@ -283,6 +283,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="ListBoxExStyle"  TargetType="{x:Type local:ListBoxEx }"  BasedOn="{StaticResource ListBoxStyle}">
+    <Style  TargetType="{x:Type local:ListBoxEx }"  BasedOn="{StaticResource ListBoxStyle}">
     </Style>
+    
 </ResourceDictionary>

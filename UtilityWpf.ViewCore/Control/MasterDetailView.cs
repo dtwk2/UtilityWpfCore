@@ -86,29 +86,27 @@ namespace UtilityWpf.View
 
         public MasterDetailView()
         {
-            var viewModelChanges = GetChanges(nameof(MasterDetailView.Output)).Where(obj => obj != null);
+            var outputChanges = SelectChanges(nameof(MasterDetailView.Output)).Where(obj => obj != null);
 
             //Dictionary<Type, object> dict = new Dictionary<Type, object>();
-            viewModelChanges
-                .CombineLatest(GetChanges<string>(nameof(MasterDetailView.Id)).StartWith(Id), (a, b) => (a, b))
+            outputChanges
+                .CombineLatest(SelectChanges<string>(nameof(MasterDetailView.Id)).StartWith(Id), (a, b) => (a, b))
                 .Select(vm =>
                 {
                     var id = vm.a.GetType().GetProperty(vm.b).GetValue(vm.a).ToString();
                     return id;
                 }).Subscribe(NameChanges);
 
-            viewModelChanges
-
-                        .CombineLatest(GetChanges<IValueConverter>(nameof(MasterDetailView.DataConverter)).StartWith(default(IValueConverter)), (a, b) => (a, b))
+            outputChanges
+                        .CombineLatest(SelectChanges<IValueConverter>(nameof(MasterDetailView.DataConverter)).StartWith(default(IValueConverter)), (a, b) => (a, b))
                         .SubscribeOn(TaskPoolScheduler.Default)
                         .ObserveOnDispatcher()
                         .Subscribe(collConv => this.Dispatcher.InvokeAsync(() =>
                         {
-                            //fsd(itemsSource, collConv.b);
                             Convert(collConv.a, collConv.b, (items, conv) => conv.Convert(collConv.a, null, null, null) as IEnumerable);
                         }, System.Windows.Threading.DispatcherPriority.Normal));
 
-            GetChanges<PropertyGroupDescription>().StartWith(PropertyGroupDescription)
+            SelectChanges<PropertyGroupDescription>().StartWith(PropertyGroupDescription)
                 .CombineLatest(ControlChanges.Where(c => c.GetType() == typeof(DockPanel)).Take(1), (pgd, DockPanel) => (pgd, DockPanel)).Subscribe(_ =>
             {
                 var collectionViewSource = (_.DockPanel as DockPanel)?.FindResource("GroupedItems") as CollectionViewSource;
@@ -135,9 +133,9 @@ namespace UtilityWpf.View
                 });
 
             GroupNameChanges.CombineLatest(
-                  GetChanges<PropertyGroupDescription>().StartWith(PropertyGroupDescription),
-                GetChanges<IValueConverter>(nameof(MasterDetailView.DataConverter)).StartWith(default(IValueConverter)),
-                                GetChanges<string>(nameof(MasterDetailView.Id)).StartWith(Id),
+                  SelectChanges<PropertyGroupDescription>().StartWith(PropertyGroupDescription),
+                SelectChanges<IValueConverter>(nameof(MasterDetailView.DataConverter)).StartWith(default(IValueConverter)),
+                                SelectChanges<string>(nameof(MasterDetailView.Id)).StartWith(Id),
                 (text, pg, conv, id) => (text, pg, conv, id))
                 //.ObserveOn(TaskPoolScheduler.Default)
                 .Subscribe(async input =>

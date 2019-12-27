@@ -3,7 +3,7 @@
                     xmlns:local="clr-namespace:UtilityWpf.View"
                    xmlns:pt="http://propertytools.org/wpf">
 
-    <Style x:Key="SizeControlStyle"  TargetType="{x:Type  local:SizeControl  }">
+    <Style  TargetType="{x:Type  local:SizeControl  }">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:SizeControl }">

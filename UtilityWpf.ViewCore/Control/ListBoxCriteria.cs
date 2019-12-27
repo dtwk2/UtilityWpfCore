@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Threading;
 
 namespace UtilityWpf.View
@@ -11,14 +13,48 @@ namespace UtilityWpf.View
         {
             var criteriaItem = new CriteriaItem();
             criteriaItem.CriteriaChanged += CriteriaItem_CriteriaChanged;
+            criteriaItem.DataContextChanged += CriteriaItem_DataContextChanged; ;
             return criteriaItem;
         }
 
-        protected override bool IsItemItsOwnContainerOverride(object item) =>
-            item is CriteriaItem;
+        private void CriteriaItem_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            object myDataObject = e.NewValue;
+            Binding myBinding = new Binding(PropertyName);
+            myBinding.Source = myDataObject;
+            (sender as CriteriaItem).SetBinding(CriteriaItem.MeetsCriteriaProperty, myBinding);
+
+        }
+
+        protected override bool IsItemItsOwnContainerOverride(object item)
+        {
+            if (item is CriteriaItem criteriaItem)
+            {
+                return true;
+            }
+            return false;
+
+        }
+
 
         public ListBoxCriteria() : base()
         {
+
+        }
+
+
+        public string  PropertyName
+        {
+            get { return (string )GetValue(PropertyNameProperty); }
+            set { SetValue(PropertyNameProperty, value); }
+        }
+
+        public static readonly DependencyProperty PropertyNameProperty =
+            DependencyProperty.Register("PropertyName", typeof(string ), typeof(ListBoxCriteria), new PropertyMetadata(null, PropertyNameChanged));
+
+        private static void PropertyNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            
         }
 
         public bool IsCriteriaMet
@@ -27,7 +63,12 @@ namespace UtilityWpf.View
             set { SetValue(IsCriteriaMetProperty, value); }
         }
 
-        public static readonly DependencyProperty IsCriteriaMetProperty = DependencyProperty.Register("IsCriteriaMet", typeof(bool), typeof(ListBoxCriteria), new PropertyMetadata(false));
+        public static readonly DependencyProperty IsCriteriaMetProperty = DependencyProperty.Register("IsCriteriaMet", typeof(bool), typeof(ListBoxCriteria), new PropertyMetadata(false, MetChanged));
+
+        private static void MetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+           
+        }
 
         private void CriteriaItem_CriteriaChanged(object sender, RoutedEventArgs e)
         {
@@ -75,6 +116,9 @@ namespace UtilityWpf.View
         }
     }
 
+
+
+
     public class CriteriaItem : ListBoxItem
     {
         static CriteriaItem()
@@ -84,9 +128,6 @@ namespace UtilityWpf.View
 
         public CriteriaItem()
         {
-            //Uri resourceLocater = new Uri("/UtilityWpf.ViewCore;component/Themes/CriteriaItem.xaml", System.UriKind.Relative);
-            //ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
-            //Style = resourceDictionary.Values.Cast<Style>().First();
             this.Loaded += CriteriaItem_Loaded;
         }
 

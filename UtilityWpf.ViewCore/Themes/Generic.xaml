@@ -12,7 +12,13 @@
         <!--<ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/SliderItemsControl.xaml"></ResourceDictionary>-->
         <!--<ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/LiveChart/DateTimeChart.xaml"></ResourceDictionary>-->
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/NavigatorStyle.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/PageNavigatorControl.xaml"></ResourceDictionary>
+        
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/CriteriaItem.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/ListBoxEx.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/ListBoxItemStyle.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/ToggleButtonEx.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/SizeControl.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/SliderItemsControl.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/DictionaryControl.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/EnumToggleButton.xaml"></ResourceDictionary>

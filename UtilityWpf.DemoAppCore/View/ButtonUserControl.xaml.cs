@@ -5,9 +5,9 @@ namespace UtilityWpf.DemoApp
     /// <summary>
     /// Interaction logic for PathButtonUserControl.xaml
     /// </summary>
-    public partial class PathButtonUserControl : UserControl
+    public partial class ButtonUserControl : UserControl
     {
-        public PathButtonUserControl()
+        public ButtonUserControl()
         {
             InitializeComponent();
         }

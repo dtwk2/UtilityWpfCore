@@ -28,8 +28,22 @@
                             <Setter TargetName="card" Property="Opacity" Value="0.9" />
                         </Trigger>
                         <Trigger Property="MeetsCriteria" Value="false">
-                            <Setter TargetName="xc" Property="materialDesign:ColorZone.Background" Value="IndianRed" />
+                            <!--<Setter TargetName="xc" Property="materialDesign:ColorZone.Background" Value="IndianRed" />-->
                             <Setter TargetName="xs" Property="materialDesign:PackIcon.Kind" Value="Error" />
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ThicknessAnimation Duration="0:0:0.400" From="1" To="3" AutoReverse="True" Storyboard.TargetProperty="BorderThickness" />
+                                        <ColorAnimation To="IndianRed" 
+                                    Storyboard.TargetProperty="(materialDesign:ColorZone.Background).(SolidColorBrush.Color)" 
+                                                        Storyboard.TargetName="xc"
+                                    
+                                    Duration="0:0:1"/>
+                                        <!--<DoubleAnimation Duration="0:0:0.300" From="0" To="125" Storyboard.TargetProperty="Height" />
+                                        <DoubleAnimation Duration="0:0:0.300" From="0" To="125" Storyboard.TargetProperty="Width" />-->
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
                         </Trigger>
                         <Trigger Property="MeetsCriteria" Value="true">
                             <Setter TargetName="xc" Property="materialDesign:ColorZone.Background" Value="SeaGreen" />

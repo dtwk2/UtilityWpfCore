@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using UtilityWpf.Commmand;
-using UtilityWpf.Common;
+
 
 namespace UtilityWpf.DemoAppCore
 {

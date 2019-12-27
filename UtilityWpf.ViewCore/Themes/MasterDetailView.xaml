@@ -28,20 +28,20 @@
                     <DockPanel x:Name="DockPanel">
                         <DockPanel.Resources>
                             <CollectionViewSource x:Key="GroupedItems" Source="{Binding Items, RelativeSource={RelativeSource TemplatedParent}}">
-                               </CollectionViewSource>
+                            </CollectionViewSource>
                             <utilitywpf:NullToBooleanConverter x:Key="ntobconverter" />
                         </DockPanel.Resources>
 
-                        <ListView Height="600" Width="300"
+                        <ListView Height="600" Width="500"
                             DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                             DockPanel.Dock="Left"  ScrollViewer.VerticalScrollBarVisibility="Auto"
                             SelectedItem="{Binding Output, RelativeSource={RelativeSource TemplatedParent},Mode=TwoWay}"
                                    ItemsSource="{Binding Source={StaticResource GroupedItems}}">
 
-                            <!--ItemsSource="{Binding Items, RelativeSource={RelativeSource TemplatedParent},Mode=OneWay}"-->
+
                             <ListView.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal"></StackPanel>
+                                    <WrapPanel ></WrapPanel>
                                 </ItemsPanelTemplate>
                             </ListView.ItemsPanel>
                             <ListView.GroupStyle>
@@ -49,14 +49,18 @@
                                     <GroupStyle.HeaderTemplate>
                                         <DataTemplate>
                                             <!--<TextBlock FontWeight="Bold" FontSize="14" Text="{Binding .,Converter={StaticResource Converter}}" />-->
-                                            <Button FontWeight="Bold" Background="Transparent" FontSize="14" Content="{Binding Name}" BorderThickness="0" HorizontalContentAlignment="Left" Command="{Binding Path=DataContext.GroupClick, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding Name}"/>
+                                            <Button FontWeight="Bold" Background="Transparent" FontSize="14" Content="{Binding Name}" 
+                                                    BorderThickness="0" HorizontalContentAlignment="Left"
+                                                    Command="{Binding Path=DataContext.GroupClick, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" 
+                                                    CommandParameter="{Binding Name}"/>
                                         </DataTemplate>
                                     </GroupStyle.HeaderTemplate>
-                                  
+
                                 </GroupStyle>
                             </ListView.GroupStyle>
+
                         </ListView>
-                     
+
                         <TextBlock Foreground="DarkCyan" DockPanel.Dock="Top" x:Name="TextBlock1"  Visibility="Collapsed" Height="20" Width="50">
                             <TextBlock.Style>
                                 <Style  TargetType="TextBlock">
@@ -77,10 +81,139 @@
                         </TextBlock>
                         <ContentControl DockPanel.Dock="Right" Width="600" Height="700"  Content="{Binding DetailView,RelativeSource={RelativeSource TemplatedParent}}">
                         </ContentControl>
-   
+
                     </DockPanel>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
+
+    <local1:DefaultConverter x:Key="Converter"></local1:DefaultConverter>
+
+    <Style TargetType="{x:Type local:MasterDetailCheckView}">
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:MasterDetailCheckView }">
+                    <ControlTemplate.Resources>
+                        <utility:DefaultConverter x:Key="Converter"></utility:DefaultConverter>
+                    </ControlTemplate.Resources>
+                    <DockPanel x:Name="DockPanel">
+                        <DockPanel.Resources>
+                            <CollectionViewSource x:Key="GroupedItems" Source="{Binding Objects, RelativeSource={RelativeSource TemplatedParent}}">
+                            </CollectionViewSource>
+                            <utilitywpf:NullToBooleanConverter x:Key="ntobconverter" />
+                        </DockPanel.Resources>
+
+                        <ListView Height="600" Width="450"
+                            DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                            DockPanel.Dock="Left"  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                            SelectedItem="{Binding Output, RelativeSource={RelativeSource TemplatedParent},Mode=TwoWay}"
+                                   ItemsSource="{Binding Source={StaticResource GroupedItems}}">
+
+                            <!--ItemsSource="{Binding Items, RelativeSource={RelativeSource TemplatedParent},Mode=OneWay}"-->
+                            <!--<ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical"></StackPanel>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>-->
+                            <ListView.GroupStyle>
+                                <GroupStyle>
+                                    <GroupStyle.HeaderTemplate>
+                                        <DataTemplate>
+                                            <!--<TextBlock FontWeight="Bold" FontSize="14" Text="{Binding .,Converter={StaticResource Converter}}" />-->
+                                            <Button FontWeight="Bold" Background="Transparent" FontSize="14" Content="{Binding Name}" BorderThickness="0" HorizontalContentAlignment="Left" 
+                                                    Command="{Binding Path=DataContext.GroupClick, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" 
+                                                    CommandParameter="{Binding Name}"/>
+                                        </DataTemplate>
+                                    </GroupStyle.HeaderTemplate>
+
+                                </GroupStyle>
+                            </ListView.GroupStyle>
+                            <ListView.View>
+
+                                <GridView AllowsColumnReorder="true"               ColumnHeaderToolTip="Employee Information">
+
+
+
+                                    <GridViewColumn      Width="100">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <!--<TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Path=DataContext.Object.First,Mode=TwoWay}"  />-->
+                                                <ContentControl Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Path=DataContext.Object,Mode=TwoWay}" Background="DarkBlue" >
+
+                                                </ContentControl>
+                                            </DataTemplate>
+
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+
+
+
+
+                                    <!--<GridViewColumn >
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Path=DataContext.IsChecked,Mode=TwoWay}" Background="DarkBlue" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>-->
+
+                                    <GridViewColumn   >
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Path=DataContext.IsChecked,Mode=TwoWay}" Background="DarkBlue" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                        <GridViewColumnHeader>Show
+                                            <GridViewColumnHeader.ContextMenu>
+                                                <ContextMenu  
+                                        Name="LastNameCM">
+                                                    <!--MenuItem.Click="LastNameCM_Click"-->
+                                                    <MenuItem Header="Ascending" />
+                                                    <MenuItem Header="Descending" />
+                                                </ContextMenu>
+                                            </GridViewColumnHeader.ContextMenu>
+                                        </GridViewColumnHeader>
+                                    </GridViewColumn>
+
+                                    <!--<GridViewColumn DisplayMemberBinding=
+                          "{Binding Path=IsChecked,Mode=TwoWay}" 
+                      Width="100">
+                                    
+                                    </GridViewColumn>-->
+
+
+                                </GridView>
+
+                            </ListView.View>
+                        </ListView>
+
+                        <TextBlock Foreground="DarkCyan" DockPanel.Dock="Top" x:Name="TextBlock1"  Visibility="Collapsed" Height="20" Width="50">
+                            <TextBlock.Style>
+                                <Style  TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsEnabled" Value="True">
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" BeginTime="0:0:0" Duration="0:0:2"/>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0.0" BeginTime="0:0:2" Duration="0:0:1"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <ContentControl DockPanel.Dock="Right" Width="600" Height="700"  Content="{Binding DetailView,RelativeSource={RelativeSource TemplatedParent}}">
+                        </ContentControl>
+
+                    </DockPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

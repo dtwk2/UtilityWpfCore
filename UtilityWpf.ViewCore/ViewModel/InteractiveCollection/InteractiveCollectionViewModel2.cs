@@ -25,7 +25,7 @@ IScheduler scheduler, Func<T, IConvertible> getkey = null, string title = null)
                this.ReactToChanges(so);
                return (IContain<T>)so;
            })
-             .Bind(out _items)
+             .Bind(out items)
 
              .DisposeMany()
              .Subscribe(
@@ -51,7 +51,7 @@ IScheduler scheduler, Func<T, IConvertible> getkey = null, string title = null)
                     this.ReactToChanges(so);
                     return (IContain<T>)so;
                 })
-     .Bind(out _items)
+     .Bind(out items)
          .DisposeMany()
            .Subscribe(
            _ =>
@@ -77,7 +77,7 @@ IScheduler scheduler, Func<T, IConvertible> getkey = null, string title = null)
             foreach (var so in xx)
                 this.ReactToChanges((SHDObject<T>)so);
 
-            _items = new ReadOnlyObservableCollection<IContain<T>>(new ObservableCollection<IContain<T>>(xx));
+            items = new ReadOnlyObservableCollection<IContain<T>>(new ObservableCollection<IContain<T>>(xx));
 
             Title = title;
         }
@@ -101,7 +101,7 @@ IScheduler scheduler, Func<T, IConvertible> getkey = null, string title = null)
                 });
             }
 
-            _items = new ReadOnlyObservableCollection<IContain<T>>(new ObservableCollection<IContain<T>>(xx));
+            items = new ReadOnlyObservableCollection<IContain<T>>(new ObservableCollection<IContain<T>>(xx));
 
             ischecked.DelaySubscription(TimeSpan.FromSeconds(0.5)).Take(1).Subscribe(_ =>
             {

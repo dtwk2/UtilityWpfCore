@@ -31,9 +31,9 @@ namespace UtilityWpf.View
 
         public ToggleButtonEx() : base()
         {
-            Uri resourceLocater = new Uri("/UtilityWpf.ViewCore;component/Themes/ToggleButtonEx.xaml", System.UriKind.Relative);
-            ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
-            Style = resourceDictionary["ToggleExStyle"] as Style;
+            //Uri resourceLocater = new Uri("/UtilityWpf.ViewCore;component/Themes/ToggleButtonEx.xaml", System.UriKind.Relative);
+            //ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
+            //Style = resourceDictionary["ToggleExStyle"] as Style;
         }
 
         private static void OnFrontImageSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

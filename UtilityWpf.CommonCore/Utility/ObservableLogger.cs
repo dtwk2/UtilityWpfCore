@@ -1,5 +1,5 @@
 ﻿
-namespace UtilityWpf.Common
+namespace UtilityWpf
 {
     using System;
     using System.ComponentModel;

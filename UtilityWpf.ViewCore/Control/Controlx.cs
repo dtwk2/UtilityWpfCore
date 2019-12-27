@@ -5,7 +5,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
-using UtilityWpf.Common;
+
 
 namespace UtilityWpf.View
 {
@@ -27,13 +27,19 @@ namespace UtilityWpf.View
             //}
         }
 
-        public IObservable<object> GetChanges(string name)
+        public IObservable<object> SelectChanges(string name)
         {
             Subjects[name] = Subjects.ContainsKey(name) ? Subjects[name] : new Subject<object>();
             return Subjects[name];
         }
 
-        public IObservable<T> GetChanges<T>(string name = null)
+        public IObservable<T> SelectControlChanges<T>() where T : DependencyObject
+        {
+            var ttype = typeof(T);
+            return ControlChanges.Where(a => a.GetType() == ttype).Select(a => (T)a);
+        }
+
+        public IObservable<T> SelectChanges<T>(string name = null)
         {
             var type = typeof(T);
             if (string.IsNullOrEmpty(name))
@@ -68,6 +74,12 @@ namespace UtilityWpf.View
         {
             (d as Controlx).OnNext(e);
         }
+
+        public  IObservable<RoutedEventArgs> SelectLoads() =>
+            Observable.FromEventPattern<RoutedEventHandler, RoutedEventArgs>
+            (a => this.Loaded += a, a => this.Loaded -= a)
+            .Select(a => a.EventArgs);
+
 
         protected IObservable<Dictionary<string, object>> Any()
         {

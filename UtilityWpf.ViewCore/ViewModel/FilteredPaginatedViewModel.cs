@@ -14,12 +14,8 @@ namespace UtilityWpf.ViewModel
 
         private ReadOnlyObservableCollection<T> pitems;
 
-        public ReadOnlyObservableCollection<T> Items
-        {
-            get { return pitems; }
-            set { pitems = value; }
-        }
-
+        public ReadOnlyObservableCollection<T> Items => pitems;
+ 
         public IPageResponse PageResponse { get => pageResponse; set => this.RaiseAndSetIfChanged(ref pageResponse,  value); }
 
         private object lck = new object();
@@ -39,7 +35,10 @@ namespace UtilityWpf.ViewModel
                            })
                            .Bind(out pitems)
                            .DisposeMany()
-                           .Subscribe();
+                           .Subscribe(a=>
+                           { 
+                           
+                           });
         }
     }
 }

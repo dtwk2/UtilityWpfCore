@@ -10,14 +10,17 @@ namespace UtilityWpf.DemoApp
     {
         public FilteredPaginatedUserControl()
         {
+
+            var fk = new Faker<Data>()
+                .RuleFor(a => a.A, f => f.Date.Future().ToString("F"))
+                                  .RuleFor(a => a.B, f => f.Company.CatchPhrase())
+                                                 .RuleFor(a => a.C, f => f.Phone.PhoneNumber())
+                                                                .RuleFor(a => a.D, f => f.Name.LastName());
             InitializeComponent();
-            this.DataContext = new Faker<Data>().Rules((f,a) => new Data
-            {
-                A = f.Date.Future().ToString("F"),
-                B = f.Company.CatchPhrase(),
-                C = f.Phone.PhoneNumber(),
-                D = f.Name.LastName()
-            }).Generate(100);
+
+            var items = fk.Generate(100);
+            this.DataContext = items;
+
         }
 
         private class Data

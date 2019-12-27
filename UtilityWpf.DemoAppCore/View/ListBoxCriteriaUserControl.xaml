@@ -13,36 +13,43 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
 
-        <Grid DockPanel.Dock="Left">
-            <Grid.Resources>
+        <UniformGrid DockPanel.Dock="Left" Rows="1">
+            <UniformGrid.Resources>
                 <conv:DefaultConverter x:Key="Converter"></conv:DefaultConverter>
-            </Grid.Resources>
-            <view:ListBoxCriteria x:Name="passFail">
-                <ListBox.ItemContainerStyle>
+                <DataTemplate x:Key="PassFail">
+                    <StackPanel  Width="200" Orientation="Horizontal">
+                        <TextBlock Text="{Binding Key}" FontSize="16" FontWeight="DemiBold" Margin="2"  HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </StackPanel>
+                </DataTemplate>
+
+            </UniformGrid.Resources>
+            <view:ListBoxCriteria x:Name="passFail" PropertyName="Expired" ItemTemplate="{StaticResource PassFail}">
+                <!--<ListBox.ItemContainerStyle>
                     <Style>
                         <Setter Property="view:CriteriaItem.MeetsCriteria" Value="{Binding Expired, Converter={StaticResource Converter}}" />
-                        <!--<Setter Property="ListBoxItem.IsSelected" Value="{Binding Converter={StaticResource Converter}}" />-->
                     </Style>
-                </ListBox.ItemContainerStyle>
-                <view:ListBoxCriteria.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel  Width="200" Orientation="Horizontal">
-                            <TextBlock Text="{Binding Key}" FontSize="16"    HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </StackPanel>
-                    </DataTemplate>
-                </view:ListBoxCriteria.ItemTemplate>
+                </ListBox.ItemContainerStyle>-->
+          
                 <i:Interaction.Triggers>
-
                     <i:EventTrigger EventName="CriteriaMet">
                         <util:EventCommandExecuter Command="{Binding  ElementName=oc,Path=.}" EventArgsConverter="{StaticResource Converter}" ></util:EventCommandExecuter>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </view:ListBoxCriteria>
-        </Grid>
+            
+            <view:ListBoxCriteria x:Name="passFail2" PropertyName="Expired" ItemTemplate="{StaticResource PassFail}">
+                 
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="CriteriaMet">
+                        <util:EventCommandExecuter Command="{Binding  ElementName=oc,Path=.}" EventArgsConverter="{StaticResource Converter}" ></util:EventCommandExecuter>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </view:ListBoxCriteria>
+
+
+
+        </UniformGrid>
         <command:OutputCommand x:Name="oc" DockPanel.Dock="Right" Width="200">
-            <command:OutputCommand.Resources>
-                <local:ListConverter x:Key="listConverter"></local:ListConverter>
-            </command:OutputCommand.Resources>
             <command:OutputCommand.Style>
                 <Style  TargetType="{x:Type  command:OutputCommand}">
                     <Setter Property="Template">

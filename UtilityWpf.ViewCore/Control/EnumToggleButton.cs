@@ -17,7 +17,7 @@ namespace UtilityWpf.View
 
         static EnumToggleButton()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(EnumToggleButton), new FrameworkPropertyMetadata(typeof(EnumToggleButton)));
+            //DefaultStyleKeyProperty.OverrideMetadata(typeof(EnumToggleButton), new FrameworkPropertyMetadata(typeof(EnumToggleButton)));
             IsCheckedProperty.OverrideMetadata(typeof(EnumToggleButton), new FrameworkPropertyMetadata(false, null, IsCheckedChanged));
         }
 

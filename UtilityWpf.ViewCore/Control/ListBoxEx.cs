@@ -195,30 +195,26 @@ namespace UtilityWpf.View
         private ViewModel.InteractiveCollectionViewModel<object, object> interactivecollection; /*{ get;  set; }*/
 
         public IObservable<KeyValuePair<IContain<Object>, ChangeReason>> Changes { get; private set; } = new Subject<KeyValuePair<IContain<Object>, ChangeReason>>();
-        private DispatcherScheduler UI;
+
 
         static ListBoxEx()
         {
-            ListBoxEx.ItemsSourceProperty.OverrideMetadata(typeof(ListBoxEx), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.None, ItemsSourceChanged, ItemsSourceCoerce));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ListBoxEx), new FrameworkPropertyMetadata(typeof(ListBoxEx)));
+            ListBoxEx.ItemsSourceProperty.OverrideMetadata(typeof(ListBoxEx), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.None, ItemsSourceChanged, ItemsSourceCoerce));
+         
         }
 
         public ListBoxEx(Func<object, object> _keyfunc)
         {
-            Uri resourceLocater = new Uri("/UtilityWpf.ViewCore;component/Themes/ListBoxEx.xaml", System.UriKind.Relative);
-            ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
-            Style = resourceDictionary["ListBoxExStyle"] as Style;
 
-            UI = new System.Reactive.Concurrency.DispatcherScheduler(Application.Current.Dispatcher);
-
-            //_.GetType().GetProperty("Object").GetValue(_)
+        
             interactivecollection = ViewModel.InteractiveCollectionFactory.Build(
-               _ => _keyfunc(_),//UtilityHelper.PropertyHelper.GetPropValue<object>(_,"Object")),
+               _ => _keyfunc(_),
                ItemsSourceSubject.Select(v => v.Cast<object>()),
                FilterSubject,
                DeletedSubject.WithLatestFrom(RemoveSubject.StartWith(Remove).DistinctUntilChanged(), (d, r) => r ? d : null).Where(v => v != null),
                ClearedSubject,
-               UI, null, IsReadOnly
+               null, IsReadOnly
             );
             CollectionChanged();
 
@@ -227,11 +223,9 @@ namespace UtilityWpf.View
 
         public ListBoxEx(string key)
         {
-            Uri resourceLocater = new Uri("/UtilityWpf.ViewCore;component/Themes/ListBoxEx.xaml", System.UriKind.Relative);
-            ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
-            Style = resourceDictionary["ListBoxExStyle"] as Style;
 
-            UI = new System.Reactive.Concurrency.DispatcherScheduler(Application.Current.Dispatcher);
+
+         
             if (key != null)
             {
                 Key = key;
@@ -241,7 +235,7 @@ namespace UtilityWpf.View
                    FilterSubject,
                    DeletedSubject.WithLatestFrom(RemoveSubject.StartWith(Remove).DistinctUntilChanged(), (d, r) => r ? d : null).Where(v => v != null),
                    ClearedSubject,
-                   UI, null, IsReadOnly
+                   null, IsReadOnly
                 );
                 CollectionChanged();
             }
@@ -251,11 +245,7 @@ namespace UtilityWpf.View
 
         public ListBoxEx()
         {
-            Uri resourceLocater = new Uri("/UtilityWpf.ViewCore;component/Themes/ListBoxEx.xaml", System.UriKind.Relative);
-            ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
-            Style = resourceDictionary["ListBoxExStyle"] as Style;
 
-            UI = new System.Reactive.Concurrency.DispatcherScheduler(Application.Current.Dispatcher);
             if (Key != null)
             {
                 interactivecollection = ViewModel.InteractiveCollectionFactory.Build(
@@ -264,7 +254,7 @@ namespace UtilityWpf.View
                    FilterSubject,
                    DeletedSubject.WithLatestFrom(RemoveSubject.StartWith(Remove).DistinctUntilChanged(), (d, r) => r ? d : null).Where(v => v != null),
                    ClearedSubject,
-                   UI, null, IsReadOnly
+                   null, IsReadOnly
                 );
                 CollectionChanged();
             }

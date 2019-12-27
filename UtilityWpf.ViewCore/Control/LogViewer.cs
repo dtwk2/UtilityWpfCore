@@ -5,7 +5,6 @@ using System.Text;
 using System.Windows.Controls;
 using global::Splat;
 using ReactiveUI;
-using UtilityWpf.Common;
 using System.Windows;
 
 namespace UtilityWpf.View

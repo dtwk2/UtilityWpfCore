@@ -7,7 +7,7 @@
     <Authors />
     <Company />
     <RootNamespace>UtilityWpf.View</RootNamespace>
-    <Version>1.1.1</Version>
+    <Version>1.1.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -154,7 +154,7 @@
     <Page Update="Themes\OxyPlot\DateTimePlot.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\PaginatedNavigatorStyle.xaml">
+    <Page Update="Themes\PageNavigatorControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\PathButton.xaml">
@@ -172,7 +172,7 @@
     <Page Update="Themes\ResourcePicker.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\SizeControlStyle.xaml">
+    <Page Update="Themes\SizeControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\SkipStyle.xaml">

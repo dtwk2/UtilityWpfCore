@@ -60,49 +60,31 @@ namespace UtilityWpf.View
 
         private static void ItemsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            //Task.Run(() =>
-            (d as PageNavigatorControl).ItemsSourceChanges.OnNext((IEnumerable)e.NewValue);//);
+
+            (d as PageNavigatorControl).ItemsSourceChanges.OnNext((IEnumerable)e.NewValue);
         }
 
-        //private static void OutputChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        //{
-        //    //Task.Run(() =>
-        // (d as PageNavigatorControl).OutputChanges.OnNext((int)e.NewValue);
-        // //);
-        //}
+
         private static void PageSizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            //Task.Run(()=>
-            (d as PageNavigatorControl).PageSizeChanges.OnNext((int)e.NewValue);//);
+            (d as PageNavigatorControl).PageSizeChanges.OnNext((int)e.NewValue);
         }
 
-        //ISubject<int> OutputChanges = new Subject<int>();
         private ISubject<IEnumerable> ItemsSourceChanges = new Subject<IEnumerable>();
 
         private ISubject<int> PageSizeChanges = new Subject<int>();
         private ISubject<bool> ControlTemplateChanges = new Subject<bool>();
 
+        static PageNavigatorControl()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(PageNavigatorControl), new FrameworkPropertyMetadata(typeof(PageNavigatorControl)));
+        }
+
         public PageNavigatorControl()
         {
-            Uri resourceLocater = new Uri("/UtilityWpf.ViewCore;component/Themes/PaginatedNavigatorStyle.xaml", System.UriKind.Relative);
-            ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
-            Style = resourceDictionary["PageNavigatorStyle"] as Style;
+
             var obs2 = new Subject<PageRequest>();
 
-            //var selectedIndexChanges =
-            //    Observable.FromEventPattern<RoutedEventHandler, NavigatorControl.SelectedIndexRoutedEventArgs>(ev => NavigatorControl.SelectedIndex += ev, ev => NavigatorControl.SelectedIndex -= ev);
-            //var obs = outputchanges
-            //    .WithLatestFrom(PageSizeChanges, (a, b) =>
-            //  {
-            //      return new PageRequest(a.EventArgs.Index, b);
-            //  }).Merge(PageSizeChanges.DistinctUntilChanged().WithLatestFrom(outputchanges, (a, b) =>
-            //  {
-            //      return new PageRequest(b.EventArgs.Index, a);
-            //  }))
-            //  .DistinctUntilChanged().StartWith(new PageRequest(1, 20));
-            //var obs= selectedIndexChanges.CombineLatest(PageSizeChanges, (a, b) => new PageRequest(a.EventArgs.Index, b)).StartWith(new PageRequest(1, 20)).DistinctUntilChanged();
-
-            //var obs= Observable.Empty<PageRequest>().StartWith(new PageRequest(1, 20));
             var obs = pageRequests.StartWith(new PageRequest(1, 20));
 
             obs.Subscribe(_ =>
@@ -126,13 +108,13 @@ namespace UtilityWpf.View
                 .Where(_ => _ != null)
                 .Subscribe(_ =>
                 {
-                    this.Dispatcher.InvokeAsync(() =>
+                    this.Dispatcher.Invoke(() =>
                         {
                             SizeControl.TotalSize = _.Page;
                             SizeControl.Size = _.PageSize;
                             NavigatorControl.Size = _.Pages;
                             NavigatorControl.Current = _.TotalSize;
-                        }, System.Windows.Threading.DispatcherPriority.Background);
+                        });
                 });
         }
     }

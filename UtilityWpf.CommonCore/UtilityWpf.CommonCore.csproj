@@ -6,6 +6,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AssemblyName>UtilityWpf.CommonCore</AssemblyName>
     <RootNamespace>UtilityWpf.Common</RootNamespace>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

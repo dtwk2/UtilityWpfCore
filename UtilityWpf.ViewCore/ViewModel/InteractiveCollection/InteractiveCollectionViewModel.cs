@@ -1,4 +1,5 @@
 ﻿using DynamicData;
+using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,14 +20,14 @@ namespace UtilityWpf.ViewModel
             IScheduler scheduler, Func<T, IConvertible> getkey = null, string title = null)
         {
             disposable = observable.Connect()
-                 .ObserveOn(scheduler)
+                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Transform(s =>
                 {
                     var so = new SHDObject<T>(s, visiblefilter, enabledfilter, getkey?.Invoke(s));
                     this.ReactToChanges(so);
                     return (IContain<T>)so;
                 })
-                  .Bind(out _items)
+                  .Bind(out items)
               .DisposeMany()
                 .Subscribe(
                 _ =>
@@ -46,22 +47,23 @@ namespace UtilityWpf.ViewModel
 
         private IDisposable disposable;
 
-        public InteractiveCollectionViewModel(IObservable<IChangeSet<T, R>> observable, IScheduler scheduler = null, IObservable<T> disable = null, Func<T, IConvertible> getkey = null, string title = null, bool isReadonly = false)
+        public InteractiveCollectionViewModel(IObservable<IChangeSet<T, R>> observable, IObservable<T> visible = null, IObservable<T> disable = null, Func<T, IConvertible> getkey = null, string title = null, bool isReadonly = false)
         {
-            if (scheduler != null)
-                observable = observable.ObserveOn(scheduler);
+            //if (scheduler != null)
+            //    observable = observable.ObserveOn(scheduler);
 
             disposable = observable
 
                 .Transform(s =>
                 {
-                    var funcenable = disable?.Scan(new List<T>(), (a, b) => { a.Add(b); return a; }).Select(_ => { Predicate<T> f = a => !_.Any(b => b.Equals(a)); return f; });
-                    var so = new SHDObject<T>(s, null, funcenable, getkey?.Invoke(s));
+                    var readableObservable = disable?.Scan(new List<T>(), (a, b) => { a.Add(b); return a; }).Select(_ => { Predicate<T> f = a => !_.Any(b => b.Equals(a)); return f; });
+                    var visibleObservable = visible?.Scan(new List<T>(), (a, b) => { a.Add(b); return a; }).Select(_ => { Predicate<T> f = a => !_.Any(b => b.Equals(a)); return f; });
+                    var so = new SHDObject<T>(s, visibleObservable, readableObservable, getkey?.Invoke(s));
                     so.IsReadOnly = isReadonly;
                     this.ReactToChanges(so);
                     return (IContain<T>)so;
                 })
-                 .Bind(out _items)
+                 .Bind(out items)
                  .DisposeMany()
                  .Subscribe(
                _ =>
@@ -98,7 +100,7 @@ namespace UtilityWpf.ViewModel
                     this.ReactToChanges(so);
                     return (IContain<T>)so;
                 })
-                  .Bind(out _items)
+                  .Bind(out items)
               .DisposeMany()
                 .Subscribe(
                 _ =>
@@ -111,7 +113,7 @@ namespace UtilityWpf.ViewModel
 
             ischecked.DelaySubscription(TimeSpan.FromSeconds(0.5)).Take(1).Subscribe(_ =>
             {
-                foreach (var x in _items)
+                foreach (var x in items)
                     (x as SEObject<T>).IsChecked = _;
             });
 
@@ -127,7 +129,7 @@ namespace UtilityWpf.ViewModel
                this.ReactToChanges(so);
                return (IContain<T>)so;
            })
-             .Bind(out _items)
+             .Bind(out items)
          .DisposeMany()
                 .Subscribe(
                 _ =>

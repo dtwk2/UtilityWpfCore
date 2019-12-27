@@ -19,6 +19,8 @@
           Gender="Female" Image="images/marge.png" Location="175,0" />
             </x:Array>
 
+
+
             <DataTemplate  x:Key="CharacterBaseClass">
                 <StackPanel Orientation="Vertical" Margin="5" Background="Transparent">
                     <TextBlock FontWeight="Bold" Text="{Binding First}"
@@ -37,7 +39,7 @@
                 <ResourceDictionary Source="/DataTemplate/Profile.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-                <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Grey.xaml" />-->
+                <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.LightBlue.xaml" />-->
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Teal.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

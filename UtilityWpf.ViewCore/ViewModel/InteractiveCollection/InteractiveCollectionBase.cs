@@ -53,9 +53,9 @@ namespace UtilityWpf.ViewModel
 
         public string Title { get; protected set; }
 
-        protected ReadOnlyObservableCollection<IContain<T>> _items;
+        protected ReadOnlyObservableCollection<IContain<T>> items;
 
-        public ICollection<IContain<T>> Items => _items;
+        public ICollection<IContain<T>> Items => this.items;
 
         public IObservable<KeyValuePair<IContain<T>, ChangeReason>> Changes => changes;
         private ISubject<KeyValuePair<IContain<T>, ChangeReason>> changes = new Subject<KeyValuePair<IContain<T>, ChangeReason>>();
@@ -312,6 +312,12 @@ namespace UtilityWpf.ViewModel
         public static IObservable<T> GetUnChecked<T>(this InteractiveCollectionBase<T> bse)
         {
             return bse.Interactions.Where(_ => _.Value.Interaction == Interaction.Check && _.Value.Value.Equals(false)).Select(_ => _.Key);
+        }
+
+
+        public static IObservable<(bool,T)> SelectCheckedChanges<T>(this InteractiveCollectionBase<T> bse)
+        {
+            return bse.Interactions.Where(_ => _.Value.Interaction == Interaction.Check).Select(_ => ((bool)_.Value.Value, _.Key));
         }
 
         public static IObservable<T> GetRemoved<T>(this InteractiveCollectionBase<T> bse)

@@ -48,7 +48,7 @@ namespace UtilityWpf.DemoApp.View
 
         private void Act(int number)
         {
-            MessageBox.Show("Key value changed");
+            //MessageBox.Show("Key value changed");
         }
 
 
