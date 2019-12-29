@@ -10,13 +10,13 @@
                 <local:Character First="Bart" Last="Simpson" Age="10"
           Gender="Male" Image="images/bart.png" Location="25,150" />
                 <local:Character First="Homer" Last="Simpson" Age="38"
-          Gender="Male" Image="images/homer.png" Location="75,0" />
+          Gender="Male" Image="images/homer.png" Location="75,0" Color="Azure"/>
                 <local:Character First="Lisa" Last="Bouvier" Age="8"
-          Gender="Female" Image="images/lisa.png" Location="125,150" />
+          Gender="Female" Image="images/lisa.png" Location="125,150" Color="Aqua"/>
                 <local:Character First="Maggie" Last="Simpson" Age="0"
-          Gender="Female" Image="images/maggie.png" Location="225,150" />
+          Gender="Female" Image="images/maggie.png" Location="225,150" Color="AliceBlue"/>
                 <local:Character First="Marge" Last="Bouvier" Age="38"
-          Gender="Female" Image="images/marge.png" Location="175,0" />
+          Gender="Female" Image="images/marge.png" Location="175,0" Color="Beige"/>
             </x:Array>
 
 

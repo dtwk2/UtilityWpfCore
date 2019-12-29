@@ -44,6 +44,8 @@ namespace UtilityWpf
         }
 
 
+
+
         public static IObservable<T> SelectNewItems<T>(this INotifyCollectionChanged notifyCollectionChanged)
         {
             return notifyCollectionChanged
@@ -59,7 +61,7 @@ namespace UtilityWpf
               .SelectMany(x => x.OldItems?.Cast<T>() ?? new T[] { });
         }
 
-        public static IObservable<NotifyCollectionChangedAction> SelectActions<T>(this INotifyCollectionChanged notifyCollectionChanged)
+        public static IObservable<NotifyCollectionChangedAction> SelectActions(this INotifyCollectionChanged notifyCollectionChanged)
         {
             return notifyCollectionChanged
               .SelectChanges()

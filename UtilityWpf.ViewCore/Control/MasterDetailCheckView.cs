@@ -20,6 +20,9 @@ namespace UtilityWpf.View
 {
     public class MasterDetailCheckView : Controlx
     {
+        public ICommand GroupClick { get; }
+
+
         #region properties
 
         public string Id
@@ -66,11 +69,6 @@ namespace UtilityWpf.View
 
         public static readonly DependencyProperty DetailViewProperty = DependencyProperty.Register("DetailView", typeof(Control), typeof(MasterDetailCheckView), new PropertyMetadata(null, DetailViewChanged));
 
-        private static void DetailViewChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            (d as MasterDetailCheckView).ControlChanges.OnNext(e.NewValue as Control);
-        }
-
         public static readonly DependencyProperty PropertyGroupDescriptionProperty = DependencyProperty.Register("PropertyGroupDescription", typeof(PropertyGroupDescription), typeof(MasterDetailCheckView), new PropertyMetadata(null, Changed));
 
         public static readonly DependencyProperty ItemsProperty = DependencyProperty.Register("Items", typeof(IEnumerable), typeof(MasterDetailCheckView), new PropertyMetadata(null, Changed));
@@ -79,8 +77,10 @@ namespace UtilityWpf.View
 
         public static readonly DependencyProperty DataConverterProperty = DependencyProperty.Register("DataConverter", typeof(IValueConverter), typeof(MasterDetailCheckView), new PropertyMetadata(null, Changed));
 
-
-        //public ObservableCollection<SHDObject<object>> Objects { get; } = new ObservableCollection<SHDObject<object>>();
+        private static void DetailViewChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as MasterDetailCheckView).ControlChanges.OnNext(e.NewValue as Control);
+        }
 
         protected ISubject<string> GroupNameChanges = new Subject<string>();
         protected ISubject<string> NameChanges = new Subject<string>();
@@ -89,8 +89,6 @@ namespace UtilityWpf.View
 
         public ICollection<UtilityInterface.Generic.IContain<object>> Objects { get; }
 
-        private ReadOnlyObservableCollection<object> Collection => collection;
-
         static MasterDetailCheckView()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(MasterDetailCheckView), new FrameworkPropertyMetadata(typeof(MasterDetailCheckView)));
@@ -98,27 +96,6 @@ namespace UtilityWpf.View
 
         public MasterDetailCheckView()
         {
-            //var outPutChanges = GetChanges(nameof(MasterDetailCheckView.Output)).Where(obj => obj != null);
-
-
-            //outPutChanges
-            //    .CombineLatest(GetChanges<string>(nameof(MasterDetailCheckView.Id)).StartWith(Id), (a, b) => (a, b))
-            //    .Select(vm =>
-            //    {
-            //        var id = vm.a.GetType().GetProperty(vm.b).GetValue(vm.a).ToString();
-            //        return id;
-            //    }).Subscribe(NameChanges);
-
-            //outPutChanges
-
-            //            .CombineLatest(GetChanges<IValueConverter>(nameof(MasterDetailCheckView.DataConverter)).StartWith(default(IValueConverter)), (a, b) => (a, b))
-            //            .SubscribeOn(TaskPoolScheduler.Default)
-            //            .ObserveOnDispatcher()
-            //            .Subscribe(collConv => this.Dispatcher.InvokeAsync(() =>
-            //            {
-            //                Convert(collConv.a, collConv.b, (items, conv) => conv.Convert(collConv.a, null, null, null) as IEnumerable);
-            //            }, System.Windows.Threading.DispatcherPriority.Normal));
-
             ISubject<IObservable<object>> subjectObjects = new Subject<IObservable<object>>();
 
             var ic = InteractiveCollectionFactory.Build(subjectObjects.Switch(), Observable.Return(new DefaultFilter()), Observable.Empty<object>());
@@ -154,7 +131,7 @@ namespace UtilityWpf.View
 
              });
 
-            this.Loaded += MasterDetailCheckView_Loaded;
+            //this.Loaded += MasterDetailCheckView_Loaded;
 
             SelectChanges<Control>(nameof(MasterDetailCheckView.DetailView)).StartWith(DetailView)
                 .Merge(this.SelectLoads().Select(a => this.DetailView))
@@ -165,16 +142,16 @@ namespace UtilityWpf.View
 
                   if (detailView is Abstract.IItemsSource oview)
                   {
-                      oview.ItemsSource = Collection;
+                      oview.ItemsSource = collection;
                   }
                   else if (detailView is PropertyGrid propertyGrid)
                   {
-                      propertyGrid.SelectedObjects = Collection;
+                      propertyGrid.SelectedObjects = collection;
 
                   }
                   else if (detailView is ItemsControl itemsControl)
                   {
-                      itemsControl.ItemsSource = Collection;
+                      itemsControl.ItemsSource = collection;
                   }
                   else
                       throw new Exception(nameof(DetailView) + " needs to have property OutputView");
@@ -183,10 +160,6 @@ namespace UtilityWpf.View
               });
         }
 
-        private void MasterDetailCheckView_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         class DefaultFilter : UtilityInterface.NonGeneric.IFilter
         {
@@ -196,8 +169,6 @@ namespace UtilityWpf.View
             }
         }
 
-
-        public ICommand GroupClick { get; }
 
 
         public class KeyValue

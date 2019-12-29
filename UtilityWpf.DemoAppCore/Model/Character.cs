@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Media;
 
 namespace UtilityWpf.DemoApp
 {
@@ -13,6 +14,12 @@ namespace UtilityWpf.DemoApp
     public class Character : INotifyPropertyChanged
     {
         private string _first = string.Empty;
+        private string _last = string.Empty;
+        private string _image = null;
+        private int _age = 0;
+        private Gender _gender = Gender.Unknown;
+        private Point _location = new Point();
+        private Color color;
 
         public string First
         {
@@ -24,8 +31,6 @@ namespace UtilityWpf.DemoApp
             }
         }
 
-        private string _last = string.Empty;
-
         public string Last
         {
             get { return _last; }
@@ -35,8 +40,6 @@ namespace UtilityWpf.DemoApp
                 RaisePropertyChanged("Last");
             }
         }
-
-        private string _image = null;
 
         public string Image
         {
@@ -48,7 +51,6 @@ namespace UtilityWpf.DemoApp
             }
         }
 
-        private int _age = 0;
 
         public int Age
         {
@@ -60,8 +62,6 @@ namespace UtilityWpf.DemoApp
             }
         }
 
-        private Gender _gender = Gender.Unknown;
-
         public Gender Gender
         {
             get { return _gender; }
@@ -72,14 +72,22 @@ namespace UtilityWpf.DemoApp
             }
         }
 
-        private Point _location = new Point();
-
         public Point Location
         {
             get { return _location; }
             set
             {
                 _location = value;
+                RaisePropertyChanged("Location");
+            }
+        }
+
+        public Color Color
+        {
+            get { return color; }
+            set
+            {
+                color = value;
                 RaisePropertyChanged("Location");
             }
         }
