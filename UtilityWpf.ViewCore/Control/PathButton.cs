@@ -38,18 +38,15 @@ namespace UtilityWpf.View
 
         static PathButton()
         {
-
             DefaultStyleKeyProperty.OverrideMetadata(typeof(PathButton), new FrameworkPropertyMetadata(typeof(PathButton)));
-
-           Path path = new Path();
-           string sData = "M 250,40 L200,20 L200,60 Z";
-            var converter = System.ComponentModel.TypeDescriptor.GetConverter(typeof(System.Windows.Media.Geometry));
-            pathData = (System.Windows.Media.Geometry)converter.ConvertFrom(sData);
-
         }
 
         public PathButton()
         {
+            string sData = "M 250,40 L200,20 L200,60 Z";
+            var converter = System.ComponentModel.TypeDescriptor.GetConverter(typeof(System.Windows.Media.Geometry));
+            PathData = (System.Windows.Media.Geometry)converter.ConvertFrom(sData);
+
             //Uri resourceLocater = new Uri("/UtilityWpf.ViewCore;component/Themes/PathButton.xaml", System.UriKind.Relative);
             //ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
             //Style = resourceDictionary["PathButtonStyle"] as Style;

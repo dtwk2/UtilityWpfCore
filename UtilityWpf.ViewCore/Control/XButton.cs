@@ -7,11 +7,7 @@ namespace UtilityWpf.View
     {
         public XButton()
         {
-            var myResourceDictionary = new System.Windows.ResourceDictionary();
-            myResourceDictionary.Source = new Uri("/UtilityWpf.ViewCore;component/Themes/Geometry.xaml", UriKind.RelativeOrAbsolute);
-            var path = myResourceDictionary["Cross"];
-            PathData = (System.Windows.Media.Geometry)path;
-
+            PathData = ResourceHelper.FindRelativeResource<Geometry>("Themes/Geometry.xaml", "Cross");
             HoverBackground = new System.Windows.Media.SolidColorBrush(Colors.IndianRed);
         }
     }
