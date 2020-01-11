@@ -133,14 +133,11 @@
                             <ListView.View>
 
                                 <GridView AllowsColumnReorder="true"               ColumnHeaderToolTip="Employee Information">
-
-
-
                                     <GridViewColumn      Width="100">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <!--<TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Path=DataContext.Object.First,Mode=TwoWay}"  />-->
-                                                <ContentControl Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Path=DataContext.Object,Mode=TwoWay}" Background="DarkBlue" >
+                                                <ContentControl Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Path=DataContext.Object,Mode=TwoWay}" >
 
                                                 </ContentControl>
                                             </DataTemplate>

@@ -29,5 +29,6 @@
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/LogViewer.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/Foreign/TimeBar.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/Foreign/CompareSlider.xaml"></ResourceDictionary>
+        
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

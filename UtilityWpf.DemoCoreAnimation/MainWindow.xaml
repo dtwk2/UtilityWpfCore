@@ -7,9 +7,19 @@
         xmlns:local="clr-namespace:UtilityWpf.DemoAnimation"
         xmlns:nb="http://www.aptof.com/"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="650" Width="800">
+    <!--https://stackoverflow.com/questions/25877737/advanced-xaml-animation-effects-pulse-marching-ants-rotations-alerts-->
     <Grid>
         <TabControl>
+            <TabItem Header="Points Animation">
+                <DockPanel>
+                   
+                    <local:PointAnimationUserControl></local:PointAnimationUserControl>
+                </DockPanel>
+            </TabItem>
+            <TabItem Header="Notification Alert">
+                <local:NotificationUserControl></local:NotificationUserControl>
+            </TabItem>
             <TabItem Header="BarControl">
                 <DockPanel>
                     <StackPanel DockPanel.Dock="Top">
@@ -26,7 +36,7 @@
                     <StackPanel DockPanel.Dock="Top">
                         <nb:NumberBox x:Name="duration1" Number="600" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" ></nb:NumberBox>
                     </StackPanel>
-                    <Grid>
+                    <Grid Height="40" Width="40">
                         <ani:BlinkControl  Duration="{Binding ElementName=duration1,Path=Number}"></ani:BlinkControl>
                     </Grid>
                 </DockPanel>

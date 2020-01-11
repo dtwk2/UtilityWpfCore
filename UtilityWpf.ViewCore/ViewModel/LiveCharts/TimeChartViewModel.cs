@@ -33,7 +33,7 @@
 //                 .Subscribe(_ =>
 //                 {
 //                     SeriesCollection.GetLineOrNew(name)
-//                     .Values.Add(new DateModel
+//                     .Values.Add(new DateTimePoint
 //                     {
 //                         DateTime = _.Key,
 //                         Value = _.Value,
@@ -50,7 +50,7 @@
 //            {
 //                var line = SeriesCollection.GetLineOrNew(name);
 //                foreach (var _ in series)
-//                    line.Values.Add(new DateModel
+//                    line.Values.Add(new DateTimePoint
 //                    {
 //                        DateTime = _.Key,
 //                        Value = _.Value,
@@ -66,7 +66,7 @@
 //                .Subscribe(_ =>
 //                {
 //                    SeriesCollection.GetLineOrNew(_.Key.ToString())
-//                    .Values.Add(new DateModel
+//                    .Values.Add(new DateTimePoint
 //                    {
 //                        DateTime = _.Value.Key,
 //                        Value = _.Value.Value,
@@ -114,13 +114,13 @@
 //            {
 //                var line1 = SeriesCollection.GetLineOrNew(_.Key);
 
-//                line1.Values.Add(new DateModel
+//                line1.Values.Add(new DateTimePoint
 //                {
 //                    DateTime = _.Value.Key,
 //                    Value = _.Value.Value.Item1,
 //                });
 
-//                line1.Values.Add(new DateModel
+//                line1.Values.Add(new DateTimePoint
 //                {
 //                    DateTime = _.Value.Key,
 //                    Value = _.Value.Value.Item2,
@@ -138,10 +138,10 @@
 //            SeriesCollection = new LiveCharts.SeriesCollection(dayConfig);
 //        }
 
-//        private CartesianMapper<DateModel> Initialise()
+//        private CartesianMapper<DateTimePoint> Initialise()
 //        {
 //            return
-//            LiveCharts.Configurations.Mappers.Xy<DateModel>()
+//            LiveCharts.Configurations.Mappers.Xy<DateTimePoint>()
 //            .X(dayModel => (double)dayModel.DateTime.Ticks / TimeSpan.FromHours(1).Ticks)
 //            .Y(dayModel => dayModel.Value);
 //        }
@@ -161,7 +161,7 @@
 //        //         .Subscribe(_ =>
 //        //         {
 //        //             SeriesCollection.GetLineOrNew(name)
-//        //             .Values.Add(new DateModel
+//        //             .Values.Add(new DateTimePoint
 //        //             {
 //        //                 DateTime = _.Key,
 //        //                 Value = _.Value,
@@ -179,7 +179,7 @@
 //        //    {
 //        //        var line1 = SeriesCollection.GetLineOrNew(name);
 //        //        foreach (var _ in series)
-//        //            line1.Values.Add(new DateModel
+//        //            line1.Values.Add(new DateTimePoint
 //        //            {
 //        //                DateTime = _.Key,
 //        //                Value = _.Value.Item1,
@@ -187,7 +187,7 @@
 
 //        //        var line2 = SeriesCollection.GetLineOrNew(name2);
 //        //        foreach (var _ in series)
-//        //            line2.Values.Add(new DateModel
+//        //            line2.Values.Add(new DateTimePoint
 //        //            {
 //        //                DateTime = _.Key,
 //        //                Value = _.Value.Item2,
@@ -203,7 +203,7 @@
 //        //    {
 //        //        var line1 = SeriesCollection.GetLineOrNew(name);
 //        //        foreach (var _ in series)
-//        //            line1.Values.Add(new DateModel
+//        //            line1.Values.Add(new DateTimePoint
 //        //            {
 //        //                DateTime = _.Key,
 //        //                Value = _.Value.Item1,
@@ -211,7 +211,7 @@
 
 //        //        var line2 = SeriesCollection.GetLineOrNew(name2);
 //        //        foreach (var _ in series)
-//        //            line2.Values.Add(new DateModel
+//        //            line2.Values.Add(new DateTimePoint
 //        //            {
 //        //                DateTime = _.Key,
 //        //                Value = _.Value.Item2,
@@ -232,7 +232,7 @@
 //        //        {
 //        //            SeriesCollection.GetLineOrNew(_.Key)
 //        //            .Values.Add(
-//        //                new DateModel
+//        //                new DateTimePoint
 //        //                {
 //        //                    DateTime = _.Value.Key,
 //        //                    Value = _.Value.Value,
@@ -249,7 +249,7 @@
 //            System.Windows.Application.Current.Dispatcher.Invoke(() =>
 //            {
 //                SeriesCollection.GetLineOrNew(title)
-//             .Values.Add(new DateModel
+//             .Values.Add(new DateTimePoint
 //             {
 //                 DateTime = dt,
 //                 Value = value
@@ -264,7 +264,7 @@
 //            {
 //                var l = SeriesCollection.GetLineOrNew(title);
 //                foreach (var val in values)
-//                    l.Values.Add(new DateModel
+//                    l.Values.Add(new DateTimePoint
 //                    {
 //                        DateTime = val.Item1,
 //                        Value = val.Item2

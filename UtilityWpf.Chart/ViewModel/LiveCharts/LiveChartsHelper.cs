@@ -1,5 +1,5 @@
 ﻿using LiveCharts;
-
+using LiveCharts.Defaults;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +16,7 @@ namespace UtilityWpf.Chart
                 seriesCollection.Add(new LiveCharts.Wpf.LineSeries
                 {
                     Title = name,
-                    Values = new ChartValues<DateModel>()
+                    Values = new ChartValues<DateTimePoint>()
                 }); //MakeSeries(name,line));
         }
 
@@ -28,18 +28,18 @@ namespace UtilityWpf.Chart
                 seriesCollection.Add(new LiveCharts.Wpf.LineSeries
                 {
                     Title = name,
-                    Values = new ChartValues<DateModel>()
+                    Values = new ChartValues<DateTimePoint>()
                 }); //MakeSeries(name,line));
         }
 
         public static List<Tuple<DateTime, double>> ToTupleList(this LiveCharts.Wpf.LineSeries series)
         {
-            return series.Values.Cast<DateModel>().Select(_ => Tuple.Create(_.DateTime, _.Value)).ToList();
+            return series.Values.Cast<DateTimePoint>().Select(_ => Tuple.Create(_.DateTime, _.Value)).ToList();
         }
 
         public static List<Tuple<DateTime, double?>> ToNullableTupleList(this LiveCharts.Wpf.LineSeries series)
         {
-            return series.Values.Cast<DateModel>().Select(_ => new Tuple<DateTime, double?>(_.DateTime, _.Value)).ToList();
+            return series.Values.Cast<DateTimePoint>().Select(_ => new Tuple<DateTime, double?>(_.DateTime, _.Value)).ToList();
         }
 
         public static LiveCharts.Wpf.LineSeries ToLineSeries(this IEnumerable<Tuple<DateTime, double>> lst, string title = null)
@@ -48,10 +48,10 @@ namespace UtilityWpf.Chart
             {
                 Title = title,
 
-                Values = new ChartValues<DateModel>(
+                Values = new ChartValues<DateTimePoint>(
 
                           lst.Select(_ =>
-                          new DateModel
+                          new DateTimePoint
                           {
                               DateTime = _.Item1,
                               Value = _.Item2
@@ -66,10 +66,10 @@ namespace UtilityWpf.Chart
             {
                 Title = title,
 
-                Values = new ChartValues<DateModel>(
+                Values = new ChartValues<DateTimePoint>(
 
                           lst.Select(_ =>
-                          new DateModel
+                          new DateTimePoint
                           {
                               DateTime = _.Key,
                               Value = _.Value

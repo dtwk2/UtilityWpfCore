@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
@@ -59,6 +60,7 @@ namespace UtilityWpf.DemoApp
             {
                 _age = value;
                 RaisePropertyChanged("Age");
+                RaisePropertyChanged(nameof(TimeSpan));
             }
         }
 
@@ -88,9 +90,13 @@ namespace UtilityWpf.DemoApp
             set
             {
                 color = value;
-                RaisePropertyChanged("Location");
+                RaisePropertyChanged("Color");
             }
         }
+
+        public TimeSpan TimeSpan => System.TimeSpan.FromMinutes(Math.Pow(Age, 3));
+
+
 
         public override string ToString()
         {

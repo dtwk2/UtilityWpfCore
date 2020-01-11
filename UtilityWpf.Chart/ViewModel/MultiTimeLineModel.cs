@@ -2,6 +2,7 @@
 using OxyPlot;
 using OxyPlot.Wpf;
 using RandomColorGenerator;
+using Splat;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,18 +10,25 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace UtilityWpf.Chart
 {
-    public class MultiTimeLineModel : IObserver<IEnumerable<KeyValuePair<string, (DateTime date, double value)>>>, IObserver<KeyValuePair<string, (DateTime date, double value)>>, IObserver<KeyValuePair<string, Color>>
+    public class MultiTimeLineModel :
+        IObserver<IEnumerable<KeyValuePair<string, (DateTime date, double value)>>>,
+        IObserver<KeyValuePair<string, (DateTime date, double value)>>,
+        IObserver<KeyValuePair<string, Color>>,
+        IObserver<KeyValuePair<string, TimeSpan>>
+
     {
         Dictionary<string, CheckableList> DataPoints;
         private Dispatcher dispatcher;
         private PlotModel plotModel;
         object lck = new object();
-        private readonly Dictionary<string, Color> colorDictionary = new Dictionary<string, Color>();
+        private readonly Dictionary<string,Color> colorDictionary = new Dictionary<string, Color>();
+        private readonly Dictionary<string, TimeSpan> timeSpanDictionary = new Dictionary<string, TimeSpan>();
         ISubject<Unit> refreshes = new Subject<Unit>();
 
 
@@ -55,16 +63,17 @@ namespace UtilityWpf.Chart
         {
             foreach (var dataPoint in DataPoints.Where(a => a.Value.Check))
             {
-                var points = dataPoint.Value.DataPoints
-                     .OrderBy(dt => dt.DateTime);
+                var points = dataPoint.Value.DataPoints;
 
-                var build = Build(points, dataPoint.Key.ToString(), SetColor(dataPoint.Key.ToString()));
+                points = timeSpanDictionary.ContainsKey(dataPoint.Key.ToString()) ?
+                    Group(points, timeSpanDictionary[dataPoint.Key.ToString()]).ToList() :
+                    points;
+
+                var build = Build(points.OrderBy(dt => dt.DateTime), dataPoint.Key.ToString(), SetColor(dataPoint.Key.ToString()));
 
                 yield return build;
 
             }
-
-            //var build = colorDictionary.ContainsKey(dataPoint.Key.ToString());
 
             if (ShowAll)
             {
@@ -77,18 +86,33 @@ namespace UtilityWpf.Chart
 
         }
 
+        private static IEnumerable<DateTimePoint> Group(IEnumerable<DateTimePoint> dateTimePoints, TimeSpan timeSpan)
+        {
+            return dateTimePoints
+                  .GroupBy(a => GroupKey(a.DateTime, timeSpan))
+                 .Select(a => new DateTimePoint(a.Key, a.Average(v => v.Value)));
+
+            static DateTime GroupKey(DateTime dt, TimeSpan timeSpan)
+            {
+                int factor = (int)(((double)(dt - default(DateTime)).Ticks) / timeSpan.Ticks) + 1;
+                return default(DateTime) + timeSpan * factor;
+            }
+
+        }
+
+
         private Color SetColor(string v)
         {
             if (colorDictionary.ContainsKey(v) == false)
             {
-                var color = RandomColor.GetColor(ColorScheme.Random, Luminosity.Bright);
+                var color = RandomColor.GetColor(ColorScheme.Random, Luminosity.Dark).ToNative();
                 int max = 100, i = 0;
                 while (colorDictionary.Values.Contains(color))
                 {
-                    color = RandomColor.GetColor(ColorScheme.Random, Luminosity.Bright);
+                    color = RandomColor.GetColor(ColorScheme.Random, Luminosity.Dark).ToNative();
                     if (++i > max)
                     {
-                        color = Colors.Gray;
+                        color =Colors.Gray;
                         break;
                     }
                 }
@@ -129,6 +153,22 @@ namespace UtilityWpf.Chart
         }
 
 
+        public void OnNext(KeyValuePair<string, TimeSpan> kvp)
+        {
+            timeSpanDictionary[kvp.Key] = kvp.Value;
+            Refresh();
+        }
+
+
+        public void OnNext(KeyValuePair<string, Color> kvp)
+        {
+            if (colorDictionary.ContainsKey(kvp.Key) == false || colorDictionary[kvp.Key] != kvp.Value)
+            {
+                colorDictionary[kvp.Key] = kvp.Value;
+                Refresh();
+            }
+        }
+
         private void Add(KeyValuePair<string, (DateTime date, double value)> item)
         {
             if (!DataPoints.ContainsKey(item.Key))
@@ -138,10 +178,12 @@ namespace UtilityWpf.Chart
             DataPoints[item.Key].DataPoints.Add(newdp);
         }
 
-        private void Refresh()
+        private async void Refresh()
         {
-            refreshes.OnNext(new Unit());
-
+            await Task.Run(() =>
+            {
+                refreshes.OnNext(new Unit());
+            });
         }
 
         public void Filter(ISet<string> names)
@@ -239,13 +281,6 @@ namespace UtilityWpf.Chart
             return lser;
         }
 
-        public void OnNext(KeyValuePair<string, Color> kvp)
-        {
-            if (colorDictionary.ContainsKey(kvp.Key) == false || colorDictionary[kvp.Key] != kvp.Value)
-            {
-                colorDictionary[kvp.Key] = kvp.Value;
-                Refresh();
-            }
-        }
+
     }
 }

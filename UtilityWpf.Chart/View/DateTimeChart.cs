@@ -1,24 +1,25 @@
-﻿using System.Collections;
+﻿using LiveCharts.Wpf;
+using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
-
+using UtilityWpf.View;
 
 namespace UtilityWpf.Chart
 {
-    public class DateTimeChart : Control
+    public class DateTimeChart : Controlx
     {
-        public static readonly DependencyProperty ItemsProperty = DependencyProperty.Register("Items", typeof(IEnumerable), typeof(DateTimeChart), new PropertyMetadata(null, SeriesChanged));
+        public static readonly DependencyProperty ItemsProperty = DependencyProperty.Register("Items", typeof(IEnumerable), typeof(DateTimeChart), new PropertyMetadata(null, Changed));
 
-        private static void SeriesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (e.NewValue != null)
-                (d as DateTimeChart).Dispatcher.InvokeAsync(() =>
-                  ((d as DateTimeChart).CartesianChart).Series = new TimeChartViewModel((dynamic)e.NewValue).SeriesCollection, System.Windows.Threading.DispatcherPriority.Background);
-        }
+        //private static void SeriesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        //{
+        //    if (e.NewValue != null)
+        //        (d as DateTimeChart).Dispatcher.InvokeAsync(() =>
+        //          ((d as DateTimeChart).CartesianChart).Series = new TimeChartViewModel((dynamic)e.NewValue).SeriesCollection, System.Windows.Threading.DispatcherPriority.Background);
+        //}
 
         public override void OnApplyTemplate()
         {
-            CartesianChart = this.GetTemplateChild("PART_Chart") as LiveCharts.Wpf.CartesianChart;
+            //CartesianChart = this.GetTemplateChild("PART_Chart") as LiveCharts.Wpf.CartesianChart;
         }
 
         public IEnumerable Items
@@ -37,6 +38,8 @@ namespace UtilityWpf.Chart
 
         public DateTimeChart()
         {
+            //this.SelectControlChanges<CartesianChart>().CombineLatest(this.SelectChanges<IEnumerable>nameof(Items))
+
 
         }
     }

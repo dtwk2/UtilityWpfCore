@@ -9,6 +9,7 @@ using System.Reactive.Linq;
 
 namespace UtilityWpf.Chart
 {
+    using LiveCharts.Defaults;
     using System.Collections;
 
     public class TimeChartViewModel
@@ -27,7 +28,7 @@ namespace UtilityWpf.Chart
                  .Subscribe(_ =>
                  {
                      SeriesCollection.GetLineOrNew(name)
-                     .Values.Add(new DateModel
+                     .Values.Add(new DateTimePoint
                      {
                          DateTime = _.Key,
                          Value = _.Value,
@@ -43,7 +44,7 @@ namespace UtilityWpf.Chart
             {
                 var line = SeriesCollection.GetLineOrNew(name);
                 foreach (var _ in series)
-                    line.Values.Add(new DateModel
+                    line.Values.Add(new DateTimePoint
                     {
                         DateTime = _.Key,
                         Value = _.Value,
@@ -58,7 +59,7 @@ namespace UtilityWpf.Chart
                 .Subscribe(_ =>
                 {
                     SeriesCollection.GetLineOrNew(_.Key.ToString())
-                    .Values.Add(new DateModel
+                    .Values.Add(new DateTimePoint
                     {
                         DateTime = _.Value.Key,
                         Value = _.Value.Value,
@@ -105,13 +106,13 @@ namespace UtilityWpf.Chart
             {
                 var line1 = SeriesCollection.GetLineOrNew(_.Key);
 
-                line1.Values.Add(new DateModel
+                line1.Values.Add(new DateTimePoint
                 {
                     DateTime = _.Value.Key,
                     Value = _.Value.Value.Item1,
                 });
 
-                line1.Values.Add(new DateModel
+                line1.Values.Add(new DateTimePoint
                 {
                     DateTime = _.Value.Key,
                     Value = _.Value.Value.Item2,
@@ -129,10 +130,10 @@ namespace UtilityWpf.Chart
             SeriesCollection = new LiveCharts.SeriesCollection(dayConfig);
         }
 
-        private CartesianMapper<DateModel> Initialise()
+        private CartesianMapper<DateTimePoint> Initialise()
         {
             return
-            LiveCharts.Configurations.Mappers.Xy<DateModel>()
+            LiveCharts.Configurations.Mappers.Xy<DateTimePoint>()
             .X(dayModel => (double)dayModel.DateTime.Ticks / TimeSpan.FromHours(1).Ticks)
             .Y(dayModel => dayModel.Value);
         }
@@ -152,7 +153,7 @@ namespace UtilityWpf.Chart
         //         .Subscribe(_ =>
         //         {
         //             SeriesCollection.GetLineOrNew(name)
-        //             .Values.Add(new DateModel
+        //             .Values.Add(new DateTimePoint
         //             {
         //                 DateTime = _.Key,
         //                 Value = _.Value,
@@ -170,7 +171,7 @@ namespace UtilityWpf.Chart
         //    {
         //        var line1 = SeriesCollection.GetLineOrNew(name);
         //        foreach (var _ in series)
-        //            line1.Values.Add(new DateModel
+        //            line1.Values.Add(new DateTimePoint
         //            {
         //                DateTime = _.Key,
         //                Value = _.Value.Item1,
@@ -178,7 +179,7 @@ namespace UtilityWpf.Chart
 
         //        var line2 = SeriesCollection.GetLineOrNew(name2);
         //        foreach (var _ in series)
-        //            line2.Values.Add(new DateModel
+        //            line2.Values.Add(new DateTimePoint
         //            {
         //                DateTime = _.Key,
         //                Value = _.Value.Item2,
@@ -194,7 +195,7 @@ namespace UtilityWpf.Chart
         //    {
         //        var line1 = SeriesCollection.GetLineOrNew(name);
         //        foreach (var _ in series)
-        //            line1.Values.Add(new DateModel
+        //            line1.Values.Add(new DateTimePoint
         //            {
         //                DateTime = _.Key,
         //                Value = _.Value.Item1,
@@ -202,7 +203,7 @@ namespace UtilityWpf.Chart
 
         //        var line2 = SeriesCollection.GetLineOrNew(name2);
         //        foreach (var _ in series)
-        //            line2.Values.Add(new DateModel
+        //            line2.Values.Add(new DateTimePoint
         //            {
         //                DateTime = _.Key,
         //                Value = _.Value.Item2,
@@ -223,7 +224,7 @@ namespace UtilityWpf.Chart
         //        {
         //            SeriesCollection.GetLineOrNew(_.Key)
         //            .Values.Add(
-        //                new DateModel
+        //                new DateTimePoint
         //                {
         //                    DateTime = _.Value.Key,
         //                    Value = _.Value.Value,
@@ -240,7 +241,7 @@ namespace UtilityWpf.Chart
             System.Windows.Application.Current.Dispatcher.Invoke(() =>
             {
                 SeriesCollection.GetLineOrNew(title)
-             .Values.Add(new DateModel
+             .Values.Add(new DateTimePoint
              {
                  DateTime = dt,
                  Value = value
@@ -254,7 +255,7 @@ namespace UtilityWpf.Chart
             {
                 var l = SeriesCollection.GetLineOrNew(title);
                 foreach (var val in values)
-                    l.Values.Add(new DateModel
+                    l.Values.Add(new DateTimePoint
                     {
                         DateTime = val.Item1,
                         Value = val.Item2

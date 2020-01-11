@@ -39,4 +39,39 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style TargetType="{x:Type local:PointControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:PointControl}">
+
+                    <!--myEllipseGeometry = new EllipseGeometry();
+            myEllipseGeometry.Center = new Point(200, 100);
+            myEllipseGeometry.RadiusX = 15;
+            myEllipseGeometry.RadiusY = 15;
+
+
+            myPath = new Path();
+            myPath.Fill = Brushes.Blue;
+            myPath.Margin = new Thickness(15);
+            myPath.Data = myEllipseGeometry;-->
+
+                    <Path Fill="IndianRed" x:Name="PART_MovingObject">
+                        <Path.Margin>
+                            <Thickness Bottom="15" Left="15" Right="15" Top="15"/>
+                        </Path.Margin>
+                        <!--<Path.Data>
+                            <EllipseGeometry RadiusX="15" RadiusY="15">
+                                <EllipseGeometry.Center>
+                                    <Point X="200" Y="200"></Point>
+                                </EllipseGeometry.Center>
+                            </EllipseGeometry>
+                        </Path.Data>-->
+                    </Path>
+                   <!-- <Ellipse    Fill="LimeGreen" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Bottom" />-->
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
 </ResourceDictionary>

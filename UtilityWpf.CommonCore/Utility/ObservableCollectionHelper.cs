@@ -25,22 +25,27 @@ namespace UtilityWpf
                 .Select(_ => _.EventArgs);
         }
 
-        public static IObservable<object> MakeObservable(this IEnumerable oc)
+        public static IObservable<T> MakeObservable<T>(this IEnumerable oc)
         {
 
-            var subject = new Subject<object>();
-            //foreach (var o in oc.Cast<object>())
-            //    subject.OnNext(o);
+            return oc is INotifyCollectionChanged notifyCollectionChanged ?
+                    oc.Cast<T>().ToObservable()
+                        .Concat(notifyCollectionChanged.SelectNewItems<T>()) :
+                    oc.Cast<T>().ToObservable();
+        }
 
-            if (oc is INotifyCollectionChanged notifyCollectionChanged)
-                notifyCollectionChanged
-                    .SelectNewItems<object>()
-                    .Subscribe(a =>
-                    {
-                        subject.OnNext(a);
-                    });
+        public static IObservable<T> MakeObservable<T>(this IEnumerable<T> oc)
+        {
+            return oc is INotifyCollectionChanged notifyCollectionChanged ?
+                        oc.ToObservable()
+                            .Concat(notifyCollectionChanged.SelectNewItems<T>()) :
+                        oc.ToObservable();
+        }
 
-            return oc.Cast<object>().ToObservable().Concat(subject);
+
+        public static IObservable<object> MakeObservable(this IEnumerable oc)
+        {
+            return MakeObservable<object>(oc);
         }
 
 

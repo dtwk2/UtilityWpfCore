@@ -107,10 +107,10 @@ namespace UtilityWpf.Chart
 
         public OxyChart()
         {
-            this.SelectChanges<IEnumerable>(nameof(OxyChart.Data)).Subscribe(a =>
-            {
+            //this.SelectChanges<IEnumerable>(nameof(OxyChart.Data)).Subscribe(a =>
+            //{
 
-            });
+            //});
 
             ISubject<MultiTimeLineModel> modelSubject = new Subject<MultiTimeLineModel>();
             var modelChanges = this.SelectControlChanges<PlotView>()
@@ -126,6 +126,7 @@ namespace UtilityWpf.Chart
 
 
             var data = this.SelectChanges<IEnumerable>(nameof(OxyChart.Data))
+                .SubscribeOn(ReactiveUI.RxApp.TaskpoolScheduler)
                 .Merge(this.SelectLoads().Select(a => Data).Where(a => a != null))
                 .Select(a => a.MakeObservable())
                 .Switch()
@@ -159,14 +160,20 @@ namespace UtilityWpf.Chart
                         {
                            // var itt = ItemsSource.Cast<object>().Select(o => o.GetType().GetProperty(IdProperty).GetValue(o).ToString());
                             HashSet<string> ids = new HashSet<string>();
-                            foreach (var x in ItemsSource.Cast<object>())
+                            foreach (var item in ItemsSource.Cast<object>())
                             {
-                                Color color = (Color)x.GetType().GetProperties().FirstOrDefault(a => a.PropertyType == typeof(Color))?.GetValue(x);
-                                var id = x.GetType().GetProperty(IdProperty).GetValue(x).ToString();
+                                Color color = (Color)item.GetType().GetProperties().FirstOrDefault(a => a.PropertyType == typeof(Color))?.GetValue(item);
+                                TimeSpan timeSpan = (TimeSpan)item.GetType().GetProperties().FirstOrDefault(a => a.PropertyType == typeof(TimeSpan))?.GetValue(item);
+                                var id = item.GetType().GetProperty(IdProperty).GetValue(item).ToString();
                                 ids.Add(id);
+                                
                                 if (color != default(Color))
                                 {
                                     combination.model.OnNext(new KeyValuePair<string, Color>(id, color));
+                                }
+                                if (timeSpan != default(TimeSpan))
+                                {
+                                    combination.model.OnNext(new KeyValuePair<string, TimeSpan>(id, timeSpan));
                                 }
                             }
 

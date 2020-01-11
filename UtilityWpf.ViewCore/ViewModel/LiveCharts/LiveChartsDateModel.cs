@@ -2,13 +2,13 @@
 
 namespace UtilityWpf.ViewModel
 {
-    //public class DateModel
+    //public class DateTimePoint
     //{
     //    public System.DateTime DateTime { get; set; }
     //    public double Value { get; set; }
     //}
 
-    //public static class DateModelHelper
+    //public static class DateTimePointHelper
     //{
     //    public static void AddPoints(this SeriesCollection col, string title, params Tuple<DateTime, double>[] vals)
     //    {

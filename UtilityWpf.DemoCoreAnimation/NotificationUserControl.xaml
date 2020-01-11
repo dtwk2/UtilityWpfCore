@@ -1,0 +1,254 @@
+﻿<UserControl x:Class="UtilityWpf.DemoAnimation.NotificationUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UtilityWpf.DemoAnimation"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+
+    <UserControl.Resources>
+
+            <!-- Marching Ants -->
+            <Storyboard x:Key="MarchingAnts">
+                <DoubleAnimation BeginTime="00:00:00"
+                                Storyboard.TargetName="AlertBox"
+                                Storyboard.TargetProperty="StrokeThickness"
+                                To="4"
+                                Duration="0:0:0.25" />
+                <!-- If you want to run counter-clockwise, just swap the 'From' and 'To' values. -->
+                <DoubleAnimation BeginTime="00:00:00" RepeatBehavior="Forever" Storyboard.TargetName="AlertBox" Storyboard.TargetProperty="StrokeDashOffset" 
+                                Duration="0:3:0" From="1000" To="0"/>
+            </Storyboard>
+
+            <!-- Pulse -->
+            <Storyboard x:Key="Pulse" RepeatBehavior="Forever">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="PulseBox">
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1.15"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="PulseBox">
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1.15"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+
+            <!-- Flipper -->
+            <Storyboard x:Key="Flipper" RepeatBehavior="Forever">
+                <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransformOrigin)" Storyboard.TargetName="FlipperBox">
+                    <EasingPointKeyFrame KeyTime="0:0:1" Value="0.5,0.5"/>
+                    <EasingPointKeyFrame KeyTime="0:0:2" Value="0.5,0.5"/>
+                </PointAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="FlipperBox">
+                    <EasingDoubleKeyFrame KeyTime="0:0:1" Value="-1"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+
+
+            <!-- Elasic Lines -->
+            <Storyboard x:Key="ElasticLines" RepeatBehavior="Forever" AutoReverse="True">
+                <PointAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(LinearGradientBrush.EndPoint)" Storyboard.TargetName="ElasticBox">
+                    <EasingPointKeyFrame KeyTime="0:0:4" Value="12,8"/>
+                </PointAnimationUsingKeyFrames>
+            </Storyboard>
+
+            <!-- Knight Rider -->
+            <Storyboard x:Key="KnightRider" RepeatBehavior="Forever" AutoReverse="True">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="KRBox">
+                    <EasingDoubleKeyFrame KeyTime="0:0:1" Value="-50"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:2" Value="50"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+
+        </UserControl.Resources>
+    <UserControl.Triggers>
+            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                <BeginStoryboard Storyboard="{StaticResource Pulse}"/>
+                <BeginStoryboard Storyboard="{StaticResource MarchingAnts}"/>
+                <BeginStoryboard Storyboard="{StaticResource Flipper}"/>
+                <BeginStoryboard Storyboard="{StaticResource ElasticLines}"/>
+                <BeginStoryboard Storyboard="{StaticResource KnightRider}"/>
+            </EventTrigger>
+        </UserControl.Triggers>
+
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid.Resources>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="FontSize" Value="35"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="Text" Value="ALERT"/>
+                </Style>
+                <Style TargetType="{x:Type Grid}">
+                    <Setter Property="Margin" Value="0,10"/>
+                </Style>
+                <Style TargetType="{x:Type Rectangle}">
+                    <Setter Property="Height" Value="50"/>
+                    <Setter Property="Width" Value="150"/>
+                </Style>
+            </Grid.Resources>
+
+            <StackPanel>
+
+                <!-- Marching Ants -->
+                <Grid>
+
+                    <Rectangle x:Name="AlertBox"
+                      Stroke="Red" 
+                       StrokeDashOffset="2" StrokeDashArray="5" Margin="5">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="6,4" MappingMode="Absolute" SpreadMethod="Repeat">
+                                <GradientStop Color="Red" Offset="0.25"/>
+                                <GradientStop Color="#00000000" Offset="0.15"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+
+                    <TextBlock/>
+
+                </Grid>
+                <!-- End Marching Ants -->
+
+
+                <!-- Pulse : Will not skew other elements location like width/height animations would. -->
+                <Grid>
+                    <Border x:Name="PulseBox"
+                        Background="Red" RenderTransformOrigin="0.5,0.5">
+                        <Border.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Border.RenderTransform>
+
+                        <TextBlock/>
+
+                    </Border>
+                </Grid>
+                <!-- End Pulse -->
+
+
+                <!-- Flipper -->
+                <Grid>
+                    <Border x:Name="FlipperBox"
+                        Background="Red">
+                        <Border.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Border.RenderTransform>
+
+                        <TextBlock/>
+
+                    </Border>
+                </Grid>
+                <!-- End Flipper -->
+
+
+                <!-- Elastic Lines -->
+                <Grid>
+                    <Rectangle x:Name="ElasticBox"
+                      Stroke="Red" StrokeThickness="5" Margin="5">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="6,4" MappingMode="Absolute" SpreadMethod="Repeat">
+                                <GradientStop Color="Red" Offset="0.25"/>
+                                <GradientStop Color="#00000000" Offset="0.15"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+
+                    <TextBlock/>
+
+                </Grid>
+                <!-- End Elastic Box -->
+
+
+                <!-- Knight Rider -->
+                <Grid>
+                    <Rectangle Fill="Red"/>
+                    <Rectangle x:Name="KRBox" Width="50" Fill="White" RenderTransformOrigin="0.5,0.5">
+                        <Rectangle.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
+
+                    <TextBlock Foreground="Red"/>
+
+                </Grid>
+                <!-- End Knight Rider -->
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.Resources>
+                    <SolidColorBrush x:Key="BlackColor" Color="Black" />
+                    <SolidColorBrush x:Key="WhiteColor" Color="White" />
+                </Grid.Resources>
+                <TextBox Width="200" Height="70" x:Name="TextBox1"></TextBox>
+                <TextBox Text="{Binding ElementName=TextBox1, Path=Text}" Width="150" Height="25" IsReadOnly="True">
+                    <TextBox.Effect>
+                        <DropShadowEffect ShadowDepth="0" BlurRadius="0" Opacity="0" Color="White"    />
+                    </TextBox.Effect>
+                    <TextBox.Style>
+                        <Style TargetType="TextBox">
+                            <Style.Triggers>
+                                <EventTrigger RoutedEvent="TextChanged">
+                                    <EventTrigger.Actions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ThicknessAnimation Storyboard.TargetProperty="BorderThickness" From="1" To="2" Duration="0:0:2" AutoReverse="True"/>
+                                                <DoubleAnimation Storyboard.TargetProperty="Effect.Opacity" To="1" />
+                                                <ColorAnimation Storyboard.TargetProperty="Effect.Color" From="Red" To="Purple" Duration="0:0:2" RepeatBehavior="2x" AutoReverse="True" />
+                                                <DoubleAnimation Storyboard.TargetProperty="Effect.ShadowDepth" From="0" To="1" Duration="0:0:2" RepeatBehavior="2x" AutoReverse="True"/>
+                                                <DoubleAnimation Storyboard.TargetProperty="Effect.BlurRadius" From="0" To="30" Duration="0:0:2" AutoReverse="True" RepeatBehavior="2x" />
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background">
+                                                    <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{StaticResource BlackColor}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0:0:1" Value="{StaticResource WhiteColor}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0:0:2" Value="{StaticResource BlackColor}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0:0:3" Value="{StaticResource WhiteColor}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0:0:4" Value="{StaticResource BlackColor}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0:0:5" Value="{StaticResource WhiteColor}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0:0:6" Value="{StaticResource BlackColor}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0:0:7" Value="{StaticResource WhiteColor}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground">
+                                                    <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{StaticResource WhiteColor}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0:0:1" Value="{StaticResource BlackColor}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0:0:2" Value="{StaticResource WhiteColor}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0:0:3" Value="{StaticResource BlackColor}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0:0:4" Value="{StaticResource WhiteColor}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0:0:5" Value="{StaticResource BlackColor}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0:0:6" Value="{StaticResource WhiteColor}" />
+                                                    <DiscreteObjectKeyFrame KeyTime="0:0:7" Value="{StaticResource BlackColor}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger.Actions>
+                                </EventTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+            </Grid>
+        </StackPanel>
+
+        </Grid>
+
+</UserControl>

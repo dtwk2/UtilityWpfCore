@@ -8,23 +8,28 @@
         <ResourceDictionary>
             <x:Array x:Key="Characters" x:Name="Items" Type="{x:Type local:Character}" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
                 <local:Character First="Bart" Last="Simpson" Age="10"
-          Gender="Male" Image="images/bart.png" Location="25,150" />
+          Gender="Male" Image="images/bart.png" Location="25,150" Color="Brown"/>
                 <local:Character First="Homer" Last="Simpson" Age="38"
-          Gender="Male" Image="images/homer.png" Location="75,0" Color="Azure"/>
+          Gender="Male" Image="images/homer.png" Location="75,0" Color="DarkSalmon"/>
                 <local:Character First="Lisa" Last="Bouvier" Age="8"
-          Gender="Female" Image="images/lisa.png" Location="125,150" Color="Aqua"/>
+          Gender="Female" Image="images/lisa.png" Location="125,150" Color="ForestGreen" />
                 <local:Character First="Maggie" Last="Simpson" Age="0"
-          Gender="Female" Image="images/maggie.png" Location="225,150" Color="AliceBlue"/>
+          Gender="Female" Image="images/maggie.png" Location="225,150" Color="DarkBlue"/>
                 <local:Character First="Marge" Last="Bouvier" Age="38"
-          Gender="Female" Image="images/marge.png" Location="175,0" Color="Beige"/>
+          Gender="Female" Image="images/marge.png" Location="175,0" Color="DarkCyan" />
             </x:Array>
 
 
 
             <DataTemplate  x:Key="CharacterBaseClass">
                 <StackPanel Orientation="Vertical" Margin="5" Background="Transparent">
-                    <TextBlock FontWeight="Bold" Text="{Binding First}"
-            TextAlignment="Center" />
+                    <TextBlock FontWeight="Bold" Text="{Binding First}"  
+            TextAlignment="Center" >
+                        <TextBlock.Foreground>
+                            <SolidColorBrush Color="{Binding Color}"></SolidColorBrush>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+                    <!--<Ellipse Fill="Blue" Width="20" Height="20"> </Ellipse>-->
                     <Image Margin="0,5,0,0" Source="{Binding Image}" />
                 </StackPanel>
             </DataTemplate>

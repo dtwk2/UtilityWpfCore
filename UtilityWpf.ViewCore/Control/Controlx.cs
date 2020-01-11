@@ -13,7 +13,7 @@ namespace UtilityWpf.View
     {
         private Dictionary<string, ISubject<object>> Subjects = new Dictionary<string, ISubject<object>>();
         public ISubject<DependencyObject> ControlChanges = new Subject<DependencyObject>();
-
+        object lck = new object();
         public List<string> ControlNames = new List<string>();
 
         public override void OnApplyTemplate()
@@ -21,6 +21,8 @@ namespace UtilityWpf.View
             var elements = this.FindVisualChildren<FrameworkElement>().Where(c => string.IsNullOrEmpty(c.Name) == false).ToArray();
             foreach (var element in elements)
                 this.ControlChanges.OnNext(element);
+
+
             //foreach (string name in ControlNames)
             //{
             //    this.ControlChanges.OnNext(this.GetTemplateChild(name));
@@ -29,8 +31,11 @@ namespace UtilityWpf.View
 
         public IObservable<object> SelectChanges(string name)
         {
-            Subjects[name] = Subjects.ContainsKey(name) ? Subjects[name] : new Subject<object>();
-            return Subjects[name];
+            lock (lck)
+            {
+                Subjects[name] = Subjects.ContainsKey(name) ? Subjects[name] : new Subject<object>();
+                return Subjects[name];
+            }
         }
 
         public IObservable<T> SelectControlChanges<T>() where T : DependencyObject
@@ -56,18 +61,25 @@ namespace UtilityWpf.View
                 else
                     throw new Exception("No types match");
             }
-
-            Subjects[name] = Subjects.ContainsKey(name) ? Subjects[name] : new Subject<object>();
-            return Subjects[name].Select(x => (T)x);
+            lock (lck)
+            {
+                Subjects[name] = Subjects.ContainsKey(name) ? Subjects[name] : new Subject<object>();
+                return Subjects[name].Select(x => (T)x);
+            }
         }
 
-        public void OnNext(DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
+        public async void OnNext(DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
         {
             string name = dependencyPropertyChangedEventArgs.Property.Name;
             object value = dependencyPropertyChangedEventArgs.NewValue;
-
-            Subjects[name] = Subjects.ContainsKey(name) ? Subjects[name] : new Subject<object>();
-            Subjects[name].OnNext(value);
+            lock (lck)
+            {
+                Subjects[name] = Subjects.ContainsKey(name) ? Subjects[name] : new Subject<object>();
+            }
+            await System.Threading.Tasks.Task.Run(() =>
+            {
+                Subjects[name].OnNext(value);
+            });
         }
 
         protected static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -75,7 +87,7 @@ namespace UtilityWpf.View
             (d as Controlx).OnNext(e);
         }
 
-        public  IObservable<RoutedEventArgs> SelectLoads() =>
+        public IObservable<RoutedEventArgs> SelectLoads() =>
             Observable.FromEventPattern<RoutedEventHandler, RoutedEventArgs>
             (a => this.Loaded += a, a => this.Loaded -= a)
             .Select(a => a.EventArgs);
