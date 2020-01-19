@@ -8,13 +8,13 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel>
         <Button Click="Button_Click">Animate</Button>
-        <Grid Height="300" Width="600">
-            <Canvas x:Name="Canvas1" Background="AliceBlue">
+        <Grid Height="300" Width="600" Background="Gray">
+            <Canvas x:Name="Canvas1" Background="GhostWhite" Margin="10">
                 
             </Canvas>
         </Grid>
-        <Grid Height="300" Width="600">
-            <Canvas  Background="AliceBlue">
+        <Grid Height="300" Width="600" Background="Gray">
+            <Canvas  Background="GhostWhite" Margin="10">
                 <animation:PointControl x:Name="PointControl1">
                     <animation:PointControl.Point>
                         <Point X="100" Y="100"></Point>

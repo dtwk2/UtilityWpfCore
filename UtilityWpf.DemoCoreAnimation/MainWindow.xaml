@@ -6,6 +6,8 @@
         xmlns:ani="clr-namespace:UtilityWpf.Animation;assembly=UtilityWpf.AnimationCore"
         xmlns:local="clr-namespace:UtilityWpf.DemoAnimation"
         xmlns:nb="http://www.aptof.com/"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:local1="clr-namespace:UtilityWpf.DemoAnimationCore"
         mc:Ignorable="d"
         Title="MainWindow" Height="650" Width="800">
     <!--https://stackoverflow.com/questions/25877737/advanced-xaml-animation-effects-pulse-marching-ants-rotations-alerts-->
@@ -41,7 +43,7 @@
                     </Grid>
                 </DockPanel>
             </TabItem>
-
+ 
             <TabItem Header="BeatControl">
                 <DockPanel>
                     <DockPanel.DataContext>
@@ -53,6 +55,35 @@
                     <Grid>
                         <ani:BeatControl  Beat="{Binding Beat}"></ani:BeatControl>
                     </Grid>
+                </DockPanel>
+            </TabItem>
+
+            <TabItem Header="FadeControl">
+                <DockPanel>
+      
+                    <Label>Click Control or Button To Animate</Label>
+                    <Button DockPanel.Dock="Top" Width="200" Height="40" Margin="10" Command="{Binding ElementName=Fade1, Path=FadeCommand}">Click</Button>
+                    <Grid Width="100" Height="100">
+                        <ani:FadeControl x:Name="Fade2" FadeIn="False">
+
+                        </ani:FadeControl>
+                    </Grid>
+                    <Grid Width="100" Height="100">
+                        <ani:FadeControl x:Name="Fade1" >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseDown">
+                                    <i:InvokeCommandAction Command="{Binding FadeCommand, RelativeSource={RelativeSource AncestorType=ani:FadeControl}}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ani:FadeControl>
+                    </Grid>
+             
+                </DockPanel>
+            </TabItem>
+            <TabItem Header="Border">
+                <DockPanel>
+
+                    <local1:BorderUserControl></local1:BorderUserControl>
                 </DockPanel>
             </TabItem>
         </TabControl>

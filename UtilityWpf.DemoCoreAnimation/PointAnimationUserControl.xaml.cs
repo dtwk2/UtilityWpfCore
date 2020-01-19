@@ -30,12 +30,10 @@ namespace UtilityWpf.DemoAnimation
 
 
             myPath = new Path();
-            myPath.Fill = Brushes.Blue;
+            myPath.Fill = Brushes.DodgerBlue;
             myPath.Margin = new Thickness(15);
             myPath.Data = myEllipseGeometry;
             Canvas1.Children.Add(myPath);
-
-
 
         }
 
