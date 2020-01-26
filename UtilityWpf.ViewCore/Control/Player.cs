@@ -2,7 +2,7 @@
 using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Input;
-using UtilityWpf.Commmand;
+using UtilityWpf;
 
 namespace UtilityWpf.View
 {

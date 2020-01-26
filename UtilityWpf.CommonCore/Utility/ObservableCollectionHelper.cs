@@ -48,9 +48,6 @@ namespace UtilityWpf
             return MakeObservable<object>(oc);
         }
 
-
-
-
         public static IObservable<T> SelectNewItems<T>(this INotifyCollectionChanged notifyCollectionChanged)
         {
             return notifyCollectionChanged
@@ -72,8 +69,5 @@ namespace UtilityWpf
               .SelectChanges()
               .Select(x => x.Action);
         }
-
-
-
     }
 }

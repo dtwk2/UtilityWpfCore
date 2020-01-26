@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace UtilityWpf.Command
+namespace UtilityWpf
 {
     /// <summary>
     /// A command wich accepts no parameter - assumes the view model will do the work

@@ -60,7 +60,8 @@ namespace UtilityWpf.View
         private void RaiseSelectedSizeEvent(int Size)
         {
             SelectedSizeChangedRoutedEventArgs newEventArgs = new SelectedSizeChangedRoutedEventArgs(SizeControl.SelectedSizeChangedEvent) { Size = Size };
-            RaiseEvent(newEventArgs);
+            this.Dispatcher.Invoke(()=>
+            RaiseEvent(newEventArgs));
         }
 
         public class SelectedSizeChangedRoutedEventArgs : RoutedEventArgs

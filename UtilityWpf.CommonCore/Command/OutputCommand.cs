@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace UtilityWpf.Command
+namespace UtilityWpf
 {
     public class OutputCommand : Control, ICommand
     {

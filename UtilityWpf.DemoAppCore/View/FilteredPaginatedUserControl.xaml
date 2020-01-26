@@ -7,7 +7,7 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.ViewCore"
              xmlns:common="clr-namespace:UtilityWpf.Behavior;assembly=UtilityWpf.CommonCore"
-             xmlns:command="clr-namespace:UtilityWpf.Command;assembly=UtilityWpf.CommonCore"
+             xmlns:command="clr-namespace:UtilityWpf;assembly=UtilityWpf.CommonCore"
           
              xmlns:sys="clr-namespace:System;assembly=System.Runtime"
              xmlns:alauda="clr-namespace:Alauda;assembly=Alauda"

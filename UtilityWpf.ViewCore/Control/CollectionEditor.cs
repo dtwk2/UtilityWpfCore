@@ -7,7 +7,7 @@ using System.Reactive.Subjects;
 using System.Windows;
 
 using UtilityHelper.NonGeneric;
-using UtilityWpf.Commmand;
+using UtilityWpf;
 
 namespace UtilityWpf.View
 {

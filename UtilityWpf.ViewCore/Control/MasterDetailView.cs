@@ -117,7 +117,7 @@ namespace UtilityWpf.View
             DetailView = DetailView ?? new PropertyTools.Wpf.PropertyGrid();
 
 
-            GroupClick = new UtilityWpf.Commmand.RelayCommand<string>(a => GroupNameChanges.OnNext(a));
+            GroupClick = new RelayCommand<string>(a => GroupNameChanges.OnNext(a));
 
             NameChanges
                 .Merge(GroupNameChanges)
