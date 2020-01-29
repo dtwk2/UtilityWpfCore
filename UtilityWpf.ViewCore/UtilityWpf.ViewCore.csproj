@@ -184,6 +184,9 @@
     <Page Update="Themes\SliderItemsControl.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Themes\ValidationForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Themes\TenseSwitch.xaml">
       <SubType>Designer</SubType>
     </Page>
