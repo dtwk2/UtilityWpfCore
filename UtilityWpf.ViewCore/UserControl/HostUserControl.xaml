@@ -11,9 +11,13 @@
 
         <DockPanel x:Name="DockPanel1">
             <!-- Navigation Buttons -->
-            <ToolBar DockPanel.Dock="Left" Width="250">
-            <ItemsControl x:Name="ItemsControl1"   ><!--ItemsSource="{Binding UserControls}"-->
-                <ItemsControl.ItemTemplate>
+    
+            <ScrollViewer DockPanel.Dock="Left" Width="250">
+
+
+                <ItemsControl x:Name="ItemsControl1"   >
+                    <!--ItemsSource="{Binding UserControls}"-->
+                    <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Button  Content="{Binding Key}" Height="25" Width="200" 
                                  x:Name="button"
@@ -27,8 +31,9 @@
                             </Button>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ToolBar>
+                </ItemsControl     >
+            </ScrollViewer>
+       
 
 
             <ContentControl  DockPanel.Dock="Left" x:Name="ContentControl1" />
