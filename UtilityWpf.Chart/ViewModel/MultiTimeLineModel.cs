@@ -81,7 +81,7 @@ namespace UtilityWpf.Chart
                            .OrderBy(dt => dt.DateTime)
                            .GroupBy(a => a.DateTime)
                          .Select(xy0 => new DateTimePoint(xy0.Key, xy0.Sum(l => l.Value)));
-                yield return Build(allPoints, "All", Colors.Black);
+                yield return Build(allPoints, "All", SplatColor.Black.ToNative());
             }
 
         }
@@ -105,18 +105,18 @@ namespace UtilityWpf.Chart
         {
             if (colorDictionary.ContainsKey(v) == false)
             {
-                var color = RandomColor.GetColor(ColorScheme.Random, Luminosity.Dark).ToNative();
+                var color = RandomColor.GetColor(ColorScheme.Random, Luminosity.Dark);
                 int max = 100, i = 0;
-                while (colorDictionary.Values.Contains(color))
+                while (colorDictionary.Values.Contains(color.ToNative()))
                 {
-                    color = RandomColor.GetColor(ColorScheme.Random, Luminosity.Dark).ToNative();
+                    color = RandomColor.GetColor(ColorScheme.Random, Luminosity.Dark);
                     if (++i > max)
                     {
-                        color =Colors.Gray;
+                        color =System.Drawing.Color.Gray;
                         break;
                     }
                 }
-                colorDictionary[v] = color;
+                colorDictionary[v] = color.ToNative();
 
             }
 

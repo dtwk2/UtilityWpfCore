@@ -16,7 +16,7 @@
         </Grid>
         <UserControl.ToolTip>
             <ToolTip DataContext="{Binding PlacementTarget, RelativeSource={RelativeSource Self}}">
-                <Grid Height="400" Width="400" Background="Wheat">
+                <Grid Height="400" Width="400">
                     <Grid.Background>
                         <VisualBrush Visual="{Binding}"/>
                     </Grid.Background>
