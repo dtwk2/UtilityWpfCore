@@ -15,6 +15,7 @@
     <PackageReference Include="UtilityEnum" Version="1.1.3" />
     <PackageReference Include="UtilityHelper" Version="2.1.1-alpha" />
     <PackageReference Include="UtilityInterface" Version="2.0.1-alpha" />
+    <PackageReference Include="WPFExtension" Version="1.1.0" />
   </ItemGroup>
 
 </Project>

@@ -53,6 +53,12 @@ namespace UtilityWpf.DemoAppCore.View
             Selector.Data = a;
         }
 
+        private void ToggleButton_Checked(object sender, RoutedEventArgs e)
+        {
+            Selector.Id = Selector.Id == "First" ? "Age" : "First";
+               
+        }
+
         //  private ReadOnlyObservableCollection<PassFail> b;
 
 

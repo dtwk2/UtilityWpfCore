@@ -42,10 +42,6 @@ namespace UtilityWpf.View
 
         public SizeControl()
         {
-            //Uri resourceLocater = new Uri("/UtilityWpf.ViewCore;component/Themes/SizeControlStyle.xaml", System.UriKind.Relative);
-            //ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
-            //Style = resourceDictionary["SizeControlStyle"] as Style;
-
             base.SelectChanges(nameof(Size)).Select(_ => (int)_).Subscribe(RaiseSelectedSizeEvent);
         }
 

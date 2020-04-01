@@ -7,7 +7,7 @@ using System.Windows.Controls;
 
 namespace UtilityWpf
 {
-    public class Class1
+    public class VisibilityHelper
     {
         public static bool IsUserVisible(FrameworkElement element, FrameworkElement container)
         {

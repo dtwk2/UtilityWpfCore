@@ -20,6 +20,11 @@ namespace UtilityWpf.View
 {
     public class MasterDetailCheckView : Controlx
     {
+        protected ISubject<string> GroupNameChanges = new Subject<string>();
+        protected ISubject<string> NameChanges = new Subject<string>();
+        private ReadOnlyObservableCollection<object> collection;
+
+
         public ICommand GroupClick { get; }
 
 
@@ -67,7 +72,7 @@ namespace UtilityWpf.View
 
         public static readonly DependencyProperty IdProperty = DependencyProperty.Register("Id", typeof(string), typeof(MasterDetailCheckView), new PropertyMetadata("Id", Changed));
 
-        public static readonly DependencyProperty DetailViewProperty = DependencyProperty.Register("DetailView", typeof(Control), typeof(MasterDetailCheckView), new PropertyMetadata(null, DetailViewChanged));
+        public static readonly DependencyProperty DetailViewProperty = DependencyProperty.Register("DetailView", typeof(Control), typeof(MasterDetailCheckView), new PropertyMetadata(null, (d, e) => (d as MasterDetailCheckView).ControlChanges.OnNext(e.NewValue as Control)));
 
         public static readonly DependencyProperty PropertyGroupDescriptionProperty = DependencyProperty.Register("PropertyGroupDescription", typeof(PropertyGroupDescription), typeof(MasterDetailCheckView), new PropertyMetadata(null, Changed));
 
@@ -76,16 +81,6 @@ namespace UtilityWpf.View
         public static readonly DependencyProperty OutputProperty = DependencyProperty.Register("Output", typeof(object), typeof(MasterDetailCheckView), new PropertyMetadata(null, Changed));
 
         public static readonly DependencyProperty DataConverterProperty = DependencyProperty.Register("DataConverter", typeof(IValueConverter), typeof(MasterDetailCheckView), new PropertyMetadata(null, Changed));
-
-        private static void DetailViewChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            (d as MasterDetailCheckView).ControlChanges.OnNext(e.NewValue as Control);
-        }
-
-        protected ISubject<string> GroupNameChanges = new Subject<string>();
-        protected ISubject<string> NameChanges = new Subject<string>();
-        private ReadOnlyObservableCollection<object> collection;
-
 
         public ICollection<UtilityInterface.Generic.IContain<object>> Objects { get; }
 
@@ -102,62 +97,34 @@ namespace UtilityWpf.View
 
             Objects = ic.Items;
 
-            this.Dispatcher.Invoke(() =>
-            {
-                //(its.a.Resources["GroupedItems"] as CollectionViewSource).Source = ic.Items;
-
-            });
-
             SelectControlChanges<DockPanel>().CombineLatest(SelectChanges(nameof(Items)), (a, b) => (a, b))
-                .Subscribe(its =>
-                    {
-                        subjectObjects.OnNext((its.b as IEnumerable).MakeObservable());
-                    });
+                .Subscribe(its => subjectObjects.OnNext((its.b as IEnumerable).MakeObservable()));
 
-            var xx = SelectChanges<string>(nameof(MasterDetailView.Id)).StartWith(Id)
-                 .CombineLatest(subjectObjects.Switch(), (a, b) => (a, b))
-                 .Select(a =>
-             {
-                 var prop = a.b.GetType().GetProperty(a.a.ToString());
-                 return ic.SelectCheckedChanges().ToObservableChangeSet(c => prop.GetValue(c.Item2));
-             })
+
+            var xx = SelectChanges<string>(nameof(MasterDetailView.Id))
+                .StartWith(Id)
+                 .CombineLatest(subjectObjects.Switch(), (a, b) => b.GetType().GetProperty(a.ToString()))
+                 .Select(prop => ic.SelectCheckedChanges().ToObservableChangeSet(c => prop.GetValue(c.Item2)))
                  .Switch()
                  .Filter(a => a.Item1)
-             .Cast(a => a.Item2)
-             .Bind(out collection)
-             .DisposeMany()
-             .Subscribe(a =>
-             {
-
-             });
+                 .Cast(a => a.Item2)
+                 .Bind(out collection)
+                 .DisposeMany()
+                 .Subscribe(a => { });
 
             //this.Loaded += MasterDetailCheckView_Loaded;
 
-            SelectChanges<Control>(nameof(MasterDetailCheckView.DetailView)).StartWith(DetailView)
-                .Merge(this.SelectLoads().Select(a => this.DetailView))
-
-                 .DistinctUntilChanged(a => a?.GetType().Name).Subscribe(detailView =>
-              {
-                  detailView = detailView ?? new PropertyGrid();
-
-                  if (detailView is Abstract.IItemsSource oview)
-                  {
-                      oview.ItemsSource = collection;
-                  }
-                  else if (detailView is PropertyGrid propertyGrid)
-                  {
-                      propertyGrid.SelectedObjects = collection;
-
-                  }
-                  else if (detailView is ItemsControl itemsControl)
-                  {
-                      itemsControl.ItemsSource = collection;
-                  }
-                  else
-                      throw new Exception(nameof(DetailView) + " needs to have property OutputView");
-
-
-              });
+            _ = SelectChanges<Control>(nameof(MasterDetailCheckView.DetailView))
+                         .StartWith(DetailView)
+                         .Merge(this.SelectLoads().Select(a => this.DetailView))
+                         .DistinctUntilChanged(a => a?.GetType().Name)
+                         .Select(detailView => (detailView ??= new PropertyGrid()) switch
+                         {
+                             Abstract.IItemsSource oview => oview.ItemsSource,
+                             PropertyGrid propertyGrid => propertyGrid.SelectedObjects,
+                             ItemsControl itemsControl => itemsControl.ItemsSource,
+                             _ => throw new Exception(nameof(DetailView) + " needs to have property OutputView")
+                         }).Subscribe(coll => coll = collection);
         }
 
 

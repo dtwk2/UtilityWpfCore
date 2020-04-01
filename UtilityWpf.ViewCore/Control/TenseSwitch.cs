@@ -9,7 +9,7 @@ using UtilityEnum;
 
 namespace UtilityWpf.View
 {
-    public class TenseSwitch : Control
+    public class TenseSwitch : Controlx
     {
 
         static TenseSwitch()
@@ -31,9 +31,8 @@ namespace UtilityWpf.View
                 else
                     RaiseEvent(Tense.Past);
             });
+            base.OnApplyTemplate();
         }
-
-
 
         public Tense Tense
         {
@@ -41,9 +40,9 @@ namespace UtilityWpf.View
             set { SetValue(TenseProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Tense.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty TenseProperty =
-            DependencyProperty.Register("Tense", typeof(Tense), typeof(TenseSwitch), new PropertyMetadata(Tense.Future));
+        //// Using a DependencyProperty as the backing store for Tense.  This enables animation, styling, binding, etc...
+        public static DependencyProperty TenseProperty = WPFExtension.DependencyHelper.Register();
+           // DependencyProperty.Register("Tense", typeof(Tense), typeof(TenseSwitch), new PropertyMetadata(Tense.Future));
 
 
 
@@ -58,6 +57,7 @@ namespace UtilityWpf.View
 
         public void RaiseEvent(Tense tense)
         {
+            Tense = tense;
             // Raise the routed event "TenseChanged"
             RaiseEvent(new RoutedTenseChangedEventArgs(TenseSwitch.TenseChangedEvent, tense));
         }
