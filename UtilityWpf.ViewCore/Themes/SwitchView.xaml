@@ -14,6 +14,26 @@
 
 
     <Style TargetType="{x:Type local:SwitchView}">
+        <Setter Property="CheckedButtonContent">
+            <Setter.Value>
+                "Checked"
+            </Setter.Value>
+        </Setter>
+        <Setter Property="UnCheckedButtonContent">
+            <Setter.Value>
+                "UnChecked"
+            </Setter.Value>
+        </Setter>
+        <Setter Property="CheckedContent">
+            <Setter.Value>
+                <Ellipse Fill="YellowGreen" Width="100" Height="50"></Ellipse>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="UnCheckedContent">
+            <Setter.Value>
+                <Ellipse Fill="BlueViolet" Width="100" Height="50"></Ellipse>
+            </Setter.Value>
+        </Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:SwitchView}">
@@ -22,13 +42,13 @@
                         <ToggleButton x:Name="Toggle1" Height="30" Width="100" >
                             <ToggleButton.Style>
                                 <Style TargetType="ToggleButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
-                                    <Setter Property="Content" Value="Data"/>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsChecked" Value="True">
-                                            <Setter Property="Content" Value="Chart" />
+                                    <Setter Property="Content" Value="{Binding CheckedButtonContent, RelativeSource={RelativeSource AncestorType=local:SwitchView}}" />
+                                        <Style.Triggers>
+                                            <Trigger Property="IsChecked" Value="True">
+                                            <Setter Property="Content" Value="{Binding UnCheckedButtonContent, RelativeSource={RelativeSource AncestorType=local:SwitchView}}" />
                                         </Trigger>
-                           
-                                    </Style.Triggers>
+                                        </Style.Triggers>
+                                    
                                 </Style>
                             </ToggleButton.Style>
                             <ToggleButton.Triggers>
@@ -43,21 +63,13 @@
                                 <Style TargetType="ContentControl">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding ElementName=Toggle1,Path=IsChecked}" Value="True">
-                                            <Setter Property="ContentTemplate">
-                                                <Setter.Value>
-                                                    <DataTemplate>
-                                                        <Ellipse Fill="YellowGreen" Width="100" Height="50"></Ellipse>
-                                                    </DataTemplate>
-                                                </Setter.Value>
-                                            </Setter>
+                                            <Setter Property="Content" Value="{Binding CheckedContent , RelativeSource={RelativeSource AncestorType=local:SwitchView}}" >
+
+</Setter>
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding ElementName=Toggle1,Path=IsChecked}" Value="False">
-                                            <Setter Property="ContentTemplate" >
-                                                <Setter.Value>
-                                                    <DataTemplate>
-                                                        <Ellipse Fill="DarkOliveGreen" Width="100" Height="50"></Ellipse>
-                                                    </DataTemplate>
-                                                </Setter.Value>
+                                            <Setter Property="Content" Value="{Binding UnCheckedContent, RelativeSource={RelativeSource AncestorType=local:SwitchView}}" >
+
                                             </Setter>
                                         </DataTrigger>
 
@@ -65,8 +77,6 @@
                                 </Style>
                             </ContentControl.Style>
                         </ContentControl>
-
-
                     </DockPanel>
                 </ControlTemplate>
             </Setter.Value>
