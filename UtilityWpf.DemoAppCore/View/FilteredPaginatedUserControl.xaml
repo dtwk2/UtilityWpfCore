@@ -39,7 +39,7 @@
                 <UniformGrid.Resources>
                     <command:OutputCommand x:Key="oc"></command:OutputCommand>
                     <view:SelectedIndexEventArgsToNumber x:Key="eac"></view:SelectedIndexEventArgsToNumber>
-                    <view:BindingChecker x:Key="bc"></view:BindingChecker>
+                   
                 </UniformGrid.Resources>
                 <alauda:NumberBox x:Name="nb" Value="10" Width="50" HorizontalAlignment="Left"></alauda:NumberBox>
                 <view:NavigatorControl Size="{Binding ElementName=nb,Path=Value,Mode=OneWay}">
@@ -62,7 +62,7 @@
                         </Style>
                     </command:OutputCommand.Style>
                 </command:OutputCommand>
-                <TextBlock Background="AliceBlue" Width="60" Height="30" Text="{Binding  Output, Source={StaticResource oc}, Converter={StaticResource bc}, Mode=TwoWay,FallbackValue='20'}"/>
+                <TextBlock Background="AliceBlue" Width="60" Height="30" Text="{Binding  Output, Source={StaticResource oc}, Mode=TwoWay,FallbackValue='20'}"/>
             </UniformGrid>
         </Border>
         <view:PageNavigatorControl x:Name="pnc" ItemsSource="{Binding}"></view:PageNavigatorControl>
