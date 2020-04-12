@@ -1,102 +1,57 @@
 ﻿using BFF.DataVirtualizingCollection;
 using DynamicData;
+using Endless;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Reactive;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Text;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using UtilityHelper.Generic;
 
 namespace UtilityWpf.DemoAppCore
 {
 
-    public class ProfileCollection : ReactiveObject
+
+
+    public class ProfileCollectionTimed
     {
-        IList<ProfileViewModel> GetProfiles(int i)
-        {
-            var ProfilePool = ProfileFactory.BuildPool();
-            return DataVirtualizingCollectionBuilder<ProfileViewModel>
-             .Build(i)
-             .NonPreloading()
-             .Hoarding()
-             .NonTaskBasedFetchers(
-                 (offset, pageSize) =>
-                 {
-                     Console.WriteLine($"{nameof(Profiles)}: Loading page with offset {offset}");
-                     var range = Enumerable.Range(offset, pageSize).Select(i => ProfilePool[i % ProfilePool.Count]).ToArray();
-                     return range;
-                 },
-                 () =>
-                 {
-                     Console.WriteLine($"{nameof(Profiles)}: Loading count");
-                     return 420420;
-                 })
-             .SyncIndexAccess();
-        }
+        const int _speed = 3;
 
-        public IList<ProfileViewModel> Profiles => profiles.Value;
-
-        int val = 1;
-        private readonly ObservableAsPropertyHelper<IList<ProfileViewModel>> profiles;
-
-        public int Value { get => val; set => this.RaiseAndSetIfChanged(ref val, value); }
-
-
-        public ProfileCollection()
-        {
-            profiles = this.WhenAnyValue(a => a.Value).Select(a => GetProfiles(a)).ToProperty(this, a => a.Profiles);
-        }
-    }
-
-    public class ProfileCollection2
-    {
         private readonly ReadOnlyObservableCollection<ProfileViewModel> profiles;
 
         public ReadOnlyObservableCollection<ProfileViewModel> Profiles => profiles;
 
-        public ProfileCollection2()
-        { var pool = ProfileFactory.BuildPool();
-            _ = Observable.Interval(TimeSpan.FromSeconds(3))
-                .ObserveOnDispatcher()
-                       .SelectMany(a => pool.OrderBy(a => Guid.NewGuid()).Take(1))
-                 .ToObservableChangeSet()
-                 .Sort(new comparer())
-                 .Bind(out profiles).Subscribe();
-        }
-
-        class comparer : IComparer<ProfileViewModel>
-        {
-            public int Compare([AllowNull] ProfileViewModel x, [AllowNull] ProfileViewModel y)
-            {
-               return x.Name.CompareTo(y.Name);
-            }
-        }
-    }
-
-
-    public class ProfileCollectionSlow
-    {
-        private readonly ReadOnlyObservableCollection<ProfileViewModel> profiles;
-
-        public ReadOnlyObservableCollection<ProfileViewModel> Profiles => profiles;
-
-        public ProfileCollectionSlow()
+        public ProfileCollectionTimed(int speed )
         {
             var pool = ProfileFactory.BuildPool();
-            _ = Observable.Interval(TimeSpan.FromSeconds(6))
+            _ = Observable.Interval(TimeSpan.FromSeconds(speed))
                 .ObserveOnDispatcher()
-                 .SelectMany(a => pool.OrderBy(a=>Guid.NewGuid()).Take(1))
-                 .StartWith(pool)
+                       .Select(a => pool.Random())
                  .ToObservableChangeSet()
                  .Sort(new comparer())
                  .Bind(out profiles).Subscribe();
         }
 
+        public ProfileCollectionTimed()
+        {
+            var pool = ProfileFactory.BuildPool();
+            _ = Observable.Interval(TimeSpan.FromSeconds(_speed))
+                .ObserveOnDispatcher()
+                       .Select(a => pool.Random())
+                 .ToObservableChangeSet()
+                 .Sort(new comparer())
+                 .Bind(out profiles).Subscribe();
+
+        }
         class comparer : IComparer<ProfileViewModel>
         {
             public int Compare([AllowNull] ProfileViewModel x, [AllowNull] ProfileViewModel y)
@@ -105,6 +60,125 @@ namespace UtilityWpf.DemoAppCore
             }
         }
     }
+
+
+    public class ProfileCollectionSlow : ProfileCollectionTimed
+    {
+        public ProfileCollectionSlow() : base(6)
+        {
+        }
+    }
+
+    public class ProfileCollectionVirtualise1 : ReactiveObject
+    {
+        int val = 1;
+        private readonly ObservableAsPropertyHelper<IList<ProfileViewModel>> profiles;
+
+        public ProfileCollectionVirtualise1()
+        {
+            profiles = this.WhenAnyValue(a => a.Value).Select(a => GetProfiles(a)).ToProperty(this, a => a.Profiles);
+
+            IList<ProfileViewModel> GetProfiles(int i)
+            {
+                var ProfilePool = ProfileFactory.BuildPool();
+                return DataVirtualizingCollectionBuilder<ProfileViewModel>
+                 .Build(i)
+                 .NonPreloading()
+                 .Hoarding()
+                 .NonTaskBasedFetchers(
+                     (offset, pageSize) =>
+                     {
+                         Console.WriteLine($"{nameof(Profiles)}: Loading page with offset {offset}");
+                         var range = Enumerable.Range(offset, pageSize).Select(i => ProfilePool[i % ProfilePool.Count]).ToArray();
+                         return range;
+                     },
+                     () =>
+                     {
+                         Console.WriteLine($"{nameof(Profiles)}: Loading count");
+                         return 420420;
+                     })
+                 .SyncIndexAccess();
+            }
+        }
+
+        public IList<ProfileViewModel> Profiles => profiles.Value;
+
+        public int Value { get => val; set => this.RaiseAndSetIfChanged(ref val, value); }
+
+
+
+    }
+
+    public class ProfileCollectionVirtualiseLimited
+    {
+        private readonly ReadOnlyObservableCollection<ProfileViewModel> profiles;
+
+        /// <summary>
+        /// Only adds to the pool of data when asked to
+        /// </summary>
+        /// <param name="virtualRequests"></param>
+        public ProfileCollectionVirtualiseLimited(IObservable<IVirtualRequest> virtualRequests)
+        {
+
+            var pool = ProfileFactory.BuildPool();
+
+            var cached = 0.Iterate(a => a + 1)
+                 .Select(i => (i, pool.Random()))
+                 .Cached();
+
+            _ =
+              virtualRequests
+                .SelectMany(a => cached.Skip(a.StartIndex).Take(a.Size + 30))
+               .ToObservableChangeSet(a => a.i)
+               .Transform(a => a.Item2)
+                        .Bind(out profiles)
+                        .Subscribe();
+
+        }
+
+        public ReadOnlyObservableCollection<ProfileViewModel> Profiles => profiles;
+    }
+
+
+    public class ProfileCollectionVirtualise
+    {
+        private readonly ReadOnlyObservableCollection<ProfileViewModel> profiles;
+
+        /// <summary>
+        /// Creates an initial set of blank data then fills when requested
+        /// </summary>
+        /// <param name="virtualRequests"></param>
+        /// <param name="initialSize"></param>
+        public ProfileCollectionVirtualise(IObservable<IVirtualRequest> virtualRequests, int initialSize)
+        {
+
+            var pool = ProfileFactory.BuildPool();
+
+            var cached = 0.Iterate(a => a + 1)
+                .Select(i => (i, pool.Random()))
+                .Cached();
+
+
+            _ = ObservableChangeSet.Create<ProfileViewModel>(observableList =>
+            {
+                observableList.AddRange(Enumerable.Range(0, initialSize)
+                                                  .Select(i => new ProfileViewModel()));
+
+                return virtualRequests
+                            .SelectMany(a => cached.Skip(a.StartIndex).Take(a.Size).ToObservable())
+                            .Distinct(a => a.i)
+                            .Subscribe(vv => observableList.ReplaceAt(vv.i, vv.Item2));
+            })
+            .Bind(out profiles)
+             .Subscribe();
+
+        }
+
+        public ReadOnlyObservableCollection<ProfileViewModel> Profiles => profiles;
+    }
+
+
+
 
     /// <summary>
     /// https://github.com/Yeah69/BFF.DataVirtualizingCollection
@@ -258,7 +332,7 @@ namespace UtilityWpf.DemoAppCore
 
 
 
-    public class ProfileViewModel
+    public struct ProfileViewModel //: IEquatable<ProfileViewModel>
     {
         public static IValueConverter ToCompanyBrush =
             LambdaConverters.ValueConverter.Create<ProfileViewModel, Brush>(
@@ -280,10 +354,23 @@ namespace UtilityWpf.DemoAppCore
             LambdaConverters.ValueConverter.Create<int, string>(
                 e => $"Profiles ({e.Value})");
 
-        public ProfileViewModel()
-        {
-        }
+        //public ProfileViewModel()
+        //{
+        //}
 
+        //public ProfileViewModel()
+        //{
+        //    Occupation = default;
+        //    Salary = default;
+        //    Name = default;
+        //    Description = default;
+        //    IsAvailable = default;
+        //    IsFreelancer = default;
+        //    CompanyName = default;
+        //    //Abilities = abilities;
+        //    HiddenAbilitiesCount = default;
+
+        //}
         public ProfileViewModel(
             string occupation,
             string salary,
@@ -294,7 +381,8 @@ namespace UtilityWpf.DemoAppCore
             string companyName,
             IReadOnlyList<string> abilities,
             int hiddenAbilitiesCount,
-            ImageSource picture)
+            ImageSource picture
+           )
         {
             Occupation = occupation;
             Salary = salary;
@@ -305,8 +393,11 @@ namespace UtilityWpf.DemoAppCore
             CompanyName = companyName;
             Abilities = abilities;
             HiddenAbilitiesCount = hiddenAbilitiesCount;
-            Picture = picture;
+             Picture = picture;
         }
+
+
+        //public int Index { get; set; }
 
         public string Occupation { get; }
 
@@ -327,5 +418,70 @@ namespace UtilityWpf.DemoAppCore
         public int HiddenAbilitiesCount { get; }
 
         public ImageSource Picture { get; }
+
+        //public override bool Equals(object obj)
+        //{
+        //    return Equals(obj as ProfileViewModel);
+        //}
+
+        //public bool Equals([AllowNull] ProfileViewModel other)
+        //{
+        //    return other != null &&
+        //        Index == other.Index &&
+        //           Occupation == other.Occupation &&
+        //           Salary == other.Salary &&
+        //           Name == other.Name &&
+        //           Description == other.Description &&
+        //           IsAvailable == other.IsAvailable &&
+        //           IsFreelancer == other.IsFreelancer &&
+        //           CompanyName == other.CompanyName &&
+        //           EqualityComparer<IReadOnlyList<string>>.Default.Equals(Abilities, other.Abilities) &&
+        //           HiddenAbilitiesCount == other.HiddenAbilitiesCount &&
+        //           EqualityComparer<ImageSource>.Default.Equals(Picture, other.Picture);
+        //}
+
+        //public override int GetHashCode()
+        //{
+        //    var hash = new HashCode();
+        //    hash.Add(Index);
+        //    hash.Add(Occupation);
+        //    hash.Add(Salary);
+        //    hash.Add(Name);
+        //    hash.Add(Description);
+        //    hash.Add(IsAvailable);
+        //    hash.Add(IsFreelancer);
+        //    hash.Add(CompanyName);
+        //    hash.Add(Abilities);
+        //    hash.Add(HiddenAbilitiesCount);
+        //    hash.Add(Picture);
+        //    return hash.ToHashCode();
+        //}
+
+        //public static bool operator ==(ProfileViewModel left, ProfileViewModel right)
+        //{
+        //    return EqualityComparer<ProfileViewModel>.Default.Equals(left, right);
+        //}
+
+        //public static bool operator !=(ProfileViewModel left, ProfileViewModel right)
+        //{
+        //    return !(left == right);
+        //}
+
+        //public ProfileViewModel WithIndex(int index)
+        //{
+        //    return new ProfileViewModel(
+        //    Occupation,
+        //    Salary,
+        //    Name,
+        //    Description,
+        //    IsAvailable,
+        //    IsFreelancer,
+        //    CompanyName,
+        //    null,
+        //    //Abilities,
+        //    HiddenAbilitiesCount,
+        //    null, // Picture,
+        //    index);
+        //}
     }
 }

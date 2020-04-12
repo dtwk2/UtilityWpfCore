@@ -31,17 +31,14 @@ namespace UtilityWpf
 (a => combo.IsVisibleChanged += a, a => combo.IsVisibleChanged -= a)
 .Select(a => a.EventArgs);
 
-        ////
-        //// Summary:
-        ////     Occurs when this System.Windows.FrameworkElement is initialized. This event coincides
-        ////     with cases where the value of the System.Windows.FrameworkElement.IsInitialized
-        ////     property changes from false (or undefined) to true.
-        //[EditorBrowsable(EditorBrowsableState.Advanced)]
-        //public event EventHandler Initialized;
-        ////
-        //// Summary:
-        ////     Occurs when the element is laid out, rendered, and ready for interaction.
-        //public event RoutedEventHandler Loaded;
 
+        public static IObservable<ScrollChangedEventArgs> ScrollChanges(this ScrollViewer combo) =>
+         Observable
+.FromEventPattern<ScrollChangedEventHandler, ScrollChangedEventArgs>
+(a => combo.ScrollChanged += a, a => combo.ScrollChanged -= a)
+.Select(a => a.EventArgs);
+        
+
+   
     }
 }

@@ -10,7 +10,7 @@ namespace UtilityWpf
     //https://stackoverflow.com/questions/974598/find-all-controls-in-wpf-window-by-type/978352#978352
     //answered Jun 10 '09 at 21:53
     //Bryce Kahle
-    public static class ControlHelper
+    public static class VisualTreeHelperEx
     {
         //    public static T GetChildOfType<T>(this DependencyObject depObj)
         //        where T : DependencyObject

@@ -3,13 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:UtilityWpf.DemoApp"
-        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-
         xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.ViewCore"
+        xmlns:view1="clr-namespace:UtilityWpf.DemoAppCore.View"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         <view:HostUserControl></view:HostUserControl>
+        <!--<view1:DataGridUserControl></view1:DataGridUserControl>-->
     </Grid>
 </Window>
