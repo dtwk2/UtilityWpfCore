@@ -34,7 +34,7 @@ namespace UtilityWpf.DemoAppCore.View
             var dc2 = new ProfileCollectionVirtualise(this.Behavior2.WhenAny(a => a.FirstIndex, b => (b.Sender.FirstIndex, b.Sender.LastIndex, b.Sender.Size))
                 .Select(a => new VirtualRequest(a.FirstIndex, a.Size))
                 .Skip(1)
-                .StartWith(new VirtualRequest(0, 30)), 100000);
+                .StartWith(new VirtualRequest(0, 30)), initialSize: 1000);
 
             this.Behavior2.WhenAny(a => a.FirstIndex, b=> (b.Sender.FirstIndex, b.Sender.LastIndex, b.Sender.Size) ).Subscribe(s =>
               {

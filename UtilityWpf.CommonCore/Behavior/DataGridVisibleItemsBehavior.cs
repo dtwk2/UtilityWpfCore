@@ -74,12 +74,12 @@ namespace UtilityWpf.Behavior
         {
             if (VisualTreeHelperEx.FindVisualChildren<ScrollViewer>(dataGrid).FirstOrDefault() is ScrollViewer scrollViewer)
             {
-                scrollViewer.ScrollChanged += AssociatedObject_ScrollChanged;
-
+                // N.B this doesn't work well if VerticalScrollBar is used to scroll- works for mouse-wheel.
+                if (MouseFactor > 1)
+                    scrollViewer.ScrollChanged += AssociatedObject_ScrollChanged;
                 scrollViewer
                     .ScrollChanges()
-                    //.Select(a => a.VerticalChange * 2.5)
-                    .Select(a => ScrollViewerOnScrollChanged(scrollViewer, dataGrid, a))
+                         .Select(a => ScrollViewerOnScrollChanged(scrollViewer, dataGrid, a))
                     .Where(a => a.HasValue)
                     .Select(a => a.Value)
                          .ObserveOnDispatcher()
@@ -97,13 +97,11 @@ namespace UtilityWpf.Behavior
                 if (scrollViewer.VerticalOffset == scrollPosition)
                     return;
 
-                scrollPosition = scrollViewer.VerticalOffset + e.VerticalChange * MouseFactor;// steps * stepSize;
+                scrollPosition = scrollViewer.VerticalOffset + e.VerticalChange * MouseFactor;
                 if (scrollPosition >= scrollViewer.ScrollableHeight)
-                {
                     scrollViewer.ScrollToBottom();
-                    return;
-                }
-                scrollViewer.ScrollToVerticalOffset(scrollPosition);
+                else
+                    scrollViewer.ScrollToVerticalOffset(scrollPosition);
             }
 
 
@@ -111,7 +109,7 @@ namespace UtilityWpf.Behavior
             {
                 //AssociatedObject_ScrollChanged();
 
-                if (VisualTreeHelperEx.FindVisualChildren<ScrollBar>(scrollViewer).FirstOrDefault(s => s.Orientation == Orientation.Vertical) is ScrollBar verticalScrollBar)
+                if (VisualTreeHelperEx.FindVisualChildren<ScrollBar>(scrollViewer).Single(s => s.Orientation == Orientation.Vertical) is ScrollBar verticalScrollBar)
                 {
                     int totalCount = dataGrid.Items.Count;
                     var firstVisible = (verticalScrollBar.Value);

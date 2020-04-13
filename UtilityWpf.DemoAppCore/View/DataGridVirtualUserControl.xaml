@@ -22,49 +22,55 @@
         </Style>
     </UserControl.Resources>
 
-    <UniformGrid Columns="2">      
+    <UniformGrid Columns="2">
         <Grid x:Name="Grid1">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <UniformGrid Rows="1">
+                <TextBlock>Infinite Scroll</TextBlock>
+                <Slider x:Name="Slider1" Minimum="1" Maximum="5" TickFrequency="1" IsSnapToTickEnabled="True" Value="2.5"></Slider>
+            </UniformGrid>
 
-        <UniformGrid Rows="2" Margin="20">
-            <Label Content="First"></Label>
-            <Label Content="Last"></Label>
-            <Label Content="Size"></Label>
-            <TextBlock x:Name="FirstIndexBox"></TextBlock>
-            <TextBlock x:Name="LastIndexBox"></TextBlock>
-            <TextBlock x:Name="SizeBox"></TextBlock>
-        </UniformGrid>
-        <DataGrid x:Name="dataGrid1" ItemsSource="{Binding Profiles}" Grid.Row="1"  EnableRowVirtualization="True" ScrollViewer.VerticalScrollBarVisibility="Hidden">
-            <i:Interaction.Behaviors>
-                <behavior:DataGridVisibleItemsBehavior x:Name="Behavior1" />
-            </i:Interaction.Behaviors>
-        </DataGrid>
+            <UniformGrid Rows="2" Margin="20" Grid.Row="1"  >
+                <Label Content="First"></Label>
+                <Label Content="Last"></Label>
+                <Label Content="Size"></Label>
+                <TextBlock x:Name="FirstIndexBox"></TextBlock>
+                <TextBlock x:Name="LastIndexBox"></TextBlock>
+                <TextBlock x:Name="SizeBox"></TextBlock>
+            </UniformGrid>
+            <DataGrid x:Name="dataGrid1" ItemsSource="{Binding Profiles}"  Grid.Row="2"  VerticalScrollBarVisibility="Hidden">
+                <i:Interaction.Behaviors>
+                    <behavior:DataGridVisibleItemsBehavior x:Name="Behavior1" MouseFactor="{Binding ElementName=Slider1, Path=Value}"/>
+                </i:Interaction.Behaviors>
+            </DataGrid>
 
-    </Grid>
-    
-    <Grid x:Name="Grid2">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
+        </Grid>
 
-        <UniformGrid Rows="2" Margin="20">
-            <Label Content="First"></Label>
-            <Label Content="Last"></Label>
-            <Label Content="Size"></Label>
-            <TextBlock x:Name="FirstIndexBox2"></TextBlock>
-            <TextBlock x:Name="LastIndexBox2"></TextBlock>
-            <TextBlock x:Name="SizeBox2"></TextBlock>
-        </UniformGrid>
-        <DataGrid x:Name="dataGrid2" ItemsSource="{Binding Profiles}" Grid.Row="1"  EnableRowVirtualization="True" >
-            <i:Interaction.Behaviors>
-                <behavior:DataGridVisibleItemsBehavior x:Name="Behavior2" MouseFactor="1"/>
-            </i:Interaction.Behaviors>
-        </DataGrid>
+        <Grid x:Name="Grid2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock>Delayed Visibility</TextBlock>
+            <UniformGrid Rows="2" Margin="20" Grid.Row="1" >
+                <Label Content="First"></Label>
+                <Label Content="Last"></Label>
+                <Label Content="Size"></Label>
+                <TextBlock x:Name="FirstIndexBox2"></TextBlock>
+                <TextBlock x:Name="LastIndexBox2"></TextBlock>
+                <TextBlock x:Name="SizeBox2"></TextBlock>
+            </UniformGrid>
+            <DataGrid x:Name="dataGrid2" ItemsSource="{Binding Profiles}" Grid.Row="2"  >
+                <i:Interaction.Behaviors>
+                    <behavior:DataGridVisibleItemsBehavior x:Name="Behavior2" MouseFactor="1"/>
+                </i:Interaction.Behaviors>
+            </DataGrid>
 
-    </Grid>
+        </Grid>
     </UniformGrid>
 </UserControl>

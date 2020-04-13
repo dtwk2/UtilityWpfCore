@@ -16,6 +16,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using UtilityHelper.Generic;
+using UtilityWpf.Common.Utility;
 
 namespace UtilityWpf.DemoAppCore
 {
@@ -30,7 +31,7 @@ namespace UtilityWpf.DemoAppCore
 
         public ReadOnlyObservableCollection<ProfileViewModel> Profiles => profiles;
 
-        public ProfileCollectionTimed(int speed )
+        public ProfileCollectionTimed(int speed)
         {
             var pool = ProfileFactory.BuildPool();
             _ = Observable.Interval(TimeSpan.FromSeconds(speed))
@@ -151,27 +152,12 @@ namespace UtilityWpf.DemoAppCore
         /// <param name="initialSize"></param>
         public ProfileCollectionVirtualise(IObservable<IVirtualRequest> virtualRequests, int initialSize)
         {
-
             var pool = ProfileFactory.BuildPool();
+            var items = new Func<ProfileViewModel>(pool.Random).Repeat();
 
-            var cached = 0.Iterate(a => a + 1)
-                .Select(i => (i, pool.Random()))
-                .Cached();
-
-
-            _ = ObservableChangeSet.Create<ProfileViewModel>(observableList =>
-            {
-                observableList.AddRange(Enumerable.Range(0, initialSize)
-                                                  .Select(i => new ProfileViewModel()));
-
-                return virtualRequests
-                            .SelectMany(a => cached.Skip(a.StartIndex).Take(a.Size).ToObservable())
-                            .Distinct(a => a.i)
-                            .Subscribe(vv => observableList.ReplaceAt(vv.i, vv.Item2));
-            })
-            .Bind(out profiles)
-             .Subscribe();
-
+            _ = VirtualisationHelper.CreateChangeSet(items, virtualRequests, initialSize)
+                .Bind(out profiles)
+                .Subscribe();
         }
 
         public ReadOnlyObservableCollection<ProfileViewModel> Profiles => profiles;
@@ -354,23 +340,6 @@ namespace UtilityWpf.DemoAppCore
             LambdaConverters.ValueConverter.Create<int, string>(
                 e => $"Profiles ({e.Value})");
 
-        //public ProfileViewModel()
-        //{
-        //}
-
-        //public ProfileViewModel()
-        //{
-        //    Occupation = default;
-        //    Salary = default;
-        //    Name = default;
-        //    Description = default;
-        //    IsAvailable = default;
-        //    IsFreelancer = default;
-        //    CompanyName = default;
-        //    //Abilities = abilities;
-        //    HiddenAbilitiesCount = default;
-
-        //}
         public ProfileViewModel(
             string occupation,
             string salary,
@@ -393,7 +362,7 @@ namespace UtilityWpf.DemoAppCore
             CompanyName = companyName;
             Abilities = abilities;
             HiddenAbilitiesCount = hiddenAbilitiesCount;
-             Picture = picture;
+            Picture = picture;
         }
 
 
