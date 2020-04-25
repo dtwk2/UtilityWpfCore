@@ -15,8 +15,4 @@
     <PackageReference Include="UtilityModel" Version="1.0.6-alpha" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="SHDObject\" />
-  </ItemGroup>
-
 </Project>
