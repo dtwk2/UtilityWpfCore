@@ -32,6 +32,7 @@
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/MenuButton.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/Foreign/TimeBar.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/Foreign/CompareSlider.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/Foreign/IpAddrBox.xaml"></ResourceDictionary>
   
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary> 
