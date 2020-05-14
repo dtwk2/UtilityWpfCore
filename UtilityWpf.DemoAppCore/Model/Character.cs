@@ -28,7 +28,7 @@ namespace UtilityWpf.DemoApp
             set
             {
                 _first = value;
-                RaisePropertyChanged(nameof(First));
+                RaisePropertyChanged("First");
             }
         }
 
