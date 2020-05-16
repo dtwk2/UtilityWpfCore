@@ -1,5 +1,5 @@
 ﻿
-namespace UtilityWpf.ViewModel
+namespace UtilityWpf.Utility
 {
 
     using System;
@@ -25,8 +25,8 @@ namespace UtilityWpf.ViewModel
             set
             {
                 if (
-                    (_key == null && value != null)
-                    || (_key != null && value == null)
+                    _key == null && value != null
+                    || _key != null && value == null
                     || !_key.Equals(value))
                 {
                     _key = value;
@@ -41,9 +41,9 @@ namespace UtilityWpf.ViewModel
             set
             {
                 if (
-                    (_value == null && value != null)
-                    || (_value != null && value == null)
-                    || (_value != null && !_value.Equals(value)))
+                    _value == null && value != null
+                    || _value != null && value == null
+                    || _value != null && !_value.Equals(value))
                 {
                     _value = value;
                     NotifyPropertyChanged("Value");
@@ -111,7 +111,7 @@ namespace UtilityWpf.ViewModel
 
         private void Pair_PropertyChanged(TKey key)
         {
-            this.KeyValueChanged?.Invoke(this, new PropertyChangedEventArgs(key.ToString()));
+            KeyValueChanged?.Invoke(this, new PropertyChangedEventArgs(key.ToString()));
         }
     }
 }

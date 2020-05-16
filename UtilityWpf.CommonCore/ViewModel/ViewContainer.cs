@@ -4,7 +4,7 @@ using System;
 namespace UtilityWpf.ViewModel
 
 {
-    public class ViewContainer : AbstractNotifyPropertyChanged
+    public class ViewContainer 
     {
         public ViewContainer(string title, object content)
         {

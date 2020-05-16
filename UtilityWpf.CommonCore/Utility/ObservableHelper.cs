@@ -4,7 +4,7 @@ using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Text;
 
-namespace UtilityWpf.Common.Utility
+namespace UtilityWpf
 {
     public static class ObservableHelper
     {

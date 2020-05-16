@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.ViewModelCore", "UtilityWpf.ViewModelCore\UtilityWpf.ViewModelCore.csproj", "{4A4B4766-C4A6-420F-AF9E-091F451D7FB3}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.DemoAppCore", "UtilityWpf.DemoAppCore\UtilityWpf.DemoAppCore.csproj", "{DD952243-0875-4A4F-BFD0-E4DBD73FB7D5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{3E8F851B-BECA-4BAA-9275-2104CDEAEC3D}"
@@ -27,10 +25,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4A4B4766-C4A6-420F-AF9E-091F451D7FB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4A4B4766-C4A6-420F-AF9E-091F451D7FB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4A4B4766-C4A6-420F-AF9E-091F451D7FB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4A4B4766-C4A6-420F-AF9E-091F451D7FB3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DD952243-0875-4A4F-BFD0-E4DBD73FB7D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DD952243-0875-4A4F-BFD0-E4DBD73FB7D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD952243-0875-4A4F-BFD0-E4DBD73FB7D5}.Release|Any CPU.ActiveCfg = Release|Any CPU

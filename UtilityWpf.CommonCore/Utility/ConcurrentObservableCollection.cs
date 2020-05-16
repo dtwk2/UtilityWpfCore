@@ -5,7 +5,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 
-namespace UtilityWpf.ViewModel
+namespace UtilityWpf
 {
     /// <summary>
     /// https://github.com/sorteper/ConcurrentObservableCollection/blob/master/ConcurrentObservableCollection.cs
@@ -42,7 +42,7 @@ namespace UtilityWpf.ViewModel
 
         protected virtual bool CheckAccess()
         {
-            return this.dispatcher.CheckAccess();
+            return dispatcher.CheckAccess();
         }
 
         protected virtual IDispatcher Dispatcher
@@ -55,7 +55,7 @@ namespace UtilityWpf.ViewModel
         #region public
 
         public object SyncRoot { get; }
-  
+
         #endregion
 
         #region IList<T>
@@ -201,7 +201,7 @@ namespace UtilityWpf.ViewModel
             {
                 IEnumerator enumerable = null;
                 lock (SyncRoot)
-                    Dispatcher.Invoke(() => { enumerable =((IEnumerable)this).GetEnumerator(); });
+                    Dispatcher.Invoke(() => { enumerable = ((IEnumerable)this).GetEnumerator(); });
                 return enumerable;
             }
             return m_list.ToList().GetEnumerator();
@@ -316,7 +316,7 @@ namespace UtilityWpf.ViewModel
                                 Dispatcher.Invoke(() => { handler(this, e); });
                         }
                         else
-                        handler(this, e);
+                            handler(this, e);
                     }
                 }
             }
