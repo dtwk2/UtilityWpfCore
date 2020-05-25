@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace UtilityWpf.View
 {
-    public class SkipControl : Control
+    public class SkipControl : ContentControl
     {
         public static readonly DependencyProperty PreviousCommandProperty = DependencyProperty.Register("PreviousCommand", typeof(ICommand), typeof(SkipControl));
 
@@ -19,10 +19,6 @@ namespace UtilityWpf.View
         public static readonly DependencyProperty CanMoveToNextProperty = DependencyProperty.Register("CanMoveToNext", typeof(bool), typeof(SkipControl), new PropertyMetadata(true, CanMoveToNextChanged));
 
         public static readonly DependencyProperty CanMoveToPreviousProperty = DependencyProperty.Register("CanMoveToPrevious", typeof(bool), typeof(SkipControl), new PropertyMetadata(true, CanMoveToPreviousChanged));
-
-        //public static readonly DependencyProperty OutputProperty = DependencyProperty.Register("Output", typeof(object), typeof(SkipControl), new PropertyMetadata( 0 ));
-
-        private ISubject<int> SizeChanges = new Subject<int>();
 
         private static void CanMoveToNextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -52,20 +48,16 @@ namespace UtilityWpf.View
         //    set { SetValue(OutputProperty, value); }
         //}
 
-        //static SkipControl()
-        //{
-        //    DefaultStyleKeyProperty.OverrideMetadata(typeof(SkipControl), new FrameworkPropertyMetadata(typeof(SkipControl)));
-        //}
+        static SkipControl()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(SkipControl), new FrameworkPropertyMetadata(typeof(SkipControl)));
+        }
 
         private ISubject<bool> CanMoveToNextChanges = new Subject<bool>();
         private ISubject<bool> CanMoveToPreviousChanges = new Subject<bool>();
 
         public SkipControl()
         {
-            Uri resourceLocater = new Uri("/UtilityWpf.ViewCore;component/Themes/SkipStyle.xaml", System.UriKind.Relative);
-            ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
-            Style = resourceDictionary["SkipStyle"] as Style;
-
             var nextCommand = ReactiveCommand.Create<Unit>(a=>CanMoveToNextChanges.OnNext(true));
             var previousCommand = ReactiveCommand.Create<Unit>(a => CanMoveToPreviousChanges.OnNext(true));
             this.SetValue(NextCommandProperty, nextCommand);

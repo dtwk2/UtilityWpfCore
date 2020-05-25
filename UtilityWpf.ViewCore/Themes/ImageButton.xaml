@@ -2,15 +2,14 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:UtilityWpf.View">
 
-    <Style x:Key="ImageButtonStyle" TargetType="{x:Type local:ImageButton}" BasedOn="{x:Null}">
+    <Style TargetType="{x:Type local:ImageButton}" >
 
         <Setter Property="Template">
             <Setter.Value>
-
                 <ControlTemplate TargetType="{x:Type local:ImageButton}">
                     <Grid x:Name="Grid">
 
-                        <Image x:Name="ButtonImage" Source="{Binding NormalImage, RelativeSource={RelativeSource TemplatedParent}}"
+                        <Image x:Name="ButtonImage" Source="{Binding Image, RelativeSource={RelativeSource TemplatedParent}}"
                                Height="{Binding ImageSize, RelativeSource={RelativeSource TemplatedParent}}"
                                Width="{Binding ImageSize, RelativeSource={RelativeSource TemplatedParent}}" />
                     </Grid>

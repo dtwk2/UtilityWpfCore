@@ -1,8 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:UtilityWpf.View"
-                             xmlns:ruben="clr-namespace:Rubenhak.Common.WPF;assembly=Rubenhak.Common.WPF"
-        xmlns:converters="clr-namespace:Converters">
+                    >
 
     <!--Control colors.-->
     <Color x:Key="WindowColor">#FFE8EDF9</Color>
@@ -74,7 +72,7 @@
         </LinearGradientBrush.GradientStops>
     </LinearGradientBrush>
 
-    <Style x:Key="ProgressTimeBarStyle" TargetType="ProgressBar"  BasedOn="{StaticResource {x:Type ProgressBar }}">
+    <Style  TargetType="ProgressBar"  BasedOn="{StaticResource {x:Type ProgressBar }}">
 
         <Setter Property="Margin" Value="3" />
         <!--<Setter Property="Value" Value="{TemplateBinding Property=Value}" />-->

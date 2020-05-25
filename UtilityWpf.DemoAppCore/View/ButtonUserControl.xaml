@@ -60,13 +60,13 @@
 
         <TabItem Header="Image">
 
-            <view:ToggleButtonEx x:Name="toggle"
+            <view:ImageButton x:Name="toggle"
                                                   Grid.Column="0"
                                                 Margin="15,0,15,0"
-                                                FrontImageSource="/Images/Settings.png"
-                                                BackImageSource="/Images/bar-chart.png" />
+                                                Image="/Images/Settings.png"
+                                                PressedImage="/Images/bar-chart.png" />
         </TabItem>
-        <TabItem Header="MenuButton">
+        <!--<TabItem Header="MenuButton">
 
             <UniformGrid Columns="1" Height="400" Width="250">
                 <view:MenuButton x:Name="menu1" Height="30" Width="100"
@@ -89,9 +89,9 @@
                 Click="IncreaseFont_Click" />
                             <MenuItem Header="Decrease Font Size"
                 Click="DecreaseFont_Click" />
-                        </ContextMenu>      
+                        </ContextMenu>
                     </view:MenuButton.ContextMenu>
-                  </view:MenuButton>
+                </view:MenuButton>
                 <ToolBar>
                     <view:MenuButton x:Name="menu2"
                                                  Height="30"
@@ -118,37 +118,12 @@
                 </ToolBar>
             </UniformGrid>
 
-        </TabItem>
-        <TabItem Header="Default Enum">
-        </TabItem>
-        <TabItem Header="Enum">
-            <StackPanel>
-             <Label>Default</Label>
-                <view:EnumToggleButton HorizontalAlignment="Center" Margin="10"></view:EnumToggleButton>
-                <Label>Using enum</Label>
-                <Grid HorizontalAlignment="Center"  Margin="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="30"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>
-                <TextBlock Text="{Binding ElementName=etb,Path=Output}"></TextBlock>
-                <view:EnumToggleButton Grid.Row="1" x:Name="etb" Enum="{x:Type local:Connected}"></view:EnumToggleButton>
-                    <view:EnumToggleButton Grid.Row="2" x:Name="etb2" Enum="{x:Type local:Connected}" UseEnumAsContent="False"></view:EnumToggleButton>
-                </Grid>
-                <!--<TextBlock Text="{Binding ElementName=TenseControl,Path=Output}"></TextBlock>-->
+        </TabItem>-->
 
-                <Viewbox  Width="200" Height="50">
-                    <view:TenseSwitch x:Name="TenseControl" HorizontalAlignment="Center"></view:TenseSwitch>
-                </Viewbox>
-            </StackPanel>
-        </TabItem>
+      
 
-        <TabItem Header="EnumButtons">
-            <StackPanel>
-                <view:ButtonDefinitionsControl x:Name="bdc" Type="{x:Type local:EmotionEnum}" />
-                <TextBox Text="{Binding ElementName=bdc, Path=Output}" />
-            </StackPanel>
-        </TabItem>
     </TabControl>
 </UserControl>
+    
+    
+    

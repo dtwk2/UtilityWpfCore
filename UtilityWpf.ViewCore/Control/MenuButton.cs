@@ -25,7 +25,7 @@ namespace UtilityWpf.View
     /// <summary>
     /// https://xstatic2.wordpress.com/2011/11/07/drop-down-button/
     /// </summary>
-    public class MenuButton : ToggleButton
+    public class MenuButton : System.Windows.Controls.Primitives.ToggleButton
     {
         private static ResourceKey _dropDownStyleKey;
 

@@ -11,8 +11,10 @@
                     <StackPanel Orientation="Horizontal">
                         <local:NavigatorControl x:Name="NavigatorControl"
                                                 ></local:NavigatorControl>
-                        <local:SizeControl Width="200" x:Name="SizeControl"
+                        <Grid VerticalAlignment="Center" >
+                            <local:SizeControl x:Name="SizeControl" VerticalAlignment="Center" VerticalContentAlignment="Center"
                                            Size="{Binding PageSize,RelativeSource={RelativeSource TemplatedParent},Mode=OneWayToSource}" />
+                        </Grid>
                     </StackPanel>
                 </ControlTemplate>
             </Setter.Value>

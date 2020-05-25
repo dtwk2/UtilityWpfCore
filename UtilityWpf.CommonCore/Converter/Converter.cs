@@ -5,10 +5,14 @@ using System.Windows.Data;
 
 namespace UtilityWpf.Converter
 {
-    public class DefaultConverter : IValueConverter
+    public sealed class DefaultConverter : IValueConverter
     {
-        // This converter changes the value of a Tasks Complete status from true/false to a string value of
-        // "Complete"/"Active" for use in the row group header.
+        // Explicit static constructor to tell C# compiler
+        // not to mark type as beforefieldinit
+        static DefaultConverter()
+        {
+        }
+
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             return value;
@@ -18,5 +22,7 @@ namespace UtilityWpf.Converter
         {
             throw new NotImplementedException();
         }
+
+        public static DefaultConverter Instance { get; }= new DefaultConverter();
     }
 }

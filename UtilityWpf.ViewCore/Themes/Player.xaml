@@ -1,18 +1,17 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:view="clr-namespace:UtilityWpf.View"
-                    xmlns:converter="clr-namespace:UtilityWpf;assembly=UtilityWpf.CommonCore"
+                    xmlns:converter="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf.CommonCore"
                     xmlns:uenm="clr-namespace:UtilityEnum;assembly=UtilityEnum"
                          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/ProgressTimeBar.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/Slider.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/ToggleButtonEx.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/ProgressBar.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/Slider.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
-    <Style x:Key="PlayerStyle"  TargetType="{x:Type view:Player}">
+    <Style  TargetType="{x:Type view:Player}">
         <Style.Resources>
             <BooleanToVisibilityConverter x:Key="BoolToVis" />
             <converter:BooleanToVisibilityConverter  Invert="True" x:Key="InvBoolToVis"></converter:BooleanToVisibilityConverter>
@@ -42,11 +41,11 @@
                                 <ColumnDefinition Width="100" />
                             </Grid.ColumnDefinitions>
 
-                            <view:ToggleButtonEx x:Name="toggle"
+                            <view:ImageButton x:Name="toggle"
                                                   Grid.Column="0"
                                                 Margin="15,0,15,0"
-                                                FrontImageSource="/UtilityWpf.ViewCore;component/Images/Settings.png"
-                                                BackImageSource="/UtilityWpf.ViewCore;component/Images/bar-chart.png" />
+                                                Image="/UtilityWpf.ViewCore;component/Images/Settings.png"
+                                                PressedImage="/UtilityWpf.ViewCore;component/Images/bar-chart.png" />
 
                             <StackPanel Grid.Column="1"
                                         Orientation="Horizontal"
@@ -54,15 +53,15 @@
                                         Path=IsChecked,
                                         Converter={StaticResource InvBoolToVis}}">
 
-                                <view:ToggleButtonEx x:Name="PlayPause"
+                                <!--<view:ToggleImageButton x:Name="PlayPause"
                                                 Margin="15,0,15,0"
-                                                FrontImageSource="/UtilityWpf.ViewCore;component/Images/Play.png"
-                                                BackImageSource="/UtilityWpf.ViewCore;component/Images/Pause.png"
+                                                CheckedImageSource="/UtilityWpf.ViewCore;component/Images/Play.png"
+                                                UnCheckedImageSource="/UtilityWpf.ViewCore;component/Images/Pause.png"
                                                  IsChecked="{Binding ProcessState,RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource EnumBool},ConverterParameter={StaticResource paramsplay},Mode=OneWayToSource}">
-                                </view:ToggleButtonEx>
+                                </view:ToggleImageButton>-->
 
                                 <view:ImageButton x:Name="Cancel"
-                                               NormalImage="/UtilityWpf.ViewCore;component/Images/Stop.png"
+                                               Image="/UtilityWpf.ViewCore;component/Images/Stop.png"
                                                 HoverImage="/UtilityWpf.ViewCore;component/Images/Stop.png"
                                                 PressedImage="/UtilityWpf.ViewCore;component/Images/Stop.png"
                                                 DisabledImage="/UtilityWpf.ViewCore;component/Images/Stop.png"

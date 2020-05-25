@@ -13,17 +13,12 @@ namespace UtilityWpf.Converter
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Tense tense = (Tense)((dynamic)value).Tense;
-
-            switch (tense)
+            return (bool?)((dynamic)value).IsChecked switch
             {
-                case Tense.Future:
-                    return DateTime.Now.GetRange(DateTime.Now.AddDays(Days)).ToList();
-                case Tense.Past:
-                    return DateTime.Now.AddDays(-Days).GetRange(DateTime.Now).ToList();
-                default:
-                    return new[] { DateTime.Now };
-            }
+                true => DateTime.Now.GetRange(DateTime.Now.AddDays(Days)).ToList(),
+                false => DateTime.Now.AddDays(-Days).GetRange(DateTime.Now).ToList(),
+                _ => new[] { DateTime.Now },
+            };
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

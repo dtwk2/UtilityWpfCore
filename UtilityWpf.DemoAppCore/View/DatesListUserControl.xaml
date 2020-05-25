@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:UtilityWpf.DemoApp.View"
              xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.ViewCore"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-           
+           xmlns:enum="clr-namespace:UtilityEnum;assembly=UtilityEnum"
              xmlns:common="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf.CommonCore"
              xmlns:view11="clr-namespace:UtilityWpf.Behavior;assembly=UtilityWpf.CommonCore"
              mc:Ignorable="d" 
@@ -16,15 +16,15 @@
             <common:TenseToDateTimeConverter x:Key="TenseConverter" Days="30" />
         </Grid.Resources>
         <UniformGrid Columns="1">
-            
-      
-        <view:TenseSwitch x:Name="TenseSwitch" >
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="TenseChanged">
-                    <view11:EventCommandExecuter  Command="{Binding Path=DatesChangeCommand,Mode=OneWay,ElementName=DatesList}" EventArgsConverter="{StaticResource TenseConverter}" EventArgsConverterParameter="" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </view:TenseSwitch>
+
+
+            <view:EnumToggleButton x:Name="TenseSwitch" Enum="{x:Type enum:Tense}" Width="100" Height="70">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Selected">
+                        <view11:EventCommandExecuter  Command="{Binding Path=DatesChangeCommand,Mode=OneWay,ElementName=DatesList}" EventArgsConverter="{StaticResource TenseConverter}"  />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </view:EnumToggleButton>
 
             <view:DatesList x:Name="DatesList"></view:DatesList>
         </UniformGrid>

@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Reactive.Linq;
 using System.Windows;
 using UtilityWpf.View;
 
@@ -28,12 +30,25 @@ namespace UtilityWpf.Chart
 
             this.Loaded += OxyChartSelector_Loaded;
 
+            this.SelectChanges(nameof(Data))
+                .ObserveOnDispatcher()
+                .Subscribe(a =>
+            {
+                oxyChart.Data = a as IEnumerable;
+            });
+
+            this.SelectChanges(nameof(Id))      
+                .ObserveOnDispatcher()
+         .Subscribe(a =>
+         {
+             oxyChart.Id = a.ToString();
+         });
         }
 
         private void OxyChartSelector_Loaded(object sender, RoutedEventArgs e)
         {
             (DetailView as OxyChart).Data = Data;
-            (DetailView as OxyChart).IdProperty = Id;
+            (DetailView as OxyChart).Id = Id;
         }
     }
 

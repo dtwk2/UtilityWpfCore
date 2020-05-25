@@ -53,9 +53,7 @@ namespace UtilityWpf.View
 
         public CollectionEditor() : base()
         {
-            Uri resourceLocater = new Uri("/UtilityWpf.ViewCore;component/Themes/CollectionEditor.xaml", System.UriKind.Relative);
-            ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
-            Style = resourceDictionary["CollectionEditorStyle"] as Style;
+     
 
             //DeletedSubject.OnNext(new object());
 

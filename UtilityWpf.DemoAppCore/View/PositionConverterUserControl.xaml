@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="UtilityWpf.DemoApp.ItemsControlFirstLastConverter"
+﻿<UserControl x:Class="UtilityWpf.DemoApp.PositionConverterUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -7,7 +7,7 @@
              xmlns:common="clr-namespace:UtilityWpf;assembly=UtilityWpf.CommonCore"
          
              xmlns:pt="http://propertytools.org/wpf"
-             xmlns:alauda="clr-namespace:Alauda;assembly=Alauda"
+            
              DataContext="{DynamicResource Characters}"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -58,7 +58,7 @@
                         <MultiBinding Converter="{StaticResource PositionItemConverter}">
                             <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}" />
                             <Binding RelativeSource="{RelativeSource Self}" />
-                            <Binding ElementName="numberbox" Path="Value" />
+                            <Binding ElementName="SpinControl1" Path="Value" />
                         </MultiBinding>
                     </DataTrigger.Binding>
                     <Setter Property="Foreground" TargetName="PART_TextBox" Value="Red" />
@@ -73,11 +73,10 @@
 
         <GroupBox>
             <StackPanel>
-                <alauda:NumberBox  Margin="4" x:Name="numberbox"></alauda:NumberBox>
-              
-                <!--<pt:SpinControl  Margin="4" x:Name="numberbox">
-                    <TextBox Text="{Binding ElementName=numberbox, Path=Value}" BorderThickness="0" HorizontalContentAlignment="Right"/>
-                </pt:SpinControl>-->
+       
+           
+
+        
                 <ItemsControl ItemsSource="{Binding}" ItemTemplate="{StaticResource PositionItemTemplate}" />
             </StackPanel>
         </GroupBox>

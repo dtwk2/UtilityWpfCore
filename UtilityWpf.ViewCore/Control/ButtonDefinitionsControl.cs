@@ -3,8 +3,6 @@ using System.Collections;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using UtilityWpf;
-
 namespace UtilityWpf.View
 {
     public class ButtonDefinitionsControl : ItemsControl
@@ -19,7 +17,7 @@ namespace UtilityWpf.View
 
         public static readonly DependencyProperty OutputProperty = DependencyProperty.Register("Output", typeof(object), typeof(ButtonDefinitionsControl));
 
-        public static readonly DependencyProperty OrientationProperty = DependencyProperty.Register("Orientation", typeof(Orientation), typeof(ButtonDefinitionsControl));
+        public static readonly DependencyProperty OrientationProperty = DependencyProperty.Register("Orientation", typeof(Orientation), typeof(ButtonDefinitionsControl),new PropertyMetadata(Orientation.Horizontal,Changed));
 
         private static void ParametersChange(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as ButtonDefinitionsControl).UpdateButtons();
 
@@ -60,77 +58,26 @@ namespace UtilityWpf.View
 
         public ButtonDefinitionsControl()
         {
-            Uri resourceLocater = new Uri("/UtilityWpf.ViewCore;component/Themes/ButtonDefinitionsControl.xaml", System.UriKind.Relative);
-            ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
-            Style = resourceDictionary["BDStyle"] as Style;
         }
 
         private void UpdateButtons()
         {
-            Action<object> av = (a) =>/* _output.OnNext(a)*/
-                         this.Dispatcher.InvokeAsync(() => Output = a, System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
 
             var items = ButtonDefinitionHelper.GetCommandOutput(Type, OutputType, Parameters)?
-                .Select(meas =>
+                .Select(kvp =>
                 new ViewModel.ButtonDefinition
                 {
-                    Command = new RelayCommand(() => av(meas.Value())),
-                    Content = meas.Key
+
+                    Command = new RelayCommand(() => SetOuput(kvp.Value())),
+                    Content = kvp.Key
                 });
 
             if (items == null) Console.WriteLine("measurements-service equals null in collectionviewmodel");
 
             this.Dispatcher.InvokeAsync(() => ItemsSource = items.ToList(), System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
+
+            void SetOuput(object a) =>/* _output.OnNext(a)*/
+                  this.Dispatcher.InvokeAsync(() => Output = a, System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
         }
     }
 }
-
-//public class ButtonDefinitionsViewModel<T> : ICollectionViewModel<ButtonDefinition>, IOutputViewModel<T>
-//{
-//    public IObservable<T> Output => _output;
-
-//    public ICollection<ButtonDefinition> Items => _items;
-
-//    private Subject<T> _output;
-//    private ICollection<ButtonDefinition> _items = new ObservableCollection<ButtonDefinition>();
-
-//    //public ObservableCollection<ButtonDefinition> Items { get; } = new ObservableCollection<ButtonDefinition>();
-
-//    public ButtonDefinitionsViewModel(IEnumerable<KeyValuePair<String, Func<T>>> kvps, Dispatcher dispatcher, params object[] parameters)
-//    {
-//        //Output = new ReactiveProperty<T>();
-//        //var kvps = ButtonDefinitionHelper.GetCommandOutput<T>(parameters);
-
-//        _output = new Subject<T>();
-//        Action<T> av = (a) => _output.OnNext(a);
-
-//        if (kvps != null)
-//            dispatcher.Invoke(() =>
-//            {
-//                foreach (var meas in kvps)
-//                {
-//                    _items.Add(new ButtonDefinition { Command = new RelayCommand(() => av(meas.Value())), Content = meas.Key });
-
-//                }
-//            });
-//        else
-//            Console.WriteLine("measurements-service equals null in collectionviewmodel");
-
-//    }
-
-//    public ButtonDefinitionsViewModel(IObservable<KeyValuePair<string, Func<T>>> kvps, IScheduler ui)
-//    {
-//        //Output = new ReactiveProperty<T>();
-
-//        _output = new Subject<T>();
-//        Action<T> av = (a) => _output.OnNext(a);
-
-//        if (kvps != null)
-//            kvps.Subscribe(meas =>
-//                 _items.Add(new ButtonDefinition { Command = new RelayCommand(() => av(meas.Value())), Content = meas.Key }));
-//        else
-//            Console.WriteLine("measurements-service equals null in collectionviewmodel");
-
-//    }
-
-//}

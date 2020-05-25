@@ -23,4 +23,11 @@
             </PathFigure>
         </PathGeometry.Figures>
     </PathGeometry>
+
+    <Grid x:Key="Cross_"  Height="30" Width="30" >
+        <Path Data="M0,0 L25,25" Stroke="White" Stretch="UniformToFill" StrokeThickness="6" />
+        <Path Data="M0,25 L25,0" Stroke="White" Stretch="UniformToFill" StrokeThickness="6" />
+    </Grid>
+
+    <Path x:Key="Tick" Fill="White" Height="30" Width="30" Stretch="UniformToFill" Data="M 21.7,52.2 L 74.4,0 L 74.4,18.667 L 22,70.708 L 0.,49 L 0,29.8 L 21.7,52.2 Z" />
 </ResourceDictionary>

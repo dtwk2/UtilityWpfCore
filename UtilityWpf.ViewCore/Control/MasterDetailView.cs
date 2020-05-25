@@ -1,22 +1,25 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
-using UtilityWpf.ViewModel;
 using System.Windows.Data;
 using System.Windows.Threading;
 using System.Windows.Input;
-using PropertyTools.Wpf;
+
 
 namespace UtilityWpf.View
 {
     public class MasterDetailView : Controlx
     {
+
+
+        protected ISubject<string> GroupNameChanges = new Subject<string>();
+        protected ISubject<string> NameChanges = new Subject<string>();
+
         #region properties
         public static readonly DependencyProperty ItemsProperty = DependencyProperty.Register("Items", typeof(IEnumerable), typeof(MasterDetailView), new PropertyMetadata(null, Changed));
 
@@ -68,9 +71,6 @@ namespace UtilityWpf.View
         }
         #endregion properties
 
-        protected ISubject<string> GroupNameChanges = new Subject<string>();
-        protected ISubject<string> NameChanges = new Subject<string>();
-
         //protected ISubject<PropertyGroupDescription> PropertyGroupDescriptionChanges { get; } = new Subject<PropertyGroupDescription>();
 
         //public override void OnApplyTemplate()
@@ -109,12 +109,11 @@ namespace UtilityWpf.View
             SelectChanges<PropertyGroupDescription>().StartWith(PropertyGroupDescription)
                 .CombineLatest(ControlChanges.Where(c => c.GetType() == typeof(DockPanel)).Take(1), (pgd, DockPanel) => (pgd, DockPanel)).Subscribe(_ =>
             {
-                var collectionViewSource = (_.DockPanel as DockPanel)?.FindResource("GroupedItems") as CollectionViewSource;
-                if (collectionViewSource != null)
+                if ((_.DockPanel as DockPanel)?.FindResource("GroupedItems") is CollectionViewSource collectionViewSource)
                     collectionViewSource.GroupDescriptions.Add(_.pgd);
             });
 
-            DetailView = DetailView ?? new PropertyTools.Wpf.PropertyGrid();
+            DetailView = DetailView ?? new Json.JsonView();
 
 
             GroupClick = new RelayCommand<string>(a => GroupNameChanges.OnNext(a));
@@ -124,6 +123,7 @@ namespace UtilityWpf.View
                 .CombineLatest(ControlChanges.Select(c => c as TextBlock).Where(c => c != null),
 
                 (text, textBlock) => (text, textBlock))
+                .ObserveOnDispatcher()
                 .Subscribe(input =>
                 {
                     input.textBlock.Text = input.text;
@@ -173,16 +173,16 @@ namespace UtilityWpf.View
             {
                 oview.Object = convert(conv, func, items);
             }
-            else if (DetailView is PropertyGrid propertyGrid)
+            else if (DetailView is Json.JsonView propertyGrid)
             {
                 var xx = convert(conv, func, items);
                 if (typeof(IEnumerable).IsAssignableFrom(xx.GetType()))
                 {
                     var xs = xx as IEnumerable;
-                    propertyGrid.SelectedObjects = xs;
+                    propertyGrid.Object = xs;
                 }
                 else
-                    propertyGrid.SelectedObject = xx;
+                    propertyGrid.Object = xx;
             }
             else
                 throw new Exception(nameof(DetailView) + " needs to have property OutputView");

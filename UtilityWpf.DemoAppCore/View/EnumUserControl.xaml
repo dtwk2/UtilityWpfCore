@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="UtilityWpf.DemoAppCore.View.EnumUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UtilityWpf.DemoApp"
+             xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.ViewCore"
+             xmlns:common="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf.CommonCore"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <TabControl>
+        <TabItem Header="Toggle">
+            <StackPanel>
+                <Label>Default</Label>
+                <view:EnumToggleButton HorizontalAlignment="Center" Margin="10"></view:EnumToggleButton>
+                <Label>Using enum</Label>
+                <Grid HorizontalAlignment="Center"  Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="{Binding ElementName=etb,Path=Output}"></TextBlock>
+                    <view:EnumToggleButton Grid.Row="1" x:Name="etb" Enum="{x:Type local:Connected}"></view:EnumToggleButton>
+                    <view:EnumToggleButton Grid.Row="2" x:Name="etb2" Enum="{x:Type local:Connected}" UseEnumAsContent="False"></view:EnumToggleButton>
+                </Grid>
+                <!--<TextBlock Text="{Binding ElementName=TenseControl,Path=Output}"></TextBlock>-->
+
+                <Viewbox  Width="200" Height="50">
+                    <view:EnumToggleButton x:Name="TenseControl" 
+                                           xmlns:enum="clr-namespace:UtilityEnum;assembly=UtilityEnum"
+                                           HorizontalAlignment="Center"                                          
+                                           Enum="{x:Type enum:Tense}"/>
+                </Viewbox>
+            </StackPanel>
+        </TabItem>
+
+        <TabItem Header="Items">
+            <TabItem.Resources>
+                <common:BooleanToOrientationConverter x:Key="BooleanToOrientationConverter"></common:BooleanToOrientationConverter>
+            </TabItem.Resources>
+            <DockPanel>
+                <ToggleButton x:Name="ToggleButton1" DockPanel.Dock="Top" Height="30" Width="30" ></ToggleButton>
+                <UniformGrid Rows="1">
+                    <StackPanel>
+                        <view:ButtonDefinitionsControl x:Name="bdc" Type="{x:Type local:Emotion}"
+                                                       Orientation="{Binding ElementName=ToggleButton1,Path=IsChecked,Converter={StaticResource BooleanToOrientationConverter}}"/>
+                        <TextBox Text="{Binding ElementName=bdc, Path=Output}" />
+                    </StackPanel>
+                    <StackPanel>
+                        <view:ButtonDefinitionsControl x:Name="bdcs" Type="{x:Type local:Emotion}"
+                                                       Orientation="Vertical"/>
+                        <TextBox Text="{Binding ElementName=bdcs, Path=Output}" />
+                    </StackPanel>
+                    <view:EnumItems Enum="{x:Type local:Emotion}"></view:EnumItems>
+                </UniformGrid>
+            </DockPanel>
+        </TabItem>
+    </TabControl>
+</UserControl>

@@ -64,7 +64,7 @@ namespace UtilityWpf.View
 
         private void eventHandler(DependencyObject sender, DependencyProperty e)
         {
-            
+
             Subjects.OnNext(e.Name, sender.GetValue(e));
             //(s, e) => (s as Controlx).OnNext((DependencyPropertyChangedEventArgs)e)
         }

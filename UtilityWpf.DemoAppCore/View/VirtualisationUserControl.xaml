@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:sample="BF"
-             xmlns:alauda="clr-namespace:Alauda;assembly=Alauda"
+         
              xmlns:pt="http://propertytools.org/wpf"
            
              xmlns:local="clr-namespace:UtilityWpf.DemoAppCore"

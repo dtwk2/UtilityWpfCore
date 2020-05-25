@@ -20,12 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoBogus" Version="2.7.3" />
     <PackageReference Include="MaterialDesignColors" Version="1.2.1" />
     <PackageReference Include="MaterialDesignThemes" Version="3.0.0" />
-    <PackageReference Include="PropertyTools" Version="3.0.0" />
-    <PackageReference Include="PropertyTools.Wpf" Version="3.0.0" />
-    <PackageReference Include="ToggleSwitch" Version="1.1.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -105,9 +101,6 @@
     <Page Update="Themes\DynamicDataGrid.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\EnumToggleButton.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="Themes\ExpandItemStyle.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -148,7 +141,7 @@
     <Page Update="Themes\MultiSelectTreeView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\NavigatorStyle.xaml">
+    <Page Update="Themes\NavigatorControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\OxyPlot\DateTimePlot.xaml">
@@ -175,7 +168,7 @@
     <Page Update="Themes\SizeControl.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\SkipStyle.xaml">
+    <Page Update="Themes\SkipControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\Slider.xaml">
@@ -187,10 +180,7 @@
     <Page Update="Themes\ValidationForm.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\TenseSwitch.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Themes\ToggleButtonEx.xaml">
+    <Page Update="Themes\EnumToggleButton.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControl\CheckBoxUserControl.xaml">

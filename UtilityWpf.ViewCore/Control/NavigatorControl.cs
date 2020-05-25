@@ -99,11 +99,6 @@ namespace UtilityWpf.View
 
         public NavigatorControl()
         {
-            Uri resourceLocater = new Uri("/UtilityWpf.ViewCore;component/Themes/NavigatorStyle.xaml", System.UriKind.Relative);
-            ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
-            Style = resourceDictionary["NavigatorStyle"] as Style;
-
-            // .Scan(1, (a, b) => a + (int)b)
 
             SizeChanges.Subscribe(_ =>
             {

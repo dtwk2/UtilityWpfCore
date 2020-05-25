@@ -1,6 +1,6 @@
 ﻿namespace UtilityWpf.DemoApp
 {
-    public enum EmotionEnum
+    public enum Emotion
     {
         Happy, Sad, Angry, Disgusted
     }

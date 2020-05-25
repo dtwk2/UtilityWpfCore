@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:UtilityWpf.View"
-                    xmlns:pt="http://propertytools.org/wpf">
+                    xmlns:pt="http://propertytools.org/wpf"
+                    xmlns:Json="clr-namespace:UtilityWpf.View.Json">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary  Source="/UtilityWpf.ViewCore;component/DataTemplate/KeyValuePairDataTemplate.xaml" />
@@ -9,7 +10,7 @@
 
     <DataTemplate x:Key="DefaultTemplate">
         <Viewbox>
-            <pt:PropertyGrid SelectedObject="{Binding }" />
+            <Json:JsonView Object="{Binding }" />
         </Viewbox>
     </DataTemplate>
 

@@ -1,4 +1,4 @@
-﻿using BFF.DataVirtualizingCollection;
+﻿using BFF.DataVirtualizingCollection.DataVirtualizingCollection;
 using DynamicData;
 using Endless;
 using ReactiveUI;
@@ -7,15 +7,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Reactive;
-using System.Reactive.Disposables;
 using System.Reactive.Linq;
-using System.Reactive.Subjects;
-using System.Text;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using UtilityHelper.Generic;
 using UtilityWpf.Common.Utility;
 
 namespace UtilityWpf.DemoAppCore
@@ -97,8 +92,8 @@ namespace UtilityWpf.DemoAppCore
                      {
                          Console.WriteLine($"{nameof(Profiles)}: Loading count");
                          return 420420;
-                     })
-                 .SyncIndexAccess();
+                     }).SyncIndexAccess(RxApp.MainThreadScheduler);
+            
             }
         }
 

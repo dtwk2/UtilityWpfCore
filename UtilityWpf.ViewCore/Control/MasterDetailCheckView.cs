@@ -2,18 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
 using UtilityWpf.ViewModel;
 using System.Windows.Data;
-using System.Windows.Threading;
 using System.Windows.Input;
-using PropertyTools.Wpf;
 using System.Collections.ObjectModel;
-using UtilityInterface.NonGeneric;
 using DynamicData;
 
 namespace UtilityWpf.View
@@ -118,10 +114,10 @@ namespace UtilityWpf.View
                          .StartWith(DetailView)
                          .Merge(this.SelectLoads().Select(a => this.DetailView))
                          .DistinctUntilChanged(a => a?.GetType().Name)
-                         .Select(detailView => (detailView ??= new PropertyGrid()) switch
+                         .Select(detailView => (detailView ??= new Json.JsonView()) switch
                          {
                              Abstract.IItemsSource oview => oview.ItemsSource,
-                             PropertyGrid propertyGrid => propertyGrid.SelectedObjects,
+                             Json.JsonView propertyGrid => propertyGrid.Object,
                              ItemsControl itemsControl => itemsControl.ItemsSource,
                              _ => throw new Exception(nameof(DetailView) + " needs to have property OutputView")
                          }).Subscribe(coll => coll = collection);

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows.Data;
 
-namespace UtilityWpf
+namespace UtilityWpf.Converter
 {
     [ValueConversion(typeof(UtilityEnum.ProcessState), typeof(bool))]
     public class EnumToBooleanConverter : IValueConverter

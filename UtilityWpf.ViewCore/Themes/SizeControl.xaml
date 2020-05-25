@@ -8,13 +8,16 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:SizeControl }">
                     <StackPanel Orientation="Horizontal">
-                        <pt:SpinControl Value="{Binding Size,RelativeSource={RelativeSource TemplatedParent},Mode=TwoWay}"
+                        <!--<pt:SpinControl Value="{Binding Size,RelativeSource={RelativeSource TemplatedParent},Mode=TwoWay}"
                                         Height="25"  Width="60" Margin="5"  SmallChange="1" LargeChange="10">
                             <TextBlock
                             Width="140" Height="35"
                             Text="{Binding Size,RelativeSource={RelativeSource TemplatedParent},Mode=TwoWay}" />
-                        </pt:SpinControl>
-                        <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Width="140" Height="35"  Text="{Binding TotalSize}">
+                        </pt:SpinControl>-->
+
+                        <Slider Width="100" Margin="5" VerticalAlignment="Center" 
+                                SmallChange="1" LargeChange="10" Value="{Binding Size, RelativeSource={RelativeSource TemplatedParent},Mode=TwoWay}"></Slider>
+                        <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Width="50" Height="35"  Text="{Binding TotalSize}">
                         </TextBlock>
                     </StackPanel>
                 </ControlTemplate>

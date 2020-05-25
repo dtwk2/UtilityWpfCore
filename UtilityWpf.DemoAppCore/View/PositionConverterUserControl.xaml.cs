@@ -5,9 +5,9 @@ namespace UtilityWpf.DemoApp
     /// <summary>
     /// Interaction logic for ItemsControlFirstLastConverter.xaml
     /// </summary>
-    public partial class ItemsControlFirstLastConverter : UserControl
+    public partial class PositionConverterUserControl : UserControl
     {
-        public ItemsControlFirstLastConverter()
+        public PositionConverterUserControl()
         {
             InitializeComponent();
         }

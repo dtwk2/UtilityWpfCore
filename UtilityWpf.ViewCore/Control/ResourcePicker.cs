@@ -15,19 +15,16 @@ namespace UtilityWpf.View
         {
             ComboBox = this.GetTemplateChild("ComboBox") as ComboBox;
             ComboBox.SelectionChanged += ComboBox_SelectionChanged;
-            a();
+            Change();
         }
 
         static ResourcePicker()
         {
-            // DefaultStyleKeyProperty.OverrideMetadata(typeof(ResourcePicker), new FrameworkPropertyMetadata(typeof(ResourcePicker)));
+             DefaultStyleKeyProperty.OverrideMetadata(typeof(ResourcePicker), new FrameworkPropertyMetadata(typeof(ResourcePicker)));
         }
 
         public ResourcePicker()
         {
-            Uri resourceLocater = new Uri("/UtilityWpf.ViewCore;component/Themes/ResourcePicker.xaml", System.UriKind.Relative);
-            ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
-            Style = resourceDictionary.Values.Cast<Style>().First() as Style;
         }
 
         public string Path
@@ -40,15 +37,17 @@ namespace UtilityWpf.View
 
         private static void PathChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as ResourcePicker).a();
+            (d as ResourcePicker).Change();
         }
 
-        private void a()
+        private void Change()
         {
             if (ComboBox != null)
                 this.Dispatcher.InvokeAsync(() =>
-            ComboBox.ItemsSource = System.IO.Directory.GetFiles(Path).Select(_ => System.IO.Path.GetFileNameWithoutExtension(_)), System.Windows.Threading.DispatcherPriority.Background);
+            ComboBox.ItemsSource = System.IO.Directory.GetFiles(Path).Select(a => System.IO.Path.GetFileNameWithoutExtension(a)), System.Windows.Threading.DispatcherPriority.Background);
         }
+
+        string[] keys = null;
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -60,9 +59,14 @@ namespace UtilityWpf.View
                     // Read in ResourceDictionary File
                     ResourceDictionary dic = (ResourceDictionary)XamlReader.Load(fs);
                     // Clear any previous dictionaries loaded
-                    Application.Current.Resources.MergedDictionaries.Clear();
+                    if (keys != null)
+                    {
+                        var remove = Application.Current.Resources.MergedDictionaries.Select((a, i) => (a, i)).SingleOrDefault(c => c.a.Keys.OfType<string>().SequenceEqual(keys)).i;
+                        Application.Current.Resources.MergedDictionaries.RemoveAt(remove);
+                    }
                     // Add in newly loaded Resource Dictionary
                     Application.Current.Resources.MergedDictionaries.Add(dic);
+                    keys = dic.Keys.OfType<string>().ToArray();
                 }
             }
         }

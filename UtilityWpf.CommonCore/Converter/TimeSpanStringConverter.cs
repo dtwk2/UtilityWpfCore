@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace UtilityWpf
+namespace UtilityWpf.Converter
 {
     public class TimeSpanStringConverter : IValueConverter
     {

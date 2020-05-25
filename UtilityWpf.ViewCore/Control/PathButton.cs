@@ -11,7 +11,7 @@ namespace UtilityWpf.View
     {
         //private const string PART_Pathx = "PART_Pathx";
 
-        public static readonly DependencyProperty PathDataProperty = DependencyProperty.Register("PathData", typeof(System.Windows.Media.Geometry), typeof(PathButton), new PropertyMetadata(pathData));
+        public static readonly DependencyProperty PathDataProperty = DependencyProperty.Register("PathData", typeof(System.Windows.Media.Geometry), typeof(PathButton), new PropertyMetadata());
 
         public System.Windows.Media.Geometry PathData
         {
@@ -19,7 +19,7 @@ namespace UtilityWpf.View
             set { SetValue(PathDataProperty, value); }
         }
 
-        private static System.Windows.Media.Geometry pathData;
+        //private static System.Windows.Media.Geometry pathData;
 
         public static readonly DependencyProperty HoverBackgroundProperty = DependencyProperty.Register("HoverBackground", typeof(System.Windows.Media.Brush), typeof(PathButton), new PropertyMetadata(new SolidColorBrush(Color.FromArgb(255, 255, 139, 0))));
 

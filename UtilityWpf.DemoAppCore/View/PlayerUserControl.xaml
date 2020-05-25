@@ -19,8 +19,8 @@
         <TabItem Header="Image Toggle Button">
             <Grid>
 
-                <view:ToggleButtonEx          FrontImageSource="/Images/Play.png"
-                                                BackImageSource="/Images/Pause.png" />
+                <view:ImageButton          Image="/Images/Play.png"
+                                                PressedImage="/Images/Pause.png" />
             </Grid>
         </TabItem>
         <TabItem Header="ProgressTimeBar">

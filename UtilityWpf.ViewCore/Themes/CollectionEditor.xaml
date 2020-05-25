@@ -8,7 +8,7 @@
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/ButtonDefinitionsControl.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
-    <Style x:Key="CollectionEditorStyle"  TargetType="{x:Type  local:CollectionEditor }">
+    <Style  TargetType="{x:Type  local:CollectionEditor }">
 
         <Setter Property="Template">
             <Setter.Value>

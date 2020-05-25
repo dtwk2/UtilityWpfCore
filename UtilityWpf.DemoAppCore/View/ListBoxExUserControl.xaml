@@ -95,7 +95,9 @@
                     <Label Content="Filter"></Label>
                     <TextBox Name="FilterTb" Width="100" Text=""></TextBox>
                 </StackPanel>
-                <view:ListBoxEx x:Name="lbx" Key="First"  ItemsSource="{Binding }" Remove="True" Filter="{Binding ElementName=FilterTb,Path=Text,Converter={StaticResource stfc},ConverterParameter='First'}" />
+                <view:ListBoxEx x:Name="lbx" Key="First"  ItemsSource="{Binding }" Remove="True" 
+                                Filter="{Binding ElementName=FilterTb,Path=Text,Converter={StaticResource stfc},ConverterParameter='First'}" 
+                                />
                 <ContentControl Content="{StaticResource ugrid}"></ContentControl>
             </StackPanel>
         </GroupBox>

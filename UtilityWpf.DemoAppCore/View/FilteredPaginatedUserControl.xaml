@@ -3,14 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:UtilityWpf.DemoApp"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.ViewCore"
+             xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.ViewCore"
              xmlns:common="clr-namespace:UtilityWpf.Behavior;assembly=UtilityWpf.CommonCore"
              xmlns:command="clr-namespace:UtilityWpf;assembly=UtilityWpf.CommonCore"
-          
-             xmlns:sys="clr-namespace:System;assembly=System.Runtime"
-             xmlns:alauda="clr-namespace:Alauda;assembly=Alauda"
+             xmlns:pt="http://propertytools.org/wpf"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -22,14 +19,17 @@
                 <Image Margin="0,5,0,0" Source="{Binding Image}" />
             </StackPanel>
         </DataTemplate>-->
-        <x:Array x:Key="d" x:Name="Items2" Type="sys:String" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
-            <sys:String>Hello</sys:String>
-            <sys:String>World</sys:String>
-            <sys:String>rld</sys:String>
-            <sys:String>dsld</sys:String>
-            <sys:String>World</sys:String>
-            <sys:String>Wld</sys:String>
-            <sys:String>Worddddld</sys:String>
+        <x:Array x:Key="d" x:Name="Items2" 
+                   xmlns:system="clr-namespace:System;assembly=mscorlib"
+                 Type="{x:Type system:String}"  
+               >
+            <system:String>Hello</system:String>
+            <system:String>World</system:String>
+            <system:String>rld</system:String>
+            <system:String>dsld</system:String>
+            <system:String>World</system:String>
+            <system:String>Wld</system:String>
+            <system:String>Worddddld</system:String>
         </x:Array>
     </UserControl.Resources>
 
@@ -41,15 +41,33 @@
                     <view:SelectedIndexEventArgsToNumber x:Key="eac"></view:SelectedIndexEventArgsToNumber>
                    
                 </UniformGrid.Resources>
-                <alauda:NumberBox x:Name="nb" Value="10" Width="50" HorizontalAlignment="Left"></alauda:NumberBox>
-                <view:NavigatorControl Size="{Binding ElementName=nb,Path=Value,Mode=OneWay}">
+
+
+                <view:NavigatorControl Size="10" Current="10">
+                </view:NavigatorControl>
+
+                <view:NavigatorControl Size="{Binding ElementName=nb,Path=Current,Mode=OneWay}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectedIndex">
-                            <common:EventCommandExecuter Command="{Binding  ElementName=oc,Path=.}" EventArgsConverter="{StaticResource eac}"></common:EventCommandExecuter>
+                            <common:EventCommandExecuter Command="{Binding ElementName=oc, Path=.}" EventArgsConverter="{StaticResource eac}"></common:EventCommandExecuter>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </view:NavigatorControl>
                 <command:OutputCommand x:Name="oc">
+                    <command:OutputCommand.Style>
+                        <Style  TargetType="{x:Type  command:OutputCommand}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type command:OutputCommand}">
+                                        <TextBox IsReadOnly="True" Text="{Binding Output,RelativeSource={RelativeSource TemplatedParent}}" />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </command:OutputCommand.Style>
+                </command:OutputCommand>
+
+                <command:OutputCommand >
                     <command:OutputCommand.Style>
                         <Style  TargetType="{x:Type  command:OutputCommand}">
                             <Setter Property="Template">

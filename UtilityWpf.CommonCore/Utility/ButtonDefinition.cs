@@ -10,7 +10,7 @@ namespace UtilityWpf
     //{
     public static class ButtonDefinitionHelper
     {
-        public static IEnumerable<KeyValuePair<string, Func<object>>> GetCommandOutput(Type type, Type outputType = null, params object[] parameters)
+        public static IEnumerable<KeyValuePair<object, Func<object>>> GetCommandOutput(Type type, Type outputType = null, params object[] parameters)
         {
             if (type.IsEnum)
             {
@@ -32,7 +32,7 @@ namespace UtilityWpf
                 throw new ArgumentException();
         }
 
-        public static IEnumerable<KeyValuePair<string, Func<T>>> GetCommandOutput<T>(Type type = null, params object[] parameters)
+        public static IEnumerable<KeyValuePair<object, Func<T>>> GetCommandOutput<T>(Type type = null, params object[] parameters)
         {
             if (type.IsEnum)
             {
@@ -47,35 +47,35 @@ namespace UtilityWpf
                 throw new ArgumentException();
         }
 
-        public static IEnumerable<KeyValuePair<string, Func<object>>> BuildFromEnum(Type t)
+        public static IEnumerable<KeyValuePair<object, Func<object>>> BuildFromEnum(Type t)
         {
-            return Enum.GetValues(t).Cast<object>().Select(_ => new KeyValuePair<string, Func<object>>(_.ToString(), () => _));
+            return Enum.GetValues(t).Cast<object>().Select(_ => new KeyValuePair<object, Func<object>>(_, () => _));
         }
 
-        public static IEnumerable<KeyValuePair<string, Func<T>>> BuildFromEnum<T>()
+        public static IEnumerable<KeyValuePair<object, Func<T>>> BuildFromEnum<T>()
         {
-            return Enum.GetValues(typeof(T)).Cast<T>().Select(_ => new KeyValuePair<string, Func<T>>(_.ToString(), () => _));
+            return Enum.GetValues(typeof(T)).Cast<T>().Select(e => new KeyValuePair<object, Func<T>>(e, () => e));
         }
 
-        public static IEnumerable<KeyValuePair<string, Func<object>>> LoadMethods(this Type t, string TypeName, params object[] parameters)
+        public static IEnumerable<KeyValuePair<object, Func<object>>> LoadMethods(this Type t, string TypeName, params object[] parameters)
         {
             return Assembly.GetAssembly(t)
                   .GetType(t.FullName)
                     .GetMethods(BindingFlags.Public | BindingFlags.Static)
                        // filter by return type
                        .Where(a => a.ReturnType.Name == TypeName)
-                        .Select(_ => new KeyValuePair<string, Func<object>>(_.GetDescription(), () => _.Invoke(null, parameters)));
+                        .Select(_ => new KeyValuePair<object, Func<object>>(_.GetDescription(), () => _.Invoke(null, parameters)));
         }
 
-        public static IEnumerable<KeyValuePair<string, Func<object>>> LoadInterfaces(this Type type, params object[] parameters)
+        public static IEnumerable<KeyValuePair<object, Func<object>>> LoadInterfaces(this Type type, params object[] parameters)
         {
             return AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(s => s.GetTypes())
                 .Where(p => type.IsAssignableFrom(p) && type != p)
-               .Select(_ => new KeyValuePair<string, Func<object>>(_.FullName, () => Activator.CreateInstance(_, parameters)));
+               .Select(_ => new KeyValuePair<object, Func<object>>(_.FullName, () => Activator.CreateInstance(_, parameters)));
         }
 
-        public static IEnumerable<KeyValuePair<string, Func<T>>> LoadMethods<T>(this Type t, params object[] parameters)
+        public static IEnumerable<KeyValuePair<object, Func<T>>> LoadMethods<T>(this Type t, params object[] parameters)
         {
             var typename = typeof(T).Name;
             return Assembly.GetAssembly(t)
@@ -83,7 +83,7 @@ namespace UtilityWpf
                     .GetMethods(BindingFlags.Public | BindingFlags.Static)
                        // filter by return type
                        .Where(a => a.ReturnType.Name == typename)
-                        .Select(_ => new KeyValuePair<string, Func<T>>(_.GetDescription(), () => (T)_.Invoke(null, parameters)));
+                        .Select(_ => new KeyValuePair<object, Func<T>>(_.GetDescription(), () => (T)_.Invoke(null, parameters)));
         }
 
         public static String GetDescription(this MethodInfo methodInfo)

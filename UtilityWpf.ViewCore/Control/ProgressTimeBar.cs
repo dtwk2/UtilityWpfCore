@@ -24,10 +24,6 @@ namespace UtilityWpf.View
 
         public ProgressTimeBar() : base()
         {
-            Uri resourceLocater = new Uri("/UtilityWpf.ViewCore;component/Themes/ProgressTimeBar.xaml", System.UriKind.Relative);
-            ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
-            Style = resourceDictionary["ProgressTimeBarStyle"] as Style;
-
             TimeFunction();
         }
 

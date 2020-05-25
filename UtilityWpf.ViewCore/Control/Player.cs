@@ -38,6 +38,11 @@ namespace UtilityWpf.View
         //    get { return (double)GetValue(AttributeProperty); }
         //    set { SetValue(AttributeProperty, value); }
         //}
+        static Player()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(Player), new FrameworkPropertyMetadata(typeof(Player)));
+        }
+
 
         public object ProcessState
         {
@@ -103,17 +108,8 @@ namespace UtilityWpf.View
             //chkbx.Checked += Chkbx_Checked;
         }
 
-        static Player()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(Player), new FrameworkPropertyMetadata(typeof(Player)));
-        }
-
         public Player()
         {
-            Uri resourceLocater = new Uri("/UtilityWpf.ViewCore;component/Themes/Player.xaml", System.UriKind.Relative);
-            ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
-            Style = resourceDictionary["PlayerStyle"] as Style;
-
             this.SetValue(CancelCommandProperty, new RelayCommand(() =>
              {
                  this.Dispatcher.InvokeAsync(() => ProcessState = UtilityEnum.ProcessState.Terminated, System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
