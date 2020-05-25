@@ -114,10 +114,10 @@ namespace UtilityWpf.View
                          .StartWith(DetailView)
                          .Merge(this.SelectLoads().Select(a => this.DetailView))
                          .DistinctUntilChanged(a => a?.GetType().Name)
-                         .Select(detailView => (detailView ??= new Json.JsonView()) switch
+                         .Select(detailView => (detailView ??= new JsonView()) switch
                          {
                              Abstract.IItemsSource oview => oview.ItemsSource,
-                             Json.JsonView propertyGrid => propertyGrid.Object,
+                             JsonView propertyGrid => propertyGrid.Object,
                              ItemsControl itemsControl => itemsControl.ItemsSource,
                              _ => throw new Exception(nameof(DetailView) + " needs to have property OutputView")
                          }).Subscribe(coll => coll = collection);

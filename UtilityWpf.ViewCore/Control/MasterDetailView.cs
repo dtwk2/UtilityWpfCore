@@ -113,7 +113,7 @@ namespace UtilityWpf.View
                     collectionViewSource.GroupDescriptions.Add(_.pgd);
             });
 
-            DetailView = DetailView ?? new Json.JsonView();
+            DetailView = DetailView ?? new JsonView();
 
 
             GroupClick = new RelayCommand<string>(a => GroupNameChanges.OnNext(a));
@@ -173,7 +173,7 @@ namespace UtilityWpf.View
             {
                 oview.Object = convert(conv, func, items);
             }
-            else if (DetailView is Json.JsonView propertyGrid)
+            else if (DetailView is JsonView propertyGrid)
             {
                 var xx = convert(conv, func, items);
                 if (typeof(IEnumerable).IsAssignableFrom(xx.GetType()))

@@ -16,9 +16,9 @@ namespace UtilityWpf.DemoAppCore.View
     /// <summary>
     /// Interaction logic for JsonViewUserControl.xaml
     /// </summary>
-    public partial class JsonViewUserControl : UserControl
+    public partial class ObjectUserControl : UserControl
     {
-        public JsonViewUserControl()
+        public ObjectUserControl()
         {
             InitializeComponent();
         }

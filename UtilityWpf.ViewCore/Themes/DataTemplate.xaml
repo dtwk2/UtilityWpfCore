@@ -1,8 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:UtilityWpf.View"
-                    xmlns:pt="http://propertytools.org/wpf"
-                    xmlns:Json="clr-namespace:UtilityWpf.View.Json">
+                    xmlns:Json="clr-namespace:UtilityWpf.View">
 
     <DataTemplate x:Key="DefaultTemplate">
         <Viewbox>
