@@ -13,7 +13,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using static LambdaConverters.ValueConverter;
 using static LambdaConverters.TemplateSelector;
-
+using System.Reflection;
 
 namespace UtilityWpf.View
 {
@@ -122,7 +122,7 @@ namespace UtilityWpf.View
             //System.Windows.Controls.DockPanel.IsEnabled = false;
             Cursor = Cursors.Wait;
 
-            var timer = new DispatcherTimer(TimeSpan.FromMilliseconds(500), DispatcherPriority.Normal, (s,e)=>
+            var timer = new DispatcherTimer(TimeSpan.FromMilliseconds(500), DispatcherPriority.Normal, (s, e) =>
             {
                 ToggleItems(JsonTreeView, JsonTreeView.Items, isExpanded);
                 //System.Windows.Controls.DockPanel.Opacity = 1.0;
@@ -164,6 +164,70 @@ namespace UtilityWpf.View
     }
 
 
+    internal static class Converters
+    {
+        private static readonly Lazy<Dictionary<int, Color>> NiceColors = new Lazy<Dictionary<int, Color>>(() =>
+          ColorStore.Collection
+           .Select((a, i) => Tuple.Create(i, (Color)ColorConverter.ConvertFromString(a.Value)))
+           .ToDictionary(a => a.Item1, a => a.Item2));
+
+
+        public static IValueConverter JTokenTypeToColorConverter => Create<JTokenType, Color>(a => NiceColors.Value[(byte)a.Value]);
+
+        public static IValueConverter MethodToValueConverter => Create<object, JEnumerable<JToken>, string>(a =>
+        a.Value != null &&
+        a.Parameter != null &&
+        a.Value.GetType().GetMethod(a.Parameter, new Type[0]) is MethodInfo methodInfo ?
+        (JEnumerable<JToken>)methodInfo.Invoke(a.Value, new object[0]) :
+        new JEnumerable<JToken>());
+
+        public static IValueConverter ComplexPropertyMethodToValueConverter => Create<string, JEnumerable<JToken>, string>(args =>
+
+        ((JEnumerable<JToken>)MethodToValueConverter
+        .Convert(args.Value, null, args.Parameter, args.Culture))
+             .First()
+             .Children());
+
+        public static IValueConverter JArrayLengthConverter => Create<object, string>(jToken =>
+        {
+            if (jToken.Value is JToken jtoken)
+                return jtoken.Type switch
+                {
+                    JTokenType.Array => $"[{jtoken.Children().Count()}]",
+                    JTokenType.Property => $"[ { jtoken.Children().FirstOrDefault().Children().Count()} ]",
+                    _ => throw new Exception("Type should be JProperty or JArray"),
+                };
+            throw new Exception("fsdfdfsd");
+        }
+        , errorStrategy: LambdaConverters.ConverterErrorStrategy.DoNothing);
+
+        public static IValueConverter JTokenConverter => Create<object, string>(jval => jval.Value switch
+        {
+            JValue value when value.Type == JTokenType.Null => "null",
+            JValue value => value.Value.ToString()?? string.Empty,
+            _ => jval.Value.ToString() ?? string.Empty
+        });
+
+        //public static IValueConverter JTokenConverter => Create<object,string>(jvalValue =>
+        //{
+        //    var value = jvalValue.Value;
+
+        //    if (value is JValue jval)
+        //    {
+        //        return jval.Type switch
+        //        {
+        //            JTokenType.Null => "null",
+        //            _ => jval.Value?.ToString()?? string.Empty
+        //        };
+        //    }
+
+        //    return value?.ToString() ?? string.Empty;
+        //});
+
+        //public IValueConverter JValueTypeToColorConverter() => Create<JValue, Color>(a => NiceColors.Value[(byte)a.Value.Type]);
+
+    }
+
     internal static class TemplateSelector
     {
         public static DataTemplateSelector JPropertyDataTemplateSelector =
@@ -177,7 +241,7 @@ namespace UtilityWpf.View
                             JTokenType.Array => frameworkElement.FindResource("ArrayPropertyTemplate"),
                             _ => frameworkElement.FindResource("PrimitivePropertyTemplate"),
                         },
-                        ({ } property, FrameworkElement frameworkElement) =>
+                        (_, FrameworkElement frameworkElement) =>
                         frameworkElement.FindResource(new DataTemplateKey(e.Item.GetType())),
                         _ => null
                     } as DataTemplate

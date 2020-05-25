@@ -18,21 +18,22 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
 
+
         <ItemsControl  x:Key="ItemsControlToolTip"  ItemsSource="{Binding Source={StaticResource MyEnumValues}}">
-            <!--<ItemsControl.ItemTemplate>
+            <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type jlinq:JTokenType}">
-                    <Border CornerRadius="3,3,3,3" BorderThickness="1"  Margin="5">
+                    <Border CornerRadius="3,3,3,3" BorderThickness="1"  Margin="5" >
                         <Border.BorderBrush>
-                            <SolidColorBrush Color="{Binding .,Converter={x:Static local:Converters.JTokenToColorConverter}}"></SolidColorBrush>
+                            <SolidColorBrush Color="{Binding Converter={x:Static local:Converters.JTokenTypeToColorConverter}}"  ></SolidColorBrush>
                         </Border.BorderBrush>
                         <Label Content="{Binding Mode=OneWay}" Foreground="WhiteSmoke" >
                             <Label.Background>
-                                <SolidColorBrush Color="{Binding .,Converter={x:Static local:Converters.JTokenToColorConverter}}" />
+                                <SolidColorBrush Color="{Binding Converter={x:Static local:Converters.JTokenTypeToColorConverter}}" />
                             </Label.Background>
                         </Label>
                     </Border>
                 </DataTemplate>
-            </ItemsControl.ItemTemplate>-->
+            </ItemsControl.ItemTemplate>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel></WrapPanel>
@@ -40,61 +41,72 @@
             </ItemsControl.ItemsPanel>
         </ItemsControl>
 
-        <!--<HierarchicalDataTemplate DataType="{x:Type jlinq:JArray}" ItemsSource="{Binding  .,Converter={x:Static local:Converters.MethodToValueConverter}, ConverterParameter='Children'}">
+        
+        <HierarchicalDataTemplate DataType="{x:Type jlinq:JArray}"
+                                  ItemsSource="{Binding  .,Converter={x:Static local:Converters.MethodToValueConverter}, ConverterParameter='Children'}">
             <StackPanel Orientation="Horizontal" Margin="1">
                 <TextBlock Text="array" Foreground="WhiteSmoke" Background="#a40000" Padding="3, 0, 3, 1" Opacity="0.4" Margin="0,0,5,0"/>
                 <TextBlock Text="{Binding Converter={StaticResource JArrayLengthConverter}}" Foreground="#a40000"/>
             </StackPanel>
-        </HierarchicalDataTemplate>-->
-        <!--<HierarchicalDataTemplate  x:Key="ArrayPropertyTemplate" DataType="{x:Type jlinq:JProperty}" ItemsSource="{Binding .,Converter={x:Static local:Converters.ComplexPropertyMethodToValueConverter}, ConverterParameter='Children'}">
+        </HierarchicalDataTemplate>
+ 
+        
+        <HierarchicalDataTemplate  x:Key="ArrayPropertyTemplate" DataType="{x:Type jlinq:JProperty}" 
+                                   ItemsSource="{Binding Converter={x:Static local:Converters.ComplexPropertyMethodToValueConverter}, ConverterParameter='Children'}">
             <StackPanel Orientation="Horizontal" Margin="1">
                 <TextBlock Text="{Binding Path=Name, Mode=OneWay}"  Width="100" />
 
                 <TextBlock Text="array" Foreground="WhiteSmoke" Background="#a40000" Padding="3, 0, 3, 1" Opacity="0.4" Margin="0,0,5,0"/>
-                <TextBlock Text="{Binding Converter={x:Static local:Converter.JArrayLengthConverter}}" Foreground="#a40000"/>
+                <TextBlock Text="{Binding Converter={x:Static local:Converters.JArrayLengthConverter}}" Foreground="#a40000"/>
             </StackPanel>
-        </HierarchicalDataTemplate>
-        <HierarchicalDataTemplate  x:Key="ObjectPropertyTemplate" DataType="{x:Type jlinq:JProperty}" ItemsSource="{Binding .,Converter={x:Static local:Converter.ComplexPropertyMethodToValueConverter}, ConverterParameter='Children'}">
+        </HierarchicalDataTemplate> 
+
+        
+        <HierarchicalDataTemplate  x:Key="ObjectPropertyTemplate" DataType="{x:Type jlinq:JProperty}" 
+                                   ItemsSource="{Binding .,Converter={x:Static local:Converters.ComplexPropertyMethodToValueConverter}, ConverterParameter='Children'}">
             <StackPanel Orientation="Horizontal" Margin="1">
                 <TextBlock Text="{Binding Path=Name, Mode=OneWay}" Width="100" ToolTip="{}{ }"/>
-                <TextBlock Text="2222dsf" Width="100" ToolTip="{}{ }"/>
-                
-        <TextBlock Text="{}{ }" Foreground="#729fcf"/>
-        
+                <TextBlock Text="2222dsf" Width="100" ToolTip="{}{ }"/>    
+                <TextBlock Text="{}{ }" Foreground="#729fcf"/>
             </StackPanel>
-        </HierarchicalDataTemplate>-->
-        <!--<DataTemplate x:Key="PrimitivePropertyTemplate" DataType="{x:Type jlinq:JProperty}" >
-
+        </HierarchicalDataTemplate>
+        
+      
+        
+        <DataTemplate x:Key="PrimitivePropertyTemplate" DataType="{x:Type jlinq:JProperty}" >
             <StackPanel Orientation="Horizontal" Margin="1">
-                <TextBlock Text="{Binding Path=Name, Mode=OneWay}"  Width="100" HorizontalAlignment="Right" Opacity="0.7"/>
+                <TextBlock Text="{Binding Path=Name, Mode=OneWay}"  Width="120" HorizontalAlignment="Right" Opacity="0.7"/>
 
                 <TextBlock MouseLeftButtonDown="JValue_OnMouseLeftButtonDown"  HorizontalAlignment="Left"
                            ToolTip="{StaticResource ItemsControlToolTip}"
-                           TextWrapping="Wrap" Text="{Binding Path=Value, Converter={x:Static local:Converters.JValueConverter}}"                            >
+                           TextWrapping="Wrap" Text="{Binding Value, Converter={x:Static local:Converters.JTokenConverter}}"                            >
                     <TextBlock.Foreground>
-                        <SolidColorBrush Color="{Binding Path=Value.Type, Converter={x:Static local:Converters.JTokenToColorConverter}}"></SolidColorBrush>
+                        <SolidColorBrush Color="{Binding Path=Value.Type, Converter={x:Static local:Converters.JTokenTypeToColorConverter}}"></SolidColorBrush>
                     </TextBlock.Foreground>
                 </TextBlock>
             </StackPanel>
         </DataTemplate>
+        
         <HierarchicalDataTemplate DataType="{x:Type jlinq:JObject}" ItemsSource="{Binding ., Converter={x:Static local:Converters.MethodToValueConverter}, ConverterParameter='Children'}">
             <TextBlock Text=" { }"  Width="100" HorizontalAlignment="Right" Opacity="0.7"/>
         </HierarchicalDataTemplate>
+        
         <HierarchicalDataTemplate DataType="{x:Type jlinq:JConstructor}" ItemsSource="{Binding ., Converter={x:Static local:Converters.MethodToValueConverter}, ConverterParameter='Children'}">
             <TextBlock Text="Constructor">
             </TextBlock>
         </HierarchicalDataTemplate>
-        <HierarchicalDataTemplate DataType="{x:Type jlinq:JRaw}" ItemsSource="{Binding  .,Converter={x:Static local:Converter.MethodToValueConverter}, ConverterParameter='Children'}">
+        <HierarchicalDataTemplate DataType="{x:Type jlinq:JRaw}" ItemsSource="{Binding  .,Converter={x:Static local:Converters.MethodToValueConverter}, ConverterParameter='Children'}">
             <TextBlock Text="Raw">
             </TextBlock>
         </HierarchicalDataTemplate>
-
+        
+ 
+      
         <DataTemplate DataType="{x:Type jlinq:JValue}">
             <TextBlock MouseLeftButtonDown="JValue_OnMouseLeftButtonDown" Width="{Binding RelativeSource={RelativeSource AncestorType=TreeView}}"
-                           TextWrapping="Wrap" Text="{Binding  .,Converter={x:Static local:Converters.JValueConverter}}" 
-                           Foreground="{Binding  .,Converter={x:Static local:Converters.JValueTypeToColorConverter}}" />
-        </DataTemplate>-->
-
+                           TextWrapping="Wrap" Text="{Binding Converter={StaticResource JTokenConverter}}" 
+                           Foreground="{Binding Type, Converter={x:Static local:Converters.JTokenTypeToColorConverter}}" />
+        </DataTemplate>
 
     </UserControl.Resources>
 
