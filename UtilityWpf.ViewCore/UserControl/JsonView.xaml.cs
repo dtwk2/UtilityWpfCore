@@ -208,24 +208,6 @@ namespace UtilityWpf.View
             _ => jval.Value.ToString() ?? string.Empty
         });
 
-        //public static IValueConverter JTokenConverter => Create<object,string>(jvalValue =>
-        //{
-        //    var value = jvalValue.Value;
-
-        //    if (value is JValue jval)
-        //    {
-        //        return jval.Type switch
-        //        {
-        //            JTokenType.Null => "null",
-        //            _ => jval.Value?.ToString()?? string.Empty
-        //        };
-        //    }
-
-        //    return value?.ToString() ?? string.Empty;
-        //});
-
-        //public IValueConverter JValueTypeToColorConverter() => Create<JValue, Color>(a => NiceColors.Value[(byte)a.Value.Type]);
-
     }
 
     internal static class TemplateSelector
