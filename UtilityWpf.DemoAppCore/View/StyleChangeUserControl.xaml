@@ -1,17 +1,21 @@
-﻿<UserControl x:Class="UtilityWpf.DemoApp.StyleChange"
+﻿<UserControl x:Class="UtilityWpf.DemoApp.StyleChangeUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:util="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.ViewCore"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel>
 
-        <util:ResourcePicker Path="..\..\..\Dictionaries" Width="80" Margin="10"></util:ResourcePicker>
+        <util:ResourcePicker  Width="80" Margin="10">
+            <system:Uri>/UtilityWpf.DemoAppCore;component/Themes/StyleChange/Blue.xaml</system:Uri>
+            <system:Uri>/UtilityWpf.DemoAppCore;component/Themes/StyleChange/Green.xaml</system:Uri>
+        </util:ResourcePicker>
 
-        <Grid Style="{DynamicResource DynamicGridBrush}"
-                  Margin="5"
+        <Grid Style="{DynamicResource GridBrush}"
+              Margin="5"
               Height="180"
               Width="250" />
     </StackPanel>

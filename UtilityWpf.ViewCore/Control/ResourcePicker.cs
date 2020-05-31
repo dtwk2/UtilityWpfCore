@@ -1,74 +1,59 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Markup;
 
 namespace UtilityWpf.View
 {
-    public class ResourcePicker : Control
+    public class ResourcePicker : ComboBox
     {
-        private ComboBox ComboBox;
-
-        public override void OnApplyTemplate()
-        {
-            ComboBox = this.GetTemplateChild("ComboBox") as ComboBox;
-            ComboBox.SelectionChanged += ComboBox_SelectionChanged;
-            Change();
-        }
+        private string[] keys = null;
 
         static ResourcePicker()
         {
-             DefaultStyleKeyProperty.OverrideMetadata(typeof(ResourcePicker), new FrameworkPropertyMetadata(typeof(ResourcePicker)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(ResourcePicker), new FrameworkPropertyMetadata(typeof(ResourcePicker)));
         }
 
         public ResourcePicker()
         {
+            this.SelectionChanged += ResourcePicker_SelectionChanged;
         }
 
-        public string Path
+
+        protected override void OnItemsSourceChanged(IEnumerable oldValue, IEnumerable newValue)
         {
-            get { return (string)GetValue(PathProperty); }
-            set { SetValue(PathProperty, value); }
+            base.OnItemsSourceChanged(oldValue, newValue);
         }
 
-        public static readonly DependencyProperty PathProperty = DependencyProperty.Register("Path", typeof(string), typeof(ResourcePicker), new PropertyMetadata(null, PathChanged));
-
-        private static void PathChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private void ResourcePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            (d as ResourcePicker).Change();
-        }
-
-        private void Change()
-        {
-            if (ComboBox != null)
-                this.Dispatcher.InvokeAsync(() =>
-            ComboBox.ItemsSource = System.IO.Directory.GetFiles(Path).Select(a => System.IO.Path.GetFileNameWithoutExtension(a)), System.Windows.Threading.DispatcherPriority.Background);
-        }
-
-        string[] keys = null;
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            string fileName = System.IO.Path.Combine(Path, ComboBox.SelectedItem.ToString() + ".xaml");
-            if (File.Exists(fileName))
+            ResourceDictionary dic = null;
+            var uri = e.AddedItems.OfType<Uri>().FirstOrDefault();
+            if (uri.Equals(default) == false)
             {
-                using (FileStream fs = new FileStream(fileName, FileMode.Open))
-                {
-                    // Read in ResourceDictionary File
-                    ResourceDictionary dic = (ResourceDictionary)XamlReader.Load(fs);
-                    // Clear any previous dictionaries loaded
-                    if (keys != null)
-                    {
-                        var remove = Application.Current.Resources.MergedDictionaries.Select((a, i) => (a, i)).SingleOrDefault(c => c.a.Keys.OfType<string>().SequenceEqual(keys)).i;
-                        Application.Current.Resources.MergedDictionaries.RemoveAt(remove);
-                    }
-                    // Add in newly loaded Resource Dictionary
-                    Application.Current.Resources.MergedDictionaries.Add(dic);
-                    keys = dic.Keys.OfType<string>().ToArray();
-                }
+                using Stream fs = Application.GetResourceStream(uri).Stream;
+                dic = (ResourceDictionary)XamlReader.Load(fs);
             }
+            dic ??= e.AddedItems.OfType<ResourceDictionary>().FirstOrDefault();
+          
+            if (keys != null)
+            {
+                var remove = Application.Current.Resources.MergedDictionaries
+                    .Select((a, i) => (a, i))
+                    .SingleOrDefault(c => c.a.Keys.OfType<string>().SequenceEqual(keys)).i;
+                Application.Current.Resources.MergedDictionaries.RemoveAt(remove);
+            }
+
+            Application.Current.Resources.MergedDictionaries.Add(dic);
+            keys = dic.Keys.OfType<string>().ToArray();
         }
+
     }
+
+
 }

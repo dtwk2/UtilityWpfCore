@@ -5,9 +5,9 @@ namespace UtilityWpf.DemoApp
     /// <summary>
     /// Interaction logic for ThemeChange.xaml
     /// </summary>
-    public partial class StyleChange : UserControl
+    public partial class StyleChangeUserControl : UserControl
     {
-        public StyleChange()
+        public StyleChangeUserControl()
         {
             InitializeComponent();
         }
