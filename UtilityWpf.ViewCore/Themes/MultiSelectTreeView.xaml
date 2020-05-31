@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converter="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf.CommonCore"
               xmlns:local="clr-namespace:UtilityWpf.View">
 
     <!--<ResourceDictionary.MergedDictionaries>
@@ -142,7 +143,7 @@
 
     <!--http://wpf-mettyz.blogspot.com/2012/02/custom-treeview-style.html-->
 
-    <local:AlternationEqualityConverter x:Key="MyAlternationEqualityConverter" />
+    <converter:AlternationEqualityConverter x:Key="MyAlternationEqualityConverter" />
 
     <Style x:Key="StretchedTreeViewItemWithLinesStyle" TargetType="{x:Type TreeViewItem}">
         <!-- Binding needs to be twoway since oneway by default-->

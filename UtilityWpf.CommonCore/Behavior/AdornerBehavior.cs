@@ -16,8 +16,6 @@ namespace UtilityWpf.Behavior
     public class AdornerBehavior : Behavior<UIElement>
     {
 
-
-
         public ICommand Command
         {
             get { return (ICommand)GetValue(CommandProperty); }

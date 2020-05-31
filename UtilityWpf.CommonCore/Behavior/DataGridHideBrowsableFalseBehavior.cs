@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Text;
 using System.Windows.Controls;
 
-namespace UtilityWpf.Common.Behavior
+namespace UtilityWpf.Behavior
 {
     public class DataGridHideBrowsableFalseBehavior : Behavior<DataGrid>
     {

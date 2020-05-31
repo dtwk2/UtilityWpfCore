@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using UtilityHelper.NonGeneric;
 
 namespace UtilityWpf.View
@@ -250,5 +251,21 @@ namespace UtilityWpf.View
         public double Max { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
+    }
+
+    public class ValueChangedCommand : ICommand
+    {
+        public event EventHandler CanExecuteChanged;
+
+        public bool CanExecute(object parameter) => true;
+
+        protected event Action<KeyValuePair<string, double>> Event;
+
+        public void Execute(object parameter)
+        {
+            var kvp = (parameter as View.SliderItemsControl.KeyValuePairRoutedEventArgs).KeyValuePair;
+
+            Event.Invoke(kvp);
+        }
     }
 }

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:UtilityWpf.DemoApp"
+             xmlns:att="clr-namespace:UtilityWpf.Attached;assembly=UtilityWpf.CommonCore"
              xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.ViewCore"
              xmlns:common="clr-namespace:UtilityWpf;assembly=UtilityWpf.CommonCore"
              mc:Ignorable="d"
@@ -109,7 +109,7 @@
             <UniformGrid Columns="1">
                 <StackPanel>
                 <TextBox  Name="tb" />
-                    <ItemsControl ItemsSource="{Binding}" view:ItemsControlEx.Filter="{Binding ElementName=tb,Path=Text}">
+                    <ItemsControl ItemsSource="{Binding}" att:ItemsControlEx.Filter="{Binding ElementName=tb,Path=Text}">
                     </ItemsControl>
             </StackPanel>
                 <!--<StackPanel>

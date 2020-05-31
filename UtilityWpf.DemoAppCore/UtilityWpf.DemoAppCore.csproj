@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
@@ -16,6 +16,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Remove="Themes\StyleChange\Blue.xaml" />
+    <Page Remove="Themes\StyleChange\Green.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoBogus" Version="2.8.2" />
     <PackageReference Include="BFF.DataVirtualizingCollection" Version="2.0.2" />
     <PackageReference Include="ControlzEx" Version="4.3.0" />
@@ -23,7 +28,6 @@
     <PackageReference Include="Endless" Version="0.7.0-alpha1" />
     <PackageReference Include="LambdaConverters" Version="4.0.0" />
     <PackageReference Include="PropertyTools.Wpf" Version="3.1.0-alpha0041" />
-    <PackageReference Include="ReactiveUI.WPF" Version="11.0.1" />
     <PackageReference Include="VirtualizingWrapPanel" Version="1.4.0" />
   </ItemGroup>
 
@@ -40,6 +44,12 @@
     <Resource Include="Images\Play.png" />
     <Resource Include="Images\Settings.png" />
     <Resource Include="Images\Stop.png" />
+    <Resource Include="Themes\StyleChange\Blue.xaml">
+      <SubType>Designer</SubType>
+    </Resource>
+    <Resource Include="Themes\StyleChange\Green.xaml">
+      <SubType>Designer</SubType>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -109,8 +119,8 @@
     <Compile Update="View\StructDataGridUserControl.xaml.cs">
       <DependentUpon>StructDataGridUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Update="View\StyleChange.xaml.cs">
-      <DependentUpon>StyleChange.xaml</DependentUpon>
+    <Compile Update="View\StyleChangeUserControl.xaml.cs">
+      <DependentUpon>StyleChangeUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Update="View\TreeViewUserControl.xaml.cs">
       <DependentUpon>TreeViewUserControl.xaml</DependentUpon>
@@ -118,12 +128,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="Dictionaries\Blue.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Dictionaries\Green.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -179,7 +183,7 @@
     <Page Update="View\StructDataGridUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\StyleChange.xaml">
+    <Page Update="View\StyleChangeUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\TreeViewUserControl.xaml">

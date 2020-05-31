@@ -120,13 +120,13 @@ namespace UtilityWpf.Behavior
                 }
                 return null;
 
-                static IEnumerable<object> GetVisibibleItems(int firstVisible, int lastVisible, DataGrid dataGrid)
-                {
-                    for (int i = firstVisible; i <= lastVisible; i++)
-                    {
-                        yield return dataGrid.Items[i];
-                    }
-                }
+                //static IEnumerable<object> GetVisibibleItems(int firstVisible, int lastVisible, DataGrid dataGrid)
+                //{
+                //    for (int i = firstVisible; i <= lastVisible; i++)
+                //    {
+                //        yield return dataGrid.Items[i];
+                //    }
+                //}
             }
         }
     }

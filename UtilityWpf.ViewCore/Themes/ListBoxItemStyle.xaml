@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:UtilityWpf.View"
+                    xmlns:util="clr-namespace:UtilityWpf.Attached;assembly=UtilityWpf.CommonCore"
                     xmlns:common="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf.CommonCore"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
@@ -16,7 +17,7 @@
 
         <Setter Property="IsSelected" Value="{Binding IsSelected}" />
         <Setter Property="Visibility" Value="{Binding IsVisible,Converter={StaticResource BoolToVis}}" />
-        <Setter Property="local:MouseDoubleClick.Command" Value="{Binding DoubleClickCommand}" />
+        <Setter Property="util:MouseDoubleClick.Command" Value="{Binding DoubleClickCommand}" />
         <Setter Property="IsEnabled" Value="{Binding IsEnabled}" />
         <!--<Setter Property="Canvas.Left" Value="{Binding Location.X}" />
         <Setter Property="Canvas.Top" Value="{Binding Location.Y}" />

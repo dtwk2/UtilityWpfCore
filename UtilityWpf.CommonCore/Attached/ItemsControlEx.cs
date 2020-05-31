@@ -8,7 +8,7 @@ using System.Windows.Data;
 using UtilityHelper;
 using UtilityHelper.NonGeneric;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Attached
 {
     public partial class ItemsControlEx : ItemsControl
     {
@@ -16,7 +16,7 @@ namespace UtilityWpf.View
 
         public static object GetNewItem(DependencyObject d)
         {
-            return (object)d.GetValue(NewItemProperty);
+            return d.GetValue(NewItemProperty);
         }
 
         public static void SetNewItem(DependencyObject d, object value)
@@ -28,7 +28,7 @@ namespace UtilityWpf.View
         {
             var x = (d as ItemsControl).Items?.Cast<object>()?.ToObservableCollection() ?? new ObservableCollection<object>();
             x.Add(e.NewValue);
-            Application.Current.Dispatcher.InvokeAsync(() => (d as ItemsControl).ItemsSource = x, System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
+            Application.Current.Dispatcher.InvokeAsync(() => (d as ItemsControl).ItemsSource = x, System.Windows.Threading.DispatcherPriority.Background, default);
         }
 
         public static string GetVariable(DependencyObject d)
@@ -71,7 +71,7 @@ namespace UtilityWpf.View
             if (arg.Count() > 0)
                 Application.Current.Dispatcher.InvokeAsync(() =>
                 control.SetValue(ItemsSourceProperty, arg.GetPropertyValues<object>((string)control.GetValue(VariableProperty)).Cast<IEnumerable<object>>().SelectMany(_s => _s)),
-                    System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
+                    System.Windows.Threading.DispatcherPriority.Background, default);
             ;
         }
 
@@ -92,7 +92,7 @@ namespace UtilityWpf.View
             ItemsControl control = d as ItemsControl;
             if (control.ItemsSource != null)
             {
-                System.Windows.Data.CollectionView view = (System.Windows.Data.CollectionView)CollectionViewSource.GetDefaultView(control.ItemsSource);
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(control.ItemsSource);
                 view.Filter = (a) => a.GetType().GetProperties().Where(_ => _.PropertyType == e.NewValue.GetType()).Select(_ => _.GetValue(a)).Any(_ => ((string)_).Contains((string)e.NewValue));
             }
         }

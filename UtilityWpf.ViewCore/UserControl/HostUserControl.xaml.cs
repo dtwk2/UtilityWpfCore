@@ -26,6 +26,7 @@ namespace UtilityWpf.View
             // UserControls 
             InitializeComponent();
             this.DockPanel1.DataContext = this;
+
             UserControls = Assembly.GetEntryAssembly().GetTypes()
                 .Where(a => typeof(UserControl).IsAssignableFrom(a))
                 .Select(a => (UserControl)Activator.CreateInstance(a))

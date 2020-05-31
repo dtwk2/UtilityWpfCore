@@ -41,11 +41,11 @@
                                 <ColumnDefinition Width="100" />
                             </Grid.ColumnDefinitions>
 
-                            <view:ImageButton x:Name="toggle"
+                            <!--<view:ImageButton x:Name="toggle"
                                                   Grid.Column="0"
                                                 Margin="15,0,15,0"
                                                 Image="/UtilityWpf.ViewCore;component/Images/Settings.png"
-                                                PressedImage="/UtilityWpf.ViewCore;component/Images/bar-chart.png" />
+                                                PressedImage="/UtilityWpf.ViewCore;component/Images/bar-chart.png" />-->
 
                             <StackPanel Grid.Column="1"
                                         Orientation="Horizontal"
@@ -60,13 +60,13 @@
                                                  IsChecked="{Binding ProcessState,RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource EnumBool},ConverterParameter={StaticResource paramsplay},Mode=OneWayToSource}">
                                 </view:ToggleImageButton>-->
 
-                                <view:ImageButton x:Name="Cancel"
+                                <!--<view:ImageButton x:Name="Cancel"
                                                Image="/UtilityWpf.ViewCore;component/Images/Stop.png"
                                                 HoverImage="/UtilityWpf.ViewCore;component/Images/Stop.png"
                                                 PressedImage="/UtilityWpf.ViewCore;component/Images/Stop.png"
                                                 DisabledImage="/UtilityWpf.ViewCore;component/Images/Stop.png"
                                               Command="{TemplateBinding CancelCommand}"
-                                              IsEnabled="{Binding ProcessState,RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource EnumBool},ConverterParameter={StaticResource paramscancel},Mode=OneWayToSource }" />
+                                              IsEnabled="{Binding ProcessState,RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource EnumBool},ConverterParameter={StaticResource paramscancel},Mode=OneWayToSource }" />-->
                                 <Grid>
 
                                     <Button Margin="6" Grid.Column="0" Command="{Binding PreviousTrackButtonClickCommand}">

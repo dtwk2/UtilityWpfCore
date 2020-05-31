@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Converter
 {
     //http://wpf-mettyz.blogspot.com/2012/02/custom-treeview-style.html
 

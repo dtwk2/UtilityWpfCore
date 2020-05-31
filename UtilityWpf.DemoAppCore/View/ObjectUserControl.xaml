@@ -3,8 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UtilityWpf.DemoApp"
              xmlns:sys="clr-namespace:System;assembly=System.Runtime"
              xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.ViewCore"
+             xmlns:forge="clr-namespace:Forge.Forms.Controls;assembly=Forge.Forms"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -40,7 +42,13 @@
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
+                <!--<ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <forge:DynamicForm Model="{x:Static local:Login.Instance}" Margin="16" />
+                    </ScrollViewer>-->
 
+                <!--<ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <forge:DynamicForm Model="{StaticResource Bart}" Margin="16" />
+                </ScrollViewer>-->
             </UniformGrid>
         </Grid>
     </DockPanel>

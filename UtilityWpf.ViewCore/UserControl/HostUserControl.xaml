@@ -6,38 +6,35 @@
              xmlns:local="clr-namespace:UtilityWpf.View"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local1="clr-namespace:UtilityWpf.Behavior;assembly=UtilityWpf.CommonCore"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
         <DockPanel x:Name="DockPanel1">
             <!-- Navigation Buttons -->
-    
-            <ScrollViewer DockPanel.Dock="Left" Width="250">
+
+        <ScrollViewer DockPanel.Dock="Left" Width="250">
+
+            <ListBox x:Name="ItemsControl1" Margin="0 16 0 16" SelectedIndex="0"                         
+    >
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="domain:DemoItem">
+                        <TextBlock Text="{Binding Key}" FontSize="14" Margin="32 0 32 0" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
 
 
-                <ItemsControl x:Name="ItemsControl1"   >
-                    <!--ItemsSource="{Binding UserControls}"-->
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Button  Content="{Binding Key}" Height="25" Width="200" 
-                                 x:Name="button"
-                                 Margin="5"
-                                >
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="Click">
-                                        <local1:SetterAction TargetObject="{Binding ElementName=ContentControl1}" PropertyName="Content"  Value="{Binding Value}"/>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </Button>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl     >
-            </ScrollViewer>
-       
-
-
-            <ContentControl  DockPanel.Dock="Left" x:Name="ContentControl1" />
-
+   
+        <Grid DataContext="{Binding ElementName=ItemsControl1, Path=SelectedItem}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Margin="20" FontSize="20" Text="{Binding Key}"/>
+                <ContentControl Grid.Row="1" x:Name="ContentControl1" Content="{Binding Value}"/>
+        </Grid>
         </DockPanel>
 
 </UserControl>
