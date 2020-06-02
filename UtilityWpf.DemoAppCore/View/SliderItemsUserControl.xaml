@@ -24,7 +24,7 @@
         </StackPanel>
              <Grid Width="700">
             <ScrollViewer VerticalScrollBarVisibility="Visible">
-            <view:SliderItemsControl x:Name="sic" Data="{DynamicResource Characters}" Key="First" Value="Age">
+            <view:SliderItemsControl x:Name="sic" Data="{StaticResource Characters}" Key="First" Value="Age">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="ValueChanged">
                         <behavior:EventCommandExecuter Command="{StaticResource ValueChangedCommand}"></behavior:EventCommandExecuter>

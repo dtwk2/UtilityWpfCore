@@ -11,7 +11,7 @@ namespace UtilityWpf
 {
     public static class EventToObservable
     {
-        public static IObservable<IList> SelectChanges(this Selector combo) =>
+        public static IObservable<IList> SelectAddChanges(this Selector combo) =>
 
       Observable
       .FromEventPattern<SelectionChangedEventHandler, SelectionChangedEventArgs>

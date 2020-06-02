@@ -13,7 +13,7 @@ namespace UtilityWpf.View.Extrinsic
         {
             try
             {
-                var slider = values[0] as Foreign.SliderWithTickLabels;
+                var slider = values[0] as SliderWithTickLabels;
                 var tickBar = slider.Template.FindName("TopTick", slider) as TickBar;
 
                 var positionMinimum = tickBar.ReservedSpace / 2;

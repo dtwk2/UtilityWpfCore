@@ -90,8 +90,6 @@ namespace UtilityWpf.View
         }
 
 
-
-
         public ObservableCollection<KeyRange> KeyRangeCollection { get; } = new ObservableCollection<KeyRange>();
 
 

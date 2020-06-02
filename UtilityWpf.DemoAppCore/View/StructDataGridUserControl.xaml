@@ -5,8 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.ViewCore"
              mc:Ignorable="d"
-
-                xmlns:sys="clr-namespace:System;assembly=mscorlib"
              d:DesignHeight="300" d:DesignWidth="300">
 
     <Grid>
