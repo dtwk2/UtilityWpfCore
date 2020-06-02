@@ -14,11 +14,11 @@ using System.Windows.Shapes;
 namespace UtilityWpf.DemoAppCore.View
 {
     /// <summary>
-    /// Interaction logic for SwitchViewUserControl.xaml
+    /// Interaction logic for TransitionControlUserControl.xaml
     /// </summary>
-    public partial class SwitchViewUserControl : UserControl
+    public partial class TransitionControlUserControl : UserControl
     {
-        public SwitchViewUserControl()
+        public TransitionControlUserControl()
         {
             InitializeComponent();
         }

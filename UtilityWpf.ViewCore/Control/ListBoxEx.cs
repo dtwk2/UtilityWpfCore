@@ -30,14 +30,12 @@ namespace UtilityWpf.View
 
         public static readonly DependencyProperty RemoveProperty = DependencyProperty.Register("Remove", typeof(bool), typeof(ListBoxEx), new PropertyMetadata(true, RemoveChanged));
 
-        //public static readonly DependencyProperty FilterOnProperty = DependencyProperty.Register("FilterOn", typeof(string), typeof(ListBoxEx), new PropertyMetadata(null, FilterOnChanged));
         public static readonly DependencyProperty OrientationProperty = DependencyProperty.Register("Orientation", typeof(Orientation), typeof(ListBoxEx), new PropertyMetadata(Orientation.Horizontal));
 
         public static readonly DependencyProperty AllChangesProperty = DependencyProperty.Register("AllChanges", typeof(IEnumerable), typeof(ListBoxEx), new PropertyMetadata(null));
 
         public static readonly DependencyProperty CheckedProperty = DependencyProperty.Register("Checked", typeof(IEnumerable), typeof(ListBoxEx), new PropertyMetadata(null));
 
-        //public static readonly DependencyProperty ItemsSourceExProperty = DependencyProperty.Register("ItemsSourceEx", typeof(IEnumerable), typeof(ListBoxEx), new PropertyMetadata(null, null, ItemsSourceExChanged));
 
         public bool IsReadOnly
         {

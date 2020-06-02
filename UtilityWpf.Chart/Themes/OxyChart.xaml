@@ -6,7 +6,7 @@
                     >
 
 
-    <Style TargetType="{x:Type local:OxyChart}">
+    <Style TargetType="{x:Type local:OxyChart}" BasedOn="{StaticResource {x:Type view:Controlx}}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:OxyChart }">

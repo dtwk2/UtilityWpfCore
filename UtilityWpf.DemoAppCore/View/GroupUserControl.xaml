@@ -1,0 +1,138 @@
+﻿<UserControl x:Class="UtilityWpf.DemoApp.GroupUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:UtilityWpf.DemoApp"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Grid  x:Key="BackContent"    Height="256"      Width="200">
+            <Grid.RowDefinitions>
+                <RowDefinition
+          Height="Auto" />
+                <RowDefinition
+          Height="*" />
+            </Grid.RowDefinitions>
+            <materialDesign:ColorZone
+        Mode="Accent"
+        Padding="6">
+                <StackPanel
+          Orientation="Horizontal">
+                    <Button
+            Style="{StaticResource MaterialDesignToolForegroundButton}"
+            Command="{x:Static materialDesign:Flipper.FlipCommand}"
+            HorizontalAlignment="Left">
+                        <materialDesign:PackIcon
+              Kind="ArrowLeft"
+              HorizontalAlignment="Right" />
+                    </Button>
+                    <TextBlock
+            Margin="8 0 0 0"
+            VerticalAlignment="Center">
+          EDIT USER
+                    </TextBlock>
+                </StackPanel>
+            </materialDesign:ColorZone>
+            <Grid
+        Grid.Row="1"
+        Margin="0 6 0 0"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Top"
+        Width="172">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBox
+          materialDesign:HintAssist.Hint="First name"
+          materialDesign:HintAssist.IsFloating="True"
+          Margin="0 12 0 0">
+                    James
+                </TextBox>
+                <TextBox
+          Grid.Row="1"
+          materialDesign:HintAssist.Hint="Last name"
+          materialDesign:HintAssist.IsFloating="True"
+          Margin="0 12 0 0">
+                    Willock
+                </TextBox>
+                <StackPanel
+          Grid.Row="2"
+          Orientation="Horizontal"
+          Margin="0 12 0 0"
+          HorizontalAlignment="Right">
+                    <TextBlock
+            VerticalAlignment="Center">
+          Email Contact
+                    </TextBlock>
+                    <ToggleButton
+            Margin="8 0 0 0"></ToggleButton>
+                </StackPanel>
+                <StackPanel
+          Grid.Row="3"
+          Orientation="Horizontal"
+          Margin="0 12 0 0"
+          HorizontalAlignment="Right">
+                    <TextBlock
+            VerticalAlignment="Center">
+          Telephone Contact
+                    </TextBlock>
+                    <ToggleButton
+            Margin="8 0 0 0"></ToggleButton>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+
+        <DataTemplate x:Key="GroupTemplate">
+            <materialDesign:Flipper  Style="{StaticResource MaterialDesignCardFlipper}">
+                <materialDesign:Flipper.FrontContent>
+                    <Button Height="200" Width="200"
+                                        Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                        Margin="8"      >
+                        <UniformGrid Columns="1" Margin="10" >
+                            <TextBlock Text="{Binding Key}" Margin="10" FontSize="20"></TextBlock>
+                            <TextBlock Text="{Binding Count}" Margin="10"></TextBlock>
+                        </UniformGrid>
+                    </Button>
+                </materialDesign:Flipper.FrontContent>
+                <materialDesign:Flipper.BackContent>
+                    <ContentControl Content="{StaticResource BackContent}"></ContentControl>
+                </materialDesign:Flipper.BackContent>
+            </materialDesign:Flipper>
+        </DataTemplate>
+
+        <DataTemplate x:Key="StockTemplate" DataType="{x:Type local:Stock}">
+
+            <UniformGrid Columns="1" Margin="10" >
+                <TextBlock Text="{Binding Key}" Margin="10" FontSize="20"></TextBlock>
+                <TextBlock Text="{Binding Name}" Margin="10"></TextBlock>
+                <TextBlock Text="{Binding Sector}" Margin="10"></TextBlock>
+            </UniformGrid>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <DockPanel>
+        <ToolBar DockPanel.Dock="Top">
+            <ComboBox x:Name="Combobox1" SelectedIndex="0">
+                <ComboBoxItem  Content="A"></ComboBoxItem>
+                <ComboBoxItem  Content="B"></ComboBoxItem>
+                <ComboBoxItem  Content="C"></ComboBoxItem>
+            </ComboBox>
+        </ToolBar>
+
+        <Grid>
+            <ListBox x:Name="ListBox1" ItemTemplateSelector="{x:Static local:GroupUserControl.sdfd2}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+        </Grid>
+    </DockPanel>
+</UserControl>

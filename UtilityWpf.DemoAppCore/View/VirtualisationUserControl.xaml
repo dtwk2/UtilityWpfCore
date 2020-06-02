@@ -8,7 +8,7 @@
              xmlns:pt="http://propertytools.org/wpf"
            
              xmlns:local="clr-namespace:UtilityWpf.DemoAppCore"
-             xmlns:foreign="clr-namespace:UtilityWpf.View.Foreign;assembly=UtilityWpf.ViewCore"
+             xmlns:foreign="clr-namespace:UtilityWpf.View.Extrinsic;assembly=UtilityWpf.ViewCore"
              xmlns:wpftk="clr-namespace:WpfToolkit.Controls;assembly=VirtualizingWrapPanel"
              d:DataContext="{d:DesignInstance local:ProfileCollection}"
              mc:Ignorable="d" 

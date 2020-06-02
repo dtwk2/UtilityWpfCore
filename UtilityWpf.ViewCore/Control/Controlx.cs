@@ -11,10 +11,16 @@ namespace UtilityWpf.View
 {
     public class Controlx : Control
     {
-        private readonly Dictionary<string, ISubject<object>> Subjects = new Dictionary<string, ISubject<object>>();
-        protected readonly ISubject<DependencyObject> ControlChanges = new Subject<DependencyObject>();
+        private readonly Dictionary<string, ISubject<object>> subjects = new Dictionary<string, ISubject<object>>();
+        private readonly ISubject<DependencyObject> controlChanges = new Subject<DependencyObject>();
         readonly object lck = new object();
-        public List<string> ControlNames = new List<string>();
+        //public List<string> ControlNames = new List<string>();
+        // private Lazy<FrameworkElement[]> elements = null;
+
+        static Controlx()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(Controlx), new FrameworkPropertyMetadata(typeof(Controlx)));
+        }
 
         public Controlx()
         {
@@ -22,68 +28,38 @@ namespace UtilityWpf.View
             {
                 if (dp.Name == "Id")
                 {
-                    dp.AddValueChanged(this, (s,e)=> eventHandler(s as DependencyObject,dp));
+                    dp.AddValueChanged(this, (sender, _) => subjects.OnNext(dp.Name, (sender as DependencyObject).GetValue(dp)));
                 }
                 //dp.AddValueChanged(this, eventHandler);
-      
             }
         }
 
         public override void OnApplyTemplate()
         {
-            var elements = this.FindVisualChildren<FrameworkElement>().Where(c => string.IsNullOrEmpty(c.Name) == false).ToArray();
-            foreach (var element in elements)
-                this.ControlChanges.OnNext(element);
-
-            //foreach (var dp in ReflectionHelper.SelectDependencyPropertiesDeclaredOnly(this.GetType()))
-            //{
-            //    //dp.AddValueChanged(this, eventHandler);
-            //    dp.AddValueChanged(this, eventHandler);
-            //}
-
-            //foreach (string name in ControlNames)
-            //{
-            //    this.ControlChanges.OnNext(this.GetTemplateChild(name));
-            //}
+            foreach (var xx in this.FindVisualChildren<FrameworkElement>())
+                controlChanges.OnNext(xx);
         }
 
-        //protected IObservable<DependencyObject> ControlChanges => controlChanges.AsObservable();
-
-        //public static DependencyProperty Register(
-        //    PropertyMetadata typeMetadata = null,
-        //    ValidateValueCallback validateValueCallback = null,
-        //    [CallerMemberName]string dpPropName = "")
-        //{
-
-        //    var dp = DependencyHelper.Register(typeMetadata, validateValueCallback, dpPropName);
 
 
-        //    return dp;
-        //}
-
-        private void eventHandler(DependencyObject sender, DependencyProperty e)
+        protected IObservable<T> SelectControlChanges<T>(string name = null) where T : FrameworkElement
         {
-
-            Subjects.OnNext(e.Name, sender.GetValue(e));
-            //(s, e) => (s as Controlx).OnNext((DependencyPropertyChangedEventArgs)e)
+            return name == null ?
+                controlChanges.OfType<T>().Select(a => (T)a) :
+                controlChanges.OfType<T>().Select(a => (T)a).Where(a => (a as FrameworkElement).Name == name);
         }
 
-        public IObservable<object> SelectChanges(string name)
+
+        protected IObservable<object> SelectChanges(string name)
         {
             lock (lck)
             {
-                Subjects[name] = Subjects.ContainsKey(name) ? Subjects[name] : new Subject<object>();
-                return Subjects[name];
+                subjects[name] = subjects.ContainsKey(name) ? subjects[name] : new Subject<object>();
+                return subjects[name];
             }
         }
 
-        public IObservable<T> SelectControlChanges<T>() where T : DependencyObject
-        {
-            var ttype = typeof(T);
-            return ControlChanges.Where(a => a.GetType() == ttype).Select(a => (T)a);
-        }
-
-        public IObservable<T> SelectChanges<T>(string name = null)
+        protected IObservable<T> SelectChanges<T>(string name = null)
         {
             var type = typeof(T);
             if (string.IsNullOrEmpty(name))
@@ -102,22 +78,22 @@ namespace UtilityWpf.View
             }
             lock (lck)
             {
-                Subjects[name] = Subjects.ContainsKey(name) ? Subjects[name] : new Subject<object>();
-                return Subjects[name].Select(x => (T)x);
+                subjects[name] = subjects.ContainsKey(name) ? subjects[name] : new Subject<object>();
+                return subjects[name].Select(x => (T)x);
             }
         }
 
-        public async void OnNext(DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
+        private async void OnNext(DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
         {
             string name = dependencyPropertyChangedEventArgs.Property.Name;
             object value = dependencyPropertyChangedEventArgs.NewValue;
             lock (lck)
             {
-                Subjects[name] = Subjects.ContainsKey(name) ? Subjects[name] : new Subject<object>();
+                subjects[name] = subjects.ContainsKey(name) ? subjects[name] : new Subject<object>();
             }
             await System.Threading.Tasks.Task.Run(() =>
             {
-                Subjects[name].OnNext(value);
+                subjects[name].OnNext(value);
             });
         }
 
@@ -126,12 +102,11 @@ namespace UtilityWpf.View
             (d as Controlx).OnNext(e);
         }
 
-        public IObservable<RoutedEventArgs> SelectLoads() =>
-            Observable.FromEventPattern<RoutedEventHandler, RoutedEventArgs>
-            (a => this.Loaded += a, a => this.Loaded -= a)
-            .Select(a => a.EventArgs);
 
-
+        /// <summary>
+        /// Whatches for any changes to dependency properties
+        /// </summary>
+        /// <returns></returns>
         protected IObservable<Dictionary<string, object>> Any()
         {
             return Observable.Create<Dictionary<string, object>>(observer =>
@@ -139,7 +114,7 @@ namespace UtilityWpf.View
                 Dictionary<string, object> dict = new Dictionary<string, object>();
                 var sub = new Subject<Dictionary<string, object>>();
                 var xx = new List<IDisposable>();
-                foreach (var x in Subjects)
+                foreach (var x in subjects)
                 {
                     xx.Add(x.Value.Subscribe(_ => { dict[x.Key] = _; sub.OnNext(dict); }));
                 }

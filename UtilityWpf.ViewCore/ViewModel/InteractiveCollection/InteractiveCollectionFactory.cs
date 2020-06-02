@@ -12,7 +12,14 @@ namespace UtilityWpf.ViewModel
 {
     public class InteractiveCollectionFactory
     {
-        public static ViewModel.InteractiveCollectionViewModel<T, object> Build<T>(Func<T, object> getkey, IObservable<IEnumerable<T>> elems, IObservable<IFilter> filter, IObservable<T> DeletedSubject, IObservable<object> ClearedSubject, IObservable<Func<T, object>> getkeys = null, bool isReadOnly = false)
+        public static ViewModel.InteractiveCollectionViewModel<T, object> Build<T>(
+            Func<T, object> getkey,
+            IObservable<IEnumerable<T>> elems,
+            IObservable<IFilter> filter,
+            IObservable<T> DeletedSubject,
+            IObservable<object> ClearedSubject,
+            //IObservable<object> groupSubject =null,
+            IObservable<Func<T, object>> getkeys = null, bool isReadOnly = false)
         {
             var dx = Observable.Create<string>(_ => () => { });
 
@@ -51,6 +58,8 @@ namespace UtilityWpf.ViewModel
                             exs.OnNext(ex);
                         }
                 });
+
+
                 return new System.Reactive.Disposables.CompositeDisposable(dels);
             }, getkey)
             .Filter(filter.Select(_ =>
@@ -58,7 +67,15 @@ namespace UtilityWpf.ViewModel
                    Func<T, bool> f = aa => _.Filter(aa);
                    return f;
                })
-            .StartWith(ft));
+      
+               .StartWith(ft));
+
+            //Func<T, object> func = (a) =>
+            //  {
+
+            //  };
+
+            //sx.Group(func);
 
             getkeys?.Subscribe(_ =>
             {
@@ -77,7 +94,7 @@ namespace UtilityWpf.ViewModel
         {
             return getkeys?.Select(_ =>
             {
-                return Build<T>(_, elems, filter, DeletedSubject, ClearedSubject);
+                return Build(_, elems, filter, DeletedSubject, ClearedSubject);
             });
         }
 

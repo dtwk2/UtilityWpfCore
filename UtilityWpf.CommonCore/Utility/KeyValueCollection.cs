@@ -7,76 +7,9 @@ namespace UtilityWpf.Utility
     using System.Collections.ObjectModel;
     using System.ComponentModel;
 
-    /// <summary>
-    /// From <a href="https://www.broculos.net/2014/03/wpf-editable-datagrid-and.html"></a>
-    /// </summary>
-    /// <typeparam name="TKey"></typeparam>
-    /// <typeparam name="TValue"></typeparam>
-    public class Pair<TKey, TValue> : INotifyPropertyChanged
-    {
-        public event PropertyChangedEventHandler PropertyChanged;
 
-        protected TKey _key;
-        protected TValue _value;
 
-        public TKey Key
-        {
-            get { return _key; }
-            set
-            {
-                if (
-                    _key == null && value != null
-                    || _key != null && value == null
-                    || !_key.Equals(value))
-                {
-                    _key = value;
-                    NotifyPropertyChanged("Key");
-                }
-            }
-        }
-
-        public TValue Value
-        {
-            get { return _value; }
-            set
-            {
-                if (
-                    _value == null && value != null
-                    || _value != null && value == null
-                    || _value != null && !_value.Equals(value))
-                {
-                    _value = value;
-                    NotifyPropertyChanged("Value");
-                }
-            }
-        }
-
-        public Pair()
-        {
-        }
-
-        public Pair(TKey key, TValue value)
-        {
-            Key = key;
-            Value = value;
-        }
-
-        public Pair(KeyValuePair<TKey, TValue> kv)
-        {
-            Key = kv.Key;
-            Value = kv.Value;
-        }
-
-        protected void NotifyPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-
-    public class ObservablePairCollection<TKey, TValue> : ObservableCollection<Pair<TKey, TValue>>
+    public class ObservablePairCollection<TKey, TValue> : ObservableCollection<ReactivePair<TKey, TValue>>
     {
         public EventHandler KeyValueChanged;
 
@@ -84,12 +17,12 @@ namespace UtilityWpf.Utility
         {
         }
 
-        public ObservablePairCollection(IEnumerable<Pair<TKey, TValue>> enumerable)
+        public ObservablePairCollection(IEnumerable<ReactivePair<TKey, TValue>> enumerable)
             : base(enumerable)
         {
         }
 
-        public ObservablePairCollection(List<Pair<TKey, TValue>> list)
+        public ObservablePairCollection(List<ReactivePair<TKey, TValue>> list)
             : base(list)
         {
         }
@@ -104,7 +37,7 @@ namespace UtilityWpf.Utility
 
         public void Add(TKey key, TValue value)
         {
-            var pair = new Pair<TKey, TValue>(key, value);
+            var pair = new ReactivePair<TKey, TValue>(key, value);
             pair.PropertyChanged += (a, b) => Pair_PropertyChanged(key);
             Add(pair);
         }

@@ -13,17 +13,21 @@ using System.Windows.Input;
 
 namespace UtilityWpf.View
 {
-    public class MasterDetailView : Controlx
+    public class MasterDetailView : ContentControlx
     {
 
 
         protected ISubject<string> GroupNameChanges = new Subject<string>();
         protected ISubject<string> NameChanges = new Subject<string>();
 
-        #region properties
+        public static readonly DependencyProperty IdProperty = DependencyProperty.Register("Id", typeof(string), typeof(MasterDetailView), new PropertyMetadata("Id", Changed));
         public static readonly DependencyProperty ItemsProperty = DependencyProperty.Register("Items", typeof(IEnumerable), typeof(MasterDetailView), new PropertyMetadata(null, Changed));
-
         public static readonly DependencyProperty OutputProperty = DependencyProperty.Register("Output", typeof(object), typeof(MasterDetailView), new PropertyMetadata(null, Changed));
+        public static readonly DependencyProperty OutputViewProperty = DependencyProperty.Register("DetailView", typeof(Control), typeof(MasterDetailView), new PropertyMetadata(null));
+        public static readonly DependencyProperty PropertyGroupDescriptionProperty = DependencyProperty.Register("PropertyGroupDescription", typeof(PropertyGroupDescription), typeof(MasterDetailView), new PropertyMetadata(null, Changed));
+        public static readonly DependencyProperty DataConverterProperty = DependencyProperty.Register("DataConverter", typeof(IValueConverter), typeof(MasterDetailView), new PropertyMetadata(null, Changed));
+
+        #region properties
 
         public string Id
         {
@@ -31,15 +35,6 @@ namespace UtilityWpf.View
             set { SetValue(IdProperty, value); }
         }
 
-        public static readonly DependencyProperty IdProperty = DependencyProperty.Register("Id", typeof(string), typeof(MasterDetailView), new PropertyMetadata("Id", Changed));
-
-        public Control DetailView
-        {
-            get { return (Control)GetValue(OutputViewProperty); }
-            set { SetValue(OutputViewProperty, value); }
-        }
-
-        public static readonly DependencyProperty OutputViewProperty = DependencyProperty.Register("DetailView", typeof(Control), typeof(MasterDetailView), new PropertyMetadata(null));
 
         public PropertyGroupDescription PropertyGroupDescription
         {
@@ -47,7 +42,6 @@ namespace UtilityWpf.View
             set { SetValue(PropertyGroupDescriptionProperty, value); }
         }
 
-        public static readonly DependencyProperty PropertyGroupDescriptionProperty = DependencyProperty.Register("PropertyGroupDescription", typeof(PropertyGroupDescription), typeof(MasterDetailView), new PropertyMetadata(null, Changed));
 
         public IValueConverter DataConverter
         {
@@ -55,7 +49,6 @@ namespace UtilityWpf.View
             set { SetValue(DataConverterProperty, value); }
         }
 
-        public static readonly DependencyProperty DataConverterProperty = DependencyProperty.Register("DataConverter", typeof(IValueConverter), typeof(MasterDetailView), new PropertyMetadata(null, Changed));
 
         public IEnumerable Items
         {
@@ -71,17 +64,11 @@ namespace UtilityWpf.View
         }
         #endregion properties
 
-        //protected ISubject<PropertyGroupDescription> PropertyGroupDescriptionChanges { get; } = new Subject<PropertyGroupDescription>();
-
-        //public override void OnApplyTemplate()
-        //{
-        //    this.ControlChanges.OnNext(this.GetTemplateChild("DockPanel") as DockPanel);
-        //    this.ControlChanges.OnNext(this.GetTemplateChild("TextBlock1") as TextBlock);
-        //}
 
         static MasterDetailView()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(MasterDetailView), new FrameworkPropertyMetadata(typeof(MasterDetailView)));
+
         }
 
         public MasterDetailView()
@@ -112,8 +99,6 @@ namespace UtilityWpf.View
                 if ((_.DockPanel as DockPanel)?.FindResource("GroupedItems") is CollectionViewSource collectionViewSource)
                     collectionViewSource.GroupDescriptions.Add(_.pgd);
             });
-
-            DetailView = DetailView ?? new JsonView();
 
 
             GroupClick = new RelayCommand<string>(a => GroupNameChanges.OnNext(a));
@@ -158,34 +143,20 @@ namespace UtilityWpf.View
                             return result;
                         })
                         .Select(viewmodel =>
-                        new KeyValue(
+                        new Utility.KeyValue(
                             viewmodel.GetType().GetProperty(input.id).GetValue(viewmodel).ToString(),
                             viewmodel));
                         Convert(group, input.conv, (items, conv) => conv.Convert(items, null, null, null));
 
                     }, DispatcherPriority.Background);
                 });
+
+            this.ContentTemplateSelector = new TemplateSelector(this);
         }
 
         private void Convert(object items, IValueConverter conv, Func<object, IValueConverter, object> func)
         {
-            if (DetailView is Abstract.IObject oview)
-            {
-                oview.Object = convert(conv, func, items);
-            }
-            else if (DetailView is JsonView propertyGrid)
-            {
-                var xx = convert(conv, func, items);
-                if (typeof(IEnumerable).IsAssignableFrom(xx.GetType()))
-                {
-                    var xs = xx as IEnumerable;
-                    propertyGrid.Object = xs;
-                }
-                else
-                    propertyGrid.Object = xx;
-            }
-            else
-                throw new Exception(nameof(DetailView) + " needs to have property OutputView");
+            this.Content = convert(conv, func, items);
 
             static object convert(IValueConverter conv, Func<object, IValueConverter, object> func, object items)
             {
@@ -199,17 +170,57 @@ namespace UtilityWpf.View
         public ICommand GroupClick { get; }
 
 
-        public class KeyValue
+        class TemplateSelector : System.Windows.Controls.DataTemplateSelector
         {
-            public KeyValue(string key, object value)
+            private readonly MasterDetailView masterDetailView;
+
+            public TemplateSelector(MasterDetailView masterDetailView)
             {
-                Key = key;
-                Value = value;
+                this.masterDetailView = masterDetailView;
             }
 
-            public string Key { get; }
+            public override DataTemplate SelectTemplate(object item, DependencyObject container)
+            {
+                if (item == null)
+                    return default;
+                var resource= masterDetailView.Template.Resources; 
+                return (item, container) switch
+                {
+                    (IConvertible _, FrameworkElement frameworkElement) => resource["IConvertiblePropertyTemplate"],
+                    (IDictionary _, FrameworkElement frameworkElement) => resource["DictionaryTemplate"],
+                    (IEnumerable _, FrameworkElement frameworkElement) => resource["EnumerableTemplate"],
+                    (Type _, FrameworkElement frameworkElement) => resource["TypeTemplate"],
+                    (object o, FrameworkElement frameworkElement) when
+                    (Splat.Locator.Current.GetService(typeof(ReactiveUI.IViewLocator)) is ReactiveUI.IViewLocator viewLocator) &&
+                    viewLocator.ResolveView<object>(o) != null => resource["ViewModelTemplate"],
+                    (_, FrameworkElement frameworkElement) =>
 
-            public object Value { get; }
+                    frameworkElement.FindResource(new DataTemplateKey(item.GetType())) ?? resource["DefaultTemplate"],
+                    _ => null
+                } as DataTemplate;
+            }
+
+            //public static DataTemplateSelector DataTemplateSelector =>
+            //  LambdaConverters.TemplateSelector.Create<object>(
+            //        e =>
+            //            (e.Item, e.Container) switch
+            //            {
+            //                (IConvertible property, FrameworkElement frameworkElement) => frameworkElement.FindResource("IConvertiblePropertyTemplate"),
+            //                (IDictionary property, FrameworkElement frameworkElement) => frameworkElement.FindResource("DictionaryTemplate"),
+            //                (IEnumerable property, FrameworkElement frameworkElement) => frameworkElement.FindResource("EnumerableTemplate"),
+            //                (Type property, FrameworkElement frameworkElement) => frameworkElement.FindResource("TypeTemplate"),
+            //                (object o, FrameworkElement frameworkElement) when
+            //                (Splat.Locator.Current.GetService(typeof(ReactiveUI.IViewLocator)) is ReactiveUI.IViewLocator viewLocator) && 
+            //                viewLocator.ResolveView<object>(o)!=null => frameworkElement.FindResource("ViewModelTemplate"),
+            //                (_, FrameworkElement frameworkElement) =>
+
+            //                frameworkElement.FindResource(new DataTemplateKey(item.GetType())) ?? frameworkElement.FindResource("DefaultTemplate"),
+            //                _ => null
+            //            } as DataTemplate
+            //        );
         }
     }
+
+
+
 }

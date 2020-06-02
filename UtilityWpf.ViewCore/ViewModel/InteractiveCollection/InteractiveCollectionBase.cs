@@ -315,7 +315,7 @@ namespace UtilityWpf.ViewModel
         }
 
 
-        public static IObservable<(bool,T)> SelectCheckedChanges<T>(this InteractiveCollectionBase<T> bse)
+        public static IObservable<(bool isChecked,T obj)> SelectCheckedChanges<T>(this InteractiveCollectionBase<T> bse)
         {
             return bse.Interactions.Where(_ => _.Value.Interaction == Interaction.Check).Select(_ => ((bool)_.Value.Value, _.Key));
         }

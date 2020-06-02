@@ -6,24 +6,13 @@
                     xmlns:utilitywpf="clr-namespace:UtilityWpf;assembly=UtilityWpf.CommonCore"
                     xmlns:local1="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf.CommonCore">
 
-    <!--x:Key="FileViewer"-->
-    <Style TargetType="{x:Type local:MasterDetailView}">
+    <Style x:Key="One" TargetType="{x:Type local:MasterDetailView}">
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:MasterDetailView }">
                     <ControlTemplate.Resources>
-                        <!--<DataTemplate  DataType="{x:Type viewmodel:PathViewModel}">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Source="/folder.png" Margin="0 0 4 0" />
-                                <TextBlock Grid.Column="1" Text="{Binding Directory}" />
-                            </Grid>
-                        </DataTemplate>-->
-                        <utility:DefaultConverter x:Key="Converter"></utility:DefaultConverter>
+                        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/DataTemplate/PropertyDataTemplateSelector.xaml"></ResourceDictionary>
                     </ControlTemplate.Resources>
                     <DockPanel x:Name="DockPanel">
                         <DockPanel.Resources>
@@ -36,9 +25,7 @@
                             DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                             DockPanel.Dock="Left"  ScrollViewer.VerticalScrollBarVisibility="Auto"
                             SelectedItem="{Binding Output, RelativeSource={RelativeSource TemplatedParent},Mode=TwoWay}"
-                                   ItemsSource="{Binding Source={StaticResource GroupedItems}}">
-
-
+                            ItemsSource="{Binding Source={StaticResource GroupedItems}}">
                             <ListView.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel ></WrapPanel>
@@ -55,10 +42,8 @@
                                                     CommandParameter="{Binding Name}"/>
                                         </DataTemplate>
                                     </GroupStyle.HeaderTemplate>
-
                                 </GroupStyle>
                             </ListView.GroupStyle>
-
                         </ListView>
 
                         <TextBlock Foreground="DarkCyan" DockPanel.Dock="Top" x:Name="TextBlock1"  Visibility="Collapsed" Height="20" Width="50">
@@ -79,16 +64,79 @@
                                 </Style>
                             </TextBlock.Style>
                         </TextBlock>
-                        <ContentControl DockPanel.Dock="Right" Width="600" Height="700"  Content="{Binding DetailView,RelativeSource={RelativeSource TemplatedParent}}">
-                        </ContentControl>
-
+                        <ContentPresenter></ContentPresenter>
                     </DockPanel>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
-    <local1:DefaultConverter x:Key="Converter"></local1:DefaultConverter>
+    <Style TargetType="{x:Type local:MasterDetailView}">
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:MasterDetailView }">
+                    <ControlTemplate.Resources>
+                        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/DataTemplate/PropertyDataTemplateSelector.xaml"></ResourceDictionary>
+                    </ControlTemplate.Resources>
+                    <DockPanel x:Name="DockPanel">
+                        <DockPanel.Resources>
+                            <CollectionViewSource x:Key="GroupedItems" Source="{Binding Items, RelativeSource={RelativeSource TemplatedParent}}">
+                            </CollectionViewSource>
+                            <utilitywpf:NullToBooleanConverter x:Key="ntobconverter" />
+                        </DockPanel.Resources>
+
+                        <ListView Height="600" Width="500"
+                            DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                            DockPanel.Dock="Left"  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                            SelectedItem="{Binding Output, RelativeSource={RelativeSource TemplatedParent},Mode=TwoWay}"
+                            ItemsSource="{Binding Source={StaticResource GroupedItems}}">
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel ></WrapPanel>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                            <ListView.GroupStyle>
+                                <GroupStyle>
+                                    <GroupStyle.HeaderTemplate>
+                                        <DataTemplate>
+                                            <!--<TextBlock FontWeight="Bold" FontSize="14" Text="{Binding .,Converter={StaticResource Converter}}" />-->
+                                            <Button FontWeight="Bold" Background="Transparent" FontSize="14" Content="{Binding Name}" 
+                                                    BorderThickness="0" HorizontalContentAlignment="Left"
+                                                    Command="{Binding Path=DataContext.GroupClick, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" 
+                                                    CommandParameter="{Binding Name}"/>
+                                        </DataTemplate>
+                                    </GroupStyle.HeaderTemplate>
+                                </GroupStyle>
+                            </ListView.GroupStyle>
+                        </ListView>
+
+                        <TextBlock Foreground="DarkCyan" DockPanel.Dock="Top" x:Name="TextBlock1"  Visibility="Collapsed" Height="20" Width="50">
+                            <TextBlock.Style>
+                                <Style  TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsEnabled" Value="True">
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" BeginTime="0:0:0" Duration="0:0:2"/>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0.0" BeginTime="0:0:2" Duration="0:0:1"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <ContentPresenter></ContentPresenter>
+                    </DockPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
 
     <Style TargetType="{x:Type local:MasterDetailCheckView}">
 
@@ -204,8 +252,7 @@
                                 </Style>
                             </TextBlock.Style>
                         </TextBlock>
-                        <ContentControl DockPanel.Dock="Right" Width="600" Height="700"  Content="{Binding DetailView,RelativeSource={RelativeSource TemplatedParent}}">
-                        </ContentControl>
+                        <ContentPresenter></ContentPresenter>
 
                     </DockPanel>
                 </ControlTemplate>

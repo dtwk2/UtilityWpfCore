@@ -25,7 +25,7 @@ namespace UtilityWpf.DemoAppCore.View
         public AdornerUser()
         {
             InitializeComponent();
-            TextCommand = new Command(() => TextBlock1.Text = TextBlock1.Text + " New Text");
+            TextCommand = new Command(() => TextBlock1.Text += " New Text");
             Grid1.DataContext = this;
         }
 

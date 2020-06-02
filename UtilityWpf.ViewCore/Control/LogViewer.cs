@@ -30,7 +30,7 @@ namespace UtilityWpf.View
 
         public LogViewer()
         {
-            ControlNames.Add("logOutputTextBox");
+            //ControlNames.Add("logOutputTextBox");
             object lck = new object();
             var dis = ObservableLogger
       
@@ -43,7 +43,7 @@ namespace UtilityWpf.View
                         return sb.Append("[").Append(next.Item1.ToString()).Append("] ").AppendLine(next.Item2);
                 }
                 )
-                .CombineLatest(ControlChanges.Select(a =>
+                .CombineLatest(this.SelectControlChanges<TextBox>("logOutputTextBox").Select(a =>
                 a as TextBox).Where(a => a != null), (a, b) => (a, b))
      
                 .Subscribe(c =>

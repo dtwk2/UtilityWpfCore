@@ -87,7 +87,7 @@
     <Page Update="Themes\FolderOpenControl.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\Foreign\SliderWithTickLabels.xaml">
+    <Page Update="Themes\Extrinsic\SliderWithTickLabels.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\Generic.xaml">
@@ -95,9 +95,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Update="Themes\Geometry.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Themes\HeaderBodyControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\HeaderedListBox.xaml">
@@ -115,16 +112,10 @@
     <Page Update="Themes\ListBoxItemStyle.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\LiveChart\DateTimeChart.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="Themes\MultiSelectTreeView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\NavigatorControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Themes\OxyPlot\DateTimePlot.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\PageNavigatorControl.xaml">

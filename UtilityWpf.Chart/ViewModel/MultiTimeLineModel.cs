@@ -11,6 +11,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
 
@@ -24,7 +25,7 @@ namespace UtilityWpf.Chart
 
     {
         Dictionary<string, CheckableList> DataPoints;
-        private Dispatcher dispatcher;
+        private Dispatcher dispatcher = Application.Current.Dispatcher;
         private PlotModel plotModel;
         object lck = new object();
         private readonly Dictionary<string,Color> colorDictionary = new Dictionary<string, Color>();
@@ -32,9 +33,8 @@ namespace UtilityWpf.Chart
         ISubject<Unit> refreshes = new Subject<Unit>();
 
 
-        public MultiTimeLineModel(Dispatcher dispatcher, PlotModel model)
+        public MultiTimeLineModel(PlotModel model)
         {
-            this.dispatcher = dispatcher;
             this.plotModel = model;
             model.Axes.Add(new OxyPlot.Axes.DateTimeAxis { });
             DataPoints = GetDataPoints();
@@ -65,9 +65,9 @@ namespace UtilityWpf.Chart
             {
                 var points = dataPoint.Value.DataPoints;
 
-                points = timeSpanDictionary.ContainsKey(dataPoint.Key.ToString()) ?
-                    Group(points, timeSpanDictionary[dataPoint.Key.ToString()]).ToList() :
-                    points;
+                //points = timeSpanDictionary.ContainsKey(dataPoint.Key.ToString()) ?
+                //    Group(points, timeSpanDictionary[dataPoint.Key.ToString()]).ToList() :
+                //    points;
 
                 var build = Build(points.OrderBy(dt => dt.DateTime), dataPoint.Key.ToString(), SetColor(dataPoint.Key.ToString()));
 

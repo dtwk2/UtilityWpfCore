@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:UtilityWpf.View"
                     xmlns:pt="http://propertytools.org/wpf"
-                    xmlns:Json="clr-namespace:UtilityWpf.View">
+                    xmlns:Json="clr-namespace:UtilityWpf.View"
+                    xmlns:rxui="http://reactiveui.net">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary  Source="/UtilityWpf.ViewCore;component/DataTemplate/KeyValuePairDataTemplate.xaml" />
@@ -20,13 +21,13 @@
 
     <DataTemplate x:Key="EnumerableTemplate">
         <Viewbox>
-            <ItemsControl ItemTemplate="{StaticResource DefaultTemplate }" />
+            <ItemsControl ItemsSource="{Binding }" ItemTemplate="{StaticResource DefaultTemplate }" />
         </Viewbox>
     </DataTemplate>
 
     <DataTemplate x:Key="DictionaryTemplate">
         <Viewbox>
-            <ItemsControl ItemTemplate="{StaticResource KeyValuePairTemplate }" />
+            <ItemsControl ItemsSource="{Binding }"  ItemTemplate="{StaticResource KeyValuePairTemplate }" />
         </Viewbox>
     </DataTemplate>
 
@@ -35,6 +36,24 @@
             <TextBlock Text="{Binding }" />
         </Viewbox>
     </DataTemplate>
+
+    <DataTemplate  x:Key="TypeTemplate">
+        <TextBlock Text="{Binding Name}" />
+    </DataTemplate>
+    
+    
+    <DataTemplate  x:Key="ViewModelTemplate">
+        <rxui:ViewModelViewHost
+                x:Name="sampleViewModelViewHost"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch">
+            <rxui:ViewModelViewHost.DefaultContent>
+                <Ellipse Fill="Red" Height="20" Width="20"></Ellipse>
+            </rxui:ViewModelViewHost.DefaultContent>
+        </rxui:ViewModelViewHost>
+    </DataTemplate>
+    
+    
 
     <local:PropertyDataTemplateSelector x:Key="propertytemplateSelector"
               IConvertibleTemplate="{StaticResource  IConvertibleTemplate}"

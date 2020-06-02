@@ -26,7 +26,7 @@ namespace UtilityWpf.Chart
         {
             var oxyChart = new OxyChart();
 
-            DetailView = oxyChart;
+            Content = oxyChart;
 
             this.Loaded += OxyChartSelector_Loaded;
 
@@ -47,8 +47,8 @@ namespace UtilityWpf.Chart
 
         private void OxyChartSelector_Loaded(object sender, RoutedEventArgs e)
         {
-            (DetailView as OxyChart).Data = Data;
-            (DetailView as OxyChart).Id = Id;
+            (Content as OxyChart).Data = Data;
+            (Content as OxyChart).Id = Id;
         }
     }
 

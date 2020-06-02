@@ -64,6 +64,7 @@ namespace UtilityWpf.ViewModel
                     return (IContain<T>)so;
                 })
                  .Bind(out items)
+                 
                  .DisposeMany()
                  .Subscribe(
                _ =>

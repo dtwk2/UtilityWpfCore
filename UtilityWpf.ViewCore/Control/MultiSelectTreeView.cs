@@ -138,9 +138,6 @@ namespace UtilityWpf.View
         public MultiSelectTreeView()
         {
             // ItemTemplateSelector =new PropertyDataTemplateSelector();
-            Uri resourceLocater = new Uri("/UtilityWpf.ViewCore;component/Themes/MultiSelectTreeView.xaml", System.UriKind.Relative);
-            ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
-            Style = resourceDictionary["MultiSelectTreeViewControlStyle"] as Style;
 
             var dispatcher = Application.Current.Dispatcher;
             var UI = new System.Reactive.Concurrency.DispatcherScheduler(dispatcher);

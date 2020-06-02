@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Text;
+using System.Windows;
 
 namespace UtilityWpf
 {
@@ -25,6 +26,24 @@ namespace UtilityWpf
             return source.Publish(ps =>
                 ps.Window(() => ps.Delay(sampleDuration, scheduler))
                   .SelectMany(x => x.Take(1)));
+        }
+
+        public static IObservable<RoutedEventArgs> SelectLoads(this FrameworkElement element) =>
+            Observable.FromEventPattern<RoutedEventHandler, RoutedEventArgs>(a => element.Loaded += a, a => element.Loaded -= a)
+            .Select(a => a.EventArgs);
+
+
+        /// James World
+        /// http://www.zerobugbuild.com/?p=323
+        /// The events should be output at a maximum rate specified by a TimeSpan, but otherwise as soon as possible.
+        public static IObservable<T> Pace<T>(this IObservable<T> source, TimeSpan rate)
+        {
+            var paced = source.Select(i => Observable.Empty<T>()
+
+                                      .Delay(rate)
+                                      .StartWith(i)).Concat();
+
+            return paced;
         }
     }
 }

@@ -38,11 +38,12 @@ namespace UtilityWpf.DemoAppCore.View
             var resource = (Application.Current.FindResource("Characters") as IEnumerable).Cast<Character>().ToArray();
 
 
-            var x = Enumerable.Repeat(1,1000).Select(a=>resource[random.Next(0, resource.Length)])
-
-                .ToObservable().Zip(Observable.Interval(TimeSpan.FromSeconds(1)), (a, b) =>
-                            new KeyValuePair<string, DateTimePoint>(a.First, new DateTimePoint(new DateTime(b)+TimeSpan.FromHours(b), 1d / (b+1) + random.NextDouble())))
-                .ToObservableChangeSet()
+            var x = Observable.Generate(
+                Enumerable.Repeat(1, 10000).Select(a => resource[random.Next(0, resource.Length)]).GetEnumerator(),
+                a => a.MoveNext(), a => a, a => a.Current, a => TimeSpan.FromSeconds(1))
+                .Select((a,i)=>
+                            new KeyValuePair<string, DateTimePoint>(a.First, new DateTimePoint(DateTime.Now, 1d / (i) + random.NextDouble())))
+                .ToObservableChangeSet(100)
                 .ObserveOnDispatcher()
                 .Bind(out a)
                 .Subscribe(a =>

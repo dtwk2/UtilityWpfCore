@@ -36,20 +36,15 @@ namespace UtilityWpf.Chart
 
         public OxyChart()
         {
-            //this.SelectChanges<IEnumerable>(nameof(OxyChart.Data)).Subscribe(a =>
-            //{
-
-            //});
-
             ISubject<MultiTimeLineModel> modelSubject = new Subject<MultiTimeLineModel>();
+
             var modelChanges = this.SelectControlChanges<PlotView>()
                 .Take(1)
                 .Subscribe(plotView =>
                 {
                     plotView.Model ??= new PlotModel();
-                    var model = new MultiTimeLineModel(this.Dispatcher, plotView.Model);
+                    var model = new MultiTimeLineModel(plotView.Model);
                     modelSubject.OnNext(model);
-
                 });
 
             var data = this.SelectChanges<IEnumerable>(nameof(OxyChart.Data))
@@ -59,6 +54,10 @@ namespace UtilityWpf.Chart
                 .Switch()
                 .Cast<KeyValuePair<string, DateTimePoint>>();
 
+            data.Subscribe(D =>
+            {
+
+            });
 
             modelSubject
                 .CombineLatest(data.Select(a => new KeyValuePair<string, (DateTime dt, double d)>(a.Key, (a.Value.DateTime, a.Value.Value))).Buffer(TimeSpan.FromSeconds(0.5)),
@@ -70,20 +69,20 @@ namespace UtilityWpf.Chart
 
             var itemsSource = this.SelectChanges<IEnumerable>(nameof(OxyChart.ItemsSource));
 
-            //.Cast<string>();
 
 
-
-            modelSubject.CombineLatest(itemsSource.Select(cc => (cc as System.Collections.Specialized.INotifyCollectionChanged)?.SelectActions())
-                .Merge(this.SelectLoads()?.Select(v => (ItemsSource as System.Collections.Specialized.INotifyCollectionChanged)?.SelectActions())), (model, b) =>
-                     (model,
-                      items: b))
+            modelSubject
+                .CombineLatest(
+                itemsSource.Select(cc => cc.MakeObservable()).Merge(this.SelectLoads()?.Where(a=> ItemsSource != null)
+                                                .Select(v => ItemsSource.MakeObservable())), (model, b) =>
+                (model,      items: b))
+                .ObserveOnDispatcher()
                 .Subscribe(combination =>
                 {
                     if (combination.items == default(IObservable<string>))
                         combination.model.Filter(null);
                     else
-                        combination.items.Subscribe(a =>
+                        combination.items.ObserveOnDispatcher().Subscribe(a =>
                         {
                             // var itt = ItemsSource.Cast<object>().Select(o => o.GetType().GetProperty(IdProperty).GetValue(o).ToString());
                             HashSet<string> ids = new HashSet<string>();
@@ -94,11 +93,11 @@ namespace UtilityWpf.Chart
                                 var id = item.GetType().GetProperty(Id).GetValue(item).ToString();
                                 ids.Add(id);
 
-                                if (color != default(Color))
+                                if (color != default)
                                 {
                                     combination.model.OnNext(new KeyValuePair<string, Color>(id, color));
                                 }
-                                if (timeSpan != default(TimeSpan))
+                                if (timeSpan != default)
                                 {
                                     combination.model.OnNext(new KeyValuePair<string, TimeSpan>(id, timeSpan));
                                 }
@@ -106,7 +105,12 @@ namespace UtilityWpf.Chart
 
                             combination.model.Filter(ids);
                             var colors = combination.model.SelectColors();
-                        });
+                        },e=>
+                        {
+                        },
+                        ()=>
+                        { }
+                        );
                 });
 
         }

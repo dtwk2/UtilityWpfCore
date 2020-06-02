@@ -27,11 +27,17 @@ namespace UtilityWpf
 
         public static IObservable<T> MakeObservable<T>(this IEnumerable oc)
         {
-
-            return oc is INotifyCollectionChanged notifyCollectionChanged ?
-                    oc.Cast<T>().ToObservable()
-                        .Concat(notifyCollectionChanged.SelectNewItems<T>()) :
-                    oc.Cast<T>().ToObservable();
+            try
+            {
+                return oc is INotifyCollectionChanged notifyCollectionChanged ?
+                        oc.Cast<T>().ToObservable()
+                            .Concat(notifyCollectionChanged.SelectNewItems<T>()) :
+                        oc.Cast<T>().ToObservable();
+            }
+            catch(Exception e)
+            {
+                throw;
+            }
         }
 
         public static IObservable<T> MakeObservable<T>(this IEnumerable<T> oc)

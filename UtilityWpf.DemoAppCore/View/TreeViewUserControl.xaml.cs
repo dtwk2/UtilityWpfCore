@@ -31,7 +31,7 @@ namespace UtilityWpf.DemoApp
             InitializeComponent();
             Grid.DataContext = this;
             var dis1 =
-        GetSectors()
+       Finance       .Sectors
          .ToObservable(Scheduler.Default)
          .ToObservableChangeSet()
          .ObserveOnDispatcher()
@@ -41,35 +41,5 @@ namespace UtilityWpf.DemoApp
          Stock = sectors.First().Stocks.First());
         }
 
-        public IEnumerable<Sector> GetSectors()
-        {
-            var reader = new StreamReader("../../../stocknet-dataset-master/StockTable.csv");
-
-            return from myRow in Csv.CsvReader.Read(reader)
-                   group myRow by myRow["Sector"] into g
-                   select new Sector
-                   {
-                       Key = g.Key,
-                       Stocks = g.Select(__ => new Stock
-                       {
-                           Key = __["Symbol"].Remove(0, 1),
-                           Name = __["Company"]
-                       }).ToList()
-                   };
-        }
-    }
-
-    public class Sector
-    {
-        public string Key { get; set; }
-        public ICollection<Stock> Stocks { get; set; }
-    }
-
-    public class Stock
-    {
-        public string Name { get; set; }
-        public string Key { get; set; }
-        //public Series<DateTime, double> Prices { get; set; }
-        //public IEnumerable<DayMovement> Prices { get; set; }
     }
 }

@@ -33,6 +33,6 @@
                 </view:SliderItemsControl>
             </ScrollViewer>
         </Grid>
-        <foreign:SliderWithTickLabels Width="200" Height="200" xmlns:foreign="clr-namespace:UtilityWpf.View.Foreign;assembly=UtilityWpf.ViewCore"></foreign:SliderWithTickLabels>
+        <foreign:SliderWithTickLabels Width="200" Height="200" xmlns:foreign="clr-namespace:UtilityWpf.View.Extrinsic;assembly=UtilityWpf.ViewCore"></foreign:SliderWithTickLabels>
     </DockPanel>
 </UserControl>

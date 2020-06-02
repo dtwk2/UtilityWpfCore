@@ -13,9 +13,7 @@
         </UniformGrid.Resources>
         <view:MasterDetailView Items="{Binding }" Id="First" PropertyGroupDescription="{StaticResource First}"></view:MasterDetailView>
         <view:MasterDetailCheckView Items="{Binding }" Id="First">
-            <view:MasterDetailCheckView.DetailView>
-                <ItemsControl></ItemsControl>
-            </view:MasterDetailCheckView.DetailView>
+            <ItemsControl></ItemsControl>
         </view:MasterDetailCheckView>
     </UniformGrid>
 </UserControl>
