@@ -13,7 +13,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
-namespace UtilityWpf.View.Foreign
+namespace UtilityWpf.View.Extrinsic
 {
     /// <summary>
     /// 

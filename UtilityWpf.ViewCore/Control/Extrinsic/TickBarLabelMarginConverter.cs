@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 
-namespace UtilityWpf.View.Foreign
+namespace UtilityWpf.View.Extrinsic
 {
     internal class TickBarLabelMarginConverter : IMultiValueConverter
     {

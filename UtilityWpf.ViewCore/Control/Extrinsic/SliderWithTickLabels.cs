@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace UtilityWpf.View.Foreign
+namespace UtilityWpf.View.Extrinsic
 {
     /// <summary>
     /// Siga os passos 1a ou 1b e depois 2 para usar esse controle personalizado em um arquivo XAML.
@@ -67,7 +67,7 @@ namespace UtilityWpf.View.Foreign
 
         public SliderWithTickLabels()
         {
-            //Uri resourceLocater = new Uri("/UtilityWpf.ViewCore;component/Themes/Foreign/SliderWithTickLabels.xaml", System.UriKind.Relative);
+            //Uri resourceLocater = new Uri("/UtilityWpf.ViewCore;component/themes/Extrinsic/SliderWithTickLabels.xaml", System.UriKind.Relative);
             //ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
             //Style = resourceDictionary["SliderWithTickLabels"] as Style;
 

@@ -2,6 +2,17 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:UtilityWpf.View">
 
+
+<!-- Controlx needs style so that OnApplyTemplate gets called-->
+    <Style  TargetType="{x:Type  local:Controlx }">
+        
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:Controlx }"></ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <ResourceDictionary.MergedDictionaries>
 
         <!--<ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/HeaderedListBox.xaml"></ResourceDictionary>-->
@@ -31,22 +42,27 @@
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/PathButton.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/MasterDetailView.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/LogViewer.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/SwitchView.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/TransitionControl.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/ValidationForm.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/MenuButton.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/Player.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/SkipControl.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/ProgressTimeBar.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/ResourcePicker.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/MultiSelectTreeView.xaml"></ResourceDictionary>
         
-    
+        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/MultiSelectTreeView.xaml"></ResourceDictionary>
 
+
+        <!--Foreign-->
+
+        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/Extrinsic/SliderWithTickLabels.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/Extrinsic/TimeBar.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/Extrinsic/CompareSlider.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/Extrinsic/IpAddrBox.xaml"></ResourceDictionary>
         
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/OxyPlot/DateTimePlot.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/Foreign/SliderWithTickLabels.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/Foreign/TimeBar.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/Foreign/CompareSlider.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/Foreign/IpAddrBox.xaml"></ResourceDictionary>
-  
+        <!--DataTemplate-->
+
+
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary> 
