@@ -2,17 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace UtilityWpf.View
 {
@@ -34,19 +25,26 @@ namespace UtilityWpf.View
                a.GetType().Name.Replace("UserControl", string.Empty) :
                  a.Name)
                 .OrderBy(a => a.Key)
-                .ToDictionary();
+                .ToDictionaryOnIndex();
 
             ItemsControl1.ItemsSource = UserControls;
             ContentControl1.Content = UserControls.FirstOrDefault().Value;
+
+            ItemsControl1.SelectionChanged += ItemsControl1_SelectionChanged;
+        }
+
+        private void ItemsControl1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ContentControl1.Content = ((KeyValuePair<string, UserControl>)ItemsControl1.SelectedItem).Value;
         }
 
         public IDictionary<string, UserControl> UserControls { get; }
     }
 
 
-    public static class sa
+    public static class Helper
     {
-        public static Dictionary<string, T> ToDictionary<T>(this IEnumerable<IGrouping<string, T>> groupings)
+        public static Dictionary<string, T> ToDictionaryOnIndex<T>(this IEnumerable<IGrouping<string, T>> groupings)
             =>
       groupings
            .Select(a => a.Select((b, i) => (b, i))

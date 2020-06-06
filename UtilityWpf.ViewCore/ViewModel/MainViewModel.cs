@@ -21,7 +21,7 @@ namespace UtilityWpf.View
      
         public MainViewModel()
         {
-            types = Utility.LazyEx.Create(Select);
+            types = new Lazy<KeyValuePair<string, KeyValuePair<string, object>>[]>(Select);
 
             this.forceGcCommand = ReactiveCommand.Create(
                 () =>
