@@ -5,17 +5,20 @@ using System.Windows.Input;
 
 namespace UtilityWpf
 {
-    public class OutputCommand : Control, ICommand
+    public class OutputControl : ContentControl, ICommand
     {
-        public object Output
-        {
-            get { return (object)GetValue(OutputProperty); }
-            set { SetValue(OutputProperty, value); }
-        }
-
-        public static readonly DependencyProperty OutputProperty = DependencyProperty.Register("Output", typeof(object), typeof(OutputCommand), new PropertyMetadata(null));
 
         public event EventHandler CanExecuteChanged;
+
+        public string PropertyName
+        {
+            get { return (string)GetValue(PropertyNameProperty); }
+            set { SetValue(PropertyNameProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for PropertyName.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PropertyNameProperty =
+            DependencyProperty.Register("PropertyName", typeof(string), typeof(OutputControl), new PropertyMetadata(null));
 
         public bool CanExecute(object parameter)
         {
@@ -24,7 +27,11 @@ namespace UtilityWpf
 
         public void Execute(object parameter)
         {
-            this.Dispatcher.InvokeAsync(() => Output = parameter, System.Windows.Threading.DispatcherPriority.DataBind);
+            this.Dispatcher.Invoke(() =>
+            Content = PropertyName == null ? 
+            parameter :
+            parameter.GetType().GetProperty(PropertyName).GetValue(parameter)
+            );
         }
     }
 

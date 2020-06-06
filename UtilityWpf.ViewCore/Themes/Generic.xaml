@@ -50,8 +50,7 @@
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/ProgressTimeBar.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/ResourcePicker.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/MultiSelectTreeView.xaml"></ResourceDictionary>
-        
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/MultiSelectTreeView.xaml"></ResourceDictionary>
+
 
 
         <!--Foreign-->

@@ -10,7 +10,7 @@ using UtilityInterface.Generic;
 
 namespace UtilityWpf.ViewModel
 {
-    public class InteractiveCollectionViewModel<T, R> : InteractiveCollectionBase<T>, ICollectionViewModel<IContain<T>>, IDisposable
+    public class InteractiveCollectionViewModel<T, R> : InteractiveCollectionBase<T>, ICollectionViewModel<IObject<T>>, IDisposable
     {
         //private ReadOnlyObservableCollection<SHDObject<T>> _items;
 
@@ -25,15 +25,15 @@ namespace UtilityWpf.ViewModel
                 {
                     var so = new SHDObject<T>(s, visiblefilter, enabledfilter, getkey?.Invoke(s));
                     this.ReactToChanges(so);
-                    return (IContain<T>)so;
+                    return (IObject<T>)so;
                 })
                   .Bind(out items)
               .DisposeMany()
                 .Subscribe(
                 _ =>
                 {
-                    foreach (var x in _.Select(a => new KeyValuePair<IContain<T>, ChangeReason>(a.Current, a.Reason)))
-                        (Changes as Subject<KeyValuePair<IContain<T>, ChangeReason>>).OnNext(x);
+                    foreach (var x in _.Select(a => new KeyValuePair<IObject<T>, ChangeReason>(a.Current, a.Reason)))
+                        (Changes as Subject<KeyValuePair<IObject<T>, ChangeReason>>).OnNext(x);
                 },
                 ex =>
                 {
@@ -61,7 +61,7 @@ namespace UtilityWpf.ViewModel
                     var so = new SHDObject<T>(s, visibleObservable, readableObservable, getkey?.Invoke(s));
                     so.IsReadOnly = isReadonly;
                     this.ReactToChanges(so);
-                    return (IContain<T>)so;
+                    return (IObject<T>)so;
                 })
                  .Bind(out items)
                  
@@ -69,8 +69,8 @@ namespace UtilityWpf.ViewModel
                  .Subscribe(
                _ =>
                {
-                   foreach (var x in _.Select(a => new KeyValuePair<IContain<T>, ChangeReason>(a.Current, a.Reason)))
-                       (Changes as Subject<KeyValuePair<IContain<T>, ChangeReason>>).OnNext(x);
+                   foreach (var x in _.Select(a => new KeyValuePair<IObject<T>, ChangeReason>(a.Current, a.Reason)))
+                       (Changes as Subject<KeyValuePair<IObject<T>, ChangeReason>>).OnNext(x);
                },
                 ex =>
                 {
@@ -99,15 +99,15 @@ namespace UtilityWpf.ViewModel
                     });
 
                     this.ReactToChanges(so);
-                    return (IContain<T>)so;
+                    return (IObject<T>)so;
                 })
                   .Bind(out items)
               .DisposeMany()
                 .Subscribe(
                 _ =>
                 {
-                    foreach (var x in _.Select(a => new KeyValuePair<IContain<T>, ChangeReason>(a.Current, a.Reason)))
-                        (Changes as Subject<KeyValuePair<IContain<T>, ChangeReason>>).OnNext(x);
+                    foreach (var x in _.Select(a => new KeyValuePair<IObject<T>, ChangeReason>(a.Current, a.Reason)))
+                        (Changes as Subject<KeyValuePair<IObject<T>, ChangeReason>>).OnNext(x);
                 },
                 ex => Console.WriteLine("Error in generic view model"),
                 () => Console.WriteLine("observable completed"));
@@ -128,15 +128,15 @@ namespace UtilityWpf.ViewModel
            {
                var so = new SHDObject<T>(s, invisiblefilter, enabledfilter, getkey?.Invoke(s));
                this.ReactToChanges(so);
-               return (IContain<T>)so;
+               return (IObject<T>)so;
            })
              .Bind(out items)
          .DisposeMany()
                 .Subscribe(
                 _ =>
                 {
-                    foreach (var x in _.Select(a => new KeyValuePair<IContain<T>, ChangeReason>(a.Current, a.Reason)))
-                        (Changes as Subject<KeyValuePair<IContain<T>, ChangeReason>>).OnNext(x);
+                    foreach (var x in _.Select(a => new KeyValuePair<IObject<T>, ChangeReason>(a.Current, a.Reason)))
+                        (Changes as Subject<KeyValuePair<IObject<T>, ChangeReason>>).OnNext(x);
                 },
                 ex =>
                 {

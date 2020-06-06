@@ -11,7 +11,7 @@ using UtilityInterface.Generic;
 
 namespace UtilityWpf.ViewModel
 {
-    public class InteractiveCollectionViewModel<T> : InteractiveCollectionBase<T>, ICollectionViewModel<IContain<T>>
+    public class InteractiveCollectionViewModel<T> : InteractiveCollectionBase<T>, ICollectionViewModel<IObject<T>>
     {
         public InteractiveCollectionViewModel(IObservable<IChangeSet<T>> observable,
 IObservable<Predicate<T>> invisiblefilter,
@@ -23,7 +23,7 @@ IScheduler scheduler, Func<T, IConvertible> getkey = null, string title = null)
            {
                var so = new SHDObject<T>(s, invisiblefilter, enabledfilter, getkey?.Invoke(s));
                this.ReactToChanges(so);
-               return (IContain<T>)so;
+               return (IObject<T>)so;
            })
              .Bind(out items)
 
@@ -49,7 +49,7 @@ IScheduler scheduler, Func<T, IConvertible> getkey = null, string title = null)
                     var so = new SHDObject<T>(s, null, null, getkey?.Invoke(s));
 
                     this.ReactToChanges(so);
-                    return (IContain<T>)so;
+                    return (IObject<T>)so;
                 })
      .Bind(out items)
          .DisposeMany()
@@ -71,13 +71,13 @@ IScheduler scheduler, Func<T, IConvertible> getkey = null, string title = null)
              (s =>
              {
                  var so = new SHDOObject(s, null, null, getkey?.Invoke(s));
-                 return (IContain<T>)so;
+                 return (IObject<T>)so;
              }).ToList();
 
             foreach (var so in xx)
                 this.ReactToChanges((SHDObject<T>)so);
 
-            items = new ReadOnlyObservableCollection<IContain<T>>(new ObservableCollection<IContain<T>>(xx));
+            items = new ReadOnlyObservableCollection<IObject<T>>(new ObservableCollection<IObject<T>>(xx));
 
             Title = title;
         }
@@ -89,7 +89,7 @@ IScheduler scheduler, Func<T, IConvertible> getkey = null, string title = null)
              {
                  var so = new SEObject<T>(s, childrenpath, ischecked, expand, dispatcher, getkey?.Invoke(s));
 
-                 return (IContain<T>)so;
+                 return (IObject<T>)so;
              }).ToList();
 
             foreach (var so in xx)
@@ -101,7 +101,7 @@ IScheduler scheduler, Func<T, IConvertible> getkey = null, string title = null)
                 });
             }
 
-            items = new ReadOnlyObservableCollection<IContain<T>>(new ObservableCollection<IContain<T>>(xx));
+            items = new ReadOnlyObservableCollection<IObject<T>>(new ObservableCollection<IObject<T>>(xx));
 
             ischecked.DelaySubscription(TimeSpan.FromSeconds(0.5)).Take(1).Subscribe(_ =>
             {

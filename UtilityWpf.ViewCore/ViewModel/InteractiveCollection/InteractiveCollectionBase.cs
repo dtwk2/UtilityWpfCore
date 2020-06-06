@@ -53,12 +53,12 @@ namespace UtilityWpf.ViewModel
 
         public string Title { get; protected set; }
 
-        protected ReadOnlyObservableCollection<IContain<T>> items;
+        protected ReadOnlyObservableCollection<IObject<T>> items;
 
-        public ICollection<IContain<T>> Items => this.items;
+        public ICollection<IObject<T>> Items => this.items;
 
-        public IObservable<KeyValuePair<IContain<T>, ChangeReason>> Changes => changes;
-        private ISubject<KeyValuePair<IContain<T>, ChangeReason>> changes = new Subject<KeyValuePair<IContain<T>, ChangeReason>>();
+        public IObservable<KeyValuePair<IObject<T>, ChangeReason>> Changes => changes;
+        private ISubject<KeyValuePair<IObject<T>, ChangeReason>> changes = new Subject<KeyValuePair<IObject<T>, ChangeReason>>();
 
         public InteractiveCollectionBase()
         {
@@ -160,7 +160,7 @@ namespace UtilityWpf.ViewModel
                  {
                      //((System.Reactive.Subjects.ISubject<T>)col.IsExpanded).OnNext(so == default(SHDObject<T>) ? default(T) : so.Object);
                      ((System.Reactive.Subjects.ISubject<KeyValuePair<T, InteractionArgs>>)col.Interactions).OnNext(new KeyValuePair<T, InteractionArgs>(so.Object, new InteractionArgs { Interaction = Interaction.Expand, Value = _ }));
-                     ((ISubject<KeyValuePair<IContain<T>, ChangeReason>>)col.Changes).OnNext(new KeyValuePair<IContain<T>, ChangeReason>(so, ChangeReason.Update));
+                     ((ISubject<KeyValuePair<IObject<T>, ChangeReason>>)col.Changes).OnNext(new KeyValuePair<IObject<T>, ChangeReason>(so, ChangeReason.Update));
                  }
              });
 
@@ -181,7 +181,7 @@ namespace UtilityWpf.ViewModel
                   if (_.Value != null)
                   {
                       ((System.Reactive.Subjects.ISubject<KeyValuePair<T, InteractionArgs>>)col.Interactions).OnNext(new KeyValuePair<T, InteractionArgs>(so.Object, new InteractionArgs { Interaction = Interaction.Check, Value = _.Value }));
-                      ((ISubject<KeyValuePair<IContain<T>, ChangeReason>>)col.Changes).OnNext(new KeyValuePair<IContain<T>, ChangeReason>(so, ChangeReason.Update));
+                      ((ISubject<KeyValuePair<IObject<T>, ChangeReason>>)col.Changes).OnNext(new KeyValuePair<IObject<T>, ChangeReason>(so, ChangeReason.Update));
                   }
               });
         }

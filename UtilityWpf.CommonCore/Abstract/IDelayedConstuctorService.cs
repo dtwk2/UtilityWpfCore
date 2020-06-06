@@ -2,7 +2,7 @@
 
 namespace UtilityWpf
 {
-    public interface IDelayedConstructorService<R> : IDelayedConstructor, IService<R>
+    public interface IDelayedConstructorService<R> : IDelayedConstructor, IObservableService<R>
     {
         //R Method(T input);
     }

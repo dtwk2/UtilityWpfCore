@@ -36,6 +36,7 @@
                     <Image Margin="0,5,0,0" Source="{Binding Image}" />
                 </StackPanel>
             </DataTemplate>
+            
             <DataTemplate  DataType="{x:Type local:Character}">
                 <ContentPresenter Content="{Binding}"
                     ContentTemplate="{StaticResource CharacterBaseClass}" />

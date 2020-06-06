@@ -72,7 +72,7 @@ namespace UtilityWpf.View
 
 
 
-        public ICollection<UtilityInterface.Generic.IContain<object>> Objects { get; }
+        public ICollection<UtilityInterface.Generic.IObject<object>> Objects { get; }
 
         static MasterDetailCheckView()
         {

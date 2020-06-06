@@ -15,8 +15,7 @@ namespace UtilityWpf.View
 {
     public class MasterDetailView : ContentControlx
     {
-
-
+        
         protected ISubject<string> GroupNameChanges = new Subject<string>();
         protected ISubject<string> NameChanges = new Subject<string>();
 
@@ -186,38 +185,22 @@ namespace UtilityWpf.View
                 var resource= masterDetailView.Template.Resources; 
                 return (item, container) switch
                 {
-                    (IConvertible _, FrameworkElement frameworkElement) => resource["IConvertiblePropertyTemplate"],
-                    (IDictionary _, FrameworkElement frameworkElement) => resource["DictionaryTemplate"],
-                    (IEnumerable _, FrameworkElement frameworkElement) => resource["EnumerableTemplate"],
-                    (Type _, FrameworkElement frameworkElement) => resource["TypeTemplate"],
-                    (object o, FrameworkElement frameworkElement) when
+                    (Control _, { } _)=> default,
+                    (IConvertible _, { } frameworkElement) => resource["IConvertiblePropertyTemplate"],
+                    (IDictionary _, { } frameworkElement) => resource["DictionaryTemplate"],
+                    (IEnumerable _, { } frameworkElement) => resource["EnumerableTemplate"],
+                    (Type _, { } frameworkElement) => resource["TypeTemplate"],
+                    (object o, { } frameworkElement) when
                     (Splat.Locator.Current.GetService(typeof(ReactiveUI.IViewLocator)) is ReactiveUI.IViewLocator viewLocator) &&
                     viewLocator.ResolveView<object>(o) != null => resource["ViewModelTemplate"],
                     (_, FrameworkElement frameworkElement) =>
-
-                    frameworkElement.FindResource(new DataTemplateKey(item.GetType())) ?? resource["DefaultTemplate"],
+                    frameworkElement.TryFindResource(new DataTemplateKey(item.GetType())) ??
+                    Application.Current.TryFindResource(new DataTemplateKey(item.GetType())) ??
+                    resource["DefaultTemplate"],
                     _ => null
                 } as DataTemplate;
             }
 
-            //public static DataTemplateSelector DataTemplateSelector =>
-            //  LambdaConverters.TemplateSelector.Create<object>(
-            //        e =>
-            //            (e.Item, e.Container) switch
-            //            {
-            //                (IConvertible property, FrameworkElement frameworkElement) => frameworkElement.FindResource("IConvertiblePropertyTemplate"),
-            //                (IDictionary property, FrameworkElement frameworkElement) => frameworkElement.FindResource("DictionaryTemplate"),
-            //                (IEnumerable property, FrameworkElement frameworkElement) => frameworkElement.FindResource("EnumerableTemplate"),
-            //                (Type property, FrameworkElement frameworkElement) => frameworkElement.FindResource("TypeTemplate"),
-            //                (object o, FrameworkElement frameworkElement) when
-            //                (Splat.Locator.Current.GetService(typeof(ReactiveUI.IViewLocator)) is ReactiveUI.IViewLocator viewLocator) && 
-            //                viewLocator.ResolveView<object>(o)!=null => frameworkElement.FindResource("ViewModelTemplate"),
-            //                (_, FrameworkElement frameworkElement) =>
-
-            //                frameworkElement.FindResource(new DataTemplateKey(item.GetType())) ?? frameworkElement.FindResource("DefaultTemplate"),
-            //                _ => null
-            //            } as DataTemplate
-            //        );
         }
     }
 

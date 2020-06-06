@@ -192,7 +192,7 @@ namespace UtilityWpf.View
 
         private ViewModel.InteractiveCollectionViewModel<object, object> interactivecollection; /*{ get;  set; }*/
 
-        public IObservable<KeyValuePair<IContain<Object>, ChangeReason>> Changes { get; private set; } = new Subject<KeyValuePair<IContain<Object>, ChangeReason>>();
+        public IObservable<KeyValuePair<IObject, ChangeReason>> Changes { get; private set; } = new Subject<KeyValuePair<IObject, ChangeReason>>();
 
 
         static ListBoxEx()
@@ -308,7 +308,7 @@ namespace UtilityWpf.View
             interactivecollection.GetRemoved().Subscribe(_ =>
                this.Dispatcher.InvokeAsync(() => Deleted = _, System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken)));
 
-            interactivecollection.Changes.Subscribe(_ => { (Changes as ISubject<KeyValuePair<IContain<Object>, ChangeReason>>).OnNext(_); changeCollection.Add(_); if (_.Value == ChangeReason.Add) ItemsSource = interactivecollection.Items; });
+            interactivecollection.Changes.Subscribe(_ => { (Changes as ISubject<KeyValuePair<IObject<Object>, ChangeReason>>).OnNext(_); changeCollection.Add(_); if (_.Value == ChangeReason.Add) ItemsSource = interactivecollection.Items; });
 
             this.Dispatcher.InvokeAsync(() => AllChanges = changeCollection, System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
 

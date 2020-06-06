@@ -27,7 +27,7 @@ namespace UtilityWpf.ViewModel
     }
 
     // Selectable / Hideable / Disableable
-    public class SHDObject<T> : NPC, IContain<T>//,IDisposable
+    public class SHDObject<T> : NPC, IObject<T>//,IDisposable
     {
         // set needs to be exposed for LiteDbToWork
         public T Object { get; set; }

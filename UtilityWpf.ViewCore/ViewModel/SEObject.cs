@@ -68,7 +68,7 @@ namespace UtilityWpf.ViewModel
         //    @checked.Subscribe(_ => IsChecked = _);
         //}
 
-        public ICollection<IContain<T>> Children => collection?.Items ?? new List<IContain<T>>();
+        public ICollection<IObject<T>> Children => collection?.Items ?? new List<IObject<T>>();
 
         private KeyValuePair<T, InteractionArgs> _affectedchild;
 
@@ -86,7 +86,7 @@ namespace UtilityWpf.ViewModel
             }
         }
 
-        public bool HasItems => (collection?.Items ?? new List<IContain<T>>()).Count > 0;
+        public bool HasItems => (collection?.Items ?? new List<IObject<T>>()).Count > 0;
 
         //public T Object { get; private set; }
     }
