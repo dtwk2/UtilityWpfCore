@@ -5,7 +5,6 @@
 
     <ResourceDictionary.MergedDictionaries>
 
-        <!--<ResourceDictionary  Source="/UtilityWpf.ViewCore;component/DataTemplate/PropertyDataTemplateSelector.xaml" />-->
     </ResourceDictionary.MergedDictionaries>
 
     <DataTemplate  x:Key="KeyValuePairTemplate">

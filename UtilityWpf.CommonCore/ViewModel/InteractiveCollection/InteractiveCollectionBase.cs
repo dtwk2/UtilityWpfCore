@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using UtilityInterface.Generic;
+using UtilityWpf.Property;
 
 namespace UtilityWpf.ViewModel
 {

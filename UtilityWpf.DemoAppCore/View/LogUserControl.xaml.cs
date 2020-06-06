@@ -9,7 +9,7 @@ using System.Windows.Controls;
 using UtilityWpf;
 
 
-namespace UtilityWpf.DemoAppCore
+namespace UtilityWpf.DemoApp
 {
     /// <summary>
     /// Interaction logic for LogUserControl.xaml
@@ -33,7 +33,7 @@ namespace UtilityWpf.DemoAppCore
 
         public LogViewModel()
         {
-            this.LogCommand = new RelayCommand(() =>
+            this.LogCommand = new Command.RelayCommand(() =>
             {
                 if (string.IsNullOrEmpty(this.Species))
                 {
@@ -47,7 +47,7 @@ namespace UtilityWpf.DemoAppCore
             });
         }
 
-        public RelayCommand LogCommand { get; }
+        public Command.RelayCommand LogCommand { get; }
 
         public string Species
         {

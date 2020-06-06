@@ -7,6 +7,7 @@ using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
 using UtilityHelper;
 using UtilityInterface.Generic;
+using UtilityWpf.Abstract;
 
 namespace UtilityWpf.ViewModel
 {
@@ -32,8 +33,8 @@ namespace UtilityWpf.ViewModel
             expand/*.CombineLatest(ischecked,(a,b)=>new { a, b })*/.Subscribe(_ =>
             {
                 // wait until last possible moment before fully initialising class;
-                if (type.GetInterfaces().Contains(typeof(UtilityWpf.IDelayedConstructor)))
-                    (@object as UtilityWpf.IDelayedConstructor).Init(null)
+                if (type.GetInterfaces().Contains(typeof(IDelayedConstructor)))
+                    (@object as IDelayedConstructor).Init(null)
                     .ToObservable()
                     .Subscribe(_a =>
                     privatemethod(@object, childrenpath, ischecked, expand, hasinterface));
@@ -52,11 +53,11 @@ namespace UtilityWpf.ViewModel
             if (hasinterface)
                 children = (@object as IParent<T>).Children;
             else
-                children = PropertyHelper.GetPropertyValue<IEnumerable>(@object, childrenpath)?.Cast<T>();
+                children = UtilityHelper.PropertyHelper.GetPropertyValue<IEnumerable>(@object, childrenpath)?.Cast<T>();
 
             if (children != null)
             {
-                collection = new InteractiveCollectionViewModel<T>(children, childrenpath, ischecked, this.WhenPropertyChanged(__ => __.IsExpanded).Select(b => b.Value).Where(c => c == true).Select(a => (bool)a).Take(1));
+                collection = new InteractiveCollectionViewModel<T>(children, childrenpath, ischecked, this.WhenPropertyChanged(a => a.IsExpanded).Select(b => b.Value).Where(c => c == true).Select(a => (bool)a).Take(1));
                 (collection.ChildSubject).Subscribe(_a => ChildChanged = _a);
                 collection.Interactions/*.Merge(collection.ChildSubject)*/.Subscribe(_a => ChildChanged = _a);
                 OnPropertyChanged(nameof(Children));

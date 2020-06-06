@@ -47,14 +47,7 @@ namespace UtilityWpf.View
             var converter = System.ComponentModel.TypeDescriptor.GetConverter(typeof(System.Windows.Media.Geometry));
             PathData = (System.Windows.Media.Geometry)converter.ConvertFrom(sData);
 
-            //Uri resourceLocater = new Uri("/UtilityWpf.ViewCore;component/Themes/PathButton.xaml", System.UriKind.Relative);
-            //ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
-            //Style = resourceDictionary["PathButtonStyle"] as Style;
 
-            //if (PathData == null)
-            //{
-            //    PathData = pathData;
-            //}
         }
     }
 }

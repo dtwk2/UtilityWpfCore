@@ -6,6 +6,8 @@ using UtilityWpf;
 
 namespace UtilityWpf.View
 {
+    using Command;
+
     public class Player : ProgressTimeBar
     {
         //private ToggleButtonEx playPauseButton;

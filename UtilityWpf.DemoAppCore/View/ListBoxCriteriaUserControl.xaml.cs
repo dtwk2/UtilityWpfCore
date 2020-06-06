@@ -19,7 +19,7 @@ namespace UtilityWpf.DemoApp
     public partial class ListBoxCriteriaUserControl : UserControl
     {
         private ReadOnlyObservableCollection<PassFail> a;
-        private ReadOnlyObservableCollection<PassFail> b;
+       // private ReadOnlyObservableCollection<PassFail> b;
 
         public ListBoxCriteriaUserControl()
         {

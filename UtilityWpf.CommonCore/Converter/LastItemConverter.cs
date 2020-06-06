@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace UtilityWpf
+namespace UtilityWpf.Converter
 {
     public class LastItemConverter : IMultiValueConverter
     {
@@ -15,7 +15,7 @@ namespace UtilityWpf
 
             if (values != null && values.Length == 2 && count > 0)
             {
-                var itemContext = (values[1] as System.Windows.Controls.ContentPresenter).DataContext;
+                var itemContext = (values[1] as ContentPresenter).DataContext;
                 var lastItem = itemscontrol.Items[count - 1];
                 return Equals(lastItem, itemContext);
             }

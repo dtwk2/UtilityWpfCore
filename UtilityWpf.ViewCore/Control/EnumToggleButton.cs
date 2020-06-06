@@ -34,7 +34,7 @@ namespace UtilityWpf.View
                 {
                     if (!c.useEnum)
                     {
-                        resourceDictionary ??= (ResourceDictionary)Application.LoadComponent(new Uri("/UtilityWpf.ViewCore;component/Themes/Geometry.xaml", UriKind.Relative));
+                        resourceDictionary ??= (ResourceDictionary)Application.LoadComponent(new Uri("/UtilityWpf.View;component/Themes/Geometry.xaml", UriKind.Relative));
                         (this as ToggleButton).Content = resourceDictionary["Tick"];
                         (this as ToggleButton).UnCheckedContent = resourceDictionary["Cross_"];
                     }

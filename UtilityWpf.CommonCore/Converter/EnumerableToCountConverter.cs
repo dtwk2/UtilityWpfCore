@@ -3,7 +3,7 @@ using System.Collections;
 using System.Linq;
 using System.Windows.Data;
 
-namespace UtilityWpf
+namespace UtilityWpf.Converter
 {
     [ValueConversion(typeof(object), typeof(bool))]
     public class EnumerableToCountConverter : IValueConverter

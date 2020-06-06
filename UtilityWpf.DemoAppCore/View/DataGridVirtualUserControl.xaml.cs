@@ -5,7 +5,7 @@ using System.Reactive.Linq;
 using System.Windows.Controls;
 
 
-namespace UtilityWpf.DemoAppCore.View
+namespace UtilityWpf.DemoApp.View
 {
     /// <summary>
     /// Interaction logic for DataGridUserControl.xaml

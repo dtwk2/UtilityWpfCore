@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Converter
 {
     public class StarWidthConverter : IValueConverter
     {
@@ -14,7 +14,7 @@ namespace UtilityWpf.View
             GridView gv = listview.View as GridView;
             for (int i = 0; i < gv.Columns.Count; i++)
             {
-                if (!Double.IsNaN(gv.Columns[i].Width))
+                if (!double.IsNaN(gv.Columns[i].Width))
                     width -= gv.Columns[i].Width;
             }
             return width - 5;// this is to take care of margin/padding

@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:att="clr-namespace:UtilityWpf.Attached;assembly=UtilityWpf.CommonCore"
-             xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.ViewCore"
-             xmlns:common="clr-namespace:UtilityWpf;assembly=UtilityWpf.CommonCore"
+             xmlns:att="clr-namespace:UtilityWpf.Attached;assembly=UtilityWpf"
+             xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.View"
+             xmlns:common="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"
              mc:Ignorable="d"
              DataContext="{DynamicResource Characters}"
              d:DesignHeight="300" d:DesignWidth="300">

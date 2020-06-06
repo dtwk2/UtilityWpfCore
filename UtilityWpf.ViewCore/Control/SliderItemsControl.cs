@@ -12,7 +12,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using UtilityHelper.NonGeneric;
-using UtilityWpf.Utility;
+using UtilityWpf.Property;
 
 namespace UtilityWpf.View
 {

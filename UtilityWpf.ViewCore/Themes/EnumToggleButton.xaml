@@ -16,7 +16,7 @@
         <Style.Resources>
             <ResourceDictionary>
                 <ResourceDictionary.MergedDictionaries>
-                    <ResourceDictionary Source="\UtilityWpf.ViewCore;component\Themes\Geometry.xaml"></ResourceDictionary>
+                    <ResourceDictionary Source="\UtilityWpf.View;component\Themes\Geometry.xaml"></ResourceDictionary>
                 </ResourceDictionary.MergedDictionaries>
             </ResourceDictionary>
         </Style.Resources>

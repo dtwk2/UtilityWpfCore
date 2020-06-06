@@ -75,13 +75,8 @@ namespace SoftwareArchitects.Windows.Controls
                     // Remove scrollviewer
                     if (scrollViewers.ContainsKey(scrollViewer))
                     {
-#if SILVERLIGHT
-						horizontalScrollBars.Remove(horizontalScrollBars.First(s => s.Value == scrollViewer).Key);
-						verticalScrollBars.Remove(verticalScrollBars.First(s => s.Value == scrollViewer).Key);
-						scrollViewer.Loaded += new RoutedEventHandler(ScrollViewer_Loaded);
-#else
+
                         scrollViewer.ScrollChanged -= new ScrollChangedEventHandler(ScrollViewer_ScrollChanged);
-#endif
                         scrollViewers.Remove(scrollViewer);
                     }
                 }
@@ -109,16 +104,14 @@ namespace SoftwareArchitects.Windows.Controls
 
                     // Add scrollviewer
                     scrollViewers.Add(scrollViewer, (string)e.NewValue);
-#if !SILVERLIGHT
+
                     scrollViewer.ScrollChanged += new ScrollChangedEventHandler(ScrollViewer_ScrollChanged);
-#else
-					scrollViewer.Loaded += new RoutedEventHandler(ScrollViewer_Loaded);
-#endif
+
                 }
             }
         }
 
-#if !SILVERLIGHT
+
 
         /// <summary>
         /// Occurs, when the scroll offset of one scrollviewer has changed.
@@ -134,101 +127,7 @@ namespace SoftwareArchitects.Windows.Controls
             }
         }
 
-#endif
 
-#if SILVERLIGHT
-		/// <summary>
-		/// Occurs, when the scroll viewer is loaded.
-		/// </summary>
-		/// <param name="sender">The sender of the event.</param>
-		/// <param name="e">EventArgs of the event.</param>
-		private static void ScrollViewer_Loaded(object sender, RoutedEventArgs e)
-		{
-			var scrollViewer = (ScrollViewer)sender;
-			var group = scrollViewers[scrollViewer];
-			scrollViewer.Opacity = 1;
-			if (verticalScrollOffsets.Keys.Contains(group))
-			{
-				scrollViewer.ScrollToVerticalOffset(verticalScrollOffsets[group]);
-			}
-
-			scrollViewer.ApplyTemplate();
-
-			var scrollViewerRoot = (FrameworkElement)VisualTreeHelper.GetChild(scrollViewer, 0);
-			var horizontalScrollBar = (ScrollBar)scrollViewerRoot.FindName("HorizontalScrollBar");
-			var verticalScrollBar = (ScrollBar)scrollViewerRoot.FindName("VerticalScrollBar");
-
-			if (!horizontalScrollBars.Keys.Contains(horizontalScrollBar))
-			{
-				horizontalScrollBars.Add(horizontalScrollBar, scrollViewer);
-			}
-
-			if (!verticalScrollBars.Keys.Contains(verticalScrollBar))
-			{
-				verticalScrollBars.Add(verticalScrollBar, scrollViewer);
-			}
-
-			if (horizontalScrollBar != null)
-			{
-				horizontalScrollBar.Scroll += new ScrollEventHandler(HorizontalScrollBar_Scroll);
-				horizontalScrollBar.ValueChanged += new RoutedPropertyChangedEventHandler<double>(HorizontalScrollBar_ValueChanged);
-			}
-
-			if (verticalScrollBar != null)
-			{
-				verticalScrollBar.Scroll += new ScrollEventHandler(VerticalScrollBar_Scroll);
-				verticalScrollBar.ValueChanged += new RoutedPropertyChangedEventHandler<double>(VerticalScrollBar_ValueChanged);
-			}
-		}
-
-		/// <summary>
-		/// Occurs, when the horizontal scroll bar was moved.
-		/// </summary>
-		/// <param name="sender">The sender of the event.</param>
-		/// <param name="e">EventArgs of the event.</param>
-		private static void HorizontalScrollBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-		{
-			var changedScrollBar = sender as ScrollBar;
-			var changedScrollViewer = horizontalScrollBars[changedScrollBar];
-			Scroll(changedScrollViewer);
-		}
-
-		/// <summary>
-		/// Occurs, when the vertical scroll bar was moved.
-		/// </summary>
-		/// <param name="sender">The sender of the event.</param>
-		/// <param name="e">EventArgs of the event.</param>
-		private static void VerticalScrollBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-		{
-			var changedScrollBar = sender as ScrollBar;
-			var changedScrollViewer = verticalScrollBars[changedScrollBar];
-			Scroll(changedScrollViewer);
-		}
-
-		/// <summary>
-		/// Occurs, when the horizontal scroll bar was moved.
-		/// </summary>
-		/// <param name="sender">The sender of the event.</param>
-		/// <param name="e">EventArgs of the event.</param>
-		private static void HorizontalScrollBar_Scroll(object sender, ScrollEventArgs e)
-		{
-			var changedScrollBar = sender as ScrollBar;
-			var changedScrollViewer = horizontalScrollBars[changedScrollBar];
-			Scroll(changedScrollViewer);
-		}
-
-		/// <summary>
-		/// Occurs, when the vertical scroll bar was moved.
-		/// </summary>
-		/// <param name="sender">The sender of the event.</param>
-		/// <param name="e">EventArgs of the event.</param>
-		private static void VerticalScrollBar_Scroll(object sender, ScrollEventArgs e)
-		{
-			var changedScrollBar = sender as ScrollBar;
-			var changedScrollViewer = verticalScrollBars[changedScrollBar];
-			Scroll(changedScrollViewer);
-		}
-#endif
 
         /// <summary>
         /// Scrolls all scroll viewers of a group to the position of the selected scroll viewer.

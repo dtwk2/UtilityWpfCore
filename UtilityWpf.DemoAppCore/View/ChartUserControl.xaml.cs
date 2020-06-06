@@ -20,7 +20,7 @@ using System.Windows.Shapes;
 using UtilityWpf.DemoApp;
 
 
-namespace UtilityWpf.DemoAppCore.View
+namespace UtilityWpf.DemoApp.View
 {
     /// <summary>
     /// Interaction logic for ChartUserControl.xaml

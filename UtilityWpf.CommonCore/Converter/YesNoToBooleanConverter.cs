@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Data;
 
-namespace TimeSeries.View
+namespace UtilityWpf.Converter
 {
     public class YesNoToBooleanConverter : IValueConverter
     {

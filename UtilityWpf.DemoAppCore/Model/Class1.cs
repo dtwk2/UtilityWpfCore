@@ -5,7 +5,7 @@
 //using System.Windows;
 //using System.Windows.Controls;
 
-//namespace UtilityWpf.DemoAppCore.Model
+//namespace UtilityWpf.DemoApp.Model
 //{
 //    class Class1
 //    {

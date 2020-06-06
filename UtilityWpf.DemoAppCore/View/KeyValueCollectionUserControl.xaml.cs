@@ -12,8 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using UtilityWpf.Common.Utility;
-using UtilityWpf.Utility;
+using UtilityWpf.Property;
 
 namespace UtilityWpf.DemoApp.View
 {
@@ -24,7 +23,7 @@ namespace UtilityWpf.DemoApp.View
     {
 
 
-        public event Action<int> numberEvent;
+       // public event Action<int> numberEvent;
 
         public KeyValueCollectionUserControl()
         {

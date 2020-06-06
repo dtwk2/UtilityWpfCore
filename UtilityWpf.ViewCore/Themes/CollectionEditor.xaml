@@ -4,8 +4,8 @@
                     xmlns:pt="http://propertytools.org/wpf">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary  Source="/UtilityWpf.ViewCore;component/Themes/ListBoxEx.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/ButtonDefinitionsControl.xaml"></ResourceDictionary>
+        <ResourceDictionary  Source="/UtilityWpf.View;component/Themes/ListBoxEx.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/ButtonDefinitionsControl.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
     <Style  TargetType="{x:Type  local:CollectionEditor }">

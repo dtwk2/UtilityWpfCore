@@ -6,7 +6,7 @@
                     xmlns:rxui="http://reactiveui.net">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary  Source="/UtilityWpf.ViewCore;component/DataTemplate/KeyValuePairDataTemplate.xaml" />
+        <ResourceDictionary  Source="/UtilityWpf.View;component/DataTemplate/KeyValuePairDataTemplate.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <DataTemplate x:Key="DefaultTemplate">

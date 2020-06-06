@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace UtilityWpf
+namespace UtilityWpf.Command
 {
     public class OutputControl : ContentControl, ICommand
     {
@@ -27,8 +27,8 @@ namespace UtilityWpf
 
         public void Execute(object parameter)
         {
-            this.Dispatcher.Invoke(() =>
-            Content = PropertyName == null ? 
+            Dispatcher.Invoke(() =>
+            Content = PropertyName == null ?
             parameter :
             parameter.GetType().GetProperty(PropertyName).GetValue(parameter)
             );

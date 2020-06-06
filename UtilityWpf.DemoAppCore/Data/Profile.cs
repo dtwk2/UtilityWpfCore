@@ -11,9 +11,8 @@ using System.Reactive.Linq;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using UtilityWpf.Common.Utility;
 
-namespace UtilityWpf.DemoAppCore
+namespace UtilityWpf.DemoApp
 {
 
 

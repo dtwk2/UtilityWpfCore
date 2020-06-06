@@ -2,9 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:foreign="clr-namespace:UtilityWpf.View.Extrinsic"
                       xmlns:local="clr-namespace:UtilityWpf.View"
-                    xmlns:converter="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf.CommonCore">
+                    xmlns:converter="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/themes/Extrinsic/SliderWithTickLabels.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/themes/Extrinsic/SliderWithTickLabels.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
     <!--<converter:GreaterThanConverter x:Key="GreaterThanConverter"></converter:GreaterThanConverter>-->

@@ -4,8 +4,8 @@
                     xmlns:local="clr-namespace:UtilityWpf.View">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary  Source="/UtilityWpf.ViewCore;component/Themes/ListBoxItemStyle.xaml" />
-        <ResourceDictionary  Source="/UtilityWpf.ViewCore;component/DataTemplate/PropertyDataTemplateSelector.xaml" />
+        <ResourceDictionary  Source="/UtilityWpf.View;component/Themes/ListBoxItemStyle.xaml" />
+        <ResourceDictionary  Source="/UtilityWpf.View;component/DataTemplate/PropertyDataTemplateSelector.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <BooleanToVisibilityConverter x:Key="BoolToVis" />

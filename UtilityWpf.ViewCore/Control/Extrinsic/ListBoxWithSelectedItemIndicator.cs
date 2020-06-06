@@ -51,7 +51,7 @@ namespace UtilityWpf.View
 
         public ListBoxWithSelectedItemIndicator()
         {
-            Uri resourceLocater = new Uri("/UtilityWpf.ViewCore;component/Themes/ListBoxEx.xaml", System.UriKind.Relative);
+            Uri resourceLocater = new Uri("/UtilityWpf.View;component/Themes/ListBoxEx.xaml", System.UriKind.Relative);
             ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
             Style = resourceDictionary["ListBoxWithSelectedItemIndicator"] as Style;
 

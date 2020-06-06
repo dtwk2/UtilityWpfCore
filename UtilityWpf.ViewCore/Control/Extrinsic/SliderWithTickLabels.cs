@@ -67,10 +67,6 @@ namespace UtilityWpf.View.Extrinsic
 
         public SliderWithTickLabels()
         {
-            //Uri resourceLocater = new Uri("/UtilityWpf.ViewCore;component/themes/Extrinsic/SliderWithTickLabels.xaml", System.UriKind.Relative);
-            //ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
-            //Style = resourceDictionary["SliderWithTickLabels"] as Style;
-
             CalculateTicks();
         }
 

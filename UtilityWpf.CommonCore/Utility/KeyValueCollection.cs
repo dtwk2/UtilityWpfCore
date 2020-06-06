@@ -1,5 +1,5 @@
 ﻿
-namespace UtilityWpf.Utility
+namespace UtilityWpf.Property
 {
 
     using System;

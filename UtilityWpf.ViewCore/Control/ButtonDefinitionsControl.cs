@@ -5,6 +5,8 @@ using System.Windows;
 using System.Windows.Controls;
 namespace UtilityWpf.View
 {
+    using Command;
+
     public class ButtonDefinitionsControl : ItemsControl
     {
         //public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(ButtonDefinitionsControl), new PropertyMetadata(null, ItemsSourceChanged));

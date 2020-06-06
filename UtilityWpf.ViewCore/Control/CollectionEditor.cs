@@ -94,7 +94,7 @@ namespace UtilityWpf.View
                 ?.Select(meas =>
                 new ViewModel.ButtonDefinition
                 {
-                    Command = new RelayCommand(() => av(meas.Value())),
+                    Command = new Command.RelayCommand(() => av(meas.Value())),
                     Content = meas.Key
                 });
 

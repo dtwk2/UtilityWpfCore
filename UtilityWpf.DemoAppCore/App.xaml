@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:UtilityWpf.DemoApp"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <!--<ResourceDictionary  Source="/UtilityWpf.ViewCore;component/Themes/ListBoxItemStyle.xaml" />-->
+        <!--<ResourceDictionary  Source="/UtilityWpf.View;component/Themes/ListBoxItemStyle.xaml" />-->
         <ResourceDictionary>
 
             <local:Character x:Key="Bart" First="Bart" Last="Simpson" Age="10"

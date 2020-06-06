@@ -1,7 +1,7 @@
 ﻿using UtilityHelper;
 using UtilityInterface.NonGeneric;
 
-namespace UtilityWpf
+namespace UtilityWpf.Service
 {
     public class ContainsFilter : IFilter
     {
@@ -19,6 +19,6 @@ namespace UtilityWpf
             _a = a;
         }
 
-        public bool Filter(object o) => _property == null ? ((string)o).Contains(_a) : ((o.GetPropertyValue<string>(_property))).Contains(_a);
+        public bool Filter(object o) => _property == null ? ((string)o).Contains(_a) : o.GetPropertyValue<string>(_property).Contains(_a);
     }
 }

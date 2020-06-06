@@ -100,7 +100,7 @@ namespace UtilityWpf.View
             });
 
 
-            GroupClick = new RelayCommand<string>(a => GroupNameChanges.OnNext(a));
+            GroupClick = new Command.RelayCommand<string>(a => GroupNameChanges.OnNext(a));
 
             NameChanges
                 .Merge(GroupNameChanges)
@@ -142,7 +142,7 @@ namespace UtilityWpf.View
                             return result;
                         })
                         .Select(viewmodel =>
-                        new Utility.KeyValue(
+                        new Property.KeyValue(
                             viewmodel.GetType().GetProperty(input.id).GetValue(viewmodel).ToString(),
                             viewmodel));
                         Convert(group, input.conv, (items, conv) => conv.Convert(items, null, null, null));

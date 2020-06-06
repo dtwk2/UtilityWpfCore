@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace UtilityWpf.DemoAppCore
+namespace UtilityWpf.DemoApp
 {
     /// <summary>
     /// Interaction logic for ScrollIntoViewUserControl.xaml

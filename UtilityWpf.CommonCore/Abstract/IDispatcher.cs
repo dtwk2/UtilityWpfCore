@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace UtilityWpf
+namespace UtilityWpf.Abstract
 {
     public interface IDispatcher
     {

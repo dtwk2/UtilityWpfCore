@@ -3,15 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:util="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.ViewCore"
+             xmlns:util="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.View"
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel>
 
         <util:ResourcePicker  Width="80" Margin="10">
-            <system:Uri>/UtilityWpf.DemoAppCore;component/Themes/StyleChange/Blue.xaml</system:Uri>
-            <system:Uri>/UtilityWpf.DemoAppCore;component/Themes/StyleChange/Green.xaml</system:Uri>
+            <system:Uri>/UtilityWpf.DemoApp;component/Themes/StyleChange/Blue.xaml</system:Uri>
+            <system:Uri>/UtilityWpf.DemoApp;component/Themes/StyleChange/Green.xaml</system:Uri>
         </util:ResourcePicker>
 
         <Grid Style="{DynamicResource GridBrush}"

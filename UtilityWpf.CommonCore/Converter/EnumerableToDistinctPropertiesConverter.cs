@@ -5,7 +5,7 @@ using System.Windows.Data;
 using UtilityHelper;
 using UtilityHelper.NonGeneric;
 
-namespace UtilityWpf
+namespace UtilityWpf.Converter
 {
     // Converts enumerable's to a distinct list of given property's (parameter)  value
     [ValueConversion(typeof(IEnumerable), typeof(IEnumerable))]

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace UtilityWpf
+namespace UtilityWpf.Command
 {
     public class RelayCommand : ICommand
     {
@@ -27,20 +27,20 @@ namespace UtilityWpf
 
         public bool CanExecute(object parameter)
         {
-            if (this.canExecuteEvaluator == null)
+            if (canExecuteEvaluator == null)
             {
                 return true;
             }
             else
             {
-                bool result = this.canExecuteEvaluator.Invoke();
+                bool result = canExecuteEvaluator.Invoke();
                 return result;
             }
         }
 
         public void Execute(object parameter)
         {
-            this.methodToExecute.Invoke();
+            methodToExecute.Invoke();
         }
     }
 

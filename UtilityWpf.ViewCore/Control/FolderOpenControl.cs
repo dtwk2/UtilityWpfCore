@@ -5,6 +5,8 @@ using System.Windows.Input;
 
 namespace UtilityWpf.View
 {
+    using Command;
+
     public class FolderOpenControl : Control
     {
         public static readonly DependencyProperty PathProperty = DependencyProperty.Register("Path", typeof(string), typeof(FolderOpenControl), new PropertyMetadata(null, PathChanged));
@@ -23,13 +25,18 @@ namespace UtilityWpf.View
         {
         }
 
+
+        static FolderOpenControl()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(FolderOpenControl), new FrameworkPropertyMetadata(typeof(FolderOpenControl)));
+        }
+
+
         public FolderOpenControl()
         {
             var foc = new FolderOpenCommand();
             this.SetValue(FolderOpenCommandProperty, foc);
-            Uri resourceLocater = new Uri("/UtilityWpf.ViewCore;component/Themes/FolderOpenControl.xaml", System.UriKind.Relative);
-            ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
-            Style = resourceDictionary["FolderOpenControl"] as Style;
+        
 
             foc.PropertyChanged += (sender, e) =>
             {

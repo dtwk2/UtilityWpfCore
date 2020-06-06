@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Converter
 {
     public class BindingChecker : IValueConverter
     {

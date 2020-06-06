@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Windows.Input;
+using UtilityWpf.Property;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Command
 {
-    public class FolderOpenCommand : UtilityWpf.NPC, ICommand
+    public class FolderOpenCommand : NPC, ICommand
     {
         private string directory;
 
@@ -18,7 +19,7 @@ namespace UtilityWpf.View
         public string Directory
         {
             get { return directory; }
-            set { this.OnPropertyChanged(ref directory, value); }
+            set { OnPropertyChanged(ref directory, value); }
         }
 
         public void Execute(object parameter)
@@ -26,7 +27,7 @@ namespace UtilityWpf.View
             using (var fbd = new FolderBrowserDialog())
             {
                 DialogResult result = fbd.ShowDialog();
-                if (result == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                     Directory = fbd.SelectedPath;
             }
         }

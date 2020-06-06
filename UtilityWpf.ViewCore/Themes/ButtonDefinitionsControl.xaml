@@ -1,9 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:UtilityWpf.View"
-                    xmlns:vm="clr-namespace:UtilityWpf.ViewModel">
-    
-    <DataTemplate  x:Key="ButtonDefinitionTemplate" DataType="{x:Type vm:ButtonDefinition}">
+                      xmlns:viewmodel="clr-namespace:UtilityWpf.ViewModel;assembly=UtilityWpf">
+
+    <DataTemplate  x:Key="ButtonDefinitionTemplate" DataType="{x:Type viewmodel:ButtonDefinition}">
         <Button Content="{Binding Content}"  Command="{Binding Command}"  Margin= "3" />
     </DataTemplate>
 

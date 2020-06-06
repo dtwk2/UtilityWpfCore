@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows.Data;
 using UtilityInterface.NonGeneric;
+using UtilityWpf.Service;
 
-namespace UtilityWpf
+namespace UtilityWpf.Converter
 {
     // Converts enumerable's to a distinct list of given property's (parameter)  value
     [ValueConversion(typeof(string), typeof(IFilter))]
@@ -17,7 +18,7 @@ namespace UtilityWpf
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return !(bool)value ? new Object() : null;
+            return !(bool)value ? new object() : null;
         }
 
         #endregion IValueConverter Members

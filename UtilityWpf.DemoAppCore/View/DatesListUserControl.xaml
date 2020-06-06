@@ -4,11 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UtilityWpf.DemoApp.View"
-             xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.ViewCore"
+             xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.View"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
            xmlns:enum="clr-namespace:UtilityEnum;assembly=UtilityEnum"
-             xmlns:common="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf.CommonCore"
-             xmlns:view11="clr-namespace:UtilityWpf.Behavior;assembly=UtilityWpf.CommonCore"
+             xmlns:common="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"
+             xmlns:view11="clr-namespace:UtilityWpf.Behavior;assembly=UtilityWpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>

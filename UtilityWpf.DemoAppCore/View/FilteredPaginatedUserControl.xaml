@@ -4,10 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.ViewCore"
-             xmlns:common="clr-namespace:UtilityWpf.Behavior;assembly=UtilityWpf.CommonCore"
-             xmlns:command="clr-namespace:UtilityWpf;assembly=UtilityWpf.CommonCore"
-             xmlns:pt="http://propertytools.org/wpf"
+             xmlns:common="clr-namespace:UtilityWpf.Behavior;assembly=UtilityWpf"
+                      xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             xmlns:command1="clr-namespace:UtilityWpf.Command;assembly=UtilityWpf"
+             xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.View"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -20,7 +20,7 @@
             </StackPanel>
         </DataTemplate>-->
         <x:Array x:Key="d" x:Name="Items2" 
-                   xmlns:system="clr-namespace:System;assembly=mscorlib"
+                
                  Type="{x:Type system:String}"  
                >
             <system:String>Hello</system:String>
@@ -37,7 +37,7 @@
         <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
             <UniformGrid Rows="1">
                 <UniformGrid.Resources>
-                    <command:OutputControl x:Key="oc"></command:OutputControl>
+                    <command1:OutputControl x:Key="oc"></command1:OutputControl>
                     <view:SelectedIndexEventArgsToNumber x:Key="eac"></view:SelectedIndexEventArgsToNumber>
                    
                 </UniformGrid.Resources>
@@ -53,21 +53,15 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </view:NavigatorControl>
-                <command:OutputControl x:Name="oc">
-                    <command:OutputControl.Style>
-                        <Style  TargetType="{x:Type  command:OutputControl}">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type command:OutputControl}">
-                                        <TextBox IsReadOnly="True" Text="{Binding Output,RelativeSource={RelativeSource TemplatedParent}}" />
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </command:OutputControl.Style>
-                </command:OutputControl>
+                <command1:OutputControl x:Name="oc">
+                    <command1:OutputControl.ContentTemplate>
+                        <DataTemplate>
+                            <TextBox IsReadOnly="True" Text="{Binding }" />
+                        </DataTemplate>
+                    </command1:OutputControl.ContentTemplate>
+                </command1:OutputControl>
 
-                <command:OutputControl >
+                <!--<command:OutputControl >
                     <command:OutputControl.Style>
                         <Style  TargetType="{x:Type  command:OutputControl}">
                             <Setter Property="Template">
@@ -79,7 +73,7 @@
                             </Setter>
                         </Style>
                     </command:OutputControl.Style>
-                </command:OutputControl>
+                </command:OutputControl>-->
                 <TextBlock Background="AliceBlue" Width="60" Height="30" Text="{Binding  Output, Source={StaticResource oc}, Mode=TwoWay,FallbackValue='20'}"/>
             </UniformGrid>
         </Border>

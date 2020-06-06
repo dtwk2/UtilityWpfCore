@@ -4,13 +4,13 @@ using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Attached
 {
     public class Equality : Control
     {
         public static readonly DependencyProperty Value1Property = DependencyProperty.RegisterAttached("Value1", typeof(object), typeof(Equality), new PropertyMetadata(null, Value1Change));
 
-        public static void SetValue1(DependencyObject target, Boolean value)
+        public static void SetValue1(DependencyObject target, bool value)
         {
             target.SetValue(Value1Property, value);
         }
@@ -22,7 +22,7 @@ namespace UtilityWpf.View
 
         public static readonly DependencyProperty Value2Property = DependencyProperty.RegisterAttached("Value2", typeof(object), typeof(Equality), new PropertyMetadata(null, Value2Change));
 
-        public static void SetValue2(DependencyObject target, Boolean value)
+        public static void SetValue2(DependencyObject target, bool value)
         {
             target.SetValue(Value2Property, value);
         }
@@ -34,7 +34,7 @@ namespace UtilityWpf.View
 
         public static readonly DependencyProperty IsEqualProperty = DependencyProperty.RegisterAttached("IsEqual", typeof(bool), typeof(Equality));
 
-        public static void SetIsEqual(DependencyObject target, Boolean value)
+        public static void SetIsEqual(DependencyObject target, bool value)
         {
             target.SetValue(IsEqualProperty, value);
         }
@@ -61,7 +61,7 @@ namespace UtilityWpf.View
         {
             Value1Changes.CombineLatest(Value2Changes, (one, two) => new { one, two }).Subscribe(_ =>
                    {
-                       this.SetValue(IsEqualProperty, _.one.Equals(_.two));
+                       SetValue(IsEqualProperty, _.one.Equals(_.two));
                    });
         }
     }

@@ -15,50 +15,50 @@
 
     <ResourceDictionary.MergedDictionaries>
 
-        <!--<ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/HeaderedListBox.xaml"></ResourceDictionary>-->
+        <!--<ResourceDictionary Source="/UtilityWpf.View;component/Themes/HeaderedListBox.xaml"></ResourceDictionary>-->
         <!--<ResourceDictionary Source="HeaderedListBox.xaml"></ResourceDictionary>-->
         <!--<ResourceDictionary Source="ResourcePicker.xaml"></ResourceDictionary>-->
-        <!--<ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/SliderItemsControl.xaml"></ResourceDictionary>-->
-        <!--<ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/LiveChart/DateTimeChart.xaml"></ResourceDictionary>-->
+        <!--<ResourceDictionary Source="/UtilityWpf.View;component/Themes/SliderItemsControl.xaml"></ResourceDictionary>-->
+        <!--<ResourceDictionary Source="/UtilityWpf.View;component/Themes/LiveChart/DateTimeChart.xaml"></ResourceDictionary>-->
         
         
 
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/NavigatorControl.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/PageNavigatorControl.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/ButtonDefinitionsControl.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/EnumItems.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/NavigatorControl.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/PageNavigatorControl.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/ButtonDefinitionsControl.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/EnumItems.xaml"></ResourceDictionary>
         
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/CriteriaItem.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/ListBoxEx.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/CollectionEditor.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/ListBoxItemStyle.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/EnumToggleButton.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/ImageButton.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/SizeControl.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/SliderItemsControl.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/DictionaryControl.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/CriteriaItem.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/ListBoxEx.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/CollectionEditor.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/ListBoxItemStyle.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/EnumToggleButton.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/ImageButton.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/SizeControl.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/SliderItemsControl.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/DictionaryControl.xaml"></ResourceDictionary>
 
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/DatesList.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/PathButton.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/MasterDetailView.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/LogViewer.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/TransitionControl.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/ValidationForm.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/MenuButton.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/Player.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/SkipControl.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/ProgressTimeBar.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/ResourcePicker.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/MultiSelectTreeView.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/DatesList.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/PathButton.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/MasterDetailView.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/LogViewer.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/TransitionControl.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/ValidationForm.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/MenuButton.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/Player.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/SkipControl.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/ProgressTimeBar.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/ResourcePicker.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/MultiSelectTreeView.xaml"></ResourceDictionary>
 
 
 
         <!--Foreign-->
 
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/Extrinsic/SliderWithTickLabels.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/Extrinsic/TimeBar.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/Extrinsic/CompareSlider.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/Extrinsic/IpAddrBox.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/Extrinsic/SliderWithTickLabels.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/Extrinsic/TimeBar.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/Extrinsic/CompareSlider.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/Extrinsic/IpAddrBox.xaml"></ResourceDictionary>
         
         <!--DataTemplate-->
 

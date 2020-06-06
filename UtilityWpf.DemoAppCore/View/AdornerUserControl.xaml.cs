@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace UtilityWpf.DemoAppCore.View
+namespace UtilityWpf.DemoApp.View
 {
     /// <summary>
     /// Interaction logic for AdornerUser.xaml
@@ -25,7 +25,7 @@ namespace UtilityWpf.DemoAppCore.View
         public AdornerUser()
         {
             InitializeComponent();
-            TextCommand = new Command(() => TextBlock1.Text += " New Text");
+            TextCommand = new Command.RelayCommand(() => TextBlock1.Text += " New Text");
             Grid1.DataContext = this;
         }
 

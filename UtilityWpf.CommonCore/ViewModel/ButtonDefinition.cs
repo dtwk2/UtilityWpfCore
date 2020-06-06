@@ -1,4 +1,6 @@
-﻿namespace UtilityWpf.ViewModel
+﻿using UtilityWpf.Command;
+
+namespace UtilityWpf.ViewModel
 {
     public class ButtonDefinition
     {

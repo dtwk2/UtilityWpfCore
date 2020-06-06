@@ -77,10 +77,6 @@ namespace UtilityWpf.View
 
         public DynamicDataGrid()
         {
-            //Uri resourceLocater = new Uri("/UtilityWpf.ViewCore;component/Themes/DynamicDataGrid.xaml", System.UriKind.Relative);
-            //ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
-            //Style = resourceDictionary["DynamicDataGridStyle"] as Style;
-
             var obs = Observable.FromEventPattern<RoutedEventHandler, RoutedEventArgs>(h => this.Loaded += h, h => this.Loaded -= h).Select(_ => 0);
             var obs2 = Observable.When(KeyChangeSubject.And(ValueChangeSubject).And(ItemsSourceSubject).Then((a, b, c) => 0));
 

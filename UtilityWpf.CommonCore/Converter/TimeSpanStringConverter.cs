@@ -32,7 +32,7 @@ namespace UtilityWpf.Converter
         }
     }
 
-    public class TimeSpanMultiValueConverter : IMultiValueConverter
+    public class TimeSpanMultiConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

@@ -4,6 +4,8 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using UtilityInterface.Generic;
 using UtilityWpf;
+using UtilityWpf.Command;
+using UtilityWpf.Property;
 
 namespace UtilityWpf.ViewModel
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Data;
 
-namespace UtilityWpf
+namespace UtilityWpf.Converter
 {
     [ValueConversion(typeof(object), typeof(bool))]
     public class NullToBooleanConverter : IValueConverter
@@ -17,7 +17,7 @@ namespace UtilityWpf
         public object ConvertBack(object value, Type targetType, object parameter,
             System.Globalization.CultureInfo culture)
         {
-            return !(bool)value ? new Object() : null;
+            return !(bool)value ? new object() : null;
         }
 
         #endregion IValueConverter Members

@@ -4,7 +4,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <!--<ResourceDictionary  Source="/UtilityWpf.ViewCore;component/DataTemplate/PropertyDataTemplateSelector.xaml" />-->
-        <ResourceDictionary  Source="/UtilityWpf.ViewCore;component/DataTemplate/KeyValuePairDataTemplate.xaml" />
+        <ResourceDictionary  Source="/UtilityWpf.View;component/DataTemplate/KeyValuePairDataTemplate.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="DictionaryStyle"  TargetType="{x:Type  local:DictionaryControl  }" BasedOn="{StaticResource {x:Type ItemsControl}}">

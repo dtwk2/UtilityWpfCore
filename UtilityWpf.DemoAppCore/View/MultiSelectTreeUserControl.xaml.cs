@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using UtilityInterface.Generic;
+using UtilityWpf.Abstract;
 
 namespace UtilityWpf.DemoApp
 {
@@ -66,7 +67,7 @@ namespace UtilityWpf.DemoApp
         public IList<TreeItemModel> RootNodes { get; }
     }
 
-    public class TreeItemModel : IParent<TreeItemModel>, UtilityWpf.IDelayedConstructor
+    public class TreeItemModel : IParent<TreeItemModel>, IDelayedConstructor
     {
         private string _number;
 

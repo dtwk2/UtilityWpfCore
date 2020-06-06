@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:UtilityWpf.DemoApp"
-             xmlns:util="clr-namespace:UtilityWpf.Attached;assembly=UtilityWpf.CommonCore">
+             xmlns:util="clr-namespace:UtilityWpf.Attached;assembly=UtilityWpf">
     <UserControl.Resources>
 
         <DataTemplate DataType="{x:Type local:Character}">

@@ -1,9 +1,9 @@
 ﻿using ReactiveUI;
 using System;
 
-namespace UtilityWpf
+namespace UtilityWpf.Abstract
 {
-    public class OutputService<T> :ReactiveObject, IOutputService<T>
+    public class OutputService<T> : ReactiveObject, IOutputService<T>
     {
         private ObservableAsPropertyHelper<T> output;
 

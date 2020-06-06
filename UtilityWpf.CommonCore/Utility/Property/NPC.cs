@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace UtilityWpf
+namespace UtilityWpf.Property
 {
     public abstract class NPC : INotifyPropertyChanged
     {
