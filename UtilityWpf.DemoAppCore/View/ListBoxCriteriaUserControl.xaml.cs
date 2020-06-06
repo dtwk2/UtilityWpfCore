@@ -9,7 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using DynamicData;
 using System.Collections.ObjectModel;
-
+using System.IO;
 
 namespace UtilityWpf.DemoApp
 {
@@ -36,28 +36,36 @@ namespace UtilityWpf.DemoApp
                 .Top(10)
                 .ObserveOnDispatcher()
                 .Bind(out a)
-                .Subscribe(a =>
+                .Subscribe(ss =>
                 {
                 });
             passFail.ItemsSource = a;
 
 
 
-            new Faker<PassFail>()
-             .RuleFor(a => a.Key, f => "Bob")
-             .RuleFor(a => a.Expired, f => f.Random.Bool())
-             .GenerateLazy(10000)
-             .ToObservable().Zip(Observable.Interval(TimeSpan.FromSeconds(3)), (a, b) => a)
-             .ToObservableChangeSet(a => a.Key)
-             .Sort(new DefaultComparer<PassFail, string>(new Func<PassFail, string>(a => a.Key)))
-             .Top(10)
-             .ObserveOnDispatcher()
-             .Bind(out b)
-             .Subscribe(a =>
-             {
-             });
+            //new Faker<PassFail>()
+            // .RuleFor(a => a.Key, f => "Bob")
+            // .RuleFor(a => a.Expired, f => f.Random.Bool())
+            // .GenerateLazy(10000)
+            // .ToObservable().Zip(Observable.Interval(TimeSpan.FromSeconds(3)), (a, b) => a)
+            // .ToObservableChangeSet(a => a.Key)
+            // .Sort(new DefaultComparer<PassFail, string>(new Func<PassFail, string>(a => a.Key)))
+            // .Top(10)
+            // .ObserveOnDispatcher()
+            // .Bind(out b)
+            // .Subscribe(a =>
+            // {
+            // });
 
-            passFail2.ItemsSource = b;
+            //passFail2.ItemsSource = b;
+
+            var c = new Bogus.Faker<ServerFile>()
+          .RuleFor(a => a.Download, f => f.Date.Past())
+                  .RuleFor(a => a.Upload, f => f.Date.Past())
+                          .RuleFor(a => a.Link, f => "www.xd.com/link")
+                          .Generate(20);
+
+            file1.ItemsSource = c;
         }
 
 
@@ -67,6 +75,20 @@ namespace UtilityWpf.DemoApp
 
             public bool Expired { get; set; }
         }
-   
+
+        public class ServerFile
+        {
+            public string Name { get; set; }
+
+            public string Link { get; set; }
+
+            public FileInfo File { get; set; }
+
+            public DateTime Download { get; set; }
+
+            public DateTime Upload { get; set; }
+
+            public bool OutOfDate => Download < Upload;
+        }
     }
 }

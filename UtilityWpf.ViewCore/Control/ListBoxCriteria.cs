@@ -1,4 +1,7 @@
-﻿using System;
+﻿#nullable enable
+
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,14 +17,17 @@ namespace UtilityWpf.View
             var criteriaItem = new CriteriaItem();
             criteriaItem.CriteriaChanged += CriteriaItem_CriteriaChanged;
             criteriaItem.DataContextChanged += CriteriaItem_DataContextChanged; ;
+            CriteriaItem_CriteriaChanged(this, default);
             return criteriaItem;
         }
 
         private void CriteriaItem_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             object myDataObject = e.NewValue;
-            Binding myBinding = new Binding(PropertyName);
-            myBinding.Source = myDataObject;
+            Binding myBinding = new Binding(PropertyName)
+            {
+                Source = myDataObject
+            };
             (sender as CriteriaItem).SetBinding(CriteriaItem.MeetsCriteriaProperty, myBinding);
 
         }
@@ -43,18 +49,18 @@ namespace UtilityWpf.View
         }
 
 
-        public string  PropertyName
+        public string PropertyName
         {
-            get { return (string )GetValue(PropertyNameProperty); }
+            get { return (string)GetValue(PropertyNameProperty); }
             set { SetValue(PropertyNameProperty, value); }
         }
 
         public static readonly DependencyProperty PropertyNameProperty =
-            DependencyProperty.Register("PropertyName", typeof(string ), typeof(ListBoxCriteria), new PropertyMetadata(null, PropertyNameChanged));
+            DependencyProperty.Register("PropertyName", typeof(string), typeof(ListBoxCriteria), new PropertyMetadata(null, PropertyNameChanged));
 
         private static void PropertyNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            
+
         }
 
         public bool IsCriteriaMet
@@ -67,36 +73,44 @@ namespace UtilityWpf.View
 
         private static void MetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-           
+
         }
 
-        private void CriteriaItem_CriteriaChanged(object sender, RoutedEventArgs e)
+        private void CriteriaItem_CriteriaChanged(object sender, RoutedEventArgs? e)
         {
             List<int> indices = new List<int>();
+            List<object> metItems = new List<object>();
+            List<object> missedItems = new List<object>();
+
             for (int i = this.Items.Count - 1; i >= 0; i--)
             {
-                if (this.Items[i] is CriteriaItem criteriaItem)
+                if ((Get(this, i) is CriteriaItem criteriaItem))
                 {
                     if (criteriaItem.MeetsCriteria == true)
                     {
                         indices.Add(i);
+                        metItems.Add(criteriaItem.Content);
                     }
-                }
-                else
-                {
-                    criteriaItem = this.ItemContainerGenerator.ContainerFromIndex(i) as CriteriaItem;
-                    if (criteriaItem?.MeetsCriteria == true)
+                    else
                     {
-                        indices.Add(i);
+                        missedItems.Add( criteriaItem.Content );
                     }
                 }
+
             }
             if (indices.Count > 0)
             {
                 this.Dispatcher.InvokeAsync(() => IsCriteriaMet = true, DispatcherPriority.Background);
             }
 
-            RaiseEvent(new CriteriaMetEventArgs(ListBoxCriteria.CriteriaMetEvent) { Indices = indices.ToArray() });
+            RaiseEvent(new CriteriaMetEventArgs(CriteriaMetEvent, metItems, missedItems, indices.ToArray()));
+
+            static CriteriaItem? Get(ItemsControl itemCollection, int index)
+            {
+                if (itemCollection.Items[index] is CriteriaItem criteriaItem)
+                    return criteriaItem;
+                return itemCollection.ItemContainerGenerator.ContainerFromIndex(index) as CriteriaItem;
+            }
         }
 
         public static readonly RoutedEvent CriteriaMetEvent = EventManager.RegisterRoutedEvent("CriteriaMet", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(CriteriaItem));
@@ -109,10 +123,18 @@ namespace UtilityWpf.View
 
         public class CriteriaMetEventArgs : RoutedEventArgs
         {
-            public int[] Indices;
+            public int[] Indices { get; }
 
-            public CriteriaMetEventArgs(RoutedEvent @event) : base(@event)
-            { }
+            public IEnumerable Met { get; }
+            public IEnumerable Missed { get; }
+
+            public CriteriaMetEventArgs(RoutedEvent @event, IEnumerable met, IEnumerable missed, int[] indices) : base(@event)
+            {
+                this.Met = met;
+                this.Missed = missed;
+                Indices = indices;
+
+            }
         }
     }
 
