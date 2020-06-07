@@ -3,16 +3,23 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:ani="clr-namespace:UtilityWpf.Animation;assembly=UtilityWpf.AnimationCore"
+        xmlns:ani="clr-namespace:UtilityWpf.Animation;assembly=UtilityWpf.Animation"
         xmlns:local="clr-namespace:UtilityWpf.DemoAnimation"
         xmlns:nb="http://www.aptof.com/"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local1="clr-namespace:UtilityWpf.DemoAnimationCore"
+        xmlns:controlx="urn:controlzex"
         mc:Ignorable="d"
         Title="MainWindow" Height="650" Width="800">
-    <!--https://stackoverflow.com/questions/25877737/advanced-xaml-animation-effects-pulse-marching-ants-rotations-alerts-->
+
     <Grid>
-        <TabControl>
+        <controlx:TabControlEx>
+            <TabItem Header="GaugeControl 2">
+                <local:Gauge2UserControl></local:Gauge2UserControl>
+            </TabItem>
+            <!--<TabItem Header="GaugeControl 1">
+                <local:GaugeUserControl></local:GaugeUserControl>
+            </TabItem>-->
             <TabItem Header="Points Animation">
                 <DockPanel>
                    
@@ -86,6 +93,6 @@
                     <local1:BorderUserControl></local1:BorderUserControl>
                 </DockPanel>
             </TabItem>
-        </TabControl>
+        </controlx:TabControlEx>
     </Grid>
 </Window>
