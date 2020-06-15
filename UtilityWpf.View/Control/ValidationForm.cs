@@ -8,10 +8,8 @@ using System.Windows.Shapes;
 
 namespace UtilityWpf.View
 {
-    public class ValidationForm : Control
+    public class ValidationForm : ContentControl
     {
-        static Rectangle Rectangle = new System.Windows.Shapes.Rectangle { Height = 300, Width = 300, Fill = Brushes.Gainsboro };
-
         static ValidationForm()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ValidationForm), new FrameworkPropertyMetadata(typeof(ValidationForm)));
@@ -19,17 +17,9 @@ namespace UtilityWpf.View
 
         public ValidationForm()
         {
-            Content = Rectangle;
+            Content = new Rectangle { Height = 300, Width = 300, Fill = Brushes.Gainsboro }; ;
         }
 
-        public object Content
-        {
-            get { return (object)GetValue(ContentProperty); }
-            set { SetValue(ContentProperty, value); }
-        }
-
-        public static readonly DependencyProperty ContentProperty = DependencyProperty.Register("Content", typeof(object), typeof(ValidationForm));
-        
         public bool IsValid
         {
             get { return (bool)GetValue(IsValidProperty); }

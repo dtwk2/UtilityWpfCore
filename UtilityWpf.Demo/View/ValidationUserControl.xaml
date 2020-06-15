@@ -20,7 +20,7 @@
             </ToggleButton>
         </StackPanel>
         <view:ValidationForm IsValid="{Binding ElementName=ToggleButton1, Path=IsChecked}" Grid.Row="1">
-            <view:ValidationForm.Content>
+       
                 <ScrollViewer>
        
                 <Grid Height="600">
@@ -66,7 +66,7 @@
                 </Grid>
 
                 </ScrollViewer>
-            </view:ValidationForm.Content>
+     
         </view:ValidationForm>
 
     </Grid>
