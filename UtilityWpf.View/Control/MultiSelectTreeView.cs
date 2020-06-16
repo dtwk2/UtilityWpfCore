@@ -165,7 +165,7 @@ namespace UtilityWpf.View
                 return System.Reactive.Disposables.Disposable.Empty;
             }, GetKey);
 
-            var kx = new ViewModel.InteractiveCollectionViewModel<object, IConvertible>(sx, ChildrenPath, ischecked, ExpandSubject.StartWith(Expand).DistinctUntilChanged(), UI, dispatcher);
+            var kx = new ViewModel.InteractiveCollectionViewModel<object, IConvertible>(sx, ChildrenPath, ischecked, ExpandSubject.StartWith(Expand).DistinctUntilChanged());
 
             kx.GetChecked();
             kx.GetSelectedItem(ischecked).Subscribe(_ =>

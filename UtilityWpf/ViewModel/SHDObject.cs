@@ -9,13 +9,13 @@ using UtilityWpf.Property;
 
 namespace UtilityWpf.ViewModel
 {
-    public class SHDOObject : SHDObject<object>
+    public class SHDOObject : SHDObject<object>, UtilityInterface.NonGeneric.IObject
     {
         public SHDOObject() : base(null)
         {
         }
 
-        public SHDOObject(object o) : base(o)
+        public SHDOObject(object o, IObservable<Predicate<object>> visibleObservable) : base(o)
         {
         }
 

@@ -12,13 +12,12 @@ namespace UtilityWpf.ViewModel
 {
     public class InteractiveCollectionFactory
     {
-        public static ViewModel.InteractiveCollectionViewModel<T, object> Build<T>(
+        public static InteractiveCollectionViewModel<T,object> Build<T>(
             Func<T, object> getkey,
             IObservable<IEnumerable<T>> elems,
             IObservable<IFilter> filter,
             IObservable<T> DeletedSubject,
             IObservable<object> ClearedSubject,
-            //IObservable<object> groupSubject =null,
             IObservable<Func<T, object>> getkeys = null, bool isReadOnly = false)
         {
             var dx = Observable.Create<string>(_ => () => { });
@@ -70,24 +69,26 @@ namespace UtilityWpf.ViewModel
       
                .StartWith(ft));
 
-            //Func<T, object> func = (a) =>
-            //  {
-
-            //  };
-
-            //sx.Group(func);
-
             getkeys?.Subscribe(_ =>
             {
                 sx.ChangeKey(_);
             });
 
-            interactivecollection = new ViewModel.InteractiveCollectionViewModel<T, object>(sx, DeletedSubject, getkey:_ => (IConvertible)getkey(_));
+            interactivecollection = new ViewModel.InteractiveCollectionViewModel<T, object>(sx,
+                visiblefilter:DeletedSubject.Select(a=> GetPredicate<T>()),
+                enabledfilter: Observable.Return<Predicate<T>>(a=>true), 
+                getkey:_ => (IConvertible)getkey(_));
 
             exs.Subscribe(ex =>
             (interactivecollection.Errors as System.Reactive.Subjects.ISubject<Exception>).OnNext(ex));
 
             return interactivecollection;
+        }
+
+        static Predicate<T> GetPredicate<T>()
+        {
+            return f;
+            bool f(T o) => true;
         }
 
         public static IObservable<ViewModel.InteractiveCollectionViewModel<T, object>> Build<T>(IObservable<Func<T, object>> getkeys, IObservable<IEnumerable<T>> elems, IObservable<IFilter> filter, IObservable<T> DeletedSubject, IObservable<object> ClearedSubject, System.Reactive.Concurrency.DispatcherScheduler UI)
@@ -143,8 +144,8 @@ namespace UtilityWpf.ViewModel
             }, a => Guid.NewGuid())
             .Filter(filter.Select(_ =>
             {
-                Func<T, bool> f = aa => _.Filter(aa);
-                return f;
+                bool f(T aa) => _.Filter(aa);
+                return (Func<T, bool>)f;
             })
             .StartWith(ft));
 

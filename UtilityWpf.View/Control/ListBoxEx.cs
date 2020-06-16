@@ -180,6 +180,7 @@ namespace UtilityWpf.View
             (d as ListBoxEx).SelectedItemSubject.OnNext(((object)e.NewValue));
         }
 
+        public Subject<KeyValuePair<IObject<object>, ChangeReason>> changes = new Subject<KeyValuePair<IObject<object>, ChangeReason>>();
         protected ISubject<bool> IsReadOnlyChanges = new Subject<bool>();
         protected ISubject<object> SelectedItemSubject = new Subject<object>();
         protected ISubject<IEnumerable> ItemsSourceSubject = new Subject<IEnumerable>();
@@ -190,9 +191,9 @@ namespace UtilityWpf.View
         protected ISubject<bool> RemoveSubject = new Subject<bool>();
         //protected ISubject<string> FilterOnSubject = new Subject<string>();
 
-        private ViewModel.InteractiveCollectionViewModel<object, object> interactivecollection; /*{ get;  set; }*/
+        private InteractiveCollectionViewModel<object,object> interactivecollection; /*{ get;  set; }*/
 
-        public IObservable<KeyValuePair<IObject, ChangeReason>> Changes { get; private set; } = new Subject<KeyValuePair<IObject, ChangeReason>>();
+        public IObservable<KeyValuePair<IObject<object>, ChangeReason>> Changes => changes.AsObservable();
 
 
         static ListBoxEx()
@@ -281,9 +282,9 @@ namespace UtilityWpf.View
 
         private IObservable<InteractiveCollectionViewModel<object, object>> Build(IObservable<IEnumerable<object>> observable, IObservable<string> key)
         {
-            var UI = new System.Reactive.Concurrency.DispatcherScheduler(Application.Current.Dispatcher);
+            var UI = new DispatcherScheduler(Application.Current.Dispatcher);
 
-            return ViewModel.InteractiveCollectionFactory.Build(
+            return InteractiveCollectionFactory.Build(
                        key.Select(_ => GetKeyFunc(_)),
                        observable,
                        FilterSubject,
@@ -308,7 +309,7 @@ namespace UtilityWpf.View
             interactivecollection.GetRemoved().Subscribe(_ =>
                this.Dispatcher.InvokeAsync(() => Deleted = _, System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken)));
 
-            interactivecollection.Changes.Subscribe(_ => { (Changes as ISubject<KeyValuePair<IObject<Object>, ChangeReason>>).OnNext(_); changeCollection.Add(_); if (_.Value == ChangeReason.Add) ItemsSource = interactivecollection.Items; });
+            interactivecollection.Changes.Subscribe(_ => { changes.OnNext(_); changeCollection.Add(_); if (_.Value == ChangeReason.Add) ItemsSource = interactivecollection.Items; });
 
             this.Dispatcher.InvokeAsync(() => AllChanges = changeCollection, System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
 

@@ -11,54 +11,15 @@ using UtilityWpf.Property;
 
 namespace UtilityWpf.ViewModel
 {
-    public enum Interaction
-    {
-        Select, Include, Expand, Check
-    }
 
-    public enum UserCommand
-    {
-        Delete
-    }
-
-    public class InteractionArgs : EventArgs
-    {
-        public Interaction Interaction { get; set; }
-        public object Value { get; set; }
-    }
-
-    public class UserCommandArgs : EventArgs
-    {
-        public UserCommand UserCommand { get; set; }
-        public object Parameter { get; set; }
-    }
 
     public abstract class InteractiveCollectionBase<T> : NPC
     {
-        public IObservable<KeyValuePair<T, InteractionArgs>> Interactions = new System.Reactive.Subjects.Subject<KeyValuePair<T, InteractionArgs>>();
-
-        public IObservable<UserCommandArgs> UserCommands = new System.Reactive.Subjects.Subject<UserCommandArgs>();
-
-        //public IObservable<T> Selected { get; } = new System.Reactive.Subjects.Subject<T>();
-
-        //public IObservable<T> DoubleClicked { get; } = new System.Reactive.Subjects.Subject<T>();
-
-        //public IObservable<T> Deleted { get; } = new System.Reactive.Subjects.Subject<T>();
-
-        //public IObservable<T> Expanded { get; } = new System.Reactive.Subjects.Subject<T>();
-
-        //public IObservable<T> UnChecked { get; } = new System.Reactive.Subjects.Subject<T>();
-        public ISubject<KeyValuePair<T, InteractionArgs>> ChildSubject = new Subject<KeyValuePair<T, InteractionArgs>>();
-
-        public IObservable<Exception> Errors { get; } = new Subject<Exception>();
-
-        public string Title { get; protected set; }
+     
 
         protected ReadOnlyObservableCollection<IObject<T>> items;
 
-        public ICollection<IObject<T>> Items => this.items;
-
-        public IObservable<KeyValuePair<IObject<T>, ChangeReason>> Changes => changes;
+    
         private ISubject<KeyValuePair<IObject<T>, ChangeReason>> changes = new Subject<KeyValuePair<IObject<T>, ChangeReason>>();
 
         public InteractiveCollectionBase()
@@ -97,8 +58,22 @@ namespace UtilityWpf.ViewModel
                       @checked.Remove(_.Key);
               });
         }
+        public IObservable<KeyValuePair<T, InteractionArgs>> Interactions = new System.Reactive.Subjects.Subject<KeyValuePair<T, InteractionArgs>>();
+
+        public IObservable<UserCommandArgs> UserCommands = new System.Reactive.Subjects.Subject<UserCommandArgs>();
+
+        public ISubject<KeyValuePair<T, InteractionArgs>> ChildSubject = new Subject<KeyValuePair<T, InteractionArgs>>();
+
+        public IObservable<Exception> Errors { get; } = new Subject<Exception>();
+
+        public string Title { get; protected set; }
+
+        public ICollection<IObject<T>> Items => this.items;
+
+        public IObservable<KeyValuePair<IObject<T>, ChangeReason>> Changes => changes;
 
         public ObservableCollection<object> @checked { get; } = new ObservableCollection<object>();
+       
         public ObservableCollection<object> @unchecked { get; } = new ObservableCollection<object>();
 
         public IObservable<T> GetSelectedItem(IObservable<bool> ischecked)
@@ -137,44 +112,27 @@ namespace UtilityWpf.ViewModel
     {
         public static void ReactToChanges<T>(this InteractiveCollectionBase<T> col, SHDObject<T> so)
         {
-            //so.IsSelected
-            //      .Throttle(TimeSpan.FromMilliseconds(250))
-            //         .Subscribe(b =>
-            //         {
-            //             if (col.Items?.FirstOrDefault(sof =>((SHDObject<T>) sof).IsSelected.Value == true) != (null))
-            //                 ((System.Reactive.Subjects.ISubject<T>)col.Selected).OnNext(col.Items.FirstOrDefault(sof => ((SHDObject<T>)sof).IsSelected.Value == true).Object);
-            //         });
 
             so.WhenPropertyChanged(_ => _.IsSelected).Select(_ => _.Value).Buffer(TimeSpan.FromMilliseconds(250)).Where(_ => _.Count > 0).Where(_ => _.All(a => a == true))
-         //.Throttle(TimeSpan.FromMilliseconds(250))
+  
          .Subscribe(b =>
          {
-             //if (col.Items?.FirstOrDefault(sof => ((SHDObject<T>)sof).IsSelected.Value == true) != (null))
-             //{
-             //    ((System.Reactive.Subjects.ISubject<T>)col.Selected).OnNext(col.Items.FirstOrDefault(sof => ((SHDObject<T>)sof).IsSelected.Value == true).Object);
-             ((System.Reactive.Subjects.ISubject<KeyValuePair<T, InteractionArgs>>)col.Interactions).OnNext(new KeyValuePair<T, InteractionArgs>(so.Object, new InteractionArgs { Interaction = Interaction.Select, Value = b.Count }));
+                ((System.Reactive.Subjects.ISubject<KeyValuePair<T, InteractionArgs>>)col.Interactions).OnNext(new KeyValuePair<T, InteractionArgs>(so.Object, new InteractionArgs { Interaction = Interaction.Select, Value = b.Count }));
          });
 
             so.WhenPropertyChanged(_ => _.IsExpanded).Select(_ => _.Value).Subscribe(_ =>
              {
                  if (_ != null)
                  {
-                     //((System.Reactive.Subjects.ISubject<T>)col.IsExpanded).OnNext(so == default(SHDObject<T>) ? default(T) : so.Object);
-                     ((System.Reactive.Subjects.ISubject<KeyValuePair<T, InteractionArgs>>)col.Interactions).OnNext(new KeyValuePair<T, InteractionArgs>(so.Object, new InteractionArgs { Interaction = Interaction.Expand, Value = _ }));
+                     ((ISubject<KeyValuePair<T, InteractionArgs>>)col.Interactions).OnNext(new KeyValuePair<T, InteractionArgs>(so.Object, new InteractionArgs { Interaction = Interaction.Expand, Value = _ }));
                      ((ISubject<KeyValuePair<IObject<T>, ChangeReason>>)col.Changes).OnNext(new KeyValuePair<IObject<T>, ChangeReason>(so, ChangeReason.Update));
                  }
              });
 
-            //so.DoubleClickCommand.Subscribe(_ =>
-            //{
-            //    ((System.Reactive.Subjects.ISubject<KeyValuePair<T, InteractionArgs>>)col.Interactions).OnNext(new KeyValuePair<T, InteractionArgs>(_, new InteractionArgs { Interaction = Interaction.Click, Value = 2 }));
-            //    //((System.Reactive.Subjects.ISubject<T>)col.DoubleClicked).OnNext(so == default(SHDObject<T>) ? default(T) : so.Object);
-            //});
-
+     
             so.Deletions.Subscribe(_ =>
             {
-                ((System.Reactive.Subjects.ISubject<UserCommandArgs>)col.UserCommands).OnNext(new UserCommandArgs { UserCommand = UserCommand.Delete, Parameter = so.Object });
-                //((System.Reactive.Subjects.ISubject<T>)col.Deleted).OnNext(so == default(SHDObject<T>) ? default(T) : so.Object);
+                ((ISubject<UserCommandArgs>)col.UserCommands).OnNext(new UserCommandArgs { UserCommand = UserCommand.Delete, Parameter = so.Object });
             });
 
             so.WhenPropertyChanged(_ => _.IsChecked).StartWith(new PropertyValue<SHDObject<T>, bool?>(so, so.IsChecked)).Subscribe(_ =>
@@ -187,98 +145,6 @@ namespace UtilityWpf.ViewModel
               });
         }
 
-        //public static void ReactToChanges<T>(this InteractiveCollectionBase<T> col, SEObject<T> so)
-        //{
-        //so.WhenPropertyChanged(_=>_.IsSelected)
-        //      .Throttle(TimeSpan.FromMilliseconds(250))
-        //         .Subscribe(b =>
-        //         {
-        //             if (col.Items?.FirstOrDefault(sof => ((SEObject<T>)sof).IsSelected == true) != (null))
-        //                 ((System.Reactive.Subjects.ISubject<T>)col.Selected).OnNext(col.Items.FirstOrDefault(sof => ((SEObject<T>)sof).IsSelected== true).Object);
-        //         });
-
-        //so.WhenPropertyChanged(_ => _.IsExpanded).Subscribe(_ =>
-        // {
-        //     ((System.Reactive.Subjects.ISubject<T>)col.Expanded).OnNext(so == default(SEObject<T>) ? default(T) : so.Object);
-        // });
-
-        //so.WhenPropertyChanged(_ => _.IsChecked).Subscribe(_ =>
-        //{
-        //    ((System.Reactive.Subjects.ISubject<T>)col.Checked).OnNext(so == default(SEObject<T>) ? default(T) : so.Object);
-        //});
-
-        //so.OnPropertyChange<SEObject<T>,bool>(nameof(SEObject<T>.IsSelected)).Subscribe(_ =>
-        //{
-        //},(e)=>
-        //{ },()=> { });
-
-        //so.WhenPropertyChanged(_ => _.IsSelected).Subscribe(_ =>
-        //{
-        //});
-
-        //so.DoubleClickCommand.Subscribe(_ =>
-        //{
-        //    ((System.Reactive.Subjects.ISubject<KeyValuePair<T, InteractionArgs>>)col.Interactions).OnNext(new KeyValuePair<T, InteractionArgs>(_, new InteractionArgs { Interaction = Interaction.Click, Value = 2 }));
-        //    //((System.Reactive.Subjects.ISubject<T>)col.DoubleClicked).OnNext(so == default(SHDObject<T>) ? default(T) : so.Object);
-        //});
-
-        //}
-
-        //public static IObservable<T> ReactChecked<T>(this InteractiveCollectionBase<T> bse,SEObject<T> item,IObservable<bool> ischecked)
-        //{
-        //ischecked.Subscribe(ischecked_ =>
-        //{
-        //    if (ischecked_)
-        //    {
-        //        //foreach (var e in enumerable)
-        //        //    @checked.AddRange(ReflectionHelper.RecursivePropValues(e, childrenpath).Cast<object>());
-
-        //        @unchecked.Clear();
-        //    }
-        //    else if (!ischecked_)
-        //    {
-        //        //foreach (var e in enumerable)
-        //        //    @unchecked.AddRange(ReflectionHelper.RecursivePropValues(e, childrenpath).Cast<object>());
-
-        //        @checked.Clear();
-        //    }
-        //});
-
-        //    .Subscribe(_ =>
-        //{
-        //});
-
-        //.WithLatestFrom(ischecked, (a, b) => new { a, b })
-
-        //    .Subscribe(_ =>
-        //{
-        //    if (@checked.Contains(_.a.Key) || _.b == false)
-        //    {
-        //        this.Dispatcher.InvokeAsync(() => SelectedItem = _.a.Key, System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
-        //        this.Dispatcher.InvokeAsync(() => SelectedItems = ReflectionHelper.RecursivePropValues(_.a.Key, childrenpath).Cast<object>().Where(a => @checked.Contains(a)).ToList(), System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
-        //    }
-        //});
-
-        //    kx.ChildSubject.Where(_ => _.Value.Interaction == Interaction.Check).Subscribe(_ =>
-        //    {
-        //        if (!((bool)_.Value.Value))
-        //            if (@checked.Contains(_.Key))
-        //            {
-        //                @checked.Remove(_.Key);
-        //                this.Dispatcher.InvokeAsync(() => SelectedItem = null, System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
-        //                this.Dispatcher.InvokeAsync(() => SelectedItems = null, System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
-        //            }
-
-        //            else if (((bool)_.Value.Value))
-        //                if (@unchecked.Contains(_.Key))
-        //                {
-        //                    @unchecked.Remove(_.Key);
-        //                    this.Dispatcher.InvokeAsync(() => SelectedItem = _.Key, System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
-        //                    this.Dispatcher.InvokeAsync(() => SelectedItems = ReflectionHelper.RecursivePropValues(_.Key, childrenpath).Cast<object>().Where(a => @checked.Contains(a)).ToList(), System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
-        //                }
-
-        //    });
-        //}
 
         public static IObservable<T> GetDoubleClicked<T>(this InteractiveCollectionBase<T> bse)
         {
@@ -304,11 +170,6 @@ namespace UtilityWpf.ViewModel
         {
             return bse.Interactions.Where(_ => _.Value.Interaction == Interaction.Check && _.Value.Value.Equals(true)).Select(_ => _.Key);
         }
-
-        //public static IObservable<T> GetChecked<T>(this InteractiveCollectionBase<T> bse)
-        //{
-        //    return bse.@checked.ObserveCollectionChanges().Select(_=>_.);
-        //}
 
         public static IObservable<T> GetUnChecked<T>(this InteractiveCollectionBase<T> bse)
         {

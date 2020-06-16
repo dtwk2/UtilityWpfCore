@@ -22,7 +22,7 @@ namespace UtilityWpf.ViewModel
     {
         private InteractiveCollectionViewModel<T> collection;
 
-        public SEObject(T @object, string childrenpath, IObservable<bool> ischecked, IObservable<bool> expand, System.Windows.Threading.Dispatcher dispatcher = null, IConvertible id = null) : base(@object, null, null, id)
+        public SEObject(T @object, string childrenpath, IObservable<bool> ischecked, IObservable<bool> expand, IConvertible id = null) : base(@object, null, null, id)
         {
             Object = @object;
             bool hasinterface = false;
