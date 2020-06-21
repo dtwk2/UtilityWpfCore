@@ -2,10 +2,12 @@
 using ReactiveUI;
 using System;
 using System.Collections;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using UtilityWpf.ViewModel;
 
 namespace UtilityWpf.DemoApp
 {
@@ -18,7 +20,7 @@ namespace UtilityWpf.DemoApp
         {
             InitializeComponent();
 
-            var changeSet = fds();
+            var changeSet = GenerateChangeSet();
 
 
             Combobox1.SelectAddChanges().StartWith(new[] { Combobox1.SelectedItem } as IList).Subscribe(a =>
@@ -26,94 +28,78 @@ namespace UtilityWpf.DemoApp
 
                 var @switch = a.Cast<ComboBoxItem>().First().Content.ToString() switch
                 {
-                    "A" => sdfd(changeSet.Group(g => g.Sector)),
-                    "B" => sdfd(changeSet.Group(g => g.Name.Length.ToString())),
-                    _=> sdfd2(changeSet)
+                    "A" => new GroupMasterViewModel<Stock, string, string>(changeSet, g => g.Sector).Collection,
+                    "B" => new GroupMasterViewModel2(changeSet.Group( g => g.Name.Length.ToString())).Collection,
+                    _ => (IEnumerable)CollectStocks(changeSet)
                 };
 
                 ListBox1.ItemsSource = @switch;
             });
 
-            static IEnumerable sdfd(IObservable<IGroupChangeSet<Stock,string,string>> groups )
+
+
+            static ReadOnlyObservableCollection<Stock> CollectStocks(IObservable<IChangeSet<Stock, string>> changeSet)
             {
-                groups
-          .Transform(t => new GroupViewModel<Stock>(t))
+                changeSet
           .ObserveOnDispatcher()
           .Bind(out var data)
           //.DisposeMany()
           .Subscribe(v =>
           {
-                    //this.Dispatcher.InvokeAsync(() => ListBox.ItemsSource = _data,DispatcherPriority.Background);
-                });
-
-                return data;
-            }     
-            
-            static IEnumerable sdfd2(IObservable<IChangeSet<Stock,string>> groups )
-            {
-                groups
-          .ObserveOnDispatcher()
-          .Bind(out var data)
-          //.DisposeMany()
-          .Subscribe(v =>
-          {
-                    //this.Dispatcher.InvokeAsync(() => ListBox.ItemsSource = _data,DispatcherPriority.Background);
-                });
-
+          });
                 return data;
             }
         }
 
-        IObservable<IChangeSet<Stock, string>> fds()
-        {
-            var stocks = Finance.Stocks.ToObservable().Buffer(5).Select(a => a.OrderBy(c => new Guid()).First()).Pace(TimeSpan.FromSeconds(2));
+        IObservable<IChangeSet<Stock, string>> GenerateChangeSet()=>
+            Finance.Stocks
+            .ToObservable()
+            .Buffer(5)
+            .Select(a => a.OrderBy(c => new Guid()).First())
+            .Pace(TimeSpan.FromSeconds(2))  
+            .ToObservableChangeSet(c => c.Key);
 
-            //return stocks.Subscribe(a =>
-            // {
+        
 
-            // });
-            return stocks
-                 .ToObservableChangeSet(c => c.Key);
-          
-        }
-
-        public static DataTemplateSelector sdfd2 => LambdaConverters.TemplateSelector.Create<object>(e =>
+        public static DataTemplateSelector DataTemplateSelector1 => LambdaConverters.TemplateSelector.Create<object>(e =>
         {
             return e.Item switch
             {
-                Stock stock => ((FrameworkElement)e.Container)?.FindResource("StockTemplate"),
-                _ => ((FrameworkElement)e.Container)?.FindResource("GroupTemplate"),
+                Stock _ => ((FrameworkElement)e.Container)?.FindResource("StockTemplate"),
+                GroupViewModel2 _ => ((FrameworkElement)e.Container)?.FindResource("Group2Template"),
+                GroupViewModel<Stock, string, string> _ => ((FrameworkElement)e.Container)?.FindResource("GroupTemplate"),
+                _ => throw new NotImplementedException(),
             } as DataTemplate;
         });
 
     }
 
 
-    public class GroupViewModel<T> : ReactiveUI.ReactiveObject
+
+    public class GroupMasterViewModel2 : GroupMasterViewModel<Stock, string, string>
     {
-        private int count;
-
-        public string Key { get; private set; }
-        public int Count => count;
-
-
-        public GroupViewModel(IGroup<T, string, string> group)
+        public GroupMasterViewModel2(IObservable<IGroupChangeSet<Stock, string, string>> groups) : base(groups)
         {
-            Key = group.Key;
-
-            group.Cache.Connect().ToCollection()
-
-               .Subscribe(a =>
-               {
-                   this.RaiseAndSetIfChanged(ref count, a.Count, nameof(Count));
-               },
-               e =>
-               {
-               });
-
         }
 
-
+        public override GroupViewModel<Stock, string, string> CreateViewModel(IGroup<Stock, string, string> group)
+        {
+            return new GroupViewModel2(group);
+        }
     }
 
+    public class GroupViewModel2 : GroupViewModel<Stock, string, string>
+    {
+        private readonly ObservableAsPropertyHelper<int> maxLength;
+
+        public GroupViewModel2(IGroup<Stock, string, string> group):base(group)
+        {
+            maxLength = group.Cache.Connect().ToCollection()
+                .Select(a => a.Select(a => a.Sector.Length).Max())
+                .ToProperty(this, a => a.MaxLength);
+        }
+
+        public int MaxLength => maxLength.Value;
+
+    }
 }
