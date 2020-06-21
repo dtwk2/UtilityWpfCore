@@ -49,14 +49,14 @@
                 <view:NavigatorControl Size="{Binding ElementName=nb,Path=Current,Mode=OneWay}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectedIndex">
-                            <common:EventCommandExecuter Command="{Binding ElementName=oc, Path=.}" EventArgsConverter="{StaticResource eac}"></common:EventCommandExecuter>
+                            <common:EventCommandExecuter Command="{Binding ElementName=oc, Path=., Mode=OneWay}" EventArgsConverter="{StaticResource eac}"></common:EventCommandExecuter>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </view:NavigatorControl>
                 <command1:OutputControl x:Name="oc">
                     <command1:OutputControl.ContentTemplate>
                         <DataTemplate>
-                            <TextBox IsReadOnly="True" Text="{Binding }" />
+                            <TextBox IsReadOnly="True" Text="{Binding  Mode=OneWay}" />
                         </DataTemplate>
                     </command1:OutputControl.ContentTemplate>
                 </command1:OutputControl>
@@ -74,11 +74,11 @@
                         </Style>
                     </command:OutputControl.Style>
                 </command:OutputControl>-->
-                <TextBlock Background="AliceBlue" Width="60" Height="30" Text="{Binding  Output, Source={StaticResource oc}, Mode=TwoWay,FallbackValue='20'}"/>
+                <TextBlock Background="AliceBlue" Width="60" Height="30" Text="{Binding  Output, Source={StaticResource oc}, Mode=OneWay,FallbackValue='20'}"/>
             </UniformGrid>
         </Border>
         <view:PageNavigatorControl x:Name="pnc" ItemsSource="{Binding}"></view:PageNavigatorControl>
-        <DataGrid ItemsSource="{Binding FilteredItems,ElementName=pnc }"></DataGrid>
+        <DataGrid ItemsSource="{Binding FilteredItems,ElementName=pnc , Mode=OneWay}"></DataGrid>
         <!--<DataGrid ItemsSource="{Binding  }" Height="100"></DataGrid>-->
     </StackPanel>
 </UserControl>
