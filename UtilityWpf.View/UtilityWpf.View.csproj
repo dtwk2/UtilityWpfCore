@@ -23,7 +23,7 @@
   </Target>
 
   <ItemGroup>
-    <ProjectReference Include="..\UtilityWpf.CommonCore\UtilityWpf.csproj" />
+    <ProjectReference Include="..\UtilityWpf\UtilityWpf.csproj" />
   </ItemGroup>
 
 

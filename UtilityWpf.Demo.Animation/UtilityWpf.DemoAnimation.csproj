@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UtilityWpf.AnimationCore\UtilityWpf.Animation.csproj" />
-    <ProjectReference Include="..\UtilityWpf.CommonCore\UtilityWpf.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Animation\UtilityWpf.Animation.csproj" />
+    <ProjectReference Include="..\UtilityWpf.View\UtilityWpf.View.csproj" />
   </ItemGroup>
 
   <ItemGroup>

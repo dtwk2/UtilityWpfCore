@@ -28,9 +28,26 @@ namespace UtilityWpf.DemoApp
                    };
         }
 
-        public static IEnumerable<Sector> Sectors => sectors;
+        static IEnumerable<Price> SelectPrices()
+        {
+            var reader = new StreamReader("../../../stocknet-dataset-master/price/HL/ABB.csv");
+            var start = DateTime.Today.AddYears(-5);
+            return from line in Csv.CsvReader.Read(reader)
+                   select new Price
+                   {
 
-        public static IEnumerable<Stock> Stocks => sectors.SelectMany(a => a.Stocks);
+                       Open = double.Parse(line["Open"]),
+                       Close = double.Parse(line["Close"]),
+                       DateTime = start.AddHours(line.Index),
+
+                   };
+        }
+
+        public static IEnumerable<Sector> Sectors => sectors.Cached();
+
+        public static IEnumerable<Stock> Stocks => Sectors.SelectMany(a => a.Stocks).Cached();
+
+        public static IEnumerable<Price> Prices => SelectPrices().Cached();
 
 
     }
@@ -49,8 +66,13 @@ namespace UtilityWpf.DemoApp
         public string Sector { get; set; }
         public string Name { get; set; }
         public string Key { get; set; }
-        //public Series<DateTime, double> Prices { get; set; }
-        //public IEnumerable<DayMovement> Prices { get; set; }
+    }
+
+    public class Price
+    {
+        public double Open { get; set; }
+        public double Close { get; set; }
+        public DateTime DateTime { get; set; }
     }
 }
 
