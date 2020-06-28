@@ -12,10 +12,39 @@ namespace UtilityWpf.DemoApp
     /// </summary>
     public partial class SliderItemsUserControl : UserControl
     {
+        public static readonly DependencyProperty MinProperty = DependencyProperty.Register("Min", typeof(double), typeof(SliderItemsUserControl), new PropertyMetadata(0d));
+        public static readonly DependencyProperty MaxProperty = DependencyProperty.Register("Max", typeof(double), typeof(SliderItemsUserControl), new PropertyMetadata(100d));
+        public static readonly DependencyProperty StartProperty = DependencyProperty.Register("Start", typeof(double), typeof(SliderItemsUserControl), new PropertyMetadata(20d));
+        public static readonly DependencyProperty EndProperty = DependencyProperty.Register("End", typeof(double), typeof(SliderItemsUserControl), new PropertyMetadata(85d));
+
         public SliderItemsUserControl()
         {
             InitializeComponent();
             Init();
+        }
+
+        public double Max
+        {
+            get => (double)GetValue(MaxProperty);
+            set => SetValue(MaxProperty, value);
+        }
+
+        public double Min
+        {
+            get => (double)GetValue(MinProperty);
+            set => SetValue(MinProperty, value);
+        }
+
+        public double Start
+        {
+            get => (double)GetValue(StartProperty);
+            set => SetValue(StartProperty, value);
+        }
+
+        public double End
+        {
+            get => (double)GetValue(EndProperty);
+            set => SetValue(EndProperty, value);
         }
 
         private async void Init()

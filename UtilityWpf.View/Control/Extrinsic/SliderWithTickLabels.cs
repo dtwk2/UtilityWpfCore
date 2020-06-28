@@ -39,16 +39,17 @@ namespace UtilityWpf.View.Extrinsic
     /// </summary>
     public class SliderWithTickLabels : Slider
     {
+        string[] propertyNames = new string[] { "Minimum", "Maximum", "TickFrequency", "Ticks", "IsDirectionReversed" };
         public static readonly DependencyProperty GeneratedTicksProperty;
         public static readonly DependencyProperty TickLabelTemplateProperty;
         private object sync = new object();
 
-        [Bindable(true)]
-        public DoubleCollection GeneratedTicks
-        {
-            get => base.GetValue(SliderWithTickLabels.GeneratedTicksProperty) as DoubleCollection;
-            set => base.SetValue(SliderWithTickLabels.GeneratedTicksProperty, value);
-        }
+        //[Bindable(true)]
+        //public DoubleCollection GeneratedTicks
+        //{
+        //    get => base.GetValue(SliderWithTickLabels.GeneratedTicksProperty) as DoubleCollection;
+        //    set => base.SetValue(SliderWithTickLabels.GeneratedTicksProperty, value);
+        //}
 
         [Bindable(true)]
         public DataTemplate TickLabelTemplate
@@ -73,8 +74,6 @@ namespace UtilityWpf.View.Extrinsic
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
             base.OnPropertyChanged(e);
-
-            var propertyNames = new string[] { "Minimum", "Maximum", "TickFrequency", "Ticks", "IsDirectionReversed" };
 
             if (IsInitialized && propertyNames.Contains(e.Property.Name))
             {
@@ -117,7 +116,7 @@ namespace UtilityWpf.View.Extrinsic
                 {
                     await this.Dispatcher.InvokeAsync(() =>
                     {
-                        this.GeneratedTicks = new DoubleCollection(ticks.Union(new double[] { min, max }).Where(t => min <= t && t <= max));
+                        this.SetValue(GeneratedTicksProperty, new DoubleCollection(ticks.Union(new double[] { min, max }).Where(t => min <= t && t <= max)));
                     }, System.Windows.Threading.DispatcherPriority.Background);
                 }
                 else if (tickFrequency > 0.0)
@@ -128,7 +127,7 @@ namespace UtilityWpf.View.Extrinsic
                     {
                         if (l <= int.MaxValue)
                         {
-                            this.GeneratedTicks = new DoubleCollection(range);
+                            this.SetValue(GeneratedTicksProperty, new DoubleCollection(range));
                         }
                         //else
                         //{

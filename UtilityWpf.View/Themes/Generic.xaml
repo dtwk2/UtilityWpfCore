@@ -51,6 +51,7 @@
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/ResourcePicker.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/MultiSelectTreeView.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/DateTimeControl.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/RangeSlider.xaml"></ResourceDictionary>
 
 
 

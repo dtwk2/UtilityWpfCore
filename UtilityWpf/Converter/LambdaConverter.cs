@@ -11,5 +11,16 @@ namespace UtilityWpf.Converter
          {
              return System.IO.Path.GetFileNameWithoutExtension(e.Value);
          });
+
+        public static IValueConverter SecondsToDateTimeConverter => LambdaConverters.ValueConverter.Create<double, DateTime>(e =>
+        {
+            return DateTime.UnixEpoch + TimeSpan.FromSeconds(e.Value);
+        });
+
+
+        public static IValueConverter DaysToDateTimeConverter => LambdaConverters.ValueConverter.Create<double, DateTime>(e =>
+        {
+            return DateTime.UnixEpoch + TimeSpan.FromDays(e.Value);
+        });
     }
 }

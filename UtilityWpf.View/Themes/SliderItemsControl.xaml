@@ -76,37 +76,7 @@
                         </StackPanel>
 
                         <ItemsControl x:Name="ItemsControl">
-                            <!--  <ItemsControl.ItemContainerStyle>
-                            <Style TargetType="ContentControl">
-                                <Setter Property="Padding" Value="6 3 6 3" />
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="ContentControl">
-                                            <Border
-                            Background="{TemplateBinding Background}"
-                            Padding="{TemplateBinding Padding}">
-                                                <Grid>
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="25"></RowDefinition>
-                                                        <RowDefinition Height="100"></RowDefinition>
-                                                    </Grid.RowDefinitions>
-                                                    <Label Content="{Binding Key,Mode=OneTime}" Background="SeaGreen"></Label>
-                                                    <ContentPresenter Grid.Row="1" />
-                                                </Grid>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-
-                                -->
-                            <!--<Style.Triggers>
-                                    <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                                        <Setter Property="Background" Value="LightGray" />
-                                    </Trigger>
-                                </Style.Triggers>-->
-                            <!--
-                            </Style>
-                        </ItemsControl.ItemContainerStyle>-->
+                     
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
@@ -115,40 +85,15 @@
                                             <RowDefinition Height="Auto"></RowDefinition>
                                         </Grid.RowDefinitions>
                                         <TextBlock Text="{Binding Key,Mode=OneTime}" ></TextBlock>
-                                        <!--<Grid Height="400" Width="400" Background="LightSeaGreen">
-                                        <foreign:SliderWithTickLabels HorizontalAlignment="Center" VerticalAlignment="Center" IsDirectionReversed="False" Orientation="Horizontal" Width="400" TickPlacement="TopLeft"
-                                         IsSnapToTickEnabled="True"
-                                         AutoToolTipPlacement="BottomRight"
-                                         Value="{Binding Value,Mode=TwoWay}" Minimum="{Binding Min,Mode=OneWay}" Maximum="{Binding Max,Mode=OneWay}" Style="{StaticResource SliderWithTickLabels}">
-                                            <Slider.TickFrequency>
-                                                <MultiBinding Converter="{StaticResource MinMaxDivideConverter}">
-                                                    <Binding Path="Min" Mode="OneWay" />
-                                                    <Binding Path="Max"  Mode="OneWay" />
-                                                </MultiBinding>
-                                            </Slider.TickFrequency>
-                                            <foreign:SliderWithTickLabels.TickLabelTemplate>
-                                                <DataTemplate>
-                                                    <Grid Width="20" Height="20"  Background="Gainsboro">
-                                                        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding}" Padding="0" />
-                                                    </Grid>
-                                                </DataTemplate>
-                                            </foreign:SliderWithTickLabels.TickLabelTemplate>
-                                        </foreign:SliderWithTickLabels>
-                                    </Grid>-->
-                                        <!--<foreign:SliderWithTickLabels Grid.Row="1" Width="500" Height="200" ></foreign:SliderWithTickLabels>-->
+                             
                                         <foreign:SliderWithTickLabels  Grid.Row="1" Width="400" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center" IsDirectionReversed="False" Orientation="Horizontal" TickPlacement="TopLeft"
                                          IsSnapToTickEnabled="False"
                                          AutoToolTipPlacement="BottomRight"
                                          Value="{Binding Value,Mode=TwoWay}" Minimum="{Binding Min,Mode=OneWay}" Maximum="{Binding Max,Mode=OneWay}" TickFrequency="{Binding TickFrequency, Mode=OneWay}">
-                                            <!--<foreign:SliderWithTickLabels.TickFrequency>
-                                            <MultiBinding Converter="{StaticResource MinMaxDivideConverter}">
-                                                <Binding Path="Min" Mode="OneWay" />
-                                                <Binding Path="Max"  Mode="OneWay" />
-                                            </MultiBinding>
-                                        </foreign:SliderWithTickLabels.TickFrequency>-->
+                                         
                                             <foreign:SliderWithTickLabels.TickLabelTemplate>
                                                 <DataTemplate>
-                                                    <Grid Width="20" Height="20"  Background="Gainsboro">
+                                                    <Grid Width="20" Height="20" >
                                                         <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding}" Padding="0" />
                                                     </Grid>
                                                 </DataTemplate>
