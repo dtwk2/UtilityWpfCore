@@ -8,16 +8,16 @@ using System.Windows.Controls;
 namespace UtilityWpf.DemoApp
 {
     /// <summary>
-    /// Interaction logic for SliderItemsUserControl.xaml
+    /// Interaction logic for SlidersUserControl.xaml
     /// </summary>
-    public partial class SliderItemsUserControl : UserControl
+    public partial class SlidersUserControl : UserControl
     {
-        public static readonly DependencyProperty MinProperty = DependencyProperty.Register("Min", typeof(double), typeof(SliderItemsUserControl), new PropertyMetadata(0d));
-        public static readonly DependencyProperty MaxProperty = DependencyProperty.Register("Max", typeof(double), typeof(SliderItemsUserControl), new PropertyMetadata(100d));
-        public static readonly DependencyProperty StartProperty = DependencyProperty.Register("Start", typeof(double), typeof(SliderItemsUserControl), new PropertyMetadata(20d));
-        public static readonly DependencyProperty EndProperty = DependencyProperty.Register("End", typeof(double), typeof(SliderItemsUserControl), new PropertyMetadata(85d));
+        public static readonly DependencyProperty MinProperty = DependencyProperty.Register("Min", typeof(double), typeof(SlidersUserControl), new PropertyMetadata(0d));
+        public static readonly DependencyProperty MaxProperty = DependencyProperty.Register("Max", typeof(double), typeof(SlidersUserControl), new PropertyMetadata(100d));
+        public static readonly DependencyProperty StartProperty = DependencyProperty.Register("Start", typeof(double), typeof(SlidersUserControl), new PropertyMetadata(20d));
+        public static readonly DependencyProperty EndProperty = DependencyProperty.Register("End", typeof(double), typeof(SlidersUserControl), new PropertyMetadata(85d));
 
-        public SliderItemsUserControl()
+        public SlidersUserControl()
         {
             InitializeComponent();
             Init();
