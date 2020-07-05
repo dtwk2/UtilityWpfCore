@@ -61,6 +61,9 @@
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/Extrinsic/TimeBar.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/Extrinsic/CompareSlider.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/Extrinsic/IpAddrBox.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/Extrinsic/SpinnerControl.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/Extrinsic/ShortTimeSpanControl.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/Extrinsic/IpAddrBox.xaml"></ResourceDictionary>
         
         <!--DataTemplate-->
 
