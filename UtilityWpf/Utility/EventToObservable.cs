@@ -37,8 +37,13 @@ namespace UtilityWpf
 .FromEventPattern<ScrollChangedEventHandler, ScrollChangedEventArgs>
 (a => combo.ScrollChanged += a, a => combo.ScrollChanged -= a)
 .Select(a => a.EventArgs);
-        
 
-   
+        public static IObservable<ExitEventArgs> GetExitEvents(this Application app)
+        {
+            return System.Reactive.Linq.Observable
+        .FromEventPattern<ExitEventHandler, ExitEventArgs>(h => app.Exit += h, h => app.Exit -= h)
+           .Select(_ => _.EventArgs);
+        }
+
     }
 }

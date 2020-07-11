@@ -49,7 +49,7 @@ namespace UtilityWpf.Chart
 
             var data = this.SelectChanges<IEnumerable>(nameof(OxyChart.Data))
                 .SubscribeOn(ReactiveUI.RxApp.TaskpoolScheduler)
-                .Merge(this.SelectLoads().Select(a => Data).Where(a => a != null))
+                .Merge(this.LoadedChanges().Select(a => Data).Where(a => a != null))
                 .Select(a => a.MakeObservable())
                 .Switch()
                 .Cast<KeyValuePair<string, DateTimePoint>>();
@@ -73,7 +73,7 @@ namespace UtilityWpf.Chart
 
             modelSubject
                 .CombineLatest(
-                itemsSource.Select(cc => cc.MakeObservable()).Merge(this.SelectLoads()?.Where(a=> ItemsSource != null)
+                itemsSource.Select(cc => cc.MakeObservable()).Merge(this.LoadedChanges()?.Where(a=> ItemsSource != null)
                                                 .Select(v => ItemsSource.MakeObservable())), (model, b) =>
                 (model,      items: b))
                 .ObserveOnDispatcher()

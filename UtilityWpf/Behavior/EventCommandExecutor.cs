@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using UtilityWpf.Utility;
 
 namespace UtilityWpf.Behavior
 {
@@ -70,7 +71,17 @@ namespace UtilityWpf.Behavior
                 {
                     param = EventArgsConverter.Convert(parameter, typeof(object), EventArgsConverterParameter, CultureInfo.InvariantCulture);
                 }
-
+                else if (parameter.GetType() is { } type && type.IsGenericType && type.GetGenericTypeDefinition() is { } gType)
+                {
+                    if (gType == typeof(RoutedEventArgs<>))
+                    {
+                        param = type.GetProperty(nameof(RoutedEventArgs<object>.Value)).GetValue(parameter);
+                    }
+                    else if (gType == typeof(RoutedPropertyChangedEventArgs<>))
+                    {
+                        param = type.GetProperty(nameof(RoutedPropertyChangedEventArgs<object>.NewValue)).GetValue(parameter);
+                    }
+                }
                 if (cmd.CanExecute(param))
                 {
                     cmd.Execute(param);

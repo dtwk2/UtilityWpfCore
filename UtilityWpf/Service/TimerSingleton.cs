@@ -19,16 +19,8 @@ namespace UtilityWpf.Service
                 .Publish();
         }
 
-        public static TimerSingleton Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new TimerSingleton();
-                }
-                return instance;
-            }
-        }
+        public static TimerSingleton Instance => instance ??= new TimerSingleton();
+
+
     }
 }

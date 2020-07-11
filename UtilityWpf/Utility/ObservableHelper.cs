@@ -28,9 +28,9 @@ namespace UtilityWpf
                   .SelectMany(x => x.Take(1)));
         }
 
-        public static IObservable<RoutedEventArgs> SelectLoads(this FrameworkElement element) =>
-            Observable.FromEventPattern<RoutedEventHandler, RoutedEventArgs>(a => element.Loaded += a, a => element.Loaded -= a)
-            .Select(a => a.EventArgs);
+        //public static IObservable<RoutedEventArgs> SelectLoads(this FrameworkElement element) =>
+        //    Observable.FromEventPattern<RoutedEventHandler, RoutedEventArgs>(a => element.Loaded += a, a => element.Loaded -= a)
+        //    .Select(a => a.EventArgs);
 
 
         /// James World

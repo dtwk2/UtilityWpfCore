@@ -31,16 +31,16 @@ namespace UtilityWpf.View
         {
             if (!this.IsChecked ?? false)
                 this.content = this.Content;
-            this.Content = this.IsChecked ?? false ? this.content ?? this.Content: this.UnCheckedContent;
+            this.Content = this.IsChecked ?? false ? this.content ?? this.Content : this.UnCheckedContent;
 
         }
 
-        private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (!(d is ToggleButton tButton && e.NewValue is bool b))
-                return;
+        //private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        //{
+        //    if (!(d is ToggleButton tButton && e.NewValue is bool b))
+        //        return;
 
-        }
+        //}
 
         public object UnCheckedContent
         {
