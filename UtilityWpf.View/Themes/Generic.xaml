@@ -53,7 +53,7 @@
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/DateTimeControl.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/RangeSlider.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/TimeSpanControl.xaml"></ResourceDictionary>
-
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/AddControl.xaml"></ResourceDictionary>
 
 
 
