@@ -32,7 +32,7 @@
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/ListBoxEx.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/CollectionEditor.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/ListBoxItemStyle.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/EnumToggleButton.xaml"></ResourceDictionary>
+        <!--<ResourceDictionary Source="/UtilityWpf.View;component/Themes/EnumToggleButton.xaml"></ResourceDictionary>-->
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/ImageButton.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/SizeControl.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/SliderItemsControl.xaml"></ResourceDictionary>
@@ -52,6 +52,8 @@
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/MultiSelectTreeView.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/DateTimeControl.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/RangeSlider.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/TimeSpanControl.xaml"></ResourceDictionary>
+
 
 
 

@@ -18,10 +18,10 @@ namespace UtilityWpf.View
         //public List<string> ControlNames = new List<string>();
         // private Lazy<FrameworkElement[]> elements = null;
 
-        static Controlx()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(Controlx), new FrameworkPropertyMetadata(typeof(Controlx)));
-        }
+        //static Controlx()
+        //{
+        //    //DefaultStyleKeyProperty.OverrideMetadata(typeof(Controlx), new FrameworkPropertyMetadata(typeof(Controlx)));
+        //}
 
         public Controlx()
         {
@@ -41,6 +41,17 @@ namespace UtilityWpf.View
                 controlChanges.OnNext(xx);
         }
 
+        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+        {
+            var name = e.Property.Name;
+            lock (lck)
+            {
+                subjects[name] = subjects.ContainsKey(name) ? subjects[name] : new Subject<object>();
+            }
+            subjects[name].OnNext(e.NewValue);
+
+            base.OnPropertyChanged(e);
+        }
 
 
         protected IObservable<T> SelectControlChanges<T>(string name = null) where T : FrameworkElement
