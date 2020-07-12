@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using DynamicData.Binding;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -12,6 +15,40 @@ namespace UtilityWpf.Attached
 {
     public partial class ItemsControlEx : ItemsControl
     {
+        #region AlternateTemplate
+        public static readonly DependencyProperty AlternateTemplateProperty = DependencyProperty.RegisterAttached("AlternateTemplate", typeof(DataTemplate), typeof(ItemsControlEx), new PropertyMetadata(null, AlternateTemplateChange));
+
+        public static object GetAlternateTemplate(DependencyObject d)
+        {
+            return d.GetValue(AlternateTemplateProperty);
+        }
+
+        public static void SetAlternateTemplate(DependencyObject d, DataTemplate value)
+        {
+            d.SetValue(AlternateTemplateProperty, value);
+        }
+
+        private static void AlternateTemplateChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is ItemsControl itemsControl)
+            {
+                DataTemplate originalTemplate = itemsControl.ItemTemplate;
+                _ = itemsControl.Items.ObserveCollectionChanges().Select(a => itemsControl.Items.Count)
+                    .Subscribe(count =>
+                    {
+                        if (count == 1)
+                        {
+                            originalTemplate = itemsControl.ItemTemplate;
+                            itemsControl.ItemTemplate = GetAlternateTemplate(d) as DataTemplate;
+                        }
+                        else
+                            itemsControl.ItemTemplate = originalTemplate;
+                    });
+            }
+        }
+        #endregion
+
+        #region NewItem
         public static readonly DependencyProperty NewItemProperty = DependencyProperty.RegisterAttached("NewItem", typeof(object), typeof(ItemsControlEx), new PropertyMetadata(null, NewItemChange));
 
         public static object GetNewItem(DependencyObject d)
@@ -31,6 +68,9 @@ namespace UtilityWpf.Attached
             Application.Current.Dispatcher.InvokeAsync(() => (d as ItemsControl).ItemsSource = x, System.Windows.Threading.DispatcherPriority.Background, default);
         }
 
+        #endregion
+
+        #region Variable
         public static string GetVariable(DependencyObject d)
         {
             return (string)d.GetValue(VariableProperty);
@@ -52,6 +92,10 @@ namespace UtilityWpf.Attached
                     control.ItemsSource = control.ItemsSource.GetPropertyValues<object>(arg);
         }
 
+        #endregion
+
+
+        #region ItemsSourcEx
         public static IEnumerable GetItemsSourceEx(DependencyObject d)
         {
             return (IEnumerable)d.GetValue(ItemsSourceExProperty);
@@ -75,6 +119,9 @@ namespace UtilityWpf.Attached
             ;
         }
 
+        #endregion
+
+        #region Filter
         public static string GetFilter(DependencyObject d)
         {
             return (string)d.GetValue(FilterProperty);
@@ -96,7 +143,7 @@ namespace UtilityWpf.Attached
                 view.Filter = (a) => a.GetType().GetProperties().Where(_ => _.PropertyType == e.NewValue.GetType()).Select(_ => _.GetValue(a)).Any(_ => ((string)_).Contains((string)e.NewValue));
             }
         }
-
+        #endregion
         //private void txtFilter_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         //{
         //    CollectionViewSource.GetDefaultView(lvUsers.ItemsSource).Refresh();

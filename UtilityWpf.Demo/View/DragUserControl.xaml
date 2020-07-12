@@ -45,7 +45,7 @@
             </Storyboard>
         </ResourceDictionary>
     </UserControl.Resources>
-    <local:AddDragRowControl CommandParameter="{Binding {x:Null}}">
+    <local:AddDragRowControl CommandParameter="{Binding {x:Null}}" Orientation="Vertical">
         <ListBox ItemsSource="{Binding Rows}" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
