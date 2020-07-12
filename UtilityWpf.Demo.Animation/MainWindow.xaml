@@ -8,21 +8,19 @@
         xmlns:nb="http://www.aptof.com/"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local1="clr-namespace:UtilityWpf.DemoAnimationCore"
-        xmlns:controlx="urn:controlzex"
+        xmlns:controlx="urn:controlzex" 
         mc:Ignorable="d"
         Title="MainWindow" Height="650" Width="800">
 
     <Grid>
         <controlx:TabControlEx>
-            <TabItem Header="GaugeControl 2">
+            
+            <TabItem Header="Gauge">
                 <local:Gauge2UserControl></local:Gauge2UserControl>
             </TabItem>
-            <!--<TabItem Header="GaugeControl 1">
-                <local:GaugeUserControl></local:GaugeUserControl>
-            </TabItem>-->
             <TabItem Header="Points Animation">
                 <DockPanel>
-                   
+
                     <local:PointAnimationUserControl></local:PointAnimationUserControl>
                 </DockPanel>
             </TabItem>
@@ -50,7 +48,7 @@
                     </Grid>
                 </DockPanel>
             </TabItem>
- 
+
             <TabItem Header="BeatControl">
                 <DockPanel>
                     <DockPanel.DataContext>
@@ -67,7 +65,7 @@
 
             <TabItem Header="FadeControl">
                 <DockPanel>
-      
+
                     <Label>Click Control or Button To Animate</Label>
                     <Button DockPanel.Dock="Top" Width="200" Height="40" Margin="10" Command="{Binding ElementName=Fade1, Path=FadeCommand}">Click</Button>
                     <Grid Width="100" Height="100">
@@ -84,14 +82,13 @@
                             </i:Interaction.Triggers>
                         </ani:FadeControl>
                     </Grid>
-             
                 </DockPanel>
             </TabItem>
             <TabItem Header="Border">
-                <DockPanel>
-
-                    <local1:BorderUserControl></local1:BorderUserControl>
-                </DockPanel>
+                <local1:BorderUserControl></local1:BorderUserControl>
+            </TabItem>
+            <TabItem Header="TransitionElement">
+                <local:TransitionElementUserControl></local:TransitionElementUserControl>
             </TabItem>
         </controlx:TabControlEx>
     </Grid>

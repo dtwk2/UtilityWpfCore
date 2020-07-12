@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Aptof.Controls" Version="1.0.9" />
     <PackageReference Include="ControlzEx" Version="4.3.0" />
+    <PackageReference Include="WPFTransitionals" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
