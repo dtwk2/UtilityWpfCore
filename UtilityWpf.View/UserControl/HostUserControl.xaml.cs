@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MoreLinq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -45,12 +46,8 @@ namespace UtilityWpf.View
     public static class Helper
     {
         public static Dictionary<string, T> ToDictionaryOnIndex<T>(this IEnumerable<IGrouping<string, T>> groupings)
-            =>
-      groupings
-           .Select(a => a.Select((b, i) => (b, i))
-          .ToDictionary(c =>
-          c.i > 0 ? a.Key + c.i : a.Key, c => c.b))
-          .SelectMany(a => a)
+            =>      groupings
+           .SelectMany(grp => grp.Index().ToDictionary(kvp => kvp.Key > 0 ? grp.Key + kvp.Key : grp.Key, c => c.Value))
           .ToDictionary(a => a.Key, a => a.Value);
 
 

@@ -78,10 +78,11 @@ namespace UtilityWpf.View
             }
         }
 
-        public IObservable<T> SelectControlChanges<T>() where T : DependencyObject
+        public IObservable<T> SelectControlChanges<T>(string? name = null) where T : DependencyObject
         {
             var ttype = typeof(T);
-            return ControlChanges.Where(a => a.GetType() == ttype).Select(a => (T)a);
+            var s = ControlChanges.Where(a => a.GetType() == ttype).Select(a => (T)a);
+            return name == null ? s : s.Where(a => (a as FrameworkElement).Name == name);
         }
 
         public IObservable<T> SelectChanges<T>(string name = null)
@@ -124,7 +125,7 @@ namespace UtilityWpf.View
 
         protected static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if(d is ContentControlx ccx)
+            if (d is ContentControlx ccx)
                 ccx.OnNext(e);
             else
             {
