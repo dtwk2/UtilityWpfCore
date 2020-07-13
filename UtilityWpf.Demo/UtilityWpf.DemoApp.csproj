@@ -33,7 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\..\source\repos\DynamicData\src\DynamicData\DynamicData.csproj" />
     <ProjectReference Include="..\UtilityWpf.Chart\UtilityWpf.Chart.csproj" />
   </ItemGroup>
 
