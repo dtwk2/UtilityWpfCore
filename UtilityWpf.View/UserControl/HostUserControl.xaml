@@ -11,7 +11,7 @@
 
         <ScrollViewer DockPanel.Dock="Left" Width="250">
 
-            <ListBox x:Name="ItemsControl1" Margin="0 16 0 16" SelectedIndex="0"                         
+            <ListBox x:Name="MainListBox" Margin="0 16 0 16" SelectedIndex="0"                         
     >
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="domain:DemoItem">

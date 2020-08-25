@@ -28,15 +28,15 @@ namespace UtilityWpf.View
                 .OrderBy(a => a.Key)
                 .ToDictionaryOnIndex();
 
-            ItemsControl1.ItemsSource = UserControls;
+            MainListBox.ItemsSource = UserControls;
             ContentControl1.Content = UserControls.FirstOrDefault().Value;
 
-            ItemsControl1.SelectionChanged += ItemsControl1_SelectionChanged;
+            MainListBox.SelectionChanged += ItemsControl1_SelectionChanged;
         }
 
         private void ItemsControl1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ContentControl1.Content = ((KeyValuePair<string, UserControl>)ItemsControl1.SelectedItem).Value;
+            ContentControl1.Content = ((KeyValuePair<string, UserControl>)MainListBox.SelectedItem).Value;
         }
 
         public IDictionary<string, UserControl> UserControls { get; }
