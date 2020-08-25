@@ -85,10 +85,14 @@ namespace UtilityWpf.View
         public virtual void ExecuteRemove(object parameter)
         {
 
-            if (itemsControl != null)
+            if (itemsControl != null )
             {
-                if (itemsControl.ItemsSource is IList collection)
+                if (itemsControl.ItemsSource is IList collection && collection.Count > 0)
                     collection.RemoveAt(collection.Count - 1);
+                else
+                {
+
+                }
             }
             else
             {
