@@ -22,9 +22,7 @@ namespace UtilityWpf.View
             UserControls = Assembly.GetEntryAssembly().GetTypes()
                 .Where(a => typeof(UserControl).IsAssignableFrom(a))
                 .Select(a => (UserControl)Activator.CreateInstance(a))
-                .GroupBy(a => string.IsNullOrEmpty(a.Name) ?
-               a.GetType().Name.Replace("UserControl", string.Empty) :
-                 a.Name)
+                .GroupBy(a => string.IsNullOrEmpty(a.Name) ? a.GetType().Name.Replace("UserControl", string.Empty) : a.Name)
                 .OrderBy(a => a.Key)
                 .ToDictionaryOnIndex();
 
@@ -46,7 +44,7 @@ namespace UtilityWpf.View
     public static class Helper
     {
         public static Dictionary<string, T> ToDictionaryOnIndex<T>(this IEnumerable<IGrouping<string, T>> groupings)
-            =>      groupings
+            => groupings
            .SelectMany(grp => grp.Index().ToDictionary(kvp => kvp.Key > 0 ? grp.Key + kvp.Key : grp.Key, c => c.Value))
           .ToDictionary(a => a.Key, a => a.Value);
 
