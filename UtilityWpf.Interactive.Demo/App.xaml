@@ -1,0 +1,35 @@
+﻿<Application x:Class="UtilityWpf.Interactive.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:UtilityWpf.DemoApp"
+             
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <x:Array x:Key="Characters"  
+                     Type="{x:Type local:Character}" 
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                <!--<StaticResource ResourceKey="Bart"></StaticResource>-->
+                <local:Character First="Homer" Last="Simpson" Age="38"
+          Gender="Male" Image="images/homer.png" Location="75,0" Color="DarkSalmon"/>
+                <local:Character First="Lisa" Last="Bouvier" Age="8"
+          Gender="Female" Image="images/lisa.png" Location="125,150" Color="ForestGreen" />
+                <local:Character First="Maggie" Last="Simpson" Age="0"
+          Gender="Female" Image="images/maggie.png" Location="225,150" Color="DarkBlue"/>
+                <local:Character First="Marge" Last="Bouvier" Age="38"
+          Gender="Female" Image="images/marge.png" Location="175,0" Color="DarkCyan" />
+            </x:Array>
+
+            <ResourceDictionary.MergedDictionaries>
+
+                <ResourceDictionary Source="/Themes/CharacterDataTemplate.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Grey.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Flipper.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="3.2.0-ci1901" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UtilityWpf.Interactive\UtilityWpf.Interactive.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\InteractiveList.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\KeyValuePairDataTemplate.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\ListBoxItemStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\MultiSelectTreeView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\PropertyDataTemplateSelector.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>
