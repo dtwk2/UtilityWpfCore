@@ -35,9 +35,9 @@
 
             <DataTemplate x:Key="Group2Template">
                 <ContentControl FontSize="20">
-                <UniformGrid Columns="2" Margin="10" >
-                    <TextBlock Text="Key" Margin="10" ></TextBlock>
-                    <TextBlock Text="{Binding Key}" Margin="10" ></TextBlock>
+                    <UniformGrid Columns="2" Margin="10" >
+                        <TextBlock Text="Key" Margin="10" ></TextBlock>
+                        <TextBlock Text="{Binding Key}" Margin="10" ></TextBlock>
                         <TextBlock Text="Count" Margin="10"></TextBlock>
                         <TextBlock Text="{Binding Count}" Margin="10"></TextBlock>
                         <TextBlock Text="Max-Length" Margin="10"></TextBlock>
@@ -54,19 +54,60 @@
                     <TextBlock Text="{Binding Sector}" Margin="10"></TextBlock>
                 </UniformGrid>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type local:StockPropertyChanged}">
+
+                <UniformGrid Columns="1" Margin="10" >
+                    <TextBlock Text="{Binding Key}" Margin="10" FontSize="20"></TextBlock>
+                    <TextBlock Text="{Binding Name}" Margin="10"></TextBlock>
+                    <TextBlock Text="{Binding Sector}" Margin="10"></TextBlock>
+                </UniformGrid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="Group3Template"  >
+                <ContentControl FontSize="16">
+                    <UniformGrid Rows="1">
+                       
+                      
+                            <TextBlock Text="{Binding Key}" FontWeight="DemiBold" Margin="10"  Width="200"></TextBlock>
+                         
+                        <ItemsControl ItemsSource="{Binding Collection}"></ItemsControl>
+                    </UniformGrid>
+                </ContentControl>
+            </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <DockPanel>
         <ToolBar DockPanel.Dock="Top">
+
+            <Label Margin="70,0,0,0">
+                Change DataTemplate Property
+            </Label>
             <ComboBox x:Name="Combobox1" SelectedIndex="0">
                 <ComboBoxItem  Content="A"></ComboBoxItem>
                 <ComboBoxItem  Content="B"></ComboBoxItem>
                 <ComboBoxItem  Content="C"></ComboBoxItem>
             </ComboBox>
-        </ToolBar>
 
-        <Grid>
+            <Label Margin="70,0,0,0">
+                Change Group Property
+            </Label>
+            <ToggleButton x:Name="Emoticon_ToggleButton">
+                <ToggleButton.Content>
+                    <materialDesign:PackIcon Kind="EmoticonSad" />
+                </ToggleButton.Content>
+                <materialDesign:ToggleButtonAssist.OnContent>
+                    <materialDesign:PackIcon Kind="EmoticonHappy" />
+                </materialDesign:ToggleButtonAssist.OnContent>
+            </ToggleButton>
+
+            <Label x:Name="CompletedLabel"  Margin="70,0,0,0">
+        
+            </Label>
+        </ToolBar>
+        <UniformGrid Rows="1">
+
+
             <ListBox x:Name="ListBox1" ItemTemplateSelector="{x:Static local:GroupUserControl.DataTemplateSelector1}">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -74,7 +115,24 @@
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
             </ListBox>
-        </Grid>
+
+    
+            <ListBox x:Name="ListBox2" ItemTemplate="{StaticResource Group3Template}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox> 
+            
+            <ListBox x:Name="ListBox3" ItemTemplate="{StaticResource Group3Template}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+        </UniformGrid>
     </DockPanel>
 
 </UserControl>
