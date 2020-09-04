@@ -12,11 +12,13 @@ namespace UtilityWpf.View
 {
     public class ContentControlx : ContentControl
     {
-        private readonly Dictionary<string, ISubject<object>> Subjects = new Dictionary<string, ISubject<object>>();
-        protected readonly ISubject<DependencyObject> ControlChanges = new Subject<DependencyObject>();
-        readonly object lck = new object();
-        public List<string> ControlNames = new List<string>();
-
+        //private readonly Dictionary<string, ISubject<object>> Subjects = new Dictionary<string, ISubject<object>>();
+        //protected readonly ISubject<DependencyObject> ControlChanges = new ReplaySubject<DependencyObject>(1);
+        //readonly object lck = new object();
+        //public List<string> ControlNames = new List<string>();
+        public Dictionary<string, ISubject<object>> Subjects { get; } = new Dictionary<string, ISubject<object>>();
+        public ISubject<DependencyObject> ControlChanges { get; } = new ReplaySubject<DependencyObject>(1);
+  
         public ContentControlx()
         {
             foreach (var dp in ReflectionHelper.SelectDependencyPropertiesDeclaredOnly(this.GetType()))
@@ -26,7 +28,11 @@ namespace UtilityWpf.View
                     dp.AddValueChanged(this, (s, e) => eventHandler(s as DependencyObject, dp));
                 }
                 //dp.AddValueChanged(this, eventHandler);
+            }
 
+            void eventHandler(DependencyObject sender, DependencyProperty e)
+            {
+                Subjects.OnNext(e.Name, sender.GetValue(e));
             }
         }
 
@@ -34,46 +40,26 @@ namespace UtilityWpf.View
         {
             var elements = this.FindVisualChildren<FrameworkElement>().Where(c => string.IsNullOrEmpty(c.Name) == false).ToArray();
             foreach (var element in elements)
-                this.ControlChanges.OnNext(element);
-
-            //foreach (var dp in ReflectionHelper.SelectDependencyPropertiesDeclaredOnly(this.GetType()))
-            //{
-            //    //dp.AddValueChanged(this, eventHandler);
-            //    dp.AddValueChanged(this, eventHandler);
-            //}
-
-            //foreach (string name in ControlNames)
-            //{
-            //    this.ControlChanges.OnNext(this.GetTemplateChild(name));
-            //}
+                (this).ControlChanges.OnNext(element);
         }
 
-        //protected IObservable<DependencyObject> ControlChanges => controlChanges.AsObservable();
-
-        //public static DependencyProperty Register(
-        //    PropertyMetadata typeMetadata = null,
-        //    ValidateValueCallback validateValueCallback = null,
-        //    [CallerMemberName]string dpPropName = "")
-        //{
-
-        //    var dp = DependencyHelper.Register(typeMetadata, validateValueCallback, dpPropName);
 
 
-        //    return dp;
-        //}
-
-        private void eventHandler(DependencyObject sender, DependencyProperty e)
+        protected static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-
-            Subjects.OnNext(e.Name, sender.GetValue(e));
-            //(s, e) => (s as Controlx).OnNext((DependencyPropertyChangedEventArgs)e)
+            if (d is ContentControlx ccx)
+                ccx.OnNext(e);
+            else
+            {
+                throw new Exception("Incorrect type " + d.GetType() + ". Exptected " + nameof(ContentControlx));
+            }
         }
 
         public IObservable<object> SelectChanges(string name)
         {
-            lock (lck)
+            lock (Subjects)
             {
-                Subjects[name] = Subjects.ContainsKey(name) ? Subjects[name] : new Subject<object>();
+                Subjects[name] = Subjects.ContainsKey(name) ? Subjects[name] : new ReplaySubject<object>(1);
                 return Subjects[name];
             }
         }
@@ -102,9 +88,9 @@ namespace UtilityWpf.View
                 else
                     throw new Exception("No types match");
             }
-            lock (lck)
+            lock (Subjects)
             {
-                Subjects[name] = Subjects.ContainsKey(name) ? Subjects[name] : new Subject<object>();
+                Subjects[name] = Subjects.ContainsKey(name) ? Subjects[name] : new ReplaySubject<object>(1);
                 return Subjects[name].Select(x => (T)x);
             }
         }
@@ -113,9 +99,9 @@ namespace UtilityWpf.View
         {
             string name = dependencyPropertyChangedEventArgs.Property.Name;
             object value = dependencyPropertyChangedEventArgs.NewValue;
-            lock (lck)
+            lock (Subjects)
             {
-                Subjects[name] = Subjects.ContainsKey(name) ? Subjects[name] : new Subject<object>();
+                Subjects[name] = Subjects.ContainsKey(name) ? Subjects[name] : new ReplaySubject<object>(1);
             }
             await System.Threading.Tasks.Task.Run(() =>
             {
@@ -123,20 +109,6 @@ namespace UtilityWpf.View
             });
         }
 
-        protected static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (d is ContentControlx ccx)
-                ccx.OnNext(e);
-            else
-            {
-                throw new Exception("Incorrect type " + d.GetType() + ". Exptected " + nameof(ContentControlx));
-            }
-        }
-
-        public IObservable<RoutedEventArgs> SelectLoads() =>
-            Observable.FromEventPattern<RoutedEventHandler, RoutedEventArgs>
-            (a => this.Loaded += a, a => this.Loaded -= a)
-            .Select(a => a.EventArgs);
 
 
         protected IObservable<Dictionary<string, object>> Any()
@@ -144,7 +116,7 @@ namespace UtilityWpf.View
             return Observable.Create<Dictionary<string, object>>(observer =>
             {
                 Dictionary<string, object> dict = new Dictionary<string, object>();
-                var sub = new Subject<Dictionary<string, object>>();
+                var sub = new ReplaySubject<Dictionary<string, object>>(1);
                 var xx = new List<IDisposable>();
                 foreach (var x in Subjects)
                 {
@@ -153,6 +125,5 @@ namespace UtilityWpf.View
                 return new System.Reactive.Disposables.CompositeDisposable(xx);
             });
         }
-
     }
 }

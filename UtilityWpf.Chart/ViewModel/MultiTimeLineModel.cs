@@ -24,7 +24,7 @@ namespace UtilityWpf.Chart
         IObserver<KeyValuePair<string, TimeSpan>>
 
     {
-        Dictionary<string, CheckableList> DataPoints;
+        Dictionary<string, CheckableList> SeriesDictionary;
         private Dispatcher dispatcher = Application.Current.Dispatcher;
         private PlotModel plotModel;
         object lck = new object();
@@ -37,7 +37,7 @@ namespace UtilityWpf.Chart
         {
             this.plotModel = model;
             model.Axes.Add(new OxyPlot.Axes.DateTimeAxis { });
-            DataPoints = GetDataPoints();
+            SeriesDictionary = GetDataPoints();
 
             refreshes.Buffer(TimeSpan.FromSeconds(1)).Subscribe(list =>
             {
@@ -45,7 +45,7 @@ namespace UtilityWpf.Chart
                 {
                     var series = SelectSeries().AsParallel().ToArray();
 
-                    this.dispatcher.BeginInvoke(() =>
+                    this.dispatcher.InvokeAsync(() =>
                     {
                         plotModel.Series.Clear();
                         foreach (var serie in series)
@@ -61,7 +61,7 @@ namespace UtilityWpf.Chart
 
         private IEnumerable<OxyPlot.Series.LineSeries> SelectSeries()
         {
-            foreach (var dataPoint in DataPoints.Where(a => a.Value.Check))
+            foreach (var dataPoint in SeriesDictionary.Where(a => a.Value.Check))
             {
                 var points = dataPoint.Value.DataPoints;
 
@@ -77,7 +77,7 @@ namespace UtilityWpf.Chart
 
             if (ShowAll)
             {
-                var allPoints = DataPoints.Where(a => a.Value.Check).SelectMany(a => a.Value.DataPoints)
+                var allPoints = SeriesDictionary.Where(a => a.Value.Check).SelectMany(a => a.Value.DataPoints)
                            .OrderBy(dt => dt.DateTime)
                            .GroupBy(a => a.DateTime)
                          .Select(xy0 => new DateTimePoint(xy0.Key, xy0.Sum(l => l.Value)));
@@ -171,11 +171,14 @@ namespace UtilityWpf.Chart
 
         private void Add(KeyValuePair<string, (DateTime date, double value)> item)
         {
-            if (!DataPoints.ContainsKey(item.Key))
-                DataPoints[item.Key] = new CheckableList();
+            if (!SeriesDictionary.ContainsKey(item.Key))
+            {
+                SeriesDictionary[item.Key] = new CheckableList();
+                FilterRefesh();
+            }
             var newdp = new DateTimePoint(item.Value.date, item.Value.value);
 
-            DataPoints[item.Key].DataPoints.Add(newdp);
+            SeriesDictionary[item.Key].DataPoints.Add(newdp);
         }
 
         private async void Refresh()
@@ -185,12 +188,17 @@ namespace UtilityWpf.Chart
                 refreshes.OnNext(new Unit());
             });
         }
-
+        Predicate<string> predicate = null;
         public void Filter(ISet<string> names)
         {
-            Predicate<string> predicate = names == null ? new Predicate<string>(s => true) : s => names.Contains(s);
+            predicate = names == null ? new Predicate<string>(s => true) : s => names.Contains(s);
+            FilterRefesh();
+        }
 
-            foreach (var kvp in DataPoints)
+
+        private void FilterRefesh()
+        {
+            foreach (var kvp in SeriesDictionary)
             {
                 kvp.Value.Check = predicate(kvp.Key);
             }
@@ -218,7 +226,7 @@ namespace UtilityWpf.Chart
             {
                 while (plotModel.Series.Any())
                     plotModel.Series.Remove(plotModel.Series.First());
-                DataPoints = GetDataPoints();
+                SeriesDictionary = GetDataPoints();
                 plotModel.InvalidatePlot(true);
             });
         }
@@ -231,7 +239,7 @@ namespace UtilityWpf.Chart
                 {
                     plotModel.Series.Remove(plotModel.Series.First());
                 }
-                DataPoints = GetDataPoints();
+                SeriesDictionary = GetDataPoints();
                 plotModel.InvalidatePlot(true);
             });
         }

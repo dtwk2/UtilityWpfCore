@@ -1,5 +1,7 @@
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Media;
 
@@ -12,7 +14,7 @@ namespace UtilityWpf.DemoApp
         Unknown
     }
 
-    public class Character : INotifyPropertyChanged
+    public class Character : INotifyPropertyChanged, IEquatable<Character>
     {
         private string _first = string.Empty;
         private string _last = string.Empty;
@@ -28,7 +30,7 @@ namespace UtilityWpf.DemoApp
             set
             {
                 _first = value;
-                RaisePropertyChanged(nameof(First));
+                RaisePropertyChanged();
             }
         }
 
@@ -38,7 +40,7 @@ namespace UtilityWpf.DemoApp
             set
             {
                 _last = value;
-                RaisePropertyChanged("Last");
+                RaisePropertyChanged();
             }
         }
 
@@ -48,7 +50,7 @@ namespace UtilityWpf.DemoApp
             set
             {
                 _image = value;
-                RaisePropertyChanged("Image");
+                RaisePropertyChanged();
             }
         }
 
@@ -59,7 +61,7 @@ namespace UtilityWpf.DemoApp
             set
             {
                 _age = value;
-                RaisePropertyChanged("Age");
+                RaisePropertyChanged();
                 RaisePropertyChanged(nameof(TimeSpan));
             }
         }
@@ -70,7 +72,7 @@ namespace UtilityWpf.DemoApp
             set
             {
                 _gender = value;
-                RaisePropertyChanged("Gender");
+                RaisePropertyChanged();
             }
         }
 
@@ -80,7 +82,7 @@ namespace UtilityWpf.DemoApp
             set
             {
                 _location = value;
-                RaisePropertyChanged("Location");
+                RaisePropertyChanged();
             }
         }
 
@@ -90,7 +92,7 @@ namespace UtilityWpf.DemoApp
             set
             {
                 color = value;
-                RaisePropertyChanged("Color");
+                RaisePropertyChanged();
             }
         }
 
@@ -107,12 +109,28 @@ namespace UtilityWpf.DemoApp
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void RaisePropertyChanged(string name)
+        protected void RaisePropertyChanged([CallerMemberName] string name = null)
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
+
+
         #endregion INotifyPropertyChanged Members
+
+        public bool Equals([AllowNull] Character other)
+        {
+            return this.First == other.First && this.Last == other.Last && Age == other.Age;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.First.GetHashCode() * this.Last.GetHashCode() * Age.GetHashCode();
+        }
     }
 }

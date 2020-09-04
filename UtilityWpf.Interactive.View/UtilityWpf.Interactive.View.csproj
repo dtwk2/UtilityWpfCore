@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UtilityWpf.Interactive\UtilityWpf.Interactive.csproj" />
+    <ProjectReference Include="..\UtilityWpf.View\UtilityWpf.View.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\InteractiveList.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\ListBoxItemStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\MasterDetailView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\MasterDetailCheckView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\MultiSelectTreeView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

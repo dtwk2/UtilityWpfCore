@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Linq;
+using UtilityHelper;
 
-namespace UtilityHelper
+namespace UtilityWpf.Interactive.Common
 {
     // Also in UtilityWpf.CommonCore in Reflection.cs
     public static class IdHelper
@@ -13,7 +14,7 @@ namespace UtilityHelper
         public static string GetIdProperty(Type type)
         {
             var pnames = type.GetProperties().Select(_ => _.Name);
-            return (pnames.FirstOrDefault(_ => idnames.Contains(_.ToLower())));
+            return pnames.FirstOrDefault(_ => idnames.Contains(_.ToLower()));
         }
 
         public static bool CheckIdProperty(string id, Type type)

@@ -6,8 +6,10 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using UtilityInterface.Generic;
+using UtilityWpf.Interactive.Abstract;
+using UtilityWpf.ViewModel;
 
-namespace UtilityWpf.ViewModel
+namespace UtilityWpf.Interactive
 {
     public static class BaseHelper
     {
@@ -15,18 +17,18 @@ namespace UtilityWpf.ViewModel
         {
 
             so.WhenPropertyChanged(_ => _.IsSelected).Select(_ => _.Value).Buffer(TimeSpan.FromMilliseconds(250)).Where(_ => _.Count > 0).Where(_ => _.All(a => a == true))
-  
+
          .Subscribe(b =>
          {
-                ((ISubject<KeyValuePair<T, InteractionArgs>>)col.Interactions).OnNext(new KeyValuePair<T, InteractionArgs>(so.Object, new InteractionArgs { Interaction = Interaction.Select, Value = b.Count }));
+             ((ISubject<KeyValuePair<T, InteractionArgs>>)col.Interactions).OnNext(new KeyValuePair<T, InteractionArgs>(so.Object, new InteractionArgs { Interaction = Interaction.Select, Value = b.Count }));
          });
 
             so.WhenPropertyChanged(a => a.IsDoubleClicked)
                 .Select(so => new KeyValuePair<T, InteractionArgs>(so.Sender.Object, new InteractionArgs { Interaction = Interaction.DoubleSelect }))
                 .Subscribe(col);
-//                {
-//                    (col.Interactions.OnNext());
-//});
+            //                {
+            //                    (col.Interactions.OnNext());
+            //});
 
             so.WhenPropertyChanged(_ => _.IsExpanded).Select(_ => _.Value).Subscribe(_ =>
              {
@@ -37,7 +39,7 @@ namespace UtilityWpf.ViewModel
                  }
              });
 
-     
+
             so.Deletions.Subscribe(_ =>
             {
                 ((ISubject<UserCommandArgs>)col.UserCommands).OnNext(new UserCommandArgs { UserCommand = UserCommand.Delete, Parameter = so.Object });
@@ -47,7 +49,7 @@ namespace UtilityWpf.ViewModel
               {
                   if (_.Value != null)
                   {
-                      ((System.Reactive.Subjects.ISubject<KeyValuePair<T, InteractionArgs>>)col.Interactions).OnNext(new KeyValuePair<T, InteractionArgs>(so.Object, new InteractionArgs { Interaction = Interaction.Check, Value = _.Value }));
+                      ((ISubject<KeyValuePair<T, InteractionArgs>>)col.Interactions).OnNext(new KeyValuePair<T, InteractionArgs>(so.Object, new InteractionArgs { Interaction = Interaction.Check, Value = _.Value }));
                       ((ISubject<KeyValuePair<IObject<T>, ChangeReason>>)col.Changes).OnNext(new KeyValuePair<IObject<T>, ChangeReason>(so, ChangeReason.Update));
                   }
               });
@@ -85,7 +87,7 @@ namespace UtilityWpf.ViewModel
         }
 
 
-        public static IObservable<(bool isChecked,T obj)> SelectCheckedChanges<T>(this InteractiveCollectionBase<T> bse)
+        public static IObservable<(bool isChecked, T obj)> SelectCheckedChanges<T>(this InteractiveCollectionBase<T> bse)
         {
             return bse.Interactions.Where(_ => _.Value.Interaction == Interaction.Check).Select(_ => ((bool)_.Value.Value, _.Key));
         }

@@ -20,13 +20,14 @@ namespace UtilityWpf.Chart
     public class OxyChart : Controlx, IItemsSource
     {
         public static readonly DependencyProperty IdProperty =
-            DependencyProperty.Register("Id", typeof(string), typeof(OxyChart), new PropertyMetadata(null));
+            DependencyProperty.Register("Id", typeof(string), typeof(OxyChart), new PropertyMetadata("Id"));
 
         public static readonly DependencyProperty ItemsSourceProperty =
             DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(OxyChart), new PropertyMetadata(null, Changed));
 
         public static readonly DependencyProperty DataProperty =
-            DependencyProperty.Register("Data", typeof(IEnumerable), typeof(OxyChart), new PropertyMetadata(null, Changed));
+            DependencyProperty.Register("Data", typeof(string), typeof(OxyChart), new PropertyMetadata(null, Changed));
+
 
         static OxyChart()
         {
@@ -47,35 +48,24 @@ namespace UtilityWpf.Chart
                     modelSubject.OnNext(model);
                 });
 
-            var data = this.SelectChanges<IEnumerable>(nameof(OxyChart.Data))
-                .SubscribeOn(ReactiveUI.RxApp.TaskpoolScheduler)
-                .Merge(this.LoadedChanges().Select(a => Data).Where(a => a != null))
-                .Select(a => a.MakeObservable())
-                .Switch()
-                .Cast<KeyValuePair<string, DateTimePoint>>();
+            //var data = this.SelectChanges<IEnumerable<KeyValuePair<string, DateTimePoint>>>(nameof(OxyChart.Data))
+            //    .SubscribeOn(ReactiveUI.RxApp.TaskpoolScheduler)
+            //    .Merge(this.LoadedChanges().Select(a => Data).Where(a => a != null))
+            //    .Select(a => a.MakeObservable())
+            //    .Switch();
 
-            data.Subscribe(D =>
-            {
+            //data.Subscribe(D =>
+            //{
 
-            });
-
-            modelSubject
-                .CombineLatest(data.Select(a => new KeyValuePair<string, (DateTime dt, double d)>(a.Key, (a.Value.DateTime, a.Value.Value))).Buffer(TimeSpan.FromSeconds(0.5)),
-                (model, data) => (model, data))
-                .Subscribe(a =>
-                {
-                    a.model.OnNext(a.data);
-                });
+            //});
 
             var itemsSource = this.SelectChanges<IEnumerable>(nameof(OxyChart.ItemsSource));
 
 
-
             modelSubject
                 .CombineLatest(
-                itemsSource.Select(cc => cc.MakeObservable()).Merge(this.LoadedChanges()?.Where(a=> ItemsSource != null)
-                                                .Select(v => ItemsSource.MakeObservable())), (model, b) =>
-                (model,      items: b))
+                itemsSource.Select(cc => cc.MakeObservable()), (model, b) =>
+                (model, items: b))
                 .ObserveOnDispatcher()
                 .Subscribe(combination =>
                 {
@@ -89,7 +79,10 @@ namespace UtilityWpf.Chart
                             foreach (var item in ItemsSource.Cast<object>())
                             {
                                 Color color = (Color)item.GetType().GetProperties().FirstOrDefault(a => a.PropertyType == typeof(Color))?.GetValue(item);
-                                TimeSpan timeSpan = (TimeSpan)item.GetType().GetProperties().FirstOrDefault(a => a.PropertyType == typeof(TimeSpan))?.GetValue(item);
+                                var aa = item.GetType().GetProperties().FirstOrDefault(a => a.PropertyType == typeof(TimeSpan));
+
+                                TimeSpan? timeSpan = (TimeSpan?)aa?.GetValue(item);
+
                                 var id = item.GetType().GetProperty(Id).GetValue(item).ToString();
                                 ids.Add(id);
 
@@ -99,16 +92,26 @@ namespace UtilityWpf.Chart
                                 }
                                 if (timeSpan != default)
                                 {
-                                    combination.model.OnNext(new KeyValuePair<string, TimeSpan>(id, timeSpan));
+                                    combination.model.OnNext(new KeyValuePair<string, TimeSpan>(id, timeSpan.Value));
                                 }
+
+                                var data = item.GetType().GetProperties().FirstOrDefault(a => a.Name == Data)?.GetValue(item) as IEnumerable<DateTimePoint>;
+
+                                data.MakeObservable().Select(a => new KeyValuePair<string, (DateTime dt, double d)>(id, (a.DateTime, a.Value))).Buffer(TimeSpan.FromSeconds(0.5))
+                                     .Where(a => a.Count > 0)
+                                     .Subscribe(data =>
+                                     {
+                                         combination.model.OnNext(data);
+                                     });
+
                             }
 
                             combination.model.Filter(ids);
                             var colors = combination.model.SelectColors();
-                        },e=>
-                        {
-                        },
-                        ()=>
+                        }, e =>
+                         {
+                         },
+                        () =>
                         { }
                         );
                 });
@@ -122,9 +125,9 @@ namespace UtilityWpf.Chart
         }
 
 
-        public IEnumerable Data
+        public string Data
         {
-            get { return (IEnumerable)GetValue(DataProperty); }
+            get { return (string)GetValue(DataProperty); }
             set { SetValue(DataProperty, value); }
         }
 
@@ -134,21 +137,5 @@ namespace UtilityWpf.Chart
             set { SetValue(IdProperty, value); }
         }
 
-    }
-
-    class CheckableList
-    {
-        public CheckableList(bool check, List<DateTimePoint> dataPoints)
-        {
-            this.Check = check;
-            this.DataPoints = dataPoints;
-        }
-
-        public CheckableList(bool check = false) : this(check, new List<DateTimePoint>())
-        {
-        }
-
-        public List<DateTimePoint> DataPoints { get; set; } = new List<DateTimePoint>();
-        public bool Check { get; set; }
     }
 }

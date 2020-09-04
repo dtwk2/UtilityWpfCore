@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace UtilityWpf.Interactive.Demo.Views
+namespace UtilityWpf.Interactive.Demo
 {
     /// <summary>
     /// Interaction logic for FullView.xaml

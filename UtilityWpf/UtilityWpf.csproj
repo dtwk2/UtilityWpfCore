@@ -15,10 +15,12 @@
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
     <PackageReference Include="morelinq" Version="3.3.2" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="ReactiveUI" Version="11.4.1" />
-    <PackageReference Include="UtilityEnum" Version="2.0.3" />
-    <PackageReference Include="UtilityHelper" Version="2.1.3-alpha" />
-    <PackageReference Include="UtilityInterface" Version="3.0.0-alpha" />
+    <PackageReference Include="Nito.AsyncEx" Version="5.0.0" />
+    <PackageReference Include="ReactiveUI" Version="11.5.35" />
+    <PackageReference Include="Splat.Autofac" Version="9.5.35" />
+    <PackageReference Include="UtilityEnum" Version="2.0.4" />
+    <PackageReference Include="UtilityHelper" Version="2.1.5-alpha" />
+    <PackageReference Include="UtilityInterface" Version="4.0.2-alpha" />
   </ItemGroup>
 
   <Target Name="PostPack" AfterTargets="Pack">

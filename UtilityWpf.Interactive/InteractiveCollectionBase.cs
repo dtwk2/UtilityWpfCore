@@ -6,9 +6,10 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using UtilityInterface.Generic;
+using UtilityWpf.Interactive.Abstract;
 using UtilityWpf.Property;
 
-namespace UtilityWpf.ViewModel
+namespace UtilityWpf.Interactive
 {
 
 
@@ -30,28 +31,28 @@ namespace UtilityWpf.ViewModel
 
         private void Init()
         {
-            this.Interactions.Where(_ => _.Value.Interaction == Interaction.Check && ((bool?)_.Value.Value == true)).Subscribe(_ =>
+            Interactions.Where(_ => _.Value.Interaction == Interaction.Check && (bool?)_.Value.Value == true).Subscribe(_ =>
               {
                   Checked.Add(_.Key);
                   if (Unchecked.Contains(_.Key))
                       Unchecked.Remove(_.Key);
               });
 
-            this.ChildSubject.Where(_ => _.Value.Interaction == Interaction.Check && ((bool?)_.Value.Value == true)).Subscribe(_ =>
+            ChildSubject.Where(_ => _.Value.Interaction == Interaction.Check && (bool?)_.Value.Value == true).Subscribe(_ =>
               {
                   Checked.Add(_.Key);
                   if (Unchecked.Contains(_.Key))
                       Unchecked.Remove(_.Key);
               });
 
-            this.Interactions.Where(_ => _.Value.Interaction == Interaction.Check && !((bool?)_.Value.Value == true)).Subscribe(_ =>
+            Interactions.Where(_ => _.Value.Interaction == Interaction.Check && !((bool?)_.Value.Value == true)).Subscribe(_ =>
               {
                   Unchecked.Add(_.Key);
                   if (Checked.Contains(_.Key))
                       Checked.Remove(_.Key);
               });
 
-            this.ChildSubject.Where(_ => _.Value.Interaction == Interaction.Check && !((bool?)_.Value.Value == true)).Subscribe(_ =>
+            ChildSubject.Where(_ => _.Value.Interaction == Interaction.Check && !((bool?)_.Value.Value == true)).Subscribe(_ =>
               {
                   Unchecked.Add(_.Key);
                   if (Checked.Contains(_.Key))
@@ -68,19 +69,19 @@ namespace UtilityWpf.ViewModel
 
         public string Title { get; protected set; }
 
-        public ICollection<IObject<T>> Items => this.items;
+        public ICollection<IObject<T>> Items => items;
 
         public IObservable<KeyValuePair<IObject<T>, ChangeReason>> Changes => changes;
 
         public ObservableCollection<object> Checked { get; } = new ObservableCollection<object>();
-       
+
         public ObservableCollection<object> Unchecked { get; } = new ObservableCollection<object>();
 
         public IObservable<T> GetSelectedItem(IObservable<bool> ischecked)
         {
             var ca = this.SelectSelected();
 
-            var cb = (this as InteractiveCollectionViewModel<T, IConvertible>).ChildSubject.Where(_ => _.Value.Interaction == Interaction.Select && ((int)_.Value.Value) > 0).Select(_ => _.Key);
+            var cb = (this as InteractiveCollectionViewModel<T, IConvertible>).ChildSubject.Where(_ => _.Value.Interaction == Interaction.Select && (int)_.Value.Value > 0).Select(_ => _.Key);
 
             var xx = ca.Merge(cb)
                   .CombineLatest(ischecked, (a, b) => new { a, b }).Where(_ => Checked.Contains(_.a) || _.b == false);
@@ -102,6 +103,7 @@ namespace UtilityWpf.ViewModel
         public void OnError(Exception error)
         {
             interactions.OnError(error);
+            errors.OnNext(error);
         }
 
         public void OnNext(KeyValuePair<T, InteractionArgs> value)

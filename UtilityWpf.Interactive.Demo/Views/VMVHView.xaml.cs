@@ -12,7 +12,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using UtilityWpf.Interactive.Demo.Common;
 
-namespace UtilityWpf.Interactive.Demo.Views
+namespace UtilityWpf.Interactive.Demo
 {
     /// <summary>
     /// Interaction logic for VMVHView.xaml

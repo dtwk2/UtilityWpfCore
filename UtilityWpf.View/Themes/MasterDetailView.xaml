@@ -5,15 +5,16 @@
                        xmlns:utility="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"
 
                    >
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/UtilityWpf.View;component/DataTemplate/PropertyDataTemplateSelector.xaml"></ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="One" TargetType="{x:Type local:MasterDetailView}">
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:MasterDetailView }">
-                    <ControlTemplate.Resources>
-                        <ResourceDictionary Source="/UtilityWpf.View;component/DataTemplate/PropertyDataTemplateSelector.xaml"></ResourceDictionary>
-                    </ControlTemplate.Resources>
+
                     <DockPanel x:Name="DockPanel">
                         <DockPanel.Resources>
                             <CollectionViewSource x:Key="GroupedItems" Source="{Binding Items, RelativeSource={RelativeSource TemplatedParent}}">
@@ -76,9 +77,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:MasterDetailView }">
-                    <ControlTemplate.Resources>
-                        <ResourceDictionary Source="/UtilityWpf.View;component/DataTemplate/PropertyDataTemplateSelector.xaml"></ResourceDictionary>
-                    </ControlTemplate.Resources>
+
                     <DockPanel x:Name="DockPanel">
                         <DockPanel.Resources>
                             <CollectionViewSource x:Key="GroupedItems" Source="{Binding Items, RelativeSource={RelativeSource TemplatedParent}}">
@@ -138,7 +137,7 @@
 
 
 
-    <Style TargetType="{x:Type local:MasterDetailCheckView}">
+    <!--<Style TargetType="{x:Type local:MasterDetailCheckView}">
 
         <Setter Property="Template">
             <Setter.Value>
@@ -159,17 +158,17 @@
                             SelectedItem="{Binding Output, RelativeSource={RelativeSource TemplatedParent},Mode=TwoWay}"
                                    ItemsSource="{Binding Source={StaticResource GroupedItems}}">
 
-                            <!--ItemsSource="{Binding Items, RelativeSource={RelativeSource TemplatedParent},Mode=OneWay}"-->
+                            --><!--ItemsSource="{Binding Items, RelativeSource={RelativeSource TemplatedParent},Mode=OneWay}"-->
                             <!--<ListView.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel Orientation="Vertical"></StackPanel>
                                 </ItemsPanelTemplate>
-                            </ListView.ItemsPanel>-->
+                            </ListView.ItemsPanel>--><!--
                             <ListView.GroupStyle>
                                 <GroupStyle>
                                     <GroupStyle.HeaderTemplate>
                                         <DataTemplate>
-                                            <!--<TextBlock FontWeight="Bold" FontSize="14" Text="{Binding .,Converter={StaticResource Converter}}" />-->
+                                            --><!--<TextBlock FontWeight="Bold" FontSize="14" Text="{Binding .,Converter={StaticResource Converter}}" />--><!--
                                             <Button FontWeight="Bold" Background="Transparent" FontSize="14" Content="{Binding Name}" BorderThickness="0" HorizontalContentAlignment="Left" 
                                                     Command="{Binding Path=DataContext.GroupClick, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" 
                                                     CommandParameter="{Binding Name}"/>
@@ -184,7 +183,7 @@
                                     <GridViewColumn      Width="100">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <!--<TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Path=DataContext.Object.First,Mode=TwoWay}"  />-->
+                                                --><!--<TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Path=DataContext.Object.First,Mode=TwoWay}"  />--><!--
                                                 <ContentControl Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Path=DataContext.Object,Mode=TwoWay}" >
 
                                                 </ContentControl>
@@ -196,13 +195,13 @@
 
 
 
-                                    <!--<GridViewColumn >
+                                    --><!--<GridViewColumn >
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <CheckBox IsChecked="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Path=DataContext.IsChecked,Mode=TwoWay}" Background="DarkBlue" />
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>-->
+                                    </GridViewColumn>--><!--
 
                                     <GridViewColumn   >
                                         <GridViewColumn.CellTemplate>
@@ -214,7 +213,7 @@
                                             <GridViewColumnHeader.ContextMenu>
                                                 <ContextMenu  
                                         Name="LastNameCM">
-                                                    <!--MenuItem.Click="LastNameCM_Click"-->
+                                                    --><!--MenuItem.Click="LastNameCM_Click"--><!--
                                                     <MenuItem Header="Ascending" />
                                                     <MenuItem Header="Descending" />
                                                 </ContextMenu>
@@ -222,11 +221,11 @@
                                         </GridViewColumnHeader>
                                     </GridViewColumn>
 
-                                    <!--<GridViewColumn DisplayMemberBinding=
+                                    --><!--<GridViewColumn DisplayMemberBinding=
                           "{Binding Path=IsChecked,Mode=TwoWay}" 
                       Width="100">
                                     
-                                    </GridViewColumn>-->
+                                    </GridViewColumn>--><!--
 
 
                                 </GridView>
@@ -258,6 +257,6 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
+    </Style>-->
 
 </ResourceDictionary>

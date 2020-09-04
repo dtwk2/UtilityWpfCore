@@ -16,7 +16,6 @@
     <local1:CountToBooleanConverter x:Key="CountConverter" Invert="True"></local1:CountToBooleanConverter>
     <Style TargetType="{x:Type local:AddControl}" BasedOn="{StaticResource {x:Type  ContentControl}}" >
         <!--<Setter Property="SnapsToDevicePixels" Value="true" />-->
-
         <!--<Setter Property="MeetsCriteria" Value="{Binding OutOfDate}" />-->
         <!--<Setter Property="MaxWidth" Value="400"></Setter>-->
         <Setter Property="Template">

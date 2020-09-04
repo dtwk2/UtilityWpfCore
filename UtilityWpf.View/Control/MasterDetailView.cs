@@ -9,13 +9,13 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Threading;
 using System.Windows.Input;
-
+using UtilityWpf.View.Infrastructure;
 
 namespace UtilityWpf.View
 {
     public class MasterDetailView : ContentControlx
     {
-        
+
         protected ISubject<string> GroupNameChanges = new Subject<string>();
         protected ISubject<string> NameChanges = new Subject<string>();
 
@@ -58,7 +58,7 @@ namespace UtilityWpf.View
 
         public object Output
         {
-            get { return (object)GetValue(OutputProperty); }
+            get { return GetValue(OutputProperty); }
             set { SetValue(OutputProperty, value); }
         }
         #endregion properties
@@ -72,11 +72,11 @@ namespace UtilityWpf.View
 
         public MasterDetailView()
         {
-            var outputChanges = SelectChanges(nameof(MasterDetailView.Output)).Where(obj => obj != null);
+            var outputChanges = SelectChanges(nameof(Output)).Where(obj => obj != null);
 
             //Dictionary<Type, object> dict = new Dictionary<Type, object>();
             outputChanges
-                .CombineLatest(SelectChanges<string>(nameof(MasterDetailView.Id)).StartWith(Id), (a, b) => (a, b))
+                .CombineLatest(SelectChanges<string>(nameof(Id)).StartWith(Id), (a, b) => (a, b))
                 .Select(vm =>
                 {
                     var id = vm.a.GetType().GetProperty(vm.b).GetValue(vm.a).ToString();
@@ -84,13 +84,13 @@ namespace UtilityWpf.View
                 }).Subscribe(NameChanges);
 
             outputChanges
-                        .CombineLatest(SelectChanges<IValueConverter>(nameof(MasterDetailView.DataConverter)).StartWith(default(IValueConverter)), (a, b) => (a, b))
+                        .CombineLatest(SelectChanges<IValueConverter>(nameof(DataConverter)).StartWith(default(IValueConverter)), (a, b) => (a, b))
                         .SubscribeOn(TaskPoolScheduler.Default)
                         .ObserveOnDispatcher()
-                        .Subscribe(collConv => this.Dispatcher.InvokeAsync(() =>
+                        .Subscribe(collConv => Dispatcher.InvokeAsync(() =>
                         {
                             Convert(collConv.a, collConv.b, (items, conv) => conv.Convert(collConv.a, null, null, null) as IEnumerable);
-                        }, System.Windows.Threading.DispatcherPriority.Normal));
+                        }, DispatcherPriority.Normal));
 
             SelectChanges<PropertyGroupDescription>().StartWith(PropertyGroupDescription)
                 .CombineLatest(ControlChanges.Where(c => c.GetType() == typeof(DockPanel)).Take(1), (pgd, DockPanel) => (pgd, DockPanel)).Subscribe(_ =>
@@ -118,13 +118,13 @@ namespace UtilityWpf.View
 
             GroupNameChanges.CombineLatest(
                   SelectChanges<PropertyGroupDescription>().StartWith(PropertyGroupDescription),
-                SelectChanges<IValueConverter>(nameof(MasterDetailView.DataConverter)).StartWith(default(IValueConverter)),
-                                SelectChanges<string>(nameof(MasterDetailView.Id)).StartWith(Id),
+                SelectChanges<IValueConverter>(nameof(DataConverter)).StartWith(default(IValueConverter)),
+                                SelectChanges<string>(nameof(Id)).StartWith(Id),
                 (text, pg, conv, id) => (text, pg, conv, id))
                 //.ObserveOn(TaskPoolScheduler.Default)
                 .Subscribe(async input =>
                 {
-                    await this.Dispatcher.InvokeAsync(() =>
+                    await Dispatcher.InvokeAsync(() =>
                     {
                         var paths = Items.Cast<object>();
                         var prop = paths.First().GetType().GetProperty(input.pg.PropertyName);
@@ -150,12 +150,12 @@ namespace UtilityWpf.View
                     }, DispatcherPriority.Background);
                 });
 
-            this.ContentTemplateSelector = new TemplateSelector(this);
+            ContentTemplateSelector = new PropertyDataTemplateSelector();
         }
 
         private void Convert(object items, IValueConverter conv, Func<object, IValueConverter, object> func)
         {
-            this.Content = convert(conv, func, items);
+            Content = convert(conv, func, items);
 
             static object convert(IValueConverter conv, Func<object, IValueConverter, object> func, object items)
             {
@@ -169,39 +169,39 @@ namespace UtilityWpf.View
         public ICommand GroupClick { get; }
 
 
-        class TemplateSelector : System.Windows.Controls.DataTemplateSelector
-        {
-            private readonly MasterDetailView masterDetailView;
+        //class TemplateSelector : DataTemplateSelector
+        //{
+        //    private readonly MasterDetailView masterDetailView;
 
-            public TemplateSelector(MasterDetailView masterDetailView)
-            {
-                this.masterDetailView = masterDetailView;
-            }
+        //    public TemplateSelector(MasterDetailView masterDetailView)
+        //    {
+        //        this.masterDetailView = masterDetailView;
+        //    }
 
-            public override DataTemplate SelectTemplate(object item, DependencyObject container)
-            {
-                if (item == null)
-                    return default;
-                var resource= masterDetailView.Template.Resources; 
-                return (item, container) switch
-                {
-                    (Control _, { } _)=> default,
-                    (IConvertible _, { } frameworkElement) => resource["IConvertiblePropertyTemplate"],
-                    (IDictionary _, { } frameworkElement) => resource["DictionaryTemplate"],
-                    (IEnumerable _, { } frameworkElement) => resource["EnumerableTemplate"],
-                    (Type _, { } frameworkElement) => resource["TypeTemplate"],
-                    (object o, { } frameworkElement) when
-                    (Splat.Locator.Current.GetService(typeof(ReactiveUI.IViewLocator)) is ReactiveUI.IViewLocator viewLocator) &&
-                    viewLocator.ResolveView<object>(o) != null => resource["ViewModelTemplate"],
-                    (_, FrameworkElement frameworkElement) =>
-                    frameworkElement.TryFindResource(new DataTemplateKey(item.GetType())) ??
-                    Application.Current.TryFindResource(new DataTemplateKey(item.GetType())) ??
-                    resource["DefaultTemplate"],
-                    _ => null
-                } as DataTemplate;
-            }
+        //    public override DataTemplate SelectTemplate(object item, DependencyObject container)
+        //    {
+        //        if (item == null)
+        //            return default;
+        //        var resource = masterDetailView.Template.Resources;
+        //        return (item, container) switch
+        //        {
+        //            (Control _, { } _) => default,
+        //            (IConvertible _, { } frameworkElement) => resource["IConvertiblePropertyTemplate"],
+        //            (IDictionary _, { } frameworkElement) => resource["DictionaryTemplate"],
+        //            (IEnumerable _, { } frameworkElement) => resource["EnumerableTemplate"],
+        //            (Type _, { } frameworkElement) => resource["TypeTemplate"],
+        //            (object o, { } frameworkElement) when
+        //            Splat.Locator.Current.GetService(typeof(ReactiveUI.IViewLocator)) is ReactiveUI.IViewLocator viewLocator &&
+        //            viewLocator.ResolveView(o) != null => resource["ViewModelTemplate"],
+        //            (_, FrameworkElement frameworkElement) =>
+        //            frameworkElement.TryFindResource(new DataTemplateKey(item.GetType())) ??
+        //            Application.Current.TryFindResource(new DataTemplateKey(item.GetType())) ??
+        //            resource["DefaultTemplate"],
+        //            _ => null
+        //        } as DataTemplate;
+        //    }
 
-        }
+        //}
     }
 
 

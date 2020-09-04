@@ -15,7 +15,7 @@
   <ItemGroup>
     <PackageReference Include="MaterialDesignColors" Version="1.2.6" />
     <PackageReference Include="MaterialDesignThemes" Version="3.1.3" />
-    <PackageReference Include="ReactiveUI.WPF" Version="11.4.1" />
+    <PackageReference Include="ReactiveUI.WPF" Version="11.5.35" />
   </ItemGroup>
 
   <Target Name="PostPack" AfterTargets="Pack">
@@ -73,9 +73,6 @@
     <Page Update="Themes\CsvDataGrid.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\DataTemplate.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="Themes\DatesList.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -119,7 +116,7 @@
     <Page Update="Themes\ListBoxItemStyle.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\MultiSelectTreeView.xaml">
+    <Page Update="Themes\MasterDetailView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\NavigatorControl.xaml">
@@ -130,6 +127,7 @@
     </Page>
     <Page Update="Themes\PathButton.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Update="Themes\Player.xaml">
       <SubType>Designer</SubType>

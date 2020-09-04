@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace UtilityWpf.ViewModel
+namespace UtilityWpf.Interactive.Abstract
 {
     public enum Interaction
     {

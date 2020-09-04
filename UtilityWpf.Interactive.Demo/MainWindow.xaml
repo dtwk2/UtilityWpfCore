@@ -5,23 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:demo="clr-namespace:UtilityWpf.Interactive.Demo"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:demo1="clr-namespace:UtilityWpf.Interactive.Demo.Views"
+        xmlns:att="clr-namespace:UtilityWpf.Attached;assembly=UtilityWpf" 
+        xmlns:demo1="clr-namespace:UtilityWpf.Interactive.Demo"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <TabControl>
+
+
+        
+        <TabItem Header="Master-Detail">
+            <Grid>
+                <demo:MasterDetailViewUserControl />
+            </Grid>
+       </TabItem>   
+        
+        
+        
+          <TabItem Header="ViewModelView">
+            <Grid>
+                <demo:ViewModelAssemblyView></demo:ViewModelAssemblyView>
+            </Grid>
+        </TabItem>
+        
         <TabItem Header="Full">
             <Grid>
-                <demo1:FullView >
+                <demo:FullView >
 
-                </demo1:FullView>
+                </demo:FullView>
             </Grid>
         </TabItem>
    
         <TabItem Header="ViewModel">
             <Grid>
-                <demo1:VMVHView >
+                <demo:VMVHView >
 
-                </demo1:VMVHView>
+                </demo:VMVHView>
             </Grid>
         </TabItem>
         <TabItem Header="ReadOnly">
@@ -30,6 +48,15 @@
 
                 </demo:ReadOnlyView>
             </Grid>
+        </TabItem>      
+        
+        <TabItem Header="Filter">
+            <UniformGrid Columns="1">
+                <StackPanel>
+                    <TextBox  Name="tb"  Width="200" HorizontalAlignment="Center" Margin="20"/>
+                    <ItemsControl ItemsSource="{StaticResource Characters}" att:ItemsControlEx.Filter="{Binding ElementName=tb,Path=Text}"/>
+                </StackPanel>
+            </UniformGrid>
         </TabItem>
         <TabItem Header="Test">
             <Grid>
@@ -38,30 +65,6 @@
                 </demo1:TestView>
             </Grid>
         </TabItem>
-        <TabItem Header="Card Item">
-            <materialDesign:Card x:Name="card" Margin="2">
-                <DockPanel Height="40" MinWidth="40" Background="Blue">
-
-                    <!--<local:XButton Margin="4" DockPanel.Dock="Right" 
-                                               HorizontalAlignment="Right" VerticalAlignment="Top" MaxWidth="20" Command="{Binding DeleteCommand }" 
-                                                   MaxHeight="15" Visibility="{Binding IsReadonly,Converter={StaticResource InverseBooleanToVisibilityConverter}}"/>-->
-
-
-                    <CheckBox Margin="4" DockPanel.Dock="Right" MaxWidth="20" Grid.Row="1" Background="LightGray"  
-                                          VerticalAlignment="Center" 
-                                              VerticalContentAlignment="Center" IsChecked="{Binding IsChecked,Mode=TwoWay}" ></CheckBox>
-                                          <!--Visibility="{Binding IsReadonly, Converter={StaticResource InverseBooleanToVisibilityConverter}}"></CheckBox>-->
-
-
-                    <ContentPresenter DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" Grid.RowSpan="3"
-                                                      Content="{Binding Object}"></ContentPresenter>
-                    <!--ContentTemplateSelector="{StaticResource propertytemplateSelector}" />-->
-
-
-                </DockPanel>
-            </materialDesign:Card>
-        </TabItem>
-
     </TabControl>
 
 </Window>

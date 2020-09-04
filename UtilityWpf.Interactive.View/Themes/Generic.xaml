@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"       >
+
+
+
+    <ResourceDictionary.MergedDictionaries>
+
+        <ResourceDictionary Source="/UtilityWpf.Interactive.View;component/Themes/ListBoxItemStyle.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.Interactive.View;component/Themes/InteractiveList.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.Interactive.View;component/Themes/MultiSelectTreeView.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.Interactive.View;component/Themes/MasterDetailCheckView.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.Interactive.View;component/Themes/MasterDetailView.xaml"></ResourceDictionary>
+ 
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary> 

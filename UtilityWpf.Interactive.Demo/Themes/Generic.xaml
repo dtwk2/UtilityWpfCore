@@ -4,11 +4,11 @@
 
     <ResourceDictionary.MergedDictionaries>
 
-        <ResourceDictionary Source="/UtilityWpf.Interactive.Demo;component/Themes/ListBoxItemStyle.xaml"></ResourceDictionary>
-        <!--<ResourceDictionary Source="/UtilityWpf.Interactive.Demo;component/Themes/CollectionEditor.xaml"></ResourceDictionary>-->
+        <!--<ResourceDictionary Source="/UtilityWpf.Interactive.Demo;component/Themes/ListBoxItemStyle.xaml"></ResourceDictionary>
+        --><!--<ResourceDictionary Source="/UtilityWpf.Interactive.Demo;component/Themes/CollectionEditor.xaml"></ResourceDictionary>--><!--
         <ResourceDictionary Source="/UtilityWpf.Interactive.Demo;component/Themes/InteractiveList.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.Interactive.Demo;component/Themes/MultiSelectTreeView.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.Interactive.Demo;component/Themes/PathButton.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.Interactive.Demo;component/Themes/PathButton.xaml"></ResourceDictionary>-->
  
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary> 

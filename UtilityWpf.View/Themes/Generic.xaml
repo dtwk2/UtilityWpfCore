@@ -29,18 +29,13 @@
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/EnumItems.xaml"></ResourceDictionary>
         
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/CriteriaItem.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/ListBoxEx.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/CollectionEditor.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/ListBoxItemStyle.xaml"></ResourceDictionary>
-        <!--<ResourceDictionary Source="/UtilityWpf.View;component/Themes/EnumToggleButton.xaml"></ResourceDictionary>-->
-        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/ImageButton.xaml"></ResourceDictionary>
+              <ResourceDictionary Source="/UtilityWpf.View;component/Themes/ImageButton.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/SizeControl.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/SliderItemsControl.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/DictionaryControl.xaml"></ResourceDictionary>
 
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/DatesList.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/PathButton.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/MasterDetailView.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/LogViewer.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/TransitionControl.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/ValidationForm.xaml"></ResourceDictionary>
@@ -49,7 +44,6 @@
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/SkipControl.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/ProgressTimeBar.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/ResourcePicker.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/MultiSelectTreeView.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/DateTimeControl.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/RangeSlider.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/TimeSpanControl.xaml"></ResourceDictionary>

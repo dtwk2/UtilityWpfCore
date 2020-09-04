@@ -8,9 +8,11 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using UtilityInterface.NonGeneric;
+using UtilityWpf.Interactive.Abstract;
 using UtilityWpf.Property;
+using UtilityWpf.ViewModel;
 
-namespace UtilityWpf.ViewModel
+namespace UtilityWpf.Interactive
 {
 
 
@@ -31,26 +33,26 @@ namespace UtilityWpf.ViewModel
 
         private void Init()
         {
-            this.Interactions.Where(_ => _.Value.Interaction == Interaction.Check && ((bool?)_.Value.Value == true)).Subscribe(_ =>
+            Interactions.Where(_ => _.Value.Interaction == Interaction.Check && (bool?)_.Value.Value == true).Subscribe(_ =>
               {
                   @checked.Add(_.Key);
                   if (@unchecked.Contains(_.Key))
                       @unchecked.Remove(_.Key);
               });
-            this.ChildSubject.Where(_ => _.Value.Interaction == Interaction.Check && ((bool?)_.Value.Value == true)).Subscribe(_ =>
+            ChildSubject.Where(_ => _.Value.Interaction == Interaction.Check && (bool?)_.Value.Value == true).Subscribe(_ =>
               {
                   @checked.Add(_.Key);
                   if (@unchecked.Contains(_.Key))
                       @unchecked.Remove(_.Key);
               });
             //              if(!@unchecked.Contains(_.))
-            this.Interactions.Where(_ => _.Value.Interaction == Interaction.Check && !((bool?)_.Value.Value == true)).Subscribe(_ =>
+            Interactions.Where(_ => _.Value.Interaction == Interaction.Check && !((bool?)_.Value.Value == true)).Subscribe(_ =>
               {
                   @unchecked.Add(_.Key);
                   if (@checked.Contains(_.Key))
                       @checked.Remove(_.Key);
               });
-            this.ChildSubject.Where(_ => _.Value.Interaction == Interaction.Check && !((bool?)_.Value.Value == true)).Subscribe(_ =>
+            ChildSubject.Where(_ => _.Value.Interaction == Interaction.Check && !((bool?)_.Value.Value == true)).Subscribe(_ =>
               {
                   @unchecked.Add(_.Key);
                   if (@checked.Contains(_.Key))
@@ -60,7 +62,7 @@ namespace UtilityWpf.ViewModel
 
         public string Title { get; protected set; }
 
-        public ICollection<IObject> Items => this.items;
+        public ICollection<IObject> Items => items;
 
         public IObservable<KeyValuePair<IObject, ListChangeReason>> Changes => changes;
 
@@ -81,7 +83,7 @@ namespace UtilityWpf.ViewModel
         {
             var ca = this.GetSelected();
 
-            var cb = this.ChildSubject.Where(_ => _.Value.Interaction == Interaction.Select && ((int)_.Value.Value) > 0).Select(_ => _.Key);
+            var cb = ChildSubject.Where(_ => _.Value.Interaction == Interaction.Select && (int)_.Value.Value > 0).Select(_ => _.Key);
 
             var xx = ca.Merge(cb)
                   .CombineLatest(ischecked, (a, b) => new { a, b }).Where(_ => @checked.Contains(_.a) || _.b == false);
@@ -101,7 +103,7 @@ namespace UtilityWpf.ViewModel
     {
         public static void ReactToChanges(this InteractiveCollectionBase col, InteractiveObject so)
         {
-  
+
             so.WhenPropertyChanged(_ => _.IsSelected)
                 .Select(_ => _.Value)
                 .Buffer(TimeSpan.FromMilliseconds(250))
@@ -110,7 +112,7 @@ namespace UtilityWpf.ViewModel
 
          .Subscribe(b =>
          {
-                 ((ISubject<KeyValuePair<object, InteractionArgs>>)col.Interactions).OnNext(new KeyValuePair<object, InteractionArgs>(so.Object, new InteractionArgs { Interaction = Interaction.Select, Value = b.Count }));
+             ((ISubject<KeyValuePair<object, InteractionArgs>>)col.Interactions).OnNext(new KeyValuePair<object, InteractionArgs>(so.Object, new InteractionArgs { Interaction = Interaction.Select, Value = b.Count }));
          });
 
             so.WhenPropertyChanged(_ => _.IsExpanded).Select(_ => _.Value).Subscribe(_ =>
@@ -122,10 +124,10 @@ namespace UtilityWpf.ViewModel
                  }
              });
 
-                  so.Deletions.Subscribe(_ =>
-            {
-                ((ISubject<UserCommandArgs>)col.UserCommands).OnNext(new UserCommandArgs { UserCommand = UserCommand.Delete, Parameter = so.Object });
-            });
+            so.Deletions.Subscribe(_ =>
+      {
+          ((ISubject<UserCommandArgs>)col.UserCommands).OnNext(new UserCommandArgs { UserCommand = UserCommand.Delete, Parameter = so.Object });
+      });
 
             so.WhenPropertyChanged(_ => _.IsChecked).StartWith(new PropertyValue<InteractiveObject, bool?>(so, so.IsChecked)).Subscribe(_ =>
               {
@@ -137,7 +139,7 @@ namespace UtilityWpf.ViewModel
               });
         }
 
-      
+
         public static IObservable<object> GetDoubleClicked(this InteractiveCollectionBase bse)
         {
             return bse.Interactions.Where(_ => _.Value.Interaction == Interaction.Select && _.Value.Value.Equals(2)).Select(_ => _.Key);
@@ -168,7 +170,7 @@ namespace UtilityWpf.ViewModel
             return bse.Interactions.Where(_ => _.Value.Interaction == Interaction.Check && _.Value.Value.Equals(false)).Select(_ => _.Key);
         }
 
-        public static IObservable<(bool isChecked,object obj)> SelectCheckedChanges(this InteractiveCollectionBase bse)
+        public static IObservable<(bool isChecked, object obj)> SelectCheckedChanges(this InteractiveCollectionBase bse)
         {
             return bse.Interactions.Where(_ => _.Value.Interaction == Interaction.Check).Select(_ => ((bool)_.Value.Value, _.Key));
         }

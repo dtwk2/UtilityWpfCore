@@ -98,14 +98,5 @@ namespace UtilityWpf.Interactive.Demo.Common
                 return new TypeObject { TypeName = type.Name, Key = name, Object = service };
             }).ToArray();
         }
-
-
-        public class TypeObject
-        {
-            public string TypeName { get; set; }
-            public string Key { get; set; }
-            public object Object { get; set; }
-
-        }
     }
 }

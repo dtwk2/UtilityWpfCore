@@ -1,9 +1,12 @@
-﻿using System;
+﻿using ReactiveUI;
+using Splat;
+using System;
 using System.Collections;
 using System.Linq;
 using System.Windows;
+using System.Windows.Media;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.View.Infrastructure
 {
     public class PropertyDataTemplateSelector : System.Windows.Controls.DataTemplateSelector
     {
@@ -12,6 +15,8 @@ namespace UtilityWpf.View
         public DataTemplate ContentPresenterTemplate { get; set; }
         public DataTemplate DictionaryDataTemplate { get; set; }
         public DataTemplate IConvertibleTemplate { get; set; }
+        public DataTemplate ViewModelHostViewTemplate { get; set; }
+        public DataTemplate ColorTemplate { get; set; }
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
@@ -32,14 +37,30 @@ namespace UtilityWpf.View
                 return ContentPresenterTemplate;
 
             var interfaces = type.GetInterfaces();
-            if ((interfaces.Contains(typeof(IConvertible))))
+            if (interfaces.Contains(typeof(IConvertible)))
                 return IConvertibleTemplate;
             else if (interfaces.SingleOrDefault(_ => _.Name == "IDictionary`2") != null || interfaces.Contains(typeof(IDictionary)))
                 return DictionaryDataTemplate;
             else if (interfaces.Contains(typeof(IEnumerable)))
                 return EnumerableDataTemplate;
+            else if (type == typeof(Color))
+                return ColorTemplate;
+            else if (TryResolveView(item).success)
+                return ViewModelHostViewTemplate;
             else
                 return DefaultDataTemplate;
+
+            static (bool success, object obj) TryResolveView(object item)
+            {
+                try
+                {
+                    return (true, Locator.Current.GetService<IViewLocator>()?.ResolveView(item));
+                }
+                catch
+                {
+                    return (false, null);
+                }
+            }
         }
     }
 }

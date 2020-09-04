@@ -13,6 +13,10 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}" x:Name="ToggleButton1" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Checked"></ToggleButton>
-        <chart:OxyChartSelector x:Name="Selector" Id="First" Items="{StaticResource Characters}" Grid.Row="1"></chart:OxyChartSelector>
+        <chart:OxyChartSelector x:Name="Selector"
+                                ItemsSource="{StaticResource Characters}" 
+                                
+                     
+                                Grid.Row="1"></chart:OxyChartSelector>
     </Grid>
 </UserControl>

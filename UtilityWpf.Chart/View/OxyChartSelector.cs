@@ -1,55 +1,71 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Reactive.Linq;
 using System.Windows;
+using UtilityWpf.Interactive.View.Controls;
 using UtilityWpf.View;
 
 namespace UtilityWpf.Chart
 {
     public class OxyChartSelector : MasterDetailCheckView
     {
+        public static readonly DependencyProperty DataProperty = DependencyProperty.Register("Data", typeof(string), typeof(OxyChartSelector), new PropertyMetadata(null, Changed));
+
         static OxyChartSelector()
         {
             //DefaultStyleKeyProperty.OverrideMetadata(typeof(OxyChartSelector), new FrameworkPropertyMetadata(typeof(OxyChartSelector)));
         }
 
-        public IEnumerable Data
+        public string Data
         {
-            get { return (IEnumerable)GetValue(DataProperty); }
+            get { return (string)GetValue(DataProperty); }
             set { SetValue(DataProperty, value); }
         }
 
-        public static readonly DependencyProperty DataProperty =
-            DependencyProperty.Register("Data", typeof(IEnumerable), typeof(OxyChartSelector), new PropertyMetadata(null, Changed));
+      
 
         public OxyChartSelector()
         {
-            var oxyChart = new OxyChart();
+        
+           var oxyChart = new OxyChart();
 
-            Content = oxyChart;
+           Content = oxyChart;
 
-            this.Loaded += OxyChartSelector_Loaded;
+           //this.Loaded += OxyChartSelector_Loaded;
 
-            this.SelectChanges(nameof(Data))
-                .ObserveOnDispatcher()
-                .Subscribe(a =>
-            {
-                oxyChart.Data = a as IEnumerable;
-            });
+         //   this.SelectChanges(nameof(Data))
+         //       .ObserveOnDispatcher()
+         //       .Subscribe(a =>
+         //   {
+         //       oxyChart.Data = a as IEnumerable;
+         //   });
 
-            this.SelectChanges(nameof(Id))      
-                .ObserveOnDispatcher()
-         .Subscribe(a =>
-         {
-             oxyChart.Id = a.ToString();
-         });
+         //   this.SelectChanges(nameof(Id))      
+         //       .ObserveOnDispatcher()
+         //.Subscribe(a =>
+         //{
+         //    oxyChart.Id = a.ToString();
+         //});
         }
 
-        private void OxyChartSelector_Loaded(object sender, RoutedEventArgs e)
+        protected override void SetCollection(object content, IReadOnlyCollection<object> objects)
         {
-            (Content as OxyChart).Data = Data;
-            (Content as OxyChart).Id = Id;
+            if (content is OxyChart oview)
+            {
+                oview.ItemsSource = objects;
+                oview.Data = Data;
+                oview.Id = Id;
+            }
+            else throw new Exception(nameof(Content) + " needs to have property");
+
         }
+
+        //private void OxyChartSelector_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    (Content as OxyChart).Data = Data;
+        //    (Content as OxyChart).Id = Id;
+        //}
     }
 
 

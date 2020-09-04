@@ -15,7 +15,7 @@
         <Style.Resources>
             <BooleanToVisibilityConverter x:Key="BoolToVis" />
             <converter:BooleanToVisibilityConverter  Invert="True" x:Key="InvBoolToVis"></converter:BooleanToVisibilityConverter>
-            <converter:EnumToBooleanConverter  x:Key="EnumBool"></converter:EnumToBooleanConverter>
+            <converter:FirstEnumToBooleanConverter  x:Key="EnumBool"></converter:FirstEnumToBooleanConverter>
 
             <converter:TimeSpanStringConverter x:Key="tssc"></converter:TimeSpanStringConverter>
 

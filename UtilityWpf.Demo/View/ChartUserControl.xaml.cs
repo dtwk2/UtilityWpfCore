@@ -39,24 +39,38 @@ namespace UtilityWpf.DemoApp.View
 
 
             var x = Observable.Generate(
-                Enumerable.Repeat(1, 10000).Select(a => resource[random.Next(0, resource.Length)]).GetEnumerator(),
-                a => a.MoveNext(), a => a, a => a.Current, a => TimeSpan.FromSeconds(1))
+                Enumerable.Repeat(1, 10000).Select((a,i) => (i, resource[random.Next(0, resource.Length)])).GetEnumerator(),
+                a => a.MoveNext(), a => a, a => a.Current.Item2, a => TimeSpan.FromSeconds(0.01* a.Current.i))
                 .Select((a,i)=>
-                            new KeyValuePair<string, DateTimePoint>(a.First, new DateTimePoint(DateTime.Now, 1d / (i) + random.NextDouble())))
+                            new KeyValuePair<Character, DateTimePoint>(a, new DateTimePoint(DateTime.Now, 1d / (i+1) + random.NextDouble())))
                 .ToObservableChangeSet(100)
                 .ObserveOnDispatcher()
-                .Bind(out a)
+                .GroupOn(a=> a.Key)
+                .Transform(aa =>
+                {
+                    aa.List.Connect().Transform(a=>a.Value).Bind(out var dat).Subscribe();
+
+                    return new
+                    {
+                        Id = aa.GroupKey.First,
+                        //Age = aa.GroupKey.Age;
+                        Color = aa.GroupKey.Color,
+                        Data = dat
+                    };
+                })
+                .Bind(out var a)
                 .Subscribe(a =>
                 {
 
                 });
-
-            Selector.Data = a;
+            Selector.Id = "Id";
+            Selector.Data = "Data";
+            Selector.ItemsSource = a;
         }
 
         private void ToggleButton_Checked(object sender, RoutedEventArgs e)
         {
-            Selector.Id = Selector.Id == "First" ? "Age" : "First";
+            //Selector.Id = Selector.Id == "First" ? "Last" : "First";
                
         }
 

@@ -6,34 +6,21 @@ using System.Windows.Shapes;
 
 namespace UtilityWpf.View
 {
-    //[TemplatePart(Name = PART_Pathx, Type = typeof(Path))]
     public class PathButton : Button
     {
-        //private const string PART_Pathx = "PART_Pathx";
+        public static readonly DependencyProperty PathDataProperty = DependencyProperty.Register("PathData", typeof(Geometry), typeof(PathButton), new PropertyMetadata());
+        public static readonly DependencyProperty HoverBackgroundProperty = DependencyProperty.Register("HoverBackground", typeof(Brush), typeof(PathButton), new PropertyMetadata(new SolidColorBrush(Color.FromArgb(255, 255, 139, 0))));
 
-        public static readonly DependencyProperty PathDataProperty = DependencyProperty.Register("PathData", typeof(System.Windows.Media.Geometry), typeof(PathButton), new PropertyMetadata());
-
-        public System.Windows.Media.Geometry PathData
+        public Geometry PathData
         {
-            get { return (System.Windows.Media.Geometry)GetValue(PathDataProperty); }
+            get { return (Geometry)GetValue(PathDataProperty); }
             set { SetValue(PathDataProperty, value); }
         }
 
-        //private static System.Windows.Media.Geometry pathData;
-
-        public static readonly DependencyProperty HoverBackgroundProperty = DependencyProperty.Register("HoverBackground", typeof(System.Windows.Media.Brush), typeof(PathButton), new PropertyMetadata(new SolidColorBrush(Color.FromArgb(255, 255, 139, 0))));
-
-        public System.Windows.Media.Brush HoverBackground
+        public Brush HoverBackground
         {
-            get { return (System.Windows.Media.Brush)GetValue(HoverBackgroundProperty); }
+            get { return (Brush)GetValue(HoverBackgroundProperty); }
             set { SetValue(HoverBackgroundProperty, value); }
-        }
-
-        public override void OnApplyTemplate()
-        {
-            //(this.GetTemplateChild("ButtonPath") as Path).Data = PathData;
-
-            base.OnApplyTemplate();
         }
 
         static PathButton()
@@ -44,10 +31,8 @@ namespace UtilityWpf.View
         public PathButton()
         {
             string sData = "M 250,40 L200,20 L200,60 Z";
-            var converter = System.ComponentModel.TypeDescriptor.GetConverter(typeof(System.Windows.Media.Geometry));
-            PathData = (System.Windows.Media.Geometry)converter.ConvertFrom(sData);
-
-
+            var converter = System.ComponentModel.TypeDescriptor.GetConverter(typeof(Geometry));
+            PathData = (Geometry)converter.ConvertFrom(sData);
         }
     }
 }

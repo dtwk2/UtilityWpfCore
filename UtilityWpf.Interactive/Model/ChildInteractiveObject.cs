@@ -8,8 +8,11 @@ using System.Reactive.Threading.Tasks;
 using UtilityHelper;
 using UtilityInterface.Generic;
 using UtilityWpf.Abstract;
+using UtilityWpf.Interactive;
+using UtilityWpf.Interactive.Abstract;
+using UtilityWpf.ViewModel;
 
-namespace UtilityWpf.ViewModel
+namespace UtilityWpf.Interactive.Model
 {
     //public interface IChildren<T>
     //{
@@ -22,7 +25,7 @@ namespace UtilityWpf.ViewModel
     {
         private InteractiveCollectionViewModel<T> collection;
 
-        public ChildInteractiveObject(T @object, string childrenpath, IObservable<bool> ischecked, IObservable<bool> expand, IConvertible id = null) : base(@object, null, null,id: id)
+        public ChildInteractiveObject(T @object, string childrenpath, IObservable<bool> ischecked, IObservable<bool> expand, IConvertible id = null) : base(@object, null, null, id: id)
         {
             Object = @object;
             bool hasinterface = false;
@@ -53,12 +56,12 @@ namespace UtilityWpf.ViewModel
             if (hasinterface)
                 children = (@object as IParent<T>).Children;
             else
-                children = UtilityHelper.PropertyHelper.GetPropertyValue<IEnumerable>(@object, childrenpath)?.Cast<T>();
+                children = @object.GetPropertyValue<IEnumerable>(childrenpath)?.Cast<T>();
 
             if (children != null)
             {
                 collection = new InteractiveCollectionViewModel<T>(children, childrenpath, ischecked, this.WhenPropertyChanged(a => a.IsExpanded).Select(b => b.Value).Where(c => c == true).Select(a => (bool)a).Take(1));
-                (collection.ChildSubject).Subscribe(_a => ChildChanged = _a);
+                collection.ChildSubject.Subscribe(_a => ChildChanged = _a);
                 collection.Interactions/*.Merge(collection.ChildSubject)*/.Subscribe(_a => ChildChanged = _a);
                 OnPropertyChanged(nameof(Children));
             }
@@ -69,7 +72,7 @@ namespace UtilityWpf.ViewModel
         //    @checked.Subscribe(_ => IsChecked = _);
         //}
 
-        public ICollection<IObject<T>> Children => collection?.Items ?? new List<IObject<T>>();
+        public ICollection<IObject<T>> Children => collection?.Items ?? new System.Collections.ObjectModel.ReadOnlyObservableCollection<IObject<T>>(new System.Collections.ObjectModel.ObservableCollection<IObject<T>>());
 
         private KeyValuePair<T, InteractionArgs> _affectedchild;
 
@@ -87,7 +90,7 @@ namespace UtilityWpf.ViewModel
             }
         }
 
-        public bool HasItems => (collection?.Items ?? new List<IObject<T>>()).Count > 0;
+        public bool HasItems => (collection?.Items).Count > 0;
 
         //public T Object { get; private set; }
     }

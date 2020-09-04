@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UtilityWpf.View\UtilityWpf.View.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Interactive.View\UtilityWpf.Interactive.View.csproj" />
   </ItemGroup>
 
   <ItemGroup>

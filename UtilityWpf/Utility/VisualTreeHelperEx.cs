@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace UtilityWpf
@@ -46,6 +47,54 @@ namespace UtilityWpf
                     }
                 }
             }
+        }
+
+        public static object FindItemsPanel(Visual visual)
+
+        {
+
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(visual); i++)
+
+            {
+
+                Visual child = VisualTreeHelper.GetChild(visual, i) as Visual;
+
+                if (child != null)
+
+                {
+
+                    if (child is object && VisualTreeHelper.GetParent(child) is ItemsPresenter)
+
+                    {
+
+                        object temp = child;
+
+                        return (object)temp;
+
+                    }
+
+
+
+
+
+                    object panel = FindItemsPanel(child);
+
+                    if (panel != null)
+
+                    {
+
+                        object temp = panel;
+
+                        return (object)temp; // return the panel up the call stack
+
+                    }
+
+                }
+
+            }
+
+            return default(object);
+
         }
     }
 }

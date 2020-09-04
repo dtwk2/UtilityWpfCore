@@ -5,7 +5,7 @@
                     xmlns:common="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
-    <ResourceDictionary.MergedDictionaries>
+    <!--<ResourceDictionary.MergedDictionaries>
         <ResourceDictionary  Source="/UtilityWpf.View;component/Themes/Brushes.xaml" />
         <ResourceDictionary  Source="/UtilityWpf.View;component/DataTemplate/PropertyDataTemplateSelector.xaml" />
     </ResourceDictionary.MergedDictionaries>
@@ -19,12 +19,12 @@
         <Setter Property="Visibility" Value="{Binding IsVisible,Converter={StaticResource BoolToVis}}" />
         <Setter Property="util:MouseDoubleClick.Command" Value="{Binding DoubleClickCommand}" />
         <Setter Property="IsEnabled" Value="{Binding IsEnabled}" />
-        <!--<Setter Property="Canvas.Left" Value="{Binding Location.X}" />
+        --><!--<Setter Property="Canvas.Left" Value="{Binding Location.X}" />
         <Setter Property="Canvas.Top" Value="{Binding Location.Y}" />
-        <Setter Property="Grid.Row"        Value="{Binding Order}" />-->
+        <Setter Property="Grid.Row"        Value="{Binding Order}" />--><!--
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <!--<Setter Property="Height" Value="40" />-->
+        --><!--<Setter Property="Height" Value="40" />--><!--
         <Setter Property="MinHeight" Value="40" />
         <Setter Property="MinWidth" Value="120" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -35,9 +35,9 @@
             <Setter.Value>
 
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                    <!--<Border x:Name="PART_Border" Padding="4"  BorderBrush="Gray" BorderThickness="1" CornerRadius="4" Margin="4">-->
-                        <Grid x:Name="PART_Grid">
-                            <!--<Grid.ColumnDefinitions>
+                    --><!--<Border x:Name="PART_Border" Padding="4"  BorderBrush="Gray" BorderThickness="1" CornerRadius="4" Margin="4">--><!--
+                    <Grid x:Name="PART_Grid">
+                        --><!--<Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="5*" />
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
@@ -46,39 +46,46 @@
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="2*" />
                                 <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>-->
-                            <materialDesign:Card x:Name="card" Margin="2">
-                                <DockPanel Height="40" >
-                                    <local:XButton Margin="4" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Top" MaxWidth="20" Command="{Binding DeleteCommand }"  MaxHeight="15" Visibility="{Binding IsReadonly,Converter={StaticResource InverseBooleanToVisibilityConverter}}"/>
+                            </Grid.RowDefinitions>--><!--
+                        <materialDesign:Card x:Name="card" Margin="2">
+                            <DockPanel Height="40" MinWidth="40" Background="Blue">
+                                <local:XButton Margin="4" DockPanel.Dock="Right" 
+                                               HorizontalAlignment="Right" VerticalAlignment="Top" MaxWidth="20" Command="{Binding DeleteCommand }" 
+                                                   MaxHeight="15" Visibility="{Binding IsReadonly,Converter={StaticResource InverseBooleanToVisibilityConverter}}"/>
 
-                                    <CheckBox Margin="4" DockPanel.Dock="Right" MaxWidth="20" Grid.Row="1" Background="LightGray"  VerticalAlignment="Center" VerticalContentAlignment="Center" IsChecked="{Binding IsChecked,Mode=TwoWay}" Visibility="{Binding IsReadonly,Converter={StaticResource InverseBooleanToVisibilityConverter}}"></CheckBox>
+                                <CheckBox Margin="4" DockPanel.Dock="Right" MaxWidth="20" Grid.Row="1" Background="LightGray"  
+                                          VerticalAlignment="Center" 
+                                              VerticalContentAlignment="Center" IsChecked="{Binding IsChecked,Mode=TwoWay}" 
+                                          Visibility="{Binding IsReadonly, Converter={StaticResource InverseBooleanToVisibilityConverter}}"></CheckBox>
 
-                                    <ContentPresenter DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" Grid.RowSpan="3" Content="{Binding Object}"  ContentTemplateSelector="{StaticResource propertytemplateSelector}" />
-                                                                   </DockPanel>
-                            </materialDesign:Card>
-                        </Grid>
-                    <!--</Border>-->
+                                <ContentPresenter DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" Grid.RowSpan="3"
+                                                      Content="{Binding Object}" 
+                                                      ContentTemplateSelector="{StaticResource propertytemplateSelector}" />
+                            </DockPanel>
+                        </materialDesign:Card>
+                    </Grid>
+                    --><!--</Border>--><!--
                     <ControlTemplate.Triggers>
-                        <!--<Trigger Property="IsMouseOver" Value="True">
+                        --><!--<Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="PART_Border" Property="BorderBrush"
                                     Value="Gray" />
-                        </Trigger>-->
+                        </Trigger>--><!--
 
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Foreground" Value="DarkGray" />
                             <Setter Property="Background" Value="LightGray" />
                         </Trigger>
 
-                        <!--<Trigger Property="IsSelected" Value="true">
+                        --><!--<Trigger Property="IsSelected" Value="true">
                             <Setter TargetName="PART_Border" Property="Background"
                                     Value="LightGray" />
-                        </Trigger>-->
+                        </Trigger>--><!--
 
                         <Trigger Property="IsEnabled" Value="False">
-                            <!--<Setter Property="TextElement.Foreground" TargetName="PART_Border" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />-->
+                            --><!--<Setter Property="TextElement.Foreground" TargetName="PART_Border" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />--><!--
                         </Trigger>
 
-                        <!--<Trigger Property="local:ControlDoubleClick.Value" Value="True">
+                        --><!--<Trigger Property="local:ControlDoubleClick.Value" Value="True">
                             <Setter TargetName="PART_Border" Property="Background"
 
                                     Value="{StaticResource PressedBackgroundBrush}" />
@@ -208,7 +215,7 @@
                                     </Storyboard>
                                 </BeginStoryboard>
                             </DataTrigger.ExitActions>
-                        </DataTrigger>-->
+                        </DataTrigger>--><!--
 
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
@@ -218,8 +225,8 @@
 
                             <Setter TargetName="PART_Grid" Property="Background"
                                     Value="{StaticResource PressedBackgroundBrush}" />
-                            <!--<Setter TargetName="PART_Border" Property="BorderBrush"
-                                    Value="{StaticResource PressedBorderBrush}" />-->
+                            --><!--<Setter TargetName="PART_Border" Property="BorderBrush"
+                                    Value="{StaticResource PressedBorderBrush}" />--><!--
                         </MultiDataTrigger>
 
                         <MultiDataTrigger>
@@ -250,16 +257,16 @@
                         </MultiDataTrigger>
                     </ControlTemplate.Triggers>
 
-                    <!--<ContentPresenter x:Name="ContentHost" Margin="{TemplateBinding Padding}"
+                    --><!--<ContentPresenter x:Name="ContentHost" Margin="{TemplateBinding Padding}"
                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
                                 </ContentPresenter>
 
                             <Rectangle Fill="{x:Null}" Stroke="#FFFFFFFF" RadiusX="3" RadiusY="3" Margin="1" />
                         </Grid>
-                    </Grid>-->
+                    </Grid>--><!--
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
+    </Style>-->
 </ResourceDictionary>

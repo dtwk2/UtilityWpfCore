@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using UtilityWpf.Interactive.Demo.ViewModel;
-using UtilityWpf.Interactive.Demo.Views;
+using UtilityWpf.Interactive.Demo;
 
 namespace UtilityWpf.Interactive
 {
@@ -21,6 +21,9 @@ namespace UtilityWpf.Interactive
         public App()
         {
             Locator.CurrentMutable.Register<IViewFor<TestViewModel>>(() => new TestView());
+            Locator.CurrentMutable.Register<IViewFor<Test1ViewModel>>(() => new Test2View());
+            Locator.CurrentMutable.Register<IViewFor<Test2ViewModel>>(() => new Test3View());
+            Locator.CurrentMutable.Register<IViewFor<Test3ViewModel>>(() => new Test4View());
         }
     }
 }

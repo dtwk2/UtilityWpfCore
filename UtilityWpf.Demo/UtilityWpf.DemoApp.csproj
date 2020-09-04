@@ -103,9 +103,6 @@
     <Compile Update="View\ListBoxCriteriaUserControl.xaml.cs">
       <DependentUpon>ListBoxCriteriaUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Update="View\ListBoxExUserControl.xaml.cs">
-      <DependentUpon>ListBoxExUserControl.xaml</DependentUpon>
-    </Compile>
     <Compile Update="View\MultiSelectTreeUserControl.xaml.cs">
       <DependentUpon>MultiSelectTreeUserControl.xaml</DependentUpon>
     </Compile>
@@ -168,9 +165,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\ListBoxCriteriaUserControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\ListBoxExUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\MultiSelectTreeUserControl.xaml">

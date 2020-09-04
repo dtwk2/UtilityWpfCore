@@ -3,14 +3,14 @@
 
                     xmlns:local="clr-namespace:UtilityWpf.View">
 
-    <ResourceDictionary.MergedDictionaries>
+    <!--<ResourceDictionary.MergedDictionaries>
         <ResourceDictionary  Source="/UtilityWpf.View;component/Themes/ListBoxItemStyle.xaml" />
         <ResourceDictionary  Source="/UtilityWpf.View;component/DataTemplate/PropertyDataTemplateSelector.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <BooleanToVisibilityConverter x:Key="BoolToVis" />
 
-    <!-- Fill Brushes -->
+    --><!-- Fill Brushes --><!--
 
     <SolidColorBrush x:Key="NormalBrush" Color="#FFCCCCCC" />
 
@@ -18,7 +18,7 @@
 
     <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#888" />
 
-    <!-- Border Brushes -->
+    --><!-- Border Brushes --><!--
 
     <LinearGradientBrush x:Key="NormalBorderBrush" StartPoint="0,0" EndPoint="0,1">
         <GradientBrush.GradientStops>
@@ -84,7 +84,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="CustomListBoxItem" TargetType="{x:Type ListBoxItem}">
+    --><!--<Style x:Key="CustomListBoxItem" TargetType="{x:Type ListBoxItem}">
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="Template">
@@ -96,7 +96,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
+    </Style>--><!--
 
     <ControlTemplate x:Key="VerticalTemplate">
         <DockPanel x:Name="Panel">
@@ -257,7 +257,7 @@
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="SnapsToDevicePixels" Value="true" />
-        <!--<Setter Property="OverridesDefaultStyle" Value="true" />-->
+        --><!--<Setter Property="OverridesDefaultStyle" Value="true" />--><!--
         <Setter Property="ItemContainerStyle" Value="{StaticResource HorizontalPanelItemStyle}" />
         <Setter Property="ItemsPanel">
             <Setter.Value>
@@ -284,6 +284,6 @@
     </Style>
 
     <Style  TargetType="{x:Type local:ListBoxEx }"  BasedOn="{StaticResource ListBoxStyle}">
-    </Style>
+    </Style>-->
     
 </ResourceDictionary>

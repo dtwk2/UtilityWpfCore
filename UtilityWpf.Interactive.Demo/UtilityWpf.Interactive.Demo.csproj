@@ -11,28 +11,47 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UtilityWpf.Interactive\UtilityWpf.Interactive.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Page Update="Themes\Generic.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\InteractiveList.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\KeyValuePairDataTemplate.xaml">
+    <Page Update="Views\MasterDetailViewUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\ListBoxItemStyle.xaml">
+    <Page Update="Views\Test\Test2View.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\MultiSelectTreeView.xaml">
+    <Page Update="Views\Test\Test4View.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\PropertyDataTemplateSelector.xaml">
+    <Page Update="Views\Test\Test3View.xaml">
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controls\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UtilityWpf.Interactive.View\UtilityWpf.Interactive.View.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\MasterDetailViewUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Test\Test2View.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Test\Test4View.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Test\Test3View.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>

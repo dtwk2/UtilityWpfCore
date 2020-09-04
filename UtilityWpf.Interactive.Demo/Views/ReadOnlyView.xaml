@@ -3,9 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:common="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf" 
-             xmlns:view="clr-namespace:UtilityWpf.Interactive.Demo.Controls" 
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:view="clr-namespace:UtilityWpf.Interactive.View.Controls;assembly=UtilityWpf.Interactive.View" 
              mc:Ignorable="d"
              DataContext="{DynamicResource Characters}"
              d:DesignHeight="300" d:DesignWidth="300">
@@ -13,54 +11,39 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary  Source="/Themes/ListBoxItemStyle.xaml" />
-                <ResourceDictionary  Source="/Themes/InteractiveList.xaml" />
+                <ResourceDictionary  Source="/UtilityWpf.Interactive.View;component/Themes/ListBoxItemStyle.xaml" />
+                <ResourceDictionary  Source="/UtilityWpf.Interactive.View;component/Themes/InteractiveList.xaml" />
                 <!--<ResourceDictionary  Source="/UtilityWpf.Interactive.Demo;component/DataTemplate/PropertyDataTemplateSelector.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
-
-
-
-
-       
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <UniformGrid>
 
-        <!--<GroupBox Header="ListBoxEx Horizontal">
-            <StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Filter"></Label>
-                    <TextBox Name="FilterTb" Width="100" Text=""></TextBox>
-                </StackPanel>
-                <view:ListBoxEx x:Name="lbx" Key="First"  ItemsSource="{Binding }" Remove="True" 
-                                Filter="{Binding ElementName=FilterTb,Path=Text,Converter={StaticResource stfc},ConverterParameter='First'}" 
-                                />
-                <ContentControl Content="{StaticResource ugrid}"></ContentControl>
-            </StackPanel>
-        </GroupBox>
-        <GroupBox Header="ListBoxEx Vertical">
-            <view:ListBoxEx x:Name="lbxa" Key="First"  ItemsSource="{Binding }" Remove="False" Orientation="Vertical" />
-        </GroupBox>
 
-        <GroupBox Header="Filter">
-            <UniformGrid Columns="1">
-                <StackPanel>
-                    <TextBox  Name="tb" />
-                    <ItemsControl ItemsSource="{Binding}" att:ItemsControlEx.Filter="{Binding ElementName=tb,Path=Text}"/>
+    <DockPanel>
+        <ToolBar DockPanel.Dock="Top">
+            <Label>Group</Label>
+            <ToggleButton x:Name="Group_ToggleButton">
 
-                </StackPanel>
-            </UniformGrid>
-        </GroupBox>
+            </ToggleButton>
 
-        <GroupBox Header="Collection Editor">
-            <view:CollectionEditor ItemsSource="{Binding}" Key="First" />
-        </GroupBox>-->
+            <Label>Group Property</Label>
+            <ToggleButton x:Name="GroupProperty_ToggleButton">
 
-        
-        
+            </ToggleButton>
+            
+            <Label>Orientation</Label>
+            <ToggleButton x:Name="Orientation_ToggleButton">
+
+            </ToggleButton>
+        </ToolBar>
+
         <GroupBox Header="ReadOnly">
-            <view:InteractiveList IsReadOnly="True" Data="{Binding}" Key="First" Style="{StaticResource ListBoxStyle}" IsRemovable="True" Group="Last">
+            <view:InteractiveList 
+                Style="{StaticResource HorizontalStyle}"
+                x:Name="Main_InteractiveList"
+                IsReadOnly="True" Data="{Binding}" 
+                                  Key="First"  IsRemovable="True" >
                 <!--<ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Ellipse Fill="Red" Width="200" Height="200"></Ellipse>
@@ -68,5 +51,5 @@
                 </ItemsControl.ItemTemplate>-->
             </view:InteractiveList>
         </GroupBox>
-    </UniformGrid>
+    </DockPanel>
 </UserControl>

@@ -19,6 +19,6 @@ namespace UtilityWpf.Service
             _a = a;
         }
 
-        public bool Filter(object o) => _property == null ? ((string)o).Contains(_a) : o.GetPropertyValue<string>(_property).Contains(_a);
+        public bool Filter(object o) => _property == null ? ((string)o).Contains(_a, System.StringComparison.InvariantCultureIgnoreCase) : o.GetPropertyValue<string>(_property).Contains(_a, System.StringComparison.InvariantCultureIgnoreCase);
     }
 }

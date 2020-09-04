@@ -110,7 +110,8 @@ namespace UtilityWpf.ViewModel
             @checked?.Subscribe(a => IsChecked = a);
             (visible ?? Observable.Return((bool?)true)).Subscribe(a => IsVisible = a);
             (enabled ?? Observable.Return((bool?)true)).Subscribe(a => IsEnabled = a);
-            checkable?.Subscribe(a => IsCheckable = a);
+            checkable?.Subscribe(a => 
+            IsCheckable = a);
             removable?.Subscribe(a => IsRemovable = a);
             @readonly?.Subscribe(a => IsReadOnly = a);
             doubleClickToCheck?.Subscribe(a => DoubleClickToCheck = a);
