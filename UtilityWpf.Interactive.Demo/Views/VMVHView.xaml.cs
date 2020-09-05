@@ -10,7 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using UtilityWpf.Interactive.Demo.Common;
+using UtilityWpf.ViewModel;
 
 namespace UtilityWpf.Interactive.Demo
 {

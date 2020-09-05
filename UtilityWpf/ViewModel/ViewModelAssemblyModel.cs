@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using UtilityInterface.NonGeneric;
 
-namespace UtilityWpf.Interactive.Demo.Common
+namespace UtilityWpf.ViewModel
 {
     public class ViewModelAssemblyModel
     {
