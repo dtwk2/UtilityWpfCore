@@ -1,13 +1,9 @@
 ﻿using ReactiveUI;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 
 namespace UtilityWpf.Property
 {
-
-
     public class KeyValue
     {
         public KeyValue(string key, object value)
@@ -28,7 +24,6 @@ namespace UtilityWpf.Property
     /// <typeparam name="TValue"></typeparam>
     public class ReactivePair<TKey, TValue> : ReactiveObject
     {
-
         protected TKey key;
         protected TValue value;
 
@@ -59,8 +54,6 @@ namespace UtilityWpf.Property
             get => value;
             set => this.RaiseAndSetIfChanged(ref value, value);
         }
-
-
     }
 
     public class KeyRange : INotifyPropertyChanged

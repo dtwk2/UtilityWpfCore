@@ -1,7 +1,6 @@
 ﻿using DynamicData;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
@@ -15,7 +14,6 @@ namespace UtilityWpf.Interactive
     {
         private static bool Ft<T>(T o) => true;
 
-
         public static (InteractiveCollectionViewModel<T, object> collectionViewModel, IDisposable disposable) Build<T>(
         IObservable<T> elems,
         IObservable<Func<T, object>> getkeyObservable = null,
@@ -27,7 +25,6 @@ namespace UtilityWpf.Interactive
         //IObservable<bool> isReadOnly = null,
         IObservable<bool> doubleClickToCheck = null)
         {
-
             var (sx, exs, dis) = CreateChangeSet(elems, getkeyObservable, filter, deletedObservable, clearedObervable);
 
             var interactivecollection = new InteractiveCollectionViewModel<T, object>(
@@ -37,15 +34,12 @@ namespace UtilityWpf.Interactive
                 deletable: deleteableObervable,
                 getkey: getkeyObservable,
                 doubleClickToCheck: doubleClickToCheck,
-                checkable:isCheckableObervable);
+                checkable: isCheckableObervable);
 
-            var dis2 = exs.Subscribe(e=>interactivecollection.OnError(e));
+            var dis2 = exs.Subscribe(e => interactivecollection.OnError(e));
 
-            return (interactivecollection, new CompositeDisposable(dis,dis2));
+            return (interactivecollection, new CompositeDisposable(dis, dis2));
         }
-
-
-
 
         public static (InteractiveCollectionBase<object> collectionBase, IDisposable disposable) BuildGroup<T>(
             IObservable<T> elems,
@@ -74,11 +68,8 @@ namespace UtilityWpf.Interactive
 
             var dis2 = exs.Subscribe(e => interactivecollection.OnError(e));
 
-            return (interactivecollection, new CompositeDisposable(dis,dis2)) ;
+            return (interactivecollection, new CompositeDisposable(dis, dis2));
         }
-
-
-
 
         public static (IObservable<IChangeSet<T, object>>, IObservable<Exception>, IDisposable) CreateChangeSet<T>(
  IObservable<T> elems,
@@ -113,7 +104,7 @@ namespace UtilityWpf.Interactive
                 .Subscribe(_ => cache.Clear())
                 ?.DisposeWith(composite);
 
-                var se  = elems
+                var se = elems
                 .Subscribe(item =>
                 {
                     try
@@ -145,8 +136,6 @@ namespace UtilityWpf.Interactive
 
             return (sx, exs, dis);
         }
-
-
 
         //public static (InteractiveCollectionViewModel<T, object> collectionViewModel, IDisposable disposable) Build<T>(
         // IObservable<IEnumerable<T>> elems,
@@ -191,8 +180,6 @@ namespace UtilityWpf.Interactive
 
         //    static bool f(T o) => true;
         //}
-
-
 
         //public static InteractiveCollectionViewModel<T, Guid> Build2<T>(
         //    IObservable<T> elems,
@@ -243,7 +230,6 @@ namespace UtilityWpf.Interactive
 
         //     }, a => Guid.NewGuid());
 
-
         //    sx = filter == null ? sx : sx
 
         //        .Filter(filter.Select(_ =>
@@ -260,6 +246,5 @@ namespace UtilityWpf.Interactive
 
         //    return interactivecollection;
         //}
-
     }
 }

@@ -52,7 +52,6 @@ namespace UtilityWpf.DemoApp
             }
         }
 
-
         public int Age
         {
             get { return _age; }
@@ -95,8 +94,6 @@ namespace UtilityWpf.DemoApp
         }
 
         public TimeSpan TimeSpan => System.TimeSpan.FromMinutes(Math.Pow(Age, 3));
-
-
 
         public override string ToString()
         {

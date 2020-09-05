@@ -1,5 +1,4 @@
-﻿
-namespace UtilityWpf.Behavior
+﻿namespace UtilityWpf.Behavior
 {
     using Microsoft.Xaml.Behaviors;
     using System;
@@ -37,10 +36,8 @@ namespace UtilityWpf.Behavior
             set { SetValue(WithAnimationProperty, value); }
         }
 
-
         public static readonly DependencyProperty WithAnimationProperty =
             DependencyProperty.Register("WithAnimation", typeof(bool), typeof(ScrollToEndBehavior), new PropertyMetadata(true));
-
 
         private void ListView_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -56,8 +53,6 @@ namespace UtilityWpf.Behavior
                     }
                     else
                         scrollViewer.ScrollToEnd();
-
-
                 }
                 catch (Exception ex)
                 {
@@ -66,7 +61,7 @@ namespace UtilityWpf.Behavior
             }
         }
 
-        class Helper
+        private class Helper
         {
             public static Storyboard MakeScrollAnimation(ScrollViewer scrollViewer, double ratio, int offset)
             {
@@ -109,7 +104,6 @@ namespace UtilityWpf.Behavior
         }
     }
 
-
     /// <summary>
     ///   Based on the following link
     ///   <a href="http://aniscrollviewer.codeplex.com/"></a>
@@ -127,10 +121,12 @@ namespace UtilityWpf.Behavior
         {
             target.SetValue(VerticalOffsetProperty, value);
         }
+
         public static double GetVerticalOffset(FrameworkElement target)
         {
             return (double)target.GetValue(VerticalOffsetProperty);
         }
+
         private static void OnVerticalOffsetChanged(DependencyObject target, DependencyPropertyChangedEventArgs e)
         {
             ScrollViewer scrollViewer = target as ScrollViewer;
@@ -141,4 +137,3 @@ namespace UtilityWpf.Behavior
         }
     }
 }
-

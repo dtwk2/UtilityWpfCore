@@ -1,18 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Reactive;
-using System.Reactive.Linq;
-
 
 namespace UtilityWpf.DemoAnimation
 {
@@ -30,7 +22,6 @@ namespace UtilityWpf.DemoAnimation
                .ObserveOnDispatcher()
                .Subscribe(a =>
            {
-
                circProg.Value = a % 90;
            });
         }
@@ -63,11 +54,11 @@ namespace UtilityWpf.DemoAnimation
             Brush myGreenBrush = new SolidColorBrush(Colors.CadetBlue);
             myGreenBrush.Freeze();
 
-            StrokeProperty.OverrideMetadata(                typeof(CircularProgress),                new FrameworkPropertyMetadata(myGreenBrush));
+            StrokeProperty.OverrideMetadata(typeof(CircularProgress), new FrameworkPropertyMetadata(myGreenBrush));
 
-            FillProperty.OverrideMetadata(                typeof(CircularProgress),                new FrameworkPropertyMetadata(Brushes.Transparent));
+            FillProperty.OverrideMetadata(typeof(CircularProgress), new FrameworkPropertyMetadata(Brushes.Transparent));
 
-            StrokeThicknessProperty.OverrideMetadata(                typeof(CircularProgress),                new FrameworkPropertyMetadata(10.0));
+            StrokeThicknessProperty.OverrideMetadata(typeof(CircularProgress), new FrameworkPropertyMetadata(10.0));
         }
 
         // Value (0-100)

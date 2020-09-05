@@ -7,15 +7,14 @@ using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Threading;
 using System.Windows.Input;
+using System.Windows.Threading;
 using UtilityWpf.View.Infrastructure;
 
 namespace UtilityWpf.View
 {
     public class MasterDetailView : ContentControlx
     {
-
         protected ISubject<string> GroupNameChanges = new Subject<string>();
         protected ISubject<string> NameChanges = new Subject<string>();
 
@@ -34,13 +33,11 @@ namespace UtilityWpf.View
             set { SetValue(IdProperty, value); }
         }
 
-
         public PropertyGroupDescription PropertyGroupDescription
         {
             get { return (PropertyGroupDescription)GetValue(PropertyGroupDescriptionProperty); }
             set { SetValue(PropertyGroupDescriptionProperty, value); }
         }
-
 
         public IValueConverter DataConverter
         {
@@ -48,26 +45,23 @@ namespace UtilityWpf.View
             set { SetValue(DataConverterProperty, value); }
         }
 
-
         public IEnumerable Items
         {
             get { return (IEnumerable)GetValue(ItemsProperty); }
             set { SetValue(ItemsProperty, value); }
         }
 
-
         public object Output
         {
             get { return GetValue(OutputProperty); }
             set { SetValue(OutputProperty, value); }
         }
-        #endregion properties
 
+        #endregion properties
 
         static MasterDetailView()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(MasterDetailView), new FrameworkPropertyMetadata(typeof(MasterDetailView)));
-
         }
 
         public MasterDetailView()
@@ -98,7 +92,6 @@ namespace UtilityWpf.View
                 if ((_.DockPanel as DockPanel)?.FindResource("GroupedItems") is CollectionViewSource collectionViewSource)
                     collectionViewSource.GroupDescriptions.Add(_.pgd);
             });
-
 
             GroupClick = new Command.RelayCommand<string>(a => GroupNameChanges.OnNext(a));
 
@@ -146,7 +139,6 @@ namespace UtilityWpf.View
                             viewmodel.GetType().GetProperty(input.id).GetValue(viewmodel).ToString(),
                             viewmodel));
                         Convert(group, input.conv, (items, conv) => conv.Convert(items, null, null, null));
-
                     }, DispatcherPriority.Background);
                 });
 
@@ -167,7 +159,6 @@ namespace UtilityWpf.View
         }
 
         public ICommand GroupClick { get; }
-
 
         //class TemplateSelector : DataTemplateSelector
         //{
@@ -203,7 +194,4 @@ namespace UtilityWpf.View
 
         //}
     }
-
-
-
 }

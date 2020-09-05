@@ -74,7 +74,6 @@ namespace UtilityWpf.Interactive
             Title = title;
         }
 
-
         //   public InteractiveCollectionViewModel(IObservable<T> observable, Func<T, IConvertible> getkey = null, string title = null)
         //   {
         //       observable.ToObservableChangeSet()

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Reactive.Linq;
 using System.Windows;
 using UtilityWpf.Interactive.View.Controls;
-using UtilityWpf.View;
 
 namespace UtilityWpf.Chart
 {
@@ -23,30 +20,27 @@ namespace UtilityWpf.Chart
             set { SetValue(DataProperty, value); }
         }
 
-      
-
         public OxyChartSelector()
         {
-        
-           var oxyChart = new OxyChart();
+            var oxyChart = new OxyChart();
 
-           Content = oxyChart;
+            Content = oxyChart;
 
-           //this.Loaded += OxyChartSelector_Loaded;
+            //this.Loaded += OxyChartSelector_Loaded;
 
-         //   this.SelectChanges(nameof(Data))
-         //       .ObserveOnDispatcher()
-         //       .Subscribe(a =>
-         //   {
-         //       oxyChart.Data = a as IEnumerable;
-         //   });
+            //   this.SelectChanges(nameof(Data))
+            //       .ObserveOnDispatcher()
+            //       .Subscribe(a =>
+            //   {
+            //       oxyChart.Data = a as IEnumerable;
+            //   });
 
-         //   this.SelectChanges(nameof(Id))      
-         //       .ObserveOnDispatcher()
-         //.Subscribe(a =>
-         //{
-         //    oxyChart.Id = a.ToString();
-         //});
+            //   this.SelectChanges(nameof(Id))
+            //       .ObserveOnDispatcher()
+            //.Subscribe(a =>
+            //{
+            //    oxyChart.Id = a.ToString();
+            //});
         }
 
         protected override void SetCollection(object content, IReadOnlyCollection<object> objects)
@@ -58,7 +52,6 @@ namespace UtilityWpf.Chart
                 oview.Id = Id;
             }
             else throw new Exception(nameof(Content) + " needs to have property");
-
         }
 
         //private void OxyChartSelector_Loaded(object sender, RoutedEventArgs e)
@@ -67,7 +60,4 @@ namespace UtilityWpf.Chart
         //    (Content as OxyChart).Id = Id;
         //}
     }
-
-
-
 }

@@ -15,7 +15,6 @@ namespace UtilityWpf.View
 
         public ImageButton() : base()
         {
-
         }
 
         #region Dependency Properties
@@ -81,7 +80,7 @@ namespace UtilityWpf.View
 
         private static void ImageSourceChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-          //  Application.GetResourceStream(new Uri("pack://application:,,," + (Uri)e.NewValue));
+            //  Application.GetResourceStream(new Uri("pack://application:,,," + (Uri)e.NewValue));
         }
 
         #endregion Dependency Properties

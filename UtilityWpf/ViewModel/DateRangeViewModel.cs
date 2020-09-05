@@ -1,5 +1,4 @@
-﻿
-using ReactiveUI;
+﻿using ReactiveUI;
 using System;
 using System.Linq;
 using System.Reactive.Linq;
@@ -9,8 +8,8 @@ namespace UtilityWpf.ViewModel
 {
     public class DataRangeViewModel : ReactiveObject
     {
-        DateTime from = new DateTime(2018, 6, 14);
-        DateTime to = new DateTime(2018, 7, 15);
+        private DateTime from = new DateTime(2018, 6, 14);
+        private DateTime to = new DateTime(2018, 7, 15);
         private readonly ObservableAsPropertyHelper<Range<DateTime>> output;
 
         public DateTime From
@@ -24,7 +23,6 @@ namespace UtilityWpf.ViewModel
             get => to;
             set => this.RaiseAndSetIfChanged(ref to, value);
         }
-
 
         public UtilityModel.Range<DateTime> Output => output.Value;
 

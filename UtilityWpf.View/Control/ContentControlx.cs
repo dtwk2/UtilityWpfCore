@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Evan.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
-using Evan.Wpf;
 using UtilityWpf.Property;
 
 namespace UtilityWpf.View
@@ -17,8 +17,9 @@ namespace UtilityWpf.View
         //readonly object lck = new object();
         //public List<string> ControlNames = new List<string>();
         public Dictionary<string, ISubject<object>> Subjects { get; } = new Dictionary<string, ISubject<object>>();
+
         public ISubject<DependencyObject> ControlChanges { get; } = new ReplaySubject<DependencyObject>(1);
-  
+
         public ContentControlx()
         {
             foreach (var dp in ReflectionHelper.SelectDependencyPropertiesDeclaredOnly(this.GetType()))
@@ -42,8 +43,6 @@ namespace UtilityWpf.View
             foreach (var element in elements)
                 (this).ControlChanges.OnNext(element);
         }
-
-
 
         protected static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -108,8 +107,6 @@ namespace UtilityWpf.View
                 Subjects[name].OnNext(value);
             });
         }
-
-
 
         protected IObservable<Dictionary<string, object>> Any()
         {

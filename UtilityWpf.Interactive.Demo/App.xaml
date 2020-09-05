@@ -5,24 +5,23 @@
              xmlns:aa="clr-namespace:UtilityWpf.ViewModel;assembly=UtilityWpf"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              StartupUri="MainWindow.xaml">
-    
+
     <Application.Resources>
         <ResourceDictionary>
 
-            <x:Array x:Key="Characters"  
-                     Type="{x:Type local:Character}" 
+            <x:Array x:Key="Characters"
+                     Type="{x:Type local:Character}"
                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
                 <!--<StaticResource ResourceKey="Bart"></StaticResource>-->
                 <local:Character First="Homer" Last="Simpson" Age="38"
-          Gender="Male" Image="images/homer.png" Location="75,0" Color="DarkSalmon"/>
+          Gender="Male" Image="images/homer.png" Location="75,0" Color="DarkSalmon" />
                 <local:Character First="Lisa" Last="Bouvier" Age="8"
           Gender="Female" Image="images/lisa.png" Location="125,150" Color="ForestGreen" />
                 <local:Character First="Maggie" Last="Simpson" Age="0"
-          Gender="Female" Image="images/maggie.png" Location="225,150" Color="DarkBlue"/>
+          Gender="Female" Image="images/maggie.png" Location="225,150" Color="DarkBlue" />
                 <local:Character First="Marge" Last="Bouvier" Age="38"
           Gender="Female" Image="images/marge.png" Location="175,0" Color="DarkCyan" />
             </x:Array>
-
 
             <DataTemplate DataType="{x:Type aa:TypeObject}">
                 <Grid
@@ -30,38 +29,31 @@
                     Width="200"
         Margin="0 6 0 0"
         HorizontalAlignment="Center"
-        VerticalAlignment="Top"
-        >
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-  
-                        </Grid.RowDefinitions>
-                        <TextBlock
+        VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock
           materialDesign:HintAssist.Hint="TypeName"
           materialDesign:HintAssist.IsFloating="True"
           Margin="0 12 0 0" Text="{Binding TypeName}">
-
-                        </TextBlock>
-                        <TextBlock
+                    </TextBlock>
+                    <TextBlock
           Grid.Row="1"
           materialDesign:HintAssist.Hint="Key"
           materialDesign:HintAssist.IsFloating="True"
           Margin="0 12 0 0"
                     Text="{Binding Key}">
-
-                        </TextBlock>
-                        <!--<TextBlock
+                    </TextBlock>
+                    <!--<TextBlock
           Grid.Row="2"
           materialDesign:HintAssist.Hint="Last name"
           materialDesign:HintAssist.IsFloating="True"
           Margin="0 12 0 0"
                     Text="{Binding Age}">
-
                         </TextBlock>-->
-
-                    </Grid>
- 
+                </Grid>
             </DataTemplate>
             <ResourceDictionary.MergedDictionaries>
 

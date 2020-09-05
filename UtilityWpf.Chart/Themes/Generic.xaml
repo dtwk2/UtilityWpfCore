@@ -1,12 +1,11 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-
     xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/UtilityWpf.Chart;component/Themes/OxyChart.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.Chart;component/Themes/DateTimeChart.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.Chart;component/Themes/OxyChart.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Chart;component/Themes/DateTimeChart.xaml" />
         <!--<ResourceDictionary Source="/UtilityWpf.ViewCore;component/Themes/HeaderedListBox.xaml"></ResourceDictionary>-->
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DynamicData;
+using System;
 using System.Collections;
 using System.Linq;
 using System.Reactive.Linq;
@@ -6,7 +7,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using DynamicData;
 using UtilityWpf.Abstract;
 using UtilityWpf.View;
 
@@ -14,7 +14,6 @@ namespace UtilityWpf.Interactive.View.Controls
 {
     public class MasterDetailView : ContentControlx
     {
-
         private InteractiveList interactiveList;
 
         public ICommand GroupClick { get; }
@@ -27,9 +26,7 @@ namespace UtilityWpf.Interactive.View.Controls
         public static readonly DependencyProperty GroupProperty = DependencyProperty.Register("Group", typeof(string), typeof(MasterDetailView), new PropertyMetadata(null, Changed));
         public static readonly DependencyProperty UseDataContextProperty = DependencyProperty.Register("UseDataContext", typeof(bool), typeof(MasterDetailView), new PropertyMetadata(false, Changed));
 
-
         #region properties
-
 
         public IValueConverter DataConverter
         {
@@ -55,14 +52,11 @@ namespace UtilityWpf.Interactive.View.Controls
             set { SetValue(DataKeyProperty, value); }
         }
 
-
-
         public bool UseDataContext
         {
             get { return (bool)GetValue(UseDataContextProperty); }
             set { SetValue(UseDataContextProperty, value); }
         }
-
 
         public string Group
         {
@@ -72,19 +66,17 @@ namespace UtilityWpf.Interactive.View.Controls
 
         #endregion properties
 
-
         static MasterDetailView()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(MasterDetailView), new FrameworkPropertyMetadata(typeof(MasterDetailView)));
         }
+
         public MasterDetailView()
         {
-
         }
 
         public override void OnApplyTemplate()
         {
-
             var selector = this.Template.Resources["propertytemplateSelector"] as DataTemplateSelector;
             Content ??= new ContentControl { ContentTemplateSelector = selector };
 
@@ -95,33 +87,30 @@ namespace UtilityWpf.Interactive.View.Controls
             //    interactiveList.Group = a;
             //});
 
-
             var objects = SelectChanges<IEnumerable>(nameof(ItemsSource))
                 .Where(a => a != null)
                 .Select(its => its.MakeObservable())
                 .Switch();
 
-           var ( collectionViewModel,  disposable) =
-             (Group == null)?
-                InteractiveCollectionFactory.Build(
-                    objects,
-                    getkeyObservable: Observable.Return(new Func<object, object>(a => Guid.NewGuid())),
-                    isCheckableObervable: Observable.Return(false),
-                    filter: Observable.Return(new DefaultFilter()))
-            : InteractiveCollectionFactory.BuildGroup(
-                    objects,
-                    getkeyObservable: Observable.Return(new Func<object, object>(a => Guid.NewGuid())),
-                    filter: Observable.Return(new DefaultFilter()), 
-                    groupParameter: this.SelectChanges<string>(nameof(Group)));
+            var (collectionViewModel, disposable) =
+              (Group == null) ?
+                 InteractiveCollectionFactory.Build(
+                     objects,
+                     getkeyObservable: Observable.Return(new Func<object, object>(a => Guid.NewGuid())),
+                     isCheckableObervable: Observable.Return(false),
+                     filter: Observable.Return(new DefaultFilter()))
+             : InteractiveCollectionFactory.BuildGroup(
+                     objects,
+                     getkeyObservable: Observable.Return(new Func<object, object>(a => Guid.NewGuid())),
+                     filter: Observable.Return(new DefaultFilter()),
+                     groupParameter: this.SelectChanges<string>(nameof(Group)));
             //isCheckableObervable: Observable.Return(false),
 
             interactiveList.InteractiveCollectionBase = collectionViewModel;
 
             collectionViewModel.Items.MakeObservable().Subscribe(a =>
             {
-
             });
-
 
             collectionViewModel.SelectSelected()
                 .CombineLatest(
@@ -137,7 +126,6 @@ namespace UtilityWpf.Interactive.View.Controls
                         c = UtilityHelper.PropertyHelper.GetPropertyValue<object>(c, a.c);
                     SetContent(Content, c);
                 });
-
         }
 
         protected virtual void SetContent(object content, object @object)
@@ -146,7 +134,6 @@ namespace UtilityWpf.Interactive.View.Controls
                 if (content is FrameworkElement c)
                 {
                     c.DataContext = @object;
-
                 }
                 else
                 {
@@ -179,7 +166,7 @@ namespace UtilityWpf.Interactive.View.Controls
             // else throw new Exception(nameof(Content) + " needs to have property");
         }
 
-        class DefaultFilter : UtilityInterface.NonGeneric.IFilter
+        private class DefaultFilter : UtilityInterface.NonGeneric.IFilter
         {
             public bool Filter(object o)
             {

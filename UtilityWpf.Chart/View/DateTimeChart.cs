@@ -1,7 +1,5 @@
-﻿using LiveCharts.Wpf;
-using System.Collections;
+﻿using System.Collections;
 using System.Windows;
-using System.Windows.Controls;
 using UtilityWpf.View;
 
 namespace UtilityWpf.Chart
@@ -39,8 +37,6 @@ namespace UtilityWpf.Chart
         public DateTimeChart()
         {
             //this.SelectControlChanges<CartesianChart>().CombineLatest(this.SelectChanges<IEnumerable>nameof(Items))
-
-
         }
     }
 }

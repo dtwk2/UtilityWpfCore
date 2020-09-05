@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
@@ -52,7 +49,6 @@ namespace UtilityWpf.View
         public static readonly DependencyProperty DropDownProperty =
             DependencyProperty.Register("DropDown", typeof(ContextMenu), typeof(MenuButton), new UIPropertyMetadata(OnDropDownProeprtyChanged));
 
-
         private static void OnDropDownProeprtyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             MenuButton sender = (MenuButton)d;
@@ -93,7 +89,6 @@ namespace UtilityWpf.View
         public static readonly DependencyProperty IsDropDownOpenProperty =
             DependencyProperty.Register("IsDropDownOpen", typeof(bool), typeof(MenuButton), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-
         /// <summary>
         /// Gets or sets the placement of the drop-down menu.
         /// </summary>
@@ -105,8 +100,6 @@ namespace UtilityWpf.View
 
         public static readonly DependencyProperty DropDownPlacementProperty =
             DependencyProperty.Register("DropDownPlacement", typeof(PlacementMode), typeof(MenuButton), new UIPropertyMetadata(PlacementMode.Bottom));
-
-
 
         internal static MenuButton GetParentMenuButton(ContextMenu obj)
         {
@@ -121,7 +114,5 @@ namespace UtilityWpf.View
         // Using a DependencyProperty as the backing store for MenuButtonParent.  This enables animation, styling, binding, etc...
         internal static readonly DependencyProperty ParentMenuButtonProperty =
             DependencyProperty.RegisterAttached("ParentMenuButton", typeof(MenuButton), typeof(MenuButton), new UIPropertyMetadata());
-
-
     }
 }

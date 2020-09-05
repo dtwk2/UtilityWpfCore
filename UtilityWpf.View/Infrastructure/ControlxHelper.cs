@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UtilityWpf.View
 {
-
-
     public static class ControlxHelper
     {
         public static IObservable<Dictionary<string, object>> Any(this IDictionary<string, ISubject<object>> subjects)
@@ -25,10 +20,12 @@ namespace UtilityWpf.View
                 }
                 return new System.Reactive.Disposables.CompositeDisposable(xx);
             });
-
         }
 
-        public static ISubject<object> GetSubject(this IDictionary<string, ISubject<object>> subjects, string name) { subjects[name] = subjects.ContainsKey(name) ? subjects[name] : new Subject<object>(); return subjects[name]; }
+        public static ISubject<object> GetSubject(this IDictionary<string, ISubject<object>> subjects, string name)
+        {
+            subjects[name] = subjects.ContainsKey(name) ? subjects[name] : new Subject<object>(); return subjects[name];
+        }
 
         public static void OnNext(this IDictionary<string, ISubject<object>> subjects, string name, object value)
         {

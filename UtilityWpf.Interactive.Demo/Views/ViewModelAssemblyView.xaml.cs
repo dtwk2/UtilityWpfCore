@@ -15,7 +15,7 @@ namespace UtilityWpf.Interactive.Demo
             Init();
         }
 
-        async void Init()
+        private async void Init()
         {
             Main_MasterDetailView.ItemsSource = await new ViewModelAssemblyModel().Collection;
         }

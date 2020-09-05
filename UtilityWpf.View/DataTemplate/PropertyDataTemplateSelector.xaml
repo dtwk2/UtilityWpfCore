@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"    
-                    xmlns:rxui="http://reactiveui.net" 
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:rxui="http://reactiveui.net"
                     xmlns:local="clr-namespace:UtilityWpf.View.Infrastructure"
                     xmlns:json="clr-namespace:UtilityWpf.View">
 
@@ -39,7 +39,7 @@
     <DataTemplate  x:Key="TypeTemplate">
         <TextBlock Text="{Binding Name}" />
     </DataTemplate>
-    
+
     <DataTemplate  x:Key="ColorTemplate">
         <Ellipse Height="100" Width="100">
             <Ellipse.Fill>
@@ -47,7 +47,6 @@
             </Ellipse.Fill>
         </Ellipse>
     </DataTemplate>
-
 
     <DataTemplate  x:Key="ViewModelTemplate">
         <rxui:ViewModelViewHost
@@ -60,14 +59,12 @@
         </rxui:ViewModelViewHost>
     </DataTemplate>
 
-
-
     <local:PropertyDataTemplateSelector x:Key="propertytemplateSelector"
                                         IConvertibleTemplate="{StaticResource  IConvertibleTemplate}"
                                         DefaultDataTemplate="{StaticResource DefaultTemplate}"
                                         EnumerableDataTemplate="{StaticResource EnumerableTemplate}"
                                         DictionaryDataTemplate="{StaticResource DictionaryTemplate}"
-                                        ContentPresenterTemplate="{StaticResource ContentPresenterTemplate}" 
-                                        ViewModelHostViewTemplate="{StaticResource ViewModelTemplate}" 
+                                        ContentPresenterTemplate="{StaticResource ContentPresenterTemplate}"
+                                        ViewModelHostViewTemplate="{StaticResource ViewModelTemplate}"
                                         ColorTemplate="{StaticResource ColorTemplate}" />
 </ResourceDictionary>

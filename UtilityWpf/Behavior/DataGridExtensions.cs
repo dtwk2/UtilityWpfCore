@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -26,7 +24,6 @@ namespace UtilityWpf.Behavior
         private static readonly DependencyProperty SenderDataGridProperty = DependencyProperty.RegisterAttached(
             "SenderDataGrid", typeof(DataGrid), typeof(DataGridExtensions), new PropertyMetadata(default(DataGrid)));
 
-
         public static void SetObserveVisiblePersons(DependencyObject element, bool value) => element.SetValue(ObserveVisiblePersonsProperty, value);
 
         public static bool GetObserveVisiblePersons(DependencyObject element) => (bool)element.GetValue(ObserveVisiblePersonsProperty);
@@ -38,7 +35,6 @@ namespace UtilityWpf.Behavior
         public static void SetVisibleItems(DependencyObject element, object[] value) => element.SetValue(VisibleItemsProperty, value);
 
         public static IEnumerable GetVisibleItems(DependencyObject element) => (IEnumerable)element.GetValue(VisibleItemsProperty);
-
 
         private static void OnObserveVisiblePersonsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -78,8 +74,7 @@ namespace UtilityWpf.Behavior
             }
         }
 
-
-        static class VisualTreeHelperEx
+        private static class VisualTreeHelperEx
         {
             public static IList<T> FindChildren<T>(DependencyObject element) where T : FrameworkElement
             {

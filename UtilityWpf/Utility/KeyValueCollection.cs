@@ -1,13 +1,9 @@
-﻿
-namespace UtilityWpf.Property
+﻿namespace UtilityWpf.Property
 {
-
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
-
-
 
     public class ObservablePairCollection<TKey, TValue> : ObservableCollection<ReactivePair<TKey, TValue>>
     {
@@ -48,4 +44,3 @@ namespace UtilityWpf.Property
         }
     }
 }
-

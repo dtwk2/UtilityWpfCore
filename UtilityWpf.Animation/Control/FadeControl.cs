@@ -14,15 +14,13 @@ namespace UtilityWpf.Animation
         public override void OnApplyTemplate()
         {
             ellipse = this.GetTemplateChild("PART_Ellipse") as Ellipse;
-            if(FadeIn)
+            if (FadeIn)
             {
                 ellipse.Opacity = 0;
             }
         }
 
         // public ICommand FadeCommand { get; }
-
-
 
         public ICommand FadeCommand
         {
@@ -34,7 +32,6 @@ namespace UtilityWpf.Animation
         public static readonly DependencyProperty FadeCommandProperty =
             DependencyProperty.Register("FadeCommand", typeof(ICommand), typeof(FadeControl), new PropertyMetadata(default(ICommand)));
 
-
         static FadeControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(FadeControl), new FrameworkPropertyMetadata(typeof(FadeControl)));
@@ -43,7 +40,6 @@ namespace UtilityWpf.Animation
         public FadeControl()
         {
             FadeCommand = new FadeCommand(this);
-           
         }
 
         public void Fade()
@@ -53,8 +49,6 @@ namespace UtilityWpf.Animation
                 sdf(this.ellipse, FadeIn);
             }
         }
-
-
 
         public bool FadeIn
         {
@@ -66,13 +60,10 @@ namespace UtilityWpf.Animation
         public static readonly DependencyProperty FadeInProperty =
             DependencyProperty.Register("FadeIn", typeof(bool), typeof(FadeControl), new PropertyMetadata(true));
 
-
-
-        public static void sdf(DependencyObject element , bool fadeIn)
+        public static void sdf(DependencyObject element, bool fadeIn)
         {
             Storyboard storyboard = new Storyboard();
             TimeSpan duration = TimeSpan.FromMilliseconds(500); //
-
 
             DoubleAnimation fadeInAnimation = new DoubleAnimation()
             { From = fadeIn ? 0 : 1, To = fadeIn ? 1 : 0, Duration = new Duration(duration), EasingFunction = new CubicEase { } };
@@ -82,9 +73,8 @@ namespace UtilityWpf.Animation
             //fadeOutAnimation.BeginTime = TimeSpan.FromSeconds(5);
 
             Storyboard.SetTarget(fadeInAnimation, element);
-            Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath("Opacity", fadeIn ? 0:1));
+            Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath("Opacity", fadeIn ? 0 : 1));
             storyboard.Children.Add(fadeInAnimation);
-     
 
             Storyboard.SetTarget(fadeOutAnimation, element);
             Storyboard.SetTargetProperty(fadeOutAnimation, new PropertyPath("Opacity", fadeIn ? 1 : 0));
@@ -100,6 +90,7 @@ namespace UtilityWpf.Animation
         public event EventHandler CanExecuteChanged;
 
         public FadeCommand(FadeControl fadeControl) => this.fadeControl = fadeControl;
+
         public bool CanExecute(object parameter)
         {
             return true;
@@ -111,4 +102,3 @@ namespace UtilityWpf.Animation
         }
     }
 }
-

@@ -23,6 +23,7 @@ namespace UtilityWpf
             (a => selector.SelectionChanged += a, a => selector.SelectionChanged -= a)
             .Select(a => a.EventArgs.RemovedItems)
             .Where(a => a.Count > 0);
+
         public static IObservable<RoutedEventArgs> LoadedChanges(this FrameworkElement combo) =>
             Observable
             .FromEventPattern<RoutedEventHandler, RoutedEventArgs>
@@ -35,7 +36,6 @@ namespace UtilityWpf
             (a => combo.IsVisibleChanged += a, a => combo.IsVisibleChanged -= a)
             .Select(a => a.EventArgs);
 
-
         public static IObservable<ScrollChangedEventArgs> ScrollChanges(this ScrollViewer combo) =>
          Observable
             .FromEventPattern<ScrollChangedEventHandler, ScrollChangedEventArgs>
@@ -46,6 +46,5 @@ namespace UtilityWpf
             Observable
             .FromEventPattern<ExitEventHandler, ExitEventArgs>(h => app.Exit += h, h => app.Exit -= h)
            .Select(_ => _.EventArgs);
-
     }
 }

@@ -4,21 +4,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
-using System.Windows;
 using System.Windows.Controls.Primitives;
 
 namespace UtilityWpf.Behavior
 {
     public class RemoveItemsOnSelected : Behavior<Selector>
     {
-
         protected override void OnAttached()
         {
             RemoveItemsOnSelectedAddItemsOnDeselected(AssociatedObject);
             base.OnAttached();
         }
-
 
         private static void RemoveItemsOnSelectedAddItemsOnDeselected(Selector selector)
         {
@@ -40,7 +36,6 @@ namespace UtilityWpf.Behavior
                 }
                 selector.ItemsSource = itemsSourceCollection;
             });
-
 
             selector.SelectRemoveChanges().Where(rem => rem.Cast<object>().Any()).Subscribe(a =>
             {

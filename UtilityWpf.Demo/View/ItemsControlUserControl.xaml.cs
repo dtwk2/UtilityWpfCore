@@ -15,7 +15,8 @@ namespace UtilityWpf.DemoApp
     public partial class ItemsControlUserControl : UserControl
     {
         public static readonly ObservableCollection<PackIconKind> collection = new ObservableCollection<PackIconKind>();
-        public readonly ReactiveCommand<ListBox, (ListBox lbox, int count)> deselectCommand =  ReactiveCommand.Create<ListBox, (ListBox, int)>((l) =>(l, l.Items.Count));
+        public readonly ReactiveCommand<ListBox, (ListBox lbox, int count)> deselectCommand = ReactiveCommand.Create<ListBox, (ListBox, int)>((l) => (l, l.Items.Count));
+
         public ItemsControlUserControl()
         {
             InitializeComponent();
@@ -28,13 +29,13 @@ namespace UtilityWpf.DemoApp
 
             deselectCommand.Where(a => a.count == 1).Buffer(2).Subscribe(a =>
              {
-                 a.First().lbox.SelectedIndex = -1; 
+                 a.First().lbox.SelectedIndex = -1;
              });
         }
 
         public ReactiveCommand<ListBox, (ListBox lbox, int count)> DeselectCommand => deselectCommand;
-
     }
+
     public class AddControl1 : AddControl
     {
         private readonly PackIconKind[] kinds;
@@ -47,9 +48,7 @@ namespace UtilityWpf.DemoApp
 
         public override void ExecuteAdd(object parameter)
         {
-            ItemsControlUserControl.collection.Add(kinds[random.Next(0,kinds.Length-1)]);
+            ItemsControlUserControl.collection.Add(kinds[random.Next(0, kinds.Length - 1)]);
         }
     }
-
 }
-

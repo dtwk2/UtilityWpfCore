@@ -1,27 +1,32 @@
-﻿<UserControl x:Class="UtilityWpf.DemoAnimation.GaugeUserControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:UtilityWpf.DemoAnimation"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+﻿<UserControl
+    x:Class="UtilityWpf.DemoAnimation.GaugeUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:UtilityWpf.DemoAnimation"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
     <UserControl.Resources>
-        <local:DoubleToPctConverter x:Key="dblToPct"/>
+        <local:DoubleToPctConverter x:Key="dblToPct" />
         <Style x:Key="pbarCircularStyle" TargetType="{x:Type ProgressBar}">
-            <Setter Property="Foreground" Value="#01D328"/>
-            <Setter Property="Maximum" Value="100"/>
-            <Setter Property="Height" Value="100"/>
-            <Setter Property="Width" Value="100"/>
+            <Setter Property="Foreground" Value="#01D328" />
+            <Setter Property="Maximum" Value="100" />
+            <Setter Property="Height" Value="100" />
+            <Setter Property="Width" Value="100" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ProgressBar}">
                         <Grid x:Name="TemplateRoot" SnapsToDevicePixels="true">
-                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
-                                       FontSize="32" Foreground="DarkGray"
-                                       Text="{TemplateBinding Value, Converter={StaticResource dblToPct}}" />
-                            <local:CircularProgress Stroke="{TemplateBinding Foreground}"
-                                                  Value="{TemplateBinding Value}"/>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="32"
+                                Foreground="DarkGray"
+                                Text="{TemplateBinding Value,
+                                                       Converter={StaticResource dblToPct}}" />
+                            <local:CircularProgress Stroke="{TemplateBinding Foreground}" Value="{TemplateBinding Value}" />
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -33,19 +38,20 @@
         <Grid>
             <local:CircularProgress
                 x:Name="circProg"
-                            Height="100" Width="100" Margin="5"
-                HorizontalAlignment="Center"/>
+                Width="100"
+                Height="100"
+                Margin="5"
+                HorizontalAlignment="Center" />
             <TextBlock
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                FontSize="36" Foreground="DarkGray"
+                FontSize="36"
+                Foreground="DarkGray"
                 Text="{Binding ElementName=circProg, Path=Value}" />
         </Grid>
 
         <!--<Button Content="Start Timer" Click="Button_Click"
                 HorizontalAlignment="Center"
-                Padding="12,7"/>-->
-
-  
+                Padding="12,7" />-->
     </StackPanel>
 </UserControl>

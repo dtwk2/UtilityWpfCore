@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Data;
 
 namespace UtilityWpf
 {
-
     [ValueConversion(typeof(DateTime), typeof(DateTime))]
     public class DayConverter : IValueConverter
     {

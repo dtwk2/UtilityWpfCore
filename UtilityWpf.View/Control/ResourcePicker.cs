@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Markup;
 
 namespace UtilityWpf.View
@@ -24,7 +22,6 @@ namespace UtilityWpf.View
             this.SelectionChanged += ResourcePicker_SelectionChanged;
         }
 
-
         protected override void OnItemsSourceChanged(IEnumerable oldValue, IEnumerable newValue)
         {
             base.OnItemsSourceChanged(oldValue, newValue);
@@ -40,7 +37,7 @@ namespace UtilityWpf.View
                 dic = (ResourceDictionary)XamlReader.Load(fs);
             }
             dic ??= e.AddedItems.OfType<ResourceDictionary>().FirstOrDefault();
-          
+
             if (keys != null)
             {
                 var remove = Application.Current.Resources.MergedDictionaries
@@ -52,8 +49,5 @@ namespace UtilityWpf.View
             Application.Current.Resources.MergedDictionaries.Add(dic);
             keys = dic.Keys.OfType<string>().ToArray();
         }
-
     }
-
-
 }

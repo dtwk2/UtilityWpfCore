@@ -1,6 +1,4 @@
-﻿
-
-using System.Reactive.Linq;
+﻿using System.Reactive.Linq;
 using UtilityWpf.Abstract;
 
 namespace UtilityWpf.ViewModel

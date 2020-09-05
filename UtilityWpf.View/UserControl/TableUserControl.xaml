@@ -1,11 +1,14 @@
-﻿<UserControl x:Class="UtilityWpf.View.TableUserControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:scroll="clr-namespace:SoftwareArchitects.Windows.Controls;assembly=UtilityWpf"
-             mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="400"  Name="usercontrol">
+﻿<UserControl
+    x:Class="UtilityWpf.View.TableUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:scroll="clr-namespace:SoftwareArchitects.Windows.Controls;assembly=UtilityWpf"
+    Name="usercontrol"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
 
     <UserControl.Resources>
 
@@ -17,30 +20,40 @@
     <UniformGrid Rows="1">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"></ColumnDefinition>
-                <ColumnDefinition Width="300"></ColumnDefinition>
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="300" />
             </Grid.ColumnDefinitions>
 
-                    <ListView   Grid.Column="0" ItemsSource="{Binding Path=Items}"  scroll:ScrollSynchronizer.ScrollGroup="Group1"   ScrollViewer.VerticalScrollBarVisibility="Auto">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Header="DateTime"  Width="140" DisplayMemberBinding="{Binding DateTime}">
-                                        <GridViewColumn.HeaderTemplate>
-                                            <DataTemplate>
-                                                <TextBlock TextWrapping="Wrap" FontSize="6" Text="{Binding}" Height="30" Width="60"></TextBlock>
-                                            </DataTemplate>
-                                        </GridViewColumn.HeaderTemplate>
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock FontSize="2" ></TextBlock>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-
-
+            <ListView
+                Grid.Column="0"
+                scroll:ScrollSynchronizer.ScrollGroup="Group1"
+                ItemsSource="{Binding Path=Items}"
+                ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn
+                            Width="140"
+                            DisplayMemberBinding="{Binding DateTime}"
+                            Header="DateTime">
+                            <GridViewColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                                        Width="60"
+                                        Height="30"
+                                        FontSize="6"
+                                        Text="{Binding}"
+                                        TextWrapping="Wrap" />
+                                </DataTemplate>
+                            </GridViewColumn.HeaderTemplate>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontSize="2" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </Grid>
     </UniformGrid>
 </UserControl>

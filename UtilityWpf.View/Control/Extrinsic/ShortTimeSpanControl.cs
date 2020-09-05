@@ -51,7 +51,6 @@ namespace UtilityWpf.View.Extrinsic
             set { SetValue(SecondsProperty, value); }
         }
 
-
         public int Minutes
         {
             get { return (int)GetValue(MinutesProperty); }
@@ -64,14 +63,11 @@ namespace UtilityWpf.View.Extrinsic
             set { SetValue(HoursProperty, value); }
         }
 
-
         public TimeSpan Value
         {
             get { return (TimeSpan)GetValue(ValueProperty); }
             set { SetValue(ValueProperty, value); }
         }
-
-
 
         private static void OnMinutesChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
         {
@@ -91,8 +87,6 @@ namespace UtilityWpf.View.Extrinsic
             var e = new RoutedPropertyChangedEventArgs<int>(oldValue, newValue, MinutesChangedEvent);
             control.RaiseEvent(e);
         }
-
-
 
         public event RoutedPropertyChangedEventHandler<TimeSpan> ValueChanged
         {
@@ -118,7 +112,6 @@ namespace UtilityWpf.View.Extrinsic
             remove { RemoveHandler(SecondsChangedEvent, value); }
         }
 
-
         private static void OnHoursChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
         {
             var control = d as ShortTimeSpanControl;
@@ -136,8 +129,6 @@ namespace UtilityWpf.View.Extrinsic
             var e = new RoutedPropertyChangedEventArgs<int>(oldValue, newValue, HoursChangedEvent);
             control.RaiseEvent(e);
         }
-
-
 
         private static void OnSecondsChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
         {
@@ -158,8 +149,6 @@ namespace UtilityWpf.View.Extrinsic
             control.RaiseEvent(e);
         }
 
-
-
         private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
         {
             var control = d as ShortTimeSpanControl;
@@ -170,7 +159,7 @@ namespace UtilityWpf.View.Extrinsic
             var newValue = (TimeSpan)args.NewValue;
 
             //  ensure we don't get into a loop with the 4 properties changing
-            //  by only changing the value if it has changed. 
+            //  by only changing the value if it has changed.
 
             if (oldValue != newValue)
             {
@@ -183,6 +172,5 @@ namespace UtilityWpf.View.Extrinsic
 
             control.RaiseEvent(e);
         }
-
     }
 }

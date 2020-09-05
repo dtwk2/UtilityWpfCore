@@ -58,15 +58,15 @@ namespace UtilityWpf.View
 
         public SkipControl()
         {
-            var nextCommand = ReactiveCommand.Create<Unit>(a=>CanMoveToNextChanges.OnNext(true));
+            var nextCommand = ReactiveCommand.Create<Unit>(a => CanMoveToNextChanges.OnNext(true));
             var previousCommand = ReactiveCommand.Create<Unit>(a => CanMoveToPreviousChanges.OnNext(true));
             this.SetValue(NextCommandProperty, nextCommand);
             this.SetValue(PreviousCommandProperty, previousCommand);
 
-            (nextCommand as ReactiveCommand<Unit,Unit>).Select(_ => UtilityEnum.Direction.Forward).Merge(previousCommand.Select(_ => UtilityEnum.Direction.Backward)).Subscribe(direction =>
-            {
-                this.Dispatcher.InvokeAsync(() => RaiseSkipEvent(direction), System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
-            });
+            (nextCommand as ReactiveCommand<Unit, Unit>).Select(_ => UtilityEnum.Direction.Forward).Merge(previousCommand.Select(_ => UtilityEnum.Direction.Backward)).Subscribe(direction =>
+             {
+                 this.Dispatcher.InvokeAsync(() => RaiseSkipEvent(direction), System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
+             });
         }
 
         public static readonly RoutedEvent SkipEvent = EventManager.RegisterRoutedEvent("Skip", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(SkipControl));

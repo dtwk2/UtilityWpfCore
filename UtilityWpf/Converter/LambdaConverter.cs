@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Data;
 
 namespace UtilityWpf.Converter
@@ -16,7 +14,6 @@ namespace UtilityWpf.Converter
         {
             return DateTime.UnixEpoch + TimeSpan.FromSeconds(e.Value);
         });
-
 
         public static IValueConverter DaysToDateTimeConverter => LambdaConverters.ValueConverter.Create<double, DateTime>(e =>
         {

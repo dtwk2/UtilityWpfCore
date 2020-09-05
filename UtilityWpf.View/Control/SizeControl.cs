@@ -39,7 +39,6 @@ namespace UtilityWpf.View
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SizeControl), new FrameworkPropertyMetadata(typeof(SizeControl)));
         }
 
-
         public SizeControl()
         {
             base.SelectChanges(nameof(Size)).Select(_ => (int)_).Subscribe(RaiseSelectedSizeEvent);
@@ -56,7 +55,7 @@ namespace UtilityWpf.View
         private void RaiseSelectedSizeEvent(int Size)
         {
             SelectedSizeChangedRoutedEventArgs newEventArgs = new SelectedSizeChangedRoutedEventArgs(SizeControl.SelectedSizeChangedEvent) { Size = Size };
-            this.Dispatcher.Invoke(()=>
+            this.Dispatcher.Invoke(() =>
             RaiseEvent(newEventArgs));
         }
 

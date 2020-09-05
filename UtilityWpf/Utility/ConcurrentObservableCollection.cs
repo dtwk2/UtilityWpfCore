@@ -19,6 +19,7 @@ namespace UtilityWpf
     public class ConcurrentObservableCollection<T> : IList<T>, INotifyCollectionChanged, INotifyPropertyChanged where T : class
     {
         #region ctor
+
         private ReentrancyMonitor m_monitor = new ReentrancyMonitor();
         private readonly IDispatcher dispatcher;
         protected List<T> m_list;
@@ -51,13 +52,13 @@ namespace UtilityWpf
             get { return dispatcher; }
         }
 
-        #endregion
+        #endregion ctor
 
         #region public
 
         public object SyncRoot { get; }
 
-        #endregion
+        #endregion public
 
         #region IList<T>
 
@@ -208,7 +209,7 @@ namespace UtilityWpf
             return m_list.ToList().GetEnumerator();
         }
 
-        #endregion
+        #endregion IList<T>
 
         #region Protected Virtual
 
@@ -268,7 +269,7 @@ namespace UtilityWpf
             OnCollectionChanged(NotifyCollectionChangedAction.Remove, item, index);
         }
 
-        #endregion
+        #endregion Protected Virtual
 
         #region IPropertyChanged
 
@@ -279,7 +280,7 @@ namespace UtilityWpf
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        #endregion
+        #endregion IPropertyChanged
 
         #region INotifyCollectionChanged
 
@@ -338,7 +339,7 @@ namespace UtilityWpf
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
 
-        #endregion
+        #endregion INotifyCollectionChanged
 
         #region Reentrancy
 
@@ -346,11 +347,17 @@ namespace UtilityWpf
         {
             private int m_lockCount;
             public bool IsLocked => m_lockCount > 0;
-            public void Enter() { m_lockCount++; }
-            public void Dispose() { m_lockCount--; }
+
+            public void Enter()
+            {
+                m_lockCount++;
+            }
+
+            public void Dispose()
+            {
+                m_lockCount--;
+            }
         }
-
-
 
         private IDisposable BlockReentrancy()
         {
@@ -366,6 +373,6 @@ namespace UtilityWpf
                 throw new InvalidOperationException("ConcurrentObservableCollection: It's not allowed to modify the collection within the event handler");
         }
 
-        #endregion
+        #endregion Reentrancy
     }
 }

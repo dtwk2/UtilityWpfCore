@@ -1,11 +1,11 @@
-﻿using System;
-using System.Reactive.Linq;
+﻿using DynamicData;
+using System;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Windows;
-using System.Windows.Controls.Primitives;
-using DynamicData;
-using System.Windows.Input;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace UtilityWpf.Attached
@@ -13,10 +13,9 @@ namespace UtilityWpf.Attached
     public class SelectorEx : Selector
     {
         #region DoubleClick
+
         public static readonly DependencyProperty DoubleClickItemCommandProperty =
             DependencyProperty.RegisterAttached("DoubleClickItemCommand", typeof(ICommand), typeof(SelectorEx), new PropertyMetadata(null, OnDoubleClickItemCommand));
-
-
 
         public static ICommand GetDoubleClickItemCommand(DependencyObject obj)
         {
@@ -28,10 +27,8 @@ namespace UtilityWpf.Attached
             obj.SetValue(DoubleClickItemCommandProperty, value);
         }
 
-
         private static void OnDoubleClickItemCommand(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-
             if (d is Selector selector && e.NewValue is ICommand command)
             {
                 // Remove the handler if it exist to avoid memory leaks
@@ -57,15 +54,14 @@ namespace UtilityWpf.Attached
             else
                 // Execute the Command as bound delegate
                 doubleclickCommand.Execute(selector);
-
         }
-        #endregion
+
+        #endregion DoubleClick
 
         #region SingleClick
 
         public static readonly DependencyProperty SingleClickItemCommandProperty =
        DependencyProperty.RegisterAttached("SingleClickItemCommand", typeof(ICommand), typeof(SelectorEx), new PropertyMetadata(null, OnSingleClickItemCommand));
-
 
         public static ICommand GetSingleClickItemCommand(DependencyObject obj)
         {
@@ -76,7 +72,6 @@ namespace UtilityWpf.Attached
         {
             obj.SetValue(SingleClickItemCommandProperty, value);
         }
-
 
         private static void OnSingleClickItemCommand(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -107,13 +102,12 @@ namespace UtilityWpf.Attached
                 singleclickCommand.Execute(selector);
         }
 
-        #endregion
+        #endregion SingleClick
 
         #region SelectedItem
 
         public static readonly DependencyProperty SelectedItemTemplateProperty =
        DependencyProperty.RegisterAttached("SelectedItemTemplate", typeof(DataTemplate), typeof(SelectorEx), new PropertyMetadata(null, OnSelectedItemTemplate));
-
 
         public static DataTemplate GetSelectedItemTemplate(DependencyObject obj)
         {
@@ -125,7 +119,6 @@ namespace UtilityWpf.Attached
             obj.SetValue(SelectedItemTemplateProperty, value);
         }
 
-
         private static void OnSelectedItemTemplate(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is Selector selector)
@@ -134,7 +127,7 @@ namespace UtilityWpf.Attached
                 _ = selector.SelectAddChanges()
                     .Subscribe(add =>
                     {
-                        foreach (ListBoxItem lbx in selector.Items.Cast<object>().Select(a=> selector.ItemContainerGenerator.ContainerFromItem(a)).OfType<ListBoxItem>())
+                        foreach (ListBoxItem lbx in selector.Items.Cast<object>().Select(a => selector.ItemContainerGenerator.ContainerFromItem(a)).OfType<ListBoxItem>())
                         {
                             if (lbx.IsSelected)
                             {
@@ -142,14 +135,13 @@ namespace UtilityWpf.Attached
                                 lbx.ContentTemplate = GetSelectedItemTemplate(d);
                             }
                             else
-                                lbx.ContentTemplate = originalTemplate ?? selector.ItemTemplate; 
+                                lbx.ContentTemplate = originalTemplate ?? selector.ItemTemplate;
                         }
                     });
-
             }
         }
 
-        #endregion
+        #endregion SelectedItem
 
         //https://stackoverflow.com/questions/4672867/can-i-use-a-different-template-for-the-selected-item-in-a-wpf-combobox-than-for
         public class ComboBoxTemplateSelector : DataTemplateSelector

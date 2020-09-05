@@ -28,7 +28,7 @@ namespace UtilityWpf.View
                 .Subscribe(c =>
                 {
                     var (orientation, dockPanel) = c;
-            
+
                     if (orientation == Orientation.Horizontal)
                     {
                         DockPanel.SetDock(dockPanel, Dock.Right);
@@ -48,13 +48,11 @@ namespace UtilityWpf.View
             set { SetValue(CommandParameterProperty, value); }
         }
 
-
         public Orientation Orientation
         {
             get { return (Orientation)GetValue(OrientationProperty); }
             set { SetValue(OrientationProperty, value); }
         }
-
 
         public override void OnApplyTemplate()
         {
@@ -75,28 +73,22 @@ namespace UtilityWpf.View
             base.OnApplyTemplate();
         }
 
-
-
         public virtual void ExecuteAdd(object parameter)
         {
-
         }
 
         public virtual void ExecuteRemove(object parameter)
         {
-
-            if (itemsControl != null )
+            if (itemsControl != null)
             {
                 if (itemsControl.ItemsSource is IList collection && collection.Count > 0)
                     collection.RemoveAt(collection.Count - 1);
                 else
                 {
-
                 }
             }
             else
             {
-
             }
         }
     }

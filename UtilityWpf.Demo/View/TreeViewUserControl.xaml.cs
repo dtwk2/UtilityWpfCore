@@ -1,8 +1,6 @@
 ﻿using DynamicData;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
@@ -31,7 +29,7 @@ namespace UtilityWpf.DemoApp
             InitializeComponent();
             Grid.DataContext = this;
             var dis1 =
-       Finance       .Sectors
+       Finance.Sectors
          .ToObservable(Scheduler.Default)
          .ToObservableChangeSet()
          .ObserveOnDispatcher()
@@ -40,6 +38,5 @@ namespace UtilityWpf.DemoApp
          .Subscribe(_ =>
          Stock = sectors.First().Stocks.First());
         }
-
     }
 }

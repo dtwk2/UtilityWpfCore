@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace UtilityWpf.DemoAnimation
@@ -22,7 +15,6 @@ namespace UtilityWpf.DemoAnimation
         {
             InitializeComponent();
         }
-
     }
 
     /// <summary>
@@ -101,23 +93,22 @@ namespace UtilityWpf.DemoAnimation
                 context.BeginFigure(startPoint, false, false);
                 context.ArcTo(endPoint, arcSize, 0, isLargeArc, Direction, true, false);
 
-                var c = new EllipseGeometry(startPoint,0,0);
+                var c = new EllipseGeometry(startPoint, 0, 0);
 
-                var c2 = new EllipseGeometry(endPoint,0,0);
-                
+                var c2 = new EllipseGeometry(endPoint, 0, 0);
+
                 GeometryGroup combined = new GeometryGroup();
                 combined.Children.Add(c);
                 combined.Children.Add(c2);
                 combined.Children.Add(geom);
 
                 combined.Transform = new TranslateTransform(StrokeThickness / 2, StrokeThickness / 2);
-                
+
                 return combined;
             }
- 
         }
 
-        StreamGeometry BuildRegularPolygon(Point c, double r, int numSides, double offsetDegree)
+        private StreamGeometry BuildRegularPolygon(Point c, double r, int numSides, double offsetDegree)
         {
             // c is the center, r is the radius,
             // numSides the number of sides, offsetDegree the offset in Degrees.
@@ -143,6 +134,7 @@ namespace UtilityWpf.DemoAnimation
 
             return geometry;
         }
+
         private Point PointAtAngle(double angle, SweepDirection sweep)
         {
             double translatedAngle = angle + OriginRotationDegrees;
@@ -164,9 +156,7 @@ namespace UtilityWpf.DemoAnimation
 
             return new Point(x, y);
         }
-
     }
-
 
     public class ProgressToAngleConverter : System.Windows.Data.IMultiValueConverter
     {

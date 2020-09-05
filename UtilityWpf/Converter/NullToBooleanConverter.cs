@@ -21,8 +21,8 @@ namespace UtilityWpf.Converter
         }
 
         #endregion IValueConverter Members
-    }   
-    
+    }
+
     [ValueConversion(typeof(object), typeof(bool))]
     public class InverseNullToBooleanConverter : IValueConverter
     {

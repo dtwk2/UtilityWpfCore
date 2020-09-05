@@ -1,10 +1,7 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows;
-using UtilityWpf.View;
+﻿using System.Windows;
 
 namespace UtilityWpf.DemoAnimation
 {
-
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -14,7 +11,5 @@ namespace UtilityWpf.DemoAnimation
         {
             InitializeComponent();
         }
-
-
     }
 }

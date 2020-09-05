@@ -11,7 +11,7 @@ namespace UtilityWpf.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value.GetType().IsEnum || value is byte )
+            if (value.GetType().IsEnum || value is byte)
                 return GetColor(System.Convert.ToByte(value));
             return Colors.BlanchedAlmond;
         }
@@ -23,15 +23,12 @@ namespace UtilityWpf.Converter
 
         public static Color GetColor(byte key) => NiceColors.Value[key];
 
-
         private static Lazy<Dictionary<int, Color>> NiceColors = new Lazy<Dictionary<int, Color>>(() =>
                niceColorsDict
                 .Select((a, i) => Tuple.Create(i, (Color)ColorConverter.ConvertFromString(a.Value)))
                 .ToDictionary(a => a.Item1, a => a.Item2));
 
-
-
-        static Dictionary<string, string> niceColorsDict = new Dictionary<string, string> {
+        private static Dictionary<string, string> niceColorsDict = new Dictionary<string, string> {
             { "navy", "#001F3F"} ,
              { "blue", "#0074D9"} ,
               { "aqua", "#7FDBFF"} ,
@@ -55,6 +52,4 @@ namespace UtilityWpf.Converter
                                   { "c", "#fbead3"},
                                   };
     }
-
 }
-

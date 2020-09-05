@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DynamicData;
+using ReactiveUI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,12 +8,8 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
-using UtilityWpf.ViewModel;
 using System.Windows.Data;
 using System.Windows.Input;
-using System.Collections.ObjectModel;
-using DynamicData;
-using ReactiveUI;
 using UtilityWpf.Abstract;
 using UtilityWpf.View;
 
@@ -37,7 +35,6 @@ namespace UtilityWpf.Interactive.View.Controls
         public static readonly DependencyProperty OutputProperty = DependencyProperty.Register("Output", typeof(object), typeof(MasterDetailCheckView), new PropertyMetadata(null, Changed));
 
         public static readonly DependencyProperty DataConverterProperty = DependencyProperty.Register("DataConverter", typeof(IValueConverter), typeof(MasterDetailCheckView), new PropertyMetadata(null, Changed));
-
 
         #region properties
 
@@ -71,10 +68,7 @@ namespace UtilityWpf.Interactive.View.Controls
             set { SetValue(OutputProperty, value); }
         }
 
-
         #endregion properties
-
-
 
         //public ICollection<UtilityInterface.Generic.IObject<object>> Objects { get; }
 
@@ -82,9 +76,9 @@ namespace UtilityWpf.Interactive.View.Controls
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(MasterDetailCheckView), new FrameworkPropertyMetadata(typeof(MasterDetailCheckView)));
         }
+
         public MasterDetailCheckView()
         {
-
         }
 
         public override void OnApplyTemplate()
@@ -97,21 +91,18 @@ namespace UtilityWpf.Interactive.View.Controls
                 .Select(its => its.MakeObservable())
                 .Switch();
 
-            var ic = InteractiveCollectionFactory.Build(objects, getkeyObservable: Observable.Return(new Func<object, object>(a => Guid.NewGuid())), filter: Observable.Return(new DefaultFilter()), isCheckableObervable :Observable.Return(true));
+            var ic = InteractiveCollectionFactory.Build(objects, getkeyObservable: Observable.Return(new Func<object, object>(a => Guid.NewGuid())), filter: Observable.Return(new DefaultFilter()), isCheckableObervable: Observable.Return(true));
             //objects.Switch().Subscribe(ic => Objects = ic);
 
             interactiveList.InteractiveCollectionBase = ic.collectionViewModel;
 
             ic.collectionViewModel.Items.MakeObservable().Subscribe(a =>
            {
-
            });
 
-      
-    //.Merge(this.SelectLoads()
-    ////.Select(a => Content ??= new JsonView()))
-    //.DistinctUntilChanged(a => a?.GetType().Name));
-
+            //.Merge(this.SelectLoads()
+            ////.Select(a => Content ??= new JsonView()))
+            //.DistinctUntilChanged(a => a?.GetType().Name));
 
             var xx = SelectChanges<string>(nameof(MasterDetailCheckView.Id))
                 .StartWith(Id)
@@ -128,9 +119,6 @@ namespace UtilityWpf.Interactive.View.Controls
                     SetCollection(ab.obj, ab.collection);
                 });
         }
-
-
-
 
         protected virtual void SetCollection(object content, IReadOnlyCollection<object> objects)
         {
@@ -149,14 +137,12 @@ namespace UtilityWpf.Interactive.View.Controls
             else throw new Exception(nameof(Content) + " needs to have property");
         }
 
-        class DefaultFilter : UtilityInterface.NonGeneric.IFilter
+        private class DefaultFilter : UtilityInterface.NonGeneric.IFilter
         {
             public bool Filter(object o)
             {
                 return true;
             }
         }
-
-
     }
 }

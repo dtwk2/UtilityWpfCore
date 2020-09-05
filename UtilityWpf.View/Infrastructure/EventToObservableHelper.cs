@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reactive.Linq;
-using System.Text;
 using System.Windows;
 using UtilityWpf.View.Extrinsic;
 using static UtilityWpf.View.DateTimeControl;
@@ -21,6 +19,5 @@ namespace UtilityWpf.View.Infrastructure
 .FromEventPattern<RoutedPropertyChangedEventHandler<decimal>, RoutedPropertyChangedEventArgs<decimal>>
 (a => combo.ValueChanged += a, a => combo.ValueChanged -= a)
 .Select(a => a.EventArgs.NewValue);
-
     }
 }

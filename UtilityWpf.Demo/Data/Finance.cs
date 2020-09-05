@@ -5,15 +5,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
 using System.Windows.Input;
 
 namespace UtilityWpf.DemoApp
 {
     public static class Finance
     {
-        static ICachedEnumerable<Sector> sectors = SelectSectors().Cached();
-        static IEnumerable<Sector> SelectSectors()
+        private static ICachedEnumerable<Sector> sectors = SelectSectors().Cached();
+
+        private static IEnumerable<Sector> SelectSectors()
         {
             var reader = new StreamReader("../../../stocknet-dataset-master/StockTable.csv");
 
@@ -31,18 +31,16 @@ namespace UtilityWpf.DemoApp
                    };
         }
 
-        static IEnumerable<Price> SelectPrices()
+        private static IEnumerable<Price> SelectPrices()
         {
             var reader = new StreamReader("../../../stocknet-dataset-master/price/HL/ABB.csv");
             var start = DateTime.Today.AddYears(-5);
             return from line in Csv.CsvReader.Read(reader)
                    select new Price
                    {
-
                        Open = double.Parse(line["Open"]),
                        Close = double.Parse(line["Close"]),
                        DateTime = start.AddHours(line.Index),
-
                    };
         }
 
@@ -51,12 +49,7 @@ namespace UtilityWpf.DemoApp
         public static IEnumerable<Stock> Stocks => Sectors.SelectMany(a => a.Stocks).Cached();
 
         public static IEnumerable<Price> Prices => SelectPrices().Cached();
-
-
     }
-
-
-
 
     public class Sector
     {
@@ -79,6 +72,7 @@ namespace UtilityWpf.DemoApp
         {
             ChangeGroupProperty = ReactiveCommand.Create(() => { flag = !flag; this.RaisePropertyChanged(nameof(GroupProperty)); });
         }
+
         public StockPropertyChanged(IObservable<bool> observable)
         {
             var a = observable;
@@ -92,9 +86,7 @@ namespace UtilityWpf.DemoApp
         public ICommand ChangeGroupProperty { get; }
 
         public string GroupProperty => flag ? Sector : Name;
-
     }
-
 
     public class Price
     {
@@ -103,4 +95,3 @@ namespace UtilityWpf.DemoApp
         public DateTime DateTime { get; set; }
     }
 }
-

@@ -1,15 +1,10 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Controls;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace UtilityWpf.View
 {
-  
-
     /// <summary>
     /// Helps boxing Booolean values.
     /// </summary>
@@ -74,9 +69,9 @@ namespace UtilityWpf.View
 
             element.SetValue(IsAutoSizedProperty, BooleanBoxes.Box(value));
         }
+
         public static readonly DependencyProperty IsAutoSizedProperty =
             DependencyProperty.RegisterAttached("IsAutoSized", typeof(bool), typeof(UniformStackPanel), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.AffectsParentArrange | FrameworkPropertyMetadataOptions.AffectsParentMeasure));
-
 
         public Orientation Orientation
         {
@@ -86,8 +81,6 @@ namespace UtilityWpf.View
 
         public static readonly DependencyProperty OrientationProperty =
             DependencyProperty.Register("Orientation", typeof(Orientation), typeof(UniformStackPanel), new FrameworkPropertyMetadata(Orientation.Vertical, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange));
-
-
 
         protected override Size MeasureOverride(Size availableSize)
         {
@@ -166,8 +159,8 @@ namespace UtilityWpf.View
             return new Size(maxElementWidth, singleFixedSizeElementHeight + _autoSizeSum);
         }
 
-        double _autoSizeSum;
-        int _fixedSizedElementsCount;
+        private double _autoSizeSum;
+        private int _fixedSizedElementsCount;
 
         protected override Size ArrangeOverride(Size finalSize)
         {
@@ -216,7 +209,6 @@ namespace UtilityWpf.View
                         x += elementSize.Width;
                         finalRect.Width = elementSize.Width;
                     }
-
                 }
 
                 element.Arrange(finalRect);

@@ -15,7 +15,7 @@ namespace UtilityWpf.View
     {
         public HostUserControl()
         {
-            // UserControls 
+            // UserControls
             InitializeComponent();
             this.DockPanel1.DataContext = this;
 
@@ -40,14 +40,11 @@ namespace UtilityWpf.View
         public IDictionary<string, UserControl> UserControls { get; }
     }
 
-
     public static class Helper
     {
         public static Dictionary<string, T> ToDictionaryOnIndex<T>(this IEnumerable<IGrouping<string, T>> groupings)
             => groupings
            .SelectMany(grp => grp.Index().ToDictionary(kvp => kvp.Key > 0 ? grp.Key + kvp.Key : grp.Key, c => c.Value))
           .ToDictionary(a => a.Key, a => a.Value);
-
-
     }
 }

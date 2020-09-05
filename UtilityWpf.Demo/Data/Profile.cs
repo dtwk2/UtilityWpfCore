@@ -14,12 +14,9 @@ using System.Windows.Media.Imaging;
 
 namespace UtilityWpf.DemoApp
 {
-
-
-
     public class ProfileCollectionTimed
     {
-        const int _speed = 3;
+        private const int _speed = 3;
 
         private readonly ReadOnlyObservableCollection<ProfileViewModel> profiles;
 
@@ -45,9 +42,9 @@ namespace UtilityWpf.DemoApp
                  .ToObservableChangeSet()
                  .Sort(new comparer())
                  .Bind(out profiles).Subscribe();
-
         }
-        class comparer : IComparer<ProfileViewModel>
+
+        private class comparer : IComparer<ProfileViewModel>
         {
             public int Compare([AllowNull] ProfileViewModel x, [AllowNull] ProfileViewModel y)
             {
@@ -55,7 +52,6 @@ namespace UtilityWpf.DemoApp
             }
         }
     }
-
 
     public class ProfileCollectionSlow : ProfileCollectionTimed
     {
@@ -66,7 +62,7 @@ namespace UtilityWpf.DemoApp
 
     public class ProfileCollectionVirtualise1 : ReactiveObject
     {
-        int val = 1;
+        private int val = 1;
         private readonly ObservableAsPropertyHelper<IList<ProfileViewModel>> profiles;
 
         public ProfileCollectionVirtualise1()
@@ -92,16 +88,12 @@ namespace UtilityWpf.DemoApp
                          Console.WriteLine($"{nameof(Profiles)}: Loading count");
                          return 420420;
                      }).SyncIndexAccess(RxApp.MainThreadScheduler);
-            
             }
         }
 
         public IList<ProfileViewModel> Profiles => profiles.Value;
 
         public int Value { get => val; set => this.RaiseAndSetIfChanged(ref val, value); }
-
-
-
     }
 
     public class ProfileCollectionVirtualiseLimited
@@ -114,7 +106,6 @@ namespace UtilityWpf.DemoApp
         /// <param name="virtualRequests"></param>
         public ProfileCollectionVirtualiseLimited(IObservable<IVirtualRequest> virtualRequests)
         {
-
             var pool = ProfileFactory.BuildPool();
 
             var cached = 0.Iterate(a => a + 1)
@@ -128,12 +119,10 @@ namespace UtilityWpf.DemoApp
                .Transform(a => a.Item2)
                         .Bind(out profiles)
                         .Subscribe();
-
         }
 
         public ReadOnlyObservableCollection<ProfileViewModel> Profiles => profiles;
     }
-
 
     public class ProfileCollectionVirtualise
     {
@@ -157,19 +146,18 @@ namespace UtilityWpf.DemoApp
         public ReadOnlyObservableCollection<ProfileViewModel> Profiles => profiles;
     }
 
-
-
-
     /// <summary>
     /// https://github.com/Yeah69/BFF.DataVirtualizingCollection
     /// </summary>
-    /// 
-    class ProfileFactory
+    ///
+    internal class ProfileFactory
     {
         static ProfileFactory()
         {
         }
+
         private static BitmapImage GetImage(string path) => new BitmapImage(new Uri(System.IO.Path.GetFullPath("..\\..\\..\\" + path)));
+
         public static IReadOnlyList<ProfileViewModel> BuildPool() =>
                 new ReadOnlyCollection<ProfileViewModel>(
                     new List<ProfileViewModel>
@@ -307,10 +295,7 @@ namespace UtilityWpf.DemoApp
                         4,
                          GetImage("ProfilePics/11_Jogory.png"))
                     });
-
     }
-
-
 
     public struct ProfileViewModel //: IEquatable<ProfileViewModel>
     {
@@ -358,7 +343,6 @@ namespace UtilityWpf.DemoApp
             HiddenAbilitiesCount = hiddenAbilitiesCount;
             Picture = picture;
         }
-
 
         //public int Index { get; set; }
 

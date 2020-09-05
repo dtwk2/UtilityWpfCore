@@ -11,18 +11,12 @@ namespace UtilityWpf.ViewModel
 {
     public class GroupMasterPropertyChangedViewModel<T, R, S> where T : INotifyPropertyChanged
     {
-
         public GroupMasterPropertyChangedViewModel(IObservable<IChangeSet<T, R>> changeSet, Expression<Func<T, S>> func)
         {
             Collection = GroupHelper.Convert(changeSet.GroupOnProperty(func), CreateViewModel);
         }
 
-
-
         public ReadOnlyObservableCollection<GroupViewModel<T, R, S>> Collection { get; }
-
-
-
 
         public virtual GroupViewModel<T, R, S> CreateViewModel(IGroup<T, R, S> group)
         {
@@ -30,11 +24,8 @@ namespace UtilityWpf.ViewModel
         }
     }
 
-
-
     public class GroupMasterViewModel<T, R, S>
     {
-
         public GroupMasterViewModel(IObservable<IGroupChangeSet<T, R, S>> groups)
         {
             Collection = GroupHelper.Convert(groups, CreateViewModel);
@@ -53,8 +44,6 @@ namespace UtilityWpf.ViewModel
         }
     }
 
-
-
     public class GroupViewModel<T, R, S> : ReactiveObject
     {
         private int count;
@@ -69,7 +58,7 @@ namespace UtilityWpf.ViewModel
         public GroupViewModel(IGroup<T, R, S> group)
         {
             Key = group.Key;
-       
+
             group.Cache.Connect().ToCollection()
 
                .Subscribe(a =>
@@ -82,7 +71,6 @@ namespace UtilityWpf.ViewModel
                });
         }
     }
-
 
     internal static class GroupHelper
     {

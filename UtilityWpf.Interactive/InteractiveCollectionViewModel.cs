@@ -1,4 +1,5 @@
 ﻿# nullable enable
+
 using DynamicData;
 using ReactiveUI;
 using System;
@@ -14,8 +15,6 @@ using UtilityWpf.ViewModel;
 
 namespace UtilityWpf.Interactive
 {
-
-
     public class InteractiveCollectionViewModel<T, R> : InteractiveCollectionBase<T>, ICollectionViewModel<IObject<T>>, IDisposable
     {
         private readonly IDisposable disposable;
@@ -61,10 +60,6 @@ namespace UtilityWpf.Interactive
             Title = title;
         }
 
-
-
-
-
         public InteractiveCollectionViewModel(IObservable<IChangeSet<T, R>> observable,
             string childrenpath,
             IObservable<bool> ischecked,
@@ -106,11 +101,9 @@ namespace UtilityWpf.Interactive
             Title = title;
         }
 
-
         public void Dispose()
         {
             disposable.Dispose();
         }
     }
-
 }

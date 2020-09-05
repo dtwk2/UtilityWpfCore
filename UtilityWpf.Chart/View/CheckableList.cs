@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace UtilityWpf.Chart
 {
-    class CheckableList
+    internal class CheckableList
     {
         public CheckableList(bool check, List<DateTimePoint> dataPoints)
         {

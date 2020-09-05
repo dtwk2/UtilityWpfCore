@@ -39,7 +39,7 @@ namespace UtilityWpf.View.Extrinsic
     /// </summary>
     public class SliderWithTickLabels : Slider
     {
-        string[] propertyNames = new string[] { "Minimum", "Maximum", "TickFrequency", "Ticks", "IsDirectionReversed" };
+        private string[] propertyNames = new string[] { "Minimum", "Maximum", "TickFrequency", "Ticks", "IsDirectionReversed" };
         public static readonly DependencyProperty GeneratedTicksProperty;
         public static readonly DependencyProperty TickLabelTemplateProperty;
         private object sync = new object();

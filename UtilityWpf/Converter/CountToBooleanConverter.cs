@@ -8,9 +8,9 @@ namespace UtilityWpf
     {
         #region IValueConverter Members
 
-        public object Convert(object value, Type targetType, object parameter,            System.Globalization.CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if(int.TryParse(parameter.ToString(), out int param))
+            if (int.TryParse(parameter.ToString(), out int param))
                 return (param >= (int)value) != Invert;
             return (0 == (int)value) != Invert;
         }

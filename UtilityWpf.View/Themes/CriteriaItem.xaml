@@ -1,25 +1,36 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                          xmlns:local="clr-namespace:UtilityWpf.View"
-                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:UtilityWpf.View"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
-    <Style TargetType="{x:Type local:CriteriaItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+    <Style BasedOn="{StaticResource {x:Type ListBoxItem}}" TargetType="{x:Type local:CriteriaItem}">
         <Setter Property="SnapsToDevicePixels" Value="true" />
 
         <!--<Setter Property="MeetsCriteria" Value="{Binding OutOfDate}" />-->
-        <Setter Property="MaxWidth" Value="400"></Setter>
+        <Setter Property="MaxWidth" Value="400" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate  TargetType="{x:Type local:CriteriaItem}">
+                <ControlTemplate TargetType="{x:Type local:CriteriaItem}">
                     <materialDesign:Card x:Name="card" Margin="2">
                         <DockPanel Height="40">
-                            <materialDesign:ColorZone DockPanel.Dock="Left" Name="xc" Mode="Accent"
-                                                              Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent} }"
-                                                              Width="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent} }"
-                                                              CornerRadius="2">
-                                <materialDesign:PackIcon Name="xs" Kind="Tick" Height="20" Width="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" />
+                            <materialDesign:ColorZone
+                                Name="xc"
+                                Width="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}}"
+                                Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}}"
+                                CornerRadius="2"
+                                DockPanel.Dock="Left"
+                                Mode="Accent">
+                                <materialDesign:PackIcon
+                                    Name="xs"
+                                    Width="20"
+                                    Height="20"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Foreground="White"
+                                    Kind="Tick" />
                             </materialDesign:ColorZone>
-                            <ContentPresenter DockPanel.Dock="Right" Grid.Column="1" />
+                            <ContentPresenter Grid.Column="1" DockPanel.Dock="Right" />
                         </DockPanel>
                     </materialDesign:Card>
 
@@ -33,12 +44,17 @@
                             <Trigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <ThicknessAnimation Duration="0:0:0.400" From="1" To="3" AutoReverse="True" Storyboard.TargetProperty="BorderThickness" />
-                                        <ColorAnimation To="IndianRed" 
-                                    Storyboard.TargetProperty="(materialDesign:ColorZone.Background).(SolidColorBrush.Color)" 
-                                                        Storyboard.TargetName="xc"
-                                    
-                                    Duration="0:0:1"/>
+                                        <ThicknessAnimation
+                                            AutoReverse="True"
+                                            Storyboard.TargetProperty="BorderThickness"
+                                            From="1"
+                                            To="3"
+                                            Duration="0:0:0.400" />
+                                        <ColorAnimation
+                                            Storyboard.TargetName="xc"
+                                            Storyboard.TargetProperty="(materialDesign:ColorZone.Background).(SolidColorBrush.Color)"
+                                            To="IndianRed"
+                                            Duration="0:0:1" />
                                         <!--<DoubleAnimation Duration="0:0:0.300" From="0" To="125" Storyboard.TargetProperty="Height" />
                                         <DoubleAnimation Duration="0:0:0.300" From="0" To="125" Storyboard.TargetProperty="Width" />-->
                                     </Storyboard>

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reactive.Subjects;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Media.Animation;
 
 namespace UtilityWpf.View.Handy
 {
@@ -23,7 +20,6 @@ namespace UtilityWpf.View.Handy
 
         public CompareSlider()
         {
- 
         }
 
         public static readonly DependencyProperty TargetContentProperty = DependencyProperty.Register(
@@ -44,9 +40,6 @@ namespace UtilityWpf.View.Handy
             set => SetValue(SourceContentProperty, value);
         }
 
-
-
-
         public double Dimension
         {
             get { return (double)GetValue(DimensionProperty); }
@@ -59,8 +52,7 @@ namespace UtilityWpf.View.Handy
 
         private static void propertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-           (d as CompareSlider).subject.OnNext((double)(e.NewValue));
-
+            (d as CompareSlider).subject.OnNext((double)(e.NewValue));
         }
 
         private void move()
@@ -131,7 +123,6 @@ namespace UtilityWpf.View.Handy
                 pieceSize.Width = decreaseButtonLength;
 
                 DecreaseRepeatButton?.Arrange(new Rect(offset, pieceSize));
-
 
                 offset.X = isDirectionReversed ? 0.0 : decreaseButtonLength + thumbLength;
                 pieceSize.Width = increaseButtonLength;

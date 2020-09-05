@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
-using System.Text;
-using System.Windows;
 
 namespace UtilityWpf
 {
@@ -31,7 +28,6 @@ namespace UtilityWpf
         //public static IObservable<RoutedEventArgs> SelectLoads(this FrameworkElement element) =>
         //    Observable.FromEventPattern<RoutedEventHandler, RoutedEventArgs>(a => element.Loaded += a, a => element.Loaded -= a)
         //    .Select(a => a.EventArgs);
-
 
         /// James World
         /// http://www.zerobugbuild.com/?p=323

@@ -14,14 +14,11 @@ using UtilityWpf.ViewModel;
 
 namespace UtilityWpf.Interactive
 {
-
-
     public abstract class InteractiveCollectionBase : NPC
     {
         private ISubject<KeyValuePair<IObject, ListChangeReason>> changes = new Subject<KeyValuePair<IObject, ListChangeReason>>();
 
         protected ReadOnlyObservableCollection<IObject> items;
-
 
         public InteractiveCollectionBase()
         {
@@ -66,7 +63,6 @@ namespace UtilityWpf.Interactive
 
         public IObservable<KeyValuePair<IObject, ListChangeReason>> Changes => changes;
 
-
         public IObservable<KeyValuePair<object, InteractionArgs>> Interactions = new Subject<KeyValuePair<object, InteractionArgs>>();
 
         public IObservable<UserCommandArgs> UserCommands = new Subject<UserCommandArgs>();
@@ -98,12 +94,10 @@ namespace UtilityWpf.Interactive
         }
     }
 
-
     public static class BaseHelper2
     {
         public static void ReactToChanges(this InteractiveCollectionBase col, InteractiveObject so)
         {
-
             so.WhenPropertyChanged(_ => _.IsSelected)
                 .Select(_ => _.Value)
                 .Buffer(TimeSpan.FromMilliseconds(250))
@@ -138,7 +132,6 @@ namespace UtilityWpf.Interactive
                   }
               });
         }
-
 
         public static IObservable<object> GetDoubleClicked(this InteractiveCollectionBase bse)
         {

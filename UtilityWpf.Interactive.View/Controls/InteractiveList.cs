@@ -13,7 +13,6 @@ using System.Windows.Controls;
 using UtilityHelper.NonGeneric;
 using UtilityInterface.Generic;
 using UtilityInterface.NonGeneric;
-using UtilityWpf.Interactive;
 using UtilityWpf.Interactive.Common;
 
 namespace UtilityWpf.Interactive.View.Controls
@@ -23,8 +22,10 @@ namespace UtilityWpf.Interactive.View.Controls
         private readonly ObservableCollection<object> changeCollection = new ObservableCollection<object>();
 
         public readonly ISubject<KeyValuePair<IObject<object>, ChangeReason>> changes = new Subject<KeyValuePair<IObject<object>, ChangeReason>>();
+
         //protected ISubject<IEnumerable> ItemsSourceSubject = new Subject<IEnumerable>();
         protected ISubject<string> KeySubject = new ReplaySubject<string>();
+
         protected ISubject<string> GroupSubject = new ReplaySubject<string>();
         protected ISubject<Unit> ClearedSubject = new ReplaySubject<Unit>();
 
@@ -33,8 +34,10 @@ namespace UtilityWpf.Interactive.View.Controls
         protected ISubject<object> DeletedSubject = new ReplaySubject<object>();
         protected ISubject<IFilter> FilterSubject = new ReplaySubject<IFilter>();
         protected ISubject<bool> IsRemovableSubject = new ReplaySubject<bool>();
+
         //protected ISubject<string> FilterOnSubject = new Subject<string>();
         protected ISubject<bool> IsReadOnlySubject = new ReplaySubject<bool>();
+
         protected ISubject<IEnumerable> DataSubject = new ReplaySubject<IEnumerable>();
         protected ISubject<bool> DoubleClickToCheckSubject = new ReplaySubject<bool>();
         protected ISubject<bool> IsCheckableSubject = new ReplaySubject<bool>();
@@ -46,8 +49,10 @@ namespace UtilityWpf.Interactive.View.Controls
 
         public static readonly DependencyProperty KeyProperty = DependencyProperty.Register("Key", typeof(string), typeof(InteractiveList), new PropertyMetadata(null, (d, e) => Observe(d, e, a => a.KeySubject)));
         public static readonly DependencyProperty GroupProperty = DependencyProperty.Register("Group", typeof(string), typeof(InteractiveList), new PropertyMetadata(null, (d, e) => Observe(d, e, a => a.GroupSubject)));
+
         //   public static readonly DependencyProperty ClearedProperty = DependencyProperty.Register("Cleared", typeof(IFilter), typeof(ListBoxEx), new PropertyMetadata(null, (d, e) => Observe(d, e, a => a.SelectedItemSubject)));
         public static readonly DependencyProperty AllChangesProperty = DependencyProperty.Register("AllChanges", typeof(IEnumerable), typeof(InteractiveList), new PropertyMetadata(null));
+
         public static readonly DependencyProperty OrientationProperty = DependencyProperty.Register("Orientation", typeof(Orientation), typeof(InteractiveList), new PropertyMetadata(Orientation.Horizontal, (d, e) => Observe(d, e, a => a.OrientationSubject)));
         public new static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register("SelectedItem", typeof(object), typeof(InteractiveList), new PropertyMetadata(null, (d, e) => Observe(d, e, a => a.SelectedItemSubject)));
         public static readonly DependencyProperty DoubleClickedItemProperty = DependencyProperty.Register("DoubleClickedItem", typeof(object), typeof(InteractiveList), new PropertyMetadata(null, (d, e) => Observe(d, e, a => a.DoubleClickedItemSubject)));
@@ -81,8 +86,6 @@ namespace UtilityWpf.Interactive.View.Controls
             //DataSubject.OnNext(Data);
             base.OnApplyTemplate();
         }
-
-
 
         private static void Observe<T>(DependencyObject d, DependencyPropertyChangedEventArgs e, Func<InteractiveList, IObserver<T>> observer)
         {
@@ -173,18 +176,13 @@ namespace UtilityWpf.Interactive.View.Controls
             set { SetValue(IsCheckableProperty, value); }
         }
 
-
         public InteractiveCollectionBase<object> InteractiveCollectionBase
         {
             get { return (InteractiveCollectionBase<object>)GetValue(InteractiveCollectionBaseProperty); }
             set { SetValue(InteractiveCollectionBaseProperty, value); }
         }
 
-
-
         public IObservable<KeyValuePair<IObject<object>, ChangeReason>> Changes => changes.AsObservable();
-
-
 
         static InteractiveList()
         {
@@ -211,7 +209,7 @@ namespace UtilityWpf.Interactive.View.Controls
             Key = key;
         }
 
-        void ReflectionGallery_Loaded(object sender, RoutedEventArgs e)
+        private void ReflectionGallery_Loaded(object sender, RoutedEventArgs e)
         {
             //https://venugopal-wpfandxaml.blogspot.com/search/label/ItemsPanelTemplate%20object%20reference
             //StackPanel stackPanel = (StackPanel)VisualTreeHelperEx.FindItemsPanel(this);
@@ -220,7 +218,6 @@ namespace UtilityWpf.Interactive.View.Controls
             //{
             //     stackPanel.Orientation = a;
             //});
-
         }
 
         public InteractiveList()
@@ -237,7 +234,6 @@ namespace UtilityWpf.Interactive.View.Controls
                 .Where(_ => _ != null))
                 .DistinctUntilChanged();
 
-
             ReplaySubject<Unit> one = new ReplaySubject<Unit>();
             ReplaySubject<Unit> two = new ReplaySubject<Unit>();
 
@@ -248,7 +244,6 @@ namespace UtilityWpf.Interactive.View.Controls
                     interactiveCollectionBase = a;
                     one.OnNext(Unit.Default);
                 });
-
 
             GroupSubject.Where(a => a != null).Take(1)
                 .Subscribe(a =>
@@ -281,7 +276,6 @@ namespace UtilityWpf.Interactive.View.Controls
                 });
         }
 
-
         private void CollectionChanged(InteractiveCollectionBase<object> interactiveCollection)
         {
             ItemsSource = interactiveCollection.Items;
@@ -290,7 +284,6 @@ namespace UtilityWpf.Interactive.View.Controls
             {
                 obs.SelectChanges().Subscribe(a =>
                 {
-
                 });
             }
 
@@ -309,8 +302,6 @@ namespace UtilityWpf.Interactive.View.Controls
 
             Dispatcher.InvokeAsync(() => Checked = interactiveCollection.Checked, System.Windows.Threading.DispatcherPriority.Background, default);
         }
-
-
 
         private IObservable<InteractiveCollectionBase<object>> Build(IObservable<string> key)
         {
@@ -342,9 +333,6 @@ namespace UtilityWpf.Interactive.View.Controls
                        groupParameter: GroupSubject
                        ).collectionBase);
         }
-
-
-
 
         //public virtual object GetKey(object trade)
         //{
@@ -389,5 +377,3 @@ namespace UtilityWpf.Interactive.View.Controls
         }
     }
 }
-
-

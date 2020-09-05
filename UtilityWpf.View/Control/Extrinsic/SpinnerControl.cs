@@ -60,21 +60,25 @@ namespace UtilityWpf.View.Extrinsic
             get { return (decimal)GetValue(ValueProperty); }
             set { SetValue(ValueProperty, value); }
         }
+
         public decimal Minimum
         {
             get { return (decimal)GetValue(MinimumValueProperty); }
             set { SetValue(MinimumValueProperty, value); }
         }
+
         public decimal Maximum
         {
             get { return (decimal)GetValue(MaximumValueProperty); }
             set { SetValue(MaximumValueProperty, value); }
         }
+
         public int DecimalPlaces
         {
             get { return (int)GetValue(DecimalPlacesProperty); }
             set { SetValue(DecimalPlacesProperty, value); }
         }
+
         public decimal Change
         {
             get { return (decimal)GetValue(ChangeProperty); }
@@ -103,8 +107,6 @@ namespace UtilityWpf.View.Extrinsic
             //  for why we do this.
             Value = LimitValueByBounds(Value + Change, this);
         }
-
-
 
         protected static void OnDecreaseCommand(object sender, ExecutedRoutedEventArgs e)
         {
@@ -144,9 +146,8 @@ namespace UtilityWpf.View.Extrinsic
             SetValue(FormattedValuePropertyKey, formattedValue);
         }
 
-
         /// <summary>
-        /// If the value changes, update the text box that displays the Value 
+        /// If the value changes, update the text box that displays the Value
         /// property to the consumer.
         /// </summary>
         /// <param name="obj"></param>
@@ -167,8 +168,6 @@ namespace UtilityWpf.View.Extrinsic
                 control.RaiseEvent(e);
             }
         }
-
-
 
         private static decimal LimitValueByBounds(decimal newValue, SpinnerControl control)
         {

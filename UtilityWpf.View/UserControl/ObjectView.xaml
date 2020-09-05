@@ -1,28 +1,37 @@
-﻿<UserControl x:Class="UtilityWpf.View.ObjectView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             mc:Ignorable="d" 
-             d:DesignHeight="400" d:DesignWidth="600"
-             >
+﻿<UserControl
+    x:Class="UtilityWpf.View.ObjectView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="400"
+    d:DesignWidth="600"
+    mc:Ignorable="d">
     <UserControl.Resources>
-        <Style x:Key="DetailToggleButtonStyle" TargetType="ToggleButton" >
-            <Setter Property="MinWidth" Value="150"/>
-            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Style x:Key="DetailToggleButtonStyle" TargetType="ToggleButton">
+            <Setter Property="MinWidth" Value="150" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
             <Setter Property="Content">
                 <Setter.Value>
                     <StackPanel Orientation="Horizontal">
-                        <!--<materialDesign:PackIcon Kind="ChevronDown" Width="24" Height="24"/>-->
-                        <TextBlock Text="&lt;" FontWeight="DemiBold" FontSize="16" VerticalAlignment="Center" RenderTransformOrigin=".5,.5">
+                        <!--<materialDesign:PackIcon Kind="ChevronDown" Width="24" Height="24" />-->
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            FontWeight="DemiBold"
+                            RenderTransformOrigin=".5,.5"
+                            Text="&lt;">
                             <TextBlock.LayoutTransform>
-                                <RotateTransform Angle="90"  ></RotateTransform>
+                                <RotateTransform Angle="90" />
                             </TextBlock.LayoutTransform>
                             <TextBlock.RenderTransform>
                                 <ScaleTransform CenterX="0" CenterY="0" ScaleX="2" ScaleY="0" />
                             </TextBlock.RenderTransform>
                         </TextBlock>
-                        <TextBlock Text="Show details" Margin="5,0" VerticalAlignment="Center"/>
+                        <TextBlock
+                            Margin="5,0"
+                            VerticalAlignment="Center"
+                            Text="Show details" />
                     </StackPanel>
                 </Setter.Value>
             </Setter>
@@ -31,16 +40,24 @@
                     <Setter Property="Content">
                         <Setter.Value>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="&gt;" FontWeight="DemiBold" FontSize="16" VerticalAlignment="Center" RenderTransformOrigin=".5,.5" >
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    FontWeight="DemiBold"
+                                    RenderTransformOrigin=".5,.5"
+                                    Text="&gt;">
                                     <TextBlock.LayoutTransform>
-                                        <RotateTransform Angle="90"  ></RotateTransform>
+                                        <RotateTransform Angle="90" />
                                     </TextBlock.LayoutTransform>
                                     <TextBlock.RenderTransform>
-    <ScaleTransform CenterX="0" CenterY="0" ScaleX="2" ScaleY="0" />
-  </TextBlock.RenderTransform>
+                                        <ScaleTransform CenterX="0" CenterY="0" ScaleX="2" ScaleY="0" />
+                                    </TextBlock.RenderTransform>
                                 </TextBlock>
-                                <!--<materialDesign:PackIcon Kind="ChevronUp" Width="24" Height="24"/>-->
-                                <TextBlock Text="Hide details" Margin="5,0" VerticalAlignment="Center"/>
+                                <!--<materialDesign:PackIcon Kind="ChevronUp" Width="24" Height="24" />-->
+                                <TextBlock
+                                    Margin="5,0"
+                                    VerticalAlignment="Center"
+                                    Text="Hide details" />
                             </StackPanel>
                         </Setter.Value>
                     </Setter>
@@ -48,58 +65,71 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    
+
     <Grid Name="mainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"
-                              Name="treeCol"
-                              MaxWidth="400"
-                              MinWidth="90" />
+            <ColumnDefinition
+                Name="treeCol"
+                Width="Auto"
+                MinWidth="90"
+                MaxWidth="400" />
             <ColumnDefinition Width="5" />
-            <ColumnDefinition Width="*"
-                              Name="textCol"
-                              MinWidth="90" />
+            <ColumnDefinition
+                Name="textCol"
+                Width="*"
+                MinWidth="90" />
         </Grid.ColumnDefinitions>
-        <TreeView Name="treeView1"               
-                  SelectedItemChanged="TreeView1_SelectedItemChanged"
-                  Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                  BorderBrush="{Binding ControlsBorderBrush,RelativeSource={RelativeSource AncestorType=UserControl}}"
-                  BorderThickness="0"
-                  Background="Transparent" Padding="2" />
-        <GridSplitter x:Name="gridSplitter" Grid.Row="0" Grid.Column="1"
-                      ResizeDirection="Columns"
-                 BorderBrush="{Binding ControlsBorderBrush,RelativeSource={RelativeSource AncestorType=UserControl}}"
-                      BorderThickness="1,0" HorizontalAlignment="Stretch" />
-        <FlowDocumentScrollViewer Grid.Row="0" Grid.Column="2"
-                                  x:Name="docViewer"
-                                  HorizontalScrollBarVisibility="Auto"
-                                  VerticalScrollBarVisibility="Auto"
-                                Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                  Padding="2" />
-        <Border Grid.Column="0" Grid.Row="1"
-                Grid.ColumnSpan="3" BorderThickness="0,1,0,0"
-                BorderBrush="{Binding ControlsBorderBrush,RelativeSource={RelativeSource AncestorType=UserControl}}"
-                Padding="20,15">
+        <TreeView
+            Name="treeView1"
+            Padding="2"
+            Background="Transparent"
+            BorderBrush="{Binding ControlsBorderBrush, RelativeSource={RelativeSource AncestorType=UserControl}}"
+            BorderThickness="0"
+            Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=UserControl}}"
+            SelectedItemChanged="TreeView1_SelectedItemChanged" />
+        <GridSplitter
+            x:Name="gridSplitter"
+            Grid.Row="0"
+            Grid.Column="1"
+            HorizontalAlignment="Stretch"
+            BorderBrush="{Binding ControlsBorderBrush, RelativeSource={RelativeSource AncestorType=UserControl}}"
+            BorderThickness="1,0"
+            ResizeDirection="Columns" />
+        <FlowDocumentScrollViewer
+            x:Name="docViewer"
+            Grid.Row="0"
+            Grid.Column="2"
+            Padding="2"
+            Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=UserControl}}"
+            HorizontalScrollBarVisibility="Auto"
+            VerticalScrollBarVisibility="Auto" />
+        <Border
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Padding="20,15"
+            BorderBrush="{Binding ControlsBorderBrush, RelativeSource={RelativeSource AncestorType=UserControl}}"
+            BorderThickness="0,1,0,0">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <!--<ToggleButton Grid.Column="0" 
-                              
-                              Style="{StaticResource DetailToggleButtonStyle}"
-                              IsChecked="{Binding Path=ShowDetails, RelativeSource={RelativeSource AncestorType=UserControl}}" />-->      
-                <ToggleButton 
-                              Style="{StaticResource  MaterialDesignExpandCollapseToggleStyle}"
-                              IsChecked="{Binding Path=ShowDetails, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                <!--<ToggleButton Grid.Column="0"
 
-                <StackPanel Grid.Column="1" Orientation="Horizontal"
-                            HorizontalAlignment="Right">
+                              Style="{StaticResource DetailToggleButtonStyle}"
+                              IsChecked="{Binding Path=ShowDetails, RelativeSource={RelativeSource AncestorType=UserControl}}" />-->
+                <ToggleButton IsChecked="{Binding Path=ShowDetails, RelativeSource={RelativeSource AncestorType=UserControl}}" Style="{StaticResource MaterialDesignExpandCollapseToggleStyle}" />
+
+                <StackPanel
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
                     <!--<CheckBox Content="_Wrap text"
                               Height="16"
                               HorizontalAlignment="Right"
@@ -109,13 +139,15 @@
                               Checked="ChkWrap_Checked"
                               Unchecked="ChkWrap_Unchecked"
                               IsChecked="True"
-                              Foreground="{Binding Foreground,RelativeSource={RelativeSource AncestorType=UserControl}}"/>-->
-                    <Button Content="_Copy All"
-                            Name="btnCopy"
-                            Click="BtnCopy_Click"
-                            Padding="15,0"
-                            VerticalAlignment="Center"
-                            MinHeight="23" MinWidth="90" />
+                              Foreground="{Binding Foreground,RelativeSource={RelativeSource AncestorType=UserControl}}" />-->
+                    <Button
+                        Name="btnCopy"
+                        MinWidth="90"
+                        MinHeight="23"
+                        Padding="15,0"
+                        VerticalAlignment="Center"
+                        Click="BtnCopy_Click"
+                        Content="_Copy All" />
                 </StackPanel>
             </Grid>
         </Border>

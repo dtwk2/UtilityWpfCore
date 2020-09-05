@@ -107,7 +107,6 @@ namespace Link.WPF.Toolkit
             }
         }
 
-
         private TextBox ipTextA;
 
         private TextBox IPTextA
@@ -200,7 +199,6 @@ namespace Link.WPF.Toolkit
             }
         }
 
-
         /// <summary>
         /// limit input：0-255
         /// </summary>
@@ -282,6 +280,7 @@ namespace Link.WPF.Toolkit
             switch (e.Key)
             {
                 #region input content
+
                 //limit number
                 case Key.D0:
                 case Key.D1:
@@ -304,13 +303,13 @@ namespace Link.WPF.Toolkit
                 case Key.NumPad8:
                 case Key.NumPad9:
                     break;
+
                 case Key.OemPeriod:
                 case Key.Decimal:
                     {
                         TextBox textBox = sender as TextBox;
                         if (string.IsNullOrWhiteSpace(textBox.Text))
                         {
-
                         }
                         else
                         {
@@ -320,11 +319,14 @@ namespace Link.WPF.Toolkit
                         e.Handled = true;
                     }
                     break;
+
                 case Key.Enter:
                     break;
-                #endregion
+
+                #endregion input content
 
                 #region move focus
+
                 case Key.Back:
                     {
                         TextBox textBox = sender as TextBox;
@@ -355,11 +357,12 @@ namespace Link.WPF.Toolkit
                         }
                     }
                     break;
+
                 case Key.Tab:
                     {
-
                     }
                     break;
+
                 case Key.Left:
                     {
                         TextBox textBox = sender as TextBox;
@@ -390,6 +393,7 @@ namespace Link.WPF.Toolkit
                         }
                     }
                     break;
+
                 case Key.Right:
                     {
                         TextBox textBox = sender as TextBox;
@@ -420,6 +424,7 @@ namespace Link.WPF.Toolkit
                         }
                     }
                     break;
+
                 case Key.Up:
                     {
                         TextBox textBox = sender as TextBox;
@@ -427,6 +432,7 @@ namespace Link.WPF.Toolkit
                             textBox.MoveFocus(new TraversalRequest(FocusNavigationDirection.Previous));
                     }
                     break;
+
                 case Key.Down:
                     {
                         TextBox textBox = sender as TextBox;
@@ -434,18 +440,22 @@ namespace Link.WPF.Toolkit
                             textBox.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
                     }
                     break;
-                #endregion
+
+                #endregion move focus
 
                 #region shortcuts
+
                 case Key.LeftCtrl:
                 case Key.RightCtrl:
                     break;
+
                 case Key.C:
                     if (e.KeyboardDevice.Modifiers != ModifierKeys.Control)
                     {
                         e.Handled = true;
                     }
                     break;
+
                 case Key.V:
                     if (e.KeyboardDevice.Modifiers == ModifierKeys.Control)
                     {
@@ -465,10 +475,12 @@ namespace Link.WPF.Toolkit
                         e.Handled = true;
                     }
                     break;
-                #endregion
+
+                #endregion shortcuts
 
                 case Key.Delete:
                     break;
+
                 default:
                     e.Handled = true;
                     break;
@@ -479,6 +491,5 @@ namespace Link.WPF.Toolkit
         {
             //throw new NotImplementedException();
         }
-
     }
 }

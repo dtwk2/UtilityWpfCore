@@ -1,6 +1,5 @@
 ﻿#nullable enable
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Windows;
@@ -29,7 +28,6 @@ namespace UtilityWpf.View
                 Source = myDataObject
             };
             (sender as CriteriaItem).SetBinding(CriteriaItem.MeetsCriteriaProperty, myBinding);
-
         }
 
         protected override bool IsItemItsOwnContainerOverride(object item)
@@ -39,15 +37,11 @@ namespace UtilityWpf.View
                 return true;
             }
             return false;
-
         }
-
 
         public ListBoxCriteria() : base()
         {
-
         }
-
 
         public string PropertyName
         {
@@ -60,7 +54,6 @@ namespace UtilityWpf.View
 
         private static void PropertyNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-
         }
 
         public bool IsCriteriaMet
@@ -73,7 +66,6 @@ namespace UtilityWpf.View
 
         private static void MetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-
         }
 
         private void CriteriaItem_CriteriaChanged(object sender, RoutedEventArgs? e)
@@ -93,10 +85,9 @@ namespace UtilityWpf.View
                     }
                     else
                     {
-                        missedItems.Add( criteriaItem.Content );
+                        missedItems.Add(criteriaItem.Content);
                     }
                 }
-
             }
             if (indices.Count > 0)
             {
@@ -133,13 +124,9 @@ namespace UtilityWpf.View
                 this.Met = met;
                 this.Missed = missed;
                 Indices = indices;
-
             }
         }
     }
-
-
-
 
     public class CriteriaItem : ListBoxItem
     {

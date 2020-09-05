@@ -19,8 +19,6 @@ namespace UtilityWpf.ViewModel
 
         public (string, bool) Completed => completed.Value;
 
-
-
         public FileDownloaderViewModel(IObservable<Tuple<Uri, string>> files)
         {
             client = new WebClient();
@@ -47,8 +45,6 @@ namespace UtilityWpf.ViewModel
                 client.DownloadFileAsync(_.Item1, _.Item2);
             });
         }
-
-
 
         public void Dispose()
         {

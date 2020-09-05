@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace UtilityWpf.ViewModel
 {
-    public class NavigatorVM:ReactiveObject
+    public class NavigatorVM : ReactiveObject
     {
         private int size;
 
@@ -26,14 +26,14 @@ namespace UtilityWpf.ViewModel
 
         public NavigatorViewModel(IObservable<int> currentPage, IObservable<int> pageSize)
         {
-            pageSize.Subscribe(p=>Size=p);
+            pageSize.Subscribe(p => Size = p);
 
-            var obs = currentPage.DistinctUntilChanged().CombineLatest(this.WhenAnyValue(a=>a.Size), (a, b) =>
-            new { page = a, size = b });
+            var obs = currentPage.DistinctUntilChanged().CombineLatest(this.WhenAnyValue(a => a.Size), (a, b) =>
+              new { page = a, size = b });
 
-            output = (NextCommand as ReactiveCommand<Unit,Unit>).WithLatestFrom(obs, (a, b) => new PageRequest(b.page + 1, b.size)).Merge
+            output = (NextCommand as ReactiveCommand<Unit, Unit>).WithLatestFrom(obs, (a, b) => new PageRequest(b.page + 1, b.size)).Merge
    ((PreviousCommand as ReactiveCommand<Unit, Unit>).WithLatestFrom(obs, (a, b) =>
-   new PageRequest(b.page - 1, b.size))).StartWith(new PageRequest(1, 25)).ToProperty(this, a=>a.Output);
+   new PageRequest(b.page - 1, b.size))).StartWith(new PageRequest(1, 25)).ToProperty(this, a => a.Output);
         }
     }
 }

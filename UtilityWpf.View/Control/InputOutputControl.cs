@@ -9,7 +9,6 @@ namespace UtilityWpf.View
 {
     public class InputOutputControl<T, R> : Control /*: HeaderBodyControl*/
     {
-
         public static readonly DependencyProperty InputProperty = DependencyProperty.Register("Input", typeof(T), typeof(InputOutputControl<T, R>), new PropertyMetadata(null, InputChanged));
 
         public static readonly DependencyProperty OutputProperty = DependencyProperty.Register("Output", typeof(R), typeof(InputOutputControl<T, R>), new PropertyMetadata(null));
@@ -35,7 +34,7 @@ namespace UtilityWpf.View
 
         static InputOutputControl()
         {
-            }
+        }
 
         public InputOutputControl(IFunction<T, R> service, Func<IObservable<T>, IObservable<T>> func = null)
         {

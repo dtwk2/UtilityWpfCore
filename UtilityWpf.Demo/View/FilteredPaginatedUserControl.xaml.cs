@@ -10,7 +10,6 @@ namespace UtilityWpf.DemoApp
     {
         public FilteredPaginatedUserControl()
         {
-
             var fk = new Faker<Data>()
                 .RuleFor(a => a.A, f => f.Date.Future().ToString("F"))
                                   .RuleFor(a => a.B, f => f.Company.CatchPhrase())
@@ -20,7 +19,6 @@ namespace UtilityWpf.DemoApp
 
             var items = fk.Generate(100);
             this.DataContext = items;
-
         }
 
         private class Data

@@ -28,7 +28,7 @@ namespace UtilityWpf
         //        return null;
         //    }
         //}
-     
+
         public static IEnumerable<T> FindVisualChildren<T>(this DependencyObject depObj) where T : DependencyObject
         {
             if (depObj != null)
@@ -40,7 +40,7 @@ namespace UtilityWpf
                     {
                         yield return t;
                     }
-                  
+
                     foreach (T childOfChild in FindVisualChildren<T>(child))
                     {
                         yield return childOfChild;
@@ -52,49 +52,35 @@ namespace UtilityWpf
         public static object FindItemsPanel(Visual visual)
 
         {
-
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(visual); i++)
 
             {
-
                 Visual child = VisualTreeHelper.GetChild(visual, i) as Visual;
 
                 if (child != null)
 
                 {
-
                     if (child is object && VisualTreeHelper.GetParent(child) is ItemsPresenter)
 
                     {
-
                         object temp = child;
 
                         return (object)temp;
-
                     }
-
-
-
-
 
                     object panel = FindItemsPanel(child);
 
                     if (panel != null)
 
                     {
-
                         object temp = panel;
 
                         return (object)temp; // return the panel up the call stack
-
                     }
-
                 }
-
             }
 
             return default(object);
-
         }
     }
 }

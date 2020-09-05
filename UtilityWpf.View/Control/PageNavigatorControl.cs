@@ -60,10 +60,8 @@ namespace UtilityWpf.View
 
         private static void ItemsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-
             (d as PageNavigatorControl).ItemsSourceChanges.OnNext((IEnumerable)e.NewValue);
         }
-
 
         private static void PageSizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -82,7 +80,6 @@ namespace UtilityWpf.View
 
         public PageNavigatorControl()
         {
-
             var obs2 = new Subject<PageRequest>();
 
             var obs = pageRequests.StartWith(new PageRequest(1, 20));
@@ -103,7 +100,7 @@ namespace UtilityWpf.View
             this.Dispatcher.InvokeAsync(() =>
             FilteredItems = filteredPaginatedVM.Items, System.Windows.Threading.DispatcherPriority.Background);
 
-            filteredPaginatedVM.WhenAnyValue(a=>a.PageResponse)
+            filteredPaginatedVM.WhenAnyValue(a => a.PageResponse)
                 .CombineLatest(ControlTemplateChanges, (a, b) => b ? a : null)
                 .Where(_ => _ != null)
                 .Subscribe(_ =>

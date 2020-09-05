@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Data;
 
 namespace UtilityWpf.Converter
@@ -23,6 +21,6 @@ namespace UtilityWpf.Converter
             throw new NotImplementedException();
         }
 
-        public static DefaultConverter Instance { get; }= new DefaultConverter();
+        public static DefaultConverter Instance { get; } = new DefaultConverter();
     }
 }

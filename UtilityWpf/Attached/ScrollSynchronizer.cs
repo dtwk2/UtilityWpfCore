@@ -75,7 +75,6 @@ namespace SoftwareArchitects.Windows.Controls
                     // Remove scrollviewer
                     if (scrollViewers.ContainsKey(scrollViewer))
                     {
-
                         scrollViewer.ScrollChanged -= new ScrollChangedEventHandler(ScrollViewer_ScrollChanged);
                         scrollViewers.Remove(scrollViewer);
                     }
@@ -106,12 +105,9 @@ namespace SoftwareArchitects.Windows.Controls
                     scrollViewers.Add(scrollViewer, (string)e.NewValue);
 
                     scrollViewer.ScrollChanged += new ScrollChangedEventHandler(ScrollViewer_ScrollChanged);
-
                 }
             }
         }
-
-
 
         /// <summary>
         /// Occurs, when the scroll offset of one scrollviewer has changed.
@@ -126,8 +122,6 @@ namespace SoftwareArchitects.Windows.Controls
                 Scroll(changedScrollViewer);
             }
         }
-
-
 
         /// <summary>
         /// Scrolls all scroll viewers of a group to the position of the selected scroll viewer.

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+
 namespace UtilityWpf.View
 {
     using Command;
@@ -19,7 +20,7 @@ namespace UtilityWpf.View
 
         public static readonly DependencyProperty OutputProperty = DependencyProperty.Register("Output", typeof(object), typeof(ButtonDefinitionsControl));
 
-        public static readonly DependencyProperty OrientationProperty = DependencyProperty.Register("Orientation", typeof(Orientation), typeof(ButtonDefinitionsControl),new PropertyMetadata(Orientation.Horizontal));
+        public static readonly DependencyProperty OrientationProperty = DependencyProperty.Register("Orientation", typeof(Orientation), typeof(ButtonDefinitionsControl), new PropertyMetadata(Orientation.Horizontal));
 
         private static void ParametersChange(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as ButtonDefinitionsControl).UpdateButtons();
 
@@ -64,12 +65,10 @@ namespace UtilityWpf.View
 
         private void UpdateButtons()
         {
-
             var items = ButtonDefinitionHelper.GetCommandOutput(Type, OutputType, Parameters)?
                 .Select(kvp =>
                 new ViewModel.ButtonDefinition
                 {
-
                     Command = new RelayCommand(() => SetOuput(kvp.Value())),
                     Content = kvp.Key
                 });

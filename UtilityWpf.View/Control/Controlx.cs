@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Evan.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
-using Evan.Wpf;
 using UtilityWpf.Property;
 
 namespace UtilityWpf.View
@@ -14,7 +14,7 @@ namespace UtilityWpf.View
     {
         private readonly Dictionary<string, ISubject<object>> subjects = new Dictionary<string, ISubject<object>>();
         private readonly ISubject<DependencyObject> controlChanges = new Subject<DependencyObject>();
-        readonly object lck = new object();
+        private readonly object lck = new object();
         //public List<string> ControlNames = new List<string>();
         // private Lazy<FrameworkElement[]> elements = null;
 
@@ -53,14 +53,12 @@ namespace UtilityWpf.View
             base.OnPropertyChanged(e);
         }
 
-
         protected IObservable<T> SelectControlChanges<T>(string name = null) where T : FrameworkElement
         {
             return name == null ?
                 controlChanges.OfType<T>().Select(a => (T)a) :
                 controlChanges.OfType<T>().Select(a => (T)a).Where(a => (a as FrameworkElement).Name == name);
         }
-
 
         protected IObservable<object> SelectChanges(string name)
         {
@@ -114,7 +112,6 @@ namespace UtilityWpf.View
             (d as Controlx).OnNext(e);
         }
 
-
         /// <summary>
         /// Whatches for any changes to dependency properties
         /// </summary>
@@ -133,6 +130,5 @@ namespace UtilityWpf.View
                 return new System.Reactive.Disposables.CompositeDisposable(xx);
             });
         }
-
     }
 }

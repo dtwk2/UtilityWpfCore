@@ -21,7 +21,7 @@
 //        }
 
 //       // Afterwards you can loop through the ListBoxItems and use that test to determine which are visible.
-       
+
 //        public static List<object> GetVisibleItemsFromListbox(ListBox listBox, FrameworkElement parentToTestVisibility)
 //        {
 //            var items = new List<object>();

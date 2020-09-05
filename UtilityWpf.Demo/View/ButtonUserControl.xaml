@@ -1,14 +1,16 @@
-﻿<UserControl x:Class="UtilityWpf.DemoApp.ButtonUserControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:UtilityWpf.DemoApp"
-             xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.View"
-             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:int="clr-namespace:UtilityWpf.Behavior;assembly=UtilityWpf"
-             mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+﻿<UserControl
+    x:Class="UtilityWpf.DemoApp.ButtonUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:int="clr-namespace:UtilityWpf.Behavior;assembly=UtilityWpf"
+    xmlns:local="clr-namespace:UtilityWpf.DemoApp"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.View"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
     <TabControl>
         <TabItem Header="Interactivity">
 
@@ -18,18 +20,27 @@
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <int:SetterAction PropertyName="Visibility" Value="Collapsed" />
-                            <int:SetterAction PropertyName="Visibility" TargetObject="{Binding ElementName=optionsBackButton}" Value="Visible" />
+                            <int:SetterAction
+                                PropertyName="Visibility"
+                                TargetObject="{Binding ElementName=optionsBackButton}"
+                                Value="Visible" />
                             <!--<int:SetterAction PropertyName="Visibility" TargetObject="{Binding ElementName=optionsPanel}" Value="Visible" />-->
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
 
-                <Button x:Name="optionsBackButton" Visibility="Collapsed" FontSize="20">
+                <Button
+                    x:Name="optionsBackButton"
+                    FontSize="20"
+                    Visibility="Collapsed">
                     Back
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <int:SetterAction PropertyName="Visibility" Value="Collapsed" />
-                            <int:SetterAction PropertyName="Visibility" TargetObject="{Binding ElementName=optionsButton}" Value="Visible" />
+                            <int:SetterAction
+                                PropertyName="Visibility"
+                                TargetObject="{Binding ElementName=optionsButton}"
+                                Value="Visible" />
                             <!--<int:SetterAction PropertyName="Visibility" TargetObject="{Binding ElementName=optionsPanel}" Value="Collapsed" />-->
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
@@ -38,7 +49,7 @@
         </TabItem>
         <TabItem Header="Path">
             <UniformGrid Columns="1">
-                <view:PathButton HoverBackground="Blue" Height="70">
+                <view:PathButton Height="70" HoverBackground="Blue">
                     <view:PathButton.PathData>
                         <PathGeometry>
                             <PathGeometry.Figures>
@@ -60,19 +71,19 @@
 
         <TabItem Header="Image">
 
-            <view:ImageButton x:Name="toggle"
-                                                  Grid.Column="0"
-                                                Margin="15,0,15,0"
-                                                Image="/Images/Settings.png"
-                                                PressedImage="/Images/bar-chart.png" />
+            <view:ImageButton
+                x:Name="toggle"
+                Grid.Column="0"
+                Margin="15,0,15,0"
+                Image="/Images/Settings.png"
+                PressedImage="/Images/bar-chart.png" />
         </TabItem>
         <!--<TabItem Header="MenuButton">
 
             <UniformGrid Columns="1" Height="400" Width="250">
                 <view:MenuButton x:Name="menu1" Height="30" Width="100"
                                                   Grid.Column="0"
-                                                Margin="15"
-                                              >
+                                                Margin="15">
                     Menu Button
                     <view:MenuButton.ContextMenu>
                         <ContextMenu>
@@ -117,13 +128,6 @@
                     </view:MenuButton>
                 </ToolBar>
             </UniformGrid>
-
         </TabItem>-->
-
-      
-
     </TabControl>
 </UserControl>
-    
-    
-    

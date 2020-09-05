@@ -3,7 +3,6 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace UtilityWpf.View
 {
@@ -18,17 +17,14 @@ namespace UtilityWpf.View
         public static readonly RoutedEvent SelectedEvent = EventManager.RegisterRoutedEvent("Selected", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(EnumToggleButton));
         public static readonly DependencyProperty OutputProperty = DependencyProperty.Register("Output", typeof(object), typeof(EnumToggleButton));
 
-
-
         static EnumToggleButton()
         {
-          //  DefaultStyleKeyProperty.OverrideMetadata(typeof(EnumToggleButton), new FrameworkPropertyMetadata(typeof(EnumToggleButton)));
+            //  DefaultStyleKeyProperty.OverrideMetadata(typeof(EnumToggleButton), new FrameworkPropertyMetadata(typeof(EnumToggleButton)));
             IsCheckedProperty.OverrideMetadata(typeof(EnumToggleButton), new FrameworkPropertyMetadata(false, null, IsCheckedChanged));
         }
 
         public EnumToggleButton()
         {
-
             subject.StartWith(true).CombineLatest(enumSubject.StartWith(Array.Empty<Enum>()), (useEnum, enums) => (useEnum, enums))
                 .Subscribe(c =>
                 {
@@ -63,7 +59,6 @@ namespace UtilityWpf.View
         private void EnumToggleButton_Loaded(object sender, RoutedEventArgs e)
         {
             subject.OnNext(UseEnumAsContent);
-            
         }
 
         public Type Enum
@@ -84,14 +79,11 @@ namespace UtilityWpf.View
             set { SetValue(OutputProperty, value); }
         }
 
-
         public event RoutedEventHandler Selected
         {
             add { AddHandler(SelectedEvent, value); }
             remove { RemoveHandler(SelectedEvent, value); }
         }
-
-
 
         private static object IsCheckedChanged(DependencyObject d, object baseValue)
         {
@@ -103,7 +95,6 @@ namespace UtilityWpf.View
 
             return baseValue;
         }
-
 
         private static object EnumCoerce(DependencyObject d, object baseValue)
         {
@@ -122,14 +113,10 @@ namespace UtilityWpf.View
             return baseValue;
         }
 
-
         private static void UseEnumAsContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             (d as EnumToggleButton).subject.OnNext((bool)e.NewValue);
         }
-
-
-
 
         // Raise the routed event "selected"
         public class EnumEventArgs : RoutedEventArgs
@@ -141,7 +128,6 @@ namespace UtilityWpf.View
                 IsChecked = isChecked;
             }
         }
-
 
         public enum Switch
         {

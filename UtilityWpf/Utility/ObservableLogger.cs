@@ -1,10 +1,9 @@
-﻿
-namespace UtilityWpf
+﻿namespace UtilityWpf
 {
+    using global::Splat;
     using System;
     using System.ComponentModel;
     using System.Reactive.Subjects;
-    using global::Splat;
 
     // an implementation of Splat's ILogger interface that forwards all messages to an observable
     public sealed class ObservableLogger : ILogger

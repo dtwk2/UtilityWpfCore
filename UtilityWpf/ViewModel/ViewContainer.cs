@@ -1,10 +1,9 @@
-﻿using DynamicData.Binding;
-using System;
+﻿using System;
 
 namespace UtilityWpf.ViewModel
 
 {
-    public class ViewContainer 
+    public class ViewContainer
     {
         public ViewContainer(string title, object content)
         {

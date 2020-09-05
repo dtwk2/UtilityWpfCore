@@ -1,35 +1,38 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:UtilityWpf.View">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:UtilityWpf.View">
 
-    <ResourceDictionary.MergedDictionaries>
-
-    </ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary.MergedDictionaries />
 
     <Geometry x:Key="RightGeometry">M0,0 L50,50 L0,100</Geometry>
     <Geometry x:Key="LeftGeometry">M50,0 L0,50 L50,100</Geometry>
 
     <Style x:Key="GripThumbStyle" TargetType="Thumb">
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"/>
-        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" />
+        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate  TargetType="Thumb">
+                <ControlTemplate TargetType="Thumb">
 
-                    <Border Name="OutBox" 
-                               
-                         Width="20"
-                            Height="{TemplateBinding Height}"
-                            Margin="-10,0">
+                    <Border
+                        Name="OutBox"
+                        Width="20"
+                        Height="{TemplateBinding Height}"
+                        Margin="-10,0">
 
-                        <!-- N.B Left-Margin has to be equal to negative half of the width to avoid it exceeding boundary of track-->
+                        <!--  N.B Left-Margin has to be equal to negative half of the width to avoid it exceeding boundary of track  -->
                         <Grid>
-
 
                             <Border Width="1">
                                 <Border.Background>
-                                    <DrawingBrush RenderOptions.CachingHint="Cache" Viewport="0,0,1,8" ViewportUnits="Absolute" Stretch="None" TileMode="Tile">
+                                    <DrawingBrush
+                                        RenderOptions.CachingHint="Cache"
+                                        Stretch="None"
+                                        TileMode="Tile"
+                                        Viewport="0,0,1,8"
+                                        ViewportUnits="Absolute">
                                         <DrawingBrush.Drawing>
                                             <DrawingGroup>
                                                 <GeometryDrawing Brush="Gray">
@@ -45,24 +48,48 @@
                                 </Border.Background>
                             </Border>
 
-                            <Border Grid.Row="5" x:Name="grip" Width="20"  Height="20" CornerRadius="15" BorderThickness="1" BorderBrush="Gray" Background="White">
+                            <Border
+                                x:Name="grip"
+                                Grid.Row="5"
+                                Width="20"
+                                Height="20"
+                                Background="White"
+                                BorderBrush="Gray"
+                                BorderThickness="1"
+                                CornerRadius="15">
                                 <Grid>
 
-                                    <Path x:Name="PathRight" Data="{StaticResource LeftGeometry}" StrokeThickness="1" Stroke="Black" 
-                                      Margin="4,0"
-                                                  HorizontalAlignment="Left" Stretch="Uniform" Width="6" Height="6" RenderTransformOrigin="0.5,0.5">
+                                    <Path
+                                        x:Name="PathRight"
+                                        Width="6"
+                                        Height="6"
+                                        Margin="4,0"
+                                        HorizontalAlignment="Left"
+                                        Data="{StaticResource LeftGeometry}"
+                                        RenderTransformOrigin="0.5,0.5"
+                                        Stretch="Uniform"
+                                        Stroke="Black"
+                                        StrokeThickness="1">
                                         <Path.RenderTransform>
                                             <TransformGroup>
-                                                <TranslateTransform/>
+                                                <TranslateTransform />
                                             </TransformGroup>
                                         </Path.RenderTransform>
                                     </Path>
-                                    <Path x:Name="PathLeft"                                    
-                                      Data="{StaticResource RightGeometry}" StrokeThickness="1" Stroke="Black"  HorizontalAlignment="Right" 
-                                      Stretch="Uniform" Width="6" Height="6"  RenderTransformOrigin="0.5,0.5" Margin="0,0,4,0">
+                                    <Path
+                                        x:Name="PathLeft"
+                                        Width="6"
+                                        Height="6"
+                                        Margin="0,0,4,0"
+                                        HorizontalAlignment="Right"
+                                        Data="{StaticResource RightGeometry}"
+                                        RenderTransformOrigin="0.5,0.5"
+                                        Stretch="Uniform"
+                                        Stroke="Black"
+                                        StrokeThickness="1">
                                         <Path.RenderTransform>
                                             <TransformGroup>
-                                                <TranslateTransform/>
+                                                <TranslateTransform />
                                             </TransformGroup>
                                         </Path.RenderTransform>
                                     </Path>
@@ -73,13 +100,13 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="OutBox" Property="Background" Value="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}"/>
-                            <Setter TargetName="OutBox" Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}"/>
+                            <Setter TargetName="OutBox" Property="Background" Value="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" />
+                            <Setter TargetName="OutBox" Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" />
                         </Trigger>
                         <DataTrigger Binding="{Binding Orientation, RelativeSource={RelativeSource AncestorType=local:RangeSlider}}" Value="Vertical">
-                            <Setter TargetName="OutBox" Property="Width" Value="Auto"/>
-                            <Setter TargetName="OutBox" Property="Height" Value="16"/>
-                            <Setter TargetName="OutBox" Property="Margin" Value="0,-8"/>
+                            <Setter TargetName="OutBox" Property="Width" Value="Auto" />
+                            <Setter TargetName="OutBox" Property="Height" Value="16" />
+                            <Setter TargetName="OutBox" Property="Margin" Value="0,-8" />
                         </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -87,32 +114,30 @@
         </Setter>
     </Style>
 
-
-
-    <Style TargetType="Thumb" x:Key="RangeSliderThumbStyle">
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"/>
-        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+    <Style x:Key="RangeSliderThumbStyle" TargetType="Thumb">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" />
+        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <Border Name="OutBox"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            Background="{TemplateBinding Background}"
-                            Width="8"
-                            Height="{TemplateBinding Height}"
-                            Margin="-4,0">
-                    </Border>
+                    <Border
+                        Name="OutBox"
+                        Width="8"
+                        Height="{TemplateBinding Height}"
+                        Margin="-4,0"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}" />
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="OutBox" Property="Background" Value="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}"/>
-                            <Setter TargetName="OutBox" Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}"/>
+                            <Setter TargetName="OutBox" Property="Background" Value="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" />
+                            <Setter TargetName="OutBox" Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HotTrackBrushKey}}" />
                         </Trigger>
                         <DataTrigger Binding="{Binding Orientation, RelativeSource={RelativeSource AncestorType=local:RangeSlider}}" Value="Vertical">
-                            <Setter TargetName="OutBox" Property="Width" Value="Auto"/>
-                            <Setter TargetName="OutBox" Property="Height" Value="16"/>
-                            <Setter TargetName="OutBox" Property="Margin" Value="0,-8"/>
+                            <Setter TargetName="OutBox" Property="Width" Value="Auto" />
+                            <Setter TargetName="OutBox" Property="Height" Value="16" />
+                            <Setter TargetName="OutBox" Property="Margin" Value="0,-8" />
                         </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -120,28 +145,39 @@
         </Setter>
     </Style>
 
-    <ControlTemplate TargetType="local:RangeSlider" x:Key="RangeSliderHorizontalTemplate">
+    <ControlTemplate x:Key="RangeSliderHorizontalTemplate" TargetType="local:RangeSlider">
 
-        <Border x:Name="PART_SliderContainer" BorderBrush="{TemplateBinding BorderBrush}" 
-                BorderThickness="{TemplateBinding BorderThickness}" 
-                Background="{TemplateBinding Background}" SnapsToDevicePixels="True"
-               >
+        <Border
+            x:Name="PART_SliderContainer"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            SnapsToDevicePixels="True">
 
             <Grid>
 
                 <Grid Grid.ColumnSpan="3">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-
-
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <TickBar x:Name="TopTick" Fill="LightGray" Margin="0,0,0,0" Placement="Top" Grid.Row="1" Grid.RowSpan="1" Visibility="Visible" />
+                    <TickBar
+                        x:Name="TopTick"
+                        Grid.Row="1"
+                        Grid.RowSpan="1"
+                        Margin="0,0,0,0"
+                        Fill="LightGray"
+                        Placement="Top"
+                        Visibility="Visible" />
 
-                    <ItemsControl  x:Name="TopTickLabel" Grid.Row="0" Visibility="Visible" VerticalAlignment="Center"  >
+                    <ItemsControl
+                        x:Name="TopTickLabel"
+                        Grid.Row="0"
+                        VerticalAlignment="Center"
+                        Visibility="Visible">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <UniformGrid x:Name="TickLabelContainer" Rows="1"/>
+                                <UniformGrid x:Name="TickLabelContainer" Rows="1" />
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemContainerStyle>
@@ -150,7 +186,6 @@
                                     <DataTrigger Binding="{Binding Path=Orientation, RelativeSource={RelativeSource FindAncestor, AncestorType=local:RangeSlider}}" Value="Horizontal">
                                         <Setter Property="FrameworkElement.HorizontalAlignment" Value="Left" />
                                         <Setter Property="FrameworkElement.VerticalAlignment" Value="Top" />
-
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding Path=Orientation, RelativeSource={RelativeSource FindAncestor, AncestorType=local:RangeSlider}}" Value="Vertical">
                                         <Setter Property="FrameworkElement.VerticalAlignment" Value="Center" />
@@ -180,126 +215,129 @@
                         </ItemsControl.Style>
                     </ItemsControl>
 
-
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <Border Grid.Column="0" 
-                        Name="PART_StartArea"
-                        IsHitTestVisible="False"/>
+                        <Border
+                            Name="PART_StartArea"
+                            Grid.Column="0"
+                            IsHitTestVisible="False" />
 
-                        <Border Grid.Column="2"
-                        Name="PART_EndArea"
-                        IsHitTestVisible="False"/>
+                        <Border
+                            Name="PART_EndArea"
+                            Grid.Column="2"
+                            IsHitTestVisible="False" />
 
-                        <Thumb Name="PART_StartThumb"
-                       Grid.Column="0"
-                       HorizontalAlignment="Right"
-                       Style="{TemplateBinding StartThumbStyle}"
-                       ToolTip="{TemplateBinding StartThumbToolTip}"/>
+                        <Thumb
+                            Name="PART_StartThumb"
+                            Grid.Column="0"
+                            HorizontalAlignment="Right"
+                            Style="{TemplateBinding StartThumbStyle}"
+                            ToolTip="{TemplateBinding StartThumbToolTip}" />
 
-                        <Thumb Name="PART_EndThumb"
-                       Grid.Column="2"
-                       HorizontalAlignment="Left"
-                       Style="{TemplateBinding EndThumbStyle}"
-                       ToolTip="{TemplateBinding EndThumbToolTip}"/>
-
+                        <Thumb
+                            Name="PART_EndThumb"
+                            Grid.Column="2"
+                            HorizontalAlignment="Left"
+                            Style="{TemplateBinding EndThumbStyle}"
+                            ToolTip="{TemplateBinding EndThumbToolTip}" />
                     </Grid>
                 </Grid>
-
-
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
 
             <Trigger Property="IsKeyboardFocused" Value="true">
-                <Setter Property="Foreground" TargetName="PART_StartThumb" Value="Blue" />
+                <Setter TargetName="PART_StartThumb" Property="Foreground" Value="Blue" />
             </Trigger>
         </ControlTemplate.Triggers>
-
-
     </ControlTemplate>
 
-
-    <ControlTemplate TargetType="{x:Type local:RangeSlider}" x:Key="RangeSliderVertialTemplate">
-        <Border BorderBrush="{TemplateBinding BorderBrush}"
-                BorderThickness="{TemplateBinding BorderThickness}"
-                Background="{TemplateBinding Background}" 
-                Width="{TemplateBinding Width}"
-                Height="{TemplateBinding Height}"
-                Padding="{TemplateBinding Padding}"
-                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-            <Grid Name="PART_SliderContainer" Background="Transparent" >
+    <ControlTemplate x:Key="RangeSliderVertialTemplate" TargetType="{x:Type local:RangeSlider}">
+        <Border
+            Width="{TemplateBinding Width}"
+            Height="{TemplateBinding Height}"
+            Padding="{TemplateBinding Padding}"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+            <Grid Name="PART_SliderContainer" Background="Transparent">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <Border Grid.Row="0" 
-                        Name="PART_StartArea"
-                        IsHitTestVisible="False"/>
+                <Border
+                    Name="PART_StartArea"
+                    Grid.Row="0"
+                    IsHitTestVisible="False" />
 
-                <Border Grid.Row="2"
-                        Name="PART_EndArea"
-                        IsHitTestVisible="False"/>
+                <Border
+                    Name="PART_EndArea"
+                    Grid.Row="2"
+                    IsHitTestVisible="False" />
 
-                <Thumb Name="PART_StartThumb"
-                       Grid.Row="0"
-                       VerticalAlignment="Bottom"
-                       Style="{TemplateBinding StartThumbStyle}"
-                       ToolTip="{TemplateBinding StartThumbToolTip}"/>
+                <Thumb
+                    Name="PART_StartThumb"
+                    Grid.Row="0"
+                    VerticalAlignment="Bottom"
+                    Style="{TemplateBinding StartThumbStyle}"
+                    ToolTip="{TemplateBinding StartThumbToolTip}" />
 
-                <Thumb Name="PART_EndThumb"
-                       Grid.Row="2"
-                       VerticalAlignment="Top"
-                       Style="{TemplateBinding EndThumbStyle}"
-                       ToolTip="{TemplateBinding EndThumbToolTip}"/>
+                <Thumb
+                    Name="PART_EndThumb"
+                    Grid.Row="2"
+                    VerticalAlignment="Top"
+                    Style="{TemplateBinding EndThumbStyle}"
+                    ToolTip="{TemplateBinding EndThumbToolTip}" />
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsReadOnly" Value="True">
-                <Setter TargetName="PART_StartThumb" Property="IsEnabled" Value="False"/>
-                <Setter TargetName="PART_EndThumb" Property="IsEnabled" Value="False"/>
+                <Setter TargetName="PART_StartThumb" Property="IsEnabled" Value="False" />
+                <Setter TargetName="PART_EndThumb" Property="IsEnabled" Value="False" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <Style TargetType="{x:Type local:RangeSlider}">
-        <Setter Property="SnapsToDevicePixels" Value="True"/>
-        <Setter Property="StartThumbStyle" Value="{StaticResource RangeSliderThumbStyle}"/>
-        <Setter Property="EndThumbStyle" Value="{StaticResource RangeSliderThumbStyle}"/>
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Template" Value="{StaticResource RangeSliderHorizontalTemplate}"/>
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="StartThumbStyle" Value="{StaticResource RangeSliderThumbStyle}" />
+        <Setter Property="EndThumbStyle" Value="{StaticResource RangeSliderThumbStyle}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Template" Value="{StaticResource RangeSliderHorizontalTemplate}" />
         <Style.Triggers>
             <Trigger Property="Orientation" Value="Vertical">
-                <Setter Property="Template" Value="{StaticResource RangeSliderVertialTemplate}"/>
+                <Setter Property="Template" Value="{StaticResource RangeSliderVertialTemplate}" />
             </Trigger>
         </Style.Triggers>
     </Style>
 
-
-
-    <Style TargetType="{x:Type local:DayRangeSlider}" BasedOn="{StaticResource {x:Type local:RangeSlider}}">
-        <Setter Property="StartThumbStyle" Value="{StaticResource GripThumbStyle}"/>
-        <Setter Property="EndThumbStyle" Value="{StaticResource GripThumbStyle}"/>
-        <Setter Property="TickLabelTemplate" >
+    <Style BasedOn="{StaticResource {x:Type local:RangeSlider}}" TargetType="{x:Type local:DayRangeSlider}">
+        <Setter Property="StartThumbStyle" Value="{StaticResource GripThumbStyle}" />
+        <Setter Property="EndThumbStyle" Value="{StaticResource GripThumbStyle}" />
+        <Setter Property="TickLabelTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <Grid Width="70" Height="20" >
-                        <Label HorizontalAlignment="Center" VerticalAlignment="Center" 
-                               xmlns:converter="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"
-                               Content="{Binding Converter={x:Static converter:LambdaConverter.DaysToDateTimeConverter}}" Padding="0" />
+                    <Grid Width="70" Height="20">
+                        <Label
+                            xmlns:converter="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"
+                            Padding="0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Content="{Binding Converter={x:Static converter:LambdaConverter.DaysToDateTimeConverter}}" />
                     </Grid>
                 </DataTemplate>
             </Setter.Value>
         </Setter>
         <Setter Property="Background">
             <Setter.Value>
-                <SolidColorBrush Color="Gray" Opacity="0.1"/>
+                <SolidColorBrush Opacity="0.1" Color="Gray" />
             </Setter.Value>
         </Setter>
     </Style>

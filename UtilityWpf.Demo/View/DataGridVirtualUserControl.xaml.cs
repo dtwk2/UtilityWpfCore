@@ -4,7 +4,6 @@ using System;
 using System.Reactive.Linq;
 using System.Windows.Controls;
 
-
 namespace UtilityWpf.DemoApp.View
 {
     /// <summary>
@@ -36,7 +35,7 @@ namespace UtilityWpf.DemoApp.View
                 .Skip(1)
                 .StartWith(new VirtualRequest(0, 30)), initialSize: 1000);
 
-            this.Behavior2.WhenAny(a => a.FirstIndex, b=> (b.Sender.FirstIndex, b.Sender.LastIndex, b.Sender.Size) ).Subscribe(s =>
+            this.Behavior2.WhenAny(a => a.FirstIndex, b => (b.Sender.FirstIndex, b.Sender.LastIndex, b.Sender.Size)).Subscribe(s =>
               {
                   var (first, last, size) = s;
                   FirstIndexBox2.Text = first.ToString();

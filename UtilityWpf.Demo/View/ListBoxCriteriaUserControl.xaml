@@ -1,48 +1,70 @@
-﻿<UserControl x:Class="UtilityWpf.DemoApp.ListBoxCriteriaUserControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:UtilityWpf.DemoApp"
-             xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.View"
-                  xmlns:util="clr-namespace:UtilityWpf.Behavior;assembly=UtilityWpf"
-                           xmlns:conv="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"
-             xmlns:command="clr-namespace:UtilityWpf;assembly=UtilityWpf"
-             mc:Ignorable="d"
-             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:command1="clr-namespace:UtilityWpf.Command;assembly=UtilityWpf"
-             d:DesignHeight="450" d:DesignWidth="800">
+﻿<UserControl
+    x:Class="UtilityWpf.DemoApp.ListBoxCriteriaUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:command="clr-namespace:UtilityWpf;assembly=UtilityWpf"
+    xmlns:command1="clr-namespace:UtilityWpf.Command;assembly=UtilityWpf"
+    xmlns:conv="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:UtilityWpf.DemoApp"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:util="clr-namespace:UtilityWpf.Behavior;assembly=UtilityWpf"
+    xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.View"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
 
     <UserControl.Resources>
 
         <DataTemplate x:Key="DTOne">
-            <materialDesign:TransitioningContent Width="200" OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplierExtension 0:0:0.1}"
-                                                                 Opacity="0"
-                                                                 RunHint="Loaded">
+            <materialDesign:TransitioningContent
+                Width="200"
+                Opacity="0"
+                OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplierExtension 0:0:0.1}"
+                RunHint="Loaded">
                 <materialDesign:TransitioningContent.OpeningEffects>
                     <materialDesign:TransitionEffect Kind="SlideInFromLeft" />
                     <materialDesign:TransitionEffect Kind="FadeIn" />
                 </materialDesign:TransitioningContent.OpeningEffects>
 
-                <StackPanel  Width="200" Orientation="Horizontal">
-                    <TextBlock Text="{Binding Name}" FontSize="8"    HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    <TextBlock Text="{Binding Link}" FontSize="10"   HorizontalAlignment="Left" Margin="8" VerticalAlignment="Center" />
-                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Margin="4">
-                        <TextBlock VerticalAlignment="Center" Margin="2" FontSize="8">
-                                       <Run Text="Down" FontWeight="Light" />
-                                                <Run Text="{Binding Download, Mode=OneWay}" />
+                <StackPanel Width="200" Orientation="Horizontal">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="8"
+                        Text="{Binding Name}" />
+                    <TextBlock
+                        Margin="8"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        FontSize="10"
+                        Text="{Binding Link}" />
+                    <StackPanel
+                        Margin="4"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center">
+                        <TextBlock
+                            Margin="2"
+                            VerticalAlignment="Center"
+                            FontSize="8">
+                            <Run FontWeight="Light" Text="Down" />
+                            <Run Text="{Binding Download, Mode=OneWay}" />
                         </TextBlock>
-                        <TextBlock VerticalAlignment="Center" Margin="2"  FontSize="8">
-                                                  <Run Text="Up" FontWeight="Light" />
-                                                <Run Text="{Binding Upload, Mode=OneWay}" />
+                        <TextBlock
+                            Margin="2"
+                            VerticalAlignment="Center"
+                            FontSize="8">
+                            <Run FontWeight="Light" Text="Up" />
+                            <Run Text="{Binding Upload, Mode=OneWay}" />
                         </TextBlock>
                     </StackPanel>
                 </StackPanel>
             </materialDesign:TransitioningContent>
         </DataTemplate>
 
-        <Style x:Key="One"  TargetType="{x:Type  view:ListBoxCriteria}">
+        <Style x:Key="One" TargetType="{x:Type view:ListBoxCriteria}">
             <!--<Setter Property="ItemContainerStyle">
                 <Setter.Value>
                     <Style>
@@ -50,76 +72,89 @@
                     </Style>
                 </Setter.Value>
             </Setter>-->
-            <Setter Property="ItemTemplate" Value="{StaticResource DTOne}"/>
+            <Setter Property="ItemTemplate" Value="{StaticResource DTOne}" />
         </Style>
     </UserControl.Resources>
-
-
 
     <DockPanel>
 
         <UniformGrid DockPanel.Dock="Left" Rows="1">
 
             <UniformGrid.Resources>
-                <conv:DefaultConverter x:Key="Converter"></conv:DefaultConverter>
+                <conv:DefaultConverter x:Key="Converter" />
                 <DataTemplate x:Key="PassFail">
-                    <StackPanel  Width="200" Orientation="Horizontal">
-                        <TextBlock Text="{Binding Key}" FontSize="16" FontWeight="DemiBold" Margin="2"  HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <StackPanel Width="200" Orientation="Horizontal">
+                        <TextBlock
+                            Margin="2"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            FontWeight="DemiBold"
+                            Text="{Binding Key}" />
                     </StackPanel>
                 </DataTemplate>
             </UniformGrid.Resources>
 
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <TextBlock Text="{Binding ElementName=passFail, Path=ItemsSource.Count}"></TextBlock>
+                <TextBlock Text="{Binding ElementName=passFail, Path=ItemsSource.Count}" />
 
-                    <view:ListBoxCriteria x:Name="passFail" Grid.Row="1" PropertyName="Expired" ItemTemplate="{StaticResource PassFail}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="CriteriaMet">
-                        <util:EventCommandExecuter Command="{Binding  ElementName=oc,Path=.}" EventArgsConverter="{StaticResource Converter}" ></util:EventCommandExecuter>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </view:ListBoxCriteria>
-     
+                <view:ListBoxCriteria
+                    x:Name="passFail"
+                    Grid.Row="1"
+                    ItemTemplate="{StaticResource PassFail}"
+                    PropertyName="Expired">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="CriteriaMet">
+                            <util:EventCommandExecuter Command="{Binding ElementName=oc, Path=.}" EventArgsConverter="{StaticResource Converter}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </view:ListBoxCriteria>
             </Grid>
             <!--<view:ListBoxCriteria x:Name="passFail2" PropertyName="Expired" ItemTemplate="{StaticResource PassFail}">
-
             </view:ListBoxCriteria>-->
 
-            <view:ListBoxCriteria x:Name="file1"  PropertyName="OutOfDate" Style="{StaticResource One}">
+            <view:ListBoxCriteria
+                x:Name="file1"
+                PropertyName="OutOfDate"
+                Style="{StaticResource One}" />
 
-            </view:ListBoxCriteria>
-
-            <command1:OutputControl x:Name="oc"  Width="200" Background="Wheat">
+            <command1:OutputControl
+                x:Name="oc"
+                Width="200"
+                Background="Wheat">
                 <command1:OutputControl.ContentTemplate>
-                    <DataTemplate >
+                    <DataTemplate>
                         <UniformGrid Columns="1">
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"></RowDefinition>
-                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
-                                <TextBlock Text="Met"/>
-                                <ItemsControl Grid.Row="1" ItemsSource="{Binding Met}" ItemTemplate="{StaticResource PassFail}"/>
-
+                                <TextBlock Text="Met" />
+                                <ItemsControl
+                                    Grid.Row="1"
+                                    ItemTemplate="{StaticResource PassFail}"
+                                    ItemsSource="{Binding Met}" />
                             </Grid>
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"></RowDefinition>
-                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
-                                <TextBlock Text="Missed"/>
-                                <ItemsControl Grid.Row="1" ItemsSource="{Binding Missed}" ItemTemplate="{StaticResource PassFail}"/>
-
+                                <TextBlock Text="Missed" />
+                                <ItemsControl
+                                    Grid.Row="1"
+                                    ItemTemplate="{StaticResource PassFail}"
+                                    ItemsSource="{Binding Missed}" />
                             </Grid>
                         </UniformGrid>
                     </DataTemplate>
                 </command1:OutputControl.ContentTemplate>
             </command1:OutputControl>
         </UniformGrid>
-      
     </DockPanel>
 </UserControl>

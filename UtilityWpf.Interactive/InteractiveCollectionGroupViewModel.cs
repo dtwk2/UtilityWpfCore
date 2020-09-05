@@ -1,4 +1,5 @@
 ﻿# nullable enable
+
 using DynamicData;
 using ReactiveUI;
 using System;
@@ -25,7 +26,6 @@ namespace UtilityWpf.Interactive
         {
             observable.Subscribe(a =>
             {
-
             });
 
             disposable = observable
@@ -77,5 +77,4 @@ namespace UtilityWpf.Interactive
             disposable.Dispose();
         }
     }
-
 }

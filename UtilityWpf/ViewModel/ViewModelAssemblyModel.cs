@@ -58,7 +58,6 @@ namespace UtilityWpf.ViewModel
             typeObjects = new AsyncLazy<TypeObject[]>(() => Task.Run(() => SelectTypeObjects()));
         }
 
-
         public void Register(ContainerBuilder containerBuilder)
         {
             foreach (var type in types.Value)
@@ -67,16 +66,14 @@ namespace UtilityWpf.ViewModel
 
         public Task<TypeObject[]> Collection => typeObjects.Task;
 
-
         protected bool Filter(Type type)
         {
             return type.Name.EndsWith("ViewModel");
             //type.GetCustomAttribute<ViewModelAttribute>() != null;
         }
 
-        TypeObject[] SelectTypeObjects()
+        private TypeObject[] SelectTypeObjects()
         {
-
             var xs = types.Value
                    .SelectMany(type =>
                    {
@@ -85,8 +82,6 @@ namespace UtilityWpf.ViewModel
                            return new[] { (Activator.CreateInstance(type), type) };
                        return arr;
                    }).ToArray();
-
-
 
             return xs.Select(st =>
             {

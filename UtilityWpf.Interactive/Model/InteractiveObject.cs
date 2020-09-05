@@ -13,7 +13,6 @@ namespace UtilityWpf.ViewModel
 {
     public class InteractiveObject : InteractiveObject<object>, UtilityInterface.NonGeneric.IObject
     {
-
         public InteractiveObject(object @object,
             IObservable<bool?>? expanded = null,
             IObservable<bool?>? selected = null,
@@ -54,13 +53,14 @@ namespace UtilityWpf.ViewModel
     {
         // set needs to be exposed for LiteDbToWork
 
-
         private bool? _isExpanded;
         private bool? _isSelected;
         private bool? _isChecked;
+
         //private bool? _isCheckable;
         //private bool? _isReadonly;
         private bool? _isVisible;
+
         private bool? _isEnabled;
         private bool _isDoubleClicked;
         private bool _isReadOnly;
@@ -70,7 +70,6 @@ namespace UtilityWpf.ViewModel
         private Subject<Unit> deletions = new Subject<Unit>();
         private bool doubleClickToCheck;
         private object? groupKey;
-
 
         public InteractiveObject(T @object, bool? expanded = null, bool? selected = null, bool? @checked = null, bool? visible = true, bool? enabled = true, bool checkable = true, bool removable = true, bool @readonly = false, bool doubleClickToCheck = false, string? groupKeyName = null, ReadOnlyObservableCollection<InteractiveObject<T>>? collection = null, object? id = null) :
     this(@object,
@@ -84,7 +83,7 @@ namespace UtilityWpf.ViewModel
         Observable.Return(@readonly),
         Observable.Return(doubleClickToCheck),
         Observable.Return(groupKeyName),
-         collection,     
+         collection,
        Observable.Return(id))
         {
         }
@@ -100,7 +99,7 @@ namespace UtilityWpf.ViewModel
         IObservable<bool>? @readonly = null,
         IObservable<bool>? doubleClickToCheck = null,
         IObservable<string?>? groupKeyName = null,
-        ReadOnlyObservableCollection<InteractiveObject<T>>?            collection =null,
+        ReadOnlyObservableCollection<InteractiveObject<T>>? collection = null,
         IObservable<object?>? id = null)
         {
             Object = @object;
@@ -110,7 +109,7 @@ namespace UtilityWpf.ViewModel
             @checked?.Subscribe(a => IsChecked = a);
             (visible ?? Observable.Return((bool?)true)).Subscribe(a => IsVisible = a);
             (enabled ?? Observable.Return((bool?)true)).Subscribe(a => IsEnabled = a);
-            checkable?.Subscribe(a => 
+            checkable?.Subscribe(a =>
             IsCheckable = a);
             removable?.Subscribe(a => IsRemovable = a);
             @readonly?.Subscribe(a => IsReadOnly = a);
@@ -121,12 +120,10 @@ namespace UtilityWpf.ViewModel
                 });
             id?.Where(a => a != null).Subscribe(a => Id = a);
 
-
             DeleteCommand = new RelayCommand(() =>
             {
                 deletions.OnNext(default);
             });
-
 
             DoubleClickCommand = new RelayCommand(() =>
             {
@@ -134,14 +131,12 @@ namespace UtilityWpf.ViewModel
             });
         }
 
-
         // properties don't work as reactive properties
         public IObservable<Unit> Deletions => deletions;
 
         public RelayCommand DeleteCommand { get; }
 
         public RelayCommand DoubleClickCommand { get; }
-
 
         public T Object { get; set; }
 
@@ -159,6 +154,7 @@ namespace UtilityWpf.ViewModel
                 //}
             }
         }
+
         public bool? IsExpanded
         {
             get => _isExpanded;
@@ -302,8 +298,6 @@ namespace UtilityWpf.ViewModel
             {
                 groupKey = value; OnPropertyChanged();
             }
-
-
         }
     }
 }

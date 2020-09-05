@@ -1,17 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using UtilityWpf.Property;
 
 namespace UtilityWpf.DemoApp.View
@@ -21,9 +11,7 @@ namespace UtilityWpf.DemoApp.View
     /// </summary>
     public partial class KeyValueCollectionUserControl : UserControl
     {
-
-
-       // public event Action<int> numberEvent;
+        // public event Action<int> numberEvent;
 
         public KeyValueCollectionUserControl()
         {
@@ -38,10 +26,7 @@ namespace UtilityWpf.DemoApp.View
             this.Values.KeyValueChanged += (a, b) => this.Act(number);
             this.DataGrid1.ItemsSource = this.Values;
 
-
             Act(number);
-
-
         }
 
         public ObservablePairCollection<double, double> Values { get; } = new ObservablePairCollection<double, double>();
@@ -51,14 +36,11 @@ namespace UtilityWpf.DemoApp.View
             //MessageBox.Show("Key value changed");
         }
 
-
         private IEnumerable<(int, int)> SelectData()
         {
             var ran = new Random();
             return Enumerable.Range(0, 10).Select(a => (a, ran.Next(20)));
         }
-
-
     }
 }
 

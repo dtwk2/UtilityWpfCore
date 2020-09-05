@@ -1,8 +1,4 @@
-﻿using DynamicData.Binding;
-//using PropertyTools.DataAnnotations;
-using System;
-using System.Linq;
-using System.Reactive.Linq;
+﻿//using PropertyTools.DataAnnotations;
 
 namespace UtilityWpf.ViewModel
 {

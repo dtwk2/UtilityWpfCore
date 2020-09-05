@@ -1,19 +1,19 @@
 ﻿# nullable enable
+
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Input;
-using System.Windows.Threading;
-using Newtonsoft.Json.Linq;
-using System.Linq;
-using System.Text;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Media;
-using static LambdaConverters.ValueConverter;
+using System.Windows.Threading;
 using static LambdaConverters.TemplateSelector;
-using System.Reflection;
+using static LambdaConverters.ValueConverter;
 
 namespace UtilityWpf.View
 {
@@ -68,8 +68,7 @@ namespace UtilityWpf.View
             jsonView.Load(json);
         }
 
-
-        void Load(string json)
+        private void Load(string json)
         {
             JsonTreeView.ItemsSource = null;
             JsonTreeView.Items.Clear();
@@ -163,14 +162,12 @@ namespace UtilityWpf.View
         }
     }
 
-
     internal static class Converters
     {
         private static readonly Lazy<Dictionary<int, Color>> NiceColors = new Lazy<Dictionary<int, Color>>(() =>
           ColorStore.Collection
            .Select((a, i) => Tuple.Create(i, (Color)ColorConverter.ConvertFromString(a.Value)))
            .ToDictionary(a => a.Item1, a => a.Item2));
-
 
         public static IValueConverter JTokenTypeToColorConverter => Create<JTokenType, Color>(a => NiceColors.Value[(byte)a.Value]);
 
@@ -204,10 +201,9 @@ namespace UtilityWpf.View
         public static IValueConverter JTokenConverter => Create<object, string>(jval => jval.Value switch
         {
             JValue value when value.Type == JTokenType.Null => "null",
-            JValue value => value.Value.ToString()?? string.Empty,
+            JValue value => value.Value.ToString() ?? string.Empty,
             _ => jval.Value.ToString() ?? string.Empty
         });
-
     }
 
     internal static class TemplateSelector

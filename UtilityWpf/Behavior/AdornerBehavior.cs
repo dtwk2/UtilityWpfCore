@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xaml.Behaviors;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -12,10 +10,8 @@ using System.Windows.Shapes;
 
 namespace UtilityWpf.Behavior
 {
-
     public class AdornerBehavior : Behavior<UIElement>
     {
-
         public ICommand Command
         {
             get { return (ICommand)GetValue(CommandProperty); }
@@ -26,15 +22,12 @@ namespace UtilityWpf.Behavior
         public static readonly DependencyProperty CommandProperty =
             DependencyProperty.Register("Command", typeof(ICommand), typeof(AdornerBehavior), new PropertyMetadata(null));
 
-
-
         protected override void OnAttached()
         {
             base.OnAttached();
 
             AssociatedObject.MouseEnter += Element_MouseEnter;
             AssociatedObject.MouseLeave += Element_MouseLeave;
-
         }
 
         protected override void OnDetaching()
@@ -52,12 +45,10 @@ namespace UtilityWpf.Behavior
         {
             AdornerLayer adLayer = AdornerLayer.GetAdornerLayer(AssociatedObject);
 
-      
-                adorner = new EllipseAdorner(AssociatedObject, Command);
-                adorner.MouseLeave += Ad_MouseLeave;
+            adorner = new EllipseAdorner(AssociatedObject, Command);
+            adorner.MouseLeave += Ad_MouseLeave;
 
-                adLayer.Add(adorner);
-      
+            adLayer.Add(adorner);
         }
 
         private void Ad_MouseLeave(object sender, MouseEventArgs e)
@@ -75,15 +66,13 @@ namespace UtilityWpf.Behavior
             }
         }
 
-        EllipseAdorner adorner = null;
+        private EllipseAdorner adorner = null;
 
         private void Element_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (adorner != null  && adorner?.IsMouseOver ==false)
+            if (adorner != null && adorner?.IsMouseOver == false)
             {
-          
-
-            if (AdornerLayer.GetAdornerLayer(AssociatedObject) is AdornerLayer adornerLayer && AdornerLayer.GetAdornerLayer(AssociatedObject).GetAdorners(AssociatedObject) != null)
+                if (AdornerLayer.GetAdornerLayer(AssociatedObject) is AdornerLayer adornerLayer && AdornerLayer.GetAdornerLayer(AssociatedObject).GetAdorners(AssociatedObject) != null)
                 {
                     foreach (var adorner in AdornerLayer.GetAdornerLayer(AssociatedObject).GetAdorners(AssociatedObject).OfType<EllipseAdorner>().ToArray())
                     {
@@ -114,7 +103,7 @@ namespace UtilityWpf.Behavior
         {
             private ICommand command;
 
-            public EllipseAdorner(UIElement adornedElement, ICommand command =null) : base(adornedElement)
+            public EllipseAdorner(UIElement adornedElement, ICommand command = null) : base(adornedElement)
             {
                 this.MouseDown += EllipseAdorner_MouseDown;
                 this.command = command;
@@ -127,11 +116,9 @@ namespace UtilityWpf.Behavior
 
             protected override void OnRender(System.Windows.Media.DrawingContext drawingContext)
             {
-
                 SolidColorBrush renderBrush = new SolidColorBrush(Colors.LightCoral);
 
                 Pen renderPen = new Pen(new SolidColorBrush(Colors.DarkBlue), 1.0);
-
 
                 if (this.AdornedElement is Path path)
                 {

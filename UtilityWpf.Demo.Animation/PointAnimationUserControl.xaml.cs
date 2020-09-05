@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace UtilityWpf.DemoAnimation
@@ -19,7 +12,8 @@ namespace UtilityWpf.DemoAnimation
     /// </summary>
     public partial class PointAnimationUserControl : UserControl
     {
-        Path myPath = null; EllipseGeometry myEllipseGeometry = null; Geometry myEllipseGeometry2 = null;
+        private Path myPath = null; private EllipseGeometry myEllipseGeometry = null; private Geometry myEllipseGeometry2 = null;
+
         public PointAnimationUserControl()
         {
             InitializeComponent();
@@ -28,19 +22,15 @@ namespace UtilityWpf.DemoAnimation
             myEllipseGeometry.RadiusX = 15;
             myEllipseGeometry.RadiusY = 15;
 
-
             myPath = new Path();
             myPath.Fill = Brushes.DodgerBlue;
             myPath.Margin = new Thickness(15);
             myPath.Data = myEllipseGeometry;
             Canvas1.Children.Add(myPath);
-
         }
-
 
         public void PointAnimationExample()
         {
-
             PointAnimation myPointAnimation = new PointAnimation
             {
                 Duration = TimeSpan.FromSeconds(2),
@@ -48,11 +38,10 @@ namespace UtilityWpf.DemoAnimation
                 To = new Point(450, 250)
             };
 
-
             myEllipseGeometry.BeginAnimation(EllipseGeometry.CenterProperty, myPointAnimation);
-
         }
-        Random r = new Random();
+
+        private Random r = new Random();
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -65,9 +54,6 @@ namespace UtilityWpf.DemoAnimation
                       r.NextDouble() > 0.25 ?
                 new Point(PointControl1.Point.X - amt, PointControl1.Point.Y + amt) :
                 new Point(PointControl1.Point.X - amt, PointControl1.Point.Y - amt);
-
-
         }
     }
-
 }

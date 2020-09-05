@@ -1,15 +1,11 @@
 ﻿using Bogus;
-using System;
-using System.Collections;
-using System.Globalization;
-using System.Linq;
-using System.Reactive.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using DynamicData;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
+using System.Reactive.Linq;
+using System.Windows.Controls;
 
 namespace UtilityWpf.DemoApp
 {
@@ -19,11 +15,10 @@ namespace UtilityWpf.DemoApp
     public partial class ListBoxCriteriaUserControl : UserControl
     {
         private ReadOnlyObservableCollection<PassFail> a;
-       // private ReadOnlyObservableCollection<PassFail> b;
+        // private ReadOnlyObservableCollection<PassFail> b;
 
         public ListBoxCriteriaUserControl()
         {
-
             Random random = new Random();
             InitializeComponent();
             new Faker<PassFail>()
@@ -40,8 +35,6 @@ namespace UtilityWpf.DemoApp
                 {
                 });
             passFail.ItemsSource = a;
-
-
 
             //new Faker<PassFail>()
             // .RuleFor(a => a.Key, f => "Bob")
@@ -67,7 +60,6 @@ namespace UtilityWpf.DemoApp
 
             file1.ItemsSource = c;
         }
-
 
         internal class PassFail
         {

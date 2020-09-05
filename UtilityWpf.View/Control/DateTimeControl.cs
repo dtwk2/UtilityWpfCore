@@ -13,6 +13,7 @@ namespace UtilityWpf.View
 
         private readonly ISubject<DateTime> startChanges = new Subject<DateTime>();
         private readonly ISubject<DateTime> endChanges = new Subject<DateTime>();
+
         public static readonly DependencyProperty StartProperty =
             DependencyProperty.Register("Start", typeof(DateTime), typeof(DateTimeControl), new PropertyMetadata(default(DateTime), StartChanged));
 
@@ -20,7 +21,6 @@ namespace UtilityWpf.View
             DependencyProperty.Register("End", typeof(DateTime), typeof(DateTimeControl), new PropertyMetadata(default(DateTime), EndChanged));
 
         public static readonly RoutedEvent DateRangeChangeEvent = EventManager.RegisterRoutedEvent("DateRangeChange", RoutingStrategy.Bubble, typeof(DateTimeRangeChangedEventHandler), typeof(DateTimeControl));
-
 
         static DateTimeControl()
         {
@@ -32,7 +32,7 @@ namespace UtilityWpf.View
             var aa = startChanges.Where(a => a != default).DistinctUntilChanged();
             var bb = endChanges.Where(a => a != default).DistinctUntilChanged();
             _ = aa
-                .CombineLatest(bb,(s,e)=> (s,e)).Subscribe(a=> RaiseDateRangeChangeEvent(a.s, a.e));
+                .CombineLatest(bb, (s, e) => (s, e)).Subscribe(a => RaiseDateRangeChangeEvent(a.s, a.e));
         }
 
         public override void OnApplyTemplate()
@@ -40,6 +40,7 @@ namespace UtilityWpf.View
             startChanges.OnNext(Start);
             endChanges.OnNext(End);
         }
+
         public DateTime Start
         {
             get { return (DateTime)GetValue(StartProperty); }
@@ -67,7 +68,6 @@ namespace UtilityWpf.View
         {
             (d as DateTimeControl).endChanges.OnNext((DateTime)e.NewValue);
         }
-
 
         private void RaiseDateRangeChangeEvent(DateTime start, DateTime end)
         {

@@ -7,9 +7,8 @@ using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
 using UtilityHelper.NonGeneric;
-using UtilityWpf.View.Infrastructure;
-using UtilityWpf.Interactive;
 using UtilityWpf.Interactive.Model;
+using UtilityWpf.View.Infrastructure;
 
 namespace UtilityWpf.Interactive.View.Controls
 {

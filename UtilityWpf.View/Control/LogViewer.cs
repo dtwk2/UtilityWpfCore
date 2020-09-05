@@ -1,11 +1,10 @@
-﻿using System.Reactive;
+﻿using global::Splat;
+using ReactiveUI;
 using System;
 using System.Reactive.Linq;
 using System.Text;
-using System.Windows.Controls;
-using global::Splat;
-using ReactiveUI;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace UtilityWpf.View
 {
@@ -17,7 +16,6 @@ namespace UtilityWpf.View
     //By registering a custom instance of `Splat.ILogger` in the service locator, this sample is able to collect and display all logging calls made by the application.]
     public sealed class LogViewer : Controlx, IEnableLogger
     {
-
         static LogViewer()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(LogViewer), new FrameworkPropertyMetadata(typeof(LogViewer)));
@@ -33,19 +31,18 @@ namespace UtilityWpf.View
             //ControlNames.Add("logOutputTextBox");
             object lck = new object();
             var dis = ObservableLogger
-      
+
                 .Instance
                 .Messages
-      
+
                 .Scan(new StringBuilder(), (sb, next) =>
                 {
-           
-                        return sb.Append("[").Append(next.Item1.ToString()).Append("] ").AppendLine(next.Item2);
+                    return sb.Append("[").Append(next.Item1.ToString()).Append("] ").AppendLine(next.Item2);
                 }
                 )
                 .CombineLatest(this.SelectControlChanges<TextBox>("logOutputTextBox").Select(a =>
                 a as TextBox).Where(a => a != null), (a, b) => (a, b))
-     
+
                 .Subscribe(c =>
                 {
                     this.Dispatcher.InvokeAsync(() =>
@@ -54,9 +51,8 @@ namespace UtilityWpf.View
                         {
                             c.b.Text = c.a.ToString();
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
-
                         }
                     });
                 });
@@ -65,11 +61,5 @@ namespace UtilityWpf.View
                 .Log()
                 .Info("Initialized.");
         }
-
-
-
     }
-
-
-
 }

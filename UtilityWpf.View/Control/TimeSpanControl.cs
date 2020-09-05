@@ -29,7 +29,6 @@ namespace UtilityWpf.View
             this.SelectControlChanges<ComboBox>().Subscribe(a =>
             {
                 a.ItemsSource = Enum.GetValues(typeof(TimeInterval));
-
             });
         }
 
@@ -64,8 +63,6 @@ namespace UtilityWpf.View
                 });
 
             base.OnApplyTemplate();
-
-
         }
     }
 }

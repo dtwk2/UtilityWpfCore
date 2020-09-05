@@ -101,7 +101,6 @@ namespace UtilityWpf.View
 
         public NavigatorControl()
         {
-
             SizeChanges.Subscribe(_ =>
             {
                 if (Current > _)
@@ -146,6 +145,7 @@ namespace UtilityWpf.View
             }
         }
     }
+
     public class SelectedIndexEventArgsToNumber : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

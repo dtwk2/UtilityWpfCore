@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace UtilityWpf.View
@@ -16,17 +13,13 @@ namespace UtilityWpf.View
         public static readonly DependencyProperty UnCheckedContentProperty =
             DependencyProperty.Register("UnCheckedContent", typeof(object), typeof(TransitionControl), new PropertyMetadata(null));
 
-
         // Using a DependencyProperty as the backing store for UnCheckedContent.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CheckedContentProperty =
             DependencyProperty.Register("CheckedContent", typeof(object), typeof(TransitionControl), new PropertyMetadata(null));
 
-
-
         // Using a DependencyProperty as the backing store for UnCheckedContent.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CheckedButtonContentProperty =
             DependencyProperty.Register("CheckedButtonContent", typeof(object), typeof(TransitionControl), new PropertyMetadata(null));
-
 
         static TransitionControl()
         {
@@ -50,12 +43,11 @@ namespace UtilityWpf.View
             get { return (object)GetValue(CheckedContentProperty); }
             set { SetValue(CheckedContentProperty, value); }
         }
+
         public object UnCheckedContent
         {
             get { return (object)GetValue(UnCheckedContentProperty); }
             set { SetValue(UnCheckedContentProperty, value); }
         }
-
-
     }
 }

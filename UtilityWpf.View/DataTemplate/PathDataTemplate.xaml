@@ -2,8 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:UtilityWpf.View"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-                      xmlns:viewmodel="clr-namespace:UtilityWpf.ViewModel;assembly=UtilityWpf"
-                  >
+                      xmlns:viewmodel="clr-namespace:UtilityWpf.ViewModel;assembly=UtilityWpf">
 
     <DataTemplate  DataType="{x:Type viewmodel:PathViewModel}">
         <Grid>

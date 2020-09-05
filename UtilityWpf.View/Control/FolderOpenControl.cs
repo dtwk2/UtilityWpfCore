@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -25,18 +24,15 @@ namespace UtilityWpf.View
         {
         }
 
-
         static FolderOpenControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(FolderOpenControl), new FrameworkPropertyMetadata(typeof(FolderOpenControl)));
         }
 
-
         public FolderOpenControl()
         {
             var foc = new FolderOpenCommand();
             this.SetValue(FolderOpenCommandProperty, foc);
-        
 
             foc.PropertyChanged += (sender, e) =>
             {

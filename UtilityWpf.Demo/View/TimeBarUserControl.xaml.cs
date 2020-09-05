@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reactive.Linq;
-using System.Text;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace UtilityWpf.DemoApp.View
 {
@@ -26,7 +16,7 @@ namespace UtilityWpf.DemoApp.View
             Observable
                 .Interval(TimeSpan.FromSeconds(1))
                 .Scan(DateTime.Now, (a, b) => a + TimeSpan.FromHours(b))
-                .TakeWhile(a=>a.Year<DateTime.MaxValue.Year)
+                .TakeWhile(a => a.Year < DateTime.MaxValue.Year)
                 .ObserveOnDispatcher()
                 .Subscribe(time => TimeBar1.SelectedTime = time);
         }

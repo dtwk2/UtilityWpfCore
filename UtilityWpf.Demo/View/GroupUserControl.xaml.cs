@@ -25,7 +25,6 @@ namespace UtilityWpf.DemoApp
 
             var changeSet = GenerateChangeSet();
 
-
             Combobox1.SelectAddChanges().StartWith(new[] { Combobox1.SelectedItem } as IList).Subscribe(a =>
             {
                 var @switch = a.Cast<ComboBoxItem>().First().Content.ToString() switch
@@ -65,7 +64,7 @@ namespace UtilityWpf.DemoApp
             }
         }
 
-        IObservable<IChangeSet<Stock, string>> GenerateChangeSet()
+        private IObservable<IChangeSet<Stock, string>> GenerateChangeSet()
         {
             return Finance.Stocks
                 .ToObservable()
@@ -75,7 +74,7 @@ namespace UtilityWpf.DemoApp
             .ToObservableChangeSet(c => c.Key);
         }
 
-        IObservable<IChangeSet<Stock, string>> GenerateChangeSet1()
+        private IObservable<IChangeSet<Stock, string>> GenerateChangeSet1()
         {
             var innerSubject = new Subject<Stock>();
             var stocks = Finance.Stocks.ToObservable().Subscribe(innerSubject.OnNext);
@@ -87,7 +86,7 @@ namespace UtilityWpf.DemoApp
             .ToObservableChangeSet(c => c.Key);
         }
 
-        IObservable<IChangeSet<StockPropertyChanged, string>> GenerateChangeSet2() =>
+        private IObservable<IChangeSet<StockPropertyChanged, string>> GenerateChangeSet2() =>
             Finance.Stocks
             .Select(a => new StockPropertyChanged(subject) { Sector = a.Sector, Name = a.Name, Key = a.Key })
             .ToObservable()
@@ -97,22 +96,19 @@ namespace UtilityWpf.DemoApp
             .Pace(TimeSpan.FromSeconds(2))
             .ToObservableChangeSet(c => c.Key);
 
-
-
-        IObservable<IChangeSet<StockPropertyChanged, string>> GenerateChangeSet4()
+        private IObservable<IChangeSet<StockPropertyChanged, string>> GenerateChangeSet4()
         {
             var innerSubject = new ReplaySubject<Stock>();
 
             foreach (var x in Finance.Stocks)
                 innerSubject.OnNext(x);
 
-    
-                       return innerSubject
-                .Select(a => new StockPropertyChanged(subject) { Sector = a.Sector, Name = a.Name, Key = a.Key })
-                .Buffer(5)
-            .Select(a => a.OrderBy(c => new Guid()).First())
-            .Pace(TimeSpan.FromSeconds(2))
-            .ToObservableChangeSet(c => c.Key);
+            return innerSubject
+     .Select(a => new StockPropertyChanged(subject) { Sector = a.Sector, Name = a.Name, Key = a.Key })
+     .Buffer(5)
+ .Select(a => a.OrderBy(c => new Guid()).First())
+ .Pace(TimeSpan.FromSeconds(2))
+ .ToObservableChangeSet(c => c.Key);
         }
 
         public static DataTemplateSelector DataTemplateSelector1 => LambdaConverters.TemplateSelector.Create<object>(e =>
@@ -125,10 +121,7 @@ namespace UtilityWpf.DemoApp
                 _ => throw new NotImplementedException(),
             } as DataTemplate;
         });
-
     }
-
-
 
     public class GroupMasterViewModel2 : GroupMasterViewModel<Stock, string, string>
     {
@@ -156,6 +149,5 @@ namespace UtilityWpf.DemoApp
         }
 
         public int MaxLength => maxLength.Value;
-
     }
 }

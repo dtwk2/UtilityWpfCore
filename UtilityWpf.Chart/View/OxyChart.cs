@@ -14,9 +14,6 @@ using UtilityWpf.View;
 
 namespace UtilityWpf.Chart
 {
-
-
-
     public class OxyChart : Controlx, IItemsSource
     {
         public static readonly DependencyProperty IdProperty =
@@ -28,12 +25,10 @@ namespace UtilityWpf.Chart
         public static readonly DependencyProperty DataProperty =
             DependencyProperty.Register("Data", typeof(string), typeof(OxyChart), new PropertyMetadata(null, Changed));
 
-
         static OxyChart()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(OxyChart), new FrameworkPropertyMetadata(typeof(OxyChart)));
         }
-
 
         public OxyChart()
         {
@@ -56,11 +51,9 @@ namespace UtilityWpf.Chart
 
             //data.Subscribe(D =>
             //{
-
             //});
 
             var itemsSource = this.SelectChanges<IEnumerable>(nameof(OxyChart.ItemsSource));
-
 
             modelSubject
                 .CombineLatest(
@@ -103,7 +96,6 @@ namespace UtilityWpf.Chart
                                      {
                                          combination.model.OnNext(data);
                                      });
-
                             }
 
                             combination.model.Filter(ids);
@@ -115,7 +107,6 @@ namespace UtilityWpf.Chart
                         { }
                         );
                 });
-
         }
 
         public IEnumerable ItemsSource
@@ -123,7 +114,6 @@ namespace UtilityWpf.Chart
             get { return (IEnumerable)GetValue(ItemsSourceProperty); }
             set { SetValue(ItemsSourceProperty, value); }
         }
-
 
         public string Data
         {
@@ -136,6 +126,5 @@ namespace UtilityWpf.Chart
             get { return (string)GetValue(IdProperty); }
             set { SetValue(IdProperty, value); }
         }
-
     }
 }

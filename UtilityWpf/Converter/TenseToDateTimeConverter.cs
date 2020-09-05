@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
 
-
 namespace UtilityWpf.Converter
 {
     public class TenseToDateTimeConverter : IValueConverter
@@ -33,7 +32,7 @@ namespace UtilityWpf.Converter
     /// <param name="startDate"></param>
     /// <param name="endDate"></param>
     /// <returns></returns>
-    static class Helper
+    internal static class Helper
     {
         public static IEnumerable<DateTime> GetRange(this DateTime startDate, DateTime endDate)
         {

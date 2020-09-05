@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 using System.Windows;
 using System.Windows.Data;
 using UtilityWpf.DemoApp;
@@ -12,7 +10,7 @@ namespace UtilityWpf.Interactive.Demo.Common
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if(value is Character character)
+            if (value is Character character)
             {
                 return character.Color;
             }

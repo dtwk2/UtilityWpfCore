@@ -13,12 +13,11 @@ namespace UtilityWpf.View
 {
     public class MainViewModel : ReactiveObject
     {
-
         private const string ViewModelAssembly = "ViewModelAssembly";
         private readonly ReactiveCommand<Unit, Unit> forceGcCommand;
         private readonly Lazy<KeyValuePair<string, KeyValuePair<string, object>>[]> types;
         private object selectedItem;
-     
+
         public MainViewModel()
         {
             types = new Lazy<KeyValuePair<string, KeyValuePair<string, object>>[]>(Select);
@@ -58,6 +57,5 @@ namespace UtilityWpf.View
                                                          new KeyValuePair<string, object>(name, service));
                                                  })).ToArray();
         }
-
     }
 }

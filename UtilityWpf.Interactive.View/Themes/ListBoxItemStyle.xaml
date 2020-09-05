@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:util="clr-namespace:UtilityWpf.Attached;assembly=UtilityWpf"
                     xmlns:common="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"
-                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                     xmlns:local2="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.View">
 
     <ResourceDictionary.MergedDictionaries>
@@ -13,9 +13,7 @@
     <common:BooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" Invert="True"></common:BooleanToVisibilityConverter>
     <BooleanToVisibilityConverter x:Key="BoolToVis" />
 
-
-
-    <Style x:Key="ItemChildStyle" TargetType="{x:Type ListBoxItem}" >
+    <Style x:Key="ItemChildStyle" TargetType="{x:Type ListBoxItem}">
 
         <Setter Property="IsSelected" Value="{Binding IsSelected}" />
         <Setter Property="Visibility" Value="{Binding IsVisible,Converter={StaticResource BoolToVis}}" />
@@ -31,20 +29,16 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
-   
-                             
-                                <ContentPresenter DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" Grid.RowSpan="3"
-                                                      Content="{Binding Object}" 
-                                                      ContentTemplateSelector="{StaticResource propertytemplateSelector}" />
 
-                        
-                 
+                    <ContentPresenter DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" Grid.RowSpan="3"
+                                                      Content="{Binding Object}"
+                                                      ContentTemplateSelector="{StaticResource propertytemplateSelector}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
-    <Style x:Key="ItemStyle" TargetType="{x:Type ListBoxItem}" >
+    <Style x:Key="ItemStyle" TargetType="{x:Type ListBoxItem}">
 
         <Setter Property="IsSelected" Value="{Binding IsSelected}" />
         <Setter Property="Visibility" Value="{Binding IsVisible,Converter={StaticResource BoolToVis}}" />
@@ -64,76 +58,70 @@
                     <!--<ContentControl x:Name="ContentControl">
                         <DockPanel>
                             <ContentPresenter DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" Grid.RowSpan="3"
-                                                      Content="{Binding Object}" 
+                                                      Content="{Binding Object}"
                                                       ContentTemplateSelector="{StaticResource propertytemplateSelector}" />
-                            <ListBox ItemsSource="{Binding Collection}" 
-                                     
-                                     ItemContainerStyle="{StaticResource ItemChildStyle}"/>
-                            --><!--    <ListBox.ItemsPanel>
+                            <ListBox ItemsSource="{Binding Collection}"
+
+                                     ItemContainerStyle="{StaticResource ItemChildStyle}" />
+                            -->
+                    <!--    <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <StackPanel x:Name="StackPanel1" 
-                                                    Orientation="{Binding Orientation, RelativeSource={RelativeSource AncestorType={x:Type local1:InteractiveList}}}" 
+                                        <StackPanel x:Name="StackPanel1"
+                                                    Orientation="{Binding Orientation, RelativeSource={RelativeSource AncestorType={x:Type local1:InteractiveList}}}"
                                                     IsItemsHost="True">
                                         </StackPanel>
                                     </ItemsPanelTemplate>
-                                </ListBox.ItemsPanel>--><!--
-                            </ListBox>--><!--
+                                </ListBox.ItemsPanel>-->
+                    <!--
+                            </ListBox>-->
+                    <!--
                         </DockPanel>
 
-                        --><!--<Ellipse Fill="Red" Width="20" Height="20"></Ellipse>--><!--
+                        -->
+                    <!--<Ellipse Fill="Red" Width="20" Height="20"></Ellipse>-->
+                    <!--
                     </ContentControl>-->
 
-                 
-                    <Grid x:Name="PART_Grid" >
-                                        <materialDesign:Card x:Name="card" Margin="2" FontSize="16">
-                                            <DockPanel MinHeight="40" MinWidth="40">
-                                                <Grid DockPanel.Dock="Right">
+                    <Grid x:Name="PART_Grid">
+                        <materialDesign:Card x:Name="card" Margin="2" FontSize="16">
+                            <DockPanel MinHeight="40" MinWidth="40">
+                                <Grid DockPanel.Dock="Right">
 
-                                                    <local2:XButton 
+                                    <local2:XButton
                                          Margin="0,2,2,0"
-                                        VerticalAlignment="Top" 
-                                        Height="15" Width="15" 
-                                               HorizontalAlignment="Right"  Command="{Binding DeleteCommand }" 
-                                               Visibility="{Binding IsRemovable,Converter={StaticResource BoolToVis}}"/>
+                                        VerticalAlignment="Top"
+                                        Height="15" Width="15"
+                                               HorizontalAlignment="Right"  Command="{Binding DeleteCommand }"
+                                               Visibility="{Binding IsRemovable,Converter={StaticResource BoolToVis}}" />
 
                                     <CheckBox Margin="0,0,2,2"
-                                            
-                                  Height="20" Width="20" 
-                                          Background="LightGray"  
-                                          VerticalAlignment="Bottom" 
-                                              VerticalContentAlignment="Center" IsChecked="{Binding IsChecked,Mode=TwoWay}" 
-                                                               Visibility="{Binding IsCheckable,Converter={StaticResource BoolToVis}}">
 
+                                  Height="20" Width="20"
+                                          Background="LightGray"
+                                          VerticalAlignment="Bottom"
+                                              VerticalContentAlignment="Center" IsChecked="{Binding IsChecked,Mode=TwoWay}"
+                                                               Visibility="{Binding IsCheckable,Converter={StaticResource BoolToVis}}">
                                     </CheckBox>
-                                                </Grid>
-                                                <ContentPresenter DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" Grid.RowSpan="3"
-                                                      Content="{Binding Object}" 
+                                </Grid>
+                                <ContentPresenter DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" Grid.RowSpan="3"
+                                                      Content="{Binding Object}"
                                                       ContentTemplateSelector="{StaticResource propertytemplateSelector}" />
 
-
-                                                <ListBox ItemsSource="{Binding Collection}" ItemContainerStyle="{StaticResource ItemChildStyle}"/>
-                                             
-                                               
-                                            </DockPanel>
-                                        </materialDesign:Card>
-                                    </Grid>
-                              
+                                <ListBox ItemsSource="{Binding Collection}" ItemContainerStyle="{StaticResource ItemChildStyle}" />
+                            </DockPanel>
+                        </materialDesign:Card>
+                    </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
-
-
 
     <!--<ResourceDictionary.MergedDictionaries>
         <ResourceDictionary  Source="/UtilityWpf.View;component/Themes/Brushes.xaml" />
         <ResourceDictionary  Source="/UtilityWpf.View;component/DataTemplate/PropertyDataTemplateSelector.xaml" />
     </ResourceDictionary.MergedDictionaries>-->
 
-
-
-    <Style x:Key="HorizontalPanelItemStyle" TargetType="{x:Type ListBoxItem}" >
+    <Style x:Key="HorizontalPanelItemStyle" TargetType="{x:Type ListBoxItem}">
 
         <Setter Property="IsSelected" Value="{Binding IsSelected}" />
         <Setter Property="Visibility" Value="{Binding IsVisible,Converter={StaticResource BoolToVis}}" />
@@ -156,7 +144,6 @@
 
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
                     <!--<Ellipse Fill="Red" Width="100" Height="100">
-
                     </Ellipse>-->
 
                     <!--<Border x:Name="PART_Border" Padding="4"  BorderBrush="Gray" BorderThickness="1" CornerRadius="4" Margin="4">-->
@@ -173,19 +160,18 @@
                             </Grid.RowDefinitions>-->
                         <materialDesign:Card x:Name="card" Margin="2">
                             <DockPanel Height="40" MinWidth="40" Background="Blue">
-                                <!--<local:XButton Margin="4" DockPanel.Dock="Right" 
-                                               HorizontalAlignment="Right" VerticalAlignment="Top" MaxWidth="20" Command="{Binding DeleteCommand }" 
-                                                   MaxHeight="15" Visibility="{Binding IsReadonly,Converter={StaticResource InverseBooleanToVisibilityConverter}}"/>-->
+                                <!--<local:XButton Margin="4" DockPanel.Dock="Right"
+                                               HorizontalAlignment="Right" VerticalAlignment="Top" MaxWidth="20" Command="{Binding DeleteCommand }"
+                                                   MaxHeight="15" Visibility="{Binding IsReadonly,Converter={StaticResource InverseBooleanToVisibilityConverter}}" />-->
 
-                                <!--<CheckBox Margin="4" DockPanel.Dock="Right" MaxWidth="20" Grid.Row="1" Background="LightGray"  
-                                          VerticalAlignment="Center" 
-                                              VerticalContentAlignment="Center" IsChecked="{Binding IsChecked,Mode=TwoWay}" 
+                                <!--<CheckBox Margin="4" DockPanel.Dock="Right" MaxWidth="20" Grid.Row="1" Background="LightGray"
+                                          VerticalAlignment="Center"
+                                              VerticalContentAlignment="Center" IsChecked="{Binding IsChecked,Mode=TwoWay}"
                                           Visibility="{Binding IsReadonly, Converter={StaticResource InverseBooleanToVisibilityConverter}}"></CheckBox>-->
 
                                 <!--<ContentPresenter DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" Grid.RowSpan="3"
-                                                      Content="{Binding Object}" 
+                                                      Content="{Binding Object}"
                                                       ContentTemplateSelector="{StaticResource propertytemplateSelector}" />-->
-
                             </DockPanel>
                         </materialDesign:Card>
                     </Grid>

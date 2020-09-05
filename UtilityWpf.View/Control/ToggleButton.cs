@@ -1,12 +1,9 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls.Primitives;
+﻿using System.Windows;
 
 namespace UtilityWpf.View
 {
     public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton
     {
-
         private object content;
 
         public static readonly DependencyProperty UnCheckedContentProperty = DependencyProperty.Register(
@@ -32,7 +29,6 @@ namespace UtilityWpf.View
             if (!this.IsChecked ?? false)
                 this.content = this.Content;
             this.Content = this.IsChecked ?? false ? this.content ?? this.Content : this.UnCheckedContent;
-
         }
 
         //private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -47,8 +43,5 @@ namespace UtilityWpf.View
             get { return (object)GetValue(UnCheckedContentProperty); }
             set { SetValue(UnCheckedContentProperty, value); }
         }
-
-
-
     }
 }

@@ -19,7 +19,7 @@ namespace UtilityWpf.DemoApp.View
         {
             InitializeComponent();
 
-            var prices = Finance.Prices.Sample(50).OrderBy(a=>a.DateTime).ToArray();
+            var prices = Finance.Prices.Sample(50).OrderBy(a => a.DateTime).ToArray();
 
             DateTimeControl1.Start = prices.First().DateTime;
             DateTimeControl1.End = prices.Last().DateTime;

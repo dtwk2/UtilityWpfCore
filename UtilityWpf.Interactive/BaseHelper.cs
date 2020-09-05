@@ -15,7 +15,6 @@ namespace UtilityWpf.Interactive
     {
         public static void ReactToChanges<T>(this InteractiveCollectionBase<T> col, InteractiveObject<T> so)
         {
-
             so.WhenPropertyChanged(_ => _.IsSelected).Select(_ => _.Value).Buffer(TimeSpan.FromMilliseconds(250)).Where(_ => _.Count > 0).Where(_ => _.All(a => a == true))
 
          .Subscribe(b =>
@@ -39,7 +38,6 @@ namespace UtilityWpf.Interactive
                  }
              });
 
-
             so.Deletions.Subscribe(_ =>
             {
                 ((ISubject<UserCommandArgs>)col.UserCommands).OnNext(new UserCommandArgs { UserCommand = UserCommand.Delete, Parameter = so.Object });
@@ -54,7 +52,6 @@ namespace UtilityWpf.Interactive
                   }
               });
         }
-
 
         public static IObservable<T> SelectDoubleClicked<T>(this InteractiveCollectionBase<T> bse)
         {
@@ -85,7 +82,6 @@ namespace UtilityWpf.Interactive
         {
             return bse.Interactions.Where(_ => _.Value.Interaction == Interaction.Check && _.Value.Value.Equals(false)).Select(_ => _.Key);
         }
-
 
         public static IObservable<(bool isChecked, T obj)> SelectCheckedChanges<T>(this InteractiveCollectionBase<T> bse)
         {

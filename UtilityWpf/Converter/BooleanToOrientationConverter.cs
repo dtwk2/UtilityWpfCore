@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace UtilityWpf.Converter
 {
-  
     [ValueConversion(typeof(bool), typeof(Orientation))]
     public class BooleanToOrientationConverter : IValueConverter
     {
@@ -26,6 +23,5 @@ namespace UtilityWpf.Converter
         {
             throw new NotSupportedException();
         }
-
     }
 }

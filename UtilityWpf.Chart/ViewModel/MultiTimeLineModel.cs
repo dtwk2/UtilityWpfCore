@@ -9,7 +9,6 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
@@ -24,14 +23,13 @@ namespace UtilityWpf.Chart
         IObserver<KeyValuePair<string, TimeSpan>>
 
     {
-        Dictionary<string, CheckableList> SeriesDictionary;
+        private Dictionary<string, CheckableList> SeriesDictionary;
         private Dispatcher dispatcher = Application.Current.Dispatcher;
         private PlotModel plotModel;
-        object lck = new object();
-        private readonly Dictionary<string,Color> colorDictionary = new Dictionary<string, Color>();
+        private object lck = new object();
+        private readonly Dictionary<string, Color> colorDictionary = new Dictionary<string, Color>();
         private readonly Dictionary<string, TimeSpan> timeSpanDictionary = new Dictionary<string, TimeSpan>();
-        ISubject<Unit> refreshes = new Subject<Unit>();
-
+        private ISubject<Unit> refreshes = new Subject<Unit>();
 
         public MultiTimeLineModel(PlotModel model)
         {
@@ -58,7 +56,6 @@ namespace UtilityWpf.Chart
             });
         }
 
-
         private IEnumerable<OxyPlot.Series.LineSeries> SelectSeries()
         {
             foreach (var dataPoint in SeriesDictionary.Where(a => a.Value.Check))
@@ -72,7 +69,6 @@ namespace UtilityWpf.Chart
                 var build = Build(points.OrderBy(dt => dt.DateTime), dataPoint.Key.ToString(), SetColor(dataPoint.Key.ToString()));
 
                 yield return build;
-
             }
 
             if (ShowAll)
@@ -83,7 +79,6 @@ namespace UtilityWpf.Chart
                          .Select(xy0 => new DateTimePoint(xy0.Key, xy0.Sum(l => l.Value)));
                 yield return Build(allPoints, "All", SplatColor.Black.ToNative());
             }
-
         }
 
         private static IEnumerable<DateTimePoint> Group(IEnumerable<DateTimePoint> dateTimePoints, TimeSpan timeSpan)
@@ -97,9 +92,7 @@ namespace UtilityWpf.Chart
                 int factor = (int)(((double)(dt - default(DateTime)).Ticks) / timeSpan.Ticks) + 1;
                 return default(DateTime) + timeSpan * factor;
             }
-
         }
-
 
         private Color SetColor(string v)
         {
@@ -112,18 +105,17 @@ namespace UtilityWpf.Chart
                     color = RandomColor.GetColor(ColorScheme.Random, Luminosity.Dark);
                     if (++i > max)
                     {
-                        color =System.Drawing.Color.Gray;
+                        color = System.Drawing.Color.Gray;
                         break;
                     }
                 }
                 colorDictionary[v] = color.ToNative();
-
             }
 
             return colorDictionary[v];
         }
 
-        Dictionary<string, CheckableList> GetDataPoints()
+        private Dictionary<string, CheckableList> GetDataPoints()
         {
             return new Dictionary<string, CheckableList>();
         }
@@ -152,13 +144,11 @@ namespace UtilityWpf.Chart
             }
         }
 
-
         public void OnNext(KeyValuePair<string, TimeSpan> kvp)
         {
             timeSpanDictionary[kvp.Key] = kvp.Value;
             Refresh();
         }
-
 
         public void OnNext(KeyValuePair<string, Color> kvp)
         {
@@ -188,13 +178,14 @@ namespace UtilityWpf.Chart
                 refreshes.OnNext(new Unit());
             });
         }
-        Predicate<string> predicate = null;
+
+        private Predicate<string> predicate = null;
+
         public void Filter(ISet<string> names)
         {
             predicate = names == null ? new Predicate<string>(s => true) : s => names.Contains(s);
             FilterRefesh();
         }
-
 
         private void FilterRefesh()
         {
@@ -206,19 +197,15 @@ namespace UtilityWpf.Chart
             {
                 Refresh();
             }
-
         }
 
         public IEnumerable<KeyValuePair<string, Color>> SelectColors()
         {
-
             foreach (var series in plotModel.Series)
             {
                 yield return new KeyValuePair<string, Color>(series.Title, (series as OxyPlot.Series.LineSeries).Color.ToColor());
             }
-
         }
-
 
         public void Reset()
         {
@@ -254,7 +241,6 @@ namespace UtilityWpf.Chart
             throw new NotImplementedException();
         }
 
-
         public static OxyPlot.Series.LineSeries Build(IEnumerable<DateTimePoint> coll, string key)
         {
             var lser = new OxyPlot.Series.LineSeries
@@ -288,7 +274,5 @@ namespace UtilityWpf.Chart
 
             return lser;
         }
-
-
     }
 }

@@ -20,7 +20,5 @@ namespace UtilityWpf.Service
         }
 
         public static TimerSingleton Instance => instance ??= new TimerSingleton();
-
-
     }
 }

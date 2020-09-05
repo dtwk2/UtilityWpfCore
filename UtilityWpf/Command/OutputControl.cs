@@ -7,7 +7,6 @@ namespace UtilityWpf.Command
 {
     public class OutputControl : ContentControl, ICommand
     {
-
         public event EventHandler CanExecuteChanged;
 
         public string PropertyName

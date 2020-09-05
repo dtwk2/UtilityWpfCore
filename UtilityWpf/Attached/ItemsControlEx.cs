@@ -1,8 +1,8 @@
 ﻿using DynamicData.Binding;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Windows;
@@ -16,6 +16,7 @@ namespace UtilityWpf.Attached
     public partial class ItemsControlEx : ItemsControl
     {
         #region AlternateTemplate
+
         public static readonly DependencyProperty AlternateTemplateProperty = DependencyProperty.RegisterAttached("AlternateTemplate", typeof(DataTemplate), typeof(ItemsControlEx), new PropertyMetadata(null, AlternateTemplateChange));
 
         public static object GetAlternateTemplate(DependencyObject d)
@@ -46,9 +47,11 @@ namespace UtilityWpf.Attached
                     });
             }
         }
-        #endregion
+
+        #endregion AlternateTemplate
 
         #region NewItem
+
         public static readonly DependencyProperty NewItemProperty = DependencyProperty.RegisterAttached("NewItem", typeof(object), typeof(ItemsControlEx), new PropertyMetadata(null, NewItemChange));
 
         public static object GetNewItem(DependencyObject d)
@@ -68,9 +71,10 @@ namespace UtilityWpf.Attached
             Application.Current.Dispatcher.InvokeAsync(() => (d as ItemsControl).ItemsSource = x, System.Windows.Threading.DispatcherPriority.Background, default);
         }
 
-        #endregion
+        #endregion NewItem
 
         #region Variable
+
         public static string GetVariable(DependencyObject d)
         {
             return (string)d.GetValue(VariableProperty);
@@ -92,10 +96,10 @@ namespace UtilityWpf.Attached
                     control.ItemsSource = control.ItemsSource.GetPropertyValues<object>(arg);
         }
 
-        #endregion
-
+        #endregion Variable
 
         #region ItemsSourcEx
+
         public static IEnumerable GetItemsSourceEx(DependencyObject d)
         {
             return (IEnumerable)d.GetValue(ItemsSourceExProperty);
@@ -119,9 +123,10 @@ namespace UtilityWpf.Attached
             ;
         }
 
-        #endregion
+        #endregion ItemsSourcEx
 
         #region Filter
+
         public static string GetFilter(DependencyObject d)
         {
             return (string)d.GetValue(FilterProperty);
@@ -143,7 +148,9 @@ namespace UtilityWpf.Attached
                 view.Filter = (a) => a.GetType().GetProperties().Where(_ => _.PropertyType == e.NewValue.GetType()).Select(_ => _.GetValue(a)).Any(_ => ((string)_).Contains((string)e.NewValue));
             }
         }
-        #endregion
+
+        #endregion Filter
+
         //private void txtFilter_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         //{
         //    CollectionViewSource.GetDefaultView(lvUsers.ItemsSource).Refresh();

@@ -1,4 +1,5 @@
 ﻿# nullable enable
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,7 +17,6 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Navigation;
 
-
 namespace UtilityWpf.View
 {
     /// <summary>
@@ -26,13 +26,13 @@ namespace UtilityWpf.View
     public partial class ObjectView : UserControl
     {
         /// <summary>
-        /// Gets the value of the AssemblyProduct attribute of the app.  
+        /// Gets the value of the AssemblyProduct attribute of the app.
         /// If unable to lookup the attribute, returns an empty string.
         /// </summary>
         public static string Product => _product ?? (_product = AssemblyHelper.GetProductName());
 
-        static string? _defaultTitle =null;
-        static string? _product = null;
+        private static string? _defaultTitle = null;
+        private static string? _product = null;
 
         // Font sizes based on the "normal" size.
         //double _small;
@@ -41,9 +41,9 @@ namespace UtilityWpf.View
 
         // This is used to dynamically calculate the mainGrid.MaxWidth when the Window is resized,
         // since I can't quite get the behavior I want without it.  See CalcMaxTreeWidth().
-        double _chromeWidth;
-        private bool _initialized;
+        private double _chromeWidth;
 
+        private bool _initialized;
 
         public static readonly DependencyProperty ControlsBorderBrushProperty = DependencyProperty.Register(nameof(ControlsBorderBrush), typeof(Brush), typeof(ObjectView), new PropertyMetadata(default(Brush)));
 
@@ -52,8 +52,6 @@ namespace UtilityWpf.View
         public static readonly RoutedEvent ObjectChangedEvent = EventManager.RegisterRoutedEvent(nameof(ObjectChanged), RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<Exception>), typeof(ObjectView));
 
         public static readonly DependencyProperty ShowDetailsProperty = DependencyProperty.Register(nameof(ShowDetails), typeof(bool), typeof(ObjectView), new PropertyMetadata(true, OnShowDetailPropertyChanged));
-
-
 
         public string InnerProperty
         {
@@ -64,8 +62,6 @@ namespace UtilityWpf.View
         // Using a DependencyProperty as the backing store for InnerProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty InnerPropertyProperty =
             DependencyProperty.Register("InnerProperty", typeof(string), typeof(ObjectView), new PropertyMetadata(null));
-
-
 
         public ObjectView() : this(null, null)
         {
@@ -110,14 +106,12 @@ namespace UtilityWpf.View
                         BuildTree(treeView1, e, headerMessage, InnerProperty);
                     });
             }
-
         }
-
 
         public static Brush? DefaultPaneBrush { get; set; }
 
         /// <summary>
-        /// The default title to use for the ObjectView window.  Automatically initialized 
+        /// The default title to use for the ObjectView window.  Automatically initialized
         /// to "Error - [ProductName]" where [ProductName] is taken from the application's
         /// AssemblyProduct attribute (set in the AssemblyInfo.cs file).  You can change this
         /// default, or ignore it and set Title yourself before calling ShowDialog().
@@ -152,8 +146,6 @@ namespace UtilityWpf.View
             set => SetValue(ShowDetailsProperty, value);
         }
 
-
-
         private static void OnObjectChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var instance = (ObjectView)d;
@@ -171,7 +163,6 @@ namespace UtilityWpf.View
             });
         }
 
-
         private static void OnShowDetailPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is ObjectView ObjectView)
@@ -179,7 +170,6 @@ namespace UtilityWpf.View
                 ObjectView.ToggleDetails();
             }
         }
-
 
         private void ToggleDetails()
         {
@@ -199,8 +189,7 @@ namespace UtilityWpf.View
             }
         }
 
-
-        static dynamic GetFontSizes(TreeView treeView)
+        private static dynamic GetFontSizes(TreeView treeView)
         {
             dynamic runTimeObject = new ExpandoObject();
             runTimeObject.Small = treeView.FontSize;
@@ -208,8 +197,6 @@ namespace UtilityWpf.View
             runTimeObject.Large = treeView.FontSize * 1.2;
             return runTimeObject;
         }
-
-
 
         private void TreeView1_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
@@ -237,16 +224,15 @@ namespace UtilityWpf.View
             ShowCurrentItem();
         }
 
-        object lck = new object();
-        void ShowCurrentItem()
+        private object lck = new object();
+
+        private void ShowCurrentItem()
         {
             if (treeView1.SelectedItem != null)
             {
                 this.Dispatcher.Invoke(() =>
                 {
-
                     var doc = GetFlowDocument();
-
 
                     //if (chkWrap.IsChecked == false)
                     //{
@@ -261,7 +247,6 @@ namespace UtilityWpf.View
                             para.Inlines.Add(line);
                         }
 
-
                     doc.Blocks.Add(para);
 
                     docViewer.Document = doc;
@@ -269,7 +254,7 @@ namespace UtilityWpf.View
             }
         }
 
-        FlowDocument GetFlowDocument() => new FlowDocument
+        private FlowDocument GetFlowDocument() => new FlowDocument
         {
             FontSize = GetFontSizes(treeView1).Small,
             FontFamily = treeView1.FontFamily,
@@ -277,9 +262,8 @@ namespace UtilityWpf.View
             Background = docViewer.Background
         };
 
-
         // Determines the page width for the Inlilness that causes no wrapping.
-        static double CalcNoWrapWidth(IEnumerable<Inline> inlines)
+        private static double CalcNoWrapWidth(IEnumerable<Inline> inlines)
         {
             double pageWidth = 0;
             var tb = new TextBlock();
@@ -296,8 +280,6 @@ namespace UtilityWpf.View
 
             return pageWidth;
         }
-
-
 
         // Builds the tree in the left pane.
         // Each TreeViewItem.Tag will contain a list of Inlines
@@ -327,9 +309,7 @@ namespace UtilityWpf.View
                 firstItem.Tag = inlines;
                 firstItem.IsSelected = true;
                 inlines.Add(new LineBreak());
-
             }
-
 
             // Now add top-level nodes for each exception while building
             // the contents of the first node.
@@ -349,7 +329,6 @@ namespace UtilityWpf.View
                     ItemsSource = items.Select(va => new TreeViewItem { Header = va.name, Tag = va.inlines }).ToArray()
                 });
 
-
                 obj = await Task.Run(() => GetInnerObject(obj, innerProperty));
             }
 
@@ -359,14 +338,11 @@ namespace UtilityWpf.View
                      ? obj.GetType().GetProperty(innerProperty).GetValue(obj)
                      : null;
             }
-
-
-
         }
 
         // Adds the exception as a new top-level node to the tree with child nodes
         // for all the exception's properties.
-        static async Task<dynamic> GetObjectInformation(object e, string? innerProperty, dynamic fontSizes)
+        private static async Task<dynamic> GetObjectInformation(object e, string? innerProperty, dynamic fontSizes)
         {
             // Create a list of Inlines containing all the properties of the exception object.
             var type = await Task.Run(() => e.GetType());
@@ -401,7 +377,6 @@ namespace UtilityWpf.View
                         continue;
 
                     yield return (info.Name, EnumerateLines(info.Name, value, fontSize).ToArray());
-
                 }
 
                 static string RenderEnumerable(IEnumerable data)
@@ -453,7 +428,6 @@ namespace UtilityWpf.View
                 }
                 yield return new LineBreak();
 
-
                 // Adds the string to the list of Inlines, substituting
                 // LineBreaks for an newline chars found.
                 static IEnumerable<Inline> EnumerateInnerLines(string str)
@@ -468,13 +442,10 @@ namespace UtilityWpf.View
                         yield return new Run(line.Trim('\r'));
                     }
                 }
-
             }
         }
 
-
-
-        static void Copy(TreeView treeView)
+        private static void Copy(TreeView treeView)
         {
             var inlines = new List<Inline>();
             var doc = new FlowDocument();
@@ -520,11 +491,7 @@ namespace UtilityWpf.View
             Clipboard.SetDataObject(data);
         }
 
-
-
-
-
-        static void ReplaceWithLinks(Span inline, string message)
+        private static void ReplaceWithLinks(Span inline, string message)
         {
             if (string.IsNullOrWhiteSpace(message))
             {
@@ -577,7 +544,7 @@ namespace UtilityWpf.View
         private void CalcMaxTreeWidth()
         {
             // This prevents the GridSplitter from being dragged beyond the right edge of the window.
-            // Another way would be to use star sizing for all Grid columns including the left 
+            // Another way would be to use star sizing for all Grid columns including the left
             // Grid column (i.e. treeCol), but that causes the width of that column to change when the
             // window's width changes, which I don't like.
 
@@ -585,10 +552,7 @@ namespace UtilityWpf.View
             treeCol.MaxWidth = mainGrid.MaxWidth - textCol.MinWidth;
         }
 
-
-
-
-        static class AssemblyHelper
+        private static class AssemblyHelper
         {
             // Initializes the Product property.
             public static string GetProductName()
@@ -610,7 +574,6 @@ namespace UtilityWpf.View
                 }
 
                 return result;
-
 
                 // Tries to get the assembly to extract the product name from.
                 static Assembly GetAppAssembly()
@@ -637,7 +600,6 @@ namespace UtilityWpf.View
                     return appAssembly ?? (appAssembly = Assembly.GetExecutingAssembly());
                 }
             }
-
         }
     }
 }

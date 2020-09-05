@@ -5,7 +5,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Reactive.Subjects;
 
 namespace UtilityWpf
 {
@@ -34,7 +33,7 @@ namespace UtilityWpf
                             .Concat(notifyCollectionChanged.SelectNewItems<T>()) :
                         oc.Cast<T>().ToObservable();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw;
             }
@@ -48,7 +47,6 @@ namespace UtilityWpf
                         oc.ToObservable();
         }
 
-
         public static IObservable<object> MakeObservable(this IEnumerable oc)
         {
             return MakeObservable<object>(oc);
@@ -59,7 +57,6 @@ namespace UtilityWpf
             return notifyCollectionChanged
               .SelectChanges()
               .SelectMany(x => x.NewItems?.Cast<T>() ?? new T[] { });
-
         }
 
         public static IObservable<T> SelectOldItems<T>(this INotifyCollectionChanged notifyCollectionChanged)

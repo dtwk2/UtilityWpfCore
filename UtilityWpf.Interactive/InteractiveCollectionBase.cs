@@ -11,8 +11,6 @@ using UtilityWpf.Property;
 
 namespace UtilityWpf.Interactive
 {
-
-
     public abstract class InteractiveCollectionBase<T> : NPC, IObserver<KeyValuePair<T, InteractionArgs>>
     {
         protected readonly ISubject<KeyValuePair<IObject<T>, ChangeReason>> changes = new Subject<KeyValuePair<IObject<T>, ChangeReason>>();
@@ -59,6 +57,7 @@ namespace UtilityWpf.Interactive
                       Checked.Remove(_.Key);
               });
         }
+
         public IObservable<KeyValuePair<T, InteractionArgs>> Interactions => interactions;
 
         public IObservable<UserCommandArgs> UserCommands { get; } = new Subject<UserCommandArgs>();

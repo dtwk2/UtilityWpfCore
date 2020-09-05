@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -12,7 +8,6 @@ namespace UtilityWpf.View
 {
     public class DatesList : ListBox
     {
-
         static DatesList()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DatesList), new FrameworkPropertyMetadata(typeof(DatesList)));
@@ -26,13 +21,10 @@ namespace UtilityWpf.View
 
         public static readonly DependencyProperty DatesChangeCommandProperty = DependencyProperty.Register("DatesChangeCommand", typeof(object), typeof(DatesList), new PropertyMetadata(null));
 
-
         public DatesList()
         {
             DatesChangeCommand = new DatesChangeCommand(this);
         }
-
-
     }
 
     public class DatesChangeCommand : ICommand
@@ -64,7 +56,6 @@ namespace UtilityWpf.View
 
         public DataTemplate TomorrowTemplate { get; set; }
 
-
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             //FrameworkElement element = container as FrameworkElement;
@@ -83,13 +74,9 @@ namespace UtilityWpf.View
 
             return null;
         }
-
-
-
-
     }
 
-    static class DateTimeHelper
+    internal static class DateTimeHelper
     {
         public static bool IsYesterday(this DateTime dt) => (dt >= DateTime.Today.AddDays(-1) && dt < DateTime.Today);
 

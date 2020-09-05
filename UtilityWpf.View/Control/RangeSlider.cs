@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace UtilityWpf.View
 {
@@ -22,17 +15,17 @@ namespace UtilityWpf.View
         static DayRangeSlider()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DayRangeSlider), new FrameworkPropertyMetadata(typeof(DayRangeSlider)));
-
         }
     }
+
     public class RangeSlider : Control
     {
-        FrameworkElement SliderContainer;
-        Thumb StartThumb, EndThumb;
-        FrameworkElement StartArea;
-        FrameworkElement EndArea;
+        private FrameworkElement SliderContainer;
+        private Thumb StartThumb, EndThumb;
+        private FrameworkElement StartArea;
+        private FrameworkElement EndArea;
 
-        enum SliderThumb
+        private enum SliderThumb
         {
             None,
             Start,
@@ -41,14 +34,19 @@ namespace UtilityWpf.View
 
         public static readonly DependencyProperty MaximumProperty = DependencyProperty.Register("Maximum", typeof(double), typeof(RangeSlider),
             new FrameworkPropertyMetadata(1d, FrameworkPropertyMetadataOptions.AffectsMeasure));
+
         public static readonly DependencyProperty MinimumProperty = DependencyProperty.Register("Minimum", typeof(double), typeof(RangeSlider),
             new FrameworkPropertyMetadata(0d, FrameworkPropertyMetadataOptions.AffectsMeasure));
+
         public static readonly DependencyProperty StartProperty = DependencyProperty.Register("Start", typeof(double), typeof(RangeSlider),
             new FrameworkPropertyMetadata(0d, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
         public static readonly DependencyProperty EndProperty = DependencyProperty.Register("End", typeof(double), typeof(RangeSlider),
             new FrameworkPropertyMetadata(0d, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
         public static readonly DependencyProperty OrientationProperty = DependencyProperty.Register("Orientation", typeof(Orientation), typeof(RangeSlider),
             new FrameworkPropertyMetadata(Orientation.Horizontal, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
+
         public static readonly DependencyProperty IsMoveToPointEnabledProperty = DependencyProperty.Register("IsMoveToPointEnabled", typeof(bool), typeof(RangeSlider), new FrameworkPropertyMetadata(true));
         public static readonly DependencyProperty StartThumbToolTipProperty = DependencyProperty.Register("StartThumbToolTip", typeof(object), typeof(RangeSlider));
         public static readonly DependencyProperty EndThumbToolTipProperty = DependencyProperty.Register("EndThumbToolTip", typeof(object), typeof(RangeSlider));
@@ -67,7 +65,6 @@ namespace UtilityWpf.View
             //Ticks
             RangeSlider.GeneratedTicksProperty = DependencyProperty.Register("GeneratedTicks", typeof(DoubleCollection), typeof(RangeSlider), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
             RangeSlider.TickLabelTemplateProperty = DependencyProperty.Register("TickLabelTemplate", typeof(DataTemplate), typeof(RangeSlider), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.AffectsMeasure));
-
         }
 
         public RangeSlider()
@@ -297,9 +294,6 @@ namespace UtilityWpf.View
         {
         }
 
-
-
-
         // Summary:
         //     Gets or sets the interval between tick marks.
         //
@@ -316,7 +310,6 @@ namespace UtilityWpf.View
         // Using a DependencyProperty as the backing store for TickFrequency.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TickFrequencyProperty =
             DependencyProperty.Register("TickFrequency", typeof(double), typeof(RangeSlider), new PropertyMetadata(1d));
-
 
         //public double TickFrequency { get; set; }
         //
@@ -338,11 +331,9 @@ namespace UtilityWpf.View
         public static readonly DependencyProperty TicksProperty =
             DependencyProperty.Register("Ticks", typeof(DoubleCollection), typeof(RangeSlider), new PropertyMetadata(null));
 
-
-
         // Ticks
 
-        string[] propertyNames = new string[] { "Minimum", "Maximum", "TickFrequency", "Ticks", "IsDirectionReversed" };
+        private string[] propertyNames = new string[] { "Minimum", "Maximum", "TickFrequency", "Ticks", "IsDirectionReversed" };
         public static readonly DependencyProperty GeneratedTicksProperty;
         public static readonly DependencyProperty TickLabelTemplateProperty;
         private object sync = new object();
@@ -360,8 +351,6 @@ namespace UtilityWpf.View
             get => base.GetValue(RangeSlider.TickLabelTemplateProperty) as DataTemplate;
             set => base.SetValue(RangeSlider.TickLabelTemplateProperty, value);
         }
-
-
 
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
@@ -384,7 +373,6 @@ namespace UtilityWpf.View
         {
             return ClipToBounds ? base.GetLayoutClip(layoutSlotSize) : null;
         }
-
 
         private async void CalculateTicks()
         {

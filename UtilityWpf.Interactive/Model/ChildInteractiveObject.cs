@@ -8,7 +8,6 @@ using System.Reactive.Threading.Tasks;
 using UtilityHelper;
 using UtilityInterface.Generic;
 using UtilityWpf.Abstract;
-using UtilityWpf.Interactive;
 using UtilityWpf.Interactive.Abstract;
 using UtilityWpf.ViewModel;
 

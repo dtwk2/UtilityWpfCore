@@ -48,7 +48,6 @@ namespace UtilityWpf
                                     .SampleFirst(TimeSpan.FromSeconds(3))
                                     .Select(sa => SelectVisibleThrottledItems(virtualRequests, indexedItems, observableList.Count));
 
-
                         // Throttle to delay display of items until scrolling has stopped.
                         static IObservable<(int count, int i, T item)> SelectVisibleThrottledItems(IObservable<IVirtualRequest> virtualRequests, IEnumerable<(int i, T pvm)> cached, int count)
                         {
@@ -154,4 +153,3 @@ namespace Endless
         }
     }
 }
-

@@ -8,7 +8,7 @@ using System.Reactive.Linq;
 
 namespace UtilityWpf.ViewModel
 {
-    public class FilteredPaginatedViewModel<T> :ReactiveObject //: AbstractNotifyPropertyChanged
+    public class FilteredPaginatedViewModel<T> : ReactiveObject //: AbstractNotifyPropertyChanged
     {
         private object lck = new object();
         private IPageResponse pageResponse;
@@ -16,7 +16,6 @@ namespace UtilityWpf.ViewModel
 
         public ReadOnlyObservableCollection<T> Items => pitems;
         public IPageResponse PageResponse { get => pageResponse; set => this.RaiseAndSetIfChanged(ref pageResponse, value); }
-
 
         public FilteredPaginatedViewModel(IObservable<IChangeSet<T>> obs, IObservable<PageRequest> request, IObservable<Func<T, bool>> filter, IScheduler s)
         {

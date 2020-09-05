@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xaml.Behaviors;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Windows;
@@ -21,7 +20,6 @@ namespace UtilityWpf.Behavior
 
         public static readonly DependencyProperty FirstIndexProperty = DependencyProperty.Register("FirstIndex", typeof(int), typeof(DataGridVisibleItemsBehavior), new PropertyMetadata(0));
 
-
         public int LastIndex
         {
             get { return (int)GetValue(LastIndexProperty); }
@@ -29,7 +27,6 @@ namespace UtilityWpf.Behavior
         }
 
         public static readonly DependencyProperty LastIndexProperty = DependencyProperty.Register("LastIndex", typeof(int), typeof(DataGridVisibleItemsBehavior), new PropertyMetadata(0));
-
 
         public int Size
         {
@@ -39,9 +36,6 @@ namespace UtilityWpf.Behavior
 
         public static readonly DependencyProperty SizeProperty = DependencyProperty.Register("Size", typeof(int), typeof(DataGridVisibleItemsBehavior), new PropertyMetadata(0));
 
-
-
-
         public int MouseFactor
         {
             get { return (int)GetValue(MouseFactorProperty); }
@@ -50,8 +44,6 @@ namespace UtilityWpf.Behavior
 
         // Using a DependencyProperty as the backing store for MouseFactor.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MouseFactorProperty = DependencyProperty.Register("MouseFactor", typeof(int), typeof(DataGridVisibleItemsBehavior), new PropertyMetadata(3));
-
-
 
         protected override void OnAttached()
         {
@@ -103,7 +95,6 @@ namespace UtilityWpf.Behavior
                 else
                     scrollViewer.ScrollToVerticalOffset(scrollPosition);
             }
-
 
             static (int, int)? ScrollViewerOnScrollChanged(ScrollViewer scrollViewer, DataGrid dataGrid, ScrollChangedEventArgs a)
             {

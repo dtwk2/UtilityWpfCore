@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
-using System.Reactive;
 using System.Reactive.Concurrency;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
@@ -16,9 +15,9 @@ using System.Windows.Media;
 namespace UtilityWpf.View.Extrinsic
 {
     /// <summary>
-    /// 
+    ///
     /// BFF.DataVirtualizingCollection.Sample
-    /// Implements a virtualized panel for 
+    /// Implements a virtualized panel for
     /// presenting items as tiles.
     /// </summary>
     public class VirtualizingTilePanel : VirtualizingPanel, IScrollInfo
@@ -32,8 +31,8 @@ namespace UtilityWpf.View.Extrinsic
             this.RenderTransform = _trans;
 
             // Wait until inacitvity to clean up
-            measureOverrideChanges.BufferWithInactivity(TimeSpan.FromSeconds(3),1000)
-                .Select(a=>a.Last())
+            measureOverrideChanges.BufferWithInactivity(TimeSpan.FromSeconds(3), 1000)
+                .Select(a => a.Last())
                 .ObserveOnDispatcher()
                 .Subscribe(a =>
             {
@@ -41,7 +40,7 @@ namespace UtilityWpf.View.Extrinsic
             });
         }
 
-        ISubject<(int,int)> measureOverrideChanges = new Subject<(int,int)>();
+        private ISubject<(int, int)> measureOverrideChanges = new Subject<(int, int)>();
 
         /// <summary>
         /// Controls the size of the child elements.
@@ -109,12 +108,12 @@ namespace UtilityWpf.View.Extrinsic
 
         /// <summary>
         /// Gets or sets whether the component is operating
-        /// in tile mode.If set to true, the component 
-        /// will calulcate the number of children per row, 
-        /// the width of each item is set equal to the height. 
-        /// In this mode the Columns property is ignored. If the 
-        /// setting is false, the component will calulate the 
-        /// width of each item by dividing the available size 
+        /// in tile mode.If set to true, the component
+        /// will calulcate the number of children per row,
+        /// the width of each item is set equal to the height.
+        /// In this mode the Columns property is ignored. If the
+        /// setting is false, the component will calulate the
+        /// width of each item by dividing the available size
         /// by the number of desired columns.
         /// </summary>
         public bool Tile
@@ -122,8 +121,6 @@ namespace UtilityWpf.View.Extrinsic
             get { return (bool)GetValue(TileProperty); }
             set { SetValue(TileProperty, value); }
         }
-
-       
 
         /// <summary>
         /// Measure the children
@@ -182,7 +179,7 @@ namespace UtilityWpf.View.Extrinsic
                 }
             }
 
-            measureOverrideChanges.OnNext((firstVisibleItemIndex,lastVisibleItemIndex));
+            measureOverrideChanges.OnNext((firstVisibleItemIndex, lastVisibleItemIndex));
             return availableSize;
         }
 
@@ -250,6 +247,7 @@ namespace UtilityWpf.View.Extrinsic
                         _owner.ScrollToTop();
                     }
                     break;
+
                 case NotifyCollectionChangedAction.Move:
                     RemoveInternalChildRange(args.Position.Index, args.ItemUICount);
                     break;
@@ -258,7 +256,7 @@ namespace UtilityWpf.View.Extrinsic
 
         #region Layout specific code
 
-        /*I've isolated the layout specific code to this region. If you want 
+        /*I've isolated the layout specific code to this region. If you want
         to do something other than tiling, this is where you'll make your changes*/
 
         /// <summary>
@@ -295,12 +293,12 @@ namespace UtilityWpf.View.Extrinsic
         /// </summary>
         /// <param name="firstVisibleItemIndex">The item index of the first visible item</param>
         /// <param name="lastVisibleItemIndex">The item index of the last visible item</param>
-        void GetVisibleRange(out int firstVisibleItemIndex, out int lastVisibleItemIndex)
+        private void GetVisibleRange(out int firstVisibleItemIndex, out int lastVisibleItemIndex)
         {
             //If tile mode.
             if (Tile)
             {
-                //Get the number of children 
+                //Get the number of children
                 int childrenPerRow = CalculateChildrenPerRow(_extent);
 
                 firstVisibleItemIndex = (int)Math.Floor(_offset.Y / this.ChildHeight) * childrenPerRow;
@@ -321,14 +319,13 @@ namespace UtilityWpf.View.Extrinsic
                 if (lastVisibleItemIndex >= _itemCount)
                     lastVisibleItemIndex = _itemCount - 1;
             }
-
         }
 
         /// <summary>
         /// Get the size of the each child.
         /// </summary>
         /// <returns>The size of each child.</returns>
-        Size GetChildSize(Size availableSize)
+        private Size GetChildSize(Size availableSize)
         {
             if (Tile)
             {
@@ -340,7 +337,6 @@ namespace UtilityWpf.View.Extrinsic
             {
                 return new Size(CalculateChildWidth(availableSize), this.ChildHeight);
             }
-
         }
 
         /// <summary>
@@ -349,7 +345,7 @@ namespace UtilityWpf.View.Extrinsic
         /// <param name="itemIndex">The data item index of the child</param>
         /// <param name="child">The element to position</param>
         /// <param name="finalSize">The size of the panel</param>
-        void ArrangeChild(int itemIndex, UIElement child, Size finalSize)
+        private void ArrangeChild(int itemIndex, UIElement child, Size finalSize)
         {
             if (Tile)
             {
@@ -377,13 +373,13 @@ namespace UtilityWpf.View.Extrinsic
         }
 
         /// <summary>
-        /// Calculate the width of each tile by 
+        /// Calculate the width of each tile by
         /// dividing the width of available size
         /// by the number of required columns.
         /// </summary>
         /// <param name="availableSize">The total layout size available.</param>
         /// <returns>The width of each tile.</returns>
-        double CalculateChildWidth(Size availableSize)
+        private double CalculateChildWidth(Size availableSize)
         {
             return availableSize.Width / this.Columns;
         }
@@ -393,7 +389,7 @@ namespace UtilityWpf.View.Extrinsic
         /// </summary>
         /// <param name="availableSize">Size available</param>
         /// <returns>The number of tiles on each row.</returns>
-        int CalculateChildrenPerRow(Size availableSize)
+        private int CalculateChildrenPerRow(Size availableSize)
         {
             // Figure out how many children fit on each row
             int childrenPerRow;
@@ -404,7 +400,7 @@ namespace UtilityWpf.View.Extrinsic
             return childrenPerRow;
         }
 
-        #endregion
+        #endregion Layout specific code
 
         #region IScrollInfo implementation
 
@@ -412,7 +408,7 @@ namespace UtilityWpf.View.Extrinsic
         ///  See Ben Constable's series of posts at http://blogs.msdn.com/bencon/
         /// </summary>
         /// <param name="availableSize"></param>
-        void UpdateScrollInfo(Size availableSize)
+        private void UpdateScrollInfo(Size availableSize)
         {
             //Initialize items control.
             ItemsControl itemsControl = ItemsControl.GetItemsOwner(this);
@@ -447,7 +443,7 @@ namespace UtilityWpf.View.Extrinsic
         #region Properties
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ScrollViewer ScrollOwner
         {
@@ -456,7 +452,7 @@ namespace UtilityWpf.View.Extrinsic
         }
 
         /// <summary>
-        /// Gets or sets whether the viewer can 
+        /// Gets or sets whether the viewer can
         /// scroll content horizontally.
         /// </summary>
         public bool CanHorizontallyScroll
@@ -466,7 +462,7 @@ namespace UtilityWpf.View.Extrinsic
         }
 
         /// <summary>
-        /// Gets or sets whether the viewer can 
+        /// Gets or sets whether the viewer can
         /// scroll content vertically.
         /// </summary>
         public bool CanVerticallyScroll
@@ -525,7 +521,7 @@ namespace UtilityWpf.View.Extrinsic
             get { return _viewport.Width; }
         }
 
-        #endregion
+        #endregion Properties
 
         #region Methods
 
@@ -598,7 +594,7 @@ namespace UtilityWpf.View.Extrinsic
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="visual"></param>
         /// <param name="rectangle"></param>
@@ -630,7 +626,7 @@ namespace UtilityWpf.View.Extrinsic
 
         /// <summary>
         /// Scroll the content left by 1 viewable.
-        /// partition. This method is not implemented 
+        /// partition. This method is not implemented
         /// and will throw an exception if called.
         /// </summary>
         public void PageLeft()
@@ -640,7 +636,7 @@ namespace UtilityWpf.View.Extrinsic
 
         /// <summary>
         /// Scroll the content right by 1 viewable.
-        /// partition. This method is not implemented 
+        /// partition. This method is not implemented
         /// and will throw an exception if called.
         /// </summary>
         public void PageRight()
@@ -690,23 +686,22 @@ namespace UtilityWpf.View.Extrinsic
             InvalidateMeasure();
         }
 
-        #endregion
+        #endregion Methods
 
         #region Fields
 
-        TranslateTransform _trans = new TranslateTransform();
-        ScrollViewer _owner;
-        bool _canHScroll = false;
-        bool _canVScroll = false;
-        Size _extent = new Size(0, 0);
-        Size _viewport = new Size(0, 0);
-        Point _offset;
+        private TranslateTransform _trans = new TranslateTransform();
+        private ScrollViewer _owner;
+        private bool _canHScroll = false;
+        private bool _canVScroll = false;
+        private Size _extent = new Size(0, 0);
+        private Size _viewport = new Size(0, 0);
+        private Point _offset;
 
-        #endregion
+        #endregion Fields
 
-        #endregion
+        #endregion IScrollInfo implementation
     }
-
 
     /// <summary>
     /// https://stackoverflow.com/questions/7597773/does-reactive-extensions-support-rolling-buffers?noredirect=1

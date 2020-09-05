@@ -1,15 +1,17 @@
-﻿<UserControl x:Class="UtilityWpf.DemoApp.FilteredPaginatedUserControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:common="clr-namespace:UtilityWpf.Behavior;assembly=UtilityWpf"
-                      xmlns:system="clr-namespace:System;assembly=System.Runtime"
-             xmlns:command1="clr-namespace:UtilityWpf.Command;assembly=UtilityWpf"
-             xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.View"
-             mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+﻿<UserControl
+    x:Class="UtilityWpf.DemoApp.FilteredPaginatedUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:command1="clr-namespace:UtilityWpf.Command;assembly=UtilityWpf"
+    xmlns:common="clr-namespace:UtilityWpf.Behavior;assembly=UtilityWpf"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.View"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
     <UserControl.Resources>
 
         <!--<DataTemplate DataType="{x:Type local:Character}">
@@ -19,10 +21,10 @@
                 <Image Margin="0,5,0,0" Source="{Binding Image}" />
             </StackPanel>
         </DataTemplate>-->
-        <x:Array x:Key="d" x:Name="Items2" 
-                
-                 Type="{x:Type system:String}"  
-               >
+        <x:Array
+            x:Key="d"
+            x:Name="Items2"
+            Type="{x:Type system:String}">
             <system:String>Hello</system:String>
             <system:String>World</system:String>
             <system:String>rld</system:String>
@@ -34,34 +36,34 @@
     </UserControl.Resources>
 
     <StackPanel>
-        <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
+        <Border
+            Background="GhostWhite"
+            BorderBrush="Gainsboro"
+            BorderThickness="1">
             <UniformGrid Rows="1">
                 <UniformGrid.Resources>
-                    <command1:OutputControl x:Key="oc"></command1:OutputControl>
-                    <view:SelectedIndexEventArgsToNumber x:Key="eac"></view:SelectedIndexEventArgsToNumber>
-                   
+                    <command1:OutputControl x:Key="oc" />
+                    <view:SelectedIndexEventArgsToNumber x:Key="eac" />
                 </UniformGrid.Resources>
 
+                <view:NavigatorControl Current="10" Size="10" />
 
-                <view:NavigatorControl Size="10" Current="10">
-                </view:NavigatorControl>
-
-                <view:NavigatorControl Size="{Binding ElementName=nb,Path=Current,Mode=OneWay}">
+                <view:NavigatorControl Size="{Binding ElementName=nb, Path=Current, Mode=OneWay}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectedIndex">
-                            <common:EventCommandExecuter Command="{Binding ElementName=oc, Path=., Mode=OneWay}" EventArgsConverter="{StaticResource eac}"></common:EventCommandExecuter>
+                            <common:EventCommandExecuter Command="{Binding ElementName=oc, Path=., Mode=OneWay}" EventArgsConverter="{StaticResource eac}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </view:NavigatorControl>
                 <command1:OutputControl x:Name="oc">
                     <command1:OutputControl.ContentTemplate>
                         <DataTemplate>
-                            <TextBox IsReadOnly="True" Text="{Binding  Mode=OneWay}" />
+                            <TextBox IsReadOnly="True" Text="{Binding Mode=OneWay}" />
                         </DataTemplate>
                     </command1:OutputControl.ContentTemplate>
                 </command1:OutputControl>
 
-                <!--<command:OutputControl >
+                <!--<command:OutputControl>
                     <command:OutputControl.Style>
                         <Style  TargetType="{x:Type  command:OutputControl}">
                             <Setter Property="Template">
@@ -74,11 +76,15 @@
                         </Style>
                     </command:OutputControl.Style>
                 </command:OutputControl>-->
-                <TextBlock Background="AliceBlue" Width="60" Height="30" Text="{Binding  Output, Source={StaticResource oc}, Mode=OneWay,FallbackValue='20'}"/>
+                <TextBlock
+                    Width="60"
+                    Height="30"
+                    Background="AliceBlue"
+                    Text="{Binding Output, Source={StaticResource oc}, Mode=OneWay, FallbackValue='20'}" />
             </UniformGrid>
         </Border>
-        <view:PageNavigatorControl x:Name="pnc" ItemsSource="{Binding}"></view:PageNavigatorControl>
-        <DataGrid ItemsSource="{Binding FilteredItems,ElementName=pnc , Mode=OneWay}"></DataGrid>
+        <view:PageNavigatorControl x:Name="pnc" ItemsSource="{Binding}" />
+        <DataGrid ItemsSource="{Binding FilteredItems, ElementName=pnc, Mode=OneWay}" />
         <!--<DataGrid ItemsSource="{Binding  }" Height="100"></DataGrid>-->
     </StackPanel>
 </UserControl>

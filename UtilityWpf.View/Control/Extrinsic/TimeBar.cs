@@ -5,13 +5,12 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-
 namespace UtilityWpf.View.Handy
-{ 
+{
     /// <summary>
     ///   HandyControls TimeBar  时间条
     /// </summary>
-[TemplatePart(Name = ElementBorderTop, Type = typeof(Border))]
+    [TemplatePart(Name = ElementBorderTop, Type = typeof(Border))]
     [TemplatePart(Name = ElementTextBlockMove, Type = typeof(TextBlock))]
     [TemplatePart(Name = ElementTextBlockSelected, Type = typeof(TextBlock))]
     [TemplatePart(Name = ElementCanvasSpe, Type = typeof(Canvas))]
@@ -79,9 +78,7 @@ namespace UtilityWpf.View.Handy
         static TimeBar()
         {
             FrameworkElement.DefaultStyleKeyProperty.OverrideMetadata(typeof(TimeBar), new FrameworkPropertyMetadata(typeof(TimeBar)));
-
         }
-
 
         private void OnSelectedTimeChanged(DateTime time)
         {
@@ -341,18 +338,25 @@ namespace UtilityWpf.View.Handy
             {
                 case 0:
                     return new DateTime(time.Year, time.Month, time.Day, time.Hour / 2 * 2, 0, 0);
+
                 case 1:
                     return new DateTime(time.Year, time.Month, time.Day, time.Hour, 0, 0);
+
                 case 2:
                     return new DateTime(time.Year, time.Month, time.Day, time.Hour, time.Minute / 30 * 30, 0);
+
                 case 3:
                     return new DateTime(time.Year, time.Month, time.Day, time.Hour, time.Minute / 10 * 10, 0);
+
                 case 4:
                     return new DateTime(time.Year, time.Month, time.Day, time.Hour, time.Minute / 5 * 5, 0);
+
                 case 5:
                     return new DateTime(time.Year, time.Month, time.Day, time.Hour, time.Minute, 0);
+
                 case 6:
                     return new DateTime(time.Year, time.Month, time.Day, time.Hour, time.Minute, time.Second / 30 * 30);
+
                 default:
                     return time;
             }
@@ -494,9 +498,6 @@ namespace UtilityWpf.View.Handy
         }
     }
 
-
-
-
     /// <summary>
     ///     作为刻度使用的文字块
     /// </summary>
@@ -555,7 +556,4 @@ namespace UtilityWpf.View.Handy
 
         public T Info { get; set; }
     }
-
-   
-
 }

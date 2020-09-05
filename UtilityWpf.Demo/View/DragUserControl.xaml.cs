@@ -23,7 +23,7 @@ namespace UtilityWpf.DemoApp.View
 
         private void ItemDragStarted(object sender, DragablzDragStartedEventArgs e)
         {
-            //var item = e.DragablzItem.DataContext;     
+            //var item = e.DragablzItem.DataContext;
         }
 
         private void ItemDragCompleted(object sender, DragablzDragCompletedEventArgs e)
@@ -46,6 +46,7 @@ namespace UtilityWpf.DemoApp.View
             _order = e.NewOrder;
         }
     }
+
     public class MainViewModel
     {
         public ObservableCollection<RowViewModel> Rows { get; }
@@ -86,12 +87,10 @@ namespace UtilityWpf.DemoApp.View
                 2,
                 3
             };
-
         }
 
         public IEnumerable<int> Data { get; }
 
         public int NewItem => Data.Last() + 1;
-
     }
 }

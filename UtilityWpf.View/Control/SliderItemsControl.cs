@@ -26,10 +26,9 @@ namespace UtilityWpf.View
         private TextBlock bt;
         private readonly Subject<object> subject = new Subject<object>();
 
-
         public static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent("ValueChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(SliderItemsControl));
 
-        public static readonly DependencyProperty ShowKeyValuePanelProperty =            DependencyProperty.Register("ShowKeyValuePanel", typeof(bool), typeof(SliderItemsControl), new PropertyMetadata(true, Changed));
+        public static readonly DependencyProperty ShowKeyValuePanelProperty = DependencyProperty.Register("ShowKeyValuePanel", typeof(bool), typeof(SliderItemsControl), new PropertyMetadata(true, Changed));
         public static readonly DependencyProperty KeyValuePairProperty = DependencyProperty.Register("KeyValuePair", typeof(object), typeof(SliderItemsControl), new PropertyMetadata(null));
         public static readonly DependencyProperty DictionaryProperty = DependencyProperty.Register("Dictionary", typeof(object), typeof(SliderItemsControl), new PropertyMetadata(null));
 
@@ -89,9 +88,7 @@ namespace UtilityWpf.View
             });
         }
 
-
         public ObservableCollection<KeyRange> KeyRangeCollection { get; } = new ObservableCollection<KeyRange>();
-
 
         public bool ShowKeyValuePanel
         {
@@ -105,21 +102,18 @@ namespace UtilityWpf.View
             set { SetValue(KeyValuePairProperty, value); }
         }
 
-
         public object Dictionary
         {
             get { return (object)GetValue(DictionaryProperty); }
             set { SetValue(DictionaryProperty, value); }
         }
 
-  
         public IEnumerable Data
         {
             get { return (IEnumerable)GetValue(DataProperty); }
             set { SetValue(DataProperty, value); }
         }
 
-   
         public string Value
         {
             get { return (string)GetValue(ValueProperty); }
@@ -132,7 +126,6 @@ namespace UtilityWpf.View
             set { SetValue(KeyProperty, value); }
         }
 
-      
         public string Min
         {
             get { return (string)GetValue(MinProperty); }
@@ -172,7 +165,6 @@ namespace UtilityWpf.View
             });
         }
 
-
         private Task<IEnumerable<KeyRange>> GetItems(IEnumerable data, string key, string value, string min, string max) => Task.Run(() =>
           {
               var type = data.First().GetType().GetProperties().ToDictionary(_ => _.Name, _ => _);
@@ -201,8 +193,6 @@ namespace UtilityWpf.View
                 RaiseValueChangedEvent(keyValuePair);
             }, System.Windows.Threading.DispatcherPriority.Background);
         }
-
-
 
         protected void RaiseValueChangedEvent(KeyValuePair<string, double> KeyValuePair)
         {
@@ -237,8 +227,6 @@ namespace UtilityWpf.View
             }
         }
     }
-
-
 
     public class ValueChangedCommand : ICommand
     {

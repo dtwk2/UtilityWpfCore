@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -9,7 +7,6 @@ using System.Windows.Shapes;
 
 namespace UtilityWpf.Animation
 {
-
     public class PointControl : Control
     {
         static PointControl()
@@ -52,10 +49,8 @@ namespace UtilityWpf.Animation
                 To = (Point)e.NewValue
             };
 
-
             (bc.rctMovingObject?.Data as EllipseGeometry)?
                 .BeginAnimation(EllipseGeometry.CenterProperty, myPointAnimation);
         }
     }
-
 }

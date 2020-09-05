@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using UtilityInterface.NonGeneric;
+﻿using UtilityInterface.NonGeneric;
 
 namespace UtilityWpf.Interactive.Demo.ViewModel
 {
@@ -24,7 +21,6 @@ namespace UtilityWpf.Interactive.Demo.ViewModel
     {
         public string Name => "B";
     }
-
 
     public class Test4ViewModel : IName
     {

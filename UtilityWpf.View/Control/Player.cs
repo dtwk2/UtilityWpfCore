@@ -1,8 +1,6 @@
-﻿using System;
-using System.Reactive.Subjects;
+﻿using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Input;
-using UtilityWpf;
 
 namespace UtilityWpf.View
 {
@@ -44,7 +42,6 @@ namespace UtilityWpf.View
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Player), new FrameworkPropertyMetadata(typeof(Player)));
         }
-
 
         public object ProcessState
         {
