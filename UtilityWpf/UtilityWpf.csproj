@@ -3,11 +3,38 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AssemblyName>UtilityWpf</AssemblyName>
     <RootNamespace>UtilityWpf</RootNamespace>
-    <Version>1.0.2</Version>
+    <Version>1.0.30</Version>
+    <AssemblyVersion>1.0.30.0</AssemblyVersion>
+    <FileVersion>1.0.30.0</FileVersion>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <ShouldCreateLogs>True</ShouldCreateLogs>
+    <AdvancedSettingsExpanded>False</AdvancedSettingsExpanded>
+    <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+    <UpdatePackageVersion>True</UpdatePackageVersion>
+    <PackageVersionSettings>AssemblyVersion.Increment.None</PackageVersionSettings>
+    <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
+    <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <ShouldCreateLogs>True</ShouldCreateLogs>
+    <AdvancedSettingsExpanded>False</AdvancedSettingsExpanded>
+    <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+    <UpdatePackageVersion>True</UpdatePackageVersion>
+    <PackageVersionSettings>AssemblyVersion.Increment.None</PackageVersionSettings>
+    <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
+    <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
+  </PropertyGroup>
+
+ 
 
   <ItemGroup>
     <PackageReference Include="Evan.Wpf" Version="1.2.0" />
@@ -16,6 +43,10 @@
     <PackageReference Include="morelinq" Version="3.3.2" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Nito.AsyncEx" Version="5.0.0" />
+    <PackageReference Include="NuGet.Build.Tasks.Pack" Version="5.7.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="ReactiveUI" Version="11.5.35" />
     <PackageReference Include="Splat.Autofac" Version="9.5.35" />
     <PackageReference Include="UtilityEnum" Version="2.0.4" />
@@ -23,8 +54,16 @@
     <PackageReference Include="UtilityInterface" Version="4.0.2-alpha" />
   </ItemGroup>
 
-  <Target Name="PostPack" AfterTargets="Pack">
-    <Exec Command="&#xD;&#xA;      set source=&quot;$(ProjectDir)$(OutDir)..\ &quot;&#xD;&#xA;&#xD;&#xA;      set target=&quot;C:\Users\rytal\Documents\Visual Studio 2019\NugetPackages &quot;  &#xD;&#xA;&#xD;&#xA;      RoboCopy %25source%25 %25target%25 *.nupkg  /XO  /NFL /NDL /NJH   &#xD;&#xA;&#xD;&#xA;      IF %ERRORLEVEL% GEQ 8 exit 1&#xD;&#xA;&#xD;&#xA;      exit 0" />
+  <!-- Only packs project if Configuration set to Release-->
+   <Target Name="CustomPack" AfterTargets="build" Condition="'$(Configuration)'=='Release'">
+    <Message Text="Custom Pack command starts ..." Importance="high" />
+     <Message Text="nuget pack $(MSBuildProjectFile)  -OutputDirectory &quot;$(ProjectDir)bin\release&quot;  -Properties Configuration=Release" Importance="high" />
+    <Exec Command="nuget pack $(MSBuildProjectFile)  -OutputDirectory &quot;$(ProjectDir)bin\release&quot;  -Properties Configuration=Release" />
+  </Target>
+  
+    <!-- Only copy packages if Configuration set to Release-->
+  <Target Name="PostPack" AfterTargets="CustomPack" Condition="'$(Configuration)'=='Release'">
+    <Exec Command="&#xD;&#xA;      set source=&quot;$(ProjectDir)bin\release &quot;&#xD;&#xA;&#xD;&#xA;      set target=&quot;C:\Users\rytal\Documents\Visual Studio 2019\NugetPackages &quot;  &#xD;&#xA;&#xD;&#xA;      RoboCopy %25source%25 %25target%25 *.nupkg  /XO  /NFL /NDL /NJH   &#xD;&#xA;&#xD;&#xA;      IF %ERRORLEVEL% GEQ 8 exit 1&#xD;&#xA;&#xD;&#xA;      exit 0" />
   </Target>
 
 
