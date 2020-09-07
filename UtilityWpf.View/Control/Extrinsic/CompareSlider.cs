@@ -11,7 +11,15 @@ namespace UtilityWpf.View.Handy
     /// </summary>
     public class CompareSlider : Slider
     {
-        private ISubject<double> subject = new Subject<double>();
+        private readonly ISubject<double> subject = new Subject<double>();
+        public static readonly DependencyProperty TargetContentProperty = DependencyProperty.Register(
+            "TargetContent", typeof(object), typeof(CompareSlider), new PropertyMetadata(default(object)));
+
+        public static readonly DependencyProperty SourceContentProperty = DependencyProperty.Register(
+            "SourceContent", typeof(object), typeof(CompareSlider), new PropertyMetadata(default(object)));
+
+        public static readonly DependencyProperty DimensionProperty =
+            DependencyProperty.Register("Dimension", typeof(double), typeof(CompareSlider), new PropertyMetadata(0d, propertyChangedCallback));
 
         static CompareSlider()
         {
@@ -22,11 +30,6 @@ namespace UtilityWpf.View.Handy
         {
         }
 
-        public static readonly DependencyProperty TargetContentProperty = DependencyProperty.Register(
-            "TargetContent", typeof(object), typeof(CompareSlider), new PropertyMetadata(default(object)));
-
-        public static readonly DependencyProperty SourceContentProperty = DependencyProperty.Register(
-            "SourceContent", typeof(object), typeof(CompareSlider), new PropertyMetadata(default(object)));
 
         public object TargetContent
         {
@@ -45,10 +48,6 @@ namespace UtilityWpf.View.Handy
             get { return (double)GetValue(DimensionProperty); }
             set { SetValue(DimensionProperty, value); }
         }
-
-        // Using a DependencyProperty as the backing store for Dimension.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty DimensionProperty =
-            DependencyProperty.Register("Dimension", typeof(double), typeof(CompareSlider), new PropertyMetadata(0d, propertyChangedCallback));
 
         private static void propertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

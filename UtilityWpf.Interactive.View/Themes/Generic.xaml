@@ -2,10 +2,10 @@
 
     <ResourceDictionary.MergedDictionaries>
 
-        <ResourceDictionary Source="/UtilityWpf.Interactive.View;component/Themes/ListBoxItemStyle.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.Interactive.View;component/Themes/InteractiveList.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.Interactive.View;component/Themes/MultiSelectTreeView.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.Interactive.View;component/Themes/MasterDetailCheckView.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.Interactive.View;component/Themes/MasterDetailView.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.Interactive.View;component/Themes/ListBoxItemStyle.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Interactive.View;component/Themes/InteractiveList.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Interactive.View;component/Themes/MultiSelectTreeView.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Interactive.View;component/Themes/MasterDetailCheckView.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Interactive.View;component/Themes/MasterDetailView.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary> 

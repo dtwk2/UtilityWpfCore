@@ -1,23 +1,17 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:UtilityWpf.DemoApp"
-                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:UtilityWpf.DemoApp"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
     <DataTemplate DataType="{x:Type local:Character}">
-        <Grid
-      Height="256"
-      Width="200">
+        <Grid Width="200" Height="256">
             <Grid.RowDefinitions>
-                <RowDefinition
-          Height="Auto" />
-                <RowDefinition
-          Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <materialDesign:ColorZone
-        Mode="Accent"
-        Padding="6">
-                <StackPanel
-          Orientation="Horizontal">
+            <materialDesign:ColorZone Padding="6" Mode="Accent">
+                <StackPanel Orientation="Horizontal">
                     <!--<Button
             Style="{StaticResource MaterialDesignToolForegroundButton}"
             Command="{x:Static materialDesign:Flipper.FlipCommand}"
@@ -26,22 +20,20 @@
               Kind="ArrowLeft"
               HorizontalAlignment="Right" />
                     </Button>-->
-                    <TextBlock
-            Margin="8 0 0 0"
-            VerticalAlignment="Center">
+                    <TextBlock Margin="8,0,0,0" VerticalAlignment="Center">
                         <TextBlock.Foreground>
-                            <SolidColorBrush Color="{Binding Color}"></SolidColorBrush>
+                            <SolidColorBrush Color="{Binding Color}" />
                         </TextBlock.Foreground>
-          CHARACTER
+                        CHARACTER
                     </TextBlock>
                 </StackPanel>
             </materialDesign:ColorZone>
             <Grid
-        Grid.Row="1"
-        Margin="0 6 0 0"
-        HorizontalAlignment="Center"
-        VerticalAlignment="Top"
-        Width="172">
+                Grid.Row="1"
+                Width="172"
+                Margin="0,6,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
@@ -49,31 +41,28 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <TextBlock
-          materialDesign:HintAssist.Hint="First name"
-          materialDesign:HintAssist.IsFloating="True"
-          Margin="0 12 0 0" Text="{Binding First}">
-                </TextBlock>
+                    Margin="0,12,0,0"
+                    materialDesign:HintAssist.Hint="First name"
+                    materialDesign:HintAssist.IsFloating="True"
+                    Text="{Binding First}" />
                 <TextBlock
-          Grid.Row="1"
-          materialDesign:HintAssist.Hint="Last name"
-          materialDesign:HintAssist.IsFloating="True"
-          Margin="0 12 0 0"
-                    Text="{Binding Last}">
-                </TextBlock>
+                    Grid.Row="1"
+                    Margin="0,12,0,0"
+                    materialDesign:HintAssist.Hint="Last name"
+                    materialDesign:HintAssist.IsFloating="True"
+                    Text="{Binding Last}" />
                 <TextBlock
-          Grid.Row="2"
-          materialDesign:HintAssist.Hint="Last name"
-          materialDesign:HintAssist.IsFloating="True"
-          Margin="0 12 0 0"
-                    Text="{Binding Age}">
-                </TextBlock>
+                    Grid.Row="2"
+                    Margin="0,12,0,0"
+                    materialDesign:HintAssist.Hint="Last name"
+                    materialDesign:HintAssist.IsFloating="True"
+                    Text="{Binding Age}" />
                 <TextBlock
-          Grid.Row="3"
-          materialDesign:HintAssist.Hint="Last name"
-          materialDesign:HintAssist.IsFloating="True"
-          Margin="0 12 0 0"
-                    Text="{Binding Gender}">
-                </TextBlock>
+                    Grid.Row="3"
+                    Margin="0,12,0,0"
+                    materialDesign:HintAssist.Hint="Last name"
+                    materialDesign:HintAssist.IsFloating="True"
+                    Text="{Binding Gender}" />
             </Grid>
         </Grid>
     </DataTemplate>

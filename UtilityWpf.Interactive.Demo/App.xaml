@@ -1,51 +1,76 @@
-﻿<Application x:Class="UtilityWpf.Interactive.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:UtilityWpf.DemoApp"
-             xmlns:aa="clr-namespace:UtilityWpf.ViewModel;assembly=UtilityWpf"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             StartupUri="MainWindow.xaml">
+﻿<Application
+    x:Class="UtilityWpf.Interactive.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:aa="clr-namespace:UtilityWpf.ViewModel;assembly=UtilityWpf"
+    xmlns:local="clr-namespace:UtilityWpf.DemoApp"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    StartupUri="MainWindow.xaml">
 
     <Application.Resources>
         <ResourceDictionary>
 
-            <x:Array x:Key="Characters"
-                     Type="{x:Type local:Character}"
-                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+            <x:Array
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                x:Key="Characters"
+                Type="{x:Type local:Character}">
                 <!--<StaticResource ResourceKey="Bart"></StaticResource>-->
-                <local:Character First="Homer" Last="Simpson" Age="38"
-          Gender="Male" Image="images/homer.png" Location="75,0" Color="DarkSalmon" />
-                <local:Character First="Lisa" Last="Bouvier" Age="8"
-          Gender="Female" Image="images/lisa.png" Location="125,150" Color="ForestGreen" />
-                <local:Character First="Maggie" Last="Simpson" Age="0"
-          Gender="Female" Image="images/maggie.png" Location="225,150" Color="DarkBlue" />
-                <local:Character First="Marge" Last="Bouvier" Age="38"
-          Gender="Female" Image="images/marge.png" Location="175,0" Color="DarkCyan" />
+                <local:Character
+                    Age="38"
+                    First="Homer"
+                    Gender="Male"
+                    Image="images/homer.png"
+                    Last="Simpson"
+                    Location="75,0"
+                    Color="DarkSalmon" />
+                <local:Character
+                    Age="8"
+                    First="Lisa"
+                    Gender="Female"
+                    Image="images/lisa.png"
+                    Last="Bouvier"
+                    Location="125,150"
+                    Color="ForestGreen" />
+                <local:Character
+                    Age="0"
+                    First="Maggie"
+                    Gender="Female"
+                    Image="images/maggie.png"
+                    Last="Simpson"
+                    Location="225,150"
+                    Color="DarkBlue" />
+                <local:Character
+                    Age="38"
+                    First="Marge"
+                    Gender="Female"
+                    Image="images/marge.png"
+                    Last="Bouvier"
+                    Location="175,0"
+                    Color="DarkCyan" />
             </x:Array>
 
             <DataTemplate DataType="{x:Type aa:TypeObject}">
                 <Grid
-                    Height="256"
                     Width="200"
-        Margin="0 6 0 0"
-        HorizontalAlignment="Center"
-        VerticalAlignment="Top">
+                    Height="256"
+                    Margin="0,6,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top">
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <TextBlock
-          materialDesign:HintAssist.Hint="TypeName"
-          materialDesign:HintAssist.IsFloating="True"
-          Margin="0 12 0 0" Text="{Binding TypeName}">
-                    </TextBlock>
+                        Margin="0,12,0,0"
+                        materialDesign:HintAssist.Hint="TypeName"
+                        materialDesign:HintAssist.IsFloating="True"
+                        Text="{Binding TypeName}" />
                     <TextBlock
-          Grid.Row="1"
-          materialDesign:HintAssist.Hint="Key"
-          materialDesign:HintAssist.IsFloating="True"
-          Margin="0 12 0 0"
-                    Text="{Binding Key}">
-                    </TextBlock>
+                        Grid.Row="1"
+                        Margin="0,12,0,0"
+                        materialDesign:HintAssist.Hint="Key"
+                        materialDesign:HintAssist.IsFloating="True"
+                        Text="{Binding Key}" />
                     <!--<TextBlock
           Grid.Row="2"
           materialDesign:HintAssist.Hint="Last name"

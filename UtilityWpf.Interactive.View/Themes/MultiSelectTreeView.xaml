@@ -1,7 +1,8 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:converter="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"
-                  xmlns:local="clr-namespace:UtilityWpf.Interactive.View.Controls">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"
+    xmlns:local="clr-namespace:UtilityWpf.Interactive.View.Controls">
 
     <!--<ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/FileExplorer.MVVM;component/View/DirectoryDataTemplate.xaml" />
@@ -40,34 +41,42 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
-                    <Border Background="Transparent" Height="16" Padding="5,5,5,5" Width="16">
-                        <Path x:Name="ExpandPath" Data="{StaticResource TreeArrow}" Fill="{StaticResource TreeViewItem.TreeArrow.Static.Fill}" Stroke="{StaticResource TreeViewItem.TreeArrow.Static.Stroke}">
+                    <Border
+                        Width="16"
+                        Height="16"
+                        Padding="5,5,5,5"
+                        Background="Transparent">
+                        <Path
+                            x:Name="ExpandPath"
+                            Data="{StaticResource TreeArrow}"
+                            Fill="{StaticResource TreeViewItem.TreeArrow.Static.Fill}"
+                            Stroke="{StaticResource TreeViewItem.TreeArrow.Static.Stroke}">
                             <Path.RenderTransform>
-                                <RotateTransform Angle="135" CenterY="3" CenterX="3" />
+                                <RotateTransform Angle="135" CenterX="3" CenterY="3" />
                             </Path.RenderTransform>
                         </Path>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="RenderTransform" TargetName="ExpandPath">
+                            <Setter TargetName="ExpandPath" Property="RenderTransform">
                                 <Setter.Value>
-                                    <RotateTransform Angle="180" CenterY="3" CenterX="3" />
+                                    <RotateTransform Angle="180" CenterX="3" CenterY="3" />
                                 </Setter.Value>
                             </Setter>
-                            <Setter Property="Fill" TargetName="ExpandPath" Value="{StaticResource TreeViewItem.TreeArrow.Static.Checked.Fill}" />
-                            <Setter Property="Stroke" TargetName="ExpandPath" Value="{StaticResource TreeViewItem.TreeArrow.Static.Checked.Stroke}" />
+                            <Setter TargetName="ExpandPath" Property="Fill" Value="{StaticResource TreeViewItem.TreeArrow.Static.Checked.Fill}" />
+                            <Setter TargetName="ExpandPath" Property="Stroke" Value="{StaticResource TreeViewItem.TreeArrow.Static.Checked.Stroke}" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Stroke" TargetName="ExpandPath" Value="{StaticResource TreeViewItem.TreeArrow.MouseOver.Stroke}" />
-                            <Setter Property="Fill" TargetName="ExpandPath" Value="{StaticResource TreeViewItem.TreeArrow.MouseOver.Fill}" />
+                            <Setter TargetName="ExpandPath" Property="Stroke" Value="{StaticResource TreeViewItem.TreeArrow.MouseOver.Stroke}" />
+                            <Setter TargetName="ExpandPath" Property="Fill" Value="{StaticResource TreeViewItem.TreeArrow.MouseOver.Fill}" />
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsMouseOver" Value="True" />
                                 <Condition Property="IsChecked" Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter Property="Stroke" TargetName="ExpandPath" Value="{StaticResource TreeViewItem.TreeArrow.MouseOver.Checked.Stroke}" />
-                            <Setter Property="Fill" TargetName="ExpandPath" Value="{StaticResource TreeViewItem.TreeArrow.MouseOver.Checked.Fill}" />
+                            <Setter TargetName="ExpandPath" Property="Stroke" Value="{StaticResource TreeViewItem.TreeArrow.MouseOver.Checked.Stroke}" />
+                            <Setter TargetName="ExpandPath" Property="Fill" Value="{StaticResource TreeViewItem.TreeArrow.MouseOver.Checked.Fill}" />
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -75,10 +84,10 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type TreeViewItem}" x:Key="MyTreeViewItemStyle">
+    <Style x:Key="MyTreeViewItemStyle" TargetType="{x:Type TreeViewItem}">
 
-        <Setter Property="IsExpanded" Value="{Binding IsExpanded,Mode=TwoWay}" />
-        <Setter Property="IsSelected" Value="{Binding IsSelected,Mode=OneWayToSource}" />
+        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=OneWayToSource}" />
 
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
@@ -92,7 +101,7 @@
                 <ControlTemplate TargetType="{x:Type TreeViewItem}">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition MinWidth="19" Width="Auto" />
+                            <ColumnDefinition Width="Auto" MinWidth="19" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
@@ -101,20 +110,35 @@
                             <RowDefinition />
                         </Grid.RowDefinitions>
                         <!--<Ellipse Fill="Red" Height="20" Width="29"></Ellipse>-->
-                        <ToggleButton x:Name="Expander" ClickMode="Press" IsChecked="{Binding Path=IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource ExpandCollapseToggleStyle}" />
+                        <ToggleButton
+                            x:Name="Expander"
+                            ClickMode="Press"
+                            IsChecked="{Binding Path=IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
+                            Style="{StaticResource ExpandCollapseToggleStyle}" />
 
-                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.Column="1" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                        <Border
+                            x:Name="Bd"
+                            Grid.Column="1"
+                            Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="true">
                             <!--<ContentPresenter x:Name="PART_Header" Content="{Binding Object}" ContentTemplateSelector="{StaticResource propertytemplateSelector}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />-->
                         </Border>
 
-                        <ItemsPresenter x:Name="ItemsHost" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1" />
+                        <ItemsPresenter
+                            x:Name="ItemsHost"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Grid.ColumnSpan="2" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsExpanded" Value="false">
-                            <Setter Property="Visibility" TargetName="ItemsHost" Value="Collapsed" />
+                            <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed" />
                         </Trigger>
                         <Trigger Property="HasItems" Value="false">
-                            <Setter Property="Visibility" TargetName="Expander" Value="Hidden" />
+                            <Setter TargetName="Expander" Property="Visibility" Value="Hidden" />
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="false">
@@ -141,14 +165,14 @@
         </Style.Triggers>
     </Style>
 
-    <!--http://wpf-mettyz.blogspot.com/2012/02/custom-treeview-style.html-->
+    <!--  http://wpf-mettyz.blogspot.com/2012/02/custom-treeview-style.html  -->
 
     <converter:AlternationEqualityConverter x:Key="MyAlternationEqualityConverter" />
 
     <Style x:Key="StretchedTreeViewItemWithLinesStyle" TargetType="{x:Type TreeViewItem}">
-        <!-- Binding needs to be twoway since oneway by default-->
-        <Setter Property="IsExpanded" Value="{Binding IsExpanded,Mode=TwoWay}" />
-        <Setter Property="IsSelected" Value="{Binding IsSelected,Mode=OneWayToSource}" />
+        <!--  Binding needs to be twoway since oneway by default  -->
+        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=OneWayToSource}" />
 
         <Setter Property="AlternationCount" Value="{Binding RelativeSource={RelativeSource Self}, Path=Items.Count}" />
         <Setter Property="Background" Value="Transparent" />
@@ -162,8 +186,8 @@
                 <ControlTemplate TargetType="{x:Type TreeViewItem}">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition MinWidth="15" Width="Auto" />
-                            <ColumnDefinition MinWidth="19" Width="Auto" />
+                            <ColumnDefinition Width="Auto" MinWidth="15" />
+                            <ColumnDefinition Width="Auto" MinWidth="19" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
@@ -177,15 +201,20 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            <Rectangle Grid.Row="0"
-                           Width="3"
-                           Fill="Gray"
-                           SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Stretch" HorizontalAlignment="Left"
-                           Margin="5,0,0,0" />
-                            <Rectangle Grid.Row="1"
-                           Height="3"
-                           Fill="Green"
-                           SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="Left">
+                            <Rectangle
+                                Grid.Row="0"
+                                Width="3"
+                                Margin="5,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Stretch"
+                                Fill="Gray"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            <Rectangle
+                                Grid.Row="1"
+                                Height="3"
+                                HorizontalAlignment="Left"
+                                Fill="Green"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
                                 <Rectangle.Style>
                                     <Style TargetType="Rectangle">
                                         <!--<Setter Property="Fill" Value="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=LinienFarbe}" />-->
@@ -193,7 +222,7 @@
                                         <Setter Property="Width" Value="13" />
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=HasItems}" Value="False">
-                                                <Setter Property="Margin" Value="5,0,0,0"></Setter>
+                                                <Setter Property="Margin" Value="5,0,0,0" />
                                                 <Setter Property="Width" Value="25" />
                                             </DataTrigger>
                                         </Style.Triggers>
@@ -201,24 +230,26 @@
                                 </Rectangle.Style>
                             </Rectangle>
                         </Grid>
-                        <Border Grid.Column="0"
-                      Grid.ColumnSpan="2"
-                      Grid.RowSpan="2">
-                            <Rectangle Grid.Row="2"
-                           Width="3"
-                           SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                           VerticalAlignment="Stretch"
-                           HorizontalAlignment="Left"
-                           Margin="5,0,0,0"
-                           Fill="Green">
+                        <Border
+                            Grid.RowSpan="2"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2">
+                            <Rectangle
+                                Grid.Row="2"
+                                Width="3"
+                                Margin="5,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Stretch"
+                                Fill="Green"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
                                 <Rectangle.Style>
                                     <Style TargetType="Rectangle">
                                         <Style.Triggers>
                                             <DataTrigger Value="True">
                                                 <DataTrigger.Binding>
                                                     <MultiBinding Converter="{StaticResource MyAlternationEqualityConverter}">
-                                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}, AncestorLevel=2}" Path="Items.Count" />
-                                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type TreeViewItem}}" Path="(ItemsControl.AlternationIndex)" />
+                                                        <Binding Path="Items.Count" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}, AncestorLevel=2}" />
+                                                        <Binding Path="(ItemsControl.AlternationIndex)" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type TreeViewItem}}" />
                                                     </MultiBinding>
                                                 </DataTrigger.Binding>
                                                 <Setter Property="Visibility" Value="Collapsed" />
@@ -228,35 +259,52 @@
                                 </Rectangle.Style>
                             </Rectangle>
                         </Border>
-                        <ToggleButton Grid.Column="1" x:Name="Expander" Style="{StaticResource ExpandCollapseToggleStyle}" ClickMode="Press" IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" />
-                        <Border x:Name="Bd" SnapsToDevicePixels="true"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                Padding="{TemplateBinding Padding}" Grid.Column="2">
-                            <ContentPresenter x:Name="PART_Header"
-                                              Content="{Binding Object}"
-                                              ContentTemplateSelector="{Binding ItemTemplateSelector,RelativeSource={RelativeSource TemplatedParent}}"
-                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                              ContentSource="Header">
-                            </ContentPresenter>
+                        <ToggleButton
+                            x:Name="Expander"
+                            Grid.Column="1"
+                            ClickMode="Press"
+                            IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
+                            Style="{StaticResource ExpandCollapseToggleStyle}" />
+                        <Border
+                            x:Name="Bd"
+                            Grid.Column="2"
+                            Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="true">
+                            <ContentPresenter
+                                x:Name="PART_Header"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                Content="{Binding Object}"
+                                ContentSource="Header"
+                                ContentTemplateSelector="{Binding ItemTemplateSelector, RelativeSource={RelativeSource TemplatedParent}}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
 
-                            <!---->
+                            <!--    -->
                         </Border>
-                        <CheckBox   Margin="25,0,0,0" Focusable="False" Name="CheckBoxItem"  IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"    ></CheckBox>
+                        <CheckBox
+                            Name="CheckBoxItem"
+                            Margin="25,0,0,0"
+                            Focusable="False"
+                            IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <ItemsPresenter x:Name="ItemsHost" HorizontalAlignment="Stretch" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" />
+                        <ItemsPresenter
+                            x:Name="ItemsHost"
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Grid.ColumnSpan="2"
+                            HorizontalAlignment="Stretch" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsExpanded" Value="false">
-                            <Setter Property="Visibility" TargetName="ItemsHost" Value="Collapsed" />
+                            <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed" />
                         </Trigger>
                         <Trigger Property="HasItems" Value="false">
-                            <Setter Property="Visibility" TargetName="Expander" Value="Hidden" />
+                            <Setter TargetName="Expander" Property="Visibility" Value="Hidden" />
                         </Trigger>
                         <Trigger Property="IsSelected" Value="true">
-                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
                             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />
                         </Trigger>
                         <MultiTrigger>
@@ -264,7 +312,7 @@
                                 <Condition Property="IsSelected" Value="true" />
                                 <Condition Property="IsSelectionActive" Value="false" />
                             </MultiTrigger.Conditions>
-                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
                             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
                         </MultiTrigger>
                         <Trigger Property="IsEnabled" Value="false">
@@ -287,21 +335,27 @@
         </Style.Triggers>
     </Style>
 
-    <Style  x:Key="TreeViewMultiSelectStyle" TargetType="{x:Type TreeView}">
+    <Style x:Key="TreeViewMultiSelectStyle" TargetType="{x:Type TreeView}">
         <!--<Setter Property="ItemContainerStyle" Value="{StaticResource MyTreeViewItemStyle}" />-->
         <Setter Property="ItemContainerStyle" Value="{StaticResource StretchedTreeViewItemWithLinesStyle}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TreeView}">
-                    <Border Name="Border"     CornerRadius="1"   BorderThickness="1">
+                    <Border
+                        Name="Border"
+                        BorderThickness="1"
+                        CornerRadius="1">
                         <Border.BorderBrush>
                             <SolidColorBrush Color="{DynamicResource BorderMediumColor}" />
                         </Border.BorderBrush>
                         <Border.Background>
                             <SolidColorBrush Color="{DynamicResource ControlLightColor}" />
                         </Border.Background>
-                        <ScrollViewer Focusable="False"   CanContentScroll="False"   Padding="4">
-                            <ItemsPresenter  ></ItemsPresenter>
+                        <ScrollViewer
+                            Padding="4"
+                            CanContentScroll="False"
+                            Focusable="False">
+                            <ItemsPresenter />
                         </ScrollViewer>
                     </Border>
                 </ControlTemplate>
@@ -329,13 +383,17 @@
         </Setter>
     </Style>-->
 
-    <Style  x:Key="MultiSelectTreeViewControlStyle" TargetType="{x:Type local:MultiSelectTreeView}" BasedOn="{StaticResource TreeViewMultiSelectStyle}">
+    <Style
+        x:Key="MultiSelectTreeViewControlStyle"
+        BasedOn="{StaticResource TreeViewMultiSelectStyle}"
+        TargetType="{x:Type local:MultiSelectTreeView}">
         <Setter Property="ItemTemplate">
             <Setter.Value>
-                <HierarchicalDataTemplate    ItemsSource="{Binding Children}">
-                    <ContentPresenter HorizontalAlignment="Stretch"
-                                                  Content="{Binding Object }"
-                                                  ContentTemplateSelector="{StaticResource pathtemplateSelector}" />
+                <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                    <ContentPresenter
+                        HorizontalAlignment="Stretch"
+                        Content="{Binding Object}"
+                        ContentTemplateSelector="{StaticResource pathtemplateSelector}" />
                 </HierarchicalDataTemplate>
             </Setter.Value>
         </Setter>
