@@ -1,5 +1,7 @@
-﻿using System.Windows.Controls;
-using UtilityWpf.ViewModel;
+﻿using Splat;
+using System.Windows.Controls;
+using UtilityWpf.Abstract;
+using UtilityWpf.Model;
 
 namespace UtilityWpf.Interactive.Demo
 {
@@ -17,7 +19,7 @@ namespace UtilityWpf.Interactive.Demo
 
         private async void Init()
         {
-            Main_MasterDetailView.ItemsSource = await new ViewModelAssemblyModel().Collection;
+            Main_MasterDetailView.ItemsSource = await (Locator.Current.GetService<IViewModelAssemblyModel>()).Collection;
         }
     }
 }
