@@ -1,5 +1,5 @@
 ﻿using System.Windows.Controls;
-using UtilityWpf.ViewModel;
+using UtilityWpf.Model;
 
 namespace UtilityWpf.Interactive.Demo
 {
