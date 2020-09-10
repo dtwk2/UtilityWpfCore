@@ -72,7 +72,7 @@ namespace UtilityWpf.ViewModel
             //type.GetCustomAttribute<ViewModelAttribute>() != null;
         }
 
-        private TypeObject[] SelectTypeObjects()
+        protected virtual TypeObject[] SelectTypeObjects()
         {
             var xs = types.Value
                    .SelectMany(type =>
