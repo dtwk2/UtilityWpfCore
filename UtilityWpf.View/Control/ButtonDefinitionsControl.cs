@@ -7,6 +7,7 @@ using System.Windows.Controls;
 namespace UtilityWpf.View
 {
     using Command;
+    using UtilityWpf.Model;
 
     public class ButtonDefinitionsControl : ItemsControl
     {
@@ -67,7 +68,7 @@ namespace UtilityWpf.View
         {
             var items = ButtonDefinitionHelper.GetCommandOutput(Type, OutputType, Parameters)?
                 .Select(kvp =>
-                new ViewModel.ButtonDefinition
+                new ButtonDefinition
                 {
                     Command = new RelayCommand(() => SetOuput(kvp.Value())),
                     Content = kvp.Key

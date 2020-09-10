@@ -8,7 +8,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
-using UtilityWpf.ViewModel;
+using UtilityWpf.Model;
 
 namespace UtilityWpf.DemoApp
 {

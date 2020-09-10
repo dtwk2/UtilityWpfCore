@@ -14,16 +14,16 @@ namespace UtilityWpf.DemoApp
         public DoubleClickUserControl()
         {
             InitializeComponent();
-            this.DataContext = new ViewModel();
+            this.DataContext = new CharactersViewModel();
         }
     }
 
-    public class ViewModel
+    public class CharactersViewModel
     {
         public List<Character> Characters { get; }
         public ICommand MyCommand { get; set; }
 
-        public ViewModel()
+        public CharactersViewModel()
         {
             Characters = new List<Character>
             {

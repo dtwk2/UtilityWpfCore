@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Interactive.Demo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Interactive", "UtilityWpf.Interactive\UtilityWpf.Interactive.csproj", "{75C061C2-EB15-420B-BA53-C454D45E6F04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityWpf.Interactive.View", "UtilityWpf.Interactive.View\UtilityWpf.Interactive.View.csproj", "{92430C06-27DD-4070-BE49-E54206D49028}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Interactive.View", "UtilityWpf.Interactive.View\UtilityWpf.Interactive.View.csproj", "{92430C06-27DD-4070-BE49-E54206D49028}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityWpf.ViewModel", "UtilityWpf.ViewModel\UtilityWpf.ViewModel.csproj", "{0FF8844D-FC54-466F-832A-E67FF0429B2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +67,10 @@ Global
 		{92430C06-27DD-4070-BE49-E54206D49028}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92430C06-27DD-4070-BE49-E54206D49028}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92430C06-27DD-4070-BE49-E54206D49028}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FF8844D-FC54-466F-832A-E67FF0429B2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FF8844D-FC54-466F-832A-E67FF0429B2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FF8844D-FC54-466F-832A-E67FF0429B2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FF8844D-FC54-466F-832A-E67FF0429B2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,9 +6,9 @@
     <Authors />
     <Company />
     <RootNamespace>UtilityWpf.View</RootNamespace>
-    <Version>1.2.9</Version>
-    <AssemblyVersion>1.2.9.0</AssemblyVersion>
-    <FileVersion>1.2.9.0</FileVersion>
+    <Version>1.2.54</Version>
+    <AssemblyVersion>1.2.54.0</AssemblyVersion>
+    <FileVersion>1.2.54.0</FileVersion>
   </PropertyGroup>
   
   
@@ -42,9 +42,10 @@
 
   <!-- Only packs project if Configuration set to Release-->
    <Target Name="CustomPack" AfterTargets="build" Condition="'$(Configuration)'=='Release'">
-    <Message Text="Custom Pack command starts ..." Importance="high" />
-     <Message Text="nuget pack $(MSBuildProjectFile)  -OutputDirectory &quot;$(ProjectDir)bin\release&quot;  -Properties Configuration=Release" Importance="high" />
-    <Exec Command="nuget pack $(MSBuildProjectFile)  -OutputDirectory &quot;$(ProjectDir)bin\release&quot;  -Properties Configuration=Release" />
+     <Message Text="Custom Pack command starts ..." Importance="high" />
+     <!--  <Message Text="nuget pack $(MSBuildProjectFile) -IncludeReferencedProjects -OutputDirectory &quot;$(ProjectDir)bin\release&quot;  -Properties Configuration=Release" Importance="high" />-->
+     <Message Text="dotnet pack $(MSBuildProjectFile)  -o &quot;$(ProjectDir)bin\release&quot;" Importance="high" />
+     <Exec Command="dotnet pack $(MSBuildProjectFile)  -o &quot;$(ProjectDir)bin\release&quot;" />
   </Target>
   
     <!-- Only copy packages if Configuration set to Release-->

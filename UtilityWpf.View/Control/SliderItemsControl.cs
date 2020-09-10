@@ -76,7 +76,7 @@ namespace UtilityWpf.View
                        KeyRangeCollection.Add(xx);
                    }
                });
-           }, System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken))));
+           }, System.Windows.Threading.DispatcherPriority.Background, default)));
         });
 
             SelectChanges(nameof(ShowKeyValuePanel)).Subscribe(_ =>

@@ -1,4 +1,4 @@
-﻿namespace UtilityWpf.ViewModel
+﻿namespace UtilityWpf.Model
 {
     public class TypeObject
     {

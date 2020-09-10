@@ -1,10 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <AssemblyVersion>1.0.3.0</AssemblyVersion>
-    <FileVersion>1.0.3.0</FileVersion>
-    <Version>1.0.3</Version>
+    <AssemblyVersion>1.0.12.0</AssemblyVersion>
+    <FileVersion>1.0.12.0</FileVersion>
+    <Version>1.0.12</Version>
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -33,10 +33,11 @@
 
   <!-- Only packs project if Configuration set to Release-->
    <Target Name="CustomPack" AfterTargets="build" Condition="'$(Configuration)'=='Release'">
-    <Message Text="Custom Pack command starts ..." Importance="high" />
-     <Message Text="nuget pack $(MSBuildProjectFile)  -OutputDirectory &quot;$(ProjectDir)bin\release&quot;  -Properties Configuration=Release" Importance="high" />
-    <Exec Command="nuget pack $(MSBuildProjectFile)  -OutputDirectory &quot;$(ProjectDir)bin\release&quot;  -Properties Configuration=Release" />
-  </Target>
+          <Message Text="Custom Pack command starts ..." Importance="high" />
+     <!--  <Message Text="nuget pack $(MSBuildProjectFile) -IncludeReferencedProjects -OutputDirectory &quot;$(ProjectDir)bin\release&quot;  -Properties Configuration=Release" Importance="high" />-->
+     <Message Text="dotnet pack $(MSBuildProjectFile)  -o &quot;$(ProjectDir)bin\release&quot;" Importance="high" />
+     <Exec Command="dotnet pack $(MSBuildProjectFile)  -o &quot;$(ProjectDir)bin\release&quot;" />
+   </Target>
   
     <!-- Only copy packages if Configuration set to Release-->
   <Target Name="PostPack" AfterTargets="CustomPack" Condition="'$(Configuration)'=='Release'">

@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using UtilityWpf.Model;
 
 namespace UtilityWpf.View
 {
@@ -29,9 +30,9 @@ namespace UtilityWpf.View
             {
             }
 
-            if (item is ViewModel.FileViewModel)
+            if (item is FileViewModel)
                 return FileDataTemplate;
-            else if (item is ViewModel.DirectoryViewModel)
+            else if (item is DirectoryViewModel)
                 return DirectoryDataTemplate;
             else
                 return DefaultDataTemplate;

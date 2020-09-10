@@ -1,6 +1,6 @@
 ﻿//using PropertyTools.DataAnnotations;
 
-namespace UtilityWpf.ViewModel
+namespace UtilityWpf.Model
 {
     //public class FolderPickerViewModel : NPC
     //{

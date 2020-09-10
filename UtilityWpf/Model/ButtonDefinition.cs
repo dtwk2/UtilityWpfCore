@@ -1,6 +1,6 @@
 ﻿using UtilityWpf.Command;
 
-namespace UtilityWpf.ViewModel
+namespace UtilityWpf.Model
 {
     public class ButtonDefinition
     {

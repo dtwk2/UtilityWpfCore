@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace UtilityWpf.ViewModel
+namespace UtilityWpf.Model
 {
     public interface ICollectionViewModel<T>
     {

@@ -10,7 +10,7 @@ using UtilityInterface.Generic;
 using UtilityWpf.Interactive.Abstract;
 using UtilityWpf.Interactive.Model;
 using UtilityWpf.Property;
-using UtilityWpf.ViewModel;
+using UtilityWpf.Model;
 
 namespace UtilityWpf.Interactive
 {

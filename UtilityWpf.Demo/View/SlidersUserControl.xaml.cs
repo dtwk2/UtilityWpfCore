@@ -1,4 +1,5 @@
 ﻿using AutoBogus;
+using MoreLinq;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -67,7 +68,7 @@ namespace UtilityWpf.DemoApp
     .RuleFor(fake => fake.Last, fake => fake.Random.Word())
         .RuleFor(fake => fake.Location, fake => new Point(fake.Random.Int(), fake.Random.Int()))
                    .RuleFor(fake => fake.Age, fake => fake.Random.Int(0, 10000));
-                this.Dispatcher.InvokeAsync(() => sic.Data = personFaker.Generate(10));
+                this.Dispatcher.InvokeAsync(() => sic.Data = personFaker.Generate(10).DistinctBy(a=>a.First));
             });
         }
 

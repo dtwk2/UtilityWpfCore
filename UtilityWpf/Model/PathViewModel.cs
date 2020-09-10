@@ -2,28 +2,28 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace UtilityWpf.ViewModel
+namespace UtilityWpf.Model
 {
     public class PathViewModel : FileSystemInfo
     {
         private Func<string, string> map;
 
-        public string FilePath { get { return base.FullPath; } }
+        public string FilePath { get { return FullPath; } }
 
-        public string Directory { get { return System.IO.Path.GetDirectoryName(FilePath); } }
+        public string Directory { get { return Path.GetDirectoryName(FilePath); } }
 
         public override string Name
         {
             get
             {
                 var name = map(FilePath);
-                return String.IsNullOrEmpty(name) ? this.FilePath : name;
+                return string.IsNullOrEmpty(name) ? FilePath : name;
             }
         }
 
         public PathViewModel(string path, Func<string, string> map)
         {
-            base.FullPath = path;
+            FullPath = path;
             this.map = map;
         }
 
@@ -41,14 +41,14 @@ namespace UtilityWpf.ViewModel
 
     public class FileViewModel : PathViewModel
     {
-        public FileViewModel(string path, Func<string, string> map = null) : base(path, map ?? ((a) => System.IO.Path.GetFileName(a)))
+        public FileViewModel(string path, Func<string, string> map = null) : base(path, map ?? ((a) => Path.GetFileName(a)))
         {
         }
     }
 
     public class DirectoryViewModel : PathViewModel
     {
-        public DirectoryViewModel(string path, Func<string, string> map = null) : base(path, map ?? ((a) => System.IO.Path.GetDirectoryName(a)))
+        public DirectoryViewModel(string path, Func<string, string> map = null) : base(path, map ?? ((a) => Path.GetDirectoryName(a)))
         {
         }
 

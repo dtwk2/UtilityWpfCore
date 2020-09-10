@@ -9,7 +9,7 @@ using UtilityInterface.Generic;
 using UtilityWpf.Command;
 using UtilityWpf.Property;
 
-namespace UtilityWpf.ViewModel
+namespace UtilityWpf.Model
 {
     public class InteractiveObject : InteractiveObject<object>, UtilityInterface.NonGeneric.IObject
     {

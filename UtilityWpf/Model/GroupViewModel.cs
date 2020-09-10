@@ -7,7 +7,7 @@ using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Reactive.Linq;
 
-namespace UtilityWpf.ViewModel
+namespace UtilityWpf.Model
 {
     public class GroupMasterPropertyChangedViewModel<T, R, S> where T : INotifyPropertyChanged
     {
@@ -78,7 +78,7 @@ namespace UtilityWpf.ViewModel
         {
             groups
       .Transform(createFunc)
-      .ObserveOnDispatcher()
+      .ObserveOn(RxApp.MainThreadScheduler)
       .Bind(out var data)
       //.DisposeMany()
       .Subscribe(v =>
