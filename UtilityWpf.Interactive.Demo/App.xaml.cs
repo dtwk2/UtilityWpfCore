@@ -13,6 +13,8 @@ namespace UtilityWpf.Interactive
     {
         public App()
         {
+            Locator.CurrentMutable.Register(()=> new TestViewModel());
+
             Locator.CurrentMutable.Register<IViewFor<TestViewModel>>(() => new TestView());
             Locator.CurrentMutable.Register<IViewFor<Test1ViewModel>>(() => new Test2View());
             Locator.CurrentMutable.Register<IViewFor<Test2ViewModel>>(() => new Test3View());
