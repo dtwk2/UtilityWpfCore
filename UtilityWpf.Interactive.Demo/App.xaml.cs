@@ -1,5 +1,7 @@
-﻿using ReactiveUI;
+﻿using Autofac;
+using ReactiveUI;
 using Splat;
+using Splat.Autofac;
 using System.Windows;
 using UtilityWpf.Interactive.Demo;
 using UtilityWpf.Interactive.Demo.ViewModel;
@@ -13,8 +15,13 @@ namespace UtilityWpf.Interactive
     {
         public App()
         {
-            Locator.CurrentMutable.Register(()=> new TestViewModel());
+            var containerBuilder = new ContainerBuilder();
 
+            UtilityWpf.Infrastructure.BootStrapper.Register(containerBuilder);
+
+            containerBuilder.UseAutofacDependencyResolver();
+
+            Locator.CurrentMutable.Register(()=> new TestViewModel());
             Locator.CurrentMutable.Register<IViewFor<TestViewModel>>(() => new TestView());
             Locator.CurrentMutable.Register<IViewFor<Test1ViewModel>>(() => new Test2View());
             Locator.CurrentMutable.Register<IViewFor<Test2ViewModel>>(() => new Test3View());
