@@ -22,7 +22,16 @@ namespace UtilityWpf.Model
             .ToArray()));
         }
 
-        public TypeModel(string assemblyName = null)
+        public TypeModel()
+        {
+            types = new AsyncLazy<Type[]>(() => Task.Run(() =>
+           (Assembly.GetEntryAssembly())
+            .GetTypes()
+                    .Where(Filter)
+            .ToArray()));
+        }
+
+        public TypeModel(string assemblyName)
         {
             types = new AsyncLazy<Type[]>(() => Task.Run(() =>
            (assemblyName != null ? Assembly.Load(assemblyName) : Assembly.GetEntryAssembly())

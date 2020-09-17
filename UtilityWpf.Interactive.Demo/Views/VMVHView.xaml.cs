@@ -1,5 +1,6 @@
-﻿using System.Windows.Controls;
-using UtilityWpf.Model;
+﻿using Splat;
+using System.Windows.Controls;
+using UtilityWpf.Abstract;
 
 namespace UtilityWpf.Interactive.Demo
 {
@@ -12,7 +13,12 @@ namespace UtilityWpf.Interactive.Demo
         {
             InitializeComponent();
 
-            InteractiveList2.Data = new ViewModelAssemblyModel().Collection.Result;
+            Init();
+        }
+
+        async void Init()
+        {
+            InteractiveList2.Data = await (Locator.Current.GetService<IViewModelAssemblyModel>()).Collection;
         }
     }
 }
