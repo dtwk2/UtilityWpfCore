@@ -68,7 +68,7 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Label Content="Errrors" />
+                        <Label Content="Errors" />
                         <ItemsControl Grid.Column="1" ItemsSource="{Binding ElementName=lbx, Path=Errors}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>

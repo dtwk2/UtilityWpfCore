@@ -44,10 +44,9 @@ namespace UtilityWpf.Model
         {
             this.types = new AsyncLazy<Type[]>(() => Task.Run(() =>
             types
-            .Select(a => a.Assembly)
+            .Select(t => t.Assembly)
             .DistinctBy(a => a.FullName)
             .SelectMany(a => a.GetTypes()
-            //.Where(type => type.GetCustomAttribute<ViewModelAttribute>() != null))
                      .Where(Filter))
             .ToArray()));
         }
@@ -55,7 +54,7 @@ namespace UtilityWpf.Model
         public TypeModel(ISet<string> assemblyNames)
         {
             types = new AsyncLazy<Type[]>(() => Task.Run(() =>
-           assemblyNames.Select(a => Assembly.Load(a))
+           assemblyNames.Select(name => Assembly.Load(name))
             .DistinctBy(a => a.FullName)
             .SelectMany(a => a.GetTypes()
              // .Where(type => type.GetCustomAttribute<ViewModelAttribute>() != null))

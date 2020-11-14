@@ -5,7 +5,7 @@
     <UseWPF>true</UseWPF>
     <AssemblyName>UtilityWpf</AssemblyName>
     <RootNamespace>UtilityWpf</RootNamespace>
-    <Version>1.0.41</Version>
+    <Version>1.0.89</Version>
     <AssemblyVersion>1.0.41.0</AssemblyVersion>
     <FileVersion>1.0.41.0</FileVersion>
   </PropertyGroup>
@@ -48,10 +48,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="ReactiveUI" Version="11.5.35" />
-    <PackageReference Include="Splat.Autofac" Version="9.5.35" />
+    <PackageReference Include="Splat.Autofac" Version="9.5.37" />
     <PackageReference Include="UtilityEnum" Version="2.0.4" />
-    <PackageReference Include="UtilityHelper" Version="2.1.5-alpha" />
-    <PackageReference Include="UtilityInterface" Version="4.0.2-alpha" />
+    <PackageReference Include="UtilityHelper" Version="2.1.6-alpha-01" />
+    <PackageReference Include="UtilityInterface" Version="4.0.4" />
   </ItemGroup>
 
   <!-- Only packs project if Configuration set to Release-->

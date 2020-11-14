@@ -17,11 +17,14 @@ namespace UtilityWpf.Interactive
         {
             var containerBuilder = new ContainerBuilder();
 
-            UtilityWpf.Infrastructure.BootStrapper.Register(containerBuilder);
+            Infrastructure.BootStrapper.Register(containerBuilder);
+
+            containerBuilder.RegisterType<ViewModelAssemblyViewModel>();
 
             containerBuilder.UseAutofacDependencyResolver();
 
             Locator.CurrentMutable.Register(()=> new TestViewModel());
+            Locator.CurrentMutable.Register<IViewFor<ViewModelAssemblyViewModel>>(() => new ViewModelAssemblyView());
             Locator.CurrentMutable.Register<IViewFor<TestViewModel>>(() => new TestView());
             Locator.CurrentMutable.Register<IViewFor<Test1ViewModel>>(() => new Test2View());
             Locator.CurrentMutable.Register<IViewFor<Test2ViewModel>>(() => new Test3View());

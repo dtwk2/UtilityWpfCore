@@ -6,14 +6,17 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:demo="clr-namespace:UtilityWpf.Interactive.Demo"
     xmlns:demo1="clr-namespace:UtilityWpf.Interactive.Demo"
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:reactiveui="http://reactiveui.net" 
+    xmlns:interactive="clr-namespace:UtilityWpf.Interactive;assembly=UtilityWpf.Interactive"
     Title="MainWindow"
     Width="800"
     Height="450"
     mc:Ignorable="d">
-    <TabControl>
+    
 
+
+    <TabControl>
         <TabItem Header="Master-Detail">
             <Grid>
                 <demo:MasterDetailViewUserControl />
@@ -22,7 +25,10 @@
 
         <TabItem Header="ViewModelView">
             <Grid>
-                <demo:ViewModelAssemblyView />
+                <reactiveui:ViewModelViewHost x:Name="AssemblyViewModelViewHost"
+                                              VerticalContentAlignment="Stretch" 
+                                              HorizontalContentAlignment="Stretch">
+                </reactiveui:ViewModelViewHost>
             </Grid>
         </TabItem>
 

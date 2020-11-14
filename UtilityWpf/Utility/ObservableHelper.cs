@@ -7,7 +7,7 @@ namespace UtilityWpf
     public static class ObservableHelper
     {
         /// <summary>
-        /// https://stackoverflow.com/questions/28853030/iobservable-ignore-new-elements-for-a-span-of-time
+        /// <a href="https://stackoverflow.com/questions/28853030/iobservable-ignore-new-elements-for-a-span-of-time"></a>
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="source"></param>
@@ -30,7 +30,7 @@ namespace UtilityWpf
         //    .Select(a => a.EventArgs);
 
         /// James World
-        /// http://www.zerobugbuild.com/?p=323
+        /// <a href="http://www.zerobugbuild.com/?p=323"></a>
         /// The events should be output at a maximum rate specified by a TimeSpan, but otherwise as soon as possible.
         public static IObservable<T> Pace<T>(this IObservable<T> source, TimeSpan rate)
         {
