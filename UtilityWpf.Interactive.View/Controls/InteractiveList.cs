@@ -11,6 +11,7 @@ using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
 using UtilityHelper.NonGeneric;
+using UtilityHelperEx;
 using UtilityInterface.Generic;
 using UtilityInterface.NonGeneric;
 using UtilityWpf.Interactive.Common;
