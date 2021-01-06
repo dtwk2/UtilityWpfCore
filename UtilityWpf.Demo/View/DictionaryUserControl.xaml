@@ -25,52 +25,10 @@
             <sys:Int32 x:Key="key2">222</sys:Int32>
         </local:MyDictionary>
     </UserControl.Resources>
-    <UniformGrid Rows="1">
+   
         <Grid>
             <util:DictionaryControl ItemsSource="{Binding}" />
         </Grid>
 
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Row Spacing: " />
-                <Slider
-                    x:Name="rowSpacing"
-                    Width="200"
-                    VerticalAlignment="Center"
-                    Maximum="50"
-                    Minimum="0"
-                    Value="5" />
-                <Label Content="Column Spacing: " />
-                <Slider
-                    x:Name="colSpacing"
-                    Width="200"
-                    VerticalAlignment="Center"
-                    Maximum="50"
-                    Minimum="0"
-                    Value="5" />
-            </StackPanel>
-            <Border
-                Grid.Row="1"
-                Margin="10"
-                Padding="4"
-                BorderBrush="Black"
-                BorderThickness="2">
-                <util:TwoColumnGrid ColumnSpacing="{Binding ElementName=colSpacing, Path=Value}" RowSpacing="{Binding ElementName=rowSpacing, Path=Value}">
-                    <Label Content="Name:" />
-                    <TextBox VerticalAlignment="Center" Text="John Doe" />
-                    <Label Content="Address:" />
-                    <TextBox
-                        Height="70"
-                        VerticalAlignment="Center"
-                        Text="34 Some Street&#x0a;123 45 SomeTown&#x0a;Some Country" />
-                    <Label Content="Position:" />
-                    <TextBox Text="Manager" />
-                </util:TwoColumnGrid>
-            </Border>
-        </Grid>
-    </UniformGrid>
+
 </UserControl>
