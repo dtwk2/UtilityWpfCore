@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using System.Reactive.Linq;
 using UtilityInterface.Generic;
+using UtilityWpf.Interactive.Model;
 using UtilityWpf.Model;
 
 namespace UtilityWpf.Interactive
