@@ -9,7 +9,7 @@
     xmlns:local="clr-namespace:UtilityWpf.DemoAnimation"
     xmlns:local1="clr-namespace:UtilityWpf.DemoAnimationCore"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:nb="http://www.aptof.com/"
+    xmlns:extrinsic="clr-namespace:UtilityWpf.View.Extrinsic;assembly=UtilityWpf.View"
     Title="MainWindow"
     Width="800"
     Height="650"
@@ -17,7 +17,9 @@
 
     <Grid>
         <controlx:TabControlEx>
-
+            <TabItem Header="MaterialDesign">
+                <local:MaterialDesignUserControl />
+            </TabItem>
             <TabItem Header="Gauge">
                 <local:Gauge2UserControl />
             </TabItem>
@@ -33,36 +35,36 @@
             <TabItem Header="BarControl">
                 <DockPanel>
                     <StackPanel DockPanel.Dock="Top">
-                        <nb:NumberBox
+                        <extrinsic:SpinnerControl
                             x:Name="height"
                             Width="100"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
-                            Number="60" />
-                        <nb:NumberBox
+                            Value="60" />
+                        <extrinsic:SpinnerControl
                             x:Name="duration"
                             Width="100"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
-                            Number="600" />
+                            Value="600" />
                     </StackPanel>
                     <Grid>
-                        <ani:BarControl Size="{Binding ElementName=height1, Path=Number}" Duration="{Binding ElementName=duration, Path=Number}" />
+                        <ani:BarControl Size="{Binding ElementName=height1, Path=Number}" Duration="{Binding ElementName=duration, Path=Value}" />
                     </Grid>
                 </DockPanel>
             </TabItem>
             <TabItem Header="BlinkControl">
                 <DockPanel>
                     <StackPanel DockPanel.Dock="Top">
-                        <nb:NumberBox
+                        <extrinsic:SpinnerControl
                             x:Name="duration1"
                             Width="100"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
-                            Number="600" />
+                            Value="600" />
                     </StackPanel>
                     <Grid Width="40" Height="40">
-                        <ani:BlinkControl Duration="{Binding ElementName=duration1, Path=Number}" />
+                        <ani:BlinkControl Duration="{Binding ElementName=duration1, Path=Value}" />
                     </Grid>
                 </DockPanel>
             </TabItem>
@@ -73,11 +75,11 @@
                         <local:BeatViewModel />
                     </DockPanel.DataContext>
                     <StackPanel DockPanel.Dock="Top">
-                        <nb:NumberBox
+                        <extrinsic:SpinnerControl
                             Width="100"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
-                            Number="{Binding Rate}" />
+                            Value="{Binding Rate}" />
                     </StackPanel>
                     <Grid>
                         <ani:BeatControl Beat="{Binding Beat}" />
@@ -86,36 +88,22 @@
             </TabItem>
 
             <TabItem Header="FadeControl">
-                <DockPanel>
-
-                    <Label>Click Control or Button To Animate</Label>
-                    <Button
-                        Width="200"
-                        Height="40"
-                        Margin="10"
-                        Command="{Binding ElementName=Fade1, Path=FadeCommand}"
-                        DockPanel.Dock="Top">
-                        Click
-                    </Button>
-                    <Grid Width="100" Height="100">
-                        <ani:FadeControl x:Name="Fade2" FadeIn="False" />
-                    </Grid>
-                    <Grid Width="100" Height="100">
-                        <ani:FadeControl x:Name="Fade1">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="MouseDown">
-                                    <i:InvokeCommandAction Command="{Binding FadeCommand, RelativeSource={RelativeSource AncestorType=ani:FadeControl}}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </ani:FadeControl>
-                    </Grid>
-                </DockPanel>
+                <local:FadeUserControl></local:FadeUserControl>  
+            </TabItem> 
+            <TabItem Header="Path">
+                <local:PathUserControl></local:PathUserControl>  
+            </TabItem>     
+            <TabItem Header="Text">
+                <local:TextBoxUserControl></local:TextBoxUserControl>  
             </TabItem>
             <TabItem Header="Border">
                 <local1:BorderUserControl />
             </TabItem>
             <TabItem Header="TransitionElement">
                 <local:TransitionElementUserControl />
+            </TabItem>
+            <TabItem>
+                
             </TabItem>
         </controlx:TabControlEx>
     </Grid>

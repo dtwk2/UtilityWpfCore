@@ -5,9 +5,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:trans="clr-namespace:Transitionals;assembly=Transitionals"
     xmlns:transc="clr-namespace:Transitionals.Controls;assembly=Transitionals"
     xmlns:transt="clr-namespace:Transitionals.Transitions;assembly=Transitionals"
+    xmlns:trans="clr-namespace:Transitionals;assembly=Transitionals"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
