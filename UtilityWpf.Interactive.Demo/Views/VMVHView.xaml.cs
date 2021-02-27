@@ -18,7 +18,8 @@ namespace UtilityWpf.Interactive.Demo
 
         async void Init()
         {
-            InteractiveList2.Data = await (Locator.Current.GetService<IViewModelAssemblyModel>()).Collection;
+         
+            InteractiveList2.Data = await ((App.Current as App).Model).Collection;
         }
     }
 }

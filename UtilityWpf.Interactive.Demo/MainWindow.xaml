@@ -8,7 +8,6 @@
     xmlns:demo1="clr-namespace:UtilityWpf.Interactive.Demo"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:reactiveui="http://reactiveui.net" 
-    xmlns:interactive="clr-namespace:UtilityWpf.Interactive;assembly=UtilityWpf.Interactive"
     Title="MainWindow"
     Width="800"
     Height="450"

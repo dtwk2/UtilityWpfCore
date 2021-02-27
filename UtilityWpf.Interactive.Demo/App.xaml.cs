@@ -3,6 +3,7 @@ using ReactiveUI;
 using Splat;
 using Splat.Autofac;
 using System.Windows;
+using UtilityWpf.Abstract;
 using UtilityWpf.Interactive.Demo;
 using UtilityWpf.Interactive.Demo.ViewModel;
 
@@ -13,6 +14,8 @@ namespace UtilityWpf.Interactive
     /// </summary>
     public partial class App : Application
     {
+        private readonly IViewModelAssemblyModel model;
+
         public App()
         {
             var containerBuilder = new ContainerBuilder();
@@ -21,14 +24,21 @@ namespace UtilityWpf.Interactive
 
             containerBuilder.RegisterType<ViewModelAssemblyViewModel>();
 
+            containerBuilder.Register((a)=> new TestViewModel());
+            containerBuilder.Register<IViewFor<ViewModelAssemblyViewModel>>((a) => new ViewModelAssemblyView());
+            containerBuilder.Register<IViewFor<TestViewModel>>((a) => new TestView());
+            containerBuilder.Register<IViewFor<Test1ViewModel>>((a) => new Test2View());
+            containerBuilder.Register<IViewFor<Test2ViewModel>>((a) => new Test3View());
+            containerBuilder.Register<IViewFor<Test3ViewModel>>((a) => new Test4View());
+
             containerBuilder.UseAutofacDependencyResolver();
 
-            Locator.CurrentMutable.Register(()=> new TestViewModel());
-            Locator.CurrentMutable.Register<IViewFor<ViewModelAssemblyViewModel>>(() => new ViewModelAssemblyView());
-            Locator.CurrentMutable.Register<IViewFor<TestViewModel>>(() => new TestView());
-            Locator.CurrentMutable.Register<IViewFor<Test1ViewModel>>(() => new Test2View());
-            Locator.CurrentMutable.Register<IViewFor<Test2ViewModel>>(() => new Test3View());
-            Locator.CurrentMutable.Register<IViewFor<Test3ViewModel>>(() => new Test4View());
+            var build = containerBuilder.Build();
+
+            model = build.Resolve<IViewModelAssemblyModel>();
+
         }
+
+        public IViewModelAssemblyModel Model => model;
     }
 }
