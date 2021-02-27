@@ -5,11 +5,20 @@ using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Media.Animation;
 
 namespace UtilityWpf
 {
     public static class EventToObservableHelper
     {
+        public static IObservable<EventArgs> SelectCompletions(this Storyboard storyboard) =>
+
+            Observable
+            .FromEventPattern<EventHandler, EventArgs>
+            (a => storyboard.Completed += a, a => storyboard.Completed -= a)
+            .Select(a => a.EventArgs);
+        
+        
         public static IObservable<IList> SelectAddChanges(this Selector selector) =>
 
             Observable
