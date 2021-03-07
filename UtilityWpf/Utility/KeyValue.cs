@@ -46,13 +46,13 @@ namespace UtilityWpf.Property
         public TKey Key
         {
             get => key;
-            set => this.RaiseAndSetIfChanged(ref key, value);
+            set => this.RaiseAndSetIfChanged(ref this.key, value);
         }
 
         public TValue Value
         {
             get => value;
-            set => this.RaiseAndSetIfChanged(ref value, value);
+            set => this.RaiseAndSetIfChanged(ref this.value, value);
         }
     }
 
