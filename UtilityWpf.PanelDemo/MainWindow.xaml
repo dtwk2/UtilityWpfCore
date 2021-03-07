@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <TabControl x:Name="TabControl1" >
-        
+
         <TabItem Header="Region Panel 2">
             <controls:RegionPanel2Demo></controls:RegionPanel2Demo>
         </TabItem>
@@ -20,7 +20,7 @@
         <TabItem Header="Side Panel">
             <controls:DemoSidePanel></controls:DemoSidePanel>
         </TabItem>
-        
+
         <TabItem Header="Corner Panel">
             <controls:DemoCornerPanel></controls:DemoCornerPanel>
         </TabItem>
@@ -29,12 +29,12 @@
             <controls:DemoUniformGridPanel/>
         </TabItem>
 
-       
+
         <TabItem Header="Edge Legacy Panel">
             <controls:EdgeLegacyPanelDemo></controls:EdgeLegacyPanelDemo>
         </TabItem>
 
-                <TabItem Header="Region Legacy Panel">
+        <TabItem Header="Region Legacy Panel">
             <ItemsControl ItemsSource="{Binding Path=Collection, Source={x:Static controls:DemoViewModel.Instance}}">
 
                 <ItemsControl.ItemsPanel>
@@ -88,32 +88,35 @@
         </TabItem>
 
         <TabItem Header="Edge Legacy Panel 3">
-                    <ItemsControl ItemsSource="{Binding Path=Collection, Source={x:Static controls:DemoViewModel.Instance}}">
+            <ItemsControl ItemsSource="{Binding Path=Collection, Source={x:Static controls:DemoViewModel.Instance}}">
 
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <controls:EdgeLegacyPanel/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemContainerStyle>
-                            <Style TargetType="ContentPresenter">
-                                <Setter Property="controls:EdgeLegacyPanel.CircleRegion" Value="BottomRight"></Setter>
-                                <Setter Property="controls:EdgeLegacyPanel.WidthSizing" Value="Auto"></Setter>
-                                <Setter Property="controls:EdgeLegacyPanel.HeightSizing" Value="Auto"></Setter>
-                            </Style>
-                        </ItemsControl.ItemContainerStyle>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <controls:EdgeLegacyPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="controls:EdgeLegacyPanel.CircleRegion" Value="BottomRight"></Setter>
+                        <Setter Property="controls:EdgeLegacyPanel.WidthSizing" Value="Auto"></Setter>
+                        <Setter Property="controls:EdgeLegacyPanel.HeightSizing" Value="Auto"></Setter>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock
                             Text="{Binding }"
                             Opacity="0.4"
                             Foreground="Wheat"
                             Width="150"
                             Height="20"
                             Background="Blue" />
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </TabItem>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </TabItem>
+        <TabItem Header="Hexagon">
+            <controls:HexagonGridDemo></controls:HexagonGridDemo>
+        </TabItem>
     </TabControl>
 </Window>
