@@ -46,6 +46,7 @@
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/RangeSlider.xaml" />
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/TimeSpanControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/AddControl.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/Clock.xaml" />
 
         <!--  Foreign  -->
 
