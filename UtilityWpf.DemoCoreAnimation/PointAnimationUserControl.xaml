@@ -6,22 +6,17 @@
              xmlns:animation="clr-namespace:UtilityWpf.Animation;assembly=UtilityWpf.AnimationCore"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel>
-        <Button Click="Button_Click">Animate</Button>
-        <Grid Height="300" Width="600" Background="Gray">
-            <Canvas x:Name="Canvas1" Background="GhostWhite" Margin="10">
-                
-            </Canvas>
-        </Grid>
-        <Grid Height="300" Width="600" Background="Gray">
-            <Canvas  Background="GhostWhite" Margin="10">
-                <animation:PointControl x:Name="PointControl1">
-                    <animation:PointControl.Point>
-                        <Point X="100" Y="100"></Point>
-                    </animation:PointControl.Point>
-                </animation:PointControl>
-            </Canvas>
-        </Grid>
+    <DockPanel>
+        <Button Click="Button_Click" DockPanel.Dock="Top">Animate</Button>
 
-    </StackPanel>
+        <Canvas x:Name="Canvas1" Background="GhostWhite" Margin="10"  Height="300" Width="600" >
+
+            <animation:TravellerControl x:Name="TravellerControl1"/>
+
+            <animation:TravellerControl x:Name="TravellerControl2" Stroke="Firebrick"  Foreground="Yellow" RadiusX="10" RadiusY="3"/>
+
+            <animation:PointControl x:Name="PointControl1"   />
+        </Canvas>
+
+    </DockPanel>
 </UserControl>
