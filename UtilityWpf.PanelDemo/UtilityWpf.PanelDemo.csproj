@@ -1,0 +1,61 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="UniversalWPF" Version="0.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="View\DemoCornerPanel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\DemoSidePanel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\DemoUniformGridPanel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\EdgeLegacyPanelDemo.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\RegionPanel2Demo.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\RegionPanelDemo.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="View\DemoCornerPanel.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\DemoSidePanel.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\DemoUniformGridPanel.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\EdgeLegacyPanelDemo.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\RegionPanel2Demo.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\RegionPanelDemo.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

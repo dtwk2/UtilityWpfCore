@@ -7,7 +7,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using UtilityInterface.Generic;
 using UtilityWpf.Interactive.Abstract;
-using UtilityWpf.Model;
+using UtilityWpf.Interactive.Model;
 
 namespace UtilityWpf.Interactive
 {

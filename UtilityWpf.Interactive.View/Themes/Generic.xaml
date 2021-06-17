@@ -7,5 +7,9 @@
         <ResourceDictionary Source="/UtilityWpf.Interactive.View;component/Themes/MultiSelectTreeView.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Interactive.View;component/Themes/MasterDetailCheckView.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Interactive.View;component/Themes/MasterDetailView.xaml" />
+
+        <ResourceDictionary>
+     
+        </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary> 

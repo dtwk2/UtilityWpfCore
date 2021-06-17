@@ -10,7 +10,7 @@ using System.Reactive.Subjects;
 using UtilityInterface.NonGeneric;
 using UtilityWpf.Interactive.Abstract;
 using UtilityWpf.Property;
-using UtilityWpf.Model;
+using UtilityWpf.Interactive.Model;
 
 namespace UtilityWpf.Interactive
 {

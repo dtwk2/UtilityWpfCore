@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
@@ -11,60 +10,56 @@ using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
 using UtilityHelper.NonGeneric;
+using UtilityHelperEx;
 using UtilityInterface.Generic;
 using UtilityInterface.NonGeneric;
 using UtilityWpf.Interactive.Common;
 
 namespace UtilityWpf.Interactive.View.Controls
 {
+    using static UtilityWpf.MetaDataFactory<InteractiveList>;
+    using static UtilityWpf.DependencyPropertyFactory<InteractiveList>;
+
     public class InteractiveList : ListBox
     {
         private readonly ObservableCollection<object> changeCollection = new ObservableCollection<object>();
-
-        public readonly ISubject<KeyValuePair<IObject<object>, ChangeReason>> changes = new Subject<KeyValuePair<IObject<object>, ChangeReason>>();
+        public readonly ReplaySubject<KeyValuePair<IObject<object>, ChangeReason>> changes = new ReplaySubject<KeyValuePair<IObject<object>, ChangeReason>>();
 
         //protected ISubject<IEnumerable> ItemsSourceSubject = new Subject<IEnumerable>();
-        protected ISubject<string> KeySubject = new ReplaySubject<string>();
-
-        protected ISubject<string> GroupSubject = new ReplaySubject<string>();
-        protected ISubject<Unit> ClearedSubject = new ReplaySubject<Unit>();
-
-        protected ISubject<object> SelectedItemSubject = new ReplaySubject<object>();
-        protected ISubject<object> DoubleClickedItemSubject = new ReplaySubject<object>();
-        protected ISubject<object> DeletedSubject = new ReplaySubject<object>();
-        protected ISubject<IFilter> FilterSubject = new ReplaySubject<IFilter>();
-        protected ISubject<bool> IsRemovableSubject = new ReplaySubject<bool>();
-
-        //protected ISubject<string> FilterOnSubject = new Subject<string>();
-        protected ISubject<bool> IsReadOnlySubject = new ReplaySubject<bool>();
-
-        protected ISubject<IEnumerable> DataSubject = new ReplaySubject<IEnumerable>();
-        protected ISubject<bool> DoubleClickToCheckSubject = new ReplaySubject<bool>();
-        protected ISubject<bool> IsCheckableSubject = new ReplaySubject<bool>();
-        protected ISubject<Orientation> OrientationSubject = new ReplaySubject<Orientation>();
-        protected ISubject<InteractiveCollectionBase<object>> InteractiveCollectionBaseSubject = new ReplaySubject<InteractiveCollectionBase<object>>();
+        protected readonly ReplaySubject<string> KeySubject = new ReplaySubject<string>();
+        protected readonly ReplaySubject<string> GroupSubject = new ReplaySubject<string>();
+        protected readonly ReplaySubject<Unit> ClearedSubject = new ReplaySubject<Unit>();
+        protected readonly ReplaySubject<object> SelectedItemSubject = new ReplaySubject<object>();
+        protected readonly ReplaySubject<object> DoubleClickedItemSubject = new ReplaySubject<object>();
+        protected readonly ReplaySubject<object> DeletedSubject = new ReplaySubject<object>();
+        protected ReplaySubject<IFilter> FilterSubject = new ReplaySubject<IFilter>();
+        protected readonly ReplaySubject<bool> IsRemovableSubject = new ReplaySubject<bool>();
+        protected readonly ReplaySubject<bool> IsReadOnlySubject = new ReplaySubject<bool>();
+        protected readonly ReplaySubject<IEnumerable> DataSubject = new ReplaySubject<IEnumerable>();
+        protected readonly ReplaySubject<bool> DoubleClickToCheckSubject = new ReplaySubject<bool>();
+        protected readonly ReplaySubject<bool> IsCheckableSubject = new ReplaySubject<bool>();
+        protected readonly ReplaySubject<Orientation> OrientationSubject = new ReplaySubject<Orientation>();
+        protected readonly ReplaySubject<InteractiveCollectionBase<object>> InteractiveCollectionBaseSubject = new ReplaySubject<InteractiveCollectionBase<object>>();
 
         private InteractiveCollectionBase<object> interactiveCollectionBase;
         private InteractiveCollectionBase<object> interactivecollectionGroupBase;
 
-        public static readonly DependencyProperty KeyProperty = DependencyProperty.Register("Key", typeof(string), typeof(InteractiveList), new PropertyMetadata(null, (d, e) => Observe(d, e, a => a.KeySubject)));
-        public static readonly DependencyProperty GroupProperty = DependencyProperty.Register("Group", typeof(string), typeof(InteractiveList), new PropertyMetadata(null, (d, e) => Observe(d, e, a => a.GroupSubject)));
-
+        public static readonly DependencyProperty KeyProperty = DependencyProperty.Register("Key", typeof(string), typeof(InteractiveList), Create(a => a.KeySubject));
+        public static readonly DependencyProperty GroupProperty = DependencyProperty.Register("Group", typeof(string), typeof(InteractiveList), Create(a => a.GroupSubject));
         //   public static readonly DependencyProperty ClearedProperty = DependencyProperty.Register("Cleared", typeof(IFilter), typeof(ListBoxEx), new PropertyMetadata(null, (d, e) => Observe(d, e, a => a.SelectedItemSubject)));
         public static readonly DependencyProperty AllChangesProperty = DependencyProperty.Register("AllChanges", typeof(IEnumerable), typeof(InteractiveList), new PropertyMetadata(null));
-
-        public static readonly DependencyProperty OrientationProperty = DependencyProperty.Register("Orientation", typeof(Orientation), typeof(InteractiveList), new PropertyMetadata(Orientation.Horizontal, (d, e) => Observe(d, e, a => a.OrientationSubject)));
-        public new static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register("SelectedItem", typeof(object), typeof(InteractiveList), new PropertyMetadata(null, (d, e) => Observe(d, e, a => a.SelectedItemSubject)));
-        public static readonly DependencyProperty DoubleClickedItemProperty = DependencyProperty.Register("DoubleClickedItem", typeof(object), typeof(InteractiveList), new PropertyMetadata(null, (d, e) => Observe(d, e, a => a.DoubleClickedItemSubject)));
-        public static readonly DependencyProperty DeletedProperty = DependencyProperty.Register("Deleted", typeof(object), typeof(InteractiveList), new PropertyMetadata(null, (d, e) => Observe(d, e, a => a.DeletedSubject)));
-        public static readonly DependencyProperty IsRemovableProperty = DependencyProperty.Register("IsRemovable", typeof(bool), typeof(InteractiveList), new PropertyMetadata(true, (d, e) => Observe(d, e, a => a.IsRemovableSubject)));
+        public static readonly DependencyProperty OrientationProperty = DependencyProperty.Register("Orientation", typeof(Orientation), typeof(InteractiveList), Create(a => a.OrientationSubject, Orientation.Horizontal));
+        public static readonly DependencyProperty DoubleClickedItemProperty = DependencyProperty.Register("DoubleClickedItem", typeof(object), typeof(InteractiveList), Create(a => a.DoubleClickedItemSubject));
+        public static readonly DependencyProperty DeletedProperty = DependencyProperty.Register("Deleted", typeof(object), typeof(InteractiveList), Create(a => a.DeletedSubject));
+        public static readonly DependencyProperty IsRemovableProperty = DependencyProperty.Register("IsRemovable", typeof(bool), typeof(InteractiveList), Create(a => a.IsRemovableSubject));
         public static readonly DependencyProperty CheckedProperty = DependencyProperty.Register("Checked", typeof(IEnumerable), typeof(InteractiveList), new PropertyMetadata(null));
-        public static readonly DependencyProperty IsReadOnlyProperty = DependencyProperty.Register("IsReadOnly", typeof(bool), typeof(InteractiveList), new PropertyMetadata(false, (d, e) => Observe(d, e, a => a.IsReadOnlySubject)));
-        public static readonly DependencyProperty FilterProperty = DependencyProperty.Register("Filter", typeof(IFilter), typeof(InteractiveList), new PropertyMetadata(null, (d, e) => Observe(d, e, a => a.FilterSubject)));
-        public static readonly DependencyProperty DataProperty = DependencyProperty.Register("Data", typeof(IEnumerable), typeof(InteractiveList), new PropertyMetadata(null, (d, e) => Observe(d, e, a => a.DataSubject)));
-        public static readonly DependencyProperty DoubleClickToCheckProperty = DependencyProperty.Register("DoubleClickToCheck", typeof(bool), typeof(InteractiveList), new PropertyMetadata(false, (d, e) => Observe(d, e, a => a.DoubleClickToCheckSubject)));
-        public static readonly DependencyProperty IsCheckableProperty = DependencyProperty.Register("IsCheckable", typeof(bool), typeof(InteractiveList), new PropertyMetadata(true, (d, e) => Observe(d, e, a => a.IsCheckableSubject)));
-        public static readonly DependencyProperty InteractiveCollectionBaseProperty = DependencyProperty.Register("InteractiveCollectionBase", typeof(InteractiveCollectionBase<object>), typeof(InteractiveList), new PropertyMetadata(null, (d, e) => Observe(d, e, a => a.InteractiveCollectionBaseSubject)));
+        public static readonly DependencyProperty IsReadOnlyProperty = DependencyProperty.Register("IsReadOnly", typeof(bool), typeof(InteractiveList), Create(a => a.IsReadOnlySubject));
+        public static readonly DependencyProperty FilterProperty = DependencyProperty.Register("Filter", typeof(IFilter), typeof(InteractiveList), Create(a => a.FilterSubject));
+        public static readonly DependencyProperty DataProperty = DependencyProperty.Register("Data", typeof(IEnumerable), typeof(InteractiveList), Create(a => a.DataSubject));
+        public static readonly DependencyProperty DoubleClickToCheckProperty = DependencyProperty.Register("DoubleClickToCheck", typeof(bool), typeof(InteractiveList), Create(a => a.DoubleClickToCheckSubject));
+        //  public static readonly DependencyProperty IsCheckableProperty = DependencyProperty.Register("IsCheckable", typeof(bool), typeof(InteractiveList), Create(a => a.IsCheckableSubject, true));
+        public static readonly DependencyProperty IsCheckableProperty = Create(nameof(IsCheckable), a => a.IsCheckableSubject, true);
+        public static readonly DependencyProperty InteractiveCollectionBaseProperty = DependencyProperty.Register("InteractiveCollectionBase", typeof(InteractiveCollectionBase<object>), typeof(InteractiveList), Create(a => a.InteractiveCollectionBaseSubject));
 
         public override void OnApplyTemplate()
         {
@@ -85,11 +80,11 @@ namespace UtilityWpf.Interactive.View.Controls
 
             //DataSubject.OnNext(Data);
             base.OnApplyTemplate();
-        }
 
-        private static void Observe<T>(DependencyObject d, DependencyPropertyChangedEventArgs e, Func<InteractiveList, IObserver<T>> observer)
-        {
-            observer(d as InteractiveList).OnNext((T)e.NewValue);
+            IsCheckableSubject.Subscribe(a =>
+            {
+
+            });
         }
 
         public bool IsReadOnly
@@ -280,13 +275,6 @@ namespace UtilityWpf.Interactive.View.Controls
         {
             ItemsSource = interactiveCollection.Items;
 
-            if (interactiveCollection.Items is INotifyCollectionChanged obs)
-            {
-                obs.SelectChanges().Subscribe(a =>
-                {
-                });
-            }
-
             interactiveCollection.SelectDoubleClicked().Subscribe(a =>
                Dispatcher.InvokeAsync(() => DoubleClickedItem = a, System.Windows.Threading.DispatcherPriority.Background, default));
 
@@ -342,7 +330,6 @@ namespace UtilityWpf.Interactive.View.Controls
         //    //    throw new Exception("Key of type "+ type.Name+ " does not inherit " + nameof(IConvertible) + " or "+ "IEquatable");
         //    //else
         //    return null;
-
         //}
 
         public virtual string GetKey(IEnumerable _)

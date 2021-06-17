@@ -79,7 +79,6 @@
     <DockPanel>
 
         <UniformGrid DockPanel.Dock="Left" Rows="1">
-
             <UniformGrid.Resources>
                 <conv:DefaultConverter x:Key="Converter" />
                 <DataTemplate x:Key="PassFail">

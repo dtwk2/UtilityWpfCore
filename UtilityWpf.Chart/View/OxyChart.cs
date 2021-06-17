@@ -9,6 +9,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Media;
+using UtilityHelperEx;
 using UtilityWpf.Abstract;
 using UtilityWpf.View;
 
@@ -90,9 +91,10 @@ namespace UtilityWpf.Chart
 
                                 var data = item.GetType().GetProperties().FirstOrDefault(a => a.Name == Data)?.GetValue(item) as IEnumerable<DateTimePoint>;
 
-                                data.MakeObservable().Select(a => new KeyValuePair<string, (DateTime dt, double d)>(id, (a.DateTime, a.Value))).Buffer(TimeSpan.FromSeconds(0.5))
-                                     .Where(a => a.Count > 0)
-                                     .Subscribe(data =>
+                                data.MakeObservable()
+                                    .Select(a => new KeyValuePair<string, (DateTime dt, double d)>(id, (a.DateTime, a.Value))).Buffer(TimeSpan.FromSeconds(0.5))
+                                    .Where(a => a.Count > 0)
+                                    .Subscribe(data =>
                                      {
                                          combination.model.OnNext(data);
                                      });

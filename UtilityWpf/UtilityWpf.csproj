@@ -5,7 +5,7 @@
     <UseWPF>true</UseWPF>
     <AssemblyName>UtilityWpf</AssemblyName>
     <RootNamespace>UtilityWpf</RootNamespace>
-    <Version>1.0.41</Version>
+    <Version>1.0.110</Version>
     <AssemblyVersion>1.0.41.0</AssemblyVersion>
     <FileVersion>1.0.41.0</FileVersion>
   </PropertyGroup>
@@ -42,16 +42,18 @@
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
     <PackageReference Include="morelinq" Version="3.3.2" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="Nito.AsyncEx" Version="5.0.0" />
+    <PackageReference Include="Nito.AsyncEx" Version="5.1.0" />
     <PackageReference Include="NuGet.Build.Tasks.Pack" Version="5.7.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="ReactiveUI" Version="11.5.35" />
-    <PackageReference Include="Splat.Autofac" Version="9.5.35" />
+    <PackageReference Include="ReactiveUI" Version="13.0.27" />
+    <PackageReference Include="ReactiveUI.Events.WPF" Version="13.0.27" />
+    <PackageReference Include="Splat.Autofac" Version="9.8.1" />
+    <PackageReference Include="TypeConvert" Version="2.1.6" />
     <PackageReference Include="UtilityEnum" Version="2.0.4" />
-    <PackageReference Include="UtilityHelper" Version="2.1.5-alpha" />
-    <PackageReference Include="UtilityInterface" Version="4.0.2-alpha" />
+    <PackageReference Include="UtilityHelperEx" Version="0.0.1-alpha-01" />
+    <PackageReference Include="UtilityInterface" Version="4.0.4" />
   </ItemGroup>
 
   <!-- Only packs project if Configuration set to Release-->
