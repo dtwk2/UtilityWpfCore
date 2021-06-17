@@ -5,12 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UtilityWpf.DemoAppCore.View"
              xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.ViewCore"
+             xmlns:view1="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <DockPanel>
             <TextBox DockPanel.Dock="Top" Margin="200" x:Name="TextBlock1" Width="700" Height="80" FontSize="40" Background="GhostWhite" Text="Default"></TextBox>
-            <view:NotificationUserControl Message="{Binding ElementName=TextBlock1, Path=Text, UpdateSourceTrigger=LostFocus}" Tap="NotificationUserControl_OnTap"></view:NotificationUserControl>
+            <view1:NotificationUserControl Message="{Binding ElementName=TextBlock1, Path=Text, UpdateSourceTrigger=LostFocus}" Tap="NotificationUserControl_OnTap"></view1:NotificationUserControl>
         </DockPanel>
     </Grid>
 </UserControl>

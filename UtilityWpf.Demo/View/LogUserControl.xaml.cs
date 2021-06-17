@@ -1,6 +1,9 @@
-﻿using ReactiveUI;
+﻿using System.Linq;
+using ReactiveUI;
 using Splat;
 using System.Windows.Controls;
+using ArxOne.MrAdvice.Advice;
+using UtilityWpf.Command;
 
 namespace UtilityWpf.DemoApp
 {
@@ -63,7 +66,7 @@ namespace UtilityWpf.DemoApp
 
         }
 
-        public class LogAdvice : Attribute, IMethodAdvice, IEnableLogger
+        public class LogAdvice : System.Attribute, IMethodAdvice, IEnableLogger
         {
             public void Advise(MethodAdviceContext context)
             {
