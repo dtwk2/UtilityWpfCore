@@ -23,7 +23,17 @@ namespace UtilityWpf.View
     public class TwoColumnGrid : Panel
     {
         private double Column1Width;
-        private List<Double> RowHeights = new List<double>();
+        private readonly List<double> RowHeights = new List<double>();
+
+        public static readonly DependencyProperty ColumnSpacingProperty =
+            DependencyProperty.Register("ColumnSpacing", typeof(double), typeof(TwoColumnGrid),
+            new FrameworkPropertyMetadata(0.0d, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
+
+        public static readonly DependencyProperty RowSpacingProperty =
+            DependencyProperty.Register("RowSpacing", typeof(double), typeof(TwoColumnGrid),
+            new FrameworkPropertyMetadata(0.0d, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
+
+
 
         /// <summary>
         /// Gets or sets the amount of spacing (in device independent pixels) between the rows.
@@ -35,13 +45,6 @@ namespace UtilityWpf.View
         }
 
         /// <summary>
-        /// Identifies the ColumnSpacing dependency property
-        /// </summary>
-        public static readonly DependencyProperty RowSpacingProperty =
-            DependencyProperty.Register("RowSpacing", typeof(double), typeof(TwoColumnGrid),
-            new FrameworkPropertyMetadata(0.0d, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
-
-        /// <summary>
         /// Gets or sets the amount of spacing (in device independent pixels) between the columns.
         /// </summary>
         public double ColumnSpacing
@@ -50,12 +53,6 @@ namespace UtilityWpf.View
             set { SetValue(ColumnSpacingProperty, value); }
         }
 
-        /// <summary>
-        /// Identifies the ColumnSpacing dependency property
-        /// </summary>
-        public static readonly DependencyProperty ColumnSpacingProperty =
-            DependencyProperty.Register("ColumnSpacing", typeof(double), typeof(TwoColumnGrid),
-            new FrameworkPropertyMetadata(0.0d, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         /// <summary>
         /// Measures the size required for all the child elements in this panel.

@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace UtilityWpf.Converter
 {
-    [ValueConversion(typeof(bool), typeof(bool))]
+    [ValueConversion(typeof(bool), typeof(Visibility))]
     public class BooleanToVisibilityConverter : IValueConverter
     {
         public bool Invert { get; set; }

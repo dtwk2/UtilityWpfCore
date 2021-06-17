@@ -14,6 +14,7 @@
 
 using System;
 using System.Globalization;
+using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -205,6 +206,18 @@ namespace UtilityWpf.View.Extrinsic
             CommandManager.RegisterClassInputBinding(typeof(SpinnerControl), new InputBinding(IncreaseCommand, new KeyGesture(Key.Right)));
             CommandManager.RegisterClassInputBinding(typeof(SpinnerControl), new InputBinding(DecreaseCommand, new KeyGesture(Key.Down)));
             CommandManager.RegisterClassInputBinding(typeof(SpinnerControl), new InputBinding(DecreaseCommand, new KeyGesture(Key.Left)));
+        }
+    }
+
+    public static class SpinnerControlExtensions
+    {
+        public static IObservable<double> SelectValueChanges(SpinnerControl spinnerControl)
+        {
+            return Observable.FromEventPattern<
+                RoutedPropertyChangedEventHandler<decimal>,
+                RoutedPropertyChangedEventArgs<double>>(a => spinnerControl.ValueChanged += a, a => spinnerControl.ValueChanged += a)
+                .Select(a => a.EventArgs.NewValue);
+
         }
     }
 }

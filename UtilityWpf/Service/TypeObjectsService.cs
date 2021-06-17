@@ -28,8 +28,7 @@ namespace UtilityWpf.Service
                 var name = typeof(IName).IsAssignableFrom(type) ?
                                                 (service as IName).Name :
                                                  type.Name;
-                //return new KeyValuePair<string, KeyValuePair<string, object>>(type.Name, new KeyValuePair<string, object>(name, service));
-                return new TypeObject { TypeName = type.Name, Key = name, Object = service };
+                return new TypeObject { TypeName = type.Name, Key = name, Object = service, Type = type };
             }).ToArray();
         }
     }

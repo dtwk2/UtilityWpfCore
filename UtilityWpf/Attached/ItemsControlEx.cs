@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using UtilityHelper;
 using UtilityHelper.NonGeneric;
+using UtilityHelperEx;
 
 namespace UtilityWpf.Attached
 {

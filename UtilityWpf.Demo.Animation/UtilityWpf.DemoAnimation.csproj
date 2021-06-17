@@ -9,14 +9,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aptof.Controls" Version="1.0.9" />
-    <PackageReference Include="ControlzEx" Version="4.3.0" />
-    <PackageReference Include="WPFTransitionals" Version="1.0.0" />
+    <PackageReference Include="ControlzEx" Version="4.4.0" />
+    <PackageReference Include="WPFTransitionals" Version="1.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\UtilityWpf.Animation\UtilityWpf.Animation.csproj" />
     <ProjectReference Include="..\UtilityWpf.View\UtilityWpf.View.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Transitionals">
+      <HintPath>Libraries\Transitionals.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

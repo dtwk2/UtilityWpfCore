@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Splat;
+using System.Windows;
 
 namespace UtilityWpf.Interactive
 {
@@ -10,6 +11,8 @@ namespace UtilityWpf.Interactive
         public MainWindow()
         {
             InitializeComponent();
+
+            AssemblyViewModelViewHost.ViewModel = Locator.Current.GetService<ViewModelAssemblyViewModel>();
         }
     }
 }

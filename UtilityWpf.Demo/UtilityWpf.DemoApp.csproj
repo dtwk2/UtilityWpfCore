@@ -23,18 +23,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoBogus" Version="2.8.2" />
     <PackageReference Include="BFF.DataVirtualizingCollection" Version="2.0.2" />
-    <PackageReference Include="ControlzEx" Version="4.3.0" />
-    <PackageReference Include="Csv" Version="1.0.53" />
     <PackageReference Include="LambdaConverters" Version="3.0.0" />
     <PackageReference Include="MrAdvice" Version="2.8.10" />
     <PackageReference Include="ReactiveUI.WPF" Version="11.0.1" />
+    <PackageReference Include="AutoBogus" Version="2.12.0" />
+    <PackageReference Include="BFF.DataVirtualizingCollection" Version="3.0.8" />
+    <PackageReference Include="ControlzEx" Version="4.4.0" />
+    <PackageReference Include="Csv" Version="1.0.58" />
     <PackageReference Include="Dragablz.NetCore" Version="0.3.3" />
     <PackageReference Include="Endless" Version="0.7.0-alpha1" />
     <PackageReference Include="LambdaConverters" Version="4.0.0" />
     <PackageReference Include="PropertyTools.Wpf" Version="3.1.0-alpha0041" />
-    <PackageReference Include="VirtualizingWrapPanel" Version="1.4.0" />
+    <PackageReference Include="VirtualizingWrapPanel" Version="1.5.3" />
   </ItemGroup>
 
   <ItemGroup>

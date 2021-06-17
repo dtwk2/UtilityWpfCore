@@ -1,13 +1,17 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Reactive.Concurrency;
+using System.Threading;
 using UtilityWpf.Abstract;
 
 namespace UtilityWpf
 {
+
     /// <summary>
     /// https://github.com/sorteper/ConcurrentObservableCollection/blob/master/ConcurrentObservableCollection.cs
     /// </summary>
@@ -16,49 +20,48 @@ namespace UtilityWpf
     // None UI threads are not allowed to subscribe to INotifyCollectionChanged
     // UI thread INotifyCollectionChanged event handlers are not allowed to modify the collection (reentrancy is blocked)
     // GetEnumerator methods return a snapshot
-    public class ConcurrentObservableCollection<T> : IList<T>, INotifyCollectionChanged, INotifyPropertyChanged where T : class
+    public class ConcurrentObservableCollection<T> : IList<T>, INotifyCollectionChanged, INotifyPropertyChanged, IMixedScheduler where T : class
     {
-        #region ctor
-
         private ReentrancyMonitor m_monitor = new ReentrancyMonitor();
-        private readonly IDispatcher dispatcher;
-        protected List<T> m_list;
+        protected List<T> list;
 
-        public ConcurrentObservableCollection(IDispatcher dispatcher)
+        protected ConcurrentObservableCollection(IScheduler? scheduler = null, SynchronizationContext? context = null)
         {
-            m_list = new List<T>();
-            this.dispatcher = dispatcher;
+            list = new List<T>();
+            if (scheduler == null)
+                this.Context = context ?? SynchronizationContext.Current;
+            else
+                this.Scheduler = scheduler;
+            SyncRoot = new object();
         }
 
-        public ConcurrentObservableCollection(IDispatcher dispatcher, List<T> list)
+        public ConcurrentObservableCollection(List<T> list = null, IScheduler? scheduler = null, SynchronizationContext? context = null) : this(scheduler, context)
         {
-            m_list = new List<T>(list);
-            this.dispatcher = dispatcher;
+            this.list = list;
         }
 
-        public ConcurrentObservableCollection(IDispatcher dispatcher, IEnumerable<T> list)
+        public ConcurrentObservableCollection(IEnumerable<T> enumerable = null, IScheduler? scheduler = null, SynchronizationContext? context = null) : this(scheduler, context)
         {
-            m_list = new List<T>(list);
-            this.dispatcher = dispatcher;
+            list = new List<T>(enumerable);
         }
+
+        public IScheduler Scheduler { get; }
+
+        public SynchronizationContext Context { get; }
+
 
         protected virtual bool CheckAccess()
         {
-            return dispatcher.CheckAccess();
+            return true;
+            //if (Context != null)
+            //    return SynchronizationContext.Current == Context;
+            //return Scheduler != null;
         }
 
-        protected virtual IDispatcher Dispatcher
-        {
-            get { return dispatcher; }
-        }
 
-        #endregion ctor
-
-        #region public
 
         public object SyncRoot { get; }
 
-        #endregion public
 
         #region IList<T>
 
@@ -70,17 +73,17 @@ namespace UtilityWpf
                 {
                     T t = default;
                     lock (SyncRoot)
-                        Dispatcher.Invoke(() => { t = m_list[index]; });
+                        (this as IMixedScheduler).ScheduleAction(() => { t = list[index]; });
                     return t;
                 }
-                return m_list[index];
+                return list[index];
             }
             set
             {
                 if (!CheckAccess())
                 {
                     lock (SyncRoot)
-                        Dispatcher.Invoke(() => { this[index] = value; });
+                        (this as IMixedScheduler).ScheduleAction(() => { this[index] = value; });
                 }
                 CheckReentrancy();
                 SetItem(index, value);
@@ -90,7 +93,7 @@ namespace UtilityWpf
         // Not delegating to UI thread...
         public int Count
         {
-            get { return m_list.Count; }
+            get { return list.Count; }
         }
 
         public bool IsReadOnly
@@ -98,15 +101,16 @@ namespace UtilityWpf
             get { return false; }
         }
 
+
         public void Add(T item)
         {
-            if (!CheckAccess())
-            {
+            //if (!CheckAccess())
+            //{
                 lock (SyncRoot)
-                    Dispatcher.Invoke(() => { Add(item); });
-            }
-            CheckReentrancy();
-            AddItem(item);
+                    (this as IMixedScheduler).ScheduleAction(() => { AddItem(item); });
+            //}
+            //CheckReentrancy();
+            //AddItem(item);
         }
 
         public void Clear()
@@ -114,7 +118,7 @@ namespace UtilityWpf
             if (!CheckAccess())
             {
                 lock (SyncRoot)
-                    Dispatcher.Invoke(() => { Clear(); });
+                    (this as IMixedScheduler).ScheduleAction(() => { Clear(); });
             }
             CheckReentrancy();
             ClearItems();
@@ -125,7 +129,7 @@ namespace UtilityWpf
             if (!CheckAccess())
             {
                 lock (SyncRoot)
-                    Dispatcher.Invoke(() => { Contains(item); });
+                    (this as IMixedScheduler).ScheduleAction(() => { Contains(item); });
             }
             return ContainsItem(item);
         }
@@ -135,9 +139,9 @@ namespace UtilityWpf
             if (!CheckAccess())
             {
                 lock (SyncRoot)
-                    Dispatcher.Invoke(() => { CopyTo(array, arrayIndex); });
+                    (this as IMixedScheduler).ScheduleAction(() => { CopyTo(array, arrayIndex); });
             }
-            m_list.CopyTo(array, arrayIndex);
+            list.CopyTo(array, arrayIndex);
         }
 
         // Note: Snapshot!
@@ -146,9 +150,9 @@ namespace UtilityWpf
             if (!CheckAccess())
             {
                 lock (SyncRoot)
-                    Dispatcher.Invoke(() => { GetEnumerator(); });
+                    (this as IMixedScheduler).ScheduleAction(() => { GetEnumerator(); });
             }
-            return m_list.ToList().GetEnumerator();
+            return list.ToList().GetEnumerator();
         }
 
         public int IndexOf(T item)
@@ -157,10 +161,10 @@ namespace UtilityWpf
             {
                 int index = default;
                 lock (SyncRoot)
-                    Dispatcher.Invoke(() => { index = IndexOf(item); });
+                    (this as IMixedScheduler).ScheduleAction(() => { index = IndexOf(item); });
                 return index;
             }
-            return m_list.IndexOf(item);
+            return list.IndexOf(item);
         }
 
         public void Insert(int index, T item)
@@ -168,7 +172,7 @@ namespace UtilityWpf
             if (!CheckAccess())
             {
                 lock (SyncRoot)
-                    Dispatcher.Invoke(() => { Insert(index, item); });
+                    (this as IMixedScheduler).ScheduleAction(() => { Insert(index, item); });
             }
             CheckReentrancy();
             InsertItem(index, item);
@@ -179,7 +183,7 @@ namespace UtilityWpf
             if (!CheckAccess())
             {
                 lock (SyncRoot)
-                    Dispatcher.Invoke(() => { Remove(item); });
+                    (this as IMixedScheduler).ScheduleAction(() => { Remove(item); });
             }
             CheckReentrancy();
             return RemoveItem(item);
@@ -190,7 +194,7 @@ namespace UtilityWpf
             if (!CheckAccess())
             {
                 lock (SyncRoot)
-                    Dispatcher.Invoke(() => { RemoveAt(index); });
+                    (this as IMixedScheduler).ScheduleAction(() => { RemoveAt(index); });
             }
             CheckReentrancy();
             RemoveItemAt(index);
@@ -203,10 +207,10 @@ namespace UtilityWpf
             {
                 IEnumerator enumerable = null;
                 lock (SyncRoot)
-                    Dispatcher.Invoke(() => { enumerable = ((IEnumerable)this).GetEnumerator(); });
+                    (this as IMixedScheduler).ScheduleAction(() => { enumerable = ((IEnumerable)this).GetEnumerator(); });
                 return enumerable;
             }
-            return m_list.ToList().GetEnumerator();
+            return list.ToList().GetEnumerator();
         }
 
         #endregion IList<T>
@@ -215,7 +219,7 @@ namespace UtilityWpf
 
         protected virtual void ClearItems()
         {
-            m_list.Clear();
+            list.Clear();
             OnPropertyChanged("Count");
             OnPropertyChanged("Item[]");
             OnCollectionReset();
@@ -223,13 +227,13 @@ namespace UtilityWpf
 
         protected virtual bool ContainsItem(T item)
         {
-            return m_list.Contains(item);
+            return list.Contains(item);
         }
 
         protected virtual void AddItem(T item)
         {
-            var index = m_list.Count;
-            m_list.Insert(m_list.Count, item);
+            var index = list.Count;
+            list.Insert(list.Count, item);
             OnPropertyChanged("Count");
             OnPropertyChanged("Item[]");
             OnCollectionChanged(NotifyCollectionChangedAction.Add, item, index);
@@ -237,7 +241,7 @@ namespace UtilityWpf
 
         protected virtual void InsertItem(int index, T item)
         {
-            m_list.Insert(index, item);
+            list.Insert(index, item);
             OnPropertyChanged("Count");
             OnPropertyChanged("Item[]");
             OnCollectionChanged(NotifyCollectionChangedAction.Add, item, index);
@@ -245,15 +249,15 @@ namespace UtilityWpf
 
         protected virtual void SetItem(int index, T newItem)
         {
-            T oldItem = m_list[index];
-            m_list[index] = newItem;
+            T oldItem = list[index];
+            list[index] = newItem;
             OnPropertyChanged("Item[]");
             OnCollectionChanged(NotifyCollectionChangedAction.Replace, newItem, oldItem, index);
         }
 
         protected virtual bool RemoveItem(T item)
         {
-            var index = m_list.IndexOf(item);
+            var index = list.IndexOf(item);
             if (index < 0)
                 return false;
             RemoveItemAt(index);
@@ -262,8 +266,8 @@ namespace UtilityWpf
 
         protected virtual void RemoveItemAt(int index)
         {
-            T item = m_list[index];
-            m_list.RemoveAt(index);
+            T item = list[index];
+            list.RemoveAt(index);
             OnPropertyChanged("Count");
             OnPropertyChanged("Item[]");
             OnCollectionChanged(NotifyCollectionChangedAction.Remove, item, index);
@@ -285,6 +289,7 @@ namespace UtilityWpf
         #region INotifyCollectionChanged
 
         private List<NotifyCollectionChangedEventHandler> m_collectionChanged = new List<NotifyCollectionChangedEventHandler>();
+        private readonly SynchronizationContext synchonisationContext;
 
         public event NotifyCollectionChangedEventHandler CollectionChanged
         {
@@ -315,7 +320,7 @@ namespace UtilityWpf
                         if (!CheckAccess())
                         {
                             lock (SyncRoot)
-                                Dispatcher.Invoke(() => { handler(this, e); });
+                                (this as IMixedScheduler).ScheduleAction(() => { handler(this, e); });
                         }
                         else
                             handler(this, e);

@@ -72,8 +72,8 @@ namespace UtilityWpf.DemoApp
             IList<ProfileViewModel> GetProfiles(int i)
             {
                 var ProfilePool = ProfileFactory.BuildPool();
-                return DataVirtualizingCollectionBuilder<ProfileViewModel>
-                 .Build(i)
+                return DataVirtualizingCollectionBuilder
+                    .Build<ProfileViewModel>(i, RxApp.MainThreadScheduler)
                  .NonPreloading()
                  .Hoarding()
                  .NonTaskBasedFetchers(
@@ -87,7 +87,8 @@ namespace UtilityWpf.DemoApp
                      {
                          Console.WriteLine($"{nameof(Profiles)}: Loading count");
                          return 420420;
-                     }).SyncIndexAccess(RxApp.MainThreadScheduler);
+                     })
+                 .AsyncIndexAccess((_, __) => new ProfileViewModel());
             }
         }
 

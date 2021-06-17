@@ -1,25 +1,21 @@
-﻿using Splat;
-using System.Windows.Controls;
-using UtilityWpf.Abstract;
-using UtilityWpf.Model;
+﻿using ReactiveUI;
 
 namespace UtilityWpf.Interactive.Demo
 {
     /// <summary>
     /// Interaction logic for ViewModelAssemblyView.xaml
     /// </summary>
-    public partial class ViewModelAssemblyView : UserControl
+    public partial class ViewModelAssemblyView :ReactiveUserControl<ViewModelAssemblyViewModel>
     {
         public ViewModelAssemblyView()
         {
             InitializeComponent();
 
-            Init();
+            this.WhenActivated(disposable =>
+            {
+                this.MainMasterDetailView.ItemsSource = ViewModel.Collection;
+            });
         }
 
-        private async void Init()
-        {
-            Main_MasterDetailView.ItemsSource = await (Locator.Current.GetService<IViewModelAssemblyModel>()).Collection;
-        }
     }
 }

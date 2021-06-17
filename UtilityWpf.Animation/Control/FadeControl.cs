@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Reactive.Disposables;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -7,20 +10,74 @@ using System.Windows.Shapes;
 
 namespace UtilityWpf.Animation
 {
-    public class FadeControl : Control
+    public class FadeControl : ContentControl
     {
-        private Ellipse ellipse;
+        bool flag = false;
+        Storyboard storyboardOld = new Storyboard(), storyboardNew = new Storyboard();
+        ReplaySubject<EventArgs> completions = new ReplaySubject<EventArgs>();
+        UIElement newElement = null;
+
+        public static readonly DependencyProperty FadeCommandProperty = DependencyProperty.Register("FadeCommand", typeof(ICommand), typeof(FadeControl), new PropertyMetadata(default(ICommand)));
+
+
+
+        public int AnimationTime
+        {
+            get { return (int)GetValue(AnimationTimeProperty); }
+            set { SetValue(AnimationTimeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for AnimationTime.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AnimationTimeProperty =
+            DependencyProperty.Register("AnimationTime", typeof(int), typeof(FadeControl), new PropertyMetadata(1000));
+
+
+
+        static FadeControl()
+        {
+            //  DefaultStyleKeyProperty.OverrideMetadata(typeof(FadeControl), new FrameworkPropertyMetadata(typeof(FadeControl)));
+            FadeControl.ContentProperty.OverrideMetadata(typeof(FadeControl),
+      new FrameworkPropertyMetadata(null,
+          FrameworkPropertyMetadataOptions.None,
+          Changed, /* property changed callback */
+          null, /* coerce value callback */
+          true /* is animation prohibited */
+          ));
+        }
+
+        private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as FadeControl).StartStories(e.OldValue as UIElement, e.NewValue as UIElement);
+        }
+
+
+        public FadeControl()
+        {
+            FadeCommand = new FadeCommand(this);
+
+
+            //this.StartStories(null, this.Content as UIElement);
+        }
 
         public override void OnApplyTemplate()
         {
-            ellipse = this.GetTemplateChild("PART_Ellipse") as Ellipse;
-            if (FadeIn)
+            storyboardOld.SelectCompletions().Subscribe(completions.OnNext);
+            completions.Subscribe(a =>
             {
-                ellipse.Opacity = 0;
-            }
+                if (flag == true)
+                {
+                    newElement.Opacity = 0;
+                    Content = newElement;
+                    StartStory(newElement, storyboardNew, true, (int)(AnimationTime / 2d));
+                }
+                flag = false;
+
+            }, e => flag = false);
+
+
+            base.OnApplyTemplate();
         }
 
-        // public ICommand FadeCommand { get; }
 
         public ICommand FadeCommand
         {
@@ -28,57 +85,37 @@ namespace UtilityWpf.Animation
             set { SetValue(FadeCommandProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for FadeCommand.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty FadeCommandProperty =
-            DependencyProperty.Register("FadeCommand", typeof(ICommand), typeof(FadeControl), new PropertyMetadata(default(ICommand)));
 
-        static FadeControl()
+        public void StartStories(UIElement oldElement, UIElement newElement)
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(FadeControl), new FrameworkPropertyMetadata(typeof(FadeControl)));
-        }
+            this.newElement = newElement;
+            if (flag)
+                return;
 
-        public FadeControl()
-        {
-            FadeCommand = new FadeCommand(this);
-        }
-
-        public void Fade()
-        {
-            if (this.ellipse != null)
+            flag = true;
+            if (oldElement != null)
+                this.Content = oldElement;
+            if (oldElement != null)
+                StartStory(oldElement, storyboardOld, false, (int)(AnimationTime / 2d));
+            else
             {
-                sdf(this.ellipse, FadeIn);
+                completions.OnNext(default);
             }
         }
 
-        public bool FadeIn
+        public static void StartStory(UIElement element, Storyboard storyboard, bool addRemove = true, int animationTime = 500)
         {
-            get { return (bool)GetValue(FadeInProperty); }
-            set { SetValue(FadeInProperty, value); }
-        }
+            if (element == null)
+                return;
 
-        // Using a DependencyProperty as the backing store for FadeIn.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty FadeInProperty =
-            DependencyProperty.Register("FadeIn", typeof(bool), typeof(FadeControl), new PropertyMetadata(true));
-
-        public static void sdf(DependencyObject element, bool fadeIn)
-        {
-            Storyboard storyboard = new Storyboard();
-            TimeSpan duration = TimeSpan.FromMilliseconds(500); //
-
-            DoubleAnimation fadeInAnimation = new DoubleAnimation()
-            { From = fadeIn ? 0 : 1, To = fadeIn ? 1 : 0, Duration = new Duration(duration), EasingFunction = new CubicEase { } };
-
+            storyboard.Children.Clear();
+            TimeSpan duration = TimeSpan.FromMilliseconds(animationTime);
             DoubleAnimation fadeOutAnimation = new DoubleAnimation
-            { From = fadeIn ? 1 : 0, To = fadeIn ? 0 : 1, Duration = new Duration(duration), EasingFunction = new CubicEase { } };
-            //fadeOutAnimation.BeginTime = TimeSpan.FromSeconds(5);
-
-            Storyboard.SetTarget(fadeInAnimation, element);
-            Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath("Opacity", fadeIn ? 0 : 1));
-            storyboard.Children.Add(fadeInAnimation);
-
+            { From = addRemove ? 0 : 1, To = addRemove ? 1 : 0, Duration = new Duration(duration), EasingFunction = new CubicEase { } };
             Storyboard.SetTarget(fadeOutAnimation, element);
-            Storyboard.SetTargetProperty(fadeOutAnimation, new PropertyPath("Opacity", fadeIn ? 1 : 0));
+            Storyboard.SetTargetProperty(fadeOutAnimation, new PropertyPath("Opacity", addRemove ? 0 : 1));
             storyboard.Children.Add(fadeOutAnimation);
+
             storyboard.Begin();
         }
     }
@@ -98,7 +135,7 @@ namespace UtilityWpf.Animation
 
         public void Execute(object parameter)
         {
-            fadeControl.Fade();
+            fadeControl.StartStories(fadeControl.Content as UIElement, parameter as UIElement);
         }
     }
 }

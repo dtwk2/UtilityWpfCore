@@ -10,8 +10,9 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
     <UniformGrid Columns="1">
+        <Button Content="Click" Click="Button_Click"></Button>
         <view:TransitionControl />
-        <view:TransitionControl>
+        <view:TransitionControl x:Name="TransitionControl">
             <view:TransitionControl.CheckedButtonContent>
                 <Rectangle
                     Width="60"
