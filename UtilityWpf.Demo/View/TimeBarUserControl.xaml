@@ -1,0 +1,21 @@
+﻿<UserControl
+    x:Class="UtilityWpf.DemoApp.View.TimeBarUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:UtilityWpf.DemoApp.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:view="clr-namespace:UtilityWpf.View.Handy;assembly=UtilityWpf.View"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Grid>
+        <view:TimeBar
+            Name="TimeBar1"
+            Width="600"
+            Height="300"
+            Margin="32"
+            VerticalAlignment="Center"
+            BorderThickness="0" />
+    </Grid>
+</UserControl>

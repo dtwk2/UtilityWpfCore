@@ -1,0 +1,76 @@
+﻿<UserControl
+    x:Class="UtilityWpf.DemoApp.DictionaryUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Specialized="clr-namespace:System.Collections.Specialized;assembly=System.Collections.Specialized"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:UtilityWpf.DemoApp"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+    xmlns:util="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.View"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    DataContext="{DynamicResource MyDictionary}"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Specialized:ListDictionary xmlns:Specialized="clr-namespace:System.Collections.Specialized;assembly=System" x:Key="MasterSlidesFileNames">
+            <sys:String x:Key="long">Ya long yes ni</sys:String>
+            <sys:String x:Key="Sun">Waterfall</sys:String>
+            <sys:String x:Key="lorem ipsum">hello wOrld</sys:String>
+        </Specialized:ListDictionary>
+
+        <local:MyDictionary x:Key="MyDictionary">
+            <sys:Int32 x:Key="key0">0</sys:Int32>
+            <sys:Int32 x:Key="key1">111</sys:Int32>
+            <sys:Int32 x:Key="key2">222</sys:Int32>
+        </local:MyDictionary>
+    </UserControl.Resources>
+    <UniformGrid Rows="1">
+        <Grid>
+            <util:DictionaryControl ItemsSource="{Binding}" />
+        </Grid>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Row Spacing: " />
+                <Slider
+                    x:Name="rowSpacing"
+                    Width="200"
+                    VerticalAlignment="Center"
+                    Maximum="50"
+                    Minimum="0"
+                    Value="5" />
+                <Label Content="Column Spacing: " />
+                <Slider
+                    x:Name="colSpacing"
+                    Width="200"
+                    VerticalAlignment="Center"
+                    Maximum="50"
+                    Minimum="0"
+                    Value="5" />
+            </StackPanel>
+            <Border
+                Grid.Row="1"
+                Margin="10"
+                Padding="4"
+                BorderBrush="Black"
+                BorderThickness="2">
+                <util:TwoColumnGrid ColumnSpacing="{Binding ElementName=colSpacing, Path=Value}" RowSpacing="{Binding ElementName=rowSpacing, Path=Value}">
+                    <Label Content="Name:" />
+                    <TextBox VerticalAlignment="Center" Text="John Doe" />
+                    <Label Content="Address:" />
+                    <TextBox
+                        Height="70"
+                        VerticalAlignment="Center"
+                        Text="34 Some Street&#x0a;123 45 SomeTown&#x0a;Some Country" />
+                    <Label Content="Position:" />
+                    <TextBox Text="Manager" />
+                </util:TwoColumnGrid>
+            </Border>
+        </Grid>
+    </UniformGrid>
+</UserControl>

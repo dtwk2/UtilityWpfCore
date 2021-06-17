@@ -1,0 +1,30 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:UtilityWpf.View"
+    xmlns:viewmodel="clr-namespace:UtilityWpf.Model;assembly=UtilityWpf">
+
+    <DataTemplate x:Key="ButtonDefinitionTemplate" DataType="{x:Type viewmodel:ButtonDefinition}">
+        <Button
+            Margin="3"
+            Command="{Binding Command}"
+            Content="{Binding Content}" />
+    </DataTemplate>
+
+    <ItemsPanelTemplate x:Key="horizontal">
+        <WrapPanel Orientation="Vertical" />
+    </ItemsPanelTemplate>
+    <ItemsPanelTemplate x:Key="vertical">
+        <WrapPanel Orientation="Horizontal" />
+    </ItemsPanelTemplate>
+
+    <Style BasedOn="{StaticResource {x:Type ItemsControl}}" TargetType="{x:Type local:ButtonDefinitionsControl}">
+        <Setter Property="ItemTemplate" Value="{StaticResource ButtonDefinitionTemplate}" />
+        <Setter Property="ItemsPanel" Value="{StaticResource vertical}" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Orientation, RelativeSource={RelativeSource AncestorType={x:Type local:ButtonDefinitionsControl}}}" Value="Horizontal">
+                <Setter Property="ItemsPanel" Value="{StaticResource horizontal}" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>
