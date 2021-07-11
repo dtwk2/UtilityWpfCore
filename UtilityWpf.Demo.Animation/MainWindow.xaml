@@ -23,6 +23,9 @@
             <TabItem Header="Gauge">
                 <local:Gauge2UserControl />
             </TabItem>
+            <TabItem Header="Progress Bar">
+                <local:ProgressUserControl />
+            </TabItem>
             <TabItem Header="Points Animation">
                 <DockPanel>
 
@@ -102,8 +105,8 @@
             <TabItem Header="TransitionElement">
                 <local:TransitionElementUserControl />
             </TabItem>
-            <TabItem>
-                
+            <TabItem Header="Flip-Fade">
+                <local:FadeFlipUserControl ></local:FadeFlipUserControl>
             </TabItem>
         </controlx:TabControlEx>
     </Grid>
