@@ -22,16 +22,11 @@ namespace UtilityWpf.PanelDemo
                 i++;
             }
 
-            UseDesiredSizeCheckBox.Checked += UseDesiredSizeCheckBox_Checked;
-            UseDesiredSizeCheckBox.Unchecked += UseDesiredSizeCheckBox_Checked;
         }
 
 
 
-        private void UseDesiredSizeCheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            CirclePanel1.UseDesiredSize = !(UseDesiredSizeCheckBox.IsChecked ?? false);
-        }
+      
 
         private void Button1_Click(object sender, RoutedEventArgs e)
         {

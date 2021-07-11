@@ -272,23 +272,33 @@ namespace UtilityWpf.PanelDemo
         }
 
 
-        public static IEnumerable<(Rect, UIElement)> SelectInnerElementRects(Region region, ICollection<UIElement> elements, Rect rect, bool useDesiredSize)
+        public static IEnumerable<(Rect, FrameworkElement)> SelectInnerElementRects(Region region, ICollection<FrameworkElement> elements, Rect rect, bool useDesiredSize)
         {
             var max = Math.Max(rect.Width, rect.Height);
             var isWiderThanTall = max == rect.Width;
             var min = isWiderThanTall ? rect.Height : rect.Width;
-
 
             var division = elements.Count > 1 ? (isWiderThanTall ?
                 Math.Max(0, max - elements.Last().DesiredSize.Width) :
                 Math.Max(0, max - elements.Last().DesiredSize.Height)) /
                 (elements.Count - 1) : max;
 
-            if (elements.Sum(a => a.DesiredSize.Width) < rect.Width || useDesiredSize == false)
-                division = max / elements.Count;
+            if (useDesiredSize == false)
+            {
+                if (elements.Sum(a => a.DesiredSize.Width) < rect.Width)
+                    division = max / elements.Count;
 
-            if (elements.Sum(a => a.DesiredSize.Height) < rect.Height || useDesiredSize == false)
-                division = max / elements.Count;
+                if (elements.Sum(a => a.DesiredSize.Height) < rect.Height)
+                    division = max / elements.Count;
+            }
+            else
+            {
+                var maxWidth = elements.Max(a => a.DesiredSize.Width);
+                var maxHeight = elements.Max(a => a.DesiredSize.Height);
+                division = isWiderThanTall ?
+                    maxWidth>0? maxWidth: elements.Max(a => a.ActualHeight) :
+                    maxHeight > 0? maxHeight : elements.Max(a => a.ActualWidth);
+            }
 
             var point = rect.Location;
             var size = isWiderThanTall ? new Size(division, min) : new Size(min, division);

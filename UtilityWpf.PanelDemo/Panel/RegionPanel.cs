@@ -17,11 +17,11 @@ namespace UtilityWpf.PanelDemo
         public static readonly DependencyProperty HeightRatioProperty = DependencyProperty.Register("HeightRatio", typeof(double), typeof(RegionPanel),
             new FrameworkPropertyMetadata(1d, FrameworkPropertyMetadataOptions.AffectsArrange));
 
-
         public static readonly DependencyProperty UseDesiredSizeProperty = DependencyProperty.Register("UseDesiredSize", typeof(bool), typeof(RegionPanel),
-                new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.AffectsArrange));
+                new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
 
-
+        public static readonly DependencyProperty UseAnimationProperty = DependencyProperty.Register("UseAnimation", typeof(bool), typeof(RegionPanel),
+                new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         public static readonly DependencyProperty RegionProperty = DependencyProperty.RegisterAttached("Region", typeof(Region), typeof(RegionPanel),
                 new PropertyMetadata(Region.Top, new PropertyChangedCallback(OnRegionChanged)), new ValidateValueCallback(IsValidRegion));
@@ -93,13 +93,24 @@ namespace UtilityWpf.PanelDemo
         }
 
 
+        public bool UseAnimation
+        {
+            get { return (bool)GetValue(UseAnimationProperty); }
+            set { SetValue(UseAnimationProperty, value); }
+        }
+
         protected override Size MeasureOverride(Size availableSize)
         {
-            foreach (var child in InternalChildren.Cast<UIElement>())
+            var arr = InternalChildren.Cast<UIElement>().ToArray();
+
+            foreach (var child in arr)
             {
                 child.Measure(availableSize);
             }
-            return availableSize;
+            double width = availableSize.Width == double.PositiveInfinity ? arr.Sum(a => a.DesiredSize.Width) : availableSize.Width;
+            double height = availableSize.Height == double.PositiveInfinity ? arr.Sum(a => a.DesiredSize.Height) : availableSize.Height;
+
+            return new Size(width, height);
         }
 
         protected override Size ArrangeOverride(Size finalSize)
@@ -107,46 +118,24 @@ namespace UtilityWpf.PanelDemo
             List<List<Coordinate>> coordinates = new List<List<Coordinate>>();
 
             var elementsBag = new ElementsBag();
-            var elems = InternalChildren.Cast<UIElement>().ToArray();
+            var elems = InternalChildren.Cast<FrameworkElement>().ToArray();
             elementsBag.CountPositions(elems);
             var (x, y) = elementsBag.GetSize();
             var existingCoordinates = SelectExistingCoordinates(elems, x, y);
-            Arrange(this, elementsBag, existingCoordinates, finalSize, x, y, WidthRatio, HeightRatio, UseDesiredSize);
 
-            static async void Arrange(UIElement parent, ElementsBag elementsBag, IEnumerable<Coordinate> existingCoordinates, Size finalSize,
-                int x, int y, double widthRatio, double heightRatio, bool useDesiredSize)
+            var arrange = Arrange(this, elementsBag, existingCoordinates, finalSize, x, y, WidthRatio, HeightRatio, UseDesiredSize, UseAnimation);
+
+            static Size Arrange(FrameworkElement parent, ElementsBag elementsBag, IEnumerable<Coordinate> existingCoordinates, Size finalSize,
+                int x, int y, double widthRatio, double heightRatio, bool useDesiredSize, bool useAnimation)
             {
-                FinalArrange(parent, elementsBag, finalSize, x, y, await SelectionCoordinatesForRegions(), widthRatio, heightRatio, useDesiredSize);
+                var size = FinalArrange(parent, elementsBag, finalSize, x, y,
+                     SelectionCoordinatesForRegions(existingCoordinates), useAnimation, widthRatio, heightRatio, useDesiredSize).ToArray();
 
-                async Task<(Region region, List<Coordinate> ac)[][]> SelectionCoordinatesForRegions()
-                {
-                    (Region region, List<Coordinate> ac)[][] combinations = await Task.Run(() =>
-                    {
-                        var sides = RegionPanelHelper.SelectPotentialCoordinatesForRegions(elementsBag, existingCoordinates, x, y).Select(a => a.Value.Select(ac => (a.Key, ac)));
-
-                        var combined = x * y;
-
-                        var combos = CombinationHelper.SelectSetCombinations(sides).ToArray();
-
-                        var combinations = combos
-                                                 .Select(a => (a: a.ToArray(), arr: a.Select(v => v.ac).ToArray()))
-                                                 .Select(a => (a.a, a.arr, count: a.arr.Sum(a => a.Count)))
-                                                 .Where(a => a.count <= combined && a.arr.SelectMany(a => a).ToArray().AllDistinct())
-                                                 .OrderByDescending(a => a.a.Select(a => a.Key).Distinct().Count())
-                                                 .OrderByDescending(a => a.count)
-                                                 .OrderByDescending(a => a.arr.Sum(c => Coordinate.Size(Coordinate.Size(c))))
-                                                 .Take(1)
-                                                 .Select(a => a.a)
-                                                 .ToArray();
-                        return combinations;
-                    });
-
-                    return combinations;
-                }
+                return new Size(size.Sum(s => s.Height), size.Sum(a => a.Width));
 
 
-                static void FinalArrange(UIElement parent, ElementsBag elementsBag, Size finalSize, int x, int y,
-                    (Region Key, List<Coordinate> ac)[][] combinations,
+                static IEnumerable<Size> FinalArrange(FrameworkElement parent, ElementsBag elementsBag, Size finalSize, int x, int y,
+                    (Region Key, List<Coordinate> ac)[][] combinations, bool useAnimation,
                     double widthRatio = 1, double heightRatio = 1, bool useDesiredSize = false)
                 {
                     foreach (var combination in combinations)
@@ -156,17 +145,52 @@ namespace UtilityWpf.PanelDemo
                                 var es = RegionPanelHelper.SelectInnerElementRects(combo.Key, elementsBag.SelectElements(combo.Key), ar, useDesiredSize).ToArray();
                                 foreach (var (rect, child) in es)
                                 {
-                                    if (!(child.RenderTransform is TranslateTransform translateTransform))
+                                    if (useAnimation)
                                     {
-                                        child.RenderTransform = translateTransform = new TranslateTransform();
-                                    }
-                                    var translationPoint = child.TranslatePoint(new Point(), parent);
-                                    child.RenderTransformOrigin = translationPoint;
 
-                                    child.Arrange(new Rect(new Point(translationPoint.X, translationPoint.Y), rect.Size));
-                                    AnimationHelper.Animate(translateTransform, translationPoint, rect.Location);
+                                        if (!(child.RenderTransform is TranslateTransform translateTransform))
+                                        {
+                                            child.RenderTransform = translateTransform = new TranslateTransform();
+                                        }
+                                        var translationPoint = child.TranslatePoint(new Point(), parent);
+                                        child.RenderTransformOrigin = translationPoint;
+
+                                        child.Arrange(new Rect(new Point(translationPoint.X, translationPoint.Y), rect.Size));
+
+                                        AnimationHelper.Animate(translateTransform, translationPoint, rect.Location);
+
+                                    }
+                                    else
+                                    {
+                                        child.Arrange(rect);
+                                    }
+
                                 }
+
+                                yield return new Size(es.Sum(a => a.Item1.Size.Height), es.Sum(a => a.Item1.Size.Width));
                             }
+                }
+
+                (Region region, List<Coordinate> ac)[][] SelectionCoordinatesForRegions(IEnumerable<Coordinate> existingCoordinates)
+                {
+                    var sides = RegionPanelHelper.SelectPotentialCoordinatesForRegions(elementsBag, existingCoordinates, x, y).Select(a => a.Value.Select(ac => (a.Key, ac)));
+
+                    var combined = x * y;
+
+                    var combos = CombinationHelper.SelectSetCombinations(sides).ToArray();
+
+                    var combinations = combos
+                                             .Select(a => (a: a.ToArray(), arr: a.Select(v => v.ac).ToArray()))
+                                             .Select(a => (a.a, a.arr, count: a.arr.Sum(a => a.Count)))
+                                             .Where(a => a.count <= combined && a.arr.SelectMany(a => a).ToArray().AllDistinct())
+                                             .OrderByDescending(a => a.a.Select(a => a.Key).Distinct().Count())
+                                             .OrderByDescending(a => a.count)
+                                             .OrderByDescending(a => a.arr.Sum(c => Coordinate.Size(Coordinate.Size(c))))
+                                             .Take(1)
+                                             .Select(a => a.a)
+                                             .ToArray();
+                    return combinations;
+
                 }
             }
 
@@ -214,7 +238,8 @@ namespace UtilityWpf.PanelDemo
             //        };
             //    }
             //}
-
+            if (UseDesiredSize)
+                return arrange;
             return finalSize;
         }
 
@@ -234,16 +259,16 @@ namespace UtilityWpf.PanelDemo
         topleftHeightCount = 0, toprightHeightCount = 0;
 
 
-        public readonly List<UIElement>
-      bottomleft = new List<UIElement>(),
-      bottomright = new List<UIElement>(),
-      topright = new List<UIElement>(),
-      topleft = new List<UIElement>(),
-      left = new List<UIElement>(),
-      right = new List<UIElement>(),
-      middle = new List<UIElement>(),
-      top = new List<UIElement>(),
-      bottom = new List<UIElement>();
+        public readonly List<FrameworkElement>
+      bottomleft = new List<FrameworkElement>(),
+      bottomright = new List<FrameworkElement>(),
+      topright = new List<FrameworkElement>(),
+      topleft = new List<FrameworkElement>(),
+      left = new List<FrameworkElement>(),
+      right = new List<FrameworkElement>(),
+      middle = new List<FrameworkElement>(),
+      top = new List<FrameworkElement>(),
+      bottom = new List<FrameworkElement>();
 
         public (int x, int y) GetSize()
         {
@@ -260,9 +285,9 @@ namespace UtilityWpf.PanelDemo
             };
         }
 
-        public void CountPositions(IEnumerable<UIElement> elements)
+        public void CountPositions(IEnumerable<FrameworkElement> elements)
         {
-            foreach (UIElement child in elements)
+            foreach (FrameworkElement child in elements)
             {
                 totalCount++;
                 var region = RegionPanel.GetRegion(child);
@@ -329,11 +354,11 @@ namespace UtilityWpf.PanelDemo
             }
         }
 
-        public IList<UIElement> SelectElements(Region region)
+        public IList<FrameworkElement> SelectElements(Region region)
         {
             return SelectElements(region, this);
 
-            static IList<UIElement> SelectElements(Region region, ElementsBag bag)
+            static IList<FrameworkElement> SelectElements(Region region, ElementsBag bag)
             {
                 return region switch
                 {
@@ -350,6 +375,6 @@ namespace UtilityWpf.PanelDemo
             }
         }
 
-    
+
     }
 }

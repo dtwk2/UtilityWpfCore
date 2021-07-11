@@ -23,6 +23,9 @@
     <Compile Update="View\EdgeLegacyPanelDemo.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\RegionPanel3Demo.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\RegionPanel2Demo.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -45,6 +48,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\EdgeLegacyPanelDemo.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\RegionPanel3Demo.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

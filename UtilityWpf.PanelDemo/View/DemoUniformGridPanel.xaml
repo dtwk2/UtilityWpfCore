@@ -35,11 +35,11 @@
             </controls1:UniformPanel>
 
 
-            <ListBox ItemsSource="{Binding Path=Collection, Source={x:Static controls:DemoViewModel.Instance}}">
+            <ListBox ItemsSource="{Binding Path=Collection, Source={x:Static controls:DemoViewModel.Instance}}" Height="400" Width="500">
 
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <controls1:UniformVirtualPanel />
+                        <controls1:UniformVirtualPanel Columns="5"  Orientation="Vertical"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
 
@@ -48,8 +48,8 @@
                         <TextBlock
                             Text="{Binding }"
                             Foreground="Wheat"
-                            Width="150"
-                            Height="70"
+                            Width="50"
+                            Height="130"
                             Background="Blue" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

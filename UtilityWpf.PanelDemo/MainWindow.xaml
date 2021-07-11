@@ -8,6 +8,11 @@
         Title="MainWindow" Height="450" Width="800">
     <TabControl x:Name="TabControl1" >
 
+
+        <TabItem Header="Region Panel 3">
+            <controls:RegionPanel3Demo></controls:RegionPanel3Demo>
+        </TabItem>
+        
         <TabItem Header="Region Panel 2">
             <controls:RegionPanel2Demo></controls:RegionPanel2Demo>
         </TabItem>
@@ -15,7 +20,6 @@
         <TabItem Header="Region Panel">
             <controls:RegionPanelDemo></controls:RegionPanelDemo>
         </TabItem>
-
 
         <TabItem Header="Side Panel">
             <controls:DemoSidePanel></controls:DemoSidePanel>

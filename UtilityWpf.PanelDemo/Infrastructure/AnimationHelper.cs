@@ -12,6 +12,21 @@ namespace UtilityWpf.PanelDemo
     /// </summary>
     public class AnimationHelper
     {
+        public static void Animate(UIElement parent, UIElement child, Rect rect)
+        {
+            if (!(child.RenderTransform is TranslateTransform translateTransform))
+            {
+                child.RenderTransform = translateTransform = new TranslateTransform();
+            }
+            var translationPoint = child.TranslatePoint(new Point(), parent);
+            child.RenderTransformOrigin = translationPoint;
+
+            child.Arrange(new Rect(new Point(translationPoint.X, translationPoint.Y), rect.Size));
+
+            AnimationHelper.Animate(translateTransform, translationPoint, rect.Location);
+
+        }
+
         public static void Animate(TranslateTransform trans, Point translationPoint, Point combinedPoint)
         {
             DoubleAnimation animation = new DoubleAnimation(0, TimeSpan.FromMilliseconds(1000))
