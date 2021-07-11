@@ -25,7 +25,13 @@
         </Style>
     </UserControl.Resources>
 
-    <UniformGrid Columns="2">
+    <UniformGrid Columns="3">
+        <DataGrid
+                x:Name="dataGridTest"     
+                ItemsSource="{Binding Profiles}"
+                VerticalScrollBarVisibility="Hidden">
+        </DataGrid>
+
         <Grid x:Name="Grid1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />

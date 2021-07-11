@@ -76,9 +76,6 @@
     <Compile Update="View\CalendarUserControl.xaml.cs">
       <DependentUpon>CalendarUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Update="View\CsvDataGridUserControl.xaml.cs">
-      <DependentUpon>CsvDataGridUserControl.xaml</DependentUpon>
-    </Compile>
     <Compile Update="View\DatesListUserControl.xaml.cs">
       <DependentUpon>DatesListUserControl.xaml</DependentUpon>
     </Compile>
@@ -87,12 +84,6 @@
     </Compile>
     <Compile Update="View\DoubleClickUserControl.xaml.cs">
       <DependentUpon>DoubleClickUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="View\DynamicDataGridUserControl.xaml.cs">
-      <DependentUpon>DynamicDataGridUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="View\FilteredPaginatedUserControl.xaml.cs">
-      <DependentUpon>FilteredPaginatedUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Update="View\FolderOpenUserControl.xaml.cs">
       <DependentUpon>FolderOpenUserControl.xaml</DependentUpon>
@@ -109,17 +100,11 @@
     <Compile Update="View\MultiSelectTreeUserControl.xaml.cs">
       <DependentUpon>MultiSelectTreeUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Update="View\PlayerUserControl.xaml.cs">
-      <DependentUpon>PlayerUserControl.xaml</DependentUpon>
-    </Compile>
     <Compile Update="View\PositionConverterUserControl.xaml.cs">
       <DependentUpon>PositionConverterUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Update="View\SlidersUserControl.xaml.cs">
       <DependentUpon>SlidersUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="View\StructDataGridUserControl.xaml.cs">
-      <DependentUpon>StructDataGridUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Update="View\StyleChangeUserControl.xaml.cs">
       <DependentUpon>StyleChangeUserControl.xaml</DependentUpon>
@@ -127,6 +112,12 @@
     <Compile Update="View\TreeViewUserControl.xaml.cs">
       <DependentUpon>TreeViewUserControl.xaml</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Images\bart.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -140,9 +131,6 @@
     <Page Update="View\CalendarUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\CsvDataGridUserControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="View\DatesListUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -150,12 +138,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\DoubleClickUserControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\DynamicDataGridUserControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\FilteredPaginatedUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\FolderOpenUserControl.xaml">
@@ -173,16 +155,10 @@
     <Page Update="View\MultiSelectTreeUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\PlayerUserControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="View\PositionConverterUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\SlidersUserControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\StructDataGridUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\StyleChangeUserControl.xaml">

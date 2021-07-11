@@ -12,6 +12,29 @@
     d:DesignWidth="300"
     mc:Ignorable="d">
     <TabControl>
+       
+        <TabItem Header="Path">
+            <UniformGrid Columns="1">
+                <view:PathButton Height="70" HoverBackground="Blue">
+                    <view:PathButton.PathData>
+                        <PathGeometry>
+                            <PathGeometry.Figures>
+                                <PathFigure StartPoint="0.5,0">
+                                    <LineSegment Point="-1,0" />
+                                </PathFigure>
+                                <PathFigure StartPoint="-0.5,0">
+                                    <LineSegment Point="1,0" />
+                                </PathFigure>
+                            </PathGeometry.Figures>
+                        </PathGeometry>
+                    </view:PathButton.PathData>
+                </view:PathButton>
+
+                <view:PathButton />
+                <view:XButton />
+            </UniformGrid>
+        </TabItem>
+        
         <TabItem Header="Interactivity">
 
             <Grid Width="200" Height="60">
@@ -47,28 +70,6 @@
                 </Button>
             </Grid>
         </TabItem>
-        <TabItem Header="Path">
-            <UniformGrid Columns="1">
-                <view:PathButton Height="70" HoverBackground="Blue">
-                    <view:PathButton.PathData>
-                        <PathGeometry>
-                            <PathGeometry.Figures>
-                                <PathFigure StartPoint="0.5,0">
-                                    <LineSegment Point="-1,0" />
-                                </PathFigure>
-                                <PathFigure StartPoint="-0.5,0">
-                                    <LineSegment Point="1,0" />
-                                </PathFigure>
-                            </PathGeometry.Figures>
-                        </PathGeometry>
-                    </view:PathButton.PathData>
-                </view:PathButton>
-
-                <view:PathButton />
-                <view:XButton />
-            </UniformGrid>
-        </TabItem>
-
         <TabItem Header="Image">
 
             <view:ImageButton

@@ -14,7 +14,7 @@
                 Age="10"
                 First="Bart"
                 Gender="Male"
-                Image="images/bart.png"
+                ImageSource="images/bart.png"
                 Last="Simpson"
                 Location="25,150"
                 Color="Brown" />
@@ -28,7 +28,7 @@
                     Age="38"
                     First="Homer"
                     Gender="Male"
-                    Image="images/homer.png"
+                    ImageSource="Images/homer.png"
                     Last="Simpson"
                     Location="75,0"
                     Color="DarkSalmon" />
@@ -36,7 +36,7 @@
                     Age="8"
                     First="Lisa"
                     Gender="Female"
-                    Image="images/lisa.png"
+                    ImageSource="images/lisa.png"
                     Last="Bouvier"
                     Location="125,150"
                     Color="ForestGreen" />
@@ -44,7 +44,7 @@
                     Age="0"
                     First="Maggie"
                     Gender="Female"
-                    Image="images/maggie.png"
+                    ImageSource="images/maggie.png"
                     Last="Simpson"
                     Location="225,150"
                     Color="DarkBlue" />
@@ -52,7 +52,7 @@
                     Age="38"
                     First="Marge"
                     Gender="Female"
-                    Image="images/marge.png"
+                    ImageSource="images/marge.png"
                     Last="Bouvier"
                     Location="175,0"
                     Color="DarkCyan" />

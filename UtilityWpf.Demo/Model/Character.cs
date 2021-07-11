@@ -3,7 +3,9 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace UtilityWpf.DemoApp
 {
@@ -44,13 +46,25 @@ namespace UtilityWpf.DemoApp
             }
         }
 
-        public string Image
+        public string ImageSource
         {
             get { return _image; }
             set
             {
                 _image = value;
                 RaisePropertyChanged();
+            }
+        }
+
+        public BitmapImage Image
+        {
+            get
+            {
+                string str = System.Environment.CurrentDirectory;
+                string imagePath =
+                    System.IO.Directory.GetParent(str).Parent.Parent.FullName +"/"+ ImageSource;
+                var image = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
+                return image;
             }
         }
 

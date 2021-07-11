@@ -28,14 +28,14 @@ namespace UtilityWpf.DemoApp
             Characters = new List<Character>
             {
                 new Character{First = "Bart", Last="Simpson" ,Age=10,
-          Gender=Gender.Male ,Image="images/bart.png", Location=new Point(25,150)},
+          Gender=Gender.Male ,ImageSource="images/bart.png", Location=new Point(25,150)},
 
                 new Character{First = "Bart", Last="Simpson" ,Age=10,
-          Gender=Gender.Male ,Image="images/bart.png", Location=new Point(25,150)},
+          Gender=Gender.Male ,ImageSource="images/bart.png", Location=new Point(25,150)},
                                 new Character{First = "Bart", Last="Simpson" ,Age=10,
-          Gender=Gender.Male ,Image="images/bart.png", Location=new Point(25,150)},
+          Gender=Gender.Male ,ImageSource="images/bart.png", Location=new Point(25,150)},
                 new Character{First = "Bart", Last="Simpson" ,Age=10,
-          Gender=Gender.Male ,Image="images/bart.png", Location=new Point(25,150)},
+          Gender=Gender.Male ,ImageSource="images/bart.png", Location=new Point(25,150)},
             };
             MyCommand = new DelegateCommand(() => MessageBox.Show("double click!"));
         }

@@ -25,6 +25,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Collections.Generic;
 using Endless;
+using System.Linq;
 
 namespace UtilityWpf.DemoApp.Controls
 {
@@ -290,7 +291,7 @@ namespace UtilityWpf.DemoApp.Controls
             UIElementCollection children = InternalChildren;
             int totalChildrenCount = children.Count;
             int nonFillChildrenCount = totalChildrenCount - (IsLastChildFilled ? 1 : 0);
-            IEnumerator<Corner> corners = EnumHelper<Corner>.Values.GetEnumerator();
+            IEnumerator<Corner> corners = UtilityHelper.EnumHelper.GetAllValuesAndDescriptions<Corner>().Select(a => a.Value).GetEnumerator();
 
             double accumulatedTopLeft = 0;
             double accumulatedTopRight = 0;
@@ -374,7 +375,7 @@ namespace UtilityWpf.DemoApp.Controls
                 if (StartCorner.HasValue)
                 {
                     while (!corners.MoveNext())
-                        corners = EnumHelper<Corner>.Values.GetEnumerator();
+                        corners = UtilityHelper.EnumHelper.GetAllValuesAndDescriptions<Corner>().Select(a => a.Value).GetEnumerator();
                     return corners.Current;
                 }
                 else
