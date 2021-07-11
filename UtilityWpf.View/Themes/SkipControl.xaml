@@ -30,7 +30,7 @@
 
                     <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                         <RepeatButton Command="{TemplateBinding PreviousCommand}" ToolTip="Move to previous page">
-                            <materialDesign:PackIcon Kind="SkipPrevious" />
+                            <materialDesign:PackIcon Kind="PagePrevious" />
                         </RepeatButton>
                         <ContentControl Content="{TemplateBinding Content}" />
                         <RepeatButton Command="{TemplateBinding NextCommand}" ToolTip="Move to next page">

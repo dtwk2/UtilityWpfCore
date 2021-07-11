@@ -45,16 +45,29 @@ namespace UtilityWpf.View.Extrinsic
         /// </summary>
         private static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent("ValueChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<decimal>), typeof(SpinnerControl));
 
-        public SpinnerControl()
-        {
-        }
 
         static SpinnerControl()
         {
             InitializeCommands();
-
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SpinnerControl), new FrameworkPropertyMetadata(typeof(SpinnerControl)));
         }
+        public SpinnerControl()
+        {
+        }
+
+
+
+        public string  StringFormat
+        {
+            get { return (string )GetValue(StringFormatProperty); }
+            set { SetValue(StringFormatProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for StringFormat.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty StringFormatProperty =
+            DependencyProperty.Register("StringFormat", typeof(string ), typeof(SpinnerControl), new PropertyMetadata("f"));
+
+
 
         public decimal Value
         {
@@ -141,7 +154,7 @@ namespace UtilityWpf.View.Extrinsic
             NumberFormatInfo numberFormatInfo = new NumberFormatInfo() { NumberDecimalDigits = DecimalPlaces };
             //  use fixed point, and the built-in NumberFormatInfo
             //  implementation of IFormatProvider
-            var formattedValue = newValue.ToString("f", numberFormatInfo);
+            var formattedValue = newValue.ToString(StringFormat, numberFormatInfo);
 
             //  Set the value of the FormattedValue property via its property key
             SetValue(FormattedValuePropertyKey, formattedValue);

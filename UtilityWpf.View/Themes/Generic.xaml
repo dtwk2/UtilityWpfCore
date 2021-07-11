@@ -38,7 +38,6 @@
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/TransitionControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/ValidationForm.xaml" />
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/MenuButton.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/Player.xaml" />
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/SkipControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/ProgressTimeBar.xaml" />
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/ResourcePicker.xaml" />
@@ -58,6 +57,7 @@
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/Extrinsic/ShortTimeSpanControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/Extrinsic/IpAddrBox.xaml" />
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/Extrinsic/FilterControl.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/Extrinsic/LoopingListBox.xaml" />
 
         <!--  DataTemplate  -->
     </ResourceDictionary.MergedDictionaries>

@@ -63,8 +63,8 @@ namespace UtilityWpf.View
             EventManager.RegisterClassHandler(typeof(RangeSlider), Thumb.DragCompletedEvent, new DragCompletedEventHandler(OnDragCompletedEvent));
 
             //Ticks
-            RangeSlider.GeneratedTicksProperty = DependencyProperty.Register("GeneratedTicks", typeof(DoubleCollection), typeof(RangeSlider), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
-            RangeSlider.TickLabelTemplateProperty = DependencyProperty.Register("TickLabelTemplate", typeof(DataTemplate), typeof(RangeSlider), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.AffectsMeasure));
+            GeneratedTicksProperty = DependencyProperty.Register("GeneratedTicks", typeof(DoubleCollection), typeof(RangeSlider), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
+            TickLabelTemplateProperty = DependencyProperty.Register("TickLabelTemplate", typeof(DataTemplate), typeof(RangeSlider), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.AffectsMeasure));
         }
 
         public RangeSlider()
@@ -193,7 +193,7 @@ namespace UtilityWpf.View
         {
             if (!IsReadOnly && IsMoveToPointEnabled)
             {
-                if ((StartThumb != null && StartThumb.IsMouseOver) || (EndThumb != null && EndThumb.IsMouseOver))
+                if (StartThumb != null && StartThumb.IsMouseOver || EndThumb != null && EndThumb.IsMouseOver)
                     return;
 
                 var point = e.GetPosition(SliderContainer);
@@ -222,10 +222,10 @@ namespace UtilityWpf.View
                 position = point.Y;
             }
 
-            double viewportSize = (Orientation == Orientation.Horizontal) ? SliderContainer.ActualWidth : SliderContainer.ActualHeight;
+            double viewportSize = Orientation == Orientation.Horizontal ? SliderContainer.ActualWidth : SliderContainer.ActualHeight;
             if (!double.IsNaN(viewportSize) && viewportSize > 0)
             {
-                var value = Math.Min(Maximum, Minimum + (position / viewportSize) * (Maximum - Minimum));
+                var value = Math.Min(Maximum, Minimum + position / viewportSize * (Maximum - Minimum));
                 if (block == SliderThumb.Start)
                 {
                     Start = Math.Min(End, value);
@@ -341,15 +341,15 @@ namespace UtilityWpf.View
         [Bindable(true)]
         public DoubleCollection GeneratedTicks
         {
-            get => base.GetValue(RangeSlider.GeneratedTicksProperty) as DoubleCollection;
-            set => base.SetValue(RangeSlider.GeneratedTicksProperty, value);
+            get => GetValue(GeneratedTicksProperty) as DoubleCollection;
+            set => SetValue(GeneratedTicksProperty, value);
         }
 
         [Bindable(true)]
         public DataTemplate TickLabelTemplate
         {
-            get => base.GetValue(RangeSlider.TickLabelTemplateProperty) as DataTemplate;
-            set => base.SetValue(RangeSlider.TickLabelTemplateProperty, value);
+            get => GetValue(TickLabelTemplateProperty) as DataTemplate;
+            set => SetValue(TickLabelTemplateProperty, value);
         }
 
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
@@ -366,7 +366,7 @@ namespace UtilityWpf.View
         {
             base.OnInitialized(e);
 
-            this.CalculateTicks();
+            CalculateTicks();
         }
 
         protected override Geometry GetLayoutClip(Size layoutSlotSize)
@@ -385,7 +385,7 @@ namespace UtilityWpf.View
                 ticks = Ticks?.Select(_ => _).ToArray();
                 min = Minimum;
                 max = Maximum;
-                tickFrequency = this.TickFrequency;
+                tickFrequency = TickFrequency;
             }
 
             await Task.Run(async () =>
@@ -395,20 +395,20 @@ namespace UtilityWpf.View
                 {
                     if (ticks != null && ticks.Any())
                     {
-                        await this.Dispatcher.InvokeAsync(() =>
+                        await Dispatcher.InvokeAsync(() =>
                         {
-                            this.SetValue(GeneratedTicksProperty, new DoubleCollection(ticks.Union(new double[] { min, max }).Where(t => min <= t && t <= max)));
+                            SetValue(GeneratedTicksProperty, new DoubleCollection(ticks.Union(new double[] { min, max }).Where(t => min <= t && t <= max)));
                         }, System.Windows.Threading.DispatcherPriority.Background);
                     }
                     else if (tickFrequency > 0.0)
                     {
-                        long l = (long)Math.Ceiling((max - min) / tickFrequency) + 1;
-                        double[] range = Enumerable.Range(1, (int)l - 2).Select(t => Math.Min(t * tickFrequency + min, max)).ToArray();
-                        await this.Dispatcher.InvokeAsync(() =>
+                        long l = (long)Math.Ceiling((max - min) / tickFrequency);
+                        double[] range = Enumerable.Range(0, (int)l + 1).Select(t => Math.Min(t * tickFrequency, max)).ToArray();
+                        await Dispatcher.InvokeAsync(() =>
                         {
                             if (l <= int.MaxValue)
                             {
-                                this.SetValue(GeneratedTicksProperty, new DoubleCollection(range));
+                                SetValue(GeneratedTicksProperty, new DoubleCollection(range));
                             }
                             //else
                             //{
@@ -419,7 +419,7 @@ namespace UtilityWpf.View
                 }
                 catch (Exception ex)
                 {
-                    await this.Dispatcher.InvokeAsync(() => MessageBox.Show(ex.Message));
+                    await Dispatcher.InvokeAsync(() => MessageBox.Show(ex.Message));
                 }
             });
         }

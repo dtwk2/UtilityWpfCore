@@ -41,19 +41,19 @@
                         <UniformGrid Rows="1">
 
                             <Grid>
-                                <TextBlock Text="{Binding Time.Hour, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Center" />
+                                <TextBlock Text="{Binding Time.Hour, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Center" />
                             </Grid>
                             <Grid>
-                                <TextBlock x:Name="PART_Colon" Text="-" Foreground="Gainsboro" HorizontalAlignment="Center"/>
+                                <TextBlock x:Name="PART_Colon" Text=" - " Foreground="Gainsboro" HorizontalAlignment="Center"/>
                             </Grid>
                             <Grid>
-                                <TextBlock Text="{Binding Time.Minute, StringFormat=D2, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding Time.Minute, StringFormat=D2, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Center"/>
                             </Grid>
                             <Grid>
-                                <TextBlock Text="-" Foreground="Gainsboro" Visibility="{TemplateBinding ShowSeconds, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center"/>
+                                <TextBlock Text=" - " Foreground="Gainsboro" Visibility="{Binding ShowSeconds, Mode=OneWay,RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center"/>
                             </Grid>
                             <Grid>
-                                <TextBlock Text="{Binding Time.Second, StringFormat=D2, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Center"
+                                <TextBlock Text="{Binding Time.Second, StringFormat=D2, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}" HorizontalAlignment="Center"
                                    Visibility="{TemplateBinding ShowSeconds, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             </Grid>
                         </UniformGrid>

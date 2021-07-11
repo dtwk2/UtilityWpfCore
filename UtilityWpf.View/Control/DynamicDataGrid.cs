@@ -41,13 +41,13 @@ namespace UtilityWpf.View
 
         private static void ItemsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (!(((IEnumerable)e.NewValue).First() is Dynamic))
-                (d as DynamicDataGrid).ChangeItemsSource((IEnumerable)e.NewValue);
+            //if (!(((IEnumerable)e.NewValue).First() is Dynamic))
+            //    (d as DynamicDataGrid).ChangeItemsSource((IEnumerable)e.NewValue);
         }
 
         protected virtual void ChangeItemsSource(IEnumerable value)
         {
-            ItemsSourceSubject.OnNext((IEnumerable)value);
+            //ItemsSourceSubject.OnNext((IEnumerable)value);
         }
 
         private static void ValueChange(DependencyObject d, DependencyPropertyChangedEventArgs e)

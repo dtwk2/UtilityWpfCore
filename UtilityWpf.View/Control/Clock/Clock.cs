@@ -16,10 +16,9 @@ namespace UtilityWpf.View
 
         private static void TimePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if(d is Clock)
+            if (d is Clock clock && e is { NewValue: DateTime dateTime , OldValue: DateTime oDateTime })
             {
-                Clock clock = d as Clock;
-                clock.RaiseEvent(new RoutedPropertyChangedEventArgs<DateTime>((DateTime)e.OldValue, (DateTime)e.NewValue, TimeChangedEvent));
+                clock.RaiseEvent(new RoutedPropertyChangedEventArgs<DateTime>(oDateTime, dateTime, TimeChangedEvent));
             }
         }
 

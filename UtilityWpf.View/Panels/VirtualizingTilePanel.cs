@@ -445,7 +445,7 @@ namespace UtilityWpf.View.Extrinsic
         /// <summary>
         ///
         /// </summary>
-        public ScrollViewer ScrollOwner
+        public System.Windows.Controls.ScrollViewer ScrollOwner
         {
             get { return _owner; }
             set { _owner = value; }
@@ -691,7 +691,7 @@ namespace UtilityWpf.View.Extrinsic
         #region Fields
 
         private TranslateTransform _trans = new TranslateTransform();
-        private ScrollViewer _owner;
+        private System.Windows.Controls.ScrollViewer _owner;
         private bool _canHScroll = false;
         private bool _canVScroll = false;
         private Size _extent = new Size(0, 0);
