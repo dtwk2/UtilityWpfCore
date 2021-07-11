@@ -48,6 +48,7 @@
     <Exec Command="&#xD;&#xA;      set source=&quot;$(ProjectDir)bin\release &quot;&#xD;&#xA;&#xD;&#xA;      set target=&quot;C:\Users\rytal\Documents\Visual Studio 2019\NugetPackages &quot;  &#xD;&#xA;&#xD;&#xA;      RoboCopy %25source%25 %25target%25 *.nupkg  /XO  /NFL /NDL /NJH   &#xD;&#xA;&#xD;&#xA;      IF %ERRORLEVEL% GEQ 8 exit 1&#xD;&#xA;&#xD;&#xA;      exit 0" />
   </Target>
   <ItemGroup>
+    <PackageReference Include="ReactiveUI.WPF" Version="13.2.18" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
   </ItemGroup>
     
