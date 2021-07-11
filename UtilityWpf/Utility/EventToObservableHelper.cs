@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media.Animation;
+using deniszykov.TypeConversion;
 
 namespace UtilityWpf
 {
@@ -95,7 +96,7 @@ namespace UtilityWpf
         public static IObservable<T> SelectItemChanges<T>(this ComboBox comboBox)
         {
             var selectionChanged = comboBox.Events().SelectionChanged;
-
+            var conversionProvider = new TypeConversionProvider();
             // If using ComboBoxItems 
             var comboBoxItems = selectionChanged
           .SelectMany(a => a.AddedItems.OfType<ContentControl>())
@@ -112,7 +113,7 @@ namespace UtilityWpf
 
             // If using type indirectly
             var indirectItems = selectionChanged
-          .SelectMany(a => a.AddedItems.Cast<object>().Select(a => TypeConvert.TryConvert<object, T>(a, out T t2) ? t2 : default))
+          .SelectMany(a => a.AddedItems.Cast<object>().Select(a => conversionProvider.TryConvert<object, T>(a, out T t2) ? t2 : default))
           .StartWith(NewMethod2(comboBox.SelectedItem))
           .Where(a => a.Equals(default(T)) == false);
 
@@ -125,9 +126,9 @@ namespace UtilityWpf
                 return selectedItem is T t ? t : default;
             }
 
-            static T NewMethod2(object selectedItem)
+            T NewMethod2(object selectedItem)
             {
-                return TypeConvert.TryConvert(selectedItem, out T t2) ? t2 : default;
+                return conversionProvider.TryConvert(selectedItem, out T t2) ? t2 : default;
             }
         }
 

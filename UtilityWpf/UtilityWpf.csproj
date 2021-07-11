@@ -37,8 +37,10 @@
  
 
   <ItemGroup>
+    <PackageReference Include="deniszykov.TypeConversion" Version="3.0.1" />
     <PackageReference Include="Evan.Wpf" Version="1.2.0" />
     <PackageReference Include="LambdaConverters" Version="4.0.0" />
+    <PackageReference Include="MathConverter" Version="2.1.0-alpha0001" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
     <PackageReference Include="morelinq" Version="3.3.2" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
@@ -50,8 +52,7 @@
     <PackageReference Include="ReactiveUI" Version="13.0.27" />
     <PackageReference Include="ReactiveUI.Events.WPF" Version="13.0.27" />
     <PackageReference Include="Splat.Autofac" Version="9.8.1" />
-    <PackageReference Include="TypeConvert" Version="2.1.6" />
-    <PackageReference Include="UtilityEnum" Version="2.0.4" />
+    <PackageReference Include="UtilityEnum" Version="2.2.0" />
     <PackageReference Include="UtilityHelperEx" Version="0.0.1-alpha-01" />
     <PackageReference Include="UtilityInterface" Version="4.0.4" />
   </ItemGroup>
