@@ -4,15 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:int="clr-namespace:UtilityWpf.Behavior;assembly=UtilityWpf"
-    xmlns:local="clr-namespace:UtilityWpf.DemoApp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.View"
     d:DesignHeight="300"
     d:DesignWidth="300"
     mc:Ignorable="d">
+
     <TabControl>
-       
         <TabItem Header="Path">
             <UniformGrid Columns="1">
                 <view:PathButton Height="70" HoverBackground="Blue">
@@ -34,44 +32,87 @@
                 <view:XButton />
             </UniformGrid>
         </TabItem>
+        <TabItem Header="Animation">
+            <Grid Width="100">
+                <Button x:Name="OptionsAnimationBackButton">
+                    Back
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="optionsAnimationBackButton"
+                        From="1.0" To="0.5" Duration="0:0:0.5"></DoubleAnimation>
+                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="optionsAnimationButton"
+                        From="0.0" To="1.0" Duration="0:0:1"></DoubleAnimation>
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="optionsAnimationBackButton" Storyboard.TargetProperty="Visibility">
+                                        <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Collapsed}"/>
+                                    </ObjectAnimationUsingKeyFrames>
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="optionsAnimationButton" Storyboard.TargetProperty="Visibility">
+                                        <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Visible}"/>
+                                    </ObjectAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+
+                    </Button.Triggers>
+                </Button>
+
+                <Button x:Name="OptionsAnimationButton"  >
+                    Option
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="optionsAnimationButton"
+                        From="1.0" To="0.5" Duration="0:0:0.5"></DoubleAnimation>
+                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="optionsAnimationBackButton"
+                        From="0.0" To="1.0" Duration="0:0:1"></DoubleAnimation>
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="optionsAnimationButton" Storyboard.TargetProperty="Visibility">
+                                        <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Collapsed}"/>
+                                    </ObjectAnimationUsingKeyFrames>
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="optionsAnimationBackButton" Storyboard.TargetProperty="Visibility">
+                                        <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Visible}"/>
+                                    </ObjectAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Grid>
+        </TabItem>
         
         <TabItem Header="Interactivity">
-
-            <Grid Width="200" Height="60">
-                <Button x:Name="optionsButton" FontSize="20">
+            <Grid Width="100" Height="60">
+                <Button x:Name="optionsButton" >
                     Option
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
-                            <int:SetterAction PropertyName="Visibility" Value="Collapsed" />
-                            <int:SetterAction
+                            <i:ChangePropertyAction PropertyName="Visibility" Value="Collapsed" />
+                            <i:ChangePropertyAction
                                 PropertyName="Visibility"
                                 TargetObject="{Binding ElementName=optionsBackButton}"
                                 Value="Visible" />
-                            <!--<int:SetterAction PropertyName="Visibility" TargetObject="{Binding ElementName=optionsPanel}" Value="Visible" />-->
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
 
                 <Button
-                    x:Name="optionsBackButton"
-                    FontSize="20"
+                    x:Name="optionsBackButton"                
                     Visibility="Collapsed">
                     Back
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
-                            <int:SetterAction PropertyName="Visibility" Value="Collapsed" />
-                            <int:SetterAction
+                            <i:ChangePropertyAction PropertyName="Visibility" Value="Collapsed" />
+                            <i:ChangePropertyAction
                                 PropertyName="Visibility"
                                 TargetObject="{Binding ElementName=optionsButton}"
                                 Value="Visible" />
-                            <!--<int:SetterAction PropertyName="Visibility" TargetObject="{Binding ElementName=optionsPanel}" Value="Collapsed" />-->
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
             </Grid>
         </TabItem>
         <TabItem Header="Image">
-
             <view:ImageButton
                 x:Name="toggle"
                 Grid.Column="0"
@@ -79,56 +120,5 @@
                 Image="/Images/Settings.png"
                 PressedImage="/Images/bar-chart.png" />
         </TabItem>
-        <!--<TabItem Header="MenuButton">
-
-            <UniformGrid Columns="1" Height="400" Width="250">
-                <view:MenuButton x:Name="menu1" Height="30" Width="100"
-                                                  Grid.Column="0"
-                                                Margin="15">
-                    Menu Button
-                    <view:MenuButton.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="_Bold"
-                IsCheckable="True"
-                Checked="Bold_Checked"
-                Unchecked="Bold_Unchecked" />
-                            <MenuItem Header="_Italic"
-                IsCheckable="True"
-                Checked="Italic_Checked"
-                Unchecked="Italic_Unchecked" />
-                            <Separator />
-                            <MenuItem Header="Increase Font Size"
-                Click="IncreaseFont_Click" />
-                            <MenuItem Header="Decrease Font Size"
-                Click="DecreaseFont_Click" />
-                        </ContextMenu>
-                    </view:MenuButton.ContextMenu>
-                </view:MenuButton>
-                <ToolBar>
-                    <view:MenuButton x:Name="menu2"
-                                                 Height="30"
-                                                Margin="15"
-                                                       >Menu Button
-                        <view:MenuButton.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem Header="_Bold"
-                IsCheckable="True"
-                Checked="Bold_Checked"
-                Unchecked="Bold_Unchecked" />
-                                <MenuItem Header="_Italic"
-                IsCheckable="True"
-                Checked="Italic_Checked"
-                Unchecked="Italic_Unchecked" />
-                                <Separator />
-                                <MenuItem Header="I_ncrease Font Size"
-                Click="IncreaseFont_Click" />
-                                <MenuItem Header="_Decrease Font Size"
-                Click="DecreaseFont_Click" />
-                            </ContextMenu>
-                        </view:MenuButton.ContextMenu>
-                    </view:MenuButton>
-                </ToolBar>
-            </UniformGrid>
-        </TabItem>-->
     </TabControl>
 </UserControl>
