@@ -73,12 +73,16 @@
         </Style>
     </UserControl.Resources>
     <StackPanel HorizontalAlignment="Center">
-        <TextBox x:Name="IntegerIntegerUpDown" Width="40" Height="25" ></TextBox>
-        <local:FlipControl Style="{StaticResource FadeFlipControl}" Margin="20"
-            Integer="{Binding ElementName=IntegerIntegerUpDown, Path=Text, Converter={x:Static converters:StringToIntConverter.Instance}}"
-                           />
+        
+        <TextBox x:Name="IntegerIntegerUpDown" Text="10" FontSize="30" Margin="20"></TextBox>
+
         <local:FlipControl Style="{StaticResource FlipControl}" Margin="20"
             Integer="{Binding ElementName=IntegerIntegerUpDown, Path=Text, Converter={x:Static converters:StringToIntConverter.Instance}}"
                            />
+        
+        <local:FlipControl Style="{StaticResource FadeFlipControl}" Margin="20"
+            Integer="{Binding ElementName=IntegerIntegerUpDown, Path=Text, Converter={x:Static converters:StringToIntConverter.Instance}}"
+                           />
+      
     </StackPanel>
 </UserControl>
