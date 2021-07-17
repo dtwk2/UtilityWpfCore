@@ -11,6 +11,35 @@ namespace UtilityWpf.View
 {
     public class ListBoxCriteria : ListBox
     {
+        public static readonly DependencyProperty IsCriteriaMetProperty = DependencyProperty.Register("IsCriteriaMet", typeof(bool), typeof(ListBoxCriteria), new PropertyMetadata(false, MetChanged));
+        public static readonly DependencyProperty PropertyNameProperty =    DependencyProperty.Register("PropertyName", typeof(string), typeof(ListBoxCriteria), new PropertyMetadata(null, PropertyNameChanged));
+
+        public ListBoxCriteria() : base()
+        {
+        }
+
+        public string PropertyName
+        {
+            get { return (string)GetValue(PropertyNameProperty); }
+            set { SetValue(PropertyNameProperty, value); }
+        }
+
+
+        private static void PropertyNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+        }
+
+        public bool IsCriteriaMet
+        {
+            get { return (bool)GetValue(IsCriteriaMetProperty); }
+            set { SetValue(IsCriteriaMetProperty, value); }
+        }
+
+
+        private static void MetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+        }
+
         protected override DependencyObject GetContainerForItemOverride()
         {
             var criteriaItem = new CriteriaItem();
@@ -37,35 +66,6 @@ namespace UtilityWpf.View
                 return true;
             }
             return false;
-        }
-
-        public ListBoxCriteria() : base()
-        {
-        }
-
-        public string PropertyName
-        {
-            get { return (string)GetValue(PropertyNameProperty); }
-            set { SetValue(PropertyNameProperty, value); }
-        }
-
-        public static readonly DependencyProperty PropertyNameProperty =
-            DependencyProperty.Register("PropertyName", typeof(string), typeof(ListBoxCriteria), new PropertyMetadata(null, PropertyNameChanged));
-
-        private static void PropertyNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-        }
-
-        public bool IsCriteriaMet
-        {
-            get { return (bool)GetValue(IsCriteriaMetProperty); }
-            set { SetValue(IsCriteriaMetProperty, value); }
-        }
-
-        public static readonly DependencyProperty IsCriteriaMetProperty = DependencyProperty.Register("IsCriteriaMet", typeof(bool), typeof(ListBoxCriteria), new PropertyMetadata(false, MetChanged));
-
-        private static void MetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
         }
 
         private void CriteriaItem_CriteriaChanged(object sender, RoutedEventArgs? e)

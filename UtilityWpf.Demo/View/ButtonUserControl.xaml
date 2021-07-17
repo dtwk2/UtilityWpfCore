@@ -28,26 +28,30 @@
                     </view:PathButton.PathData>
                 </view:PathButton>
 
-                <view:PathButton />
-                <view:XButton />
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center">            
+                    <view:PathButton x:Name="PathButton" Height="100"/>
+                    <TextBox x:Name="PathTextBox" Width="200" Height="30" Margin="4" FontSize="14"></TextBox>
+                    <TextBlock x:Name="ErrorTextBlock" Foreground="Red"></TextBlock>
+                  </StackPanel>
+                <view:XPathButton />
             </UniformGrid>
         </TabItem>
         <TabItem Header="Animation">
             <Grid Width="100">
-                <Button x:Name="OptionsAnimationBackButton">
+                <Button x:Name="BackButton">
                     Back
                     <Button.Triggers>
                         <EventTrigger RoutedEvent="Button.Click">
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="optionsAnimationBackButton"
+                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="BackButton"
                         From="1.0" To="0.5" Duration="0:0:0.5"></DoubleAnimation>
-                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="optionsAnimationButton"
+                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="OptionsButton"
                         From="0.0" To="1.0" Duration="0:0:1"></DoubleAnimation>
-                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="optionsAnimationBackButton" Storyboard.TargetProperty="Visibility">
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackButton" Storyboard.TargetProperty="Visibility">
                                         <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Collapsed}"/>
                                     </ObjectAnimationUsingKeyFrames>
-                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="optionsAnimationButton" Storyboard.TargetProperty="Visibility">
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OptionsButton" Storyboard.TargetProperty="Visibility">
                                         <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Visible}"/>
                                     </ObjectAnimationUsingKeyFrames>
                                 </Storyboard>
@@ -57,20 +61,20 @@
                     </Button.Triggers>
                 </Button>
 
-                <Button x:Name="OptionsAnimationButton"  >
+                <Button x:Name="OptionsButton"  >
                     Option
                     <Button.Triggers>
                         <EventTrigger RoutedEvent="Button.Click">
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="optionsAnimationButton"
+                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="OptionsButton"
                         From="1.0" To="0.5" Duration="0:0:0.5"></DoubleAnimation>
-                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="optionsAnimationBackButton"
+                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="BackButton"
                         From="0.0" To="1.0" Duration="0:0:1"></DoubleAnimation>
-                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="optionsAnimationButton" Storyboard.TargetProperty="Visibility">
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OptionsButton" Storyboard.TargetProperty="Visibility">
                                         <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Collapsed}"/>
                                     </ObjectAnimationUsingKeyFrames>
-                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="optionsAnimationBackButton" Storyboard.TargetProperty="Visibility">
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackButton" Storyboard.TargetProperty="Visibility">
                                         <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Visible}"/>
                                     </ObjectAnimationUsingKeyFrames>
                                 </Storyboard>

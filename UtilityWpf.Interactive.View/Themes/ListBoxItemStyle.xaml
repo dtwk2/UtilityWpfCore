@@ -96,7 +96,7 @@
                             <DockPanel MinWidth="40" MinHeight="40">
                                 <Grid DockPanel.Dock="Right">
 
-                                    <local2:XButton
+                                    <local2:XPathButton
                                         Width="15"
                                         Height="15"
                                         Margin="0,2,2,0"

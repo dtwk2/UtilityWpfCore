@@ -8,6 +8,25 @@ namespace UtilityWpf.View
 
     public class ImageButton : System.Windows.Controls.Button
     {
+        public static readonly DependencyProperty ImageSizeProperty =
+            DependencyProperty.Register("ImageSize", typeof(double), typeof(ImageButton),
+                new FrameworkPropertyMetadata(30.0, FrameworkPropertyMetadataOptions.AffectsRender, ImageSourceChanged));
+
+        public static readonly DependencyProperty ImageProperty =
+            DependencyProperty.Register("Image", typeof(Uri), typeof(ImageButton),
+            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender, ImageChanged));
+        public static readonly DependencyProperty HoverImageProperty =
+            DependencyProperty.Register("HoverImage", typeof(Uri), typeof(ImageButton),
+            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender, ImageSourceChanged));
+
+        public static readonly DependencyProperty DisabledImageProperty =
+            DependencyProperty.Register("DisabledImage", typeof(Uri), typeof(ImageButton),
+            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender, ImageSourceChanged));
+
+        public static readonly DependencyProperty PressedImageProperty =
+            DependencyProperty.Register("PressedImage", typeof(Uri), typeof(ImageButton),
+            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender, ImageSourceChanged));
+
         static ImageButton()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ImageButton), new FrameworkPropertyMetadata(typeof(ImageButton)));
@@ -25,19 +44,12 @@ namespace UtilityWpf.View
             set { SetValue(ImageSizeProperty, value); }
         }
 
-        public static readonly DependencyProperty ImageSizeProperty =
-            DependencyProperty.Register("ImageSize", typeof(double), typeof(ImageButton),
-            new FrameworkPropertyMetadata(30.0, FrameworkPropertyMetadataOptions.AffectsRender, ImageSourceChanged));
 
         public Uri Image
         {
             get { return (Uri)GetValue(ImageProperty); }
             set { SetValue(ImageProperty, value); }
         }
-
-        public static readonly DependencyProperty ImageProperty =
-            DependencyProperty.Register("Image", typeof(Uri), typeof(ImageButton),
-            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender, ImageChanged));
 
         private static void ImageChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -54,9 +66,6 @@ namespace UtilityWpf.View
             set { SetValue(HoverImageProperty, value); }
         }
 
-        public static readonly DependencyProperty HoverImageProperty =
-            DependencyProperty.Register("HoverImage", typeof(Uri), typeof(ImageButton),
-            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender, ImageSourceChanged));
 
         public Uri PressedImage
         {
@@ -64,19 +73,11 @@ namespace UtilityWpf.View
             set { SetValue(PressedImageProperty, value); }
         }
 
-        public static readonly DependencyProperty PressedImageProperty =
-            DependencyProperty.Register("PressedImage", typeof(Uri), typeof(ImageButton),
-            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender, ImageSourceChanged));
-
         public Uri DisabledImage
         {
             get { return (Uri)GetValue(DisabledImageProperty); }
             set { SetValue(DisabledImageProperty, value); }
         }
-
-        public static readonly DependencyProperty DisabledImageProperty =
-            DependencyProperty.Register("DisabledImage", typeof(Uri), typeof(ImageButton),
-            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender, ImageSourceChanged));
 
         private static void ImageSourceChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {

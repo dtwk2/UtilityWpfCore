@@ -8,22 +8,22 @@ namespace UtilityWpf.View
 {
     public class DatesList : ListBox
     {
+        public static readonly DependencyProperty DatesChangeCommandProperty = DependencyProperty.Register("DatesChangeCommand", typeof(object), typeof(DatesList), new PropertyMetadata(null));
+
         static DatesList()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DatesList), new FrameworkPropertyMetadata(typeof(DatesList)));
+        }
+
+        public DatesList()
+        {
+            DatesChangeCommand = new DatesChangeCommand(this);
         }
 
         public object DatesChangeCommand
         {
             get { return (object)GetValue(DatesChangeCommandProperty); }
             set { SetValue(DatesChangeCommandProperty, value); }
-        }
-
-        public static readonly DependencyProperty DatesChangeCommandProperty = DependencyProperty.Register("DatesChangeCommand", typeof(object), typeof(DatesList), new PropertyMetadata(null));
-
-        public DatesList()
-        {
-            DatesChangeCommand = new DatesChangeCommand(this);
         }
     }
 

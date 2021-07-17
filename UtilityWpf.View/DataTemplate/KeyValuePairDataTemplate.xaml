@@ -8,7 +8,7 @@
 
     <DataTemplate x:Key="KeyValuePairTemplate">
 
-        <Grid MinHeight="50" Margin="2">
+        <Grid MinHeight="50" Margin="2" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="3*" />

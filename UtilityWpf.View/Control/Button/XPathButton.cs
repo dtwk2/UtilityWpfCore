@@ -2,9 +2,9 @@
 
 namespace UtilityWpf.View
 {
-    public class XButton : PathButton
+    public class XPathButton : PathButton
     {
-        public XButton()
+        public XPathButton()
         {
             PathData = new PathGeometry
             {
@@ -14,7 +14,7 @@ namespace UtilityWpf.View
                     {
                         new LineSegment { Point = new System.Windows.Point(1, 1) }
                     }
-                    }, new PathFigure { StartPoint = new System.Windows.Point(0, 1), Segments = new PathSegmentCollection
+                    }, new PathFigure { StartPoint = new System.Windows.Point(0,1), Segments = new PathSegmentCollection
                     {
                         new LineSegment { Point = new System.Windows.Point(1, 0) }
                     } }

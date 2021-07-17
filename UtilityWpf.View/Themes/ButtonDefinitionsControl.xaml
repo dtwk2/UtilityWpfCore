@@ -11,20 +11,26 @@
             Content="{Binding Content}" />
     </DataTemplate>
 
-    <ItemsPanelTemplate x:Key="horizontal">
-        <WrapPanel Orientation="Vertical" />
-    </ItemsPanelTemplate>
-    <ItemsPanelTemplate x:Key="vertical">
-        <WrapPanel Orientation="Horizontal" />
-    </ItemsPanelTemplate>
-
-    <Style BasedOn="{StaticResource {x:Type ItemsControl}}" TargetType="{x:Type local:ButtonDefinitionsControl}">
+    <Style  TargetType="{x:Type local:ButtonDefinitionsControl}" BasedOn="{StaticResource {x:Type ItemsControl}}">
         <Setter Property="ItemTemplate" Value="{StaticResource ButtonDefinitionTemplate}" />
-        <Setter Property="ItemsPanel" Value="{StaticResource vertical}" />
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
         <Style.Triggers>
-            <DataTrigger Binding="{Binding Orientation, RelativeSource={RelativeSource AncestorType={x:Type local:ButtonDefinitionsControl}}}" Value="Horizontal">
-                <Setter Property="ItemsPanel" Value="{StaticResource horizontal}" />
-            </DataTrigger>
+            <Trigger Property="Orientation" Value="Horizontal">
+                <Setter Property="ItemsPanel">
+                    <Setter.Value>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
         </Style.Triggers>
     </Style>
+    
 </ResourceDictionary>

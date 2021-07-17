@@ -10,14 +10,13 @@
     mc:Ignorable="d">
 
     <!--  https://github.com/fberasategui/WPFSamples/blob/master/src/WPFSamples/Samples/VisualBrushTooltip.xaml  -->
-    <StackPanel Width="400" Height="400">
-        <TextBlock Text="Hi, Im a Window! hover the mouse over me to see my tooltip, which looks very similar to myself ;)" TextWrapping="Wrap" />
-        <TextBox Text="This is a TextBox" />
-        <Slider Width="200" />
-    </StackPanel>
+    <Grid Width="600" Height="200" Background="Cyan" >
+        <TextBlock Text="hover the mouse over me to see my tooltip" FontSize="40" TextWrapping="Wrap" />
+    
+    </Grid>
     <UserControl.ToolTip>
         <ToolTip DataContext="{Binding PlacementTarget, RelativeSource={RelativeSource Self}}">
-            <Grid Width="400" Height="400">
+            <Grid Width="600" Height="200">
                 <Grid.Background>
                     <VisualBrush Visual="{Binding}" />
                 </Grid.Background>
