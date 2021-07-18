@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Demo", "UtilityW
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{3E8F851B-BECA-4BAA-9275-2104CDEAEC3D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Controls", "UtilityWpf.View\UtilityWpf.Controls.csproj", "{662E0F27-75E5-4FB4-9B99-BBEF2CF28594}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Controls", "UtilityWpf.Controls\UtilityWpf.Controls.csproj", "{662E0F27-75E5-4FB4-9B99-BBEF2CF28594}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf", "UtilityWpf\UtilityWpf.csproj", "{264293EB-59CF-4DAB-80AC-5BEE28AC1B88}"
 EndProject
