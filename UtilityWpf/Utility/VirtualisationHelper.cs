@@ -1,4 +1,5 @@
 ﻿using DynamicData;
+using ReactiveUI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,8 +21,10 @@ namespace UtilityWpf
             return ObservableChangeSet.Create<T>(observableList =>
             {
                 return SelectReplacementItems(virtualRequests, observableList, initialSize, items, defaultItemGenerator)
+                              .ObserveOn(RxApp.MainThreadScheduler)
                               .Subscribe(a =>
                               {
+                                  // This needs to occur on the Main thread!!!
                                   if (a.i < a.count)
                                       observableList.ReplaceAt(a.i, a.item);
                               });
@@ -30,7 +33,6 @@ namespace UtilityWpf
                 {
                     return SelectMultipleThrottledItems(virtualRequests, initialSize, observableList, IndexAndCacheItems(items), defaultItemGenerator)
                           .Switch()
-                          .ObserveOnDispatcher()
                           .Distinct(a => a.i);
 
                     // items needs to be indexed and cached

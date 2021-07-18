@@ -19,8 +19,7 @@
                                 Width="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}}"
                                 Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}}"
                                 CornerRadius="2"
-                                DockPanel.Dock="Left"
-                                Mode="Accent">
+                                DockPanel.Dock="Left">
                                 <materialDesign:PackIcon
                                     Name="xs"
                                     Width="20"

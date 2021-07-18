@@ -1,7 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <Authors />
     <Company />
@@ -54,9 +54,8 @@
   </Target>
   
   <ItemGroup>
-    <PackageReference Include="MaterialDesignColors" Version="2.0.0-ci2312" />
-    <PackageReference Include="MaterialDesignThemes" Version="3.2.0-ci1901" />
-    <PackageReference Include="ReactiveUI.WPF" Version="13.0.27" />
+    <PackageReference Include="MaterialDesignColors" Version="2.0.1" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
   </ItemGroup>
 
 
@@ -75,13 +74,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="DataTemplate\ButtonDefinitionDataTemplate.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="DataTemplate\KeyValuePairDataTemplate.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="DataTemplate\NumberBoxDataTemplate.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="DataTemplate\PathDataTemplate.xaml">
