@@ -8,8 +8,8 @@
     xmlns:local="clr-namespace:UtilityWpf.DemoApp.View"
     xmlns:local1="clr-namespace:UtilityWpf.DemoApp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DataContext="{d:DesignInstance local1:ProfileCollection,
-                                     d:IsDesignTimeCreatable=True}"
+    d:DataContext="{d:DesignInstance local1:ProfileCollectionVirtualiseLimited,
+                                     d:IsDesignTimeCreatable=False}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">

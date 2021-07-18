@@ -41,14 +41,14 @@
             <hc:CompareSlider.TargetContent>
                 <Border>
                     <Border.Background>
-                        <ImageBrush ImageSource="\Images\Cancel.png" Opacity="0.4" />
+                        <ImageBrush ImageSource="/UtilityWpf.TestData;component/Images/Cancel.png" Opacity="0.4" />
                     </Border.Background>
                 </Border>
             </hc:CompareSlider.TargetContent>
             <hc:CompareSlider.SourceContent>
                 <Border>
                     <Border.Background>
-                        <ImageBrush ImageSource="\Images\Pause.png" />
+                        <ImageBrush ImageSource="/UtilityWpf.TestData;component/Images/Pause.png" />
                     </Border.Background>
                 </Border>
             </hc:CompareSlider.SourceContent>

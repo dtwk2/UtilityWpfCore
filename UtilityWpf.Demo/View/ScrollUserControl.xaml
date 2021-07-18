@@ -71,6 +71,19 @@
                         Focusable="False"
                         WheelOrientation="Vertical"
                         ScrollChanged="ScrollViewer_ScrollChanged">
+                        <v:ScrollViewer.Resources>
+                            <Image Source="pack://application:,,,/UtilityWpf.TestData;component/Images/Cancel.png" x:Key="Cancel"/>    
+                            <Image Source="pack://application:,,,/UtilityWpf.TestData;component/Images/Settings.png" x:Key="Settings"/>
+                            <Image Source="pack://application:,,,/UtilityWpf.TestData;component/Images/Settings.png" x:Key="Settings2"/>
+                            <Image Source="pack://application:,,,/UtilityWpf.TestData;component/Images/Settings.png" x:Key="Settings3"/>
+                            <Image Source="pack://application:,,,/UtilityWpf.TestData;component/Images/Play.png" x:Key="Play"/>
+                            <Image Source="pack://application:,,,/UtilityWpf.TestData;component/Images/Play.png" x:Key="Play2"/>
+                            <Image Source="pack://application:,,,/UtilityWpf.TestData;component/Images/Play.png" x:Key="Play3"/>
+                            <Style TargetType="Image">
+                                <Setter Property="Height" Value="200"></Setter>
+                            </Style>
+                
+                        </v:ScrollViewer.Resources>
 
                         <StackPanel x:Name="stackPanel" Orientation="Vertical">
                             <StackPanel.Resources>
@@ -78,19 +91,13 @@
                                     <Setter Property="Margin" Value="10" />
                                 </Style>
                             </StackPanel.Resources>
-                            <Image Source="../Images/Play.png" Height="200" />
-                            <Image Source="../Images/Play.png" Height="200" />
-                            <Image Source="../Images/Settings.png" Height="200" />
-                            <Image Source="../Images/Play.png" Height="200" />
-                            <Image Source="../Images/Settings.png" Height="200" />
-                            <Image Source="../Images/Cancel.png" Height="200" />
-                            <Image Source="../Images/Play.png" Height="200" />
-                            <Image Source="../Images/Play.png" Height="200" />
-                            <Image Source="../Images/Play.png" Height="200" />
-                            <Image Source="../Images/Play.png" Height="200" />
-                            <Image Source="../Images/Settings.png" Height="200" />
-                            <Image Source="../Images/Cancel.png" Height="200" />
-                            <Image Source="../Images/Play.png" Height="200" />
+                            <StaticResource ResourceKey="Cancel"></StaticResource>
+                            <StaticResource ResourceKey="Settings"></StaticResource>
+                            <StaticResource ResourceKey="Play"></StaticResource>
+                            <StaticResource ResourceKey="Play2"></StaticResource>
+                            <StaticResource ResourceKey="Settings2"></StaticResource>
+                            <StaticResource ResourceKey="Settings3"></StaticResource>
+                            <StaticResource ResourceKey="Play3"></StaticResource>                   
                         </StackPanel>
                     </v:ScrollViewer>
                 </DockPanel>

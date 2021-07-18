@@ -2,20 +2,11 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <AssemblyVersion>1.0.20.0</AssemblyVersion>
     <FileVersion>1.0.20.0</FileVersion>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Images\bar-chart.png" />
-    <None Remove="Images\Cancel.png" />
-    <None Remove="Images\Pause.png" />
-    <None Remove="Images\Play.png" />
-    <None Remove="Images\Settings.png" />
-    <None Remove="Images\Stop.png" />
-  </ItemGroup>
 
   <ItemGroup>
     <Page Remove="Themes\StyleChange\Blue.xaml" />
@@ -23,28 +14,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoBogus" Version="2.12.0" />
     <PackageReference Include="BFF.DataVirtualizingCollection" Version="3.0.8" />
     <PackageReference Include="ControlzEx" Version="4.4.0" />
-    <PackageReference Include="Csv" Version="1.0.58" />
     <PackageReference Include="Dragablz.NetCore" Version="0.3.3" />
-    <PackageReference Include="Endless" Version="0.7.0-alpha1" />
     <PackageReference Include="LambdaConverters" Version="4.0.0" />
     <PackageReference Include="PropertyTools.Wpf" Version="3.1.0-alpha0041" />
+    <PackageReference Include="ReactiveUI.Events.WPF" Version="14.1.1" />
+    <PackageReference Include="ReactiveUI.WPF" Version="14.1.1" />
     <PackageReference Include="VirtualizingWrapPanel" Version="1.5.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\UtilityWpf.TestData_\UtilityWpf.TestData.csproj" />
     <ProjectReference Include="..\UtilityWpf.View\UtilityWpf.View.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\bar-chart.png" />
-    <Resource Include="Images\Cancel.png" />
-    <Resource Include="Images\Pause.png" />
-    <Resource Include="Images\Play.png" />
-    <Resource Include="Images\Settings.png" />
-    <Resource Include="Images\Stop.png" />
     <Resource Include="Themes\StyleChange\Blue.xaml">
       <SubType>Designer</SubType>
     </Resource>
@@ -60,106 +45,5 @@
     </ApplicationDefinition>
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="App.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>App.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="MainWindow.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="View\ButtonUserControl.xaml.cs">
-      <DependentUpon>ButtonUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="View\CalendarUserControl.xaml.cs">
-      <DependentUpon>CalendarUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="View\DatesListUserControl.xaml.cs">
-      <DependentUpon>DatesListUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="View\DictionaryUserControl.xaml.cs">
-      <DependentUpon>DictionaryUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="View\DoubleClickUserControl.xaml.cs">
-      <DependentUpon>DoubleClickUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="View\FolderOpenUserControl.xaml.cs">
-      <DependentUpon>FolderOpenUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="View\ItemsControlUserControl.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="View\KeyValueCollectionUserControl.xaml.cs">
-      <DependentUpon>KeyValueCollectionUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="View\ListBoxCriteriaUserControl.xaml.cs">
-      <DependentUpon>ListBoxCriteriaUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="View\PositionConverterUserControl.xaml.cs">
-      <DependentUpon>PositionConverterUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="View\SlidersUserControl.xaml.cs">
-      <DependentUpon>SlidersUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="View\StyleChangeUserControl.xaml.cs">
-      <DependentUpon>StyleChangeUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="View\TreeViewUserControl.xaml.cs">
-      <DependentUpon>TreeViewUserControl.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Images\bart.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Update="MainWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="View\ButtonUserControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\CalendarUserControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\DatesListUserControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\DictionaryUserControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\DoubleClickUserControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\FolderOpenUserControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\ItemsControlUserControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\KeyValueCollectionUserControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\ListBoxCriteriaUserControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\PositionConverterUserControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\SlidersUserControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\StyleChangeUserControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\TreeViewUserControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
 
 </Project>

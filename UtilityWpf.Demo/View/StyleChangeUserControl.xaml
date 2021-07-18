@@ -12,8 +12,8 @@
     <StackPanel>
 
         <util:ResourcePicker Width="80" Margin="10">
-            <system:Uri>/UtilityWpf.DemoApp;component/Themes/StyleChange/Blue.xaml</system:Uri>
-            <system:Uri>/UtilityWpf.DemoApp;component/Themes/StyleChange/Green.xaml</system:Uri>
+            <system:Uri>pack://application:,,,/Themes/StyleChange/Blue.xaml</system:Uri>
+            <system:Uri>pack://application:,,,/Themes/StyleChange/Green.xaml</system:Uri>
         </util:ResourcePicker>
 
         <Grid

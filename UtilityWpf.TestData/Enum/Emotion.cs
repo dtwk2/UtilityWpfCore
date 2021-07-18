@@ -1,4 +1,4 @@
-﻿namespace UtilityWpf.DemoApp
+﻿namespace UtilityWpf.TestData
 {
     public enum Emotion
     {

@@ -6,79 +6,8 @@
     xmlns:local="clr-namespace:UtilityWpf.DemoApp"
     StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <!--<ResourceDictionary  Source="/UtilityWpf.View;component/Themes/ListBoxItemStyle.xaml" />-->
-        <ResourceDictionary>
+        <ResourceDictionary >
 
-            <local:Character
-                x:Key="Bart"
-                Age="10"
-                First="Bart"
-                Gender="Male"
-                ImageSource="images/bart.png"
-                Last="Simpson"
-                Location="25,150"
-                Color="Brown" />
-
-            <x:Array
-                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                x:Key="Characters"
-                Type="{x:Type local:Character}">
-                <StaticResource ResourceKey="Bart" />
-                <local:Character
-                    Age="38"
-                    First="Homer"
-                    Gender="Male"
-                    ImageSource="Images/homer.png"
-                    Last="Simpson"
-                    Location="75,0"
-                    Color="DarkSalmon" />
-                <local:Character
-                    Age="8"
-                    First="Lisa"
-                    Gender="Female"
-                    ImageSource="images/lisa.png"
-                    Last="Bouvier"
-                    Location="125,150"
-                    Color="ForestGreen" />
-                <local:Character
-                    Age="0"
-                    First="Maggie"
-                    Gender="Female"
-                    ImageSource="images/maggie.png"
-                    Last="Simpson"
-                    Location="225,150"
-                    Color="DarkBlue" />
-                <local:Character
-                    Age="38"
-                    First="Marge"
-                    Gender="Female"
-                    ImageSource="images/marge.png"
-                    Last="Bouvier"
-                    Location="175,0"
-                    Color="DarkCyan" />
-            </x:Array>
-
-            <DataTemplate x:Key="CharacterBaseClass">
-                <StackPanel
-                    Margin="5"
-                    Background="Transparent"
-                    Orientation="Vertical">
-                    <TextBlock
-                        FontWeight="Bold"
-                        Text="{Binding First}"
-                        TextAlignment="Center">
-                        <TextBlock.Foreground>
-                            <SolidColorBrush Color="{Binding Color}" />
-                        </TextBlock.Foreground>
-                    </TextBlock>
-                    <!--<Ellipse Fill="Blue" Width="20" Height="20"> </Ellipse>-->
-                    <Image Margin="0,5,0,0" Source="{Binding Image}" />
-                </StackPanel>
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type local:Character}">
-                <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource CharacterBaseClass}" />
-            </DataTemplate>
 
             <Style TargetType="Control">
                 <Style.Triggers>
@@ -90,7 +19,8 @@
 
             <ResourceDictionary.MergedDictionaries>
 
-                <ResourceDictionary Source="/DataTemplate/Profile.xaml" />
+                <ResourceDictionary Source="/UtilityWpf.TestData;component/Themes/Generic.xaml" />
+                
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
 

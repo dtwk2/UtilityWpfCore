@@ -1,8 +1,10 @@
-﻿using System;
+﻿using ReactiveUI;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using UtilityWpf.TestData;
 
 namespace UtilityWpf.DemoApp
 {
@@ -14,132 +16,19 @@ namespace UtilityWpf.DemoApp
         public DoubleClickUserControl()
         {
             InitializeComponent();
-            this.DataContext = new CharactersViewModel();
         }
     }
 
-    public class CharactersViewModel
+    public class DoubleClickViewModel
     {
-        public List<Character> Characters { get; }
         public ICommand MyCommand { get; set; }
 
-        public CharactersViewModel()
+        public DoubleClickViewModel()
         {
-            Characters = new List<Character>
-            {
-                new Character{First = "Bart", Last="Simpson" ,Age=10,
-          Gender=Gender.Male ,ImageSource="images/bart.png", Location=new Point(25,150)},
-
-                new Character{First = "Bart", Last="Simpson" ,Age=10,
-          Gender=Gender.Male ,ImageSource="images/bart.png", Location=new Point(25,150)},
-                                new Character{First = "Bart", Last="Simpson" ,Age=10,
-          Gender=Gender.Male ,ImageSource="images/bart.png", Location=new Point(25,150)},
-                new Character{First = "Bart", Last="Simpson" ,Age=10,
-          Gender=Gender.Male ,ImageSource="images/bart.png", Location=new Point(25,150)},
-            };
-            MyCommand = new DelegateCommand(() => MessageBox.Show("double click!"));
+      
+            MyCommand = ReactiveCommand.Create(() => MessageBox.Show("double click!"));
         }
     }
 
-    //    <local:Character First = "Homer" Last="Simpson" Age="38"
-    //  Gender="Male" Image="images/homer.png" Location="75,0" />
-    //    <local:Character First = "Lisa" Last="Bouvier" Age="8"
-    //  Gender="Female" Image="images/lisa.png" Location="125,150" />
-    //    <local:Character First = "Maggie" Last="Simpson" Age="0"
-    //  Gender="Female" Image="images/maggie.png" Location="225,150" />
-    //    <local:Character First = "Marge" Last="Bouvier" Age="38"
-    //  Gender="Female" Image="images/marge.png" Location="175,0" />
-    //</x:Array>
 
-    /// <summary>
-    /// Represents a delegate command.
-    /// </summary>
-    public class DelegateCommand : ICommand
-    {
-        /// <summary>
-        /// The can execute.
-        /// </summary>
-        private readonly Func<bool> canExecute;
-
-        /// <summary>
-        /// The execute.
-        /// </summary>
-        private readonly Action execute;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DelegateCommand" /> class.
-        /// </summary>
-        /// <param name="execute">The execute.</param>
-        public DelegateCommand(Action execute)
-            : this(execute, null)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DelegateCommand" /> class.
-        /// </summary>
-        /// <param name="execute">The execute.</param>
-        /// <param name="canExecute">The can execute.</param>
-        public DelegateCommand(Action execute, Func<bool> canExecute)
-        {
-            if (execute == null)
-            {
-                throw new ArgumentNullException("execute");
-            }
-
-            this.execute = execute;
-            this.canExecute = canExecute;
-        }
-
-        /// <summary>
-        /// Occurs when changes occur that affect whether or not the command should execute.
-        /// </summary>
-        public event EventHandler CanExecuteChanged
-        {
-            add
-            {
-                if (this.canExecute != null)
-                {
-                    CommandManager.RequerySuggested += value;
-                }
-            }
-
-            remove
-            {
-                if (this.canExecute != null)
-                {
-                    CommandManager.RequerySuggested -= value;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Defines the method that determines whether the command can execute in its current state.
-        /// </summary>
-        /// <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to <c>null</c>.</param>
-        /// <returns>
-        /// <c>true</c> if this command can be executed; otherwise, <c>false</c>.
-        /// </returns>
-        public bool CanExecute(object parameter)
-        {
-            return this.canExecute == null ? true : this.canExecute();
-        }
-
-        /// <summary>
-        /// Defines the method to be called when the command is invoked.
-        /// </summary>
-        /// <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to <c>null</c>.</param>
-        public void Execute(object parameter)
-        {
-            this.execute();
-        }
-
-        /// <summary>
-        /// Raises the can execute changed.
-        /// </summary>
-        public void RaiseCanExecuteChanged()
-        {
-            CommandManager.InvalidateRequerySuggested();
-        }
-    }
 }

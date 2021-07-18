@@ -7,7 +7,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Input;
 
-namespace UtilityWpf.DemoApp
+namespace UtilityWpf.TestData
 {
     public static class Finance
     {
@@ -15,7 +15,7 @@ namespace UtilityWpf.DemoApp
 
         private static IEnumerable<Sector> SelectSectors()
         {
-            var reader = new StreamReader("../../../stocknet-dataset-master/StockTable.csv");
+            var reader = new StreamReader("../../../../UtilityWpf.TestData/stocknet-dataset-master/StockTable.csv");
 
             return from myRow in Csv.CsvReader.Read(reader)
                    group myRow by myRow["Sector"] into g
@@ -33,7 +33,7 @@ namespace UtilityWpf.DemoApp
 
         private static IEnumerable<Price> SelectPrices()
         {
-            var reader = new StreamReader("../../../stocknet-dataset-master/price/HL/ABB.csv");
+            var reader = new StreamReader("../../../UtilityWpf.TestData/stocknet-dataset-master/price/HL/ABB.csv");
             var start = DateTime.Today.AddYears(-5);
             return from line in Csv.CsvReader.Read(reader)
                    select new Price

@@ -4,11 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:UtilityWpf.DemoApp"
+    xmlns:test="clr-namespace:UtilityWpf.TestData;assembly=UtilityWpf.TestData"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:util="clr-namespace:UtilityWpf.Attached;assembly=UtilityWpf">
+    xmlns:util="clr-namespace:UtilityWpf.Attached;assembly=UtilityWpf"
+    >
     <UserControl.Resources>
 
-        <DataTemplate DataType="{x:Type local:Character}">
+        <DataTemplate DataType="{x:Type test:Character}">
             <StackPanel Margin="5" Orientation="Vertical">
                 <TextBlock
                     FontWeight="Bold"
@@ -17,13 +19,17 @@
                 <Image Margin="0,5,0,0" Source="{Binding Image}" Height="80" />
             </StackPanel>
         </DataTemplate>
-    </UserControl.Resources>
-    <Grid>
 
-        <ListBox ItemsSource="{Binding Characters}">
+        <local:DoubleClickViewModel x:Key="DoubleClickViewModel"></local:DoubleClickViewModel>
+    </UserControl.Resources>
+
+
+    <Grid DataContext="{StaticResource DoubleClickViewModel}">
+        <ListBox ItemsSource="{DynamicResource Characters}">
             <ListBox.ItemContainerStyle>
                 <Style>
-                    <Setter Property="util:MouseDoubleClick.Command" Value="{Binding DataContext.MyCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" />
+                    <Setter Property="util:MouseDoubleClick.Command" 
+                            Value="{Binding DataContext.MyCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" />
                 </Style>
             </ListBox.ItemContainerStyle>
         </ListBox>

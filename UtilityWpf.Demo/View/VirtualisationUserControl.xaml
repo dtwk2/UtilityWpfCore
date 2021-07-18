@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:foreign="clr-namespace:UtilityWpf.View.Extrinsic;assembly=UtilityWpf.View"
     xmlns:local="clr-namespace:UtilityWpf.DemoApp"
+    xmlns:test="clr-namespace:UtilityWpf.TestData;assembly=UtilityWpf.TestData"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:pt="http://propertytools.org/wpf"
     xmlns:sample="BF"
@@ -98,7 +99,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontSize="20"
-                Text="{Binding Profiles.Count, Converter={x:Static local:ProfileViewModel.ProfilesTitle}}" />
+                Text="{Binding Profiles.Count, Converter={x:Static test:ProfileViewModel.ProfilesTitle}}" />
             <ListBox
                 Grid.Row="1"
                 Grid.ColumnSpan="2"
