@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using UtilityHelper.NonGeneric;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     // A datagrid which acepts a dictionary as its itemssource by converting keyvaluepair to custom dynamic class
     public class DynamicDataGrid : DataGrid

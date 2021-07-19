@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     /// <summary>
     /// Lifted from http://tech.pro/tutorial/736/wpf-tutorial-creating-a-custom-panel-control

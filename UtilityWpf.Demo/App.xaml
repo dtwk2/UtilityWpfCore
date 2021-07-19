@@ -7,8 +7,6 @@
     StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary >
-
-
             <Style TargetType="Control">
                 <Style.Triggers>
                     <Trigger Property="componentModel:DesignerProperties.IsInDesignMode" Value="True">
@@ -26,7 +24,12 @@
 
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Grey.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Flipper.xaml" />
+
+
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/Generic.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/MaterialDesignLightTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

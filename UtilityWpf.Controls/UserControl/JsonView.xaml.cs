@@ -15,7 +15,7 @@ using System.Windows.Threading;
 using static LambdaConverters.TemplateSelector;
 using static LambdaConverters.ValueConverter;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     /// <summary>
     /// Interaction logic for Json.xaml

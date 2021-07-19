@@ -1,6 +1,6 @@
 ﻿using System.Windows.Media;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     public class XPathButton : PathButton
     {

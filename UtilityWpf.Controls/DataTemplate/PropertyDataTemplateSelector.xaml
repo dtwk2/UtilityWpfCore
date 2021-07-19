@@ -1,12 +1,12 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:json="clr-namespace:UtilityWpf.View"
-    xmlns:local="clr-namespace:UtilityWpf.View.Infrastructure"
-    xmlns:rxui="http://reactiveui.net">
+    xmlns:json="clr-namespace:UtilityWpf.Controls"
+    xmlns:rxui="http://reactiveui.net" 
+    xmlns:local1="clr-namespace:UtilityWpf.Controls.Infrastructure">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/UtilityWpf.View;component/DataTemplate/KeyValuePairDataTemplate.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/DataTemplate/KeyValuePairDataTemplate.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <DataTemplate x:Key="DefaultTemplate">
@@ -63,7 +63,7 @@
         </rxui:ViewModelViewHost>
     </DataTemplate>
 
-    <local:PropertyDataTemplateSelector
+    <local1:PropertyDataTemplateSelector
         x:Key="propertytemplateSelector"
         ColorTemplate="{StaticResource ColorTemplate}"
         ContentPresenterTemplate="{StaticResource ContentPresenterTemplate}"

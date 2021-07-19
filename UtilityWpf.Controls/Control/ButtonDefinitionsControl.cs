@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     using Command;
     using UtilityWpf.Model;

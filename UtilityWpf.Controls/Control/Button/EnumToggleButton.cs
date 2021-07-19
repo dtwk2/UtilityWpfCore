@@ -4,7 +4,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     public class EnumToggleButton : ToggleButton
     {
@@ -30,7 +30,7 @@ namespace UtilityWpf.View
                 {
                     if (!c.useEnum)
                     {
-                        resourceDictionary ??= (ResourceDictionary)Application.LoadComponent(new Uri("/UtilityWpf.View;component/Themes/Geometry.xaml", UriKind.Relative));
+                        resourceDictionary ??= (ResourceDictionary)Application.LoadComponent(new Uri("/UtilityWpf.Controls;component/Themes/Geometry.xaml", UriKind.Relative));
                         (this as ToggleButton).Content = resourceDictionary["Tick"];
                         (this as ToggleButton).UnCheckedContent = resourceDictionary["Cross_"];
                     }

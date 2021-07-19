@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using UtilityWpf.Model;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     public class PathDataTemplateSelector : System.Windows.Controls.DataTemplateSelector
     {

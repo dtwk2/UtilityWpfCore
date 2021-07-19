@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     //https://www.markwithall.com/programming/2014/05/02/labelled-textbox-in-wpf.html
     public class LayoutGroup : StackPanel

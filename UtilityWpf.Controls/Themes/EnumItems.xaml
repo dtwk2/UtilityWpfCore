@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Viewmodel="clr-namespace:UtilityWpf.Model;assembly=UtilityWpf"
     xmlns:common1="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"
-    xmlns:local="clr-namespace:UtilityWpf.View">
+    xmlns:local="clr-namespace:UtilityWpf.Controls">
 
     <common1:ByteToColorConverter x:Key="ByteToColorConverter" />
 

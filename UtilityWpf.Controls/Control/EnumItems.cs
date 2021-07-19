@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using UtilityEnum;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     public class EnumItems : Control
     {

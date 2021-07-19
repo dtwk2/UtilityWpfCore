@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/UtilityWpf.View;component/Themes/ProgressTimeBar.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/ProgressTimeBar.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="SliderButtonStyle" TargetType="{x:Type RepeatButton}">

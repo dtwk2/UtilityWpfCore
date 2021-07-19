@@ -6,7 +6,7 @@ using System.Reflection;
 
 using System.Windows.Controls;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     /// <summary>
     /// Interaction logic for HostUserControl.xaml
@@ -23,7 +23,7 @@ namespace UtilityWpf.View
                 .GetEntryAssembly()
                 .GetTypes()
                 .Where(a => typeof(UserControl).IsAssignableFrom(a))
-                .GroupBy(a => a.Name?.Replace("UserControl", string.Empty))
+                .GroupBy(a => a.Name.Contains("UserControl")? a.Name?.Replace("UserControl", string.Empty): a.Name.Contains("View") ? a.Name?.Replace("View", string.Empty) : a.Name)
                 .OrderBy(a => a.Key)
                 .ToDictionaryOnIndex()
                 .ToDictionary(a => a.Key, a => new Func<UserControl>(() => (UserControl)Activator.CreateInstance(a.Value)));

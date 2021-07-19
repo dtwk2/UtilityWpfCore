@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     [TemplateVisualState(Name = "Day", GroupName = "TimeStates")]
     [TemplateVisualState(Name = "Night", GroupName = "TimeStates")]

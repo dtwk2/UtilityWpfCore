@@ -5,10 +5,10 @@
     xmlns:command="clr-namespace:UtilityWpf.Command;assembly=UtilityWpf"
     xmlns:common="clr-namespace:UtilityWpf.Behavior;assembly=UtilityWpf"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:extrinsic="clr-namespace:UtilityWpf.View.Extrinsic;assembly=UtilityWpf.View"
+    xmlns:extrinsic="clr-namespace:UtilityWpf.Controls.Extrinsic;assembly=UtilityWpf.Controls"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.View"
+    xmlns:view="http://schemas.utility.com"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">

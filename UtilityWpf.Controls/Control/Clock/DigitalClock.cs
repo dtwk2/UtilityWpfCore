@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     [TemplatePart(Name = "PART_Colon", Type = typeof(UIElement))]
     public class DigitalClock : Clock

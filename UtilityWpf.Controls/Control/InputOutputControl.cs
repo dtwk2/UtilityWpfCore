@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using UtilityInterface.Generic;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     public class InputOutputControl<T, R> : Control /*: HeaderBodyControl*/
     {

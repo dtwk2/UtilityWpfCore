@@ -1,26 +1,21 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows.Data;
 
 namespace UtilityWpf.Converter
 {
-    public sealed class DefaultConverter : IValueConverter
+    public class DefaultConverter : IValueConverter
     {
-        // Explicit static constructor to tell C# compiler
-        // not to mark type as beforefieldinit
-        static DefaultConverter()
-        {
-        }
-
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            return value;
         }
 
-        public static DefaultConverter Instance { get; } = new DefaultConverter();
+        public static DefaultConverter Instance => new DefaultConverter();
     }
 }

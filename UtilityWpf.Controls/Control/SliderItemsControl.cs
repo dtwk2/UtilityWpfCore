@@ -14,7 +14,7 @@ using System.Windows.Input;
 using UtilityHelper.NonGeneric;
 using UtilityWpf.Property;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     public class SliderItemsControl : Controlx
     {
@@ -238,7 +238,7 @@ namespace UtilityWpf.View
 
         public void Execute(object parameter)
         {
-            var kvp = (parameter as View.SliderItemsControl.KeyValuePairRoutedEventArgs).KeyValuePair;
+            var kvp = (parameter as SliderItemsControl.KeyValuePairRoutedEventArgs).KeyValuePair;
 
             Event.Invoke(kvp);
         }

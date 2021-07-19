@@ -12,7 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
-namespace UtilityWpf.View.Extrinsic
+namespace UtilityWpf.Controls.Panels
 {
     /// <summary>
     ///
@@ -28,7 +28,7 @@ namespace UtilityWpf.View.Extrinsic
         public VirtualizingTilePanel()
         {
             // For use in the IScrollInfo implementation
-            this.RenderTransform = _trans;
+            RenderTransform = _trans;
 
             // Wait until inacitvity to clean up
             measureOverrideChanges.BufferWithInactivity(TimeSpan.FromSeconds(3), 1000)
@@ -136,8 +136,8 @@ namespace UtilityWpf.View.Extrinsic
             GetVisibleRange(out firstVisibleItemIndex, out lastVisibleItemIndex);
 
             // We need to access InternalChildren before the generator to work around a bug
-            UIElementCollection children = this.InternalChildren;
-            IItemContainerGenerator generator = this.ItemContainerGenerator;
+            UIElementCollection children = InternalChildren;
+            IItemContainerGenerator generator = ItemContainerGenerator;
 
             // Get the generator position of the first visible data item
             GeneratorPosition startPos = generator.GeneratorPositionFromIndex(firstVisibleItemIndex);
@@ -145,7 +145,7 @@ namespace UtilityWpf.View.Extrinsic
             // Get index where we'd insert the child for this position. If the item is realized
             // (position.Offset == 0), it's just position.Index, otherwise we have to add one to
             // insert after the corresponding child
-            int childIndex = (startPos.Offset == 0) ? startPos.Index : startPos.Index + 1;
+            int childIndex = startPos.Offset == 0 ? startPos.Index : startPos.Index + 1;
 
             using (generator.StartAt(startPos, GeneratorDirection.Forward, true))
             {
@@ -160,11 +160,11 @@ namespace UtilityWpf.View.Extrinsic
                         // Figure out if we need to insert the child at the end or somewhere in the middle
                         if (childIndex >= children.Count)
                         {
-                            base.AddInternalChild(child);
+                            AddInternalChild(child);
                         }
                         else
                         {
-                            base.InsertInternalChild(childIndex, child);
+                            InsertInternalChild(childIndex, child);
                         }
                         generator.PrepareItemContainer(child);
                     }
@@ -190,13 +190,13 @@ namespace UtilityWpf.View.Extrinsic
         /// <returns>Size used</returns>
         protected override Size ArrangeOverride(Size finalSize)
         {
-            IItemContainerGenerator generator = this.ItemContainerGenerator;
+            IItemContainerGenerator generator = ItemContainerGenerator;
 
             UpdateScrollInfo(finalSize);
 
-            for (int i = 0; i < this.Children.Count; i++)
+            for (int i = 0; i < Children.Count; i++)
             {
-                UIElement child = this.Children[i];
+                UIElement child = Children[i];
 
                 // Map the child offset to an item offset
                 int itemIndex = generator.IndexFromGeneratorPosition(new GeneratorPosition(i, 0));
@@ -214,8 +214,8 @@ namespace UtilityWpf.View.Extrinsic
         /// <param name="maxDesiredGenerated">last item index that should be visible</param>
         private void CleanUpItems(int minDesiredGenerated, int maxDesiredGenerated)
         {
-            UIElementCollection children = this.InternalChildren;
-            IItemContainerGenerator generator = this.ItemContainerGenerator;
+            UIElementCollection children = InternalChildren;
+            IItemContainerGenerator generator = ItemContainerGenerator;
 
             for (int i = children.Count - 1; i >= 0; i--)
             {
@@ -274,8 +274,8 @@ namespace UtilityWpf.View.Extrinsic
                 int childrenPerRow = CalculateChildrenPerRow(availableSize);
 
                 // See how big we are
-                return new Size(childrenPerRow * (this.MinChildWidth > 0 ? this.MinChildWidth : this.ChildHeight),
-                    this.ChildHeight * Math.Ceiling((double)itemCount / childrenPerRow));
+                return new Size(childrenPerRow * (MinChildWidth > 0 ? MinChildWidth : ChildHeight),
+                    ChildHeight * Math.Ceiling((double)itemCount / childrenPerRow));
             }
             else
             {
@@ -283,8 +283,8 @@ namespace UtilityWpf.View.Extrinsic
                 double childWidth = CalculateChildWidth(availableSize);
 
                 // See how big we are
-                return new Size(this.Columns * childWidth,
-                    this.ChildHeight * Math.Ceiling((double)itemCount / this.Columns));
+                return new Size(Columns * childWidth,
+                    ChildHeight * Math.Ceiling((double)itemCount / Columns));
             }
         }
 
@@ -301,8 +301,8 @@ namespace UtilityWpf.View.Extrinsic
                 //Get the number of children
                 int childrenPerRow = CalculateChildrenPerRow(_extent);
 
-                firstVisibleItemIndex = (int)Math.Floor(_offset.Y / this.ChildHeight) * childrenPerRow;
-                lastVisibleItemIndex = (int)Math.Ceiling((_offset.Y + _viewport.Height) / this.ChildHeight) * childrenPerRow - 1;
+                firstVisibleItemIndex = (int)Math.Floor(_offset.Y / ChildHeight) * childrenPerRow;
+                lastVisibleItemIndex = (int)Math.Ceiling((_offset.Y + _viewport.Height) / ChildHeight) * childrenPerRow - 1;
 
                 ItemsControl itemsControl = ItemsControl.GetItemsOwner(this);
                 int itemCount = itemsControl.HasItems ? itemsControl.Items.Count : 0;
@@ -311,8 +311,8 @@ namespace UtilityWpf.View.Extrinsic
             }
             else
             {
-                firstVisibleItemIndex = (int)Math.Floor(_offset.Y / this.ChildHeight) * this.Columns;
-                lastVisibleItemIndex = (int)Math.Ceiling((_offset.Y + _viewport.Height) / this.ChildHeight) * this.Columns - 1;
+                firstVisibleItemIndex = (int)Math.Floor(_offset.Y / ChildHeight) * Columns;
+                lastVisibleItemIndex = (int)Math.Ceiling((_offset.Y + _viewport.Height) / ChildHeight) * Columns - 1;
 
                 ItemsControl _itemsControl = ItemsControl.GetItemsOwner(this);
                 int _itemCount = _itemsControl.HasItems ? _itemsControl.Items.Count : 0;
@@ -331,11 +331,11 @@ namespace UtilityWpf.View.Extrinsic
             {
                 //Gets the number of children or items for each row.
                 int childrenPerRow = CalculateChildrenPerRow(availableSize);
-                return new Size(availableSize.Width / childrenPerRow, this.ChildHeight);
+                return new Size(availableSize.Width / childrenPerRow, ChildHeight);
             }
             else
             {
-                return new Size(CalculateChildWidth(availableSize), this.ChildHeight);
+                return new Size(CalculateChildWidth(availableSize), ChildHeight);
             }
         }
 
@@ -356,19 +356,19 @@ namespace UtilityWpf.View.Extrinsic
                 int row = itemIndex / childrenPerRow;
                 int column = itemIndex % childrenPerRow;
 
-                child.Arrange(new Rect(column * childWidth, row * this.ChildHeight,
-                    childWidth, this.ChildHeight));
+                child.Arrange(new Rect(column * childWidth, row * ChildHeight,
+                    childWidth, ChildHeight));
             }
             else
             {
                 //Get the width of each child.
                 double childWidth = CalculateChildWidth(finalSize);
 
-                int _row = itemIndex / this.Columns;
-                int _column = itemIndex % this.Columns;
+                int _row = itemIndex / Columns;
+                int _column = itemIndex % Columns;
 
-                child.Arrange(new Rect(_column * childWidth, _row * this.ChildHeight,
-                    childWidth, this.ChildHeight));
+                child.Arrange(new Rect(_column * childWidth, _row * ChildHeight,
+                    childWidth, ChildHeight));
             }
         }
 
@@ -381,7 +381,7 @@ namespace UtilityWpf.View.Extrinsic
         /// <returns>The width of each tile.</returns>
         private double CalculateChildWidth(Size availableSize)
         {
-            return availableSize.Width / this.Columns;
+            return availableSize.Width / Columns;
         }
 
         /// <summary>
@@ -393,10 +393,10 @@ namespace UtilityWpf.View.Extrinsic
         {
             // Figure out how many children fit on each row
             int childrenPerRow;
-            if (availableSize.Width == Double.PositiveInfinity)
-                childrenPerRow = this.Children.Count;
+            if (availableSize.Width == double.PositiveInfinity)
+                childrenPerRow = Children.Count;
             else
-                childrenPerRow = Math.Max(1, (int)Math.Floor(availableSize.Width / (this.MinChildWidth > 0 ? this.MinChildWidth : this.ChildHeight)));
+                childrenPerRow = Math.Max(1, (int)Math.Floor(availableSize.Width / (MinChildWidth > 0 ? MinChildWidth : ChildHeight)));
             return childrenPerRow;
         }
 
@@ -530,7 +530,7 @@ namespace UtilityWpf.View.Extrinsic
         /// </summary>
         public void LineUp()
         {
-            SetVerticalOffset(this.VerticalOffset - 10);
+            SetVerticalOffset(VerticalOffset - 10);
         }
 
         /// <summary>
@@ -538,7 +538,7 @@ namespace UtilityWpf.View.Extrinsic
         /// </summary>
         public void LineDown()
         {
-            SetVerticalOffset(this.VerticalOffset + 10);
+            SetVerticalOffset(VerticalOffset + 10);
         }
 
         /// <summary>
@@ -546,7 +546,7 @@ namespace UtilityWpf.View.Extrinsic
         /// </summary>
         public void PageUp()
         {
-            SetVerticalOffset(this.VerticalOffset - _viewport.Height);
+            SetVerticalOffset(VerticalOffset - _viewport.Height);
         }
 
         /// <summary>
@@ -554,7 +554,7 @@ namespace UtilityWpf.View.Extrinsic
         /// </summary>
         public void PageDown()
         {
-            SetVerticalOffset(this.VerticalOffset + _viewport.Height);
+            SetVerticalOffset(VerticalOffset + _viewport.Height);
         }
 
         /// <summary>
@@ -562,7 +562,7 @@ namespace UtilityWpf.View.Extrinsic
         /// </summary>
         public void MouseWheelUp()
         {
-            SetVerticalOffset(this.VerticalOffset - 10);
+            SetVerticalOffset(VerticalOffset - 10);
         }
 
         /// <summary>
@@ -570,7 +570,7 @@ namespace UtilityWpf.View.Extrinsic
         /// </summary>
         public void MouseWheelDown()
         {
-            SetVerticalOffset(this.VerticalOffset + 10);
+            SetVerticalOffset(VerticalOffset + 10);
         }
 
         /// <summary>

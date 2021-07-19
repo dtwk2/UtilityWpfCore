@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     /// <summary>
     /// Interaction logic for TableUserControl.xaml

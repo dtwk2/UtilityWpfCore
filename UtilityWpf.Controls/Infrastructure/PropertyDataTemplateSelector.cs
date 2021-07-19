@@ -6,7 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 
-namespace UtilityWpf.View.Infrastructure
+namespace UtilityWpf.Controls.Infrastructure
 {
     public class PropertyDataTemplateSelector : System.Windows.Controls.DataTemplateSelector
     {

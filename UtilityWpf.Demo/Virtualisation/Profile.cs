@@ -24,7 +24,7 @@ namespace UtilityWpf.DemoApp
         {
             var pool = ProfileFactory.BuildPool();
             _ = Observable.Interval(TimeSpan.FromSeconds(speed))
-                //.ObserveOnDispatcher()
+                .ObserveOnDispatcher()
                        .Select(a => pool.Random())
                  .ToObservableChangeSet()
                  .Sort(new comparer())
@@ -35,7 +35,7 @@ namespace UtilityWpf.DemoApp
         {
             var pool = ProfileFactory.BuildPool();
             _ = Observable.Interval(TimeSpan.FromSeconds(_speed))
-                //.ObserveOnDispatcher()
+                .ObserveOnDispatcher()
                        .Select(a => pool.Random())
                  .ToObservableChangeSet()
                  .Sort(new comparer())

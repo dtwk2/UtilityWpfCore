@@ -1,10 +1,10 @@
-﻿using UtilityWpf.View;
+﻿using UtilityWpf.Controls;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     public class AnalogClock : Clock
     {

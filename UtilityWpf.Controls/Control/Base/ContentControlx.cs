@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using UtilityWpf.Property;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     public class ContentControlx : ContentControl
     {

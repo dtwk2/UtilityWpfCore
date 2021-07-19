@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     public static class ControlxHelper
     {

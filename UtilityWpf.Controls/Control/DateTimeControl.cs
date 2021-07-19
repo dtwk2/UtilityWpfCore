@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using UtilityStruct;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     public class DateTimeControl : Control
     {

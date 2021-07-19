@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     public class NavigatorControl : Control
     {

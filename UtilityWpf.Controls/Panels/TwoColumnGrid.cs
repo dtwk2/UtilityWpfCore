@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     /// <summary>
     /// Defines a table that has two columns with any number of rows.

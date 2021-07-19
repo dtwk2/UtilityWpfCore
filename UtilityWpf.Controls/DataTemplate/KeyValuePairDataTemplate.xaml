@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:Json="clr-namespace:UtilityWpf.View"
+    xmlns:Json="clr-namespace:UtilityWpf.Controls"
     xmlns:pt="http://propertytools.org/wpf">
 
     <ResourceDictionary.MergedDictionaries />

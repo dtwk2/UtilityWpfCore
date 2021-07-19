@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace UtilityWpf.View.Handy
+namespace UtilityWpf.Controls.Handy
 {
     /// <summary>
     ///   HandyControls TimeBar  时间条

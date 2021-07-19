@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     public static class ToolBarStyleKeys
     {

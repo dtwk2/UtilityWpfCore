@@ -5,7 +5,7 @@
     <UseWPF>true</UseWPF>
     <Authors />
     <Company />
-    <RootNamespace>UtilityWpf.View</RootNamespace>
+    <RootNamespace>UtilityWpf.Controls</RootNamespace>
     <Version>1.2.106</Version>
     <AssemblyVersion>1.2.54.0</AssemblyVersion>
     <FileVersion>1.2.54.0</FileVersion>
@@ -56,6 +56,15 @@
   <ItemGroup>
     <PackageReference Include="MaterialDesignColors" Version="2.0.1" />
     <PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
+    <PackageReference Include="ControlzEx" Version="5.0.0" />
+    <PackageReference Include="Dragablz" Version="0.0.3.223" />
+    <PackageReference Include="Evan.Wpf" Version="1.2.0" />
+    <PackageReference Include="HandyControl" Version="3.1.0" />
+    <PackageReference Include="LambdaConverters" Version="4.0.0" />
+    <PackageReference Include="MaterialDesignExtensions" Version="3.3.0-a01" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
+    <PackageReference Include="PropertyTools.Wpf" Version="3.1.0" />
+    <PackageReference Include="WPFTransitionals" Version="1.1.0" />
   </ItemGroup>
 
 
@@ -74,6 +83,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Control\ProgressBar\FlashThumb.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
     <Page Update="DataTemplate\KeyValuePairDataTemplate.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -95,6 +107,10 @@
     <Page Update="Themes\CheckBoxStyle.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Themes\CollapseBox.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Themes\CollectionEditor.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -110,10 +126,23 @@
     <Page Update="Themes\DictionaryControl.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Themes\DualButtonControl.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
     <Page Update="Themes\DynamicDataGrid.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Themes\EnumComboBox.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
     <Page Update="Themes\ExpandItemStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\FileView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Themes\FlipControl.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\FolderOpenControl.xaml">
@@ -132,8 +161,14 @@
     <Page Update="Themes\HeaderedListBox.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Themes\IconContentControl.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
     <Page Update="Themes\ImageButton.xaml">
       <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\LabelledInput.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
     <Page Update="Themes\LabelledTextBox.xaml">
       <SubType>Designer</SubType>
@@ -150,8 +185,15 @@
     <Page Update="Themes\NavigatorControl.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Themes\ObjectControl.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Themes\PageNavigatorControl.xaml">
       <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\PathBrowser.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
     <Page Update="Themes\PathButton.xaml">
       <SubType>Designer</SubType>
@@ -178,8 +220,14 @@
     <Page Update="Themes\SliderItemsControl.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Themes\SwitchControl.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
     <Page Update="Themes\ValidationForm.xaml">
       <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\ViewCollection.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
     <Page Update="UserControl\HostUserControl.xaml">
       <SubType>Designer</SubType>

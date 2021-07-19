@@ -19,7 +19,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace UtilityWpf.View.Extrinsic
+namespace UtilityWpf.Controls.Extrinsic
 {
     /// <summary>
     /// Interaction logic for SpinnerControl.xaml

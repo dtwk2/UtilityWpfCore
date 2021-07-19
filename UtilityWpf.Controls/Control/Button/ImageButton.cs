@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     // Based on https://stackoverflow.com/questions/2491941/wpf-tristate-image-button/3676177#3676177
     // answered Sep 9 '10 at 11:42 PJUK

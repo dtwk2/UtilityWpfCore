@@ -146,7 +146,10 @@ namespace UtilityWpf.Attached
             if (control.ItemsSource != null)
             {
                 CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(control.ItemsSource);
-                view.Filter = (a) => a.GetType().GetProperties().Where(_ => _.PropertyType == e.NewValue.GetType()).Select(_ => _.GetValue(a)).Any(_ => ((string)_).Contains((string)e.NewValue));
+                view.Filter = (obj) => obj.GetType().GetProperties()
+                .Where(a => a.PropertyType == e.NewValue.GetType() && a.GetMethod != null)
+                .Select(a => a.GetValue(obj))
+                .Any(a => a.ToString()?.Contains((string)e.NewValue) ?? false);
             }
         }
 

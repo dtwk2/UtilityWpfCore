@@ -8,8 +8,7 @@
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:UtilityWpf.DemoApp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.View"
-    xmlns:view1="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.View"
+    xmlns:view="http://schemas.utility.com"
     d:DesignHeight="450"
     d:DesignWidth="800"
     FontSize="14"
@@ -83,7 +82,7 @@
                 <TextBox Text="{Binding End, StringFormat=N}" />
             </ToolBar>
             <UniformGrid Columns="1">
-                <view1:RangeSlider
+                <view:RangeSlider
                     Width="800"
                     Height="50"
                     Margin="4"
@@ -97,7 +96,7 @@
                     Start="{Binding Start}"
                     TickFrequency="5">
 
-                    <view1:RangeSlider.TickLabelTemplate>
+                    <view:RangeSlider.TickLabelTemplate>
                         <DataTemplate>
                             <Grid Width="30" Height="20">
                                 <Label
@@ -107,13 +106,13 @@
                                     Content="{Binding}" />
                             </Grid>
                         </DataTemplate>
-                    </view1:RangeSlider.TickLabelTemplate>
-                    <view1:RangeSlider.Background>
+                    </view:RangeSlider.TickLabelTemplate>
+                    <view:RangeSlider.Background>
                         <SolidColorBrush Opacity="0.1" Color="Gray" />
-                    </view1:RangeSlider.Background>
-                </view1:RangeSlider>
+                    </view:RangeSlider.Background>
+                </view:RangeSlider>
 
-                <view1:DayRangeSlider
+                <view:DayRangeSlider
                     Width="800"
                     Height="50"
                     Margin="4"
@@ -130,7 +129,7 @@
                 <StackPanel>
 
                     <foreign:SliderWithTickLabels
-                        xmlns:foreign="clr-namespace:UtilityWpf.View.Extrinsic;assembly=UtilityWpf.View"
+                        xmlns:foreign="clr-namespace:UtilityWpf.Controls.Extrinsic;assembly=UtilityWpf.Controls"
                         Width="300"
                         Height="200"
                         HorizontalAlignment="Center"
@@ -160,7 +159,7 @@
                     </foreign:SliderWithTickLabels>
 
                     <extrinsic:SliderWithTickLabels
-                        xmlns:extrinsic="clr-namespace:UtilityWpf.View.Extrinsic;assembly=UtilityWpf.View"
+                        xmlns:extrinsic="clr-namespace:UtilityWpf.Controls.Extrinsic;assembly=UtilityWpf.Controls"
                         Width="300"
                         Height="200"
                         HorizontalAlignment="Center"

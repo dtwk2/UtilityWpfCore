@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:UtilityWpf.View" 
-    xmlns:infra="clr-namespace:UtilityWpf.View.Panels" 
+    xmlns:local="clr-namespace:UtilityWpf.Controls" 
+    xmlns:infra="clr-namespace:UtilityWpf.Controls.Panels" 
      xmlns:converter="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf">
 
     <ResourceDictionary.MergedDictionaries />

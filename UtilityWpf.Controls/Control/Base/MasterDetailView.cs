@@ -9,9 +9,9 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Threading;
-using UtilityWpf.View.Infrastructure;
+using UtilityWpf.Controls.Infrastructure;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     public class MasterDetailView : ContentControlx
     {

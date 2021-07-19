@@ -2,7 +2,7 @@
 using System.Linq;
 using UtilityHelper.NonGeneric;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     public class StructDataGrid : DynamicDataGrid
     {

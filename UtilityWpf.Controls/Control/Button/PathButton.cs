@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     public class PathButton : Button
     {

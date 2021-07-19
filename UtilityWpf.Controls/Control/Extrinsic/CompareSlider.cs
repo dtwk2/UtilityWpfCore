@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
-namespace UtilityWpf.View.Handy
+namespace UtilityWpf.Controls.Handy
 {
     /// <summary>
     /// Handy Control

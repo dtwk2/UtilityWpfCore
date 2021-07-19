@@ -16,7 +16,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace UtilityWpf.View.Extrinsic
+namespace UtilityWpf.Controls.Extrinsic
 {
     public class ShortTimeSpanControl : Control
     {

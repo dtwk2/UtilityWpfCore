@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Media;
-using UtilityWpf.View;
+using UtilityWpf.Controls;
 
 namespace UtilityWpf.DemoApp
 {

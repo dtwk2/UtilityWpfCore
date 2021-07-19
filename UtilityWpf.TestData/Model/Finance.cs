@@ -33,7 +33,7 @@ namespace UtilityWpf.TestData
 
         private static IEnumerable<Price> SelectPrices()
         {
-            var reader = new StreamReader("../../../UtilityWpf.TestData/stocknet-dataset-master/price/HL/ABB.csv");
+            var reader = new StreamReader("../../../../UtilityWpf.TestData/stocknet-dataset-master/price/HL/ABB.csv");
             var start = DateTime.Today.AddYears(-5);
             return from line in Csv.CsvReader.Read(reader)
                    select new Price

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     public static class ResourceKeys
     {

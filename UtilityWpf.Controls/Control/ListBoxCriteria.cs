@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Threading;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     public class ListBoxCriteria : ListBox
     {

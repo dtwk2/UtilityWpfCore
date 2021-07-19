@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Reactive.Linq;
 using System.Windows;
-using UtilityWpf.View.Extrinsic;
-using static UtilityWpf.View.DateTimeControl;
+using UtilityWpf.Controls.Extrinsic;
+using static UtilityWpf.Controls.DateTimeControl;
 
-namespace UtilityWpf.View.Infrastructure
+namespace UtilityWpf.Controls.Infrastructure
 {
     public static class EventToObservableHelper
     {

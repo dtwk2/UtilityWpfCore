@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.View"
+    xmlns:view="http://schemas.utility.com"
     d:DesignHeight="300"
     d:DesignWidth="300"
     mc:Ignorable="d">

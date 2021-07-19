@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace UtilityWpf.View.Handy
+namespace UtilityWpf.Controls.Handy
 {
     public class SimplePanel : Panel
     {

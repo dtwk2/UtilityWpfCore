@@ -9,7 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using UtilityWpf.Model;
 
-namespace UtilityWpf.View
+namespace UtilityWpf.Controls
 {
     public class PageNavigatorControl : Control
     {

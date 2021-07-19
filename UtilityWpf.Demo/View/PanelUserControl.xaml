@@ -7,7 +7,9 @@
     xmlns:demoapp="clr-namespace:UtilityWpf.DemoApp"
     xmlns:demoapp1="clr-namespace:ExpandDemo"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.View" xmlns:extrinsic="clr-namespace:UtilityWpf.View.Extrinsic;assembly=UtilityWpf.View" xmlns:dw="clr-namespace:DrWPF.Windows.Controls;assembly=UtilityWpf.View"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:view="http://schemas.utility.com"
+    xmlns:util="http://schemas.utility.com"
+    xmlns:dw="clr-namespace:DrWPF.Windows.Controls;assembly=UtilityWpf.Controls"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
@@ -453,7 +455,7 @@
             <ItemsControl>
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <extrinsic:VirtualizingTilePanel/>
+                        <util:VirtualizingTilePanel/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
 

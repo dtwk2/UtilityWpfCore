@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 
 
-namespace UtilityWpf.View.Panels
+namespace UtilityWpf.Controls.Panels
 {
     /// <summary>
     /// UniformGrid is used to arrange children in a grid with all equal cell sizes.

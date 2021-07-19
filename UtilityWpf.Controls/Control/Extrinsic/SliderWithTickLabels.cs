@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace UtilityWpf.View.Extrinsic
+namespace UtilityWpf.Controls.Extrinsic
 {
     /// <summary>
     /// Siga os passos 1a ou 1b e depois 2 para usar esse controle personalizado em um arquivo XAML.

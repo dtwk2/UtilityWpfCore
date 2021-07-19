@@ -5,11 +5,12 @@ using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using UtilityEnum;
+using UtilityWpf.Controls.Extrinsic;
+using UtilityWpf.Controls.Infrastructure;
 using UtilityWpf.Utility;
-using UtilityWpf.View.Extrinsic;
-using UtilityWpf.View.Infrastructure;
 
-namespace UtilityWpf.View
+
+namespace UtilityWpf.Controls
 {
     public class TimeSpanControl : Controlx
     {
