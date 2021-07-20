@@ -4,85 +4,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UtilityWpf.DemoAnimation"
-             xmlns:converters="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"
+             xmlns:converters="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf" 
+             xmlns:anim="http://schemas.utility.com/animation"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <Style x:Key="FlipControl" TargetType="{x:Type local:FlipControl}">
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Focusable" Value="False"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-            <Setter Property="FontSize" Value="30"/>           
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type local:FlipControl}">
-                      
-                            <Grid>
-                                <ContentControl x:Name="PART_PreviousContent" 
-                                            Content="{TemplateBinding PreviousSelectedItem}"
-                                            ContentTemplate="{TemplateBinding ItemTemplate}"
-                                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                                            Focusable="False"
-                                            FontSize="{TemplateBinding FontSize}">
-                                    <ContentControl.RenderTransform>
-                                        <TranslateTransform/>
-                                    </ContentControl.RenderTransform>
-                                </ContentControl>
-                                <ContentControl x:Name="PART_Content" 
-                                            Content="{TemplateBinding SelectedItem}"
-                                            ContentTemplate="{TemplateBinding ItemTemplate}"
-                                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                                            Focusable="False"
-                                            FontSize="{TemplateBinding FontSize}">
-                                    <ContentControl.RenderTransform>
-                                        <TranslateTransform/>
-                                    </ContentControl.RenderTransform>
-                                </ContentControl>
-                            </Grid>
-                   
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="FadeFlipControl" BasedOn="{StaticResource FlipControl}" TargetType="{x:Type local:FlipControl}">
-            <Style.Resources>
-                <Storyboard x:Key="FadeStoryboard">
-                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)"
-                                 BeginTime="00:00:00.5"
-                                 Duration="00:00:01"
-                                 From="1"
-                                 To="0"/>
-                </Storyboard>
-            </Style.Resources>
-            <Setter Property="Opacity" Value="0"/>
-            <Style.Triggers>
-                <Trigger Property="IsFlipping" Value="True">
-                    <Setter Property="Opacity" Value="1"/>
-                </Trigger>
-                <Trigger Property="IsFlipping" Value="False">
-                    <Trigger.EnterActions>
-                        <BeginStoryboard x:Name="FadeBeginStoryboard" 
-                                     Storyboard="{StaticResource FadeStoryboard}"/>
-                    </Trigger.EnterActions>
-                    <Trigger.ExitActions>
-                        <StopStoryboard BeginStoryboardName="FadeBeginStoryboard"/>
-                    </Trigger.ExitActions>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+        <ResourceDictionary Source="/UtilityWpf.Animation;component/Themes/FlipControl.xaml"></ResourceDictionary>
     </UserControl.Resources>
-    <StackPanel HorizontalAlignment="Center">
-        
+     
+    <StackPanel HorizontalAlignment="Center">        
         <TextBox x:Name="IntegerIntegerUpDown" Text="10" FontSize="30" Margin="20"></TextBox>
 
-        <local:FlipControl Style="{StaticResource FlipControl}" Margin="20"
-            Integer="{Binding ElementName=IntegerIntegerUpDown, Path=Text, Converter={x:Static converters:StringToIntConverter.Instance}}"
-                           />
-        
-        <local:FlipControl Style="{StaticResource FadeFlipControl}" Margin="20"
-            Integer="{Binding ElementName=IntegerIntegerUpDown, Path=Text, Converter={x:Static converters:StringToIntConverter.Instance}}"
-                           />
+        <anim:FlipControl Margin="20"
+            Integer="{Binding ElementName=IntegerIntegerUpDown, Path=Text, Converter={x:Static converters:StringToIntConverter.Instance}}" />
+
+        <anim:FlipControl Style="{StaticResource FadeFlipControl}" Margin="20"
+            Integer="{Binding ElementName=IntegerIntegerUpDown, Path=Text, Converter={x:Static converters:StringToIntConverter.Instance}}" />
       
     </StackPanel>
 </UserControl>

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0-windows</TargetFramework>
@@ -9,13 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ControlzEx" Version="4.4.0" />
     <PackageReference Include="WPFTransitionals" Version="1.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\UtilityWpf.Animation\UtilityWpf.Animation.csproj" />
-    <ProjectReference Include="..\UtilityWpf.View\UtilityWpf.View.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Controls\UtilityWpf.Controls.csproj" />
   </ItemGroup>
 
   <ItemGroup>

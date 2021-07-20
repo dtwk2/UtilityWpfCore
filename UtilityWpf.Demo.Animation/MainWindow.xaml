@@ -9,7 +9,7 @@
     xmlns:local="clr-namespace:UtilityWpf.DemoAnimation"
     xmlns:local1="clr-namespace:UtilityWpf.DemoAnimationCore"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:extrinsic="clr-namespace:UtilityWpf.View.Extrinsic;assembly=UtilityWpf.View"
+    xmlns:util="http://schemas.utility.com"
     Title="MainWindow"
     Width="800"
     Height="650"
@@ -38,13 +38,13 @@
             <TabItem Header="BarControl">
                 <DockPanel>
                     <StackPanel DockPanel.Dock="Top">
-                        <extrinsic:SpinnerControl
+                        <util:SpinnerControl
                             x:Name="height"
                             Width="100"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             Value="60" />
-                        <extrinsic:SpinnerControl
+                        <util:SpinnerControl
                             x:Name="duration"
                             Width="100"
                             HorizontalAlignment="Left"
@@ -59,7 +59,7 @@
             <TabItem Header="BlinkControl">
                 <DockPanel>
                     <StackPanel DockPanel.Dock="Top">
-                        <extrinsic:SpinnerControl
+                        <util:SpinnerControl
                             x:Name="duration1"
                             Width="100"
                             HorizontalAlignment="Left"
@@ -78,7 +78,7 @@
                         <local:BeatViewModel />
                     </DockPanel.DataContext>
                     <StackPanel DockPanel.Dock="Top">
-                        <extrinsic:SpinnerControl
+                        <util:SpinnerControl
                             Width="100"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"

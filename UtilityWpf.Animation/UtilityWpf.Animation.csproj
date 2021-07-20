@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0-windows</TargetFramework>
@@ -51,6 +51,9 @@
     <PackageReference Include="ReactiveUI.WPF" Version="14.1.1" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UtilityWpf\UtilityWpf.csproj" />
+  </ItemGroup>
     
   <ItemGroup>
     <Compile Update="AssemblyInfo.cs">
@@ -62,6 +65,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Themes\BorderFix.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\FlipControl.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Themes\Generic.xaml">
       <SubType>Designer</SubType>
     </Page>
