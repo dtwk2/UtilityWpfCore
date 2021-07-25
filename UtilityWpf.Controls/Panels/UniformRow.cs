@@ -11,7 +11,7 @@ namespace UtilityWpf.Controls.Panels
     /// <summary>
     /// UniformGrid is used to arrange children in a grid with all equal cell sizes.
     /// </summary>
-    public class UniformGrid : Panel
+    public class UniformRow : Panel
     {
         private int _columns;
 
