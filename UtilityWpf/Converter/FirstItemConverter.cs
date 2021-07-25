@@ -8,23 +8,6 @@ namespace UtilityWpf.Converter
 {
     public class FirstItemConverter : IMultiValueConverter
     {
-        //public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
-        //{
-        //    int count = (int)values[2];
-
-        //    if (values != null && values.Length == 3 && count > 0)
-        //    {
-        //        System.Windows.Controls.ItemsControl itemsControl = values[0] as System.Windows.Controls.ItemsControl;
-        //        var itemContext = (values[1] as System.Windows.Controls.ContentPresenter).DataContext;
-
-        //        var lastItem = itemsControl.Items[0];
-
-        //        return Equals(lastItem, itemContext);
-        //    }
-
-        //    return DependencyProperty.UnsetValue;
-        //}
-
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             ItemsControl itemscontrol = values[0] as ItemsControl;

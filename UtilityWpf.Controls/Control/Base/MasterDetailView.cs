@@ -66,11 +66,11 @@ namespace UtilityWpf.Controls
 
         public MasterDetailView()
         {
-            var outputChanges = SelectChanges(nameof(Output)).Where(obj => obj != null);
+            var outputChanges = SelectPropertyChanges(nameof(Output)).Where(obj => obj != null);
 
             //Dictionary<Type, object> dict = new Dictionary<Type, object>();
             outputChanges
-                .CombineLatest(SelectChanges<string>(nameof(Id)).StartWith(Id), (a, b) => (a, b))
+                .CombineLatest(SelectPropertyChanges<string>(nameof(Id)).StartWith(Id), (a, b) => (a, b))
                 .Select(vm =>
                 {
                     var id = vm.a.GetType().GetProperty(vm.b).GetValue(vm.a).ToString();
@@ -78,7 +78,7 @@ namespace UtilityWpf.Controls
                 }).Subscribe(NameChanges);
 
             outputChanges
-                        .CombineLatest(SelectChanges<IValueConverter>(nameof(DataConverter)).StartWith(default(IValueConverter)), (a, b) => (a, b))
+                        .CombineLatest(SelectPropertyChanges<IValueConverter>(nameof(DataConverter)).StartWith(default(IValueConverter)), (a, b) => (a, b))
                         .SubscribeOn(TaskPoolScheduler.Default)
                         .ObserveOnDispatcher()
                         .Subscribe(collConv => Dispatcher.InvokeAsync(() =>
@@ -86,7 +86,7 @@ namespace UtilityWpf.Controls
                             Convert(collConv.a, collConv.b, (items, conv) => conv.Convert(collConv.a, null, null, null) as IEnumerable);
                         }, DispatcherPriority.Normal));
 
-            SelectChanges<PropertyGroupDescription>().StartWith(PropertyGroupDescription)
+            SelectPropertyChanges<PropertyGroupDescription>().StartWith(PropertyGroupDescription)
                 .CombineLatest(ControlChanges.Where(c => c.GetType() == typeof(DockPanel)).Take(1), (pgd, DockPanel) => (pgd, DockPanel)).Subscribe(_ =>
             {
                 if ((_.DockPanel as DockPanel)?.FindResource("GroupedItems") is CollectionViewSource collectionViewSource)
@@ -110,9 +110,9 @@ namespace UtilityWpf.Controls
                 });
 
             GroupNameChanges.CombineLatest(
-                  SelectChanges<PropertyGroupDescription>().StartWith(PropertyGroupDescription),
-                SelectChanges<IValueConverter>(nameof(DataConverter)).StartWith(default(IValueConverter)),
-                                SelectChanges<string>(nameof(Id)).StartWith(Id),
+                  SelectPropertyChanges<PropertyGroupDescription>().StartWith(PropertyGroupDescription),
+                SelectPropertyChanges<IValueConverter>(nameof(DataConverter)).StartWith(default(IValueConverter)),
+                                SelectPropertyChanges<string>(nameof(Id)).StartWith(Id),
                 (text, pg, conv, id) => (text, pg, conv, id))
                 //.ObserveOn(TaskPoolScheduler.Default)
                 .Subscribe(async input =>

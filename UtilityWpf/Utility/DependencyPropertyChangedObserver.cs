@@ -22,7 +22,7 @@ namespace UtilityWpf
 
     public class DependencyPropertyFactory<TControl> where TControl : class
     {
-        public static DependencyProperty Create<T>(string name, Func<TControl, IObserver<T>> observer, T value = default) =>
+        public static DependencyProperty Register<T>(string name, Func<TControl, IObserver<T>> observer, T value = default) =>
             DependencyProperty.Register(name, typeof(T), typeof(TControl), MetaDataFactory<TControl>.Create(observer, value));
     }
 

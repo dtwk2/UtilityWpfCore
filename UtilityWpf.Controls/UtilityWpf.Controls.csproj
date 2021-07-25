@@ -9,6 +9,7 @@
     <Version>1.2.106</Version>
     <AssemblyVersion>1.2.54.0</AssemblyVersion>
     <FileVersion>1.2.54.0</FileVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   
   
@@ -63,7 +64,6 @@
     <PackageReference Include="LambdaConverters" Version="4.0.0" />
     <PackageReference Include="MaterialDesignExtensions" Version="3.3.0-a01" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
-    <PackageReference Include="PropertyTools.Wpf" Version="3.1.0" />
     <PackageReference Include="WPFTransitionals" Version="1.1.0" />
   </ItemGroup>
 
@@ -171,12 +171,6 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
     <Page Update="Themes\LabelledTextBox.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Themes\ListBoxEx.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Themes\ListBoxItemStyle.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\MasterDetailView.xaml">

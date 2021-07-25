@@ -74,10 +74,10 @@
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DateTimeControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/RangeSlider.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/TimeSpanControl.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/AddControl.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/MasterControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Clock.xaml" />
 
-        <!--  Foreign  -->
+        <!--  Extrinsic  -->
 
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/SliderWithTickLabels.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/TimeBar.xaml" />
@@ -88,10 +88,11 @@
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/IpAddrBox.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/FilterControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/LoopingListBox.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DragablzItem.xaml" />
 
         <!-- New -->
 
-        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
+        <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />-->
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/ViewCollection.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DualButtonControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/EnumComboBox.xaml" />

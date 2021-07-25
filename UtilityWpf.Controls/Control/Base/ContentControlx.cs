@@ -12,10 +12,6 @@ namespace UtilityWpf.Controls
 {
     public class ContentControlx : ContentControl
     {
-        //private readonly Dictionary<string, ISubject<object>> Subjects = new Dictionary<string, ISubject<object>>();
-        //protected readonly ISubject<DependencyObject> ControlChanges = new ReplaySubject<DependencyObject>(1);
-        //readonly object lck = new object();
-        //public List<string> ControlNames = new List<string>();
         public Dictionary<string, ISubject<object>> Subjects { get; } = new Dictionary<string, ISubject<object>>();
 
         public ISubject<DependencyObject> ControlChanges { get; } = new ReplaySubject<DependencyObject>(1);
@@ -54,7 +50,7 @@ namespace UtilityWpf.Controls
             }
         }
 
-        public IObservable<object> SelectChanges(string name)
+        public IObservable<object> SelectPropertyChanges(string name)
         {
             lock (Subjects)
             {
@@ -63,14 +59,14 @@ namespace UtilityWpf.Controls
             }
         }
 
-        public IObservable<T> SelectControlChanges<T>(string? name = null) where T : DependencyObject
+        public IObservable<T> SelectControlChanges<T>(string? name = null) where T : FrameworkElement
         {
             var ttype = typeof(T);
             var s = ControlChanges.Where(a => a.GetType() == ttype).Select(a => (T)a);
-            return name == null ? s : s.Where(a => (a as FrameworkElement).Name == name);
+            return name == null ? s : s.Where(a => a.Name == name);
         }
 
-        public IObservable<T> SelectChanges<T>(string name = null)
+        public IObservable<T> SelectPropertyChanges<T>(string? name = null)
         {
             var type = typeof(T);
             if (string.IsNullOrEmpty(name))
@@ -79,10 +75,12 @@ namespace UtilityWpf.Controls
                 var where = props.Where(a => a.PropertyType == type).ToArray();
                 if (where.Any())
                 {
+                    if (where.Length == 0)
+                        throw new Exception("Unexpected no types");
                     if (where.Length == 1)
                         name = where.Single().Name;
                     else
-                        throw new Exception("UnExpected multiple types");
+                        throw new Exception("Unexpected multiple types");
                 }
                 else
                     throw new Exception("No types match");
