@@ -1,16 +1,12 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Utility.Log.View.ProgressBar"
-                    xmlns:testApp="clr-namespace:TestApp" xmlns:testApp1="clr-namespace:UtilityWpf.Animation">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  
+                    xmlns:testApp1="clr-namespace:UtilityWpf.Animation" 
+                    xmlns:utilitywpf="clr-namespace:UtilityWpf;assembly=UtilityWpf">
  
         <ResourceDictionary.MergedDictionaries>
 
-            <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
-            <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-            <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
-            <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Pink.xaml" />-->
-            <ResourceDictionary Source="pack://application:,,,/UtilityWpf.Animation;component/ProgressBar/FlashThumb.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ProgressBar.xaml" />
+            <utilitywpf:SharedResourceDictionary Source="pack://application:,,,/UtilityWpf.Animation;component/ProgressBar/FlashThumb.xaml" />
+            <!--<utilitywpf:SharedResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ProgressBar.xaml" />-->
 
         </ResourceDictionary.MergedDictionaries>
 

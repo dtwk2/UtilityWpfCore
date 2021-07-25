@@ -137,7 +137,7 @@
                         Visibility="Visible">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <infra:UniformGrid x:Name="TickLabelContainer" />
+                                <infra:UniformRow x:Name="TickLabelContainer" />
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemContainerStyle>

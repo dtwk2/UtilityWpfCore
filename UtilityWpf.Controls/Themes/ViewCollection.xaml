@@ -5,7 +5,7 @@
     xmlns:utils="clr-namespace:UtilityWpf.Controls.Panels">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+        <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />-->
     </ResourceDictionary.MergedDictionaries>
 
     <Style

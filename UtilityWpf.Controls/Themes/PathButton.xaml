@@ -22,21 +22,19 @@
                     <!--<Grid Background="Transparent">-->
                     <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Grid
-                            Width="100"
-                            Height="100"
+                  
                             Background="Transparent">
                             <!--  The background of the button, as an ellipse.  -->
                             <Ellipse
                                 x:Name="backgroundEllipse"
-                                Width="100"
-                                Height="100" />
-                            <Grid
-                                Width="60"
-                                Height="60"
-                                Background="Transparent">
-                                <Path
-                                    x:Name="ButtonPath"
-                                    Margin="3"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Width="160"
+                                Height="160" />
+                            <Path
+                                    x:Name="ButtonPath"   
+                                    Width="80"
+                                    Height="80"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Data="{Binding PathData, RelativeSource={RelativeSource TemplatedParent}}"
@@ -44,10 +42,9 @@
                                     Stroke="{StaticResource NormalForegroundBrush}"
                                     StrokeEndLineCap="Square"
                                     StrokeStartLineCap="Square"
-                                    StrokeThickness="8">
-                                    <!--  Data="{TemplateBinding PathData}"  -->
-                                </Path>
-                            </Grid>
+                                    StrokeThickness="12">
+                            </Path>
+                           
                         </Grid>
                     </Viewbox>
                     <!--</Grid>-->
