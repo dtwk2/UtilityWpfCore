@@ -25,7 +25,7 @@ namespace UtilityWpf.Converter
 
         private static Lazy<Dictionary<int, Color>> NiceColors = new Lazy<Dictionary<int, Color>>(() =>
                niceColorsDict
-                .Select((a, i) => Tuple.Create(i, (Color)ColorConverter.ConvertFromString(a.Value)))
+                .Select((a, i) => Tuple.Create(i, (Color)System.Windows.Media.ColorConverter.ConvertFromString(a.Value)))
                 .ToDictionary(a => a.Item1, a => a.Item2));
 
         private static Dictionary<string, string> niceColorsDict = new Dictionary<string, string> {

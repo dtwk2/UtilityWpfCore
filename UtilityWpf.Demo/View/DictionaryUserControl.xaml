@@ -7,10 +7,10 @@
     xmlns:local="clr-namespace:UtilityWpf.DemoApp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
-    xmlns:util="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.View"
+    xmlns:util="http://schemas.utility.com"
     d:DesignHeight="300"
     d:DesignWidth="300"
-    DataContext="{DynamicResource MyDictionary}"
+ 
     mc:Ignorable="d">
     <UserControl.Resources>
         <Specialized:ListDictionary xmlns:Specialized="clr-namespace:System.Collections.Specialized;assembly=System" x:Key="MasterSlidesFileNames">
@@ -25,10 +25,9 @@
             <sys:Int32 x:Key="key2">222</sys:Int32>
         </local:MyDictionary>
     </UserControl.Resources>
-   
-        <Grid>
-            <util:DictionaryControl ItemsSource="{Binding}" />
-        </Grid>
 
+    <Grid DataContext="{StaticResource MyDictionary}">
+        <util:DictionaryControl ItemsSource="{Binding}" />
+    </Grid>
 
 </UserControl>

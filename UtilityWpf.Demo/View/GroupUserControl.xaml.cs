@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using UtilityHelperEx;
 using UtilityWpf.Model;
+using UtilityWpf.TestData;
 
 namespace UtilityWpf.DemoApp
 {

@@ -1,4 +1,8 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.ComponentModel;
+using System.Windows.Controls;
+using System.Windows.Media;
+using UtilityWpf.Controls;
 
 namespace UtilityWpf.DemoApp
 {
@@ -7,33 +11,28 @@ namespace UtilityWpf.DemoApp
     /// </summary>
     public partial class ButtonUserControl : UserControl
     {
+        private readonly TypeConverter converter;
+
         public ButtonUserControl()
         {
             InitializeComponent();
+
+            this.PathTextBox.Text = PathButton.InitialData;
+            converter = TypeDescriptor.GetConverter(typeof(Geometry));
+            this.PathTextBox.TextChanged += PathTextBox_TextChanged;
         }
 
-        private void DecreaseFont_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void PathTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-        }
-
-        private void IncreaseFont_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-        }
-
-        private void Italic_Unchecked(object sender, System.Windows.RoutedEventArgs e)
-        {
-        }
-
-        private void Italic_Checked(object sender, System.Windows.RoutedEventArgs e)
-        {
-        }
-
-        private void Bold_Unchecked(object sender, System.Windows.RoutedEventArgs e)
-        {
-        }
-
-        private void Bold_Checked(object sender, System.Windows.RoutedEventArgs e)
-        {
+            this.ErrorTextBlock.Text = string.Empty;
+            try
+            {
+                PathButton.PathData = (Geometry)converter.ConvertFrom(this.PathTextBox.Text);
+            }
+            catch (Exception ex)
+            {
+                this.ErrorTextBlock.Text = ex.Message;
+            }
         }
     }
 }

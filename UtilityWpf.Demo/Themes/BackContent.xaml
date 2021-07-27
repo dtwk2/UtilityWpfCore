@@ -10,7 +10,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <materialDesign:ColorZone Padding="6" Mode="Accent">
+        <materialDesign:ColorZone Padding="6" Mode="PrimaryDark">
             <StackPanel Orientation="Horizontal">
                 <Button
                     HorizontalAlignment="Left"

@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
+using System.Reactive.Threading.Tasks;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media.Animation;
+using deniszykov.TypeConversion;
+using ReactiveUI;
 
 namespace UtilityWpf
 {
@@ -95,7 +100,7 @@ namespace UtilityWpf
         public static IObservable<T> SelectItemChanges<T>(this ComboBox comboBox)
         {
             var selectionChanged = comboBox.Events().SelectionChanged;
-
+            var conversionProvider = new TypeConversionProvider();
             // If using ComboBoxItems 
             var comboBoxItems = selectionChanged
           .SelectMany(a => a.AddedItems.OfType<ContentControl>())
@@ -112,7 +117,7 @@ namespace UtilityWpf
 
             // If using type indirectly
             var indirectItems = selectionChanged
-          .SelectMany(a => a.AddedItems.Cast<object>().Select(a => TypeConvert.TryConvert<object, T>(a, out T t2) ? t2 : default))
+          .SelectMany(a => a.AddedItems.Cast<object>().Select(a => conversionProvider.TryConvert<object, T>(a, out T t2) ? t2 : default))
           .StartWith(NewMethod2(comboBox.SelectedItem))
           .Where(a => a.Equals(default(T)) == false);
 
@@ -125,9 +130,9 @@ namespace UtilityWpf
                 return selectedItem is T t ? t : default;
             }
 
-            static T NewMethod2(object selectedItem)
+            T NewMethod2(object selectedItem)
             {
-                return TypeConvert.TryConvert(selectedItem, out T t2) ? t2 : default;
+                return conversionProvider.TryConvert(selectedItem, out T t2) ? t2 : default;
             }
         }
 
@@ -138,6 +143,72 @@ namespace UtilityWpf
                 .Checked.Select(a => true).Merge(toggleButton.Events()
                 .Unchecked.Select(a => false))
                 .StartWith(toggleButton.IsChecked ?? defaultValue);
+        }
+
+
+
+
+        public static IObservable<RoutedEventArgs> ToLoadedChanges(this Control control)
+        {
+            return Observable.FromEventPattern<RoutedEventHandler, RoutedEventArgs>(
+                   h => control.Loaded += h,
+                   h => control.Loaded -= h)
+                .Select(a => a.EventArgs);
+        }
+
+        public static IObservable<string> ToThrottledObservable(this TextBox textBox)
+        {
+            return Observable.FromEventPattern<TextChangedEventHandler, TextChangedEventArgs>(
+                   s => textBox.TextChanged += s,
+                   s => textBox.TextChanged -= s)
+                .Select(evt => textBox.Text) // better to select on the UI thread
+                .Throttle(TimeSpan.FromMilliseconds(500))
+                .DistinctUntilChanged();
+        }
+
+
+
+        public static IObservable<object> ToSelectedValueChanges(this Selector selector) =>
+
+            Observable
+                .FromEventPattern<SelectionChangedEventHandler, SelectionChangedEventArgs>
+                    (a => selector.SelectionChanged += a, a => selector.SelectionChanged -= a)
+                .Select(a => selector.SelectedValue).StartWith(selector.SelectedValue)
+                .WhereNotNull();
+
+        public static IObservable<T> ToSelectedValueChanges<T>(this Selector selector) => selector.ToSelectedValueChanges().Cast<T>();
+
+
+
+
+
+        //public static IObservable<ClickRoutedEventArgs<object>> SelectClicks(this CollectionView buttonsItemsControl)
+        //{
+        //    return Observable.FromEventPattern<ClickRoutedEventHandler<object>, ClickRoutedEventArgs<object>>(
+        //           a => buttonsItemsControl.ButtonClick += a,
+        //           a => buttonsItemsControl.ButtonClick -= a)
+        //        .Select(a => a.EventArgs);
+        //}
+
+        public static IObservable<bool> ToThrottledObservable(this ToggleButton toggleButton)
+        {
+            return Observable.FromEventPattern<RoutedEventHandler, RoutedEventArgs>(
+                    s => toggleButton.Checked += s,
+                    s => toggleButton.Checked -= s)
+                .Select(evt => true)
+                .Merge(Observable.FromEventPattern<RoutedEventHandler, RoutedEventArgs>(
+                        s => toggleButton.Unchecked += s,
+                        s => toggleButton.Unchecked -= s)
+                    .Select(evt => false))
+                // better to select on the UI thread
+                .Throttle(TimeSpan.FromMilliseconds(500))
+                .StartWith(toggleButton.IsChecked ?? false)
+                .DistinctUntilChanged();
+        }
+
+        public static Task<EventPattern<object>> ToTask(this DoubleAnimation animation)
+        {
+            return Observable.FromEventPattern(a => animation.Completed += a, a => animation.Completed -= a).Take(1).ToTask();
         }
     }
 }

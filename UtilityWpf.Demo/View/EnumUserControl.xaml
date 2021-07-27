@@ -5,12 +5,44 @@
     xmlns:common="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:UtilityWpf.DemoApp"
+    xmlns:test="clr-namespace:UtilityWpf.TestData;assembly=UtilityWpf.TestData"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.View"
+    xmlns:view="http://schemas.utility.com" xmlns:controls="http://schemas.utility.com"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <TabControl>
+
+        <TabItem Header="Items">
+            <TabItem.Resources>
+                <common:BooleanToOrientationConverter x:Key="BooleanToOrientationConverter" />
+            </TabItem.Resources>
+            <DockPanel>
+              
+                <UniformGrid Rows="1">
+                    <StackPanel>
+                        <ToggleButton
+                    x:Name="ToggleButton1"                   
+                    Height="30"
+                   />
+                        <view:ButtonDefinitionsControl
+                            x:Name="bdc"
+                            Orientation="{Binding ElementName=ToggleButton1, Path=IsChecked, Converter={StaticResource BooleanToOrientationConverter}}"
+                            Type="{x:Type test:Emotion}" />
+                        <TextBlock Text="{Binding ElementName=bdc, Path=Output, Mode=OneWay}" Margin="5" Background="AliceBlue" Height="30"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <view:ButtonDefinitionsControl
+                            x:Name="bdcs"
+                            Orientation="Vertical"
+                            Type="{x:Type test:Emotion}" />
+                        <TextBlock Text="{Binding ElementName=bdcs, Path=Output}" />
+                    </StackPanel>
+                    <view:EnumItems Enum="{x:Type test:Emotion}" />
+                </UniformGrid>
+            </DockPanel>
+        </TabItem>
+        
         <TabItem Header="Toggle">
             <StackPanel>
                 <Label>Default</Label>
@@ -26,11 +58,11 @@
                     <view:EnumToggleButton
                         x:Name="etb"
                         Grid.Row="1"
-                        Enum="{x:Type local:Connected}" />
+                        Enum="{x:Type test:Connected}" />
                     <view:EnumToggleButton
                         x:Name="etb2"
                         Grid.Row="2"
-                        Enum="{x:Type local:Connected}"
+                        Enum="{x:Type test:Connected}"
                         UseEnumAsContent="False" />
                 </Grid>
                 <!--<TextBlock Text="{Binding ElementName=TenseControl,Path=Output}"></TextBlock>-->
@@ -45,34 +77,8 @@
             </StackPanel>
         </TabItem>
 
-        <TabItem Header="Items">
-            <TabItem.Resources>
-                <common:BooleanToOrientationConverter x:Key="BooleanToOrientationConverter" />
-            </TabItem.Resources>
-            <DockPanel>
-                <ToggleButton
-                    x:Name="ToggleButton1"
-                    Width="30"
-                    Height="30"
-                    DockPanel.Dock="Top" />
-                <UniformGrid Rows="1">
-                    <StackPanel>
-                        <view:ButtonDefinitionsControl
-                            x:Name="bdc"
-                            Orientation="{Binding ElementName=ToggleButton1, Path=IsChecked, Converter={StaticResource BooleanToOrientationConverter}}"
-                            Type="{x:Type local:Emotion}" />
-                        <TextBox Text="{Binding ElementName=bdc, Path=Output}" />
-                    </StackPanel>
-                    <StackPanel>
-                        <view:ButtonDefinitionsControl
-                            x:Name="bdcs"
-                            Orientation="Vertical"
-                            Type="{x:Type local:Emotion}" />
-                        <TextBox Text="{Binding ElementName=bdcs, Path=Output}" />
-                    </StackPanel>
-                    <view:EnumItems Enum="{x:Type local:Emotion}" />
-                </UniformGrid>
-            </DockPanel>
+        <TabItem Header="ComboBox">
+            <controls:EnumComboBox EnumType="{x:Type Visibility}" SelectedIndex="0" />
         </TabItem>
     </TabControl>
 </UserControl>

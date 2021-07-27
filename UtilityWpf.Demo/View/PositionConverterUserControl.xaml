@@ -5,8 +5,9 @@
     xmlns:common="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:UtilityWpf.DemoApp"
+    xmlns:test="clr-namespace:UtilityWpf.TestData;assembly=UtilityWpf.TestData"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.View"
+    xmlns:view="http://schemas.utility.com"
     d:DesignHeight="450"
     d:DesignWidth="800"
     DataContext="{DynamicResource Characters}"
@@ -20,7 +21,7 @@
                     ContentTemplate="{StaticResource BaseClass}" />
         </DataTemplate>-->
 
-        <DataTemplate x:Key="LastItemTemplate" DataType="{x:Type local:Character}">
+        <DataTemplate x:Key="LastItemTemplate" DataType="{x:Type test:Character}">
             <TextBlock
                 Name="PART_TextBox"
                 FontWeight="Bold"
@@ -38,7 +39,7 @@
                 </DataTrigger>
             </DataTemplate.Triggers>
         </DataTemplate>
-        <DataTemplate x:Key="FirstItemTemplate" DataType="{x:Type local:Character}">
+        <DataTemplate x:Key="FirstItemTemplate" DataType="{x:Type test:Character}">
             <TextBlock
                 Name="PART_TextBox"
                 FontWeight="Bold"
@@ -56,7 +57,7 @@
             </DataTemplate.Triggers>
         </DataTemplate>
 
-        <DataTemplate x:Key="PositionItemTemplate" DataType="{x:Type local:Character}">
+        <DataTemplate x:Key="PositionItemTemplate" DataType="{x:Type test:Character}">
             <TextBlock
                 Name="PART_TextBox"
                 FontWeight="Bold"

@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using UtilityWpf.TestData;
 
 namespace UtilityWpf.DemoApp
 {
@@ -63,11 +64,12 @@ namespace UtilityWpf.DemoApp
                 //      .WithSkip()           // Configures members to be skipped for a type
                 //      .WithOverride();      // Configures the generator overrides to use - can be called multiple times
                 //});
-                var personFaker = new AutoFaker<Character>()
-  .RuleFor(fake => fake.First, fake => fake.Random.Word())
-    .RuleFor(fake => fake.Last, fake => fake.Random.Word())
-        .RuleFor(fake => fake.Location, fake => new Point(fake.Random.Int(), fake.Random.Int()))
-                   .RuleFor(fake => fake.Age, fake => fake.Random.Int(0, 10000));
+                var personFaker = new AutoFaker<Person>()
+                .RuleFor(fake => fake.First, fake => fake.Random.Word())
+                .RuleFor(fake => fake.Last, fake => fake.Random.Word()) 
+                .RuleFor(fake => fake.Gender, fake => fake.Random.Enum<Gender>())
+                .RuleFor(fake => fake.Age, fake => fake.Random.Int(0, 10000));
+
                 this.Dispatcher.InvokeAsync(() => sic.Data = personFaker.Generate(10).DistinctBy(a=>a.First));
             });
         }
@@ -81,7 +83,7 @@ namespace UtilityWpf.DemoApp
         }
     }
 
-    public class ValueChangedCommand : UtilityWpf.View.ValueChangedCommand, INotifyPropertyChanged
+    public class ValueChangedCommand : UtilityWpf.Controls.ValueChangedCommand, INotifyPropertyChanged
     {
         private KeyValuePair<string, double> keyValuePair;
 

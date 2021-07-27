@@ -11,14 +11,13 @@ namespace CustomHelper
         public static List<Dynamic> OnGetData(IEnumerable enumerable, string key, string value)
         {
             var keys = ((IEnumerable)enumerable.First()).GetPropertyValues<object>(key);
-            //var values= ((IEnumerable)enumerable.First()).GetPropertyValues(value);
 
             try
             {
                 foreach (var k in keys)
                     Dynamic.AddProperty((string)k, typeof(string));
             }
-            catch
+            catch (System.Exception ex)
             {
             }
             var Customers = new List<Dynamic>();

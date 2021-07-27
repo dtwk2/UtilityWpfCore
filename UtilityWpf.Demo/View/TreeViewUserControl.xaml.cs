@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Windows.Controls;
+using UtilityWpf.TestData;
 
 namespace UtilityWpf.DemoApp
 {
