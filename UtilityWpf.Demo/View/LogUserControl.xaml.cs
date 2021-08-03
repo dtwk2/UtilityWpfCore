@@ -2,7 +2,7 @@
 using ReactiveUI;
 using Splat;
 using System.Windows.Controls;
-using ArxOne.MrAdvice.Advice;
+//using ArxOne.MrAdvice.Advice;
 using UtilityWpf.Command;
 
 namespace UtilityWpf.DemoApp
@@ -57,27 +57,26 @@ namespace UtilityWpf.DemoApp
             set => this.RaiseAndSetIfChanged(ref this.location, value);
         }
 
-        [LogAdvice]
-        public int AddLengths(string a, string b)
-        {
+        //[LogAdvice]
+        public int AddLengths(string a, string b) {
             if (a == null || b == null)
                 this.Log().Error("args are null");
             return a?.Length ?? 0 + b?.Length ?? 0;
 
         }
 
-        public class LogAdvice : System.Attribute, IMethodAdvice, IEnableLogger
-        {
-            public void Advise(MethodAdviceContext context)
-            {
-                // do things you want here
-                this.Log().Info("Method Name="+context.TargetName + 
-                                      "| Arguments= " + string.Join(", ", context.Arguments.Select(a => a?.ToString() ?? "null")));
+        //public class LogAdvice : System.Attribute, IMethodAdvice, IEnableLogger
+        //{
+        //    public void Advise(MethodAdviceContext context)
+        //    {
+        //        // do things you want here
+        //        this.Log().Info("Method Name="+context.TargetName + 
+        //                              "| Arguments= " + string.Join(", ", context.Arguments.Select(a => a?.ToString() ?? "null")));
 
-                context.Proceed(); // this calls the original method
-                // do other things here
-                this.Log().Info("Return Value= " + context.ReturnValue);
-            }
-        }
+        //        context.Proceed(); // this calls the original method
+        //        // do other things here
+        //        this.Log().Info("Return Value= " + context.ReturnValue);
+        //    }
+        //}
     }
 }
