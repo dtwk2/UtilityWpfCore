@@ -1,97 +1,137 @@
-﻿<UserControl x:Class="UtilityWpf.PanelDemo.RegionPanel3Demo"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"    
-             xmlns:controls="clr-namespace:UtilityWpf.PanelDemo"
-             xmlns:controls1="clr-namespace:Utility.UI.WPF.Panels"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    
+﻿<UserControl
+    x:Class="UtilityWpf.PanelDemo.RegionPanel3Demo"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:UtilityWpf.PanelDemo"
+    xmlns:controls1="clr-namespace:Utility.UI.WPF.Panels"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+
     <FrameworkElement.Resources>
         <x:Array x:Key="Array" x:Type="Grid">
             <Grid controls:RegionPanel.Region="Top">
                 <Ellipse
-                            Width="100"
-                            Height="20"
-                            
-                            Fill="Blue" />
-                <TextBlock Text="TopRight"/>
-            </Grid>
-            <Grid  controls:RegionPanel.Region="Top">
-                <Ellipse
-                            Width="10"
-                            Height="20"
-                         
-                            Fill="Blue" />
+                    Width="100"
+                    Height="20"
+                    Fill="Blue" />
                 <TextBlock Text="TopRight" />
             </Grid>
-            <Grid  controls:RegionPanel.Region="Top">
+            <Grid controls:RegionPanel.Region="Top">
                 <Ellipse
-                            Width="100"
-                            Height="120"
-                            
-                            Fill="LawnGreen" />
-                <TextBlock Text="BottomRight"></TextBlock>
+                    Width="10"
+                    Height="20"
+                    Fill="Blue" />
+                <TextBlock Text="TopRight" />
             </Grid>
-            <Grid  controls:RegionPanel.Region="Top">
+            <Grid controls:RegionPanel.Region="Top">
                 <Ellipse
-                            Width="100"
-                            Height="120"
-                            
-                            Fill="LawnGreen" />
-                <TextBlock Text="BottomRight"></TextBlock>
+                    Width="100"
+                    Height="120"
+                    Fill="LawnGreen" />
+                <TextBlock Text="BottomRight" />
             </Grid>
-            <Grid  controls:RegionPanel.Region="Top">
+            <Grid controls:RegionPanel.Region="Top">
                 <Ellipse
-                            Width="100"
-                            Height="120"
-                            
-                            Fill="LawnGreen" />
-                <TextBlock Text="BottomRight"></TextBlock>
+                    Width="100"
+                    Height="120"
+                    Fill="LawnGreen" />
+                <TextBlock Text="BottomRight" />
             </Grid>
-            <Grid  controls:RegionPanel.Region="Top">
+            <Grid controls:RegionPanel.Region="Top">
                 <Ellipse
-                            Width="100"
-                            Height="120"
-                            
-                            Fill="LawnGreen" />
-                <TextBlock Text="BottomRight"></TextBlock>
+                    Width="100"
+                    Height="120"
+                    Fill="LawnGreen" />
+                <TextBlock Text="BottomRight" />
+            </Grid>
+            <Grid controls:RegionPanel.Region="Top">
+                <Ellipse
+                    Width="100"
+                    Height="120"
+                    Fill="LawnGreen" />
+                <TextBlock Text="BottomRight" />
             </Grid>
         </x:Array>
     </FrameworkElement.Resources>
-    
+
     <DockPanel>
-        <ToolBar DockPanel.Dock="Top" Background="White">
-            <Button x:Name="ButtonLeft" Height="30" Width="60" Click="Left_Click">Left</Button>
-            <Button x:Name="ButtonRight" Height="30" Width="60" Click="Right_Click">Right</Button>
-            <Button x:Name="ButtonTop" Height="30" Width="60" Click="Top_Click">Top</Button>
-            <Button x:Name="ButtonBottom" Height="30" Width="60" Click="Bottom_Click">Bottom</Button>
-            <Button x:Name="MiddleBottom" Height="30" Width="60" Click="Middle_Click">Middle</Button>
-            <ToggleButton x:Name="UseAnimationRadioButton" Height="30" Width="200" IsChecked="False">Use Animation</ToggleButton>
-            <ToggleButton x:Name="UseDesiredSizeRadioButton" Height="30" Width="200" IsChecked="True">Use Desired Size</ToggleButton>
-0
+        <ToolBar Background="White" DockPanel.Dock="Top">
+            <Button
+                x:Name="ButtonLeft"
+                Width="60"
+                Height="30"
+                Click="Left_Click">
+                Left
+            </Button>
+            <Button
+                x:Name="ButtonRight"
+                Width="60"
+                Height="30"
+                Click="Right_Click">
+                Right
+            </Button>
+            <Button
+                x:Name="ButtonTop"
+                Width="60"
+                Height="30"
+                Click="Top_Click">
+                Top
+            </Button>
+            <Button
+                x:Name="ButtonBottom"
+                Width="60"
+                Height="30"
+                Click="Bottom_Click">
+                Bottom
+            </Button>
+            <Button
+                x:Name="MiddleBottom"
+                Width="60"
+                Height="30"
+                Click="Middle_Click">
+                Middle
+            </Button>
+            <ToggleButton
+                x:Name="UseAnimationRadioButton"
+                Width="200"
+                Height="30"
+                IsChecked="False">
+                Use Animation
+            </ToggleButton>
+            <ToggleButton
+                x:Name="UseDesiredSizeRadioButton"
+                Width="200"
+                Height="30"
+                IsChecked="True">
+                Use Desired Size
+            </ToggleButton>
+            0
         </ToolBar>
-        
+
         <StackPanel Background="White">
             <Label Height="30">Margin</Label>
-            <TextBlock Text="{Binding ElementName=CirclePanel1, Path=Margin}"></TextBlock>
+            <TextBlock Text="{Binding ElementName=CirclePanel1, Path=Margin}" />
         </StackPanel>
-        
-        <ScrollViewer >
+
+        <ScrollViewer>
             <!--<controls:RegionPanel UseAnimation="{Binding ElementName=UseAnimationRadioButton , Path=IsChecked}"
                                   UseDesiredSize="{Binding ElementName=UseDesiredSizeRadioButton , Path=IsChecked}"
-                Background="Lavender" Margin="10" x:Name="CirclePanel1" 
+                Background="Lavender" Margin="10" x:Name="CirclePanel1"
                 HeightRatio="{Binding ElementName=HeightBox, Path=Value}"
                 WidthRatio="{Binding ElementName=WidthBox, Path=Value}">
             </controls:RegionPanel>-->
 
-            <controls1:RegionPanel UseAnimation="{Binding ElementName=UseAnimationRadioButton , Path=IsChecked}"
-                                  UseDesiredSize="{Binding ElementName=UseDesiredSizeRadioButton , Path=IsChecked}"
-                Background="Lavender" Margin="10" x:Name="CirclePanel1" 
+            <controls1:RegionPanel
+                x:Name="CirclePanel1"
+                Margin="10"
+                Background="Lavender"
                 HeightRatio="{Binding ElementName=HeightBox, Path=Value}"
-                WidthRatio="{Binding ElementName=WidthBox, Path=Value}">
-            </controls1:RegionPanel>
+                UseAnimation="{Binding ElementName=UseAnimationRadioButton, Path=IsChecked}"
+                UseDesiredSize="{Binding ElementName=UseDesiredSizeRadioButton, Path=IsChecked}"
+                WidthRatio="{Binding ElementName=WidthBox, Path=Value}" />
         </ScrollViewer>
     </DockPanel>
 </UserControl>
