@@ -38,7 +38,7 @@
     </UserControl.Resources>
     
     
-    <local:AddDragRowControl CommandParameter="{Binding {x:Null}}" Orientation="Vertical" RemoveOrder="Selected" VerticalContentAlignment="Center">
+    <local:AddRowControl CommandParameter="{Binding {x:Null}}" Orientation="Vertical" RemoveOrder="Selected" VerticalContentAlignment="Center">
         <i:Interaction.Triggers>
             <i:EventTrigger  EventName="Change" >
                 <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
@@ -73,5 +73,5 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-    </local:AddDragRowControl>
+    </local:AddRowControl>
 </UserControl>

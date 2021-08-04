@@ -31,7 +31,7 @@ namespace UtilityWpf.Property
                                 handler => handler.Invoke,
                                 h => source.PropertyChanged += h,
                                 h => source.PropertyChanged -= h)
-                               .Where(_ => _.EventArgs.PropertyName == name)
+                               .Where(a => a.EventArgs.PropertyName == name)
                             .Select(_ => UtilityHelper.PropertyHelper.GetPropertyValue<R>(source, xx));
         }
 
@@ -43,7 +43,7 @@ namespace UtilityWpf.Property
                                 handler => handler.Invoke,
                                 h => source.PropertyChanged += h,
                                 h => source.PropertyChanged -= h)
-                                .Where(_ => _.EventArgs.PropertyName == name)
+                                .Where(a => a.EventArgs.PropertyName == name)
                                 .Select(_ => Tuple.Create(source, UtilityHelper.PropertyHelper.GetPropertyValue<R>(source, xx)));
         }
     }

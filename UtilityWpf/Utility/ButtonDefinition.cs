@@ -18,7 +18,7 @@ namespace UtilityWpf
             }
             else if (type.IsInterface)
             {
-                if (parameters?.All(_ => _ == null) == null)
+                if (parameters?.All(a => a == null) == null)
                     return type.LoadInterfaces(parameters);
                 else
                     return type.LoadInterfaces();

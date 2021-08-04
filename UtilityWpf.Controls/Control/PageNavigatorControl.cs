@@ -44,7 +44,7 @@ namespace UtilityWpf.Controls
             //{
             //});
 
-            var filteredPaginatedVM = new FilteredPaginatedModel<object>(ItemsSourceChanges.Select(_ => _.Cast<object>().ToObservable()).Switch().ToObservableChangeSet(),
+            var filteredPaginatedVM = new FilteredPaginatedModel<object>(ItemsSourceChanges.Select(a => a.Cast<object>().ToObservable()).Switch().ToObservableChangeSet(),
            obs,
            obs.Select(_ => new Func<object, bool>(a => true)));
 
@@ -53,7 +53,7 @@ namespace UtilityWpf.Controls
 
             filteredPaginatedVM.WhenAnyValue(a => a.PageResponse)
                 .CombineLatest(ControlTemplateChanges, (a, b) => b ? a : null)
-                .Where(_ => _ != null)
+                .Where(a => a != null)
                 .Subscribe(_ =>
                 {
                     this.Dispatcher.Invoke(() =>

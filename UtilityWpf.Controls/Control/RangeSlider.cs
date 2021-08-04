@@ -382,7 +382,7 @@ namespace UtilityWpf.Controls
             double tickFrequency;
             lock (sync)
             {
-                ticks = Ticks?.Select(_ => _).ToArray();
+                ticks = Ticks?.Select(a => a).ToArray();
                 min = Minimum;
                 max = Maximum;
                 tickFrequency = TickFrequency;

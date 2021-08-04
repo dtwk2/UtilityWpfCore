@@ -18,7 +18,7 @@ namespace UtilityWpf.Controls
 {
     public class SliderItemsControl : Controlx
     {
-        //Dictionary<string, Subject<object>> dict = typeof(SliderItemsControl).GetDependencyProperties().ToDictionary(_ => _.Name.Substring(0, _.Name.Length - 8), _ => new Subject<object>());
+        //Dictionary<string, Subject<object>> dict = typeof(SliderItemsControl).GetDependencyProperties().ToDictionary(a => a.Name.Substring(0, _.Name.Length - 8), _ => new Subject<object>());
         private ItemsControl ItemsControl;
 
         private StackPanel KeyValuePanel;
@@ -167,7 +167,7 @@ namespace UtilityWpf.Controls
 
         private Task<IEnumerable<KeyRange>> GetItems(IEnumerable data, string key, string value, string min, string max) => Task.Run(() =>
           {
-              var type = data.First().GetType().GetProperties().ToDictionary(_ => _.Name, _ => _);
+              var type = data.First().GetType().GetProperties().ToDictionary(a => a.Name, a => a);
               var keys = UtilityHelper.PropertyHelper.GetPropertyValues<string>(data, type[key]);
               var values = data.Cast<object>().Select(_ =>
               type[value].GetValue(_)).ToList().Select(_ => Convert.ToDouble(_));
@@ -189,7 +189,7 @@ namespace UtilityWpf.Controls
             {
                 var keyValuePair = new KeyValuePair<string, double>((sender as KeyRange).Key, (sender as KeyRange).Value);
                 KeyValuePair = keyValuePair;
-                Dictionary = ItemsControl.ItemsSource.OfType<KeyRange>().ToDictionary(_ => _.Key, _ => _.Value);
+                Dictionary = ItemsControl.ItemsSource.OfType<KeyRange>().ToDictionary(a => a.Key, a => a.Value);
                 RaiseValueChangedEvent(keyValuePair);
             }, System.Windows.Threading.DispatcherPriority.Background);
         }

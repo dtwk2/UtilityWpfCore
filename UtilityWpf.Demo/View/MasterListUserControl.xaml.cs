@@ -100,7 +100,7 @@ namespace UtilityWpf.DemoApp.View
         }
     }
 
-    public class AddDragRowControl : MasterControl
+    public class AddRowControl : MasterControl
     {
         protected override void ExecuteAdd(object parameter)
         {

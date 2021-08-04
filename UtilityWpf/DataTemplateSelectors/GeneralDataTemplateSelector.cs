@@ -33,7 +33,7 @@ namespace UtilityWpf.DataTemplateSelectors
             //var interfaces = type.GetInterfaces();
             //if (interfaces.Contains(typeof(IConvertible)))
             //    return IConvertibleTemplate;
-            //else if (interfaces.SingleOrDefault(_ => _.Name == "IDictionary`2") != null || interfaces.Contains(typeof(IDictionary)))
+            //else if (interfaces.SingleOrDefault(a => a.Name == "IDictionary`2") != null || interfaces.Contains(typeof(IDictionary)))
             //    return DictionaryDataTemplate;
             //else if (interfaces.Contains(typeof(IEnumerable)))
             //    return EnumerableDataTemplate;

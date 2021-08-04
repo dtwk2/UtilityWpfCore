@@ -448,12 +448,12 @@ namespace UtilityWpf.Controls
 
             public static Dictionary<T, R> ToDictionary<T, R>(this IEnumerable<KeyValuePair<T, R>> kvps) where T : notnull
             {
-                return kvps.ToDictionary(_ => _.Key, _ => _.Value);
+                return kvps.ToDictionary(a => a.Key, a => a.Value);
             }
 
             public static Dictionary<T, R> ToDictionary<T, R>(this IEnumerable<Tuple<T, R>> kvps) where T : notnull
             {
-                return kvps.ToDictionary(_ => _.Item1, _ => _.Item2);
+                return kvps.ToDictionary(a => a.Item1, a => a.Item2);
             }
 
             public static IEnumerable<dynamic> ToDynamics<T>(this IList<Dictionary<string, T>> dics) where T : notnull
