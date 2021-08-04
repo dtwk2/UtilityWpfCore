@@ -341,14 +341,14 @@ namespace UtilityWpf.Controls
         [Bindable(true)]
         public DoubleCollection GeneratedTicks
         {
-            get => GetValue(GeneratedTicksProperty) as DoubleCollection;
+            get => (DoubleCollection)GetValue(GeneratedTicksProperty);
             set => SetValue(GeneratedTicksProperty, value);
         }
 
         [Bindable(true)]
         public DataTemplate TickLabelTemplate
         {
-            get => GetValue(TickLabelTemplateProperty) as DataTemplate;
+            get => (DataTemplate)GetValue(TickLabelTemplateProperty);
             set => SetValue(TickLabelTemplateProperty, value);
         }
 
@@ -369,20 +369,20 @@ namespace UtilityWpf.Controls
             CalculateTicks();
         }
 
-        protected override Geometry GetLayoutClip(Size layoutSlotSize)
+        protected override Geometry? GetLayoutClip(Size layoutSlotSize)
         {
             return ClipToBounds ? base.GetLayoutClip(layoutSlotSize) : null;
         }
 
         private async void CalculateTicks()
         {
-            double[] ticks = null;
+            double[]? ticks = null;
             double min;
             double max;
             double tickFrequency;
             lock (sync)
             {
-                ticks = Ticks?.Select(a => a).ToArray();
+                ticks = Ticks?.ToArray();
                 min = Minimum;
                 max = Maximum;
                 tickFrequency = TickFrequency;

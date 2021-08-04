@@ -18,7 +18,6 @@ namespace UtilityWpf.Controls
 {
     public class SliderItemsControl : Controlx
     {
-        //Dictionary<string, Subject<object>> dict = typeof(SliderItemsControl).GetDependencyProperties().ToDictionary(a => a.Name.Substring(0, _.Name.Length - 8), _ => new Subject<object>());
         private ItemsControl ItemsControl;
 
         private StackPanel KeyValuePanel;
@@ -40,11 +39,6 @@ namespace UtilityWpf.Controls
         public static readonly DependencyProperty MinProperty = DependencyProperty.Register("Min", typeof(string), typeof(SliderItemsControl), new PropertyMetadata(null, Changed));
 
         public static readonly DependencyProperty MaxProperty = DependencyProperty.Register("Max", typeof(string), typeof(SliderItemsControl), new PropertyMetadata(null, Changed));
-
-        //private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        //{
-        //    (d as SliderItemsControl).dict[e.Property.Name].OnNext(e.NewValue);
-        //}
 
         static SliderItemsControl()
         {

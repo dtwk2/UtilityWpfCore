@@ -36,13 +36,6 @@ namespace UtilityWpf.Controls
 
             var obs = pageRequests.StartWith(new PageRequest(1, 20));
 
-            //obs.Subscribe(_ =>
-            //                                                         {
-            //                                                         });
-
-            //ItemsSourceChanges.Subscribe(_ =>
-            //{
-            //});
 
             var filteredPaginatedVM = new FilteredPaginatedModel<object>(ItemsSourceChanges.Select(a => a.Cast<object>().ToObservable()).Switch().ToObservableChangeSet(),
            obs,
@@ -54,14 +47,14 @@ namespace UtilityWpf.Controls
             filteredPaginatedVM.WhenAnyValue(a => a.PageResponse)
                 .CombineLatest(ControlTemplateChanges, (a, b) => b ? a : null)
                 .Where(a => a != null)
-                .Subscribe(_ =>
+                .Subscribe(a =>
                 {
                     this.Dispatcher.Invoke(() =>
                         {
-                            SizeControl.TotalSize = _.Page;
-                            SizeControl.Size = _.PageSize;
-                            NavigatorControl.Size = _.Pages;
-                            NavigatorControl.Current = _.TotalSize;
+                            SizeControl.TotalSize = a.Page;
+                            SizeControl.Size = a.PageSize;
+                            NavigatorControl.Size = a.Pages;
+                            NavigatorControl.Current = a.TotalSize;
                         });
                 });
         }
@@ -112,21 +105,3 @@ namespace UtilityWpf.Controls
         }
     }
 }
-
-//    public class PageNavigatorControl()
-//        {
-//        var obs = (CurrentPageSubject).DistinctUntilChanged().CombineLatest(PageSizeSubject, (a, b) =>
-//        new { page = a, size = b });
-
-//    var Output = (NextCommand as ReactiveCommand)
-//        .WithLatestFrom(obs, (a, b) => new PageRequest(b.page + 1, b.size))
-//        .Merge((PreviousCommand as ReactiveCommand)
-//        .WithLatestFrom(obs, (a, b) => new PageRequest(b.page - 1, b.size)))
-//     /*   .StartWith(new PageRequest(1, 25))*/.ToReactiveProperty();
-
-//    Output.Subscribe(_ =>
-//        {
-//           this.Dispatcher.InvokeAsync(() => PageRequest = _, System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
-//            //PageRequest = _;
-//        });
-//}

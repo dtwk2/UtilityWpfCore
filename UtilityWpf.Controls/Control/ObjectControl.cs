@@ -22,7 +22,6 @@ using Endless.Functional;
 
 namespace UtilityWpf.Controls
 {
-    using AutoMapper;
     using Humanizer;
     using MoreLinq;
     using Utility;

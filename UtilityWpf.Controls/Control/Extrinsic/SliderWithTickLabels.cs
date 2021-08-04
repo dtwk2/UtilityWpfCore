@@ -54,7 +54,7 @@ namespace UtilityWpf.Controls.Extrinsic
         [Bindable(true)]
         public DataTemplate TickLabelTemplate
         {
-            get => base.GetValue(SliderWithTickLabels.TickLabelTemplateProperty) as DataTemplate;
+            get => (DataTemplate)base.GetValue(SliderWithTickLabels.TickLabelTemplateProperty);
             set => base.SetValue(SliderWithTickLabels.TickLabelTemplateProperty, value);
         }
 
@@ -88,14 +88,14 @@ namespace UtilityWpf.Controls.Extrinsic
             this.CalculateTicks();
         }
 
-        protected override Geometry GetLayoutClip(Size layoutSlotSize)
+        protected override Geometry? GetLayoutClip(Size layoutSlotSize)
         {
             return ClipToBounds ? base.GetLayoutClip(layoutSlotSize) : null;
         }
 
         private async void CalculateTicks()
         {
-            double[] ticks = null;
+            double[]? ticks = null;
             double min;
             double max;
             double tickFrequency;
@@ -109,7 +109,6 @@ namespace UtilityWpf.Controls.Extrinsic
 
             await Task.Run(async () =>
         {
-            DoubleCollection c = null;
             try
             {
                 if (ticks != null && ticks.Any())
