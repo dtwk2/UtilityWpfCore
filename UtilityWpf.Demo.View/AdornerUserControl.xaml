@@ -1,0 +1,80 @@
+﻿<UserControl
+    x:Class="UtilityWpf.Demo.View.AdornerUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local1="clr-namespace:UtilityWpf.Behavior;assembly=UtilityWpf"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+
+    <TabControl >
+        <TabItem Header="Drag">
+            <StackPanel>
+                <Button Height="40" Click="Add_Click" Content="Add Adorners"/>
+                <Button Height="40" Click="Remove_Click"  Content="Remove Adorners"/>
+                <Canvas Name="canvas" Height="540" Margin="0,14,25,15">
+
+                    <Border BorderBrush="Blue" BorderThickness="2" CornerRadius="45" Width="570" Height="274" Background="White"  Canvas.Left="50" Canvas.Top="50">
+                    </Border>
+                    <Ellipse Canvas.Left="200" Canvas.Top="200" Height="110" Stroke="Green" StrokeThickness="2" Fill="Transparent" Width="110"/>
+
+                </Canvas>
+            </StackPanel>
+        </TabItem>
+        <TabItem Header="Hover">
+            <Grid
+        x:Name="Grid1"
+        Width="908"
+        Height="309">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="TextBlock1" />
+                <StackPanel Grid.Row="1">
+                    <Button
+                Name="button1"
+                Width="98"
+                Height="35"
+                Margin="0,4,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Click="button1_Click"
+                Content="Button "
+                FontSize="18"
+                FontWeight="Bold"
+                Foreground="#FF7A0000">
+                        <i:Interaction.Behaviors>
+                            <local1:AdornerBehavior Command="{Binding TextCommand}" />
+                        </i:Interaction.Behaviors>
+                    </Button>
+                    <Canvas>
+                        <Path
+                    Canvas.Left="30"
+                    Canvas.Top="100"
+                    Stroke="Black"
+                    StrokeThickness="5">
+                            <i:Interaction.Behaviors>
+
+                                <local1:AdornerBehavior />
+                            </i:Interaction.Behaviors>
+                            <Path.Data>
+                                <PathGeometry>
+                                    <PathGeometry.Figures>
+                                        <PathFigure IsClosed="False" StartPoint="100,50">
+                                            <LineSegment Point="240,60" />
+                                            <LineSegment Point="350,100" />
+                                        </PathFigure>
+                                    </PathGeometry.Figures>
+                                </PathGeometry>
+                            </Path.Data>
+                        </Path>
+                    </Canvas>
+                </StackPanel>
+            </Grid>
+        </TabItem>
+    </TabControl>
+</UserControl>
