@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace UtilityWpf.DemoAnimation
+namespace UtilityWpf.Demo.Animation.View
 {
     /// <summary>
     /// Interaction logic for TransitionElementUserControl.xaml

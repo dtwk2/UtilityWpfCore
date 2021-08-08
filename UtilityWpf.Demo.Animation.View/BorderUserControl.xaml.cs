@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace UtilityWpf.DemoAnimationCore
+namespace UtilityWpf.Demo.Animation.ViewCore
 {
     /// <summary>
     /// Interaction logic for BorderUserControl.xaml

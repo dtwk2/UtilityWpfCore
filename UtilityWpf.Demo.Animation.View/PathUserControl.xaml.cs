@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace UtilityWpf.DemoAnimation
+namespace UtilityWpf.Demo.Animation.View
 {
     /// <summary>
     /// Interaction logic for PathUserControl.xaml

@@ -12,7 +12,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace UtilityWpf.DemoAnimation
+namespace UtilityWpf.Demo.Animation.View
 {
     /// <summary>
     /// Interaction logic for TextBoxUserControl.xaml
