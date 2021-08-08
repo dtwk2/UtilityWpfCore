@@ -7,8 +7,10 @@
     xmlns:local="clr-namespace:UtilityWpf.Demo.View"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:view="http://schemas.utility.com" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:view="http://schemas.utility.com" 
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     d:DesignHeight="450"
+    d:Background="White"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <UserControl.DataContext>
@@ -30,7 +32,6 @@
             </DataTemplate>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DragablzItem.xaml"></ResourceDictionary>
-
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 
@@ -54,23 +55,13 @@
                                 <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
-                        <dragablz:DragablzItemsControl x:Name="DragablzItemsControl" ItemsSource="{Binding Data}" Background="GhostWhite" 
-                                                       VerticalAlignment="Center" 
-                                                       Margin="10,0"
+                        <view:DragablzHorizontalItemsControl x:Name="DragablzItemsControl" 
+                                                       ItemsSource="{Binding Data}"                                                       
+                                                       VerticalAlignment="Center"                                                 
                                                        ItemContainerStyle="{StaticResource DragablzItemStyle}"
-                                                       ItemTemplate="{StaticResource Int32Template}"
-                                                       HorizontalAlignment="Left" 
-                                                       HorizontalContentAlignment="Left"
-                                                       MouseDown="DragablzItemsControl_MouseDown">
-                            <dragablz:DragablzItemsControl.PositionMonitor>
-                                <dragablz:HorizontalPositionMonitor OrderChanged="StackPositionMonitor_OnOrderChanged" LocationChanged="HorizontalPositionMonitor_LocationChanged"/>
-                            </dragablz:DragablzItemsControl.PositionMonitor>
-                            <dragablz:DragablzItemsControl.ItemsOrganiser>
-                                <dragablz:HorizontalOrganiser />                     
-                            </dragablz:DragablzItemsControl.ItemsOrganiser>                   
-                        </dragablz:DragablzItemsControl>
-                        
-                        
+                                                       ItemTemplate="{StaticResource Int32Template}"                                                      
+                                                       MouseDown="DragablzItemsControl_MouseDown">                                         
+                        </view:DragablzHorizontalItemsControl>    
                     </local:AddDragItemControl>
                 </DataTemplate>
             </ListBox.ItemTemplate>

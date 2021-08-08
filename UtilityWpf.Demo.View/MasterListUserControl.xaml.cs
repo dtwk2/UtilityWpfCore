@@ -64,6 +64,9 @@ namespace UtilityWpf.Demo.View
         }
         object number;
         double start = 0;
+        private DeleteAdorner adorner;
+        private AdornerLayer layer;
+
         private void HorizontalPositionMonitor_LocationChanged(object sender, LocationChangedEventArgs e)
         {
             if (number != e.Item)
@@ -71,12 +74,24 @@ namespace UtilityWpf.Demo.View
                 number = e.Item;
                 start = e.Location.X;
             }
-            if (System.Math.Abs(e.Location.X - start) > 20)
+            if (System.Math.Abs(e.Location.X - start) > 100)
             {
-
+                if (adorner == null)
+                {
+                    layer ??= AdornerLayer.GetAdornerLayer(this.MainListBox);
+                    adorner = new DeleteAdorner(MainListBox);
+                    layer.Add(adorner);
+                }
+                return;
             }
-                var layer = AdornerLayer.GetAdornerLayer(this.MainListBox);
-            layer.Add(new DeleteAdorner(MainListBox));
+            adorner = null;
+            layer ??= AdornerLayer.GetAdornerLayer(this.MainListBox);
+            Adorner[] toRemoveArray = layer.GetAdorners(this.MainListBox);
+            if (toRemoveArray != null)
+                foreach (Adorner a in toRemoveArray)
+                {
+                    layer.Remove(a);
+                }
         }
     }
 
@@ -88,7 +103,7 @@ namespace UtilityWpf.Demo.View
         protected override void OnRender(System.Windows.Media.DrawingContext drawingContext)
         {
             drawingContext.DrawRectangle(Brushes.Blue, new Pen(Brushes.Red, 1),
-            new Rect(new Point(0, 0), DesiredSize));
+            new Rect(new Point(10, DesiredSize.Height-40), new Size(DesiredSize.Width-20, 50)));
             base.OnRender(drawingContext);
         }
     }
@@ -116,16 +131,24 @@ namespace UtilityWpf.Demo.View
         public ObservableCollection<RowViewModel> Rows { get; }
 
         public ICommand ChangeCommand { get; }
+
     }
 
     public class AddDragItemControl : MasterControl
     {
+
+        public AddDragItemControl()
+        {
+            
+        }
         protected override void ExecuteAdd(object parameter)
         {
             (Content as DragablzItemsControl).AddToSource(parameter, AddLocationHint.Last);
             base.ExecuteAdd(parameter);
 
         }
+
+
     }
 
     public class AddRowControl : MasterControl
