@@ -77,7 +77,7 @@
                     <testApp1:TimedProgressBar
                     x:Name="activeTrack"
                     Grid.Row="1"
-                      Style="{StaticResource MaterialDesignLinearProgressBar}"
+                      Style="{DynamicResource MaterialDesignLinearProgressBar}"
                     Duration="{Binding
                                         Path=Value,
                                         RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Slider}},

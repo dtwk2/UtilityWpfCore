@@ -6,11 +6,11 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using UtilityWpf.AnimationCore;
 
-namespace UtilityWpf.Animation {
+namespace UtilityWpf.Animation
+{
 
-   public class TravellerControl : Canvas {
+    public class TravellerControl : Canvas {
 
       private readonly EllipseGeometry particlePath;
       private Path ellipsePath;
