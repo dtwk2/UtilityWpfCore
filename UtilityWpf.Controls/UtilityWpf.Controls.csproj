@@ -173,6 +173,10 @@
     <Page Update="Themes\LabelledTextBox.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Themes\MasterDetail.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Themes\MasterDetailView.xaml">
       <SubType>Designer</SubType>
     </Page>
