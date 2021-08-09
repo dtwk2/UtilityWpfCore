@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Windows;
-using UtilityWpf.Demo.Animation.View;
+using UtilityWpf.Demo.View.Animation;
 using UtilityWpf.Demo.View;
-using UtilityWpf.Demo.Panels.View;
+using UtilityWpf.Demo.View.Panels;
 
 namespace UtilityWpf.DemoApp
 {
