@@ -72,4 +72,5 @@
         EnumerableDataTemplate="{StaticResource EnumerableTemplate}"
         IConvertibleTemplate="{StaticResource IConvertibleTemplate}"
         ViewModelHostViewTemplate="{StaticResource ViewModelTemplate}" />
+    
 </ResourceDictionary>

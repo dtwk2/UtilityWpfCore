@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:extrinsic="clr-namespace:UtilityWpf.Controls.Extrinsic"
+    xmlns:util="clr-namespace:UtilityWpf.Controls.Extrinsic"
     xmlns:view="clr-namespace:UtilityWpf.Controls">
 
     <Style TargetType="{x:Type view:TimeSpanControl}">
@@ -10,7 +10,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type view:TimeSpanControl}">
                     <UniformGrid Rows="1">
-                        <extrinsic:SpinnerControl
+                        <util:SpinnerControl
                             x:Name="IntervalValueSpinner"
                             StringFormat=""
                             Margin="1"

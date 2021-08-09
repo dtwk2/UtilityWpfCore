@@ -9,14 +9,15 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Threading;
+using UtilityHelperEx;
 using UtilityWpf.Controls.Infrastructure;
 
 namespace UtilityWpf.Controls
 {
     public class MasterDetailView : ContentControlx
     {
-        protected ISubject<string> GroupNameChanges = new Subject<string>();
-        protected ISubject<string> NameChanges = new Subject<string>();
+        protected Subject<string> GroupNameChanges = new();
+        protected Subject<string> NameChanges = new();
 
         public static readonly DependencyProperty IdProperty = DependencyProperty.Register("Id", typeof(string), typeof(MasterDetailView), new PropertyMetadata("Id", Changed));
         public static readonly DependencyProperty ItemsProperty = DependencyProperty.Register("Items", typeof(IEnumerable), typeof(MasterDetailView), new PropertyMetadata(null, Changed));
@@ -70,35 +71,41 @@ namespace UtilityWpf.Controls
 
             //Dictionary<Type, object> dict = new Dictionary<Type, object>();
             outputChanges
-                .CombineLatest(SelectPropertyChanges<string>(nameof(Id)).StartWith(Id), (a, b) => (a, b))
+                .CombineLatest(SelectPropertyChanges<string>(nameof(Id)).StartWith(Id))
                 .Select(vm =>
                 {
-                    var id = vm.a.GetType().GetProperty(vm.b).GetValue(vm.a).ToString();
-                    return id;
-                }).Subscribe(NameChanges);
+                    var type = vm.First.GetType();
+                    var properties = type.GetProperties().ToDictionary(a => a.Name, a => a);
+                    if (properties.ContainsKey(vm.Second))
+                        return properties[vm.Second].GetValue(vm.First);
+                    return properties.Where(a => a.Value.PropertyType == typeof(string)).FirstOrDefault().Value?.GetValue(vm.First);
+                })
+                .WhereNotNull()
+                .Cast<string>()
+                .Subscribe(NameChanges);
 
             outputChanges
-                        .CombineLatest(SelectPropertyChanges<IValueConverter>(nameof(DataConverter)).StartWith(default(IValueConverter)), (a, b) => (a, b))
-                        .SubscribeOn(TaskPoolScheduler.Default)
+                        .CombineLatest(SelectPropertyChanges<IValueConverter>(nameof(DataConverter)).StartWith(default(IValueConverter)))  
                         .ObserveOnDispatcher()
                         .Subscribe(collConv => Dispatcher.InvokeAsync(() =>
                         {
-                            Convert(collConv.a, collConv.b, (items, conv) => conv.Convert(collConv.a, null, null, null) as IEnumerable);
-                        }, DispatcherPriority.Normal));
+                            Convert(collConv.First, collConv.Second, (items, conv) => conv.Convert(collConv.First, null, null, null) as IEnumerable);
+                        }));
 
-            SelectPropertyChanges<PropertyGroupDescription>().StartWith(PropertyGroupDescription)
-                .CombineLatest(ControlChanges.Where(c => c.GetType() == typeof(DockPanel)).Take(1), (pgd, DockPanel) => (pgd, DockPanel)).Subscribe(_ =>
-            {
-                if ((_.DockPanel as DockPanel)?.FindResource("GroupedItems") is CollectionViewSource collectionViewSource)
-                    collectionViewSource.GroupDescriptions.Add(_.pgd);
-            });
+            SelectPropertyChanges<PropertyGroupDescription>()
+                .StartWith(PropertyGroupDescription)
+                .CombineLatest(ControlChanges.Where(c => c.GetType() == typeof(FrameworkElement)).Take(1))
+                .Subscribe(a =>
+                {
+                    if ((a.Second as FrameworkElement)?.FindResource("GroupedItems") is CollectionViewSource collectionViewSource)
+                        collectionViewSource.GroupDescriptions.Add(a.First);
+                });
 
             GroupClick = new Command.RelayCommand<string>(a => GroupNameChanges.OnNext(a));
 
             NameChanges
                 .Merge(GroupNameChanges)
                 .CombineLatest(ControlChanges.Select(c => c as TextBlock).Where(c => c != null),
-
                 (text, textBlock) => (text, textBlock))
                 .ObserveOnDispatcher()
                 .Subscribe(input =>
@@ -109,37 +116,37 @@ namespace UtilityWpf.Controls
                     input.textBlock.IsEnabled = false;
                 });
 
-            GroupNameChanges.CombineLatest(
+            GroupNameChanges
+                .CombineLatest(
                   SelectPropertyChanges<PropertyGroupDescription>().StartWith(PropertyGroupDescription),
                 SelectPropertyChanges<IValueConverter>(nameof(DataConverter)).StartWith(default(IValueConverter)),
-                                SelectPropertyChanges<string>(nameof(Id)).StartWith(Id),
-                (text, pg, conv, id) => (text, pg, conv, id))
-                //.ObserveOn(TaskPoolScheduler.Default)
+                SelectPropertyChanges<string>(nameof(Id)).StartWith(Id)) 
                 .Subscribe(async input =>
                 {
+                    var (text, groupDescriptor, conv, id) = input;
                     await Dispatcher.InvokeAsync(() =>
                     {
                         var paths = Items.Cast<object>();
-                        var prop = paths.First().GetType().GetProperty(input.pg.PropertyName);
+                        var prop = paths.First().GetType().GetProperty(groupDescriptor.PropertyName);
 
                         // property-group-converter
-                        var converter = input.pg.Converter;
+                        var converter = groupDescriptor.Converter;
 
                         var group = paths.Where(ad =>
                         {
                             bool result = converter != default ?
-                                    input.text
+                                    text
                                             .Equals(converter.Convert(prop.GetValue(ad), null, null, null)) :
-                                    input.text
+                                    text
                                             .Equals(prop.GetValue(ad));
                             return result;
                         })
                         .Select(viewmodel =>
                         new Property.KeyValue(
-                            viewmodel.GetType().GetProperty(input.id).GetValue(viewmodel).ToString(),
+                            viewmodel.GetType().GetProperty(id).GetValue(viewmodel).ToString(),
                             viewmodel));
-                        Convert(group, input.conv, (items, conv) => conv.Convert(items, null, null, null));
-                    }, DispatcherPriority.Background);
+                        Convert(group, conv, (items, conv) => conv.Convert(items, null, null, null));
+                    });
                 });
 
             ContentTemplateSelector = new PropertyDataTemplateSelector();

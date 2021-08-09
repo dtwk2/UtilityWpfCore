@@ -24,7 +24,7 @@ namespace UtilityWpf
             .Select(a => a.EventArgs);
         
         
-        public static IObservable<IList> SelectAddChanges(this Selector selector) =>
+        public static IObservable<IList> SelectSelectionAddChanges(this Selector selector) =>
 
             Observable
             .FromEventPattern<SelectionChangedEventHandler, SelectionChangedEventArgs>
@@ -32,7 +32,7 @@ namespace UtilityWpf
             .Select(a => a.EventArgs.AddedItems)
             .Where(a => a.Count > 0);
 
-        public static IObservable<IList> SelectRemoveChanges(this Selector selector) =>
+        public static IObservable<IList> SelectSelectionRemoveChanges(this Selector selector) =>
             Observable
             .FromEventPattern<SelectionChangedEventHandler, SelectionChangedEventArgs>
             (a => selector.SelectionChanged += a, a => selector.SelectionChanged -= a)

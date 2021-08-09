@@ -14,15 +14,15 @@ namespace UtilityWpf.Behavior
     public class DataGridExtensions
     {
         public static readonly DependencyProperty ObserveVisiblePersonsProperty = DependencyProperty.RegisterAttached(
-            "ObserveVisiblePersons", typeof(bool), typeof(DataGridExtensions),
+            "ObserveVisiblePersons", typeof(bool), typeof(DataGrid),
             new PropertyMetadata(false, OnObserveVisiblePersonsChanged));
 
         public static readonly DependencyProperty VisibleItemsProperty = DependencyProperty.RegisterAttached(
-            "VisibleItems", typeof(IEnumerable), typeof(DataGridExtensions),
+            "VisibleItems", typeof(IEnumerable), typeof(DataGrid),
             new PropertyMetadata(null));
 
         private static readonly DependencyProperty SenderDataGridProperty = DependencyProperty.RegisterAttached(
-            "SenderDataGrid", typeof(DataGrid), typeof(DataGridExtensions), new PropertyMetadata(default(DataGrid)));
+            "SenderDataGrid", typeof(DataGrid), typeof(DataGrid), new PropertyMetadata(default(System.Windows.Controls.DataGrid)));
 
         public static void SetObserveVisiblePersons(DependencyObject element, bool value) => element.SetValue(ObserveVisiblePersonsProperty, value);
 
@@ -30,7 +30,7 @@ namespace UtilityWpf.Behavior
 
         private static void SetSenderDataGrid(DependencyObject element, DataGrid value) => element.SetValue(SenderDataGridProperty, value);
 
-        private static DataGrid GetSenderDataGrid(DependencyObject element) => (DataGrid)element.GetValue(SenderDataGridProperty);
+        private static System.Windows.Controls.DataGrid GetSenderDataGrid(DependencyObject element) => (DataGrid)element.GetValue(SenderDataGridProperty);
 
         public static void SetVisibleItems(DependencyObject element, object[] value) => element.SetValue(VisibleItemsProperty, value);
 
@@ -72,31 +72,6 @@ namespace UtilityWpf.Behavior
                     yield return dataGrid.Items[i];
                 }
             }
-        }
-
-        private static class VisualTreeHelperEx
-        {
-            public static IList<T> FindChildren<T>(DependencyObject element) where T : FrameworkElement
-            {
-                List<T> retval = new List<T>();
-                for (int counter = 0; counter < VisualTreeHelper.GetChildrenCount(element); counter++)
-                {
-                    FrameworkElement toadd = VisualTreeHelper.GetChild(element, counter) as FrameworkElement;
-                    if (toadd != null)
-                    {
-                        T correctlyTyped = toadd as T;
-                        if (correctlyTyped != null)
-                        {
-                            retval.Add(correctlyTyped);
-                        }
-                        else
-                        {
-                            retval.AddRange(FindChildren<T>(toadd));
-                        }
-                    }
-                }
-                return retval;
-            }
-        }
+        }  
     }
 }

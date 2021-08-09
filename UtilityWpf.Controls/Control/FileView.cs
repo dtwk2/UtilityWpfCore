@@ -13,19 +13,23 @@ namespace UtilityWpf.Controls
     public class FileView : Control
     {
         public static readonly DependencyProperty DirectoryProperty = DependencyProperty.Register("Directory", typeof(string), typeof(FileView), new PropertyMetadata(null));
+        public static readonly DependencyProperty RefreshProperty =    DependencyProperty.Register("Refresh", typeof(ICommand), typeof(FileView), new PropertyMetadata(null));
 
-        private OpenFileControl? openFileControl;
-        private ContentControl? contentControl;
+        private OpenFileControl openFileControl;
+        private ContentControl contentControl;
 
         static FileView()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(FileView), new FrameworkPropertyMetadata(typeof(FileView)));
         }
+        public FileView()
+        {
+        }
 
         public override void OnApplyTemplate()
         {
-            openFileControl = GetTemplateChild("OpenFileControl1") as OpenFileControl ?? throw new NullReferenceException("FileView object is null");
-            contentControl = GetTemplateChild("ContentControl1") as ContentControl ?? throw new NullReferenceException("FileView object is null");
+            openFileControl = GetTemplateChild("OpenFileControl1") as OpenFileControl ?? throw new NullReferenceException("OpenFileControl1");
+            contentControl = GetTemplateChild("ContentControl1") as ContentControl ?? throw new NullReferenceException("ContentControl1");
 
             this.WhenAnyValue(v => v.Directory)
                 .Subscribe(directory =>
@@ -43,10 +47,6 @@ namespace UtilityWpf.Controls
             });
         }
 
-        public FileView()
-        {
-        }
-
         public string Directory
         {
             get => (string)GetValue(DirectoryProperty);
@@ -59,22 +59,12 @@ namespace UtilityWpf.Controls
             set => SetValue(RefreshProperty, value);
         }
 
-        // Using a DependencyProperty as the backing store for Refresh.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty RefreshProperty =
-            DependencyProperty.Register("Refresh", typeof(ICommand), typeof(FileView), new PropertyMetadata(null));
-
-        //public Type Type
-        //{
-        //    get => (Type)GetValue(TypeProperty);
-        //    set => SetValue(TypeProperty, value);
-        //}
 
         protected virtual void OpenFileControl_FileSelected(object sender, RoutedEventArgs e)
         {
             if (e is not FileSelectedEventArgs fileSelectedEventArgs) return;
-            if (contentControl == null) return;
 
-            switch (System.IO.Path.GetExtension(fileSelectedEventArgs.File))
+            switch (Path.GetExtension(fileSelectedEventArgs.File))
             {
                 case ".json":
                     contentControl.Content = ConvertJson(fileSelectedEventArgs.File);

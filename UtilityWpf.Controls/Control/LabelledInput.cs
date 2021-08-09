@@ -15,15 +15,9 @@ namespace UtilityWpf.Controls
         private Label? theLabel;
         private TextBlock? hintBox;
 
-        public static readonly DependencyProperty LabelTextProperty =
-            DependencyProperty.Register("LabelText", typeof(string), typeof(LabelledInput));
-
-        public static readonly DependencyProperty HintProperty =
-            DependencyProperty.Register("Hint", typeof(string), typeof(LabelledInput));
-
-        public static readonly DependencyProperty HintColorProperty =
-            DependencyProperty.Register("HintColor", typeof(Color), typeof(LabelledInput), new PropertyMetadata(Colors.Gray));
-
+        public static readonly DependencyProperty LabelTextProperty = DependencyProperty.Register("LabelText", typeof(string), typeof(LabelledInput));
+        public static readonly DependencyProperty HintProperty = DependencyProperty.Register("Hint", typeof(string), typeof(LabelledInput));
+        public static readonly DependencyProperty HintColorProperty = DependencyProperty.Register("HintColor", typeof(Color), typeof(LabelledInput), new PropertyMetadata(Colors.Gray));
 
         static LabelledInput()
         {
@@ -57,20 +51,18 @@ namespace UtilityWpf.Controls
             {
                 theLabel.Opacity = OpacityLabel;
                 GotFocus += LabelledInput_GotFocus;
-                LostFocus += LabelledInput_LostFocus; ;
+                LostFocus += LabelledInput_LostFocus;
             }
 
             void LabelledInput_LostFocus(object sender, RoutedEventArgs e)
             {
                 DoubleAnimation animation = new(theLabel!.Opacity, OpacityLabel, new Duration(TimeSpan.FromSeconds(1)));
-
                 theLabel.BeginAnimation(OpacityProperty, animation);
             }
 
             void LabelledInput_GotFocus(object sender, RoutedEventArgs e)
             {
                 DoubleAnimation animation = new(theLabel!.Opacity, 1, new Duration(TimeSpan.FromSeconds(0.1)));
-
                 theLabel.BeginAnimation(OpacityProperty, animation);
             }
         }
@@ -92,7 +84,6 @@ namespace UtilityWpf.Controls
         {
             get => (Color)GetValue(HintColorProperty);
             set => SetValue(HintColorProperty, value);
-
         }
     }
 }

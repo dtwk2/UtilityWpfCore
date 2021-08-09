@@ -124,7 +124,7 @@ namespace UtilityWpf.Attached
             if (d is Selector selector)
             {
                 DataTemplate originalTemplate = selector.ItemTemplate;
-                _ = selector.SelectAddChanges()
+                _ = selector.SelectSelectionAddChanges()
                     .Subscribe(add =>
                     {
                         foreach (ListBoxItem lbx in selector.Items.Cast<object>().Select(a => selector.ItemContainerGenerator.ContainerFromItem(a)).OfType<ListBoxItem>())

@@ -104,8 +104,9 @@ namespace UtilityWpf.Controls
 
         public MasterControl()
         {
-            this.WhenAnyValue(a => a.Orientation).CombineLatest(this.SelectControlChanges<WrapPanel>("WrapPanel1"), (a, b) => (a, b))
-                .Where(a => a.b != null)
+            this.WhenAnyValue(a => a.Orientation)
+                .CombineLatest(this.SelectControlChanges<WrapPanel>("WrapPanel1"))
+                .Where(a => a.Second != null)
                 .Subscribe(c =>
                 {
                     var (orientation, dockPanel) = c;
@@ -260,7 +261,7 @@ namespace UtilityWpf.Controls
         protected virtual List<IndexedObject> GetIndexedObjects()
         {
             List<IndexedObject> list = new();
-            List<IndexedObject> changes = new();
+            //List<IndexedObject> changes = new();
             foreach (var item in itemsControl.Items)
             {
                 var oldIndex = itemsControl.Items.IndexOf(item);

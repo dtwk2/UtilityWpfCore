@@ -41,7 +41,7 @@ namespace UtilityWpf.Controls
 
         public override void OnApplyTemplate()
         {
-            this.SelectControlChanges<ComboBox>().SelectMany(a => a.SelectAddChanges().Select(a => a.Cast<TimeInterval>().First())).StartWith((TimeInterval)this.GetValue(TimeIntervalProperty))
+            this.SelectControlChanges<ComboBox>().SelectMany(a => a.SelectSelectionAddChanges().Select(a => a.Cast<TimeInterval>().First())).StartWith((TimeInterval)this.GetValue(TimeIntervalProperty))
                       .CombineLatest(this.SelectControlChanges<SpinnerControl>().SelectMany(a => a.ValueChanges()).StartWith((decimal)this.GetValue(ValueProperty)), (a, b) => (b, a))
                       .DistinctUntilChanged()
                 .Subscribe(a =>

@@ -16,11 +16,12 @@ namespace UtilityWpf.DemoApp
     {
         private ReadOnlyObservableCollection<PassFail> a;
         // private ReadOnlyObservableCollection<PassFail> b;
+        Random random = new Random();
 
         public ListBoxCriteriaUserControl()
         {
-            Random random = new Random();
             InitializeComponent();
+
             new Faker<PassFail>()
                 .RuleFor(a => a.Key, f => f.Name.FirstName())
                 .RuleFor(a => a.Expired, f => f.Random.Bool())
@@ -52,11 +53,11 @@ namespace UtilityWpf.DemoApp
 
             //passFail2.ItemsSource = b;
 
-            var c = new Bogus.Faker<ServerFile>()
-          .RuleFor(a => a.Download, f => f.Date.Past())
-                  .RuleFor(a => a.Upload, f => f.Date.Past())
-                          .RuleFor(a => a.Link, f => "www.xd.com/link")
-                          .Generate(20);
+            var c = new Faker<ServerFile>()
+                                .RuleFor(a => a.Download, f => f.Date.Past())
+                                .RuleFor(a => a.Upload, f => f.Date.Past())
+                                .RuleFor(a => a.Link, f => "www.xd.com/link")
+                                .Generate(20);
 
             file1.ItemsSource = c;
         }
@@ -83,4 +84,9 @@ namespace UtilityWpf.DemoApp
             public bool OutOfDate => Download < Upload;
         }
     }
+
+    //public class DiagnosticList : InteractiveList
+    //{
+
+    //}
 }
