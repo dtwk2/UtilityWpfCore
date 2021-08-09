@@ -9,7 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace UtilityWpf.Demo.Animation.View
+namespace UtilityWpf.Demo.View.Animation
 {
     /// <summary>
     /// Interaction logic for MaterialDesignUserControl.xaml

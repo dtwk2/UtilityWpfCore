@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace UtilityWpf.Demo.Animation.View
+namespace UtilityWpf.Demo.View.Animation
 {
     /// <summary>
     /// Interaction logic for Gauge2UserControl.xaml

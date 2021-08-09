@@ -5,7 +5,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-namespace UtilityWpf.Demo.Animation.View {
+namespace UtilityWpf.Demo.View.Animation {
    /// <summary>
    /// Interaction logic for PointAnimationUserControl.xaml
    /// </summary>

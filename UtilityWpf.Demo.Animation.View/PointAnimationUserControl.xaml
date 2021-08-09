@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="UtilityWpf.Demo.Animation.View.PointAnimationUserControl"
+    x:Class="UtilityWpf.Demo.View.Animation.PointAnimationUserControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animation="clr-namespace:UtilityWpf.Animation;assembly=UtilityWpf.Animation"
