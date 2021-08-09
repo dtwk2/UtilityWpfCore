@@ -83,7 +83,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="Control\ProgressBar\FlashThumb.xaml">
+    <Page Update="ProgressBar\FlashThumb.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
     <Page Update="DataTemplate\KeyValuePairDataTemplate.xaml">
@@ -233,6 +233,10 @@
     <Page Update="UserControl\TableUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Control\" />
   </ItemGroup>
 
 </Project>
