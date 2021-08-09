@@ -4,9 +4,9 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using UtilityWpf.PanelDemo.Infrastructure;
+using UtilityWpf.Demo.Panels.View.Infrastructure;
 
-namespace UtilityWpf.PanelDemo
+namespace UtilityWpf.Demo.Panels.View
 {
     class EdgeLegacyPanelHelper
     {

@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace UtilityWpf.PanelDemo
+namespace UtilityWpf.Demo.Panels.View
 {
     public class RegionPanel : Panel
     {

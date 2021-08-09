@@ -6,12 +6,12 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace UtilityWpf.PanelDemo
+namespace UtilityWpf.Demo.Panels.View
 {
     /// <summary>
     /// Interaction logic for EdgePanelDemo.xaml
     /// </summary>
-    public partial class RegionPanelDemo : UserControl
+    public partial class RegionPanelView : UserControl
     {
         readonly Random random = new Random();
         readonly CircleRegion[] cr = Enum.GetValues(typeof(CircleRegion)).Cast<CircleRegion>().ToArray();
@@ -19,7 +19,7 @@ namespace UtilityWpf.PanelDemo
             Brushes.Tomato , Brushes.Coral};
         readonly ObservableCollection<CircleRegion> collection = new ObservableCollection<CircleRegion>();
 
-        public RegionPanelDemo()
+        public RegionPanelView()
         {
             InitializeComponent();
             RegionsDataGrid.ItemsSource = collection;

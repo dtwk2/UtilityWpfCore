@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,55 +11,55 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="View\DemoCornerPanel.xaml.cs">
+    <Compile Update="CornerPanelView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\DemoSidePanel.xaml.cs">
+    <Compile Update="SidePanelView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\DemoUniformGridPanel.xaml.cs">
+    <Compile Update="UniformGridPanelView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\EdgeLegacyPanelDemo.xaml.cs">
+    <Compile Update="EdgeLegacyPanelView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\RegionPanel3Demo.xaml.cs">
+    <Compile Update="RegionPanel3View.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\RegionPanel2Demo.xaml.cs">
+    <Compile Update="RegionPanel2View.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\RegionPanelDemo.xaml.cs">
+    <Compile Update="RegionPanelView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="View\DemoCornerPanel.xaml">
+    <Page Update="CornerPanelView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\DemoSidePanel.xaml">
+    <Page Update="SidePanelView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\DemoUniformGridPanel.xaml">
+    <Page Update="UniformGridPanelView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\EdgeLegacyPanelDemo.xaml">
+    <Page Update="EdgeLegacyPanelView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\RegionPanel3Demo.xaml">
+    <Page Update="RegionPanel3View.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\RegionPanel2Demo.xaml">
+    <Page Update="RegionPanel2View.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\RegionPanelDemo.xaml">
+    <Page Update="RegionPanelView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace UtilityWpf.PanelDemo
+namespace UtilityWpf.Demo.Panels.View
 {
     public static class CombinationHelper
     {

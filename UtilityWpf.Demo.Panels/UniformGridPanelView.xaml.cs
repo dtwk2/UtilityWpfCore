@@ -11,16 +11,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace UtilityWpf.PanelDemo
+namespace UtilityWpf.Demo.Panels.View
 {
     /// <summary>
     /// Interaction logic for DemoUniformGridPanel.xaml
     /// </summary>
-    public partial class DemoUniformGridPanel : UserControl
+    public partial class UniformGridPanelView : UserControl
     {
         Random random = new Random();
 
-        public DemoUniformGridPanel()
+        public UniformGridPanelView()
         {
             InitializeComponent();
         }

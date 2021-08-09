@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace UtilityWpf.PanelDemo
+namespace UtilityWpf.Demo.Panels.View
 {
     /// <summary>
-    /// Interaction logic for HexagonGridDemo.xaml
+    /// Interaction logic for RepulsionPanelDemo.xaml
     /// </summary>
-    public partial class HexagonGridDemo : UserControl
+    public partial class RepulsionPanelView : UserControl
     {
-        public HexagonGridDemo()
+        public RepulsionPanelView()
         {
             InitializeComponent();
         }

@@ -11,14 +11,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace UtilityWpf.PanelDemo
+namespace UtilityWpf.Demo.Panels.View
 {
     /// <summary>
     /// Interaction logic for DemoCornerPanel.xaml
     /// </summary>
-    public partial class DemoCornerPanel : UserControl
+    public partial class CornerPanelView : UserControl
     {
-        public DemoCornerPanel()
+        public CornerPanelView()
         {
             InitializeComponent();
         }

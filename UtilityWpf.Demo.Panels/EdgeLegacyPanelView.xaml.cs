@@ -2,17 +2,17 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace UtilityWpf.PanelDemo
+namespace UtilityWpf.Demo.Panels.View
 {
     /// <summary>
     /// Interaction logic for DemoCirclePanel.xaml
     /// </summary>
-    public partial class EdgeLegacyPanelDemo : UserControl
+    public partial class EdgeLegacyPanelView : UserControl
     {
         private readonly Array array;
         int i;
 
-        public EdgeLegacyPanelDemo()
+        public EdgeLegacyPanelView()
         {
             InitializeComponent();
             array = this.Resources["Array"] as Array;

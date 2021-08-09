@@ -6,16 +6,16 @@ using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Xml;
 
-namespace UtilityWpf.PanelDemo
+namespace UtilityWpf.Demo.Panels.View
 {
     /// <summary>
     /// Interaction logic for DemoCirclePanel.xaml
     /// </summary>
-    public partial class RegionPanel3Demo : UserControl
+    public partial class RegionPanel3View : UserControl
     {
         private readonly Array array;
 
-        public RegionPanel3Demo()
+        public RegionPanel3View()
         {
             InitializeComponent();
             array = this.Resources["Array"] as Array;

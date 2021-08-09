@@ -8,7 +8,7 @@ using System.Windows.Media;
 using System.Windows.Controls;
 using System.Windows;
 
-namespace UtilityWpf.PanelDemo.Infrastructure
+namespace UtilityWpf.Demo.Panels.View.Infrastructure
 {
     // Licensed to the .NET Foundation under one or more agreements.
     // The .NET Foundation licenses this file to you under the MIT license.

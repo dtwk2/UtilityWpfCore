@@ -1,5 +1,5 @@
 ﻿
-namespace UtilityWpf.PanelDemo
+namespace UtilityWpf.Demo.Panels.View
 {
     using System;
     using System.Collections.Generic;
@@ -273,7 +273,7 @@ namespace UtilityWpf.PanelDemo
     }
 }
 
-//namespace UtilityWpf.PanelDemo
+//namespace UtilityWpf.Demo.Panels.View
 //{
 //    using System;
 //    using System.Collections.Generic;

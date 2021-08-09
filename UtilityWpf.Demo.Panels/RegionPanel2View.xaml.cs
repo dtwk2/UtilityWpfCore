@@ -2,17 +2,17 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace UtilityWpf.PanelDemo
+namespace UtilityWpf.Demo.Panels.View
 {
     /// <summary>
     /// Interaction logic for DemoCirclePanel.xaml
     /// </summary>
-    public partial class RegionPanel2Demo : UserControl
+    public partial class RegionPanel2View : UserControl
     {
         private readonly Array array;
         int i;
 
-        public RegionPanel2Demo()
+        public RegionPanel2View()
         {
             InitializeComponent();
             array = this.Resources["Array"] as Array;
