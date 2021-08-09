@@ -3,7 +3,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using UtilityWpf.Demo.Animation.View;
 
-namespace UtilityWpf.DemoAnimation
+namespace UtilityWpf.Sandbox
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -13,7 +13,6 @@ namespace UtilityWpf.DemoAnimation
         public MainWindow()
         {
             InitializeComponent();
-            this.HostUserControl.Assembly = typeof(BarUserControl).Assembly;
         }
     }
 }
