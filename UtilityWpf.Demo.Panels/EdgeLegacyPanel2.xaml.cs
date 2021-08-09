@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace UtilityWpf.Demo.Panels.View
+namespace UtilityWpf.Demo.View.Panels
 {
     /// <summary>
     /// Interaction logic for EdgeLegacyPanel2.xaml

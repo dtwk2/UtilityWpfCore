@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UtilityWpf.Demo.Panels.View
+namespace UtilityWpf.Demo.View.Panels
 {
     //private void ToggleButton_Checked(object sender, RoutedEventArgs e)
     //{

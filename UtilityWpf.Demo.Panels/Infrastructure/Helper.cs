@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 
-namespace UtilityWpf.Demo.Panels.View
+namespace UtilityWpf.Demo.View.Panels
 {
     static class Helper
     {

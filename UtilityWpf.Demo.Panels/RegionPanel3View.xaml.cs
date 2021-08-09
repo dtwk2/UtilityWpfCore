@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Xml;
 
-namespace UtilityWpf.Demo.Panels.View
+namespace UtilityWpf.Demo.View.Panels
 {
     /// <summary>
     /// Interaction logic for DemoCirclePanel.xaml

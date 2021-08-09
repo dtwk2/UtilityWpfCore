@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows;
 
-namespace UtilityWpf.Demo.Panels.View
+namespace UtilityWpf.Demo.View.Panels
 {
     public static class MeasureHelper
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 
-namespace UtilityWpf.Demo.Panels.View.Infrastructure
+namespace UtilityWpf.Demo.View.Panels.Infrastructure
 {
     public interface ISizer
     {

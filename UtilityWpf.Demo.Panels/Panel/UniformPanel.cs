@@ -71,7 +71,7 @@
         {
             if (!columnsChanged && !rowsChanged)
             {
-                (rows, columns) = UtilityWpf.Demo.Panels.View.MeasureHelper.GetRowsColumns(availableSize, this.Children.Count);
+                (rows, columns) = UtilityWpf.Demo.View.Panels.MeasureHelper.GetRowsColumns(availableSize, this.Children.Count);
             }
             else
             {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using UtilityWpf.Demo.Panels.View;
+using UtilityWpf.Demo.View.Panels;
 
 namespace Utility.UI.WPF.Panels
 {

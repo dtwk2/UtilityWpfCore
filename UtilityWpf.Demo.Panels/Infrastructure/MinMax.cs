@@ -1,4 +1,4 @@
-﻿namespace UtilityWpf.Demo.Panels.View
+﻿namespace UtilityWpf.Demo.View.Panels
 {
     struct MinMax<T>
     {
