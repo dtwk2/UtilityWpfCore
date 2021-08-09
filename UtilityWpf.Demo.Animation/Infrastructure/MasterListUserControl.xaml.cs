@@ -1,21 +1,14 @@
 ﻿using Dragablz;
-using HandyControl.Controls;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
 using System.Windows.Controls;
 using System.Windows.Input;
 using UtilityWpf.Controls;
-using UtilityWpf.Demo.View;
 using static UtilityWpf.Controls.MasterControl;
-using Kaos.Collections;
 using System.Windows.Documents;
 using System.Windows;
-using static Humanizer.In;
 using System.Windows.Media;
-using System.Windows.Shapes;
-using UtilityWpf.TestData_;
 
 namespace UtilityWpf.Demo.View
 {

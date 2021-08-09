@@ -1,9 +1,8 @@
-﻿using System.Windows;
-using System.Windows.Media;
-using System.Windows.Shapes;
-using UtilityWpf.Demo.Animation.View;
+﻿using System.Linq;
+using System.Windows;
 
-namespace UtilityWpf.Sandbox
+
+namespace UtilityWpf.Demo.Sandbox
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -12,7 +11,7 @@ namespace UtilityWpf.Sandbox
     {
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();          
         }
     }
 }

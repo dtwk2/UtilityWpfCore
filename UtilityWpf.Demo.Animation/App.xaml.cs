@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace UtilityWpf.DemoCoreAnimation
+namespace UtilityWpf.Demo.Sandbox
 {
     /// <summary>
     /// Interaction logic for App.xaml
