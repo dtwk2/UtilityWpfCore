@@ -9,33 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Page Remove="Themes\StyleChange\Blue.xaml" />
-    <Page Remove="Themes\StyleChange\Green.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="BFF.DataVirtualizingCollection" Version="3.0.8" />
-    <PackageReference Include="Dragablz.NetCore" Version="0.3.3" />
-    <PackageReference Include="LambdaConverters" Version="4.0.0" />
-    <PackageReference Include="LiveCharts.Wpf.NetCore3" Version="0.9.7" />
-    <PackageReference Include="PropertyTools.Wpf" Version="3.1.0" />
-    <PackageReference Include="ReactiveUI.Events.WPF" Version="14.1.1" />
-    <PackageReference Include="ReactiveUI.WPF" Version="14.1.1" />
-    <PackageReference Include="VirtualizingWrapPanel" Version="1.5.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\UtilityWpf.Controls\UtilityWpf.Controls.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Demo.Animation.View\UtilityWpf.Demo.Animation.View.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Demo.Panels\UtilityWpf.Demo.Panels.View.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Demo.View\UtilityWpf.Demo.View.csproj" />
     <ProjectReference Include="..\UtilityWpf.TestData\UtilityWpf.TestData.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Themes\StyleChange\Blue.xaml">
-      <SubType>Designer</SubType>
-    </Resource>
-    <Resource Include="Themes\StyleChange\Green.xaml">
-      <SubType>Designer</SubType>
-    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -43,6 +20,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Themes\ViewHostControl.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 
 

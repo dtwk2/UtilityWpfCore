@@ -1,4 +1,8 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
+using UtilityWpf.Demo.Animation.View;
+using UtilityWpf.Demo.View;
+using UtilityWpf.Demo.Panels.View;
 
 namespace UtilityWpf.DemoApp
 {
@@ -10,6 +14,12 @@ namespace UtilityWpf.DemoApp
         public MainWindow()
         {
             InitializeComponent();
+            var a = typeof(BarUserControl);
+            var b = typeof(CornerPanelView);
+            var c = typeof(AdornerUserControl);
+            var assemblies = UtilityHelper.AssemblyHelper.GetNonSystemAssembliesInCurrentDomain();
+            AssemblyComboBox.ItemsSource = assemblies.Where(a => a.FullName.Contains(".View"));
         }
+
     }
 }
