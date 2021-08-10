@@ -27,9 +27,9 @@ namespace UtilityWpf.Controls
             None = 0, Duplicate = 1, Delete = 2, Check = 4, All = Duplicate | Delete | Check
         }
 
-        Subject<IEnumerable> ItemsSourceSubject = new();
+        protected Subject<IEnumerable> ItemsSourceSubject = new();
 
-        public static readonly DependencyProperty ItemsSourceProperty = Register(a => a.ItemsSourceSubject, nameof(ItemsSource));
+        public static readonly DependencyProperty ItemsSourceProperty = Register(nameof(ItemsSource), a => a.ItemsSourceSubject);
         public static readonly DependencyProperty OutputProperty = DependencyHelper.Register<object>();
         public static readonly DependencyProperty DataConverterProperty = DependencyHelper.Register<IValueConverter>();
         public static readonly DependencyProperty DataKeyProperty = DependencyHelper.Register<string>();
@@ -43,7 +43,14 @@ namespace UtilityWpf.Controls
         }
 
         public MasterDetail()
-        {
+        {          
+
+            this.LoadedChanges()
+                .Take(1)
+                .Subscribe(a =>
+            {
+                ItemsSourceSubject.OnNext(ItemsSource);
+            });
         }
 
         public IValueConverter DataConverter
@@ -75,9 +82,6 @@ namespace UtilityWpf.Controls
             get { return (bool)GetValue(UseDataContextProperty); }
             set { SetValue(UseDataContextProperty, value); }
         }
-
-
-
 
         public override void OnApplyTemplate()
         {

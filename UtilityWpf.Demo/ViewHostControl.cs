@@ -31,7 +31,7 @@ namespace UtilityWpf.Demo.Infrastructure
     public class ViewHostControl : MasterDetail
     {
         Subject<Assembly> subject = new();
-        public static readonly DependencyProperty AssemblyProperty = Register(a => a.subject, initialValue: Assembly.GetEntryAssembly());
+        public static readonly DependencyProperty AssemblyProperty = Register(nameof(Assembly), a => a.subject, initialValue: Assembly.GetEntryAssembly());
 
         public ViewHostControl()
         {

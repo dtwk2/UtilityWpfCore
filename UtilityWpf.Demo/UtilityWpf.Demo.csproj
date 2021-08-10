@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UtilityWpf.Demo.Animation.View\UtilityWpf.Demo.View.Animation.csproj" />
-    <ProjectReference Include="..\UtilityWpf.Demo.Panels\UtilityWpf.Demo.View.Panels.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Demo.View.Animation\UtilityWpf.Demo.View.Animation.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Demo.View.Panels\UtilityWpf.Demo.View.Panels.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.View\UtilityWpf.Demo.View.csproj" />
     <ProjectReference Include="..\UtilityWpf.TestData\UtilityWpf.TestData.csproj" />
   </ItemGroup>

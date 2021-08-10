@@ -20,7 +20,7 @@ namespace UtilityWpf.Controls
     public partial class HostUserControl : UserControl
     {
         Subject<Assembly> subject = new();
-        public static readonly DependencyProperty AssemblyProperty = Register(a => a.subject, initialValue: Assembly.GetEntryAssembly());
+        public static readonly DependencyProperty AssemblyProperty = Register(nameof(Assembly), a => a.subject, initialValue: Assembly.GetEntryAssembly());
 
         public static readonly DependencyProperty UserControlsProperty = Register(nameof(UserControls));
 
