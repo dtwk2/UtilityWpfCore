@@ -80,10 +80,25 @@
     <Compile Update="UserControl\TableUserControl.xaml.cs">
       <DependentUpon>TableUserControl.xaml</DependentUpon>
     </Compile>
+
+    <Compile Update="Progress\FlashThumb.cs">
+      <DependentUpon>FlashThumb.xaml</DependentUpon>
+    </Compile>  
+    <Compile Update="Progress\ProgressArc.cs">
+      <DependentUpon>ProgressArc.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="ProgressBar\FlashThumb.xaml">
+    <Page Update="DataTemplate\ViewAssemblyDataTemplate.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="DataTemplate\ViewTypeDataTemplate.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Progress\FlashThumb.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
     <Page Update="DataTemplate\KeyValuePairDataTemplate.xaml">
@@ -197,7 +212,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Update="Themes\ProgressBar.xaml">
+    <Page Update="Progress\ProgressBar.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\ProgressTimeBar.xaml">
@@ -233,10 +248,6 @@
     <Page Update="UserControl\TableUserControl.xaml">
       <SubType>Designer</SubType>
     </Page>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Control\" />
   </ItemGroup>
 
 </Project>

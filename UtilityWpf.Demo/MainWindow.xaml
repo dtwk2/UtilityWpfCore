@@ -5,24 +5,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:view="http://schemas.utility.com" 
-    xmlns:view1="clr-namespace:UtilityWpf.Demo.View;assembly=UtilityWpf.Demo.View" 
-    xmlns:system="clr-namespace:System;assembly=System.Runtime" 
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
-    xmlns:local1="clr-namespace:UtilityWpf.Demo.Infrastructure"
     Title="MainWindow"
     Width="825"
     Height="550"
     mc:Ignorable="d">
-
-    <DockPanel>
-        <ComboBox x:Name="AssemblyComboBox" DockPanel.Dock="Top" SelectedIndex="0" Margin="5" Width="700">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding FullName}"></TextBlock>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-        <local1:ViewHostControl x:Name="HostUserControl" Assembly="{Binding ElementName=AssemblyComboBox, Path=SelectedItem}" />
-    </DockPanel>
 
 </Window>

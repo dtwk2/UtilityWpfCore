@@ -16,6 +16,9 @@ using UtilityWpf.Property;
 
 namespace UtilityWpf.Controls
 {
+    using Mixins;
+
+    using static DependencyPropertyFactory<SliderItemsControl>;
     public class SliderItemsControl : Controlx
     {
         private ItemsControl ItemsControl;
@@ -27,31 +30,29 @@ namespace UtilityWpf.Controls
 
         public static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent("ValueChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(SliderItemsControl));
 
-        public static readonly DependencyProperty ShowKeyValuePanelProperty = DependencyProperty.Register("ShowKeyValuePanel", typeof(bool), typeof(SliderItemsControl), new PropertyMetadata(true, Changed));
-        public static readonly DependencyProperty KeyValuePairProperty = DependencyProperty.Register("KeyValuePair", typeof(object), typeof(SliderItemsControl), new PropertyMetadata(null));
-        public static readonly DependencyProperty DictionaryProperty = DependencyProperty.Register("Dictionary", typeof(object), typeof(SliderItemsControl), new PropertyMetadata(null));
-
-        public static readonly DependencyProperty DataProperty = DependencyProperty.Register("Data", typeof(IEnumerable), typeof(SliderItemsControl), new PropertyMetadata(null, Changed));
-
-        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register("Value", typeof(string), typeof(SliderItemsControl), new PropertyMetadata(null, Changed));
-        public static readonly DependencyProperty KeyProperty = DependencyProperty.Register("Key", typeof(string), typeof(SliderItemsControl), new PropertyMetadata(null, Changed));
-
-        public static readonly DependencyProperty MinProperty = DependencyProperty.Register("Min", typeof(string), typeof(SliderItemsControl), new PropertyMetadata(null, Changed));
-
-        public static readonly DependencyProperty MaxProperty = DependencyProperty.Register("Max", typeof(string), typeof(SliderItemsControl), new PropertyMetadata(null, Changed));
+        public static readonly DependencyProperty ShowKeyValuePanelProperty = Register(nameof(ShowKeyValuePanel), true);
+        public static readonly DependencyProperty KeyValuePairProperty = Register(nameof(KeyValuePair));
+        public static readonly DependencyProperty DictionaryProperty = Register(nameof(Dictionary));
+        public static readonly DependencyProperty DataProperty = Register(nameof(Data));
+        public static readonly DependencyProperty ValueProperty = Register(nameof(Value));
+        public static readonly DependencyProperty KeyProperty = Register(nameof(Key));
+        public static readonly DependencyProperty MinProperty = Register(nameof(Min));
+        public static readonly DependencyProperty MaxProperty = Register(nameof(Max));
 
         static SliderItemsControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SliderItemsControl), new FrameworkPropertyMetadata(typeof(SliderItemsControl)));
         }
 
+ 
+
         public SliderItemsControl()
         {
-            SelectChanges(nameof(Data))
-        .CombineLatest(SelectChanges(nameof(Key)),
-         SelectChanges(nameof(Value)),
-        SelectChanges(nameof(Min)).StartWith(new object[] { null }),
-    SelectChanges(nameof(Max)).StartWith(new object[] { null }),
+            this.Observable(nameof(Data))
+        .CombineLatest(this.Observable(nameof(Key)),
+          this.Observable(nameof(Value)),
+         this.Observable(nameof(Min)).StartWith(new object[] { null }),
+     this.Observable(nameof(Max)).StartWith(new object[] { null }),
    (data, key, value, min, max) => new { data, key, value, min, max })
         .Subscribe(async _ =>
         {
@@ -73,7 +74,7 @@ namespace UtilityWpf.Controls
            }, System.Windows.Threading.DispatcherPriority.Background, default)));
         });
 
-            SelectChanges(nameof(ShowKeyValuePanel)).Subscribe(_ =>
+            this.Observable(nameof(ShowKeyValuePanel)).Subscribe(_ =>
             {
                 this.Dispatcher.Invoke(() =>
                 {
@@ -84,6 +85,7 @@ namespace UtilityWpf.Controls
 
         public ObservableCollection<KeyRange> KeyRangeCollection { get; } = new ObservableCollection<KeyRange>();
 
+        #region properties
         public bool ShowKeyValuePanel
         {
             get { return (bool)GetValue(ShowKeyValuePanelProperty); }
@@ -138,6 +140,7 @@ namespace UtilityWpf.Controls
             remove { RemoveHandler(ValueChangedEvent, value); }
         }
 
+        #endregion properties
         public override void OnApplyTemplate()
         {
             ItemsControl = this.GetTemplateChild("ItemsControl") as ItemsControl;

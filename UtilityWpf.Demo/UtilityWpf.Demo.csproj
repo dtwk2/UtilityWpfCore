@@ -22,12 +22,5 @@
     </ApplicationDefinition>
   </ItemGroup>
 
-  <ItemGroup>
-    <Page Update="Themes\ViewHostControl.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-
 
 </Project>

@@ -11,6 +11,8 @@ using System.Windows.Controls.Primitives;
 
 namespace UtilityWpf.Controls
 {
+    using Mixins;
+
     [Flags]
     public enum RemoveOrder
     {
@@ -105,7 +107,7 @@ namespace UtilityWpf.Controls
         public MasterControl()
         {
             this.WhenAnyValue(a => a.Orientation)
-                .CombineLatest(this.SelectControlChanges<WrapPanel>("WrapPanel1"))
+                .CombineLatest(this.Control<WrapPanel>("WrapPanel1"))
                 .Where(a => a.Second != null)
                 .Subscribe(c =>
                 {

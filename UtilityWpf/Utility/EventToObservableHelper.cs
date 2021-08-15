@@ -32,6 +32,14 @@ namespace UtilityWpf
             .Select(a => a.EventArgs.AddedItems)
             .Where(a => a.Count > 0);
 
+        public static IObservable<object> SelectSingleSelectionChanges(this Selector selector) =>
+            Observable
+            .FromEventPattern<SelectionChangedEventHandler, SelectionChangedEventArgs>
+            (a => selector.SelectionChanged += a, a => selector.SelectionChanged -= a)
+            .Select(a => a.EventArgs.AddedItems)
+            .Where(a => a.Count ==1)
+            .Select(a=>a.Cast<object>().Single());
+
         public static IObservable<IList> SelectSelectionRemoveChanges(this Selector selector) =>
             Observable
             .FromEventPattern<SelectionChangedEventHandler, SelectionChangedEventArgs>

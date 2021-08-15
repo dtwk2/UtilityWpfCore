@@ -1,64 +1,29 @@
 ﻿using System;
-using System.Reactive.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Windows;
+using System.Windows.Data;
 
-namespace UtilityWpf.Demo.View.Animation
+namespace UtilityWpf.Controls
 {
-    /// <summary>
-    /// Interaction logic for GaugeUserControl.xaml
-    /// </summary>
-    public partial class GaugeUserControl : UserControl
-    {
-        public GaugeUserControl()
-        {
-            InitializeComponent();
-
-            Observable
-               .Interval(TimeSpan.FromSeconds(0.1))
-               .ObserveOnDispatcher()
-               .Subscribe(a =>
-           {
-               circProg.Value = a % 90;
-           });
-        }
-    }
-
-    public class DoubleToPctConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            string result = "";
-            double d = (double)value;
-            result = string.Format("{0}%", d);
-
-            return result;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
 
     /// <summary>
     /// <a href="https://wpf.2000things.com/tag/circular-progress/"></a>
     /// </summary>
-    public class CircularProgress : Shape
+    public class ProgressCircle : Shape
     {
-        static CircularProgress()
+        static ProgressCircle()
         {
             Brush myGreenBrush = new SolidColorBrush(Colors.CadetBlue);
             myGreenBrush.Freeze();
 
-            StrokeProperty.OverrideMetadata(typeof(CircularProgress), new FrameworkPropertyMetadata(myGreenBrush));
-
-            FillProperty.OverrideMetadata(typeof(CircularProgress), new FrameworkPropertyMetadata(Brushes.Transparent));
-
-            StrokeThicknessProperty.OverrideMetadata(typeof(CircularProgress), new FrameworkPropertyMetadata(10.0));
+            StrokeProperty.OverrideMetadata(typeof(ProgressCircle), new FrameworkPropertyMetadata(myGreenBrush));
+            FillProperty.OverrideMetadata(typeof(ProgressCircle), new FrameworkPropertyMetadata(Brushes.Transparent));
+            StrokeThicknessProperty.OverrideMetadata(typeof(ProgressCircle), new FrameworkPropertyMetadata(10.0));
         }
 
         // Value (0-100)
@@ -77,7 +42,7 @@ namespace UtilityWpf.Demo.View.Animation
                     new CoerceValueCallback(CoerceValue));   // Coerce value callback
 
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(double), typeof(CircularProgress), valueMetadata);
+            DependencyProperty.Register("Value", typeof(double), typeof(ProgressCircle), valueMetadata);
 
         private static object CoerceValue(DependencyObject depObj, object baseVal)
         {
@@ -125,6 +90,23 @@ namespace UtilityWpf.Demo.View.Animation
 
                 return geom;
             }
+        }
+    }
+
+    public class DoubleToPctConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            string result = "";
+            double d = (double)value;
+            result = string.Format("{0}%", d);
+
+            return result;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
         }
     }
 }

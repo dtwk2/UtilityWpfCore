@@ -8,6 +8,7 @@ using System.Windows.Controls;
 
 namespace UtilityWpf.Controls
 {
+    using Mixins;
     //https://github.com/kentcb/YouIandReactiveUI
     //    [Sample(
     //        "Logging",
@@ -40,7 +41,7 @@ namespace UtilityWpf.Controls
                     return sb.Append("[").Append(next.Item1.ToString()).Append("] ").AppendLine(next.Item2);
                 }
                 )
-                .CombineLatest(this.SelectControlChanges<TextBox>("logOutputTextBox").Select(a =>
+                .CombineLatest(this.Control<TextBox>("logOutputTextBox").Select(a =>
                 a as TextBox).Where(a => a != null), (a, b) => (a, b))
 
                 .Subscribe(c =>

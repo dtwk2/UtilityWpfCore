@@ -40,6 +40,9 @@
     <Compile Update="FilterUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="GaugeUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="GroupUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -133,12 +136,13 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GroupUserControl.xaml">
+    <Page Update="GaugeUserControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="InlineLabelInputsUserControl.xaml">
+    <Page Update="GroupUserControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
     </Page>
     <Page Update="IpAddrBoxUserControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>

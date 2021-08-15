@@ -22,15 +22,19 @@
                 Content="Toggle"
                 DockPanel.Dock="Top" />
 
-            <transc:TransitionElement x:Name="TransitionBox">
+        
+            <Grid Height="400" Width="400">
+                <Border BorderBrush="{DynamicResource MaterialDesignShadowBrush}" BorderThickness="1">
+
+                    <transc:TransitionElement x:Name="TransitionBox" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <transc:TransitionElement.Style>
                     <Style TargetType="{x:Type transc:TransitionElement}">
                         <Setter Property="Content">
                             <Setter.Value>
                                 <materialDesign:PackIcon
-                                    Width="700"
-                                    Height="700"
-                                    Margin="30"
+                                    Width="300"
+                                    Height="300"
+                              
                                     Kind="Valve" />
                             </Setter.Value>
                         </Setter>
@@ -58,6 +62,9 @@
                     </trans:RandomTransitionSelector>
                 </transc:TransitionElement.TransitionSelector>
             </transc:TransitionElement>
+                </Border>
+            </Grid>
+       
         </DockPanel>
     </Grid>
 </UserControl>

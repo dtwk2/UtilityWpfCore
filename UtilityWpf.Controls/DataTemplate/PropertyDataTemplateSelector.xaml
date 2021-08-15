@@ -63,7 +63,7 @@
         </rxui:ViewModelViewHost>
     </DataTemplate>
 
-    <local1:PropertyDataTemplateSelector
+    <local1:SwissArmyKnifeTemplateSelector
         x:Key="propertytemplateSelector"
         ColorTemplate="{StaticResource ColorTemplate}"
         ContentPresenterTemplate="{StaticResource ContentPresenterTemplate}"

@@ -14,17 +14,20 @@ using UtilityWpf.Controls.Infrastructure;
 
 namespace UtilityWpf.Controls
 {
+    using Mixins;
+    using static DependencyPropertyFactory<MasterDetailView>;
+
     public class MasterDetailView : ContentControlx
     {
         protected Subject<string> GroupNameChanges = new();
         protected Subject<string> NameChanges = new();
 
-        public static readonly DependencyProperty IdProperty = DependencyProperty.Register("Id", typeof(string), typeof(MasterDetailView), new PropertyMetadata("Id", Changed));
-        public static readonly DependencyProperty ItemsProperty = DependencyProperty.Register("Items", typeof(IEnumerable), typeof(MasterDetailView), new PropertyMetadata(null, Changed));
-        public static readonly DependencyProperty OutputProperty = DependencyProperty.Register("Output", typeof(object), typeof(MasterDetailView), new PropertyMetadata(null, Changed));
-        public static readonly DependencyProperty OutputViewProperty = DependencyProperty.Register("DetailView", typeof(Control), typeof(MasterDetailView), new PropertyMetadata(null));
-        public static readonly DependencyProperty PropertyGroupDescriptionProperty = DependencyProperty.Register("PropertyGroupDescription", typeof(PropertyGroupDescription), typeof(MasterDetailView), new PropertyMetadata(null, Changed));
-        public static readonly DependencyProperty DataConverterProperty = DependencyProperty.Register("DataConverter", typeof(IValueConverter), typeof(MasterDetailView), new PropertyMetadata(null, Changed));
+        public static readonly DependencyProperty IdProperty = Register<string>();
+        public static readonly DependencyProperty ItemsProperty = Register<IEnumerable>();
+        public static readonly DependencyProperty OutputProperty = Register<object>();
+        public static readonly DependencyProperty OutputViewProperty = Register<Control>();
+        public static readonly DependencyProperty PropertyGroupDescriptionProperty = Register<PropertyGroupDescription>();
+        public static readonly DependencyProperty DataConverterProperty = Register<IValueConverter>();
 
         #region properties
 
@@ -67,11 +70,11 @@ namespace UtilityWpf.Controls
 
         public MasterDetailView()
         {
-            var outputChanges = SelectPropertyChanges(nameof(Output)).Where(obj => obj != null);
+            var outputChanges = this.Observable(nameof(Output)).Where(obj => obj != null);
 
             //Dictionary<Type, object> dict = new Dictionary<Type, object>();
             outputChanges
-                .CombineLatest(SelectPropertyChanges<string>(nameof(Id)).StartWith(Id))
+                .CombineLatest(this.Observable<string>(nameof(Id)).StartWith(Id))
                 .Select(vm =>
                 {
                     var type = vm.First.GetType();
@@ -85,27 +88,27 @@ namespace UtilityWpf.Controls
                 .Subscribe(NameChanges);
 
             outputChanges
-                        .CombineLatest(SelectPropertyChanges<IValueConverter>(nameof(DataConverter)).StartWith(default(IValueConverter)))  
+                        .CombineLatest(this.Observable<IValueConverter>(nameof(DataConverter)).StartWith(default(IValueConverter)))
                         .ObserveOnDispatcher()
                         .Subscribe(collConv => Dispatcher.InvokeAsync(() =>
                         {
                             Convert(collConv.First, collConv.Second, (items, conv) => conv.Convert(collConv.First, null, null, null) as IEnumerable);
                         }));
 
-            SelectPropertyChanges<PropertyGroupDescription>()
-                .StartWith(PropertyGroupDescription)
-                .CombineLatest(ControlChanges.Where(c => c.GetType() == typeof(FrameworkElement)).Take(1))
-                .Subscribe(a =>
-                {
-                    if ((a.Second as FrameworkElement)?.FindResource("GroupedItems") is CollectionViewSource collectionViewSource)
-                        collectionViewSource.GroupDescriptions.Add(a.First);
-                });
+            this.Observable<PropertyGroupDescription>()
+               .StartWith(PropertyGroupDescription)
+               .CombineLatest(this.Control<FrameworkElement>())
+               .Subscribe(a =>
+               {
+                   if ((a.Second)?.FindResource("GroupedItems") is CollectionViewSource collectionViewSource)
+                       collectionViewSource.GroupDescriptions.Add(a.First);
+               });
 
             GroupClick = new Command.RelayCommand<string>(a => GroupNameChanges.OnNext(a));
 
             NameChanges
                 .Merge(GroupNameChanges)
-                .CombineLatest(ControlChanges.Select(c => c as TextBlock).Where(c => c != null),
+                .CombineLatest(this.Control<TextBlock>(),
                 (text, textBlock) => (text, textBlock))
                 .ObserveOnDispatcher()
                 .Subscribe(input =>
@@ -118,9 +121,9 @@ namespace UtilityWpf.Controls
 
             GroupNameChanges
                 .CombineLatest(
-                  SelectPropertyChanges<PropertyGroupDescription>().StartWith(PropertyGroupDescription),
-                SelectPropertyChanges<IValueConverter>(nameof(DataConverter)).StartWith(default(IValueConverter)),
-                SelectPropertyChanges<string>(nameof(Id)).StartWith(Id)) 
+                   this.Observable<PropertyGroupDescription>().StartWith(PropertyGroupDescription),
+                 this.Observable<IValueConverter>(nameof(DataConverter)).StartWith(default(IValueConverter)),
+                 this.Observable<string>(nameof(Id)).StartWith(Id))
                 .Subscribe(async input =>
                 {
                     var (text, groupDescriptor, conv, id) = input;
@@ -149,7 +152,7 @@ namespace UtilityWpf.Controls
                     });
                 });
 
-            ContentTemplateSelector = new PropertyDataTemplateSelector();
+            ContentTemplateSelector = new SwissArmyKnifeTemplateSelector();
         }
 
         private void Convert(object items, IValueConverter conv, Func<object, IValueConverter, object> func)

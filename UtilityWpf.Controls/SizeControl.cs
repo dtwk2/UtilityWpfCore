@@ -2,15 +2,17 @@
 using System.Linq;
 using System.Reactive.Linq;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace UtilityWpf.Controls
 {
+    using Mixins;
+    using static DependencyPropertyFactory<SizeControl>;
+
     public class SizeControl : Controlx
     {
-        public static readonly DependencyProperty SizeProperty = DependencyProperty.Register("Size", typeof(int), typeof(Control), new PropertyMetadata(25, Changed, CoerceSize));
-
-        public static readonly DependencyProperty TotalSizeProperty = DependencyProperty.Register("TotalSize", typeof(int), typeof(Control), new PropertyMetadata(100, Changed, CoerceTotalSize));
+        public static readonly DependencyProperty SizeProperty = Register(nameof(Size), 25, CoerceSize);
+        public static readonly DependencyProperty TotalSizeProperty = Register(nameof(TotalSize), 100, CoerceTotalSize);
+        public static readonly RoutedEvent SelectedSizeChangedEvent = EventManager.RegisterRoutedEvent("SelectedSizeChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(SizeControl));
 
         private static object CoerceSize(DependencyObject d, object baseValue)
         {
@@ -20,6 +22,17 @@ namespace UtilityWpf.Controls
         private static object CoerceTotalSize(DependencyObject d, object baseValue)
         {
             return Math.Max((int)baseValue, 1);
+        }
+
+
+        static SizeControl()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(SizeControl), new FrameworkPropertyMetadata(typeof(SizeControl)));
+        }
+
+        public SizeControl()
+        {
+            this.Observable(nameof(Size)).Select(_ => (int)_).Subscribe(RaiseSelectedSizeEvent);
         }
 
         public int Size
@@ -33,18 +46,6 @@ namespace UtilityWpf.Controls
             get { return (int)GetValue(TotalSizeProperty); }
             set { SetValue(TotalSizeProperty, value); }
         }
-
-        static SizeControl()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(SizeControl), new FrameworkPropertyMetadata(typeof(SizeControl)));
-        }
-
-        public SizeControl()
-        {
-            base.SelectChanges(nameof(Size)).Select(_ => (int)_).Subscribe(RaiseSelectedSizeEvent);
-        }
-
-        public static readonly RoutedEvent SelectedSizeChangedEvent = EventManager.RegisterRoutedEvent("SelectedSizeChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(SizeControl));
 
         public event RoutedEventHandler SelectedSizeChanged
         {

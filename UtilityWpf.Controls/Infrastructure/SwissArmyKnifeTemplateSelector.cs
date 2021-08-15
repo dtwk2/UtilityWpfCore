@@ -8,7 +8,7 @@ using System.Windows.Media;
 
 namespace UtilityWpf.Controls.Infrastructure
 {
-    public class PropertyDataTemplateSelector : System.Windows.Controls.DataTemplateSelector
+    public class SwissArmyKnifeTemplateSelector : System.Windows.Controls.DataTemplateSelector
     {
         public DataTemplate DefaultDataTemplate { get; set; }
         public DataTemplate EnumerableDataTemplate { get; set; }

@@ -1,23 +1,21 @@
-﻿using DynamicData;
-using Evan.Wpf;
+﻿using Evan.Wpf;
 using ReactiveUI;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Input;
 using UtilityHelper.NonGeneric;
 using UtilityHelperEx;
 using UtilityWpf.Abstract;
-using UtilityWpf.Controls;
 
 namespace UtilityWpf.Controls
 {
+    using Mixins;
+
     using static DependencyPropertyFactory<MasterDetail>;
     public class MasterDetail : ContentControlx
     {
@@ -27,15 +25,15 @@ namespace UtilityWpf.Controls
             None = 0, Duplicate = 1, Delete = 2, Check = 4, All = Duplicate | Delete | Check
         }
 
-        protected Subject<IEnumerable> ItemsSourceSubject = new();
+        //protected Subject<IEnumerable> ItemsSourceSubject = new();
 
-        public static readonly DependencyProperty ItemsSourceProperty = Register(nameof(ItemsSource), a => a.ItemsSourceSubject);
-        public static readonly DependencyProperty OutputProperty = DependencyHelper.Register<object>();
-        public static readonly DependencyProperty DataConverterProperty = DependencyHelper.Register<IValueConverter>();
-        public static readonly DependencyProperty DataKeyProperty = DependencyHelper.Register<string>();
-        public static readonly DependencyProperty UseDataContextProperty = DependencyHelper.Register<bool>();
-        public static readonly DependencyProperty RemoveOrderProperty = DependencyHelper.Register<ButtonType>();
-        protected ListBox listBox;
+        public static readonly DependencyProperty ItemsSourceProperty = Register(nameof(ItemsSource));
+        public static readonly DependencyProperty OutputProperty = Register<object>();
+        public static readonly DependencyProperty DataConverterProperty = Register<IValueConverter>();
+        public static readonly DependencyProperty DataKeyProperty = Register<string>(nameof(DataKey));
+        public static readonly DependencyProperty UseDataContextProperty = Register<bool>();
+        //public static readonly DependencyProperty RemoveOrderProperty = Register<ButtonType>();
+        protected ListBox? listBox;
 
         static MasterDetail()
         {
@@ -43,14 +41,8 @@ namespace UtilityWpf.Controls
         }
 
         public MasterDetail()
-        {          
+        {
 
-            this.LoadedChanges()
-                .Take(1)
-                .Subscribe(a =>
-            {
-                ItemsSourceSubject.OnNext(ItemsSource);
-            });
         }
 
         public IValueConverter DataConverter
@@ -88,31 +80,33 @@ namespace UtilityWpf.Controls
             var selector = Template.Resources["propertytemplateSelector"] as DataTemplateSelector;
             Content ??= new ContentControl { ContentTemplateSelector = selector };
 
-            listBox = GetTemplateChild("PART_List") as ListBox;
-            if (listBox == null)
-                return;
-
-            ItemsSourceSubject
-                .StartWith(ItemsSource)
-                .Subscribe(a => listBox.ItemsSource = a);
+            _ = SelectContent()
+            .Subscribe(content =>
+            {
+                SetContent(Content, content);
+            });
 
 
-            _ = listBox
-              .SelectSelectionAddChanges()
-              .Where(a => a.Count == 1)
-              .Select(a => a.First())
-              .CombineLatest(this.WhenAnyValue(a => a.DataConverter), this.WhenAnyValue(a => a.DataKey))
-              .ObserveOnDispatcher()
-              .Subscribe(a =>
-              {
-                  var (selected, converter, key) = a;
-                  var content = selected;
-                  if (converter != null)
-                      content = converter.Convert(content, default, default, default);
-                  if (key != null)
-                      content = UtilityHelper.PropertyHelper.GetPropertyValue<object>(content, key);
-                  SetContent(Content, content);
-              });
+            //if ((listBox = GetTemplateChild("PART_List") as ListBox) == null)
+            //    return;
+            this.Control<ListBox>().Subscribe(a => { 
+            
+            });
+
+            this.Observable<IEnumerable>()
+               .CombineLatest(this.Control<ListBox>())
+                .Subscribe(a => a.Second.ItemsSource = a.First);
+
+            base.OnApplyTemplate();
+
+        }
+
+
+        protected virtual IObservable<object> SelectContent()
+        {
+            return Transform(this.Control<ListBox>().SelectMany(a => a.SelectSingleSelectionChanges()),
+                this.Observable<IValueConverter>(nameof(DataConverter)),
+                this.Observable<string>(nameof(DataKey)));
         }
 
         protected virtual void SetContent(object content, object @object)
@@ -159,6 +153,29 @@ namespace UtilityWpf.Controls
             {
                 return true;
             }
+        }
+
+
+        protected static IObservable<object> Transform(IObservable<object> collectionViewModel, IObservable<IValueConverter> dataConversions, IObservable<string> dataKeys)
+        {
+            collectionViewModel.Subscribe(a =>
+            {
+
+            });
+            return ObservableEx
+                .CombineLatest(collectionViewModel, dataConversions, dataKeys)
+                .ObserveOnDispatcher()
+                .Select(a =>
+                {
+                    var (selected, converter, dataKey) = a;
+                    return (converter, dataKey) switch
+                    {
+                        (IValueConverter conv, _) => conv.Convert(selected, default, default, default),
+                        (_, string k) => UtilityHelper.PropertyHelper.GetPropertyValue<object>(selected, k),
+                        //(null,null) => throw new Exception($"Either {nameof(DataConverter)} or {nameof(DataKey)} must be set if {nameof(ItemsSource)} set")
+                        (null, null) => selected
+                    };
+                });
         }
     }
 }

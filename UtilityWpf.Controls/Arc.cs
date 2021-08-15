@@ -1,46 +1,39 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace UtilityWpf.Demo.View.Animation
+namespace UtilityWpf.Controls
 {
-    /// <summary>
-    /// Interaction logic for Gauge2UserControl.xaml
-    /// </summary>
-    public partial class Gauge2UserControl : UserControl
-    {
-        public Gauge2UserControl()
-        {
-            InitializeComponent();
-        }
-    }
-
     /// <summary>
     /// <a href="https://stackoverflow.com/questions/23046565/wpf-radial-progressbar-meter-i-e-battery-meter"></a>
     /// </summary>
     public class Arc : Shape
     {
+        public static readonly DependencyProperty StartAngleProperty = DependencyProperty.Register("StartAngle", typeof(double), typeof(Arc), new UIPropertyMetadata(0.0, new PropertyChangedCallback(UpdateArc)));
+        public static readonly DependencyProperty EndAngleProperty = DependencyProperty.Register("EndAngle", typeof(double), typeof(Arc), new UIPropertyMetadata(90.0, new PropertyChangedCallback(UpdateArc)));
+        public static readonly DependencyProperty DirectionProperty = DependencyProperty.Register("Direction", typeof(SweepDirection), typeof(Arc), new UIPropertyMetadata(SweepDirection.Clockwise));
+
+
+        public static readonly DependencyProperty OriginRotationDegreesProperty = DependencyProperty.Register("OriginRotationDegrees", typeof(double), typeof(Arc),
+                new UIPropertyMetadata(270.0, new PropertyChangedCallback(UpdateArc)));
+
+        #region properties
         public double StartAngle
         {
             get { return (double)GetValue(StartAngleProperty); }
             set { SetValue(StartAngleProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for StartAngle.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty StartAngleProperty =
-            DependencyProperty.Register("StartAngle", typeof(double), typeof(Arc), new UIPropertyMetadata(0.0, new PropertyChangedCallback(UpdateArc)));
-
         public double EndAngle
         {
             get { return (double)GetValue(EndAngleProperty); }
             set { SetValue(EndAngleProperty, value); }
         }
-
-        // Using a DependencyProperty as the backing store for EndAngle.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty EndAngleProperty =
-            DependencyProperty.Register("EndAngle", typeof(double), typeof(Arc), new UIPropertyMetadata(90.0, new PropertyChangedCallback(UpdateArc)));
 
         //This controls whether or not the progress bar goes clockwise or counterclockwise
         public SweepDirection Direction
@@ -49,10 +42,6 @@ namespace UtilityWpf.Demo.View.Animation
             set { SetValue(DirectionProperty, value); }
         }
 
-        public static readonly DependencyProperty DirectionProperty =
-            DependencyProperty.Register("Direction", typeof(SweepDirection), typeof(Arc),
-                new UIPropertyMetadata(SweepDirection.Clockwise));
-
         //rotate the start/endpoint of the arc a certain number of degree in the direction
         //ie. if you wanted it to be at 12:00 that would be 270 Clockwise or 90 counterclockwise
         public double OriginRotationDegrees
@@ -60,10 +49,7 @@ namespace UtilityWpf.Demo.View.Animation
             get { return (double)GetValue(OriginRotationDegreesProperty); }
             set { SetValue(OriginRotationDegreesProperty, value); }
         }
-
-        public static readonly DependencyProperty OriginRotationDegreesProperty =
-            DependencyProperty.Register("OriginRotationDegrees", typeof(double), typeof(Arc),
-                new UIPropertyMetadata(270.0, new PropertyChangedCallback(UpdateArc)));
+        #endregion properties
 
         protected static void UpdateArc(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -73,7 +59,7 @@ namespace UtilityWpf.Demo.View.Animation
 
         protected override Geometry DefiningGeometry => GetArcGeometry();
 
-        protected override void OnRender(System.Windows.Media.DrawingContext drawingContext)
+        protected override void OnRender(DrawingContext drawingContext)
         {
             drawingContext.DrawGeometry(null, new Pen(Stroke, StrokeThickness), GetArcGeometry());
         }

@@ -51,8 +51,6 @@ namespace UtilityWpf.DataTemplateSelectors
                 return NumberDataTemplate;
             else
                 return DefaultDataTemplate;
-
-
         }
 
         public static GeneralDataTemplateSelector Instance => new GeneralDataTemplateSelector();

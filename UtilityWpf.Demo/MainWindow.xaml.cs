@@ -3,6 +3,7 @@ using System.Windows;
 using UtilityWpf.Demo.View.Animation;
 using UtilityWpf.Demo.View;
 using UtilityWpf.Demo.View.Panels;
+using UtilityWpf.Controls;
 
 namespace UtilityWpf.DemoApp
 {
@@ -17,8 +18,7 @@ namespace UtilityWpf.DemoApp
             var a = typeof(BarUserControl);
             var b = typeof(CornerPanelView);
             var c = typeof(AdornerUserControl);
-            var assemblies = UtilityHelper.AssemblyHelper.GetNonSystemAssembliesInCurrentDomain();
-            AssemblyComboBox.ItemsSource = assemblies.Where(a => a.FullName.Contains(".View"));
+            this.AddChild(new ViewsExDetailControl(new[] { c, a, b}));
         }
 
     }

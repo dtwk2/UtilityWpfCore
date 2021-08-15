@@ -17,3 +17,4 @@ using System.Windows.Markup;
 [assembly: XmlnsDefinition("http://schemas.utility.com", "UtilityWpf.Controls.Extrinsic")]
 [assembly: XmlnsDefinition("http://schemas.utility.com", "UtilityWpf.Controls.Infrastructure")]
 [assembly: XmlnsDefinition("http://schemas.utility.com", "UtilityWpf.Controls.Panels")]
+[assembly: XmlnsDefinition("http://schemas.utility.com", "UtilityWpf.Controls.Progress")]

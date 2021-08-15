@@ -12,6 +12,7 @@ using UtilityWpf.Utility;
 
 namespace UtilityWpf.Controls
 {
+    using Mixins;
     public class TimeSpanControl : Controlx
     {
         public static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent("ValueChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler<(decimal value, TimeInterval timeInterval)>), typeof(TimeSpanControl));
@@ -27,7 +28,7 @@ namespace UtilityWpf.Controls
 
         public TimeSpanControl()
         {
-            this.SelectControlChanges<ComboBox>().Subscribe(a =>
+            this.Control<ComboBox>().Subscribe(a =>
             {
                 a.ItemsSource = Enum.GetValues(typeof(TimeInterval));
             });
@@ -41,8 +42,8 @@ namespace UtilityWpf.Controls
 
         public override void OnApplyTemplate()
         {
-            this.SelectControlChanges<ComboBox>().SelectMany(a => a.SelectSelectionAddChanges().Select(a => a.Cast<TimeInterval>().First())).StartWith((TimeInterval)this.GetValue(TimeIntervalProperty))
-                      .CombineLatest(this.SelectControlChanges<SpinnerControl>().SelectMany(a => a.ValueChanges()).StartWith((decimal)this.GetValue(ValueProperty)), (a, b) => (b, a))
+            this.Control<ComboBox>().SelectMany(a => a.SelectSelectionAddChanges().Select(a => a.Cast<TimeInterval>().First())).StartWith((TimeInterval)this.GetValue(TimeIntervalProperty))
+                      .CombineLatest(this.Control<SpinnerControl>().SelectMany(a => a.ValueChanges()).StartWith((decimal)this.GetValue(ValueProperty)), (a, b) => (b, a))
                       .DistinctUntilChanged()
                 .Subscribe(a =>
                 {
@@ -51,13 +52,13 @@ namespace UtilityWpf.Controls
                     RaiseEvent(new RoutedEventArgs<(decimal value, TimeInterval timeInterval)>(a, ValueChangedEvent));
                 });
 
-            this.SelectControlChanges<SpinnerControl>().CombineLatest(this.SelectChanges("Value").Cast<decimal>().StartWith(1M).DistinctUntilChanged(), (a, b) => (a, b))
+            this.Control<SpinnerControl>().CombineLatest(this.Observable(ValueProperty.Name).Cast<decimal>().StartWith(1M).DistinctUntilChanged(), (a, b) => (a, b))
     .Subscribe(a =>
     {
         a.a.Value = a.b;
     });
 
-            this.SelectControlChanges<ComboBox>().CombineLatest(this.SelectChanges("TimeInterval").Cast<TimeInterval>().StartWith(TimeInterval.Second).DistinctUntilChanged(), (a, b) => (a, b))
+            this.Control<ComboBox>().CombineLatest(this.Observable(TimeIntervalProperty.Name).Cast<TimeInterval>().StartWith(TimeInterval.Second).DistinctUntilChanged(), (a, b) => (a, b))
                 .Subscribe(a =>
                 {
                     a.a.SelectedItem = a.b;

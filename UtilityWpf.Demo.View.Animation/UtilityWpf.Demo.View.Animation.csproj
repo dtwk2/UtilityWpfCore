@@ -24,13 +24,7 @@
     <Compile Update="FadeUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Gauge2UserControl.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="GaugeUserControl.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="MaterialDesignUserControl.xaml.cs">
+    <Compile Update="IconUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="NotificationUserControl.xaml.cs">
@@ -66,15 +60,11 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Gauge2UserControl.xaml">
+    <Page Update="InlineLabelInputsUserControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="GaugeUserControl.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="MaterialDesignUserControl.xaml">
+    <Page Update="IconUserControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

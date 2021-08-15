@@ -14,11 +14,11 @@ namespace UtilityWpf.Demo.View.Animation
     /// <summary>
     /// Interaction logic for MaterialDesignUserControl.xaml
     /// </summary>
-    public partial class MaterialDesignUserControl : UserControl
+    public partial class IconUserControl : UserControl
     {
         private readonly Dictionary<string, PackIconKind> values;
 
-        public MaterialDesignUserControl()
+        public IconUserControl()
         {
             InitializeComponent();
 
