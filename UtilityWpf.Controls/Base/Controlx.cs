@@ -12,7 +12,7 @@ namespace UtilityWpf.Controls
     {
         private readonly NameTypeDictionary<SingleReplaySubject<object>> dict;
 
-        FrameworkElement[] IControlListener.lazy { get; set; }
+        IObservable<FrameworkElement> IControlListener.lazy { get; set; }
         Type IDependencyObjectListener.Type { get; } = typeof(Controlx);
         NameTypeDictionary<SingleReplaySubject<object>> IPropertyListener.dict => dict;
 

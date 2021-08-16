@@ -19,7 +19,7 @@ namespace UtilityWpf.Controls
         //public INameTypeDictionary NameTypeDictionary { get; }
         NameTypeDictionary<SingleReplaySubject<object>> IPropertyListener.dict => nameTypeDictionary;
 
-        FrameworkElement[] IControlListener.lazy { get; set; }
+        IObservable<FrameworkElement> IControlListener.lazy { get; set; }
 
         public ContentControlx()
         {
