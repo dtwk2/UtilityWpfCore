@@ -1,5 +1,6 @@
 ﻿using ReactiveUI;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
@@ -14,8 +15,11 @@ using UtilityWpf;
 
 namespace UtilityWpf
 {
+
     public static class ObservableHelper
     {
+
+        [Obsolete("Moved to UtilityHelperEx")]
         public static ReplaySubject<T> ToReplaySubject<T>(this IObservable<T> source, int save = 1)
         {
             var replaySubject = new ReplaySubject<T>(save);
@@ -23,6 +27,11 @@ namespace UtilityWpf
             return replaySubject;
         }
 
-
+        [Obsolete("Moved to UtilityHelperEx")]
+        public static IObservable<T> SelectMany<T>(this IObservable<IEnumerable<T>> manyObservable)
+        //where TEnumerable : IEnumerable<T>
+        {
+            return manyObservable.SelectMany(a => a);
+        }
     }
 }

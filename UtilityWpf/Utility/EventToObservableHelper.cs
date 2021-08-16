@@ -153,17 +153,6 @@ namespace UtilityWpf
                 .StartWith(toggleButton.IsChecked ?? defaultValue);
         }
 
-
-
-
-        public static IObservable<RoutedEventArgs> ToLoadedChanges(this Control control)
-        {
-            return Observable.FromEventPattern<RoutedEventHandler, RoutedEventArgs>(
-                   h => control.Loaded += h,
-                   h => control.Loaded -= h)
-                .Select(a => a.EventArgs);
-        }
-
         public static IObservable<string> ToThrottledObservable(this TextBox textBox)
         {
             return Observable.FromEventPattern<TextChangedEventHandler, TextChangedEventArgs>(
