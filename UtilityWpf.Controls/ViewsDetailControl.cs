@@ -16,14 +16,20 @@ namespace UtilityWpf.Controls
 
     class ViewType
     {
+        Lazy<FrameworkElement?> lazy;
         public ViewType(string key, Type type)
         {
             Key = key;
             Type = type;
+            lazy = new(() => (FrameworkElement?)Activator.CreateInstance(Type));
         }
 
         public string Key { get; }
+
         public Type Type { get; }
+
+        public FrameworkElement? DirtyView => lazy.Value;
+
         public FrameworkElement? View => (FrameworkElement?)Activator.CreateInstance(Type);
     }
 

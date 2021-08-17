@@ -25,7 +25,7 @@ namespace UtilityWpf.Controls
         public static readonly DependencyProperty IdProperty = Register<string>();
         public static readonly DependencyProperty ItemsProperty = Register<IEnumerable>();
         public static readonly DependencyProperty OutputProperty = Register<object>();
-        public static readonly DependencyProperty OutputViewProperty = Register<Control>();
+        public static readonly DependencyProperty OutputViewProperty = Register<Control>("OutputView");
         public static readonly DependencyProperty PropertyGroupDescriptionProperty = Register<PropertyGroupDescription>();
         public static readonly DependencyProperty DataConverterProperty = Register<IValueConverter>();
 
@@ -96,7 +96,6 @@ namespace UtilityWpf.Controls
                         }));
 
             this.Observable<PropertyGroupDescription>()
-               .StartWith(PropertyGroupDescription)
                .CombineLatest(this.Control<FrameworkElement>())
                .Subscribe(a =>
                {

@@ -42,9 +42,24 @@ namespace UtilityWpf.Controls
 
         public MasterDetail()
         {
+            _ = SelectContent()
+                .Subscribe(content =>
+                {
+                    SetContent(Content, content);
+                });
 
+
+            this.Observable<IEnumerable>()
+               .CombineLatest(this.Control<ListBox>())
+                .Subscribe(a => a.Second.ItemsSource = a.First);
+
+            this.Observable<IEnumerable>().Subscribe(a =>
+            {
+
+            });
         }
 
+        #region properties
         public IValueConverter DataConverter
         {
             get { return (IValueConverter)GetValue(DataConverterProperty); }
@@ -75,27 +90,13 @@ namespace UtilityWpf.Controls
             set { SetValue(UseDataContextProperty, value); }
         }
 
+        #endregion properties
+
         public override void OnApplyTemplate()
         {
             var selector = Template.Resources["propertytemplateSelector"] as DataTemplateSelector;
             Content ??= new ContentControl { ContentTemplateSelector = selector };
 
-            _ = SelectContent()
-            .Subscribe(content =>
-            {
-                SetContent(Content, content);
-            });
-
-
-            //if ((listBox = GetTemplateChild("PART_List") as ListBox) == null)
-            //    return;
-            this.Control<ListBox>().Subscribe(a => { 
-            
-            });
-
-            this.Observable<IEnumerable>()
-               .CombineLatest(this.Control<ListBox>())
-                .Subscribe(a => a.Second.ItemsSource = a.First);
 
             base.OnApplyTemplate();
 
