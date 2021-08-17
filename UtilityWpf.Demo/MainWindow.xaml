@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:view="http://schemas.utility.com" 
     Title="MainWindow"
+    WindowState="Maximized"
     Width="825"
     Height="550"
     mc:Ignorable="d">
