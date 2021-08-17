@@ -67,9 +67,8 @@ namespace UtilityWpf.Attached
 
         private static void NewItemChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var x = (d as ItemsControl).Items?.Cast<object>()?.ToObservableCollection() ?? new ObservableCollection<object>();
-            x.Add(e.NewValue);
-            Application.Current.Dispatcher.InvokeAsync(() => (d as ItemsControl).ItemsSource = x, System.Windows.Threading.DispatcherPriority.Background, default);
+            var collection = new ObservableCollection<object>(((d as ItemsControl)?.Items?.Cast<object>()?? Array.Empty<object>()).Concat(new[] { e.NewValue }));
+            Application.Current.Dispatcher.InvokeAsync(() => (d as ItemsControl).ItemsSource = collection);
         }
 
         #endregion NewItem

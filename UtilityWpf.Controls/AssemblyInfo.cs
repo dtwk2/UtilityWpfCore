@@ -11,10 +11,10 @@ using System.Windows.Markup;
 )]
 
 
-
 [assembly: XmlnsPrefix("http://schemas.utility.com/", "util")]
 [assembly: XmlnsDefinition("http://schemas.utility.com", "UtilityWpf.Controls")]
 [assembly: XmlnsDefinition("http://schemas.utility.com", "UtilityWpf.Controls.Handy")]
 [assembly: XmlnsDefinition("http://schemas.utility.com", "UtilityWpf.Controls.Extrinsic")]
 [assembly: XmlnsDefinition("http://schemas.utility.com", "UtilityWpf.Controls.Infrastructure")]
 [assembly: XmlnsDefinition("http://schemas.utility.com", "UtilityWpf.Controls.Panels")]
+[assembly: XmlnsDefinition("http://schemas.utility.com", "UtilityWpf.Controls.Progress")]

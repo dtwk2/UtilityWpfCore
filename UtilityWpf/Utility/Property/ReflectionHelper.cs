@@ -24,7 +24,7 @@ namespace UtilityWpf.Property
             {
                 //
             }
-            return lst.SelectMany(_ => _.Cast<object>());
+            return lst.SelectMany(a => a.Cast<object>());
         }
 
         public static IEnumerable<DependencyProperty> SelectDependencyProperties(this Type type) =>
@@ -133,7 +133,7 @@ namespace UtilityWpf.Property
 //        {
 //            var props = @object.GetType().GetProperties();
 
-//            return props.Select(_ => new { _.Name, Value = @object.GetPropValue(_) }).ToDictionary(_ => _.Name, _ => _.Value);
+//            return props.Select(_ => new { _.Name, Value = @object.GetPropValue(_) }).ToDictionary(a => a.Name, a => a.Value);
 
 //        }
 

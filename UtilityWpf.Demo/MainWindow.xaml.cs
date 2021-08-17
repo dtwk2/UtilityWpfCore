@@ -1,4 +1,9 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
+using UtilityWpf.Demo.View.Animation;
+using UtilityWpf.Demo.View;
+using UtilityWpf.Demo.View.Panels;
+using UtilityWpf.Controls;
 
 namespace UtilityWpf.DemoApp
 {
@@ -10,6 +15,11 @@ namespace UtilityWpf.DemoApp
         public MainWindow()
         {
             InitializeComponent();
+            var a = typeof(BarUserControl);
+            var b = typeof(CornerPanelView);
+            var c = typeof(AdornerUserControl);
+            this.AddChild(new ViewsExDetailControl(new[] { c, a, b}));
         }
+
     }
 }

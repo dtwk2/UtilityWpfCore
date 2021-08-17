@@ -1,0 +1,152 @@
+﻿using MoreLinq;
+using ReactiveUI;
+using System;
+using System.Linq;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
+using System.Reflection;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+
+
+namespace UtilityWpf.Controls
+{
+    using static UtilityWpf.DependencyPropertyFactory<ViewsDetailControl>;
+
+    class ViewType
+    {
+        public ViewType(string key, Type type)
+        {
+            Key = key;
+            Type = type;
+        }
+
+        public string Key { get; }
+        public Type Type { get; }
+        public FrameworkElement? View => (FrameworkElement?)Activator.CreateInstance(Type);
+    }
+
+    class ViewAssembly
+    {
+        public ViewAssembly(Assembly assembly)
+        {
+            Assembly = assembly;
+        }
+
+        public string? Key => Assembly.FullName;
+        public Assembly Assembly { get; }
+    }
+
+    public class ViewsExDetailControl : ContentControl
+    {
+        public ViewsExDetailControl(Type[] types)
+        {
+            Content = CreateContent(out var comboBox);
+            comboBox.ItemsSource = types.Select(a => new ViewAssembly(a.Assembly));
+        }
+
+        private static object CreateContent(out ComboBox comboBox)
+        {
+            var dockPanel = new DockPanel();
+            comboBox = new ComboBox { SelectedIndex = 0, Margin = new Thickness(5), Width = 700 };
+            dockPanel.Children.Add(comboBox);
+            DockPanel.SetDock(comboBox, Dock.Top);
+            var viewsDetailControl = new ViewsDetailControl { };
+            Binding binding = new()
+            {
+                Path = new PropertyPath(nameof(ComboBox.SelectedItem) + "." + nameof(ViewAssembly.Assembly)),
+                Source = comboBox
+            };
+            BindingOperations.SetBinding(viewsDetailControl, ViewsDetailControl.AssemblyProperty, binding);
+            dockPanel.Children.Add(viewsDetailControl);
+
+            return dockPanel;
+
+        }
+
+        //      <DockPanel>
+        //    <ComboBox x:Name="AssemblyComboBox" DockPanel.Dock="Top" SelectedIndex="0" Margin="5" Width="700">
+        //        <ComboBox.ItemTemplate>
+        //            <DataTemplate>
+        //                <TextBlock Text = "{Binding FullName}" ></ TextBlock >
+        //            </ DataTemplate >
+        //        </ ComboBox.ItemTemplate >
+        //    </ ComboBox >
+        //    < view:ViewsDetailControl x:Name="HostUserControl" Assembly="{Binding ElementName=AssemblyComboBox, Path=SelectedItem}" />
+        //</DockPanel>
+    }
+
+
+
+    public class ViewsDetailControl : MasterDetail
+    {
+        readonly Subject<Assembly> subject = new();
+        public static readonly DependencyProperty AssemblyProperty = Register(nameof(Assembly), a => a.subject, initialValue: Assembly.GetEntryAssembly());
+
+        public ViewsDetailControl()
+        {
+            UseDataContext = true;
+            _ = subject
+                .WhereNotNull()
+              .Select(assembly =>
+              {
+                  var ucs = assembly
+                   .GetTypes()
+                   .Where(a => typeof(UserControl).IsAssignableFrom(a))
+                   .GroupBy(type =>
+                   (type.Name.Contains("UserControl") ? type.Name?.Replace("UserControl", string.Empty) :
+                   type.Name.Contains("View") ? type.Name?.Replace("View", string.Empty) :
+                   type.Name)!)
+                   .OrderBy(a => a.Key)
+                   .ToDictionaryOnIndex()
+                   .Select(a => new ViewType(a.Key, a.Value));
+                  return ucs.ToArray();
+              })
+              .Subscribe(pairs => ItemsSource = pairs);
+
+            Content = CreateContent();
+
+
+            static Grid CreateContent()
+            {
+                var grid = new Grid();
+                grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1.0, GridUnitType.Auto) });
+                grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1.0, GridUnitType.Star) });
+                var textBlock = new TextBlock
+                {
+                    Margin = new Thickness(20),
+                    FontSize = 20
+                };
+                grid.Children.Add(textBlock);
+                Binding binding = new()
+                {
+                    Path = new PropertyPath(nameof(ViewType.Key)),
+                };
+                textBlock.SetBinding(TextBlock.TextProperty, binding);
+                var contentControl = new ContentControl { Content = "Empty" };
+                Grid.SetRow(contentControl, 1);
+                binding = new Binding
+                {
+                    Path = new PropertyPath(nameof(ViewType.View)),
+
+                };
+                contentControl.SetBinding(ContentProperty, binding);
+                grid.Children.Add(contentControl);
+                return grid;
+            }
+
+        }
+
+
+        public Assembly Assembly
+        {
+            get { return (Assembly)GetValue(AssemblyProperty); }
+            set { SetValue(AssemblyProperty, value); }
+        }
+
+
+    }
+}
+
+

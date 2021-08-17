@@ -70,12 +70,21 @@
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/MenuButton.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/SkipControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/ProgressTimeBar.xaml" />
+
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/ResourcePicker.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DateTimeControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/RangeSlider.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/TimeSpanControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/MasterControl.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/MasterDetailView.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Clock.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/MasterDetail.xaml" />
+
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Progress/ProgressArc.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Progress/ProgressBar.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Progress/FlashThumb.xaml" />
+
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/TypeControl.xaml"></ResourceDictionary>
 
         <!--  Extrinsic  -->
 
@@ -111,6 +120,8 @@
         <ResourceDictionary Source="/UtilityWpf.Controls;component/DataTemplate/PropertyDataTemplateSelector.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/DataTemplate/TypeDataTemplate.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/DataTemplate/TypeObjectDataTemplate.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/DataTemplate/ViewTypeDataTemplate.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/DataTemplate/ViewAssemblyDataTemplate.xaml" />
 
 
     </ResourceDictionary.MergedDictionaries>

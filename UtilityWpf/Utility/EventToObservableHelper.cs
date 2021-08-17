@@ -24,7 +24,7 @@ namespace UtilityWpf
             .Select(a => a.EventArgs);
         
         
-        public static IObservable<IList> SelectAddChanges(this Selector selector) =>
+        public static IObservable<IList> SelectSelectionAddChanges(this Selector selector) =>
 
             Observable
             .FromEventPattern<SelectionChangedEventHandler, SelectionChangedEventArgs>
@@ -32,7 +32,15 @@ namespace UtilityWpf
             .Select(a => a.EventArgs.AddedItems)
             .Where(a => a.Count > 0);
 
-        public static IObservable<IList> SelectRemoveChanges(this Selector selector) =>
+        public static IObservable<object> SelectSingleSelectionChanges(this Selector selector) =>
+            Observable
+            .FromEventPattern<SelectionChangedEventHandler, SelectionChangedEventArgs>
+            (a => selector.SelectionChanged += a, a => selector.SelectionChanged -= a)
+            .Select(a => a.EventArgs.AddedItems)
+            .Where(a => a.Count ==1)
+            .Select(a=>a.Cast<object>().Single());
+
+        public static IObservable<IList> SelectSelectionRemoveChanges(this Selector selector) =>
             Observable
             .FromEventPattern<SelectionChangedEventHandler, SelectionChangedEventArgs>
             (a => selector.SelectionChanged += a, a => selector.SelectionChanged -= a)
@@ -60,7 +68,7 @@ namespace UtilityWpf
         public static IObservable<ExitEventArgs> GetExitEvents(this Application app) =>
             Observable
             .FromEventPattern<ExitEventHandler, ExitEventArgs>(h => app.Exit += h, h => app.Exit -= h)
-           .Select(_ => _.EventArgs);
+           .Select(a => a.EventArgs);
 
 
         public static IObservable<object> ToChanges(this Selector selector) =>
@@ -143,17 +151,6 @@ namespace UtilityWpf
                 .Checked.Select(a => true).Merge(toggleButton.Events()
                 .Unchecked.Select(a => false))
                 .StartWith(toggleButton.IsChecked ?? defaultValue);
-        }
-
-
-
-
-        public static IObservable<RoutedEventArgs> ToLoadedChanges(this Control control)
-        {
-            return Observable.FromEventPattern<RoutedEventHandler, RoutedEventArgs>(
-                   h => control.Loaded += h,
-                   h => control.Loaded -= h)
-                .Select(a => a.EventArgs);
         }
 
         public static IObservable<string> ToThrottledObservable(this TextBox textBox)
