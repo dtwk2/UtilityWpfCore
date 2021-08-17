@@ -83,7 +83,9 @@
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Progress/ProgressArc.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Progress/ProgressBar.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Progress/FlashThumb.xaml" />
-        
+
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/TypeControl.xaml"></ResourceDictionary>
+
         <!--  Extrinsic  -->
 
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/SliderWithTickLabels.xaml" />

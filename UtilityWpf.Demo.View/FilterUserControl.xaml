@@ -3,11 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:ctrl="clr-namespace:ComputerCastleControls;assembly=UtilityWpf.Controls"
+             xmlns:ctrl="clr-namespace:ComputerCastleControls;assembly=UtilityWpf.Controls" xmlns:extrinsic="http://schemas.utility.com"
+             xmlns:testdata="clr-namespace:UtilityWpf.TestData;assembly=UtilityWpf.TestData"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    
-    <DockPanel Margin="10">
+
+    <UniformGrid Columns="1">     <DockPanel Margin="10">
         <ctrl:FilterControl Height="25" Header="Type here to filter" DockPanel.Dock="Top"
                             TargetControl="{Binding ElementName=listBox}"                         />
         <ctrl:FilterControl Height="25" Header="This only filters on the first name" DockPanel.Dock="Top"
@@ -19,9 +20,35 @@
         
         <ctrl:FilterControl Height="25" Header="This filters on enter" DockPanel.Dock="Top"
                             TargetControl="{Binding ElementName=listBox}"      FilterOnEnter="True"            />
-        
-        <ListBox x:Name="listBox" DisplayMemberPath="First" Margin="0,10,0,0" 
+            <extrinsic:TypeControl Type="{x:Type testdata:Character}" Changed="TypeControl_Changed_2"></extrinsic:TypeControl>
+
+
+
+        </DockPanel>
+   
+
+        <ListBox x:Name="listBox" 
                  ItemsSource="{DynamicResource Characters}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"></WrapPanel>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+
+                                <Viewbox Height="250">
+                                    <ContentPresenter                  Margin="5"      />
+                                </Viewbox>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
         </ListBox>
-    </DockPanel>
+    </UniformGrid>
 </UserControl>
