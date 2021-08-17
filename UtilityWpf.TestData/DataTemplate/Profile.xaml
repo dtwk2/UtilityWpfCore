@@ -6,7 +6,7 @@
     <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
     <!--  https://github.com/Yeah69/BFF.DataVirtualizingCollection  -->
 
-    <DataTemplate DataType="{x:Type local:ProfileViewModel}">
+    <DataTemplate DataType="{x:Type local:Profile}">
 
         <Border
             Margin="7"
@@ -81,12 +81,12 @@
                         <!--<iconPacks:PackIconMaterial
                                                     Margin="0,0,10,0"
                                                     HorizontalAlignment="Stretch"
-                                                    Foreground="{Binding Converter={x:Static sample:ProfileViewModel.ToCompanyBrush}}"
-                                                    Kind="{Binding Converter={x:Static sample:ProfileViewModel.ToCompanyIcon}}" />-->
+                                                    Foreground="{Binding Converter={x:Static sample:Profile.ToCompanyBrush}}"
+                                                    Kind="{Binding Converter={x:Static sample:Profile.ToCompanyIcon}}" />-->
                         <TextBlock
                             FontSize="15"
-                            Foreground="{Binding Converter={x:Static local:ProfileViewModel.ToCompanyBrush}}"
-                            Text="{Binding Converter={x:Static local:ProfileViewModel.ToCompanyText}}" />
+                            Foreground="{Binding Converter={x:Static local:Profile.ToCompanyBrush}}"
+                            Text="{Binding Converter={x:Static local:Profile.ToCompanyText}}" />
                     </StackPanel>
                     <StackPanel
                         Grid.Row="5"
@@ -123,7 +123,7 @@
                             <TextBlock
                                 FontSize="14"
                                 Foreground="White"
-                                Text="{Binding HiddenAbilitiesCount, Converter={x:Static local:ProfileViewModel.PrefixedHiddenAbilitiesCount}}" />
+                                Text="{Binding HiddenAbilitiesCount, Converter={x:Static local:Profile.PrefixedHiddenAbilitiesCount}}" />
                         </Border>
                     </StackPanel>
                     <TextBlock

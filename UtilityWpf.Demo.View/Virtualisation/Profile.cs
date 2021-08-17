@@ -16,9 +16,9 @@ namespace UtilityWpf.DemoApp
     {
         private const int _speed = 3;
 
-        private readonly ReadOnlyObservableCollection<ProfileViewModel> profiles;
+        private readonly ReadOnlyObservableCollection<Profile> profiles;
 
-        public ReadOnlyObservableCollection<ProfileViewModel> Profiles => profiles;
+        public ReadOnlyObservableCollection<Profile> Profiles => profiles;
 
         public ProfileCollectionTimed(int speed)
         {
@@ -43,9 +43,9 @@ namespace UtilityWpf.DemoApp
                  .Bind(out profiles).Subscribe();
         }
 
-        private class comparer : IComparer<ProfileViewModel>
+        private class comparer : IComparer<Profile>
         {
-            public int Compare([AllowNull] ProfileViewModel x, [AllowNull] ProfileViewModel y)
+            public int Compare([AllowNull] Profile x, [AllowNull] Profile y)
             {
                 return x.Name.CompareTo(y.Name);
             }
@@ -62,17 +62,17 @@ namespace UtilityWpf.DemoApp
     public class ProfileCollectionVirtualise1 : ReactiveObject
     {
         private int val = 1;
-        private readonly ObservableAsPropertyHelper<IList<ProfileViewModel>> profiles;
+        private readonly ObservableAsPropertyHelper<IList<Profile>> profiles;
 
         public ProfileCollectionVirtualise1()
         {
             profiles = this.WhenAnyValue(a => a.Value).Select(GetProfiles).ToProperty(this, a => a.Profiles);
 
-            IList<ProfileViewModel> GetProfiles(int i)
+            IList<Profile> GetProfiles(int i)
             {
                 var ProfilePool = ProfileFactory.BuildPool();
                 return DataVirtualizingCollectionBuilder
-                    .Build<ProfileViewModel>(i, RxApp.MainThreadScheduler)
+                    .Build<Profile>(i, RxApp.MainThreadScheduler)
                  .NonPreloading()
                  .Hoarding()
                  .NonTaskBasedFetchers(
@@ -87,18 +87,18 @@ namespace UtilityWpf.DemoApp
                          Console.WriteLine($"{nameof(Profiles)}: Loading count");
                          return 420420;
                      })
-                 .AsyncIndexAccess((_, __) => new ProfileViewModel());
+                 .AsyncIndexAccess((_, __) => new Profile());
             }
         }
 
-        public IList<ProfileViewModel> Profiles => profiles.Value;
+        public IList<Profile> Profiles => profiles.Value;
 
         public int Value { get => val; set => this.RaiseAndSetIfChanged(ref val, value); }
     }
 
     public class ProfileCollectionVirtualiseLimited
     {
-        private readonly ReadOnlyObservableCollection<ProfileViewModel> profiles;
+        private readonly ReadOnlyObservableCollection<Profile> profiles;
 
         /// <summary>
         /// Only adds to the pool of data when asked to
@@ -121,12 +121,12 @@ namespace UtilityWpf.DemoApp
                         .Subscribe();
         }
 
-        public ReadOnlyObservableCollection<ProfileViewModel> Profiles => profiles;
+        public ReadOnlyObservableCollection<Profile> Profiles => profiles;
     }
 
     public class ProfileCollectionVirtualise
     {
-        private readonly ReadOnlyObservableCollection<ProfileViewModel> profiles;
+        private readonly ReadOnlyObservableCollection<Profile> profiles;
 
         /// <summary>
         /// Creates an initial set of blank data then fills when requested
@@ -136,13 +136,13 @@ namespace UtilityWpf.DemoApp
         public ProfileCollectionVirtualise(IObservable<IVirtualRequest> virtualRequests, int initialSize)
         {
             var pool = ProfileFactory.BuildPool();
-            var items = new Func<ProfileViewModel>(pool.Random).Repeat();
+            var items = new Func<Profile>(pool.Random).Repeat();
 
             _ = VirtualisationHelper.CreateChangeSet(items, virtualRequests, initialSize)
                 .Bind(out profiles)
                 .Subscribe();
         }
 
-        public ReadOnlyObservableCollection<ProfileViewModel> Profiles => profiles;
+        public ReadOnlyObservableCollection<Profile> Profiles => profiles;
     }
 }

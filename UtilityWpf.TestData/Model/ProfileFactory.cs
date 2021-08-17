@@ -21,11 +21,11 @@ namespace UtilityWpf.TestData
 
         private static BitmapImage GetImage(string path) => new BitmapImage(new Uri(System.IO.Path.GetFullPath("../../../../UtilityWpf.TestData/" + path)));
 
-        public static IReadOnlyList<ProfileViewModel> BuildPool() =>
-                new ReadOnlyCollection<ProfileViewModel>(
-                    new List<ProfileViewModel>
+        public static IReadOnlyList<Profile> BuildPool() =>
+                new ReadOnlyCollection<Profile>(
+                    new List<Profile>
                     {
-                    new ProfileViewModel(
+                    new Profile(
                         "UI/UX designer",
                         "$55/hr",
                         "Wide Walson",
@@ -36,7 +36,7 @@ namespace UtilityWpf.TestData
                         new List<string>{ "UI", "UX", "photoshop" },
                         4,
                         GetImage("ProfilePics\\00_Wide.png")),
-                    new ProfileViewModel(
+                    new Profile(
                         "mobile designer",
                         "$32/hr",
                         "Paria Metrescu",
@@ -47,7 +47,7 @@ namespace UtilityWpf.TestData
                         new List<string>{ "PHP", "android", "iOS"},
                         2,
                         GetImage("ProfilePics/01_Paria.png")),
-                    new ProfileViewModel(
+                    new Profile(
                         "mobile designer",
                         "$42/hr",
                         "Morexandra Algan",
@@ -58,7 +58,7 @@ namespace UtilityWpf.TestData
                         new List<string>{ "PHP", "android", "iOS"},
                         12,
                          GetImage("ProfilePics/02_Morexandra.png")),
-                    new ProfileViewModel(
+                    new Profile(
                         "interactive designer",
                         "$44/hr",
                         "Smennifer Jith",
@@ -69,7 +69,7 @@ namespace UtilityWpf.TestData
                         new List<string>{ "PHP", "android", "iOS"},
                         2,
                          GetImage("ProfilePics/03_Smennifer.png")),
-                    new ProfileViewModel(
+                    new Profile(
                         "mobile designer",
                         "$40/hr",
                         "Anyetlana Svukova",
@@ -80,7 +80,7 @@ namespace UtilityWpf.TestData
                         new List<string>{ "PHP", "android", "iOS"},
                         2,
                          GetImage("ProfilePics/04_Anyetlana.png")),
-                    new ProfileViewModel(
+                    new Profile(
                         "UI/UX designer",
                         "$30/hr",
                         "Korko van Maoh",
@@ -91,7 +91,7 @@ namespace UtilityWpf.TestData
                         new List<string>{ "UI", "UX", "photoshop"},
                         4,
                          GetImage("ProfilePics/05_Korko.png")),
-                    new ProfileViewModel(
+                    new Profile(
                         "UX designer",
                         "$50/hr",
                         "Kowel Paszentka",
@@ -102,7 +102,7 @@ namespace UtilityWpf.TestData
                         new List<string>{ "UI", "UX", "photoshop" },
                         4,
                          GetImage("ProfilePics/06_Kowel.png")),
-                    new ProfileViewModel(
+                    new Profile(
                         "mobile designer",
                         "$32/hr",
                         "Sinia Samionov",
@@ -113,7 +113,7 @@ namespace UtilityWpf.TestData
                         new List<string>{ "PHP", "android", "iOS" },
                         2,
                          GetImage("ProfilePics/07_Sinia.png")),
-                    new ProfileViewModel(
+                    new Profile(
                         "photographer",
                         "$40/hr",
                         "Wonathan Jayne",
@@ -124,7 +124,7 @@ namespace UtilityWpf.TestData
                         new List<string>{ "UI", "UX", "photoshop" },
                         4,
                          GetImage("ProfilePics/08_Wonathan.png")),
-                    new ProfileViewModel(
+                    new Profile(
                         "Superhero",
                         "free",
                         "Matban",
@@ -135,7 +135,7 @@ namespace UtilityWpf.TestData
                         new List<string>{ "tech", "IT", "martial arts" },
                         69,
                          GetImage("ProfilePics/09_Matban.png")),
-                    new ProfileViewModel(
+                    new Profile(
                         "mobile designer",
                         "$39/hr",
                         "Surgiana Geoclea",
@@ -146,7 +146,7 @@ namespace UtilityWpf.TestData
                         new List<string>{ "PHP", "android", "iOS" },
                         2,
                          GetImage("ProfilePics/10_Surgiana.png")),
-                    new ProfileViewModel(
+                    new Profile(
                         "UI/UX designer",
                         "$45/hr",
                         "Jogory Grehnes",

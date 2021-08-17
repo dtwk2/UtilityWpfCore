@@ -4,18 +4,18 @@ using System.Windows.Media;
 
 namespace UtilityWpf.TestData
 {
-    public class ProfileViewModel //: IEquatable<ProfileViewModel>
+    public class Profile //: IEquatable<Profile>
     {
         public static IValueConverter ToCompanyBrush =
-            LambdaConverters.ValueConverter.Create<ProfileViewModel, Brush>(
+            LambdaConverters.ValueConverter.Create<Profile, Brush>(
                 e => e.Value.IsFreelancer ? Brushes.Green : Brushes.Blue);
 
         public static IValueConverter ToCompanyText =
-            LambdaConverters.ValueConverter.Create<ProfileViewModel, string>(
+            LambdaConverters.ValueConverter.Create<Profile, string>(
                 e => e.Value.IsFreelancer ? "Freelancer" : e.Value.CompanyName);
 
         public static IValueConverter ToCompanyIcon =
-            LambdaConverters.ValueConverter.Create<ProfileViewModel, MaterialDesignThemes.Wpf.PackIconKind>(
+            LambdaConverters.ValueConverter.Create<Profile, MaterialDesignThemes.Wpf.PackIconKind>(
                 e => e.Value.IsFreelancer ? MaterialDesignThemes.Wpf.PackIconKind.AccountAddOutline : MaterialDesignThemes.Wpf.PackIconKind.City);
 
         public static IValueConverter PrefixedHiddenAbilitiesCount =
@@ -27,10 +27,10 @@ namespace UtilityWpf.TestData
                 e => $"Profiles ({e.Value})");
 
 
-        public ProfileViewModel()
+        public Profile()
         { }
 
-        public ProfileViewModel(
+        public Profile(
             string occupation,
             string salary,
             string name,
@@ -77,12 +77,13 @@ namespace UtilityWpf.TestData
 
         public ImageSource Picture { get; }
 
+
         //public override bool Equals(object obj)
         //{
-        //    return Equals(obj as ProfileViewModel);
+        //    return Equals(obj as Profile);
         //}
 
-        //public bool Equals([AllowNull] ProfileViewModel other)
+        //public bool Equals([AllowNull] Profile other)
         //{
         //    return other != null &&
         //        Index == other.Index &&
@@ -115,19 +116,19 @@ namespace UtilityWpf.TestData
         //    return hash.ToHashCode();
         //}
 
-        //public static bool operator ==(ProfileViewModel left, ProfileViewModel right)
+        //public static bool operator ==(Profile left, Profile right)
         //{
-        //    return EqualityComparer<ProfileViewModel>.Default.Equals(left, right);
+        //    return EqualityComparer<Profile>.Default.Equals(left, right);
         //}
 
-        //public static bool operator !=(ProfileViewModel left, ProfileViewModel right)
+        //public static bool operator !=(Profile left, Profile right)
         //{
         //    return !(left == right);
         //}
 
-        //public ProfileViewModel WithIndex(int index)
+        //public Profile WithIndex(int index)
         //{
-        //    return new ProfileViewModel(
+        //    return new Profile(
         //    Occupation,
         //    Salary,
         //    Name,
