@@ -73,7 +73,7 @@
                         WheelOrientation="Vertical"
                         ScrollChanged="ScrollViewer_ScrollChanged">
                         <v:ScrollViewer.Resources>
-                            <Image Source="pack://application:,,,/UtilityWpf.TestData;component/Images/Cancel.png" x:Key="Cancel"/>    
+                            <Image Source="pack://application:,,,/UtilityWpf.TestData;component/Images/Cancel.png" x:Key="Cancel"/>
                             <Image Source="pack://application:,,,/UtilityWpf.TestData;component/Images/Settings.png" x:Key="Settings"/>
                             <Image Source="pack://application:,,,/UtilityWpf.TestData;component/Images/Settings.png" x:Key="Settings2"/>
                             <Image Source="pack://application:,,,/UtilityWpf.TestData;component/Images/Settings.png" x:Key="Settings3"/>
@@ -83,7 +83,7 @@
                             <Style TargetType="Image">
                                 <Setter Property="Height" Value="200"></Setter>
                             </Style>
-                
+
                         </v:ScrollViewer.Resources>
 
                         <StackPanel x:Name="stackPanel" Orientation="Vertical">
@@ -98,7 +98,7 @@
                             <StaticResource ResourceKey="Play2"></StaticResource>
                             <StaticResource ResourceKey="Settings2"></StaticResource>
                             <StaticResource ResourceKey="Settings3"></StaticResource>
-                            <StaticResource ResourceKey="Play3"></StaticResource>                   
+                            <StaticResource ResourceKey="Play3"></StaticResource>
                         </StackPanel>
                     </v:ScrollViewer>
                 </DockPanel>
@@ -198,16 +198,16 @@
                                     </DataTemplate.Triggers>-->
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
-                            
-                        
-                          
+
+
+
                         </ListBox>
                     </view:ScrollViewer>
                 </DockPanel>
             </Grid>
         </TabItem>
-     
-        
+
+
         <TabItem Header="Smooth Scroll">
             <Grid>
                 <Grid.Resources>
@@ -217,19 +217,51 @@
                     <RowDefinition  Height="*"/>
                     <RowDefinition Height="10*"/>
                 </Grid.RowDefinitions>
+                
                 <Button Click="ButtonBase_OnClick" >Random Selection</Button>
-                <animatedScrollViewer:AnimatedListBox Grid.Row="1" x:Name="AnimatedListBox" ItemsSource="{Binding Path=Profiles, Source={StaticResource ViewModel}}" >
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListBoxItem}">
-                            <Setter Property="LayoutTransform">
-                                <Setter.Value>
-                                    <ScaleTransform ScaleX="0.3" ScaleY="0.3" />
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </ListBox.ItemContainerStyle>
-           
-                </animatedScrollViewer:AnimatedListBox>
+
+                <UniformGrid Rows="1" Grid.Row="1">
+
+
+                    <ListBox x:Name="AnimatedListBoxMinor" Width="500" Height="800" VerticalAlignment="Top"
+                                 ItemsSource="{Binding Path=Profiles, Source={StaticResource ViewModel}}" 
+                                 BorderBrush="Transparent">
+
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="5"></UniformGrid>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" FontSize="8"></TextBlock>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <animatedScrollViewer:AnimatedListBox x:Name="AnimatedListBox"
+                                                              Width="1000"
+                                                              BorderBrush="Transparent"
+                                                              ItemsSource="{Binding Path=Profiles, Source={StaticResource ViewModel}}" 
+                        SelectedItem="{Binding Path=SelectedItem, Mode=OneWay}">
+                        <ListBox.ItemContainerStyle>
+
+                            <Style TargetType="{x:Type ListBoxItem}">
+                                <!-- turns off Selection -->
+                                <Setter Property="IsHitTestVisible" Value="false"/>
+                                <Setter Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                    </animatedScrollViewer:AnimatedListBox>
+
+                    <animatedScrollViewer:AnimatedScrollViewer  >
+                        <ItemsControl ItemsSource="{StaticResource Characters}"></ItemsControl>
+                    </animatedScrollViewer:AnimatedScrollViewer>
+                </UniformGrid>
             </Grid>
         </TabItem>
 
@@ -268,5 +300,5 @@
                 </ListView>
             </Grid>
         </TabItem>
-</TabControl>
+    </TabControl>
 </UserControl>
