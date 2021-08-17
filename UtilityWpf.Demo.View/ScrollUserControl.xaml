@@ -9,6 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:v="clr-namespace:Viamo;assembly=UtilityWpf.Controls"
     xmlns:view="http://schemas.utility.com"
+    xmlns:animatedScrollViewer="clr-namespace:AnimatedScrollViewer;assembly=UtilityWpf.Controls"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
@@ -205,6 +206,33 @@
                 </DockPanel>
             </Grid>
         </TabItem>
+     
+        
+        <TabItem Header="Smooth Scroll">
+            <Grid>
+                <Grid.Resources>
+                    <local:ProfileCollectionSlow x:Key="ViewModel" />
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition  Height="*"/>
+                    <RowDefinition Height="10*"/>
+                </Grid.RowDefinitions>
+                <Button Click="ButtonBase_OnClick" >Random Selection</Button>
+                <animatedScrollViewer:AnimatedListBox Grid.Row="1" x:Name="AnimatedListBox" ItemsSource="{Binding Path=Profiles, Source={StaticResource ViewModel}}" >
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListBoxItem}">
+                            <Setter Property="LayoutTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="0.3" ScaleY="0.3" />
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+           
+                </animatedScrollViewer:AnimatedListBox>
+            </Grid>
+        </TabItem>
+
         <TabItem Header="Scroll To End Behavior">
             <Grid>
                 <Grid.Resources>
@@ -214,12 +242,15 @@
                     <RowDefinition  Height="*"/>
                     <RowDefinition Height="10*"/>
                 </Grid.RowDefinitions>
-                <TextBlock FontSize="18">
-                    WAIT FOR ITEMS TO LOAD  <LineBreak/> 
-                    The behavior auto scrolls to end item on its addition
-                </TextBlock>
+                <WrapPanel Orientation="Horizontal">
+                    <TextBlock FontSize="18">
+                        The behavior auto scrolls to end item on its addition
+                    </TextBlock>
+                    <Button Click="ButtonBase_OnClick1" >Random Selection</Button>
+                </WrapPanel>
 
-                <ListView ItemsSource="{Binding Path=Profiles, Source={StaticResource ViewModel}}" Grid.Row="1">
+
+                <ListView x:Name="ListView1" ItemsSource="{Binding Path=Profiles, Source={StaticResource ViewModel}}" Grid.Row="1">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="{x:Type ListViewItem}">
 
@@ -231,10 +262,11 @@
                         </Style>
                     </ListView.ItemContainerStyle>
                     <i:Interaction.Behaviors>
-                        <behaviors:ScrollToEndBehavior />
+                        <behaviors:SmoothScrollToEndBehavior />
+                        <behaviors:ScrollToSelectedBehavior />
                     </i:Interaction.Behaviors>
                 </ListView>
             </Grid>
         </TabItem>
-    </TabControl>
+</TabControl>
 </UserControl>

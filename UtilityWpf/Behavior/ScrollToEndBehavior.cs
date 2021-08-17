@@ -14,7 +14,7 @@
     /// <a href="https://stackoverflow.com/questions/16942580/why-doesnt-listview-scrollintoview-ever-work"></a>
     /// <a href="https://stackoverflow.com/questions/7153302/scroll-animation"></a>
     /// </summary>
-    public class ScrollToEndBehavior : Behavior<ItemsControl>
+    public class SmoothScrollToEndBehavior : Behavior<ItemsControl>
     {
         protected override void OnAttached()
         {
@@ -37,7 +37,7 @@
         }
 
         public static readonly DependencyProperty WithAnimationProperty =
-            DependencyProperty.Register("WithAnimation", typeof(bool), typeof(ScrollToEndBehavior), new PropertyMetadata(true));
+            DependencyProperty.Register("WithAnimation", typeof(bool), typeof(SmoothScrollToEndBehavior), new PropertyMetadata(true));
 
         private void ListView_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {

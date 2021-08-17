@@ -5,7 +5,9 @@ using System.Windows.Media.Animation;
 
 namespace animTextBox
 {
-
+    /// <summary>
+    /// <a href="https://www.codeproject.com/Tips/1111076/WPF-TextBox-with-Animated-Overflow"></a>
+    /// </summary>
     public partial class AnimatedTextBox : Grid
     {
 
@@ -145,15 +147,15 @@ namespace animTextBox
                 _fe = fe;
 
                 // Initialize the Storyboard
-                sb = new Storyboard();
-                sb.AutoReverse = false;
+                sb = new Storyboard {AutoReverse = false};
 
                 // Initialize the animation
-                anim = new DoubleAnimation();
-                anim.Name = "anim";
+                anim = new DoubleAnimation
+                {
+                    Name = "anim", EasingFunction = new CubicEase() {EasingMode = EasingMode.EaseInOut}
+                };
 
                 // Set the EasingFunction on a new instance of CubicEase whose EasingMode is EaseInOut
-                anim.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseInOut };
 
                 // Bind the Animation with the txtVisible TextBox
                 Storyboard.SetTargetName(anim, "txtVisible");
@@ -167,7 +169,7 @@ namespace animTextBox
             /// </summary>
             public ChangeTypes ChangeType
             {
-                get { return _changeType; }
+                get => _changeType;
                 set
                 {
                     _changeType = value;
@@ -175,7 +177,7 @@ namespace animTextBox
                     /* If the Height has inreased, set the target property to MaxHeight, else to MinHeight
                      * (instead of animating directly the Height, we animate MaxHeight/MinHeight to prevent the AnimatedTextBox
                      * from growing/shrinking suddenly) */
-                    Storyboard.SetTargetProperty(anim, new PropertyPath(string.Format("(TextBox.{0})", (value == ChangeTypes.Increased) ? "MaxHeight" : "MinHeight")));
+                    Storyboard.SetTargetProperty(anim, new PropertyPath($"(TextBox.{((value == ChangeTypes.Increased) ? "MaxHeight" : "MinHeight")})"));
                 }
             }
 

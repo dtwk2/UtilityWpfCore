@@ -1,9 +1,8 @@
-﻿using Microsoft.Xaml.Behaviors;
-using System;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Threading;
+using Microsoft.Xaml.Behaviors;
 
-namespace UtilityDAL.DemoApp
+namespace UtilityWpf.Behavior
 {
     public class ScrollToSelectedBehavior : Behavior<ListBox>
     {

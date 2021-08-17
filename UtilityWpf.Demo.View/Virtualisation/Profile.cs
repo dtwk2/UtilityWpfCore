@@ -24,6 +24,7 @@ namespace UtilityWpf.DemoApp
         {
             var pool = ProfileFactory.BuildPool();
             _ = Observable.Interval(TimeSpan.FromSeconds(speed))
+               .StartWith(Enumerable.Repeat(0L, 30).ToArray())
                 .ObserveOnDispatcher()
                        .Select(a => pool.Random())
                  .ToObservableChangeSet()
@@ -65,7 +66,7 @@ namespace UtilityWpf.DemoApp
 
         public ProfileCollectionVirtualise1()
         {
-            profiles = this.WhenAnyValue(a => a.Value).Select(a => GetProfiles(a)).ToProperty(this, a => a.Profiles);
+            profiles = this.WhenAnyValue(a => a.Value).Select(GetProfiles).ToProperty(this, a => a.Profiles);
 
             IList<ProfileViewModel> GetProfiles(int i)
             {

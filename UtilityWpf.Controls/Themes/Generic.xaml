@@ -49,8 +49,6 @@
 
     <ResourceDictionary.MergedDictionaries>
 
-
-
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/NavigatorControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/ButtonDefinitionsControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/PageNavigatorControl.xaml" />
@@ -82,7 +80,10 @@
 
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Progress/ProgressArc.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Progress/ProgressBar.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Progress/FlashThumb.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Progress/FlashThumb.xaml" />       
+        
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Extrinsic/AnimatedListBox.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Extrinsic/AnimatedScrollViewer.xaml" />
 
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/TypeControl.xaml"></ResourceDictionary>
 

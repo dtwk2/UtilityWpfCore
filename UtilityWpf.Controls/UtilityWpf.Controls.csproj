@@ -87,6 +87,14 @@
     <Compile Update="Progress\ProgressArc.cs">
       <DependentUpon>ProgressArc.xaml</DependentUpon>
     </Compile>
+
+	  <Compile Update="Extrinsic\AnimatedListBox.cs">
+		  <DependentUpon>AnimatedListBox.xaml</DependentUpon>
+	  </Compile>
+
+	  <Compile Update="Extrinsic\AnimatedScrollViewer.cs">
+		  <DependentUpon>AnimatedScrollViewer.xaml</DependentUpon>
+	  </Compile>
   </ItemGroup>
 
   <ItemGroup>
