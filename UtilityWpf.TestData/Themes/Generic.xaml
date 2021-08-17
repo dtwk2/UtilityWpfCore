@@ -3,6 +3,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/UtilityWpf.TestData;component/DataTemplate/Character.xaml" />
         <ResourceDictionary Source="/UtilityWpf.TestData;component/DataTemplate/Profile.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.TestData;component/DataTemplate/Fields.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 

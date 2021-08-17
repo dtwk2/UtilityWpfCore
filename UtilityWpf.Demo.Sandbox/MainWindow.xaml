@@ -5,12 +5,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:view="http://schemas.utility.com" 
-    xmlns:view1="clr-namespace:UtilityWpf.Demo.View"
+    xmlns:view1="clr-namespace:UtilityWpf.Demo.View" xmlns:view11="clr-namespace:UtilityWpf.Demo.Sandbox.Infrastructure"
     Title="MainWindow"
     Width="825"
     Height="550"
     mc:Ignorable="d">
     <TabControl>
+        <TabItem Header="2Z">
+            <view11:PersistListUserControl />
+        </TabItem>
         <TabItem Header="Z">
             <view1:MasterListUserControl />
         </TabItem>
