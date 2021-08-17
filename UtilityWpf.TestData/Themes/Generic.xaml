@@ -1,10 +1,9 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/UtilityWpf.TestData;component/DataTemplate/Character.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/UtilityWpf.TestData;component/DataTemplate/Profile.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.TestData;component/DataTemplate/Character.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.TestData;component/DataTemplate/Profile.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    
-    
+
+
 </ResourceDictionary>
