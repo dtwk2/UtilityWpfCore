@@ -1,4 +1,6 @@
-﻿namespace UtilityWpf
+﻿using System.Collections.Generic;
+
+namespace UtilityWpf
 {
     using System;
     using System.Linq;
@@ -9,9 +11,14 @@
     /// </summary>
     public static class ResourceDictionaryExtensions
     {
-        #region Public Methods
+       public static ResourceDictionary? FirstMatch(this IEnumerable<ResourceDictionary> dictionaries, string source)
+       {
+          return dictionaries
+                .Select(dictionary => dictionary.FindDictionary(source))
+                .FirstOrDefault();
+       }
 
-        public static void ReplaceDictionary(this ResourceDictionary resourceDictionary, Uri source, ResourceDictionary destination)
+      public static void ReplaceDictionary(this ResourceDictionary resourceDictionary, Uri source, ResourceDictionary destination)
         {
             resourceDictionary.BeginInit();
 
@@ -54,23 +61,9 @@
         /// Find the resource dictionary by recursively looking in the merged dictionaries
         /// Throw an exceptionReturn if the dictionary could not be found
         /// </summary>
-        /// <param name="resourceDictionary">
-        /// The resource Dictionary.
-        /// </param>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <returns>
-        /// The <see cref="ResourceDictionary"/>.
-        /// </returns>
-        public static ResourceDictionary FindDictionary(this ResourceDictionary resourceDictionary, string source)
+        public static ResourceDictionary? FindDictionary(this ResourceDictionary resourceDictionary, string source)
         {
-            if (resourceDictionary == null)
-            {
-                return null;
-            }
-
-            // If this is the resource return it
+           // If this is the resource return it
             if (resourceDictionary.Source != null && resourceDictionary.Source.OriginalString == source)
             {
                 return resourceDictionary;
@@ -79,7 +72,7 @@
             // Search the merges resource dictionaries
             var foundDictionary = resourceDictionary.MergedDictionaries
                 .Select(mergedResource => mergedResource.FindDictionary(source))
-                .FirstOrDefault(foundResource => foundResource != null);
+                .FirstOrDefault();
 
             return foundDictionary;
         }
@@ -89,16 +82,9 @@
         /// </summary>
         /// <param name="resourceDictionary">
         /// The resource dictionary.
-        /// </param>
-        /// <param name="resource">
-        /// The resource.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
         public static bool ContainsDictionary(this ResourceDictionary resourceDictionary, ResourceDictionary resource)
         {
-            if (resource == null || resource.Source == null)
+            if (resource.Source == null)
             {
                 return false;
             }
@@ -111,18 +97,9 @@
         /// Determines if the specified resource dictionary (source) exists anywhere in the 
         /// resource dictionary recursively.
         /// </summary>
-        /// <param name="resourceDictionary">
-        /// The resource dictionary.
-        /// </param>
-        /// <param name="source">
-        /// The url of the resource dictionary to find.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
         public static bool ContainsDictionary(this ResourceDictionary resourceDictionary, string source)
         {
-            if (resourceDictionary == null || string.IsNullOrEmpty(source))
+            if (string.IsNullOrEmpty(source))
             {
                 return false;
             }
@@ -134,16 +111,7 @@
         /// <summary>
         /// The find resource.
         /// </summary>
-        /// <param name="resourceDictionary">
-        /// The resource dictionary.
-        /// </param>
-        /// <param name="resourceKey">
-        /// The resource key.
-        /// </param>
-        /// <returns>
-        /// The <see cref="object"/>.
-        /// </returns>
-        public static object FindResource(this ResourceDictionary resourceDictionary, object resourceKey)
+        public static object? FindResource(this ResourceDictionary resourceDictionary, object resourceKey)
         {
             // Try and find the resource in the root dictionary first
             var value = resourceDictionary[resourceKey];
@@ -158,8 +126,6 @@
                                     .FirstOrDefault(resource => resource != null);
             return foundResource;
         }
-
-        #endregion
 
         #region Private Methods
 
