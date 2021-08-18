@@ -5,34 +5,36 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:view="http://schemas.utility.com"
+    xmlns:view="http://schemas.utility.com" xmlns:hc="https://handyorg.github.io/handycontrol"
     d:DesignHeight="300"
     d:DesignWidth="300"
     mc:Ignorable="d">
+    <FrameworkElement.Resources>
+        <PathGeometry x:Key="XGeometry">
+            <PathGeometry.Figures>
+                <PathFigure StartPoint="0.5,0">
+                    <LineSegment Point="-1,0" />
+                </PathFigure>
+                <PathFigure StartPoint="-0.5,0">
+                    <LineSegment Point="1,0" />
+                </PathFigure>
+            </PathGeometry.Figures>
+        </PathGeometry>
+
+        <Geometry x:Key="TriangleGeometry">M 250,40 L200,20 L200,60 Z</Geometry>
+    </FrameworkElement.Resources>
 
     <TabControl>
         <TabItem Header="Path">
             <UniformGrid Columns="1">
-                <view:PathButton Height="70" HoverBackground="Blue">
-                    <view:PathButton.PathData>
-                        <PathGeometry>
-                            <PathGeometry.Figures>
-                                <PathFigure StartPoint="0.5,0">
-                                    <LineSegment Point="-1,0" />
-                                </PathFigure>
-                                <PathFigure StartPoint="-0.5,0">
-                                    <LineSegment Point="1,0" />
-                                </PathFigure>
-                            </PathGeometry.Figures>
-                        </PathGeometry>
-                    </view:PathButton.PathData>
-                </view:PathButton>
+                <view:PathButton Height="70" HoverBackground="Blue" PathData="{StaticResource XGeometry}"/>
 
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Center">            
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                     <view:PathButton x:Name="PathButton" Height="100"/>
                     <TextBox x:Name="PathTextBox" Width="200" Height="30" Margin="4" FontSize="14"></TextBox>
                     <TextBlock x:Name="ErrorTextBlock" Foreground="Red"></TextBlock>
-                  </StackPanel>
+                </StackPanel>
+                
                 <view:XPathButton />
             </UniformGrid>
         </TabItem>
@@ -84,7 +86,7 @@
                 </Button>
             </Grid>
         </TabItem>
-        
+
         <TabItem Header="Interactivity">
             <Grid Width="100" Height="60">
                 <Button x:Name="optionsButton" >
@@ -116,6 +118,62 @@
                 </Button>
             </Grid>
         </TabItem>
+
+        
+        <TabItem Header="Morph">
+            <FrameworkElement.Resources>
+
+     
+                <Storyboard x:Key="StoryboardOnLoaded" RepeatBehavior="Forever" AutoReverse="True">
+                    <hc:GeometryAnimationUsingKeyFrames Storyboard.TargetProperty="Data" Storyboard.TargetName="PathDemo">
+                        <hc:DiscreteGeometryKeyFrame KeyTime="0:0:0.7" Value="{StaticResource XGeometry}"/>
+                        <hc:EasingGeometryKeyFrame KeyTime="0:0:1.2" Value="{StaticResource TriangleGeometry}">
+                            <hc:EasingGeometryKeyFrame.EasingFunction>
+                                <QuarticEase EasingMode="EaseInOut"/>
+                            </hc:EasingGeometryKeyFrame.EasingFunction>
+                        </hc:EasingGeometryKeyFrame>
+                    </hc:GeometryAnimationUsingKeyFrames>
+                    <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="Fill.(SolidColorBrush.Color)" Storyboard.TargetName="PathDemo">
+                        <DiscreteColorKeyFrame KeyTime="0:0:0.7" Value="#3b5998"/>
+                        <EasingColorKeyFrame KeyTime="0:0:1.2" Value="#4099ff">
+                            <EasingColorKeyFrame.EasingFunction>
+                                <QuarticEase EasingMode="EaseInOut"/>
+                            </EasingColorKeyFrame.EasingFunction>
+                        </EasingColorKeyFrame>
+                        <EasingColorKeyFrame KeyTime="0:0:1.9" Value="#4099ff"/>
+                    </ColorAnimationUsingKeyFrames>
+                </Storyboard>
+            </FrameworkElement.Resources>
+            <FrameworkElement.Triggers>
+
+            </FrameworkElement.Triggers>
+            <ToggleButton>
+                <Path Name="PathDemo" Width="100" Height="100" Data="{StaticResource XGeometry}" Fill="#3b5998"/>
+                <ToggleButton.Style>
+                    <Style BasedOn="{StaticResource {x:Type ToggleButton}}">
+                        <Style.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard Name="BeginStoryboard" Storyboard="{StaticResource StoryboardOnLoaded}"/>
+                                </Trigger.EnterActions>
+                            </Trigger>
+                            <!--<Trigger Property="IsChecked" Value="False">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                            <GradientStop Color="#FFF3F3F3" Offset="1"/>
+                                            <GradientStop Color="Red" Offset="0.307"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>-->
+                        </Style.Triggers>
+                    </Style>
+                </ToggleButton.Style>
+            </ToggleButton>
+
+        </TabItem>
+
         <TabItem Header="Image">
             <view:ImageButton
                 x:Name="toggle"
