@@ -39,6 +39,7 @@
                                     VerticalAlignment="Center"
                                     Data="{Binding Data, RelativeSource={RelativeSource TemplatedParent}}"
                                     Stretch="Uniform"
+                                    Fill="{StaticResource NormalForegroundBrush}"
                                     Stroke="{StaticResource NormalForegroundBrush}"
                                     StrokeEndLineCap="Square"
                                     StrokeStartLineCap="Square"
@@ -53,6 +54,7 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="backgroundEllipse" Property="Fill" Value="{Binding HoverBackground, RelativeSource={RelativeSource TemplatedParent}}" />
                             <Setter TargetName="ButtonPath" Property="Stroke" Value="{StaticResource HoverForegroundBrush}" />
+                            <Setter TargetName="ButtonPath" Property="Fill" Value="{StaticResource HoverForegroundBrush}" />
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="false">

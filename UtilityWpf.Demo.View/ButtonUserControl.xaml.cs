@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Media;
+using ReactiveUI;
 using UtilityWpf.Controls;
 
 namespace UtilityWpf.DemoApp
@@ -17,7 +18,7 @@ namespace UtilityWpf.DemoApp
         {
             InitializeComponent();
 
-            this.PathTextBox.Text = PathButton.InitialData;
+            this.PathTextBox.Text = GeometryButton.InitialData;
             converter = TypeDescriptor.GetConverter(typeof(Geometry));
             this.PathTextBox.TextChanged += PathTextBox_TextChanged;
         }
@@ -27,12 +28,23 @@ namespace UtilityWpf.DemoApp
             this.ErrorTextBlock.Text = string.Empty;
             try
             {
-                PathButton.PathData = (Geometry)converter.ConvertFrom(this.PathTextBox.Text);
+                PathButton.Data = (Geometry)converter.ConvertFrom(this.PathTextBox.Text);
             }
             catch (Exception ex)
             {
                 this.ErrorTextBlock.Text = ex.Message;
             }
         }
+    }
+
+    public class ToggleViewModel:ReactiveObject
+    {
+       private bool isChecked =true;
+
+       public bool IsChecked
+       {
+          get => isChecked;
+          set => this.RaiseAndSetIfChanged(ref isChecked, value);
+       }
     }
 }
