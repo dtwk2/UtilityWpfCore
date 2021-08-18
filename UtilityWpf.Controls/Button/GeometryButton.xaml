@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:UtilityWpf.Controls">
 
-    <Style TargetType="{x:Type local:PathButton}">
+    <Style TargetType="{x:Type local:GeometryButton}">
         <Style.Resources>
             <SolidColorBrush x:Key="NormalBackgroundBrush" Color="#00000000" />
             <SolidColorBrush x:Key="NormalBorderBrush" Color="#FFFFFFFF" />
@@ -18,7 +18,7 @@
         </Style.Resources>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:PathButton}">
+                <ControlTemplate TargetType="{x:Type local:GeometryButton}">
                     <!--<Grid Background="Transparent">-->
                     <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Grid
@@ -37,7 +37,7 @@
                                     Height="80"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    Data="{Binding PathData, RelativeSource={RelativeSource TemplatedParent}}"
+                                    Data="{Binding Data, RelativeSource={RelativeSource TemplatedParent}}"
                                     Stretch="Uniform"
                                     Stroke="{StaticResource NormalForegroundBrush}"
                                     StrokeEndLineCap="Square"
