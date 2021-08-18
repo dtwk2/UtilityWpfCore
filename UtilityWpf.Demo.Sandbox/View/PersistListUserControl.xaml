@@ -26,8 +26,20 @@
         
         
     </UserControl.Resources>
+    <DockPanel>
 
-    <local1:AddDragItemControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
+        <view:DualButtonControl Alternate="On" Main="Off" 
+                                Style="{DynamicResource OutlinedDualButtonControl}" 
+                                ButtonWidth="{Binding ElementName=WidthRadNumericUpDown, Path=Value}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="ButtonToggle" >
+                    <i:InvokeCommandAction Command="{Binding ChangeRepositoryCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </view:DualButtonControl>
+
+
+        <local1:AddDragItemControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
         <i:Interaction.Triggers>
             <i:EventTrigger  EventName="Change" >
                 <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
@@ -45,5 +57,5 @@
         </view:DragablzVerticalItemsControl>
         
     </local1:AddDragItemControl>
-
+    </DockPanel>
 </UserControl>

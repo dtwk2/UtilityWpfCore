@@ -7,16 +7,19 @@ using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
 using HandyControl.Controls;
+using LiteDB;
 using ReactiveUI;
 using UtilityInterface.NonGeneric.Database;
+using UtilityWpf.Demo.Sandbox.ViewModel;
 using UtilityWpf.TestData.Model;
 using static UtilityWpf.Controls.MasterControl;
 
 namespace UtilityWpf.Demo.Sandbox.Infrastructure
 {
-    public class PersistListViewModel
+    public class PersistListViewModel:ReactiveObject
     {
         private readonly FieldsFactory factory = new();
+        private IDatabaseService dbS = new DatabaseService();
 
         public PersistListViewModel()
         {
@@ -35,6 +38,18 @@ namespace UtilityWpf.Demo.Sandbox.Infrastructure
                 }
                 return Unit.Default;
             });
+
+            ChangeRepositoryCommand = ReactiveCommand.Create<object, Unit>((a) =>
+            {
+
+                if (DatabaseService is LiteDbRepo)
+                    DatabaseService = new DatabaseService();
+                else 
+                    DatabaseService = new LiteDbRepo("../../../Data");
+
+
+                return Unit.Default;
+            });
         }
 
         public ObservableCollection<Fields> Data => new(factory.Build(5));
@@ -43,22 +58,24 @@ namespace UtilityWpf.Demo.Sandbox.Infrastructure
         public Fields NewItem => factory.Build(1).Single();
 
         public ReactiveCommand<object, Unit> ChangeCommand { get; }
+        public ReactiveCommand<object, Unit> ChangeRepositoryCommand { get; }
 
-        public DatabaseService DatabaseService { get; } = new DatabaseService();
+        public IDatabaseService DatabaseService { get=> dbS; private set => this.RaiseAndSetIfChanged(ref dbS, value); } 
     }
+
 
 
     public class DatabaseService : IDatabaseService
     {
         public bool Delete(object item)
         {
-            MessageBox.Show("Delete");
+            System.Windows.MessageBox.Show("Delete");
             return true;
         }
 
         public int DeleteBulk(IEnumerable item)
         {
-           throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public bool DeleteById(object item)
@@ -68,12 +85,12 @@ namespace UtilityWpf.Demo.Sandbox.Infrastructure
 
         public void Dispose()
         {
-           // throw new NotImplementedException();
+            // throw new NotImplementedException();
         }
 
         public bool Insert(object item)
         {
-            MessageBox.Show("Insert");
+            System.Windows.MessageBox.Show("Insert");
             return true;
         }
 
