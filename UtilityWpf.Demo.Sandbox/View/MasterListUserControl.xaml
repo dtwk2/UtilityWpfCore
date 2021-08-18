@@ -9,6 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:view="http://schemas.utility.com" 
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
     d:DesignHeight="450"
     d:Background="White"
     d:DesignWidth="800"
@@ -20,14 +21,8 @@
         <ResourceDictionary>
 
             <DataTemplate x:Key="Int32Template" DataType="system:Int32">
-                <Grid
-                                        Width="200"
-                                        Height="100"
-                                        Tag="{Binding}">
-                    <TextBlock
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            Text="{Binding}" />
+                <Grid  Width="200"  Height="100" Tag="{Binding}">
+                    <TextBlock  HorizontalAlignment="Center"   VerticalAlignment="Center"  Text="{Binding}" />
                 </Grid>
             </DataTemplate>
             <ResourceDictionary.MergedDictionaries>

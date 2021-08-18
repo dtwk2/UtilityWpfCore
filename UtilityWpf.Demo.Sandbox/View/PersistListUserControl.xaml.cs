@@ -23,6 +23,7 @@ namespace UtilityWpf.Demo.Sandbox.Infrastructure
         public PersistListUserControl()
         {
             InitializeComponent();
+            (this.DataContext as PersistListViewModel).Data = PersistBehavior.Items;
         }
 
         private void DragablzItemsControl_MouseDown(object sender, MouseButtonEventArgs e)

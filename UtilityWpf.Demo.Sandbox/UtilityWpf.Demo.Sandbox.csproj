@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Themes\**" />
+    <EmbeddedResource Remove="Themes\**" />
+    <None Remove="Themes\**" />
+    <Page Remove="Themes\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\UtilityWpf.Controls\UtilityWpf.Controls.csproj" />
     <ProjectReference Include="..\UtilityWpf.TestData\UtilityWpf.TestData.csproj" />
   </ItemGroup>
@@ -33,10 +40,6 @@
       <Generator>MSBuild:Compile</Generator>
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Themes\" />
   </ItemGroup>
 
   <ItemGroup>

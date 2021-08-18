@@ -12,7 +12,7 @@ namespace UtilityWpf.Demo.View
         }
         protected override void ExecuteAdd(object parameter)
         {
-            (Content as DragablzItemsControl).AddToSource(parameter, AddLocationHint.Last);
+            //(Content as DragablzItemsControl).AddToSource(parameter, AddLocationHint.Last);
             base.ExecuteAdd(parameter);
 
         }
