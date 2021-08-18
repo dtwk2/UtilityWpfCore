@@ -23,12 +23,7 @@
                 Background="AliceBlue" />
         </StackPanel>
         <util:ValidationForm Grid.Row="1" IsValid="{Binding ElementName=ToggleButton1, Path=IsChecked}">
-            <ContentControl>
-                <ContentControl.Content>
-                    <model:Fields></model:Fields>
-                </ContentControl.Content>
-            </ContentControl>
-          
+            <model:Fields></model:Fields>
         </util:ValidationForm>
     </Grid>
 </UserControl>
