@@ -61,7 +61,6 @@
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DictionaryControl.xaml" />
 
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DatesList.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/PathButton.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/LogViewer.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/TransitionControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/ValidationForm.xaml" />
@@ -78,6 +77,12 @@
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Clock.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/MasterDetail.xaml" />
 
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Button/GeometryButton.xaml" />
+
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Browser/FileView.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Browser/PathBrowser.xaml" />
+
+
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Progress/ProgressArc.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Progress/ProgressBar.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Progress/FlashThumb.xaml" />       
@@ -86,6 +91,15 @@
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Extrinsic/AnimatedScrollViewer.xaml" />
 
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/TypeControl.xaml"></ResourceDictionary>
+
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/ViewCollection.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DualButtonControl.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/EnumComboBox.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/IconContentControl.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/SwitchControl.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/LabelledInput.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/ObjectControl.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/FlipControl.xaml" />
 
         <!--  Extrinsic  -->
 
@@ -99,20 +113,6 @@
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/FilterControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/LoopingListBox.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DragablzItem.xaml" />
-
-        <!-- New -->
-
-        <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />-->
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/ViewCollection.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DualButtonControl.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/EnumComboBox.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/FileView.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/IconContentControl.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/PathBrowser.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/SwitchControl.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/LabelledInput.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/ObjectControl.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/FlipControl.xaml" />
 
 
         <!--  DataTemplate  -->

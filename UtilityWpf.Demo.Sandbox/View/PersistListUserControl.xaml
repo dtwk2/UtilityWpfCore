@@ -52,7 +52,8 @@
                                                        ItemContainerStyle="{StaticResource VerticalItemStyle}"                                                                                             
                                                        MouseDown="DragablzItemsControl_MouseDown">
             <i:Interaction.Behaviors>
-                <behavior:PersistBehavior Repository="{Binding DatabaseService}"></behavior:PersistBehavior>
+                <behavior:PersistBehavior x:Name="PersistBehavior" Repository="{Binding DatabaseService}"
+                                         ></behavior:PersistBehavior>
             </i:Interaction.Behaviors>
         </view:DragablzVerticalItemsControl>
         

@@ -30,10 +30,6 @@ namespace UtilityWpf.Demo.Sandbox.ViewModel
 
         }
 
-        //public LiteDbRepo()
-        //{
-        //}
-
         public IConvertible GetKey(object trade)
         {
             return (PropertyHelper.GetPropertyValue<IConvertible>(trade, _key.ToString()));
@@ -45,8 +41,12 @@ namespace UtilityWpf.Demo.Sandbox.ViewModel
             return doc;
         }
 
+        protected virtual object ConvertBack(BsonDocument document) {
+           var doc = _mapper.ToObject(Type, document);
+           return doc;
+        }
 
-        protected virtual IEnumerable<BsonDocument> Convert(IEnumerable<object> objs)
+      protected virtual IEnumerable<BsonDocument> Convert(IEnumerable<object> objs)
         {
             //var doc = _mapper.ToD(obj.GetType(), objs);
             return objs.Select(obj => Convert(obj));

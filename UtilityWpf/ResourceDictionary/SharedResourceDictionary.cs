@@ -1,223 +1,138 @@
 ﻿
-namespace UtilityWpf
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Windows;
+namespace UtilityWpf {
+   using System;
+   using System.Collections.Generic;
+   using System.Linq;
+   using System.Windows;
 
-    /// <summary>
-    /// Loads singleton instance of ResourceDictionary to current scope;
-    /// </summary>
-    public class SharedResourceDictionary : ResourceDictionary
-    {
-        #region Fields
 
-        private static readonly Dictionary<string, ResourceDictionary> SharedResources = new Dictionary<string, ResourceDictionary>();
+   class DictionaryCollection<T> {
+      private readonly Func<string, T> createFunc;
+      private readonly Func<string, IEnumerable<T>, T?> find;
+      private readonly Dictionary<string, T> SharedResources = new Dictionary<string, T>();
 
-        private string source;
+      public DictionaryCollection(Func<string, T> createFunc, Func<string, IEnumerable<T>, T?> find)
+      {
+         this.createFunc = createFunc;
+         this.find = find;
+      }
 
-        #endregion
 
-        #region Public Properties
+      /// <summary>
+      /// Return all resource dictionaries that are in memory.
+      /// </summary>
+      public IEnumerable<T> Select() {
+         return SharedResources.Select(weakReference => weakReference.Value);
+      }
 
-        /// <summary>
-        /// Gets or sets the source.
-        /// </summary>
-        public new string Source
-        {
-            get
-            {
-                return source;
-            }
-
-            set
-            {
-                if (source != value)
-                {
-                    source = value;
-                    SourceChanged(value);
-                }
-            }
-        }
-
-        #endregion
-
-        #region Public Methods
-
-        #region Resource Dictionary
-
-        /// <summary>
-        /// Return all resource dictionaries that are in memory.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="IEnumerable"/>.
-        /// </returns>
-        public static IEnumerable<ResourceDictionary> GetResourceDictionaries()
-        {
-            foreach (KeyValuePair<string, ResourceDictionary> weakReference in SharedResources)
-            {
-                yield return weakReference.Value;
-            }
-        }
-
-        /// <summary>
-        /// Get the resource dictionary specified by the source uri.
-        /// If the dictionary is not loaded add a weak reference to the list
-        /// </summary>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <returns>
-        /// The <see cref="ResourceDictionary"/>.
-        /// </returns>
-        public static ResourceDictionary GetResourceDictionary(string source)
-        {
-            // Return the resource dictionary if it could be found
-            var foundDictionary = TryFindResourceDictionary(source);
-            if (foundDictionary != null)
-            {
-                return foundDictionary;
-            }
-
-            // Not found so remove the weak reference
-            if (SharedResources.ContainsKey(source))
-            {
-                SharedResources.Remove(source);
-            }
-
-            // Load the resource dictionary and hold a weak reference to it
-            var newDictionary = new ResourceDictionary { Source = new Uri(source, UriKind.RelativeOrAbsolute) };
-            SharedResources.Add(source, newDictionary);
-            return newDictionary;
-        }
-
-        /// <summary>
-        /// Find the resource dictionary by recursively looking in the merged dictionaries
-        /// Throw an exceptionReturn if the dictionary could not be found
-        /// </summary>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <returns>
-        /// The <see cref="ResourceDictionary"/>.
-        /// </returns>
-        public static ResourceDictionary FindResourceDictionary(string source)
-        {
-            var foundDictionary = TryFindResourceDictionary(source);
-            if (foundDictionary == null)
-            {
-                throw new Exception(string.Format(
-                    "Could not find resource dictionary {0} in SharedResourceDictionary",
-                    source));
-            }
-
+      /// <summary>
+      /// Get the resource dictionary specified by the source uri.
+      /// If the dictionary is not loaded add a weak reference to the list
+      /// </summary>
+      public T Get(string source) {
+         // Return the resource dictionary if it could be found
+         var foundDictionary = find(source, Select());
+         if (foundDictionary != null) {
             return foundDictionary;
-        }
+         }
 
-        /// <summary>
-        /// Find the resource dictionary by recursively looking in the merged dictionaries
-        /// Return null if the dictionary could not be found
-        /// </summary>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <returns>
-        /// The <see cref="ResourceDictionary"/>.
-        /// </returns>
-        public static ResourceDictionary TryFindResourceDictionary(string source)
-        {
-            var foundDictionary = GetResourceDictionaries()
-                .Select(dictionary => dictionary.FindDictionary(source))
-                .FirstOrDefault(founddictionary => founddictionary != null);
-            return foundDictionary;
-        }
+         // Not found so remove the weak reference
+         if (SharedResources.ContainsKey(source)) {
+            SharedResources.Remove(source);
+         }
 
-        #endregion
+         // Load the resource dictionary and hold a weak reference to it
+         var newDictionary = createFunc(source);
+         SharedResources.Add(source, newDictionary);
+         return newDictionary;
+      }
 
-        #region Resource
 
-        /// <summary>
-        /// The try find resource.
-        /// </summary>
-        /// <param name="resourceKey"> The resource key. </param>
-        /// <returns>The <see cref="object"/>.</returns>
-        public static object TryFindResource(object resourceKey)
-        {
-            var foundResource = GetResourceDictionaries()
-                                    .Select(resourceDictionary => resourceDictionary.FindResource(resourceKey))
-                                    .FirstOrDefault(value => value != null);
-            return foundResource;
-        }
+   }
 
-        /// <summary>
-        /// The find resource.
-        /// </summary>
-        /// <param name="resourceKey">
-        /// The resource key.
-        /// </param>
-        /// <returns>
-        /// The <see cref="object"/>.
-        /// </returns>
-        public static object FindResource(object resourceKey)
-        {
-            var foundResource = TryFindResource(resourceKey);
-            if (foundResource == null)
-            {
-                throw new Exception(string.Format(
-                    "Could not find resource with resourceKey {0} in SharedResourceDictionary",
-                    resourceKey));
+   class ResourceDictionaryCollection : DictionaryCollection<ResourceDictionary> {
+      public ResourceDictionaryCollection() : base(
+         source=>new ResourceDictionary { Source = new Uri(source, UriKind.RelativeOrAbsolute) },
+         (source, select) => select.FirstMatch(source)) {
+      }
+
+
+
+      /// <summary>
+      /// Find the resource dictionary by recursively looking in the merged dictionaries
+      /// Throw an exceptionReturn if the dictionary could not be found
+      /// </summary>
+      public ResourceDictionary FindResourceDictionary(string source) {
+         return TryFindResourceDictionary(source) ?? throw new Exception($"Could not find resource dictionary {source} in SharedResourceDictionary");
+      }
+
+      /// <summary>
+      /// Find the resource dictionary by recursively looking in the merged dictionaries
+      /// Return null if the dictionary could not be found
+      /// </summary>
+      public ResourceDictionary? TryFindResourceDictionary(string source) {
+         return Select()
+            .Select(dictionary => dictionary.FindDictionary(source))
+            .FirstOrDefault();
+      }
+
+      /// <summary>
+      /// The find resource.
+      /// </summary>
+      public object FindResource(object resourceKey) {
+         var foundResource = TryFindResource(resourceKey);
+         if (foundResource == null) {
+            throw new Exception($"Could not find resource with resourceKey {resourceKey} in SharedResourceDictionary");
+         }
+         return foundResource;
+      }
+
+      /// <summary>
+      /// The try find resource.
+      /// </summary>
+      public object? TryFindResource(object resourceKey) {
+         var foundResource = Select()
+            .Select(resourceDictionary => resourceDictionary.FindResource(resourceKey))
+            .FirstOrDefault();
+         return foundResource;
+      }
+   }
+
+   /// <summary>
+   /// Loads singleton instance of ResourceDictionary to current scope
+   /// </summary>
+   /// <remarks>
+   /// From Elysium
+   /// </remarks>
+   public class SharedResourceDictionary : ResourceDictionary {
+      private static readonly ResourceDictionaryCollection SharedResources = new();
+      private string? source;
+
+
+      /// <summary>
+      /// Gets or sets the source.
+      /// </summary>
+      public new string? Source {
+         get => source;
+         set {
+            if (source != value) {
+               source = value;
+               if (value != null)
+                  MergedDictionaries.Add(SharedResources.Get(value));
             }
+         }
+      }
 
-            return foundResource;
-        }
 
-        #endregion
-
-        #endregion
-
-        #region Private Methods
-
-        /// <summary>
-        /// The source changed.
-        /// </summary>
-        /// <param name="newSource">
-        /// The new source.
-        /// </param>
-        private void SourceChanged(string newSource)
-        {
-            var resource = GetResourceDictionary(newSource);
-            if (resource != null)
-            {
-                MergedDictionaries.Add(resource);
-            }
-        }
-
-        /// <summary>
-        /// The is in application scope.
-        /// </summary>
-        /// <param name="resource">
-        /// The resource.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        private bool IsInApplicationScope(ResourceDictionary resource)
-        {
-            if (resource == null || resource.Source == null)
-            {
-                return false;
-            }
-
-            // Try and find the resource dictionary in the application scope 
-            if (Application.Current != null && Application.Current.Resources.ContainsDictionary(resource.Source.OriginalString))
-            {
-                return true;
-            }
-
+      /// <summary>
+      /// The is in application scope.
+      /// </summary>
+      private bool IsInApplicationScope(ResourceDictionary? resource) {
+         if (resource == null || resource.Source == null) {
             return false;
-        }
-
-        #endregion
-    }
+         }
+         // Try and find the resource dictionary in the application scope 
+         return Application.Current != null && Application.Current.Resources.ContainsDictionary(resource.Source.OriginalString);
+      }
+   }
 }

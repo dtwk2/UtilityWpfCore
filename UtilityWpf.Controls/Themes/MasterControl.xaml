@@ -19,40 +19,46 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:MasterControl}">
-      
+
 
                     <DockPanel x:Name="DockPanel1">
                         <WrapPanel x:Name="WrapPanel1" Margin="5">
-                            
-                            <Button Style="{DynamicResource MaterialDesignIconButton}"
-                                Margin="5"
+
+                            <Button
                                 x:Name="ButtonMinus"
+                                Margin="5"
                                 IsEnabled="{Binding Content.Count, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource CountToBoolean}, ConverterParameter=0}"
-                               >
-                                <materialDesign:PackIcon Kind="Minus"   />
+                                Style="{DynamicResource MaterialDesignIconButton}">
+                                <materialDesign:PackIcon Kind="Minus" />
                             </Button>
-                            <Button x:Name="ButtonPlus"  Style="{DynamicResource MaterialDesignIconButton}"
-                                    Margin="5">
+                            <Button
+                                x:Name="ButtonPlus"
+                                Margin="5"
+                                Style="{DynamicResource MaterialDesignIconButton}">
                                 <materialDesign:PackIcon Kind="Add" />
                             </Button>
 
-                            <Button      Margin="5" Style="{DynamicResource MaterialDesignIconButton}"
-                                 x:Name="ButtonMoveUp">
+                            <Button
+                                x:Name="ButtonMoveUp"
+                                Margin="5"
+                                Style="{DynamicResource MaterialDesignIconButton}">
                                 <Button.IsEnabled>
                                     <MultiBinding Converter="{StaticResource IsFirstItemSelected}">
-                                        <Binding Path="Content" RelativeSource="{RelativeSource TemplatedParent}"/>
-                                        <Binding Path="Content.SelectedIndex" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                        <Binding Path="Content" RelativeSource="{RelativeSource TemplatedParent}" />
+                                        <Binding Path="Content.SelectedIndex" RelativeSource="{RelativeSource TemplatedParent}" />
                                     </MultiBinding>
                                 </Button.IsEnabled>
                                 <materialDesign:PackIcon Kind="ArrowUp" />
                             </Button>
-                            <Button     Margin="5" Style="{DynamicResource MaterialDesignIconButton}"
-                                 x:Name="ButtonMoveDown">
+                            <Button
+                                x:Name="ButtonMoveDown"
+                                Margin="5"
+                                Style="{DynamicResource MaterialDesignIconButton}">
                                 <Button.IsEnabled>
-                                <MultiBinding Converter="{StaticResource IsLastItemSelected}">
-                                        <Binding Path="Content" RelativeSource="{RelativeSource TemplatedParent}"/>
-                                        <Binding Path="Content.SelectedIndex" RelativeSource="{RelativeSource TemplatedParent}"/>
-                                </MultiBinding>
+                                    <MultiBinding Converter="{StaticResource IsLastItemSelected}">
+                                        <Binding Path="Content" RelativeSource="{RelativeSource TemplatedParent}" />
+                                        <Binding Path="Content.SelectedIndex" RelativeSource="{RelativeSource TemplatedParent}" />
+                                    </MultiBinding>
                                 </Button.IsEnabled>
                                 <materialDesign:PackIcon Kind="ArrowDown" />
                             </Button>
@@ -67,7 +73,7 @@
                                 <ItemsControl VerticalAlignment="Top" VerticalContentAlignment="Top">
                                     <system:String>Option A</system:String>
                                     <system:String>Option B</system:String>
-                                    -->
+                            -->
                             <!--<ItemsControl.Resources>
                                     <local:TypeNameConverter x:Key="TypeNameConverter"></local:TypeNameConverter>
                                 </ItemsControl.Resources>-->

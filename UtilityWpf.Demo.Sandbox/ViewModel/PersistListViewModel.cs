@@ -14,115 +14,99 @@ using UtilityWpf.Demo.Sandbox.ViewModel;
 using UtilityWpf.TestData.Model;
 using static UtilityWpf.Controls.MasterControl;
 
-namespace UtilityWpf.Demo.Sandbox.Infrastructure
-{
-    public class PersistListViewModel:ReactiveObject
-    {
-        private readonly FieldsFactory factory = new();
-        private IDatabaseService dbS = new DatabaseService();
+namespace UtilityWpf.Demo.Sandbox.Infrastructure {
+   public class PersistListViewModel : ReactiveObject {
+      private readonly FieldsFactory factory = new();
+      private IDatabaseService dbS = new DatabaseService();
+      private IReadOnlyCollection<object> data;
 
-        public PersistListViewModel()
-        {
-            ChangeCommand = ReactiveUI.ReactiveCommand.Create<object, Unit>((a) =>
-            {
-                switch (a)
-                {
-                    case MovementEventArgs eventArgs:
-                        foreach (var item in eventArgs.Changes)
-                        {
-                            Data.Move(item.OldIndex, item.Index);
-                        }
-                        break;
-                    default:
-                        break;
-                }
-                return Unit.Default;
-            });
+      public PersistListViewModel() {
+         ChangeCommand = ReactiveUI.ReactiveCommand.Create<object, Unit>((a) => {
+            switch (a) {
+               case MovementEventArgs eventArgs:
+                  foreach (var item in eventArgs.Changes) {
+                     //Data.Move(item.OldIndex, item.Index);
+                  }
+                  break;
+               default:
+                  break;
+            }
+            return Unit.Default;
+         });
 
-            ChangeRepositoryCommand = ReactiveCommand.Create<object, Unit>((a) =>
-            {
+         ChangeRepositoryCommand = ReactiveCommand.Create<object, Unit>((a) => {
 
-                if (DatabaseService is LiteDbRepo)
-                    DatabaseService = new DatabaseService();
-                else 
-                    DatabaseService = new LiteDbRepo("../../../Data");
+            if (DatabaseService is LiteDbRepo)
+               DatabaseService = new DatabaseService();
+            else
+               DatabaseService = new LiteDbRepo("../../../Data/Data.litedb");
 
 
-                return Unit.Default;
-            });
-        }
+            return Unit.Default;
+         });
+      }
 
-        public ObservableCollection<Fields> Data => new(factory.Build(5));
+      //  public ObservableCollection<Fields> Data => new(factory.Build(5));
+      public IReadOnlyCollection<object> Data { get => data; set => this.RaiseAndSetIfChanged(ref data, value); }
 
 
-        public Fields NewItem => factory.Build(1).Single();
+      public Fields NewItem => factory.Build(1).Single();
 
-        public ReactiveCommand<object, Unit> ChangeCommand { get; }
-        public ReactiveCommand<object, Unit> ChangeRepositoryCommand { get; }
+      public ReactiveCommand<object, Unit> ChangeCommand { get; }
+      public ReactiveCommand<object, Unit> ChangeRepositoryCommand { get; }
 
-        public IDatabaseService DatabaseService { get=> dbS; private set => this.RaiseAndSetIfChanged(ref dbS, value); } 
-    }
+      public IDatabaseService DatabaseService { get => dbS; private set => this.RaiseAndSetIfChanged(ref dbS, value); }
+   }
 
 
 
-    public class DatabaseService : IDatabaseService
-    {
-        public bool Delete(object item)
-        {
-            System.Windows.MessageBox.Show("Delete");
-            return true;
-        }
+   public class DatabaseService : IDatabaseService {
+      public bool Delete(object item) {
+         System.Windows.MessageBox.Show("Delete");
+         return true;
+      }
 
-        public int DeleteBulk(IEnumerable item)
-        {
-            throw new NotImplementedException();
-        }
+      public int DeleteBulk(IEnumerable item) {
+         throw new NotImplementedException();
+      }
 
-        public bool DeleteById(object item)
-        {
-            throw new NotImplementedException();
-        }
+      public bool DeleteById(object item) {
+         throw new NotImplementedException();
+      }
 
-        public void Dispose()
-        {
-            // throw new NotImplementedException();
-        }
+      public void Dispose() {
+         // throw new NotImplementedException();
+      }
 
-        public bool Insert(object item)
-        {
-            System.Windows.MessageBox.Show("Insert");
-            return true;
-        }
+      public bool Insert(object item) {
+         System.Windows.MessageBox.Show("Insert");
+         return true;
+      }
 
-        public int InsertBulk(IEnumerable item)
-        {
-            throw new NotImplementedException();
-        }
+      public int InsertBulk(IEnumerable item) {
+         throw new NotImplementedException();
+      }
 
-        public object Select(object item)
-        {
-            throw new NotImplementedException();
-        }
+      public object Select(object item) {
+         throw new NotImplementedException();
+      }
 
-        public IEnumerable SelectAll()
-        {
-            throw new NotImplementedException();
-        }
+      public IEnumerable SelectAll()
+      {
+         return Array.Empty<object>();
+      }
 
-        public object SelectById(object item)
-        {
-            throw new NotImplementedException();
-        }
+      public object SelectById(object item) {
+         throw new NotImplementedException();
+      }
 
-        public bool Update(object item)
-        {
-            throw new NotImplementedException();
-        }
+      public bool Update(object item) {
+         throw new NotImplementedException();
+      }
 
-        public int UpdateBulk(IEnumerable item)
-        {
-            throw new NotImplementedException();
-        }
-    }
+      public int UpdateBulk(IEnumerable item) {
+         throw new NotImplementedException();
+      }
+   }
 
 }

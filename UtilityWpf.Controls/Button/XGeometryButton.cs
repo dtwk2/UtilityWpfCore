@@ -2,11 +2,11 @@
 
 namespace UtilityWpf.Controls
 {
-    public class XPathButton : PathButton
+    public class XGeometryButton : GeometryButton
     {
-        public XPathButton()
+        public XGeometryButton()
         {
-            PathData = new PathGeometry
+            Data = new PathGeometry
             {
                 Figures =
                 new PathFigureCollection {
