@@ -51,8 +51,8 @@ namespace UtilityWpf.Controls
             OnTimeChanged(DateTime.Now);
 
             DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = new TimeSpan(0, 0, 1);
-            timer.Tick += (s, e) => OnTimeChanged(DateTime.Now);
+            timer.Interval = new TimeSpan(0, 0, 0, 0,50);
+            timer.Tick += (s, e) => OnTimeChanged(DateTime.Now.AddHours(-1));
             timer.Start();
 
             base.OnApplyTemplate();
