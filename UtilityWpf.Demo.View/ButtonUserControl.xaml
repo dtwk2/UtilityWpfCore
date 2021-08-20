@@ -130,7 +130,7 @@
                 <view:GeometryButton
                     Height="70"
                     Data="{StaticResource XGeometry}"
-                    HoverBackground="Blue" />
+                    HoverBackground="RoyalBlue" />
 
                 <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
                     <view:GeometryButton x:Name="PathButton" Height="100" />

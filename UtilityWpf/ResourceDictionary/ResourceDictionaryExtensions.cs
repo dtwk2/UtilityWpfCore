@@ -6,6 +6,7 @@ namespace UtilityWpf
     using System.Linq;
     using System.Windows;
 
+
     /// <summary>
     /// The resource dictionary extensions.
     /// </summary>

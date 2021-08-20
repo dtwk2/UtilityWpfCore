@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Reactive;
 using System.Windows.Input;
+using UtilityWpf.Demo.Sandbox.ViewModel;
 using static UtilityWpf.Controls.MasterControl;
 
 namespace UtilityWpf.Demo.View
