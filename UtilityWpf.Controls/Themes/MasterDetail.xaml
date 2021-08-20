@@ -17,8 +17,11 @@
                             <ColumnDefinition Width="5" />
                             <ColumnDefinition Width="5*" />
                         </Grid.ColumnDefinitions>
-                        <ListBox x:Name="PART_List" ></ListBox>
-                        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />                    
+                        <!--<ListBox x:Name="PART_List" ></ListBox>-->
+                        <ContentControl Content="{TemplateBinding Selector}">
+
+                        </ContentControl>
+                        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
                         <ContentPresenter Grid.Column="2"/>
                     </Grid>
                 </ControlTemplate>
@@ -27,5 +30,5 @@
     </Style>
 
     <Style BasedOn="{StaticResource NewStyle}" TargetType="{x:Type local:MasterDetail}" />
-    
+
 </ResourceDictionary>

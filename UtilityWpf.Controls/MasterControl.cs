@@ -12,6 +12,7 @@ using System.Windows.Controls.Primitives;
 namespace UtilityWpf.Controls
 {
     using Mixins;
+    using UtilityWpf.Abstract;
 
     [Flags]
     public enum RemoveOrder
@@ -23,12 +24,12 @@ namespace UtilityWpf.Controls
 
 
 
-    public class MasterControl : ContentControlx
+    public class MasterControl : ContentControlx, ISelectionChanged
     {
         [Flags]
         public enum ButtonType
         {
-            None=0, Add = 1, Remove = 2, MoveUp = 4, MoveDown = 8, All = Add | Remove | MoveUp | MoveDown
+            None = 0, Add = 1, Remove = 2, MoveUp = 4, MoveDown = 8, All = Add | Remove | MoveUp | MoveDown
         }
 
         public enum EventType
@@ -83,7 +84,7 @@ namespace UtilityWpf.Controls
                 OldIndex = oldIndex;
             }
             public int Index { get; set; }
-            public int OldIndex { get;  }
+            public int OldIndex { get; }
             public object Object { get; }
         }
 
@@ -91,13 +92,13 @@ namespace UtilityWpf.Controls
         private Selector Selector => itemsControl is Selector selector ? selector : throw new Exception($@"The ItemsControl used must be of type {nameof(Selector)} for operation.");
 
         public static readonly DependencyProperty OrientationProperty = DependencyHelper.Register<Orientation>(new PropertyMetadata(Orientation.Horizontal));
-        public static readonly DependencyProperty CommandParameterProperty = DependencyHelper.Register<object>();
+        public static readonly DependencyProperty CommandParameterProperty = DependencyHelper.Register<IEnumerator>();
         public static readonly DependencyProperty ItemsSourceProperty = DependencyHelper.Register<IEnumerable>();
         public static readonly DependencyProperty RemoveOrderProperty = DependencyHelper.Register<RemoveOrder>();
         public static readonly DependencyProperty ButtonTypesProperty = DependencyHelper.Register<ButtonType>(new PropertyMetadata(ButtonType.All));
         public static readonly RoutedEvent ChangeEvent = EventManager.RegisterRoutedEvent("Change", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(MasterControl));
 
-
+        public event SelectionChangedEventHandler SelectionChanged;
 
         static MasterControl()
         {
@@ -126,9 +127,9 @@ namespace UtilityWpf.Controls
                 });
         }
 
-        public object CommandParameter
+        public IEnumerator CommandParameter
         {
-            get { return (object)GetValue(CommandParameterProperty); }
+            get { return (IEnumerator)GetValue(CommandParameterProperty); }
             set { SetValue(CommandParameterProperty, value); }
         }
 
@@ -172,12 +173,19 @@ namespace UtilityWpf.Controls
             buttonRemove.Visibility = ButtonTypes.HasFlag(ButtonType.Remove) ? Visibility.Visible : Visibility.Collapsed;
             buttonMoveUp.Visibility = ButtonTypes.HasFlag(ButtonType.MoveUp) ? Visibility.Visible : Visibility.Collapsed;
             buttonMoveDown.Visibility = ButtonTypes.HasFlag(ButtonType.MoveDown) ? Visibility.Visible : Visibility.Collapsed;
-           
+
 
             var dockPanel = this.GetTemplateChild("DockPanel1") as DockPanel;
             var wrapPanel = this.GetTemplateChild("WrapPanel1") as WrapPanel;
 
-            buttonAdd.Click += (s, e) => ExecuteAdd(CommandParameter);
+            buttonAdd.Click += (s, e) =>
+            {
+                if (CommandParameter == null)
+                    throw new Exception($"{nameof(CommandParameter)} is null");
+                CommandParameter.MoveNext();
+                ExecuteAdd(CommandParameter.Current);
+            };
+
             buttonRemove.Click += (s, e) => ExecuteRemove();
             buttonMoveUp.Click += (s, e) => ExecuteMoveUp();
             buttonMoveDown.Click += (s, e) => ExecuteMoveDown();
@@ -191,10 +199,22 @@ namespace UtilityWpf.Controls
             else
                 throw new Exception($"Expected content to derive from type {nameof(ItemsControl)}.");
 
+            if (itemsControl is ISelectionChanged selectionChanged)
+            {
+                selectionChanged.SelectionChanged += (s, e) => this.SelectionChanged.Invoke(this, e);
+            }
+            else if (itemsControl is Selector selector)
+            {
+                selector.SelectionChanged += (s, e) => this.SelectionChanged.Invoke(this, e);
+            }
+
             base.OnApplyTemplate();
         }
 
-
+        private void Selector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
 
         protected virtual void ExecuteAdd(object parameter)
         {
@@ -249,6 +269,8 @@ namespace UtilityWpf.Controls
         {
             var list = GetIndexedObjects();
             List<IndexedObject> changes = new();
+            if (SelectedItem != null)
+            { }
             var index = itemsControl.Items.IndexOf(SelectedItem);
             if (index != itemsControl.Items.Count - 1)
             {

@@ -100,6 +100,8 @@
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/LabelledInput.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/ObjectControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/FlipControl.xaml" />
+        
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/HeaderedListBox.xaml" />
 
         <!--  Extrinsic  -->
 

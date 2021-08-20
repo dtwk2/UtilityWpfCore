@@ -7,16 +7,16 @@ namespace UtilityWpf.Demo.View
     {
 
         public AddDragItemControl()
-        {
-            
+        {            
         }
+
         protected override void ExecuteAdd(object parameter)
         {
-            //(Content as DragablzItemsControl).AddToSource(parameter, AddLocationHint.Last);
+            if (Content is DragablzItemsControl itemsControl)
+                itemsControl.AddToSource(parameter, AddLocationHint.Last);
+            else
+                throw new System.Exception("dfsd    sdf");
             base.ExecuteAdd(parameter);
-
         }
-
-
     }
 }

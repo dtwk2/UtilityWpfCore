@@ -11,20 +11,76 @@
     Height="550"
     mc:Ignorable="d">
     <TabControl>
-        <TabItem Header="2Z">
+
+
+        <TabItem Header="2     Z">
             <view11:PersistListUserControl />
         </TabItem>
-        <TabItem Header="Z">
+        <TabItem Header="Z     ">
             <view1:MasterListUserControl />
         </TabItem>
 
-        <TabItem Header="A">
+        <TabItem Header="A      ">
             <view:MasterDetailView Items="{StaticResource Characters}" />
         </TabItem>
 
-        <TabItem Header="B">
-            <view:MasterDetail ItemsSource="{StaticResource Characters}"/>
+        <TabItem Header="B    ">
+            <view:MasterDetail >
+                <view:MasterDetail.Selector>
+                    <ListBox ItemsSource="{StaticResource Characters}"></ListBox>
+                </view:MasterDetail.Selector>
+            </view:MasterDetail>
         </TabItem>
-
+        <TabItem Header="B     2">
+            <view:MasterDetail >
+                <view:MasterDetail.Selector>
+                    <view:MasterControl>
+                        <ItemsControl ItemsSource="{StaticResource Characters}"/>
+                    </view:MasterControl>        
+                </view:MasterDetail.Selector>
+            </view:MasterDetail>
+        </TabItem>  
+        
+        <TabItem Header="B     3">
+            <view:MasterDetail >
+                <view:MasterDetail.Selector>
+                    <view:MasterControl>
+                        <ListBox ItemsSource="{StaticResource Characters}"/>
+                    </view:MasterControl>        
+                </view:MasterDetail.Selector>
+            </view:MasterDetail>
+        </TabItem>
+        <TabItem Header="2Z">
+            <FrameworkElement.Resources>
+                <Style TargetType="HeaderedItemsControl">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type HeaderedItemsControl}">
+                                <StackPanel>
+                                    <Grid>
+                                        <Rectangle Fill="{TemplateBinding Background}"/>
+                                        <ContentPresenter ContentSource="Header"/>
+                                    </Grid>
+                                    <Grid>
+                                        <Rectangle Stroke="{TemplateBinding BorderBrush}"/>
+                                        <ItemsPresenter Margin="2,0,0,0"/>
+                                    </Grid>
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </FrameworkElement.Resources>
+            <HeaderedItemsControl  xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                       Header="My colors"
+                       Background="SteelBlue"
+                       BorderBrush="DarkSlateBlue">
+                <sys:String>Red</sys:String>
+                <sys:String>Yellow</sys:String>
+                <sys:String>Blue</sys:String>
+                <sys:String>Green</sys:String>
+            </HeaderedItemsControl>
+            <!--<view:HeaderedListBox Header="!dffsdfs  £" />-->
+        </TabItem>
     </TabControl>
 </Window>

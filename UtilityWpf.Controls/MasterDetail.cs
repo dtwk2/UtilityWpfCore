@@ -14,6 +14,7 @@ using UtilityWpf.Abstract;
 
 namespace UtilityWpf.Controls
 {
+    using System.Windows.Controls.Primitives;
     using Mixins;
 
     using static DependencyPropertyFactory<MasterDetail>;
@@ -25,15 +26,10 @@ namespace UtilityWpf.Controls
             None = 0, Duplicate = 1, Delete = 2, Check = 4, All = Duplicate | Delete | Check
         }
 
-        //protected Subject<IEnumerable> ItemsSourceSubject = new();
-
-        public static readonly DependencyProperty ItemsSourceProperty = Register(nameof(ItemsSource));
-        public static readonly DependencyProperty OutputProperty = Register<object>();
         public static readonly DependencyProperty DataConverterProperty = Register<IValueConverter>();
         public static readonly DependencyProperty DataKeyProperty = Register<string>(nameof(DataKey));
         public static readonly DependencyProperty UseDataContextProperty = Register<bool>();
-        //public static readonly DependencyProperty RemoveOrderProperty = Register<ButtonType>();
-        protected ListBox? listBox;
+        public static readonly DependencyProperty SelectorProperty = Register<Control>();
 
         static MasterDetail()
         {
@@ -47,16 +43,6 @@ namespace UtilityWpf.Controls
                 {
                     SetContent(Content, content);
                 });
-
-
-            this.Observable<IEnumerable>()
-               .CombineLatest(this.Control<ListBox>())
-                .Subscribe(a => a.Second.ItemsSource = a.First);
-
-            this.Observable<IEnumerable>().Subscribe(a =>
-            {
-
-            });
         }
 
         #region properties
@@ -66,16 +52,10 @@ namespace UtilityWpf.Controls
             set { SetValue(DataConverterProperty, value); }
         }
 
-        public IEnumerable ItemsSource
+        public Control Selector
         {
-            get { return (IEnumerable)GetValue(ItemsSourceProperty); }
-            set { SetValue(ItemsSourceProperty, value); }
-        }
-
-        public object Output
-        {
-            get { return GetValue(OutputProperty); }
-            set { SetValue(OutputProperty, value); }
+            get { return (Selector)GetValue(SelectorProperty); }
+            set { SetValue(SelectorProperty, value); }
         }
 
         public string DataKey
@@ -99,13 +79,20 @@ namespace UtilityWpf.Controls
 
 
             base.OnApplyTemplate();
-
         }
-
 
         protected virtual IObservable<object> SelectContent()
         {
-            return Transform(this.Control<ListBox>().SelectMany(a => a.SelectSingleSelectionChanges()),
+            return Transform(this.Observable<Control>()
+                .SelectMany(a =>
+            {
+                return a switch
+                {
+                    (ISelectionChanged selector) => selector.SelectSingleSelectionChanges(),
+                    (Selector selector) => selector.SelectSingleSelectionChanges(),
+                    _ => throw new Exception($"Unexpected type,{a.GetType().Name} for {nameof(Selector)} "),
+                };
+            }),
                 this.Observable<IValueConverter>(nameof(DataConverter)),
                 this.Observable<string>(nameof(DataKey)));
         }
@@ -159,7 +146,8 @@ namespace UtilityWpf.Controls
 
         protected static IObservable<object> Transform(IObservable<object> collectionViewModel, IObservable<IValueConverter> dataConversions, IObservable<string> dataKeys)
         {
-            collectionViewModel.Subscribe(a =>
+            collectionViewModel
+                .Subscribe(a =>
             {
 
             });

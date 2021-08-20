@@ -1,5 +1,6 @@
 ﻿using System.Windows.Controls;
 using UtilityWpf.Controls;
+using UtilityWpf.Demo.Sandbox.ViewModel;
 
 namespace UtilityWpf.Demo.View
 {

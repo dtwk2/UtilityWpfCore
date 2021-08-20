@@ -2,14 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static AutoMapper.Internal.ExpressionFactory;
 using System.Windows.Documents;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Controls;
-using UtilityWpf.Attached;
 
 namespace UtilityWpf.Controls
 {
@@ -102,7 +98,7 @@ namespace UtilityWpf.Controls
                     .OfType<FrameworkElement>()
                     .Sum(a => a.ActualWidth);
 
-              
+           
                 drawingContext.DrawRectangle(Brushes.Red, new Pen(Brushes.White, 1),
                 new Rect(new Point(width + 150,0), new Size(DesiredSize.Height, DesiredSize.Height)));
                 //new Rect(new Point(10, DesiredSize.Height - 40), new Size(DesiredSize.Width - 20, 50)));

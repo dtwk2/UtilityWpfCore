@@ -16,6 +16,8 @@ namespace UtilityWpf.Controls
             this.ListBoxPart = GetTemplateChild(PartListBox) as ListBox;
 
             this.ListBoxPart.SelectionChanged += ListBoxPart_SelectionChanged;
+
+            ListBoxPart.ItemsSource = new[] { "1,2", "3 4" };
             // FindName(PartListBox);
         }
 

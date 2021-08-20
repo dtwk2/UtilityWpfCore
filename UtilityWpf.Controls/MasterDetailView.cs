@@ -74,7 +74,7 @@ namespace UtilityWpf.Controls
 
             //Dictionary<Type, object> dict = new Dictionary<Type, object>();
             outputChanges
-                .CombineLatest(this.Observable<string>(nameof(Id)).StartWith(Id))
+                .CombineLatest(this.Observable<string>(nameof(Id)).WhereNotNull())
                 .Select(vm =>
                 {
                     var type = vm.First.GetType();
@@ -96,10 +96,10 @@ namespace UtilityWpf.Controls
                         }));
 
             this.Observable<PropertyGroupDescription>()
-               .CombineLatest(this.Control<FrameworkElement>())
+               .CombineLatest(this.Control<FrameworkElement>().WhereNotNull())
                .Subscribe(a =>
                {
-                   if ((a.Second)?.FindResource("GroupedItems") is CollectionViewSource collectionViewSource)
+                   if ((a.Second)?.TryFindResource("GroupedItems") is CollectionViewSource collectionViewSource)
                        collectionViewSource.GroupDescriptions.Add(a.First);
                });
 
