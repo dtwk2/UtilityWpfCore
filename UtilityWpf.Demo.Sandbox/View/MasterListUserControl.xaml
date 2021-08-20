@@ -10,6 +10,7 @@
     xmlns:view="http://schemas.utility.com" 
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    xmlns:vm="clr-namespace:UtilityWpf.Demo.Sandbox.ViewModel"
     d:DesignHeight="450"
     d:Background="White"
     d:DesignWidth="800"
@@ -20,9 +21,9 @@
     <UserControl.Resources>
         <ResourceDictionary>
 
-            <DataTemplate x:Key="Int32Template" DataType="system:Int32">
+            <DataTemplate x:Key="Int32Template" DataType="{x:Type vm:ElementViewModel}">
                 <Grid  Width="200"  Height="100" Tag="{Binding}">
-                    <TextBlock  HorizontalAlignment="Center"   VerticalAlignment="Center"  Text="{Binding}" />
+                    <TextBox  HorizontalAlignment="Center"   VerticalAlignment="Center"  Text="{Binding Value}" />
                 </Grid>
             </DataTemplate>
             <ResourceDictionary.MergedDictionaries>

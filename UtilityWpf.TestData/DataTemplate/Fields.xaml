@@ -3,31 +3,32 @@
                        xmlns:local="clr-namespace:UtilityWpf.TestData.Model">
 
     <DataTemplate DataType="{x:Type local:Fields}">
-      
-            <Grid Height="200" Width="400" >
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+        <Grid Height="200" Width="400" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-                <TextBlock
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock
                         Grid.Row="0"
                         Grid.Column="0"
                         Margin="3"
                         Text="Name" />
-                <TextBox
+            <TextBox
                         Grid.Row="0"
                         Grid.Column="1"
                         Text="{Binding Name}" />
-                <TextBlock
+            <TextBlock
                         Grid.Row="0"
                         Grid.Column="2"
                         MaxWidth="150"
@@ -35,16 +36,16 @@
                         Text="Name not empty, not equal 'foo' and max length is 16"
                         TextWrapping="Wrap" />
 
-                <TextBlock
+            <TextBlock
                         Grid.Row="1"
                         Grid.Column="0"
                         Margin="3"
                         Text="Surname" />
-                <TextBox
+            <TextBox
                         Grid.Row="1"
                         Grid.Column="1"
                         Text="{Binding Surname}" />
-                <TextBlock
+            <TextBlock
                         Grid.Row="1"
                         Grid.Column="2"
                         MaxWidth="150"
@@ -52,16 +53,16 @@
                         Text="Surname should be equal 'foo'"
                         TextWrapping="Wrap" />
 
-                <TextBlock
+            <TextBlock
                         Grid.Row="2"
                         Grid.Column="0"
                         Margin="3"
                         Text="Phone #" />
-                <TextBox
+            <TextBox
                         Grid.Row="2"
                         Grid.Column="1"
                         Text="{Binding PhoneNumber}" />
-                <TextBlock
+            <TextBlock
                         Grid.Row="2"
                         Grid.Column="2"
                         MaxWidth="150"
@@ -69,24 +70,30 @@
                         Text="Phone number required and allow from 9 to 12 digits"
                         TextWrapping="Wrap" />
 
-                <TextBlock
+            <TextBlock
                         Grid.Row="3"
                         Grid.Column="0"
                         Margin="3"
                         Text="Age" />
-                <TextBox
+            <TextBox
                         Grid.Row="3"
                         Grid.Column="1"
                         Text="{Binding Age}" />
-                <TextBlock
+            <TextBlock
                         Grid.Row="3"
                         Grid.Column="2"
                         MaxWidth="150"
                         Margin="3"
                         Text="Age should be between 18 and 35"
                         TextWrapping="Wrap" />
-            </Grid>
-    
+            <Expander   Grid.Row="4"
+                        Grid.Column="1">
+                <TextBlock
+                     
+                        Text="{Binding Id}" />
+            </Expander>
+        </Grid>
+
     </DataTemplate>
 
 </ResourceDictionary>
