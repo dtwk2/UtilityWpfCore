@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
 
-namespace UtilityWpf.Property
+namespace UtilityWpf
 {
     public static class NotificationExtensions
     {
@@ -13,7 +13,7 @@ namespace UtilityWpf.Property
         /// <typeparam name="T">The type of the source object. Type must implement <seealso cref="INotifyPropertyChanged"/>.</typeparam>
         /// <param name="source">The object to observe property changes on.</param>
         /// <returns>Returns an observable sequence of the value of the source when ever the <c>PropertyChanged</c> event is raised.</returns>
-        public static IObservable<T> OnAnyPropertyChange<T>(this T source)
+        public static IObservable<T> Changes<T>(this T source)
             where T : INotifyPropertyChanged
         {
             return Observable.FromEventPattern<PropertyChangedEventHandler, PropertyChangedEventArgs>(
@@ -23,7 +23,7 @@ namespace UtilityWpf.Property
                             .Select(_ => source);
         }
 
-        public static IObservable<R> OnPropertyChange<T, R>(this T source, string name)
+        public static IObservable<R> Changes<T, R>(this T source, string name)
             where T : INotifyPropertyChanged
         {
             var xx = typeof(T).GetProperty(name);
