@@ -2,7 +2,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    xmlns:conv="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
 
 
     <SineEase x:Key="Ease" EasingMode="EaseInOut" />
@@ -19,7 +20,7 @@
                 KeyTime="0:0:0.3"
                 Value="1.12" />
         </DoubleAnimationUsingKeyFrames>
-        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Card" Storyboard.TargetProperty="(materialDesign:ShadowAssist.ShadowDepth)">
+        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_Card" Storyboard.TargetProperty="(materialDesign:ShadowAssist.ShadowDepth)">
             <DiscreteObjectKeyFrame KeyTime="0:0:0.08" Value="{x:Static materialDesign:ShadowDepth.Depth2}" />
             <DiscreteObjectKeyFrame KeyTime="0:0:0.12" Value="{x:Static materialDesign:ShadowDepth.Depth3}" />
             <DiscreteObjectKeyFrame KeyTime="0:0:0.16" Value="{x:Static materialDesign:ShadowDepth.Depth4}" />
@@ -39,7 +40,7 @@
                 KeyTime="0:0:0.3"
                 Value="1" />
         </DoubleAnimationUsingKeyFrames>
-        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Card" Storyboard.TargetProperty="(materialDesign:ShadowAssist.ShadowDepth)">
+        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_Card" Storyboard.TargetProperty="(materialDesign:ShadowAssist.ShadowDepth)">
             <DiscreteObjectKeyFrame KeyTime="0:0:0.12" Value="{x:Static materialDesign:ShadowDepth.Depth4}" />
             <DiscreteObjectKeyFrame KeyTime="0:0:0.16" Value="{x:Static materialDesign:ShadowDepth.Depth3}" />
             <DiscreteObjectKeyFrame KeyTime="0:0:0.22" Value="{x:Static materialDesign:ShadowDepth.Depth2}" />
@@ -47,26 +48,128 @@
     </Storyboard>
 
     <Style x:Key="DragablzItemStyle" TargetType="dragablz:DragablzItem">
+
         <!--<Setter Property="Padding" Value="0 4 0 4" />-->
-        <Setter Property="Margin" Value="8,0,8,0" />
+        <!--<Setter Property="Margin" Value="8,0,8,0" />-->
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+        <!--<Setter Property="Width" Value="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=ActualWidth, Converter={x:Static conv:DefaultConverter.Instance}}"></Setter>-->
+        <Setter Property="Width"                 >
+            <Setter.Value>
+                <MultiBinding Converter="{x:Static conv:ActualWidthConverter.Instance}">
+                    <Binding RelativeSource="{RelativeSource AncestorType=ItemsControl}" Path="ActualWidth" ></Binding>
+                    <Binding RelativeSource="{RelativeSource AncestorType=ScrollViewer}" ></Binding>
+                </MultiBinding>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="MinWidth" Value="100"></Setter>
+
         <!--  here we create a custom item container, to animate a card popping out towards the user as it is dragged  -->
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type dragablz:DragablzItem}">
 
-                    <Grid RenderTransformOrigin=".5, .5">
+                    <Viewbox HorizontalAlignment="Stretch" RenderTransformOrigin=".5, .5">
+
+                        <Viewbox.RenderTransform>
+                            <ScaleTransform x:Name="ScaleTransform" ScaleX="1" ScaleY="1" />
+                        </Viewbox.RenderTransform>
+
+                        <Grid>
+                            <Grid.Background>
+                                <VisualBrush   
+                                                TileMode="Tile" Viewport="0,0,10,10" 
+                                                ViewportUnits="Absolute" Viewbox="0,0,10,10"    
+                                                ViewboxUnits="Absolute">
+                                    <VisualBrush.Visual>
+                                        <Canvas>
+                                            <Rectangle  Width="10" Height="10" />
+                                            <Path Stroke="Gray" Data="M 0 0 l 10 10" />
+                                        </Canvas>
+                                    </VisualBrush.Visual>
+                                </VisualBrush>
+                            </Grid.Background>
+
+                            <materialDesign:Card x:Name="PART_Card" Margin="10" HorizontalAlignment="Stretch">
+                                <Button>
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}" >
+                                            <Style.Setters>
+                                                <Setter Property="Background" Value="Transparent"></Setter>
+                                            </Style.Setters>
+                                        </Style>
+                                    </Button.Style>
+                                    <!--<Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}" >
+                                            <ContentPresenter />
+                                        </ControlTemplate>
+                                    </Button.Template>-->
+
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger  EventName="Click" >
+                                            <i:ChangePropertyAction TargetObject="{Binding RelativeSource={RelativeSource AncestorType=dragablz:DragablzItem}}" PropertyName="IsSelected" Value="true"></i:ChangePropertyAction>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    <ContentPresenter  Margin="10" HorizontalAlignment="Stretch"/>
+                                </Button>
+                            </materialDesign:Card>
+                            <Thumb VerticalAlignment="Bottom" HorizontalAlignment="Left" dragablz:DragablzItem.IsCustomThumb="True" Height="30" Width="30" Background="Yellow">
+
+                            </Thumb>
+                        </Grid>
+                    </Viewbox>
+
+
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDragging" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource Enter}" />
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource Exit}" />
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+    <Style x:Key="DragablzItemStyle2" TargetType="dragablz:DragablzItem">
+
+        <!--<Setter Property="Padding" Value="0 4 0 4" />-->
+        <!--<Setter Property="Margin" Value="8,0,8,0" />-->
+
+        <Setter Property="MinWidth" Value="100"></Setter>
+
+        <!--  here we create a custom item container, to animate a card popping out towards the user as it is dragged  -->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type dragablz:DragablzItem}">
+                    <Grid HorizontalAlignment="Stretch" RenderTransformOrigin=".5, .5">
                         <Grid.RenderTransform>
                             <ScaleTransform x:Name="ScaleTransform" ScaleX="1" ScaleY="1" />
                         </Grid.RenderTransform>
-                        <materialDesign:Card>
-                            <ContentPresenter x:Name="Card" />
+                        <Grid.Background>
+                            <VisualBrush   
+                                                TileMode="Tile" Viewport="0,0,10,10" 
+                                                ViewportUnits="Absolute" Viewbox="0,0,10,10"    
+                                                ViewboxUnits="Absolute">
+                                <VisualBrush.Visual>
+                                    <Canvas>
+                                        <Rectangle  Width="10" Height="10" />
+                                        <Path Stroke="Gray" Data="M 0 0 l 10 10" />
+                                    </Canvas>
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </Grid.Background>
+
+                        <materialDesign:Card x:Name="PART_Card" Margin="10" HorizontalAlignment="Stretch">
+                            <ContentPresenter  Margin="10" HorizontalAlignment="Stretch"/>
                         </materialDesign:Card>
-                        <Thumb dragablz:DragablzItem.IsCustomThumb="True" Style="{DynamicResource InvisibleThumbStyle}">
-                            <Thumb.Template>
-                                <ControlTemplate>
-                                    <Grid Background="Transparent" />
-                                </ControlTemplate>
-                            </Thumb.Template>
+                        <Thumb VerticalAlignment="Bottom" HorizontalAlignment="Left" dragablz:DragablzItem.IsCustomThumb="True" Height="30" Width="30" Background="Yellow">
                         </Thumb>
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -83,5 +186,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-
 </ResourceDictionary>

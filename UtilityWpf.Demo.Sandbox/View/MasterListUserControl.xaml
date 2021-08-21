@@ -54,7 +54,7 @@
                         <view:DragablzHorizontalItemsControl x:Name="DragablzItemsControl" 
                                                        ItemsSource="{Binding Data}"                                                       
                                                        VerticalAlignment="Center"                                                 
-                                                       ItemContainerStyle="{StaticResource DragablzItemStyle}"
+                                                       ItemContainerStyle="{StaticResource DragablzItemStyle2}"
                                                        ItemTemplate="{StaticResource Int32Template}"                                                      
                                                        MouseDown="DragablzItemsControl_MouseDown">                                         
                         </view:DragablzHorizontalItemsControl>    

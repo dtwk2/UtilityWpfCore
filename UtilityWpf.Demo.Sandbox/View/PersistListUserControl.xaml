@@ -42,26 +42,56 @@
             </i:Interaction.Triggers>
         </view:DualButtonControl>
 
-
-        <local1:AddDragItemControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
-        <i:Interaction.Triggers>
-            <i:EventTrigger  EventName="Change" >
-                <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
-            </i:EventTrigger>
-        </i:Interaction.Triggers>
-     
-        <view:DragablzVerticalItemsControl x:Name="DragablzItemsControl"                                                 
+        <TabControl>
+            
+            <TabItem>
+                <view:MasterDetail>
+                    <view:MasterDetail.Selector>
+                        <local1:AddDragItemControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger  EventName="Change" >
+                                    <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <view:DragablzVerticalItemsControl x:Name="DragablzItemsControl"                                                 
                                                        VerticalAlignment="Center"                                                
                                                        ItemContainerStyle="{StaticResource VerticalItemStyle}"                                                                                             
                                                        MouseDown="DragablzItemsControl_MouseDown">
-            <i:Interaction.Behaviors>
-                    <behavior:PersistBehavior x:Name="PersistBehavior" Repository="{Binding DatabaseService, Mode=OneWay}" 
+                                <i:Interaction.Behaviors>
+                                    <behavior:PersistBehavior x:Name="PersistBehavior" Repository="{Binding DatabaseService, Mode=OneWay}" 
                                               CollectionChangeCommand="{Binding CollectionChangedCommand, Mode=OneTime}">
-                        
-                    </behavior:PersistBehavior>
-                </i:Interaction.Behaviors>
-        </view:DragablzVerticalItemsControl>
-        
-    </local1:AddDragItemControl>
+
+                                    </behavior:PersistBehavior>
+                                </i:Interaction.Behaviors>
+                            </view:DragablzVerticalItemsControl>
+                        </local1:AddDragItemControl>
+                    </view:MasterDetail.Selector>        
+                </view:MasterDetail>
+            </TabItem>    
+            
+            
+            <TabItem>
+
+                <local1:AddDragItemControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger  EventName="Change" >
+                            <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <view:DragablzVerticalItemsControl x:Name="DragablzItemsControl2"                                                 
+                                                       VerticalAlignment="Center"                                                
+                                                       ItemContainerStyle="{StaticResource VerticalItemStyle}"                                                                                             
+                                                       MouseDown="DragablzItemsControl_MouseDown">
+                        <i:Interaction.Behaviors>
+                            <behavior:PersistBehavior x:Name="Persist2Behavior" Repository="{Binding DatabaseService, Mode=OneWay}" 
+                                              CollectionChangeCommand="{Binding CollectionChangedCommand, Mode=OneTime}">
+
+                            </behavior:PersistBehavior>
+                        </i:Interaction.Behaviors>
+                    </view:DragablzVerticalItemsControl>
+                </local1:AddDragItemControl>
+            </TabItem>
+        </TabControl>
+     
     </DockPanel>
 </UserControl>

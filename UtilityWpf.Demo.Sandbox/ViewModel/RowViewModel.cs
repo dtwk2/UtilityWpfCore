@@ -6,7 +6,7 @@ using System.Reactive;
 using System.Windows.Input;
 using UtilityWpf.Controls;
 using static UtilityWpf.Controls.MasterControl;
-
+using Endless;
 namespace UtilityWpf.Demo.Sandbox.ViewModel
 {
     public class ElementViewModel
@@ -51,11 +51,11 @@ namespace UtilityWpf.Demo.Sandbox.ViewModel
 
         public ICommand ChangeCommand { get; }
 
-        public IEnumerator NewItem => Get().GetEnumerator();
+        public IEnumerator NewItem => Get().Repeat().GetEnumerator();
 
-        IEnumerable<ElementViewModel> Get()
+        ElementViewModel Get()
         {
-            yield return new(Data.Last().Value + 1);
+            return new(Data.LastOrDefault()?.Value ?? 0 + 1);
         }
     }
 }

@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using ReactiveUI;
 
 namespace UtilityWpf.TestData.Model
 {
-    public class Fields : ReactiveObject
+    public class Fields : ReactiveObject, IEquatable<Fields>
     {
         private string name;
         private string surname;
@@ -22,17 +23,23 @@ namespace UtilityWpf.TestData.Model
 
         public override bool Equals(object obj)
         {
-            return base.Equals(obj);
+            return this.Equals(obj as Fields);
+        }
+
+        public bool Equals(Fields obj)
+        {
+            return $"{Id} {Name} {Surname} {Age} {PhoneNumber}".Equals(obj != null ? $"{obj.Id} {obj.Name} {obj.Surname} {obj.Age} {obj.PhoneNumber}" : "");
         }
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return BitConverter.ToInt32(Id.ToByteArray(), 0);
         }
 
         public override string ToString()
         {
-            return $"{Id} {Name} {Surname} {Age} {PhoneNumber}";
+            return $"{Id}";
+            //  return $"{Id} {Name} {Surname} {Age} {PhoneNumber}";
         }
     }
 }

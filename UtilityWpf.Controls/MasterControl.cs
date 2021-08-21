@@ -98,7 +98,7 @@ namespace UtilityWpf.Controls
         public static readonly DependencyProperty ButtonTypesProperty = DependencyHelper.Register<ButtonType>(new PropertyMetadata(ButtonType.All));
         public static readonly RoutedEvent ChangeEvent = EventManager.RegisterRoutedEvent("Change", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(MasterControl));
 
-        public event SelectionChangedEventHandler SelectionChanged;
+        public static readonly RoutedEvent SelectionChangedEvent = EventManager.RegisterRoutedEvent(nameof(SelectionChanged), RoutingStrategy.Bubble, typeof(SelectionChangedEventHandler), typeof(MasterControl));
 
         static MasterControl()
         {
@@ -157,6 +157,11 @@ namespace UtilityWpf.Controls
             remove { RemoveHandler(ChangeEvent, value); }
         }
 
+        public event SelectionChangedEventHandler SelectionChanged
+        {
+            add => AddHandler(SelectionChangedEvent, value);
+            remove => RemoveHandler(SelectionChangedEvent, value);
+        }
         protected virtual object? SelectedItem => itemsControl is Selector selector ? selector.SelectedItem : null;
 
         protected virtual int? SelectedIndex => itemsControl is Selector selector ? selector.SelectedIndex : null;
@@ -201,20 +206,17 @@ namespace UtilityWpf.Controls
 
             if (itemsControl is ISelectionChanged selectionChanged)
             {
-                selectionChanged.SelectionChanged += (s, e) => this.SelectionChanged.Invoke(this, e);
+                selectionChanged.SelectionChanged += (s, e) => this.RaiseEvent(new SelectionChangedEventArgs(SelectionChangedEvent, e.RemovedItems, e.AddedItems));
             }
             else if (itemsControl is Selector selector)
             {
-                selector.SelectionChanged += (s, e) => this.SelectionChanged.Invoke(this, e);
+                selector.SelectionChanged += (s, e) => this.RaiseEvent(new SelectionChangedEventArgs(SelectionChangedEvent, e.RemovedItems, e.AddedItems));
             }
 
             base.OnApplyTemplate();
         }
 
-        private void Selector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+
 
         protected virtual void ExecuteAdd(object parameter)
         {
