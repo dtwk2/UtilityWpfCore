@@ -54,7 +54,7 @@ namespace UtilityWpf.Controls
 
         public Control Selector
         {
-            get { return (Selector)GetValue(SelectorProperty); }
+            get { return (Control)GetValue(SelectorProperty); }
             set { SetValue(SelectorProperty, value); }
         }
 
@@ -76,8 +76,6 @@ namespace UtilityWpf.Controls
         {
             var selector = Template.Resources["propertytemplateSelector"] as DataTemplateSelector;
             Content ??= new ContentControl { ContentTemplateSelector = selector };
-
-
             base.OnApplyTemplate();
         }
 
