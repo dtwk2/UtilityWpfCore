@@ -12,7 +12,7 @@ using System.Reactive.Subjects;
 using DynamicData;
 using System.Windows.Input;
 using System.ComponentModel;
-using ReactiveUI;
+using UtilityWpf;
 
 namespace UtilityDAL.View.Behavior
 {
@@ -50,19 +50,19 @@ namespace UtilityDAL.View.Behavior
 
             IObservable<NewStruct> a = Items
                 .SelectChanges()
-                .Select(a => new NewStruct(a.Action, a.NewItems?.Cast<object>() ?? Array.Empty<object>()));
+                .Select(a => new NewStruct(a.Action, a.NewItems?.Cast<object>()?.ToArray() ?? Array.Empty<object>()));
 
             var b = Items
                 .SelectChanges()
-                .Select(a => new NewStruct(a.Action, a.OldItems?.Cast<object>() ?? Array.Empty<object>()));
+                .Select(a => new NewStruct(a.Action, a.OldItems?.Cast<object>()?.ToArray() ?? Array.Empty<object>()));
 
             disposable = a.Merge(b)
              .Scan(default((NewStruct, NewStruct)), (a, b) => (a.Item2, b))
              .WithLatestFrom(changes.WhereNotDefault())
              .Subscribe(cc =>
              {
-                 var ((first, (second, third)), docstore) = cc;
-                 if (first.Action == NotifyCollectionChangedAction.Reset)
+                 var (((action, first), (second, third)), docstore) = cc;
+                 if (action == NotifyCollectionChangedAction.Reset)
                      return;
 
 
@@ -87,43 +87,56 @@ namespace UtilityDAL.View.Behavior
                  //}
              });
 
-            var changeSet = ObservableChangeSet.Create<object>(observer =>
-            {
-                return changes
-                   .Select(a => a.SelectAll().Cast<object>())
-                   .Subscribe(objects =>
-                   {
-                       foreach (var change in objects.OfType<INotifyPropertyChanged>())
-                       {
-                           change.WhenAnyValue(a => a)
-                           .Subscribe(x =>
-                           {
-                               observer.Replace(x,x);
-                           });
-                       }
-                       observer.Clear();
-                       observer.AddRange(objects);
-                       CollectionChangeCommand?.Execute(observer.Items);
-                   });
-            });
+            var changeSet = ObservableChangeSet.Create<object, string>(observer =>
+             {
+                 return changes
+                    .Select(a => a.SelectAll().Cast<object>())
+                    .Subscribe(objects =>
+                    {
 
-            changeSet
-               .ToCollection()
-               .Subscribe(a =>
-               {
-                   Items.Clear();
-                   Items.AddRange(a);
-               });
+
+                        if (objects.Any() == false)
+                            return;
+                        foreach (var change in objects.OfType<INotifyPropertyChanged>())
+                        {
+                            change.Changes()
+                            .Subscribe(x =>
+                            {
+                                observer.AddOrUpdate(x);
+
+                            });
+
+                        }
+                        observer.Edit(a =>
+                        {
+                            a.Clear();
+                            foreach (var change in objects.OfType<INotifyPropertyChanged>())
+                            {
+                                a.AddOrUpdate(change);
+                            }
+                        });
+                        CollectionChangeCommand?.Execute(observer.Items);
+
+
+                        Items.Clear();
+                        Items.AddRange(objects);
+                    });
+
+       
+             }, a => a.ToString());
+
+
+            changeSet.OnItemUpdated((a,sd) =>
+                {
+
+                    Items.Replace(a, sd);
+                })
+                .Subscribe(a =>
+                {
+                
+                });
 
             AssociatedObject.ItemsSource = Items;
-            //changes.OnNext(Repository);
-
-            //if(AssociatedObject.ItemsSource==null)
-            //{
-            //    AssociatedObject.ItemsSource = new ObservableCollection<object>();
-            //}
-            //if (AssociatedObject.ItemsSource is INotifyCollectionChanged collectionChanged)
-            //{
 
             changes.Subscribe(a =>
             {
