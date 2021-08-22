@@ -102,6 +102,7 @@
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/FlipControl.xaml" />
         
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/HeaderedListBox.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/CompareTextBlock.xaml" />
 
         <!--  Extrinsic  -->
 
