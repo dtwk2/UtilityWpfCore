@@ -165,16 +165,17 @@ namespace UtilityWpf.Controls
         {
             int count = 0;
             Reset();
-
             if (Validate(mainText, CompareText) == false)
                 return;
 
             tokenSource.Cancel(false);
             tokenSource = new();
-            var task = Task.Run(() =>
+            Task<IReadOnlyCollection<TextGroup>> task = Task.Run(async () =>
             {
+                await Task.Delay(TimeSpan.FromSeconds(0.5));
                 return Compare(mainText, compareText);
             }, tokenSource.Token);
+
             foreach (var group in await task)
             {
                 var (foreground, background) = GetGrounds(group.Difference);
@@ -200,14 +201,11 @@ namespace UtilityWpf.Controls
             };
         }
 
-        private bool Validate(string mainText, string CompareText)
+        private bool Validate(string mainText, string compareText)
         {
-            if (compareTextBlock == null)
-                return false;
-            if (compareTextBlock == null || string.IsNullOrWhiteSpace(mainText))
-                return false;
-
-            return true;
+            return !(compareTextBlock == null ||
+                string.IsNullOrWhiteSpace(mainText) ||
+                string.IsNullOrWhiteSpace(compareText));
         }
 
         private void Reset()
