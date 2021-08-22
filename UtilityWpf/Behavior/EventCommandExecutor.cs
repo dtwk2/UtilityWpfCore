@@ -1,8 +1,8 @@
-﻿using Microsoft.Xaml.Behaviors;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using Microsoft.Xaml.Behaviors;
 using UtilityWpf.Utility;
 
 namespace UtilityWpf.Behavior

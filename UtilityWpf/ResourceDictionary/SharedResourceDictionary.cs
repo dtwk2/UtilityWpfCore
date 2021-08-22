@@ -1,51 +1,58 @@
 ﻿
-namespace UtilityWpf {
-   using System;
-   using System.Collections.Generic;
-   using System.Linq;
-   using System.Windows;
+namespace UtilityWpf
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Windows;
 
 
 
 
-   /// <summary>
-   /// Loads singleton instance of ResourceDictionary to current scope
-   /// </summary>
-   /// <remarks>
-   /// From Elysium
-   /// </remarks>
-   public class SharedResourceDictionary : ResourceDictionary {
-      private static readonly ResourceDictionaryCollection SharedResources = new();
-      private string? source;
+    /// <summary>
+    /// Loads singleton instance of ResourceDictionary to current scope
+    /// </summary>
+    /// <remarks>
+    /// From Elysium
+    /// </remarks>
+    public class SharedResourceDictionary : ResourceDictionary
+    {
+        private static readonly ResourceDictionaryCollection SharedResources = new();
+        private string? source;
 
 
-      /// <summary>
-      /// Gets or sets the source.
-      /// </summary>
-      public new string? Source {
-         get => source;
-         set {
-            if (source != value) {
-               source = value;
-               if (value != null)
-                  MergedDictionaries.Add(SharedResources.Get(value));
+        /// <summary>
+        /// Gets or sets the source.
+        /// </summary>
+        public new string? Source
+        {
+            get => source;
+            set
+            {
+                if (source != value)
+                {
+                    source = value;
+                    if (value != null)
+                        MergedDictionaries.Add(SharedResources.Get(value));
+                }
             }
-         }
-      }
+        }
 
 
 
-      /// <summary>
-      /// The is in application scope.
-      /// </summary>
-      private bool IsInApplicationScope(ResourceDictionary? resource) {
-         if (resource == null || resource.Source == null) {
-            return false;
-         }
-         // Try and find the resource dictionary in the application scope 
-         return Application.Current != null && Application.Current.Resources.ContainsDictionary(resource.Source.OriginalString);
-      }
-   }
+        /// <summary>
+        /// The is in application scope.
+        /// </summary>
+        private bool IsInApplicationScope(ResourceDictionary? resource)
+        {
+            if (resource == null || resource.Source == null)
+            {
+                return false;
+            }
+            // Try and find the resource dictionary in the application scope 
+            return Application.Current != null && Application.Current.Resources.ContainsDictionary(resource.Source.OriginalString);
+        }
+    }
 
 
 

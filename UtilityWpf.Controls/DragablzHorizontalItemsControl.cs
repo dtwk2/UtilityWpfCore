@@ -1,19 +1,15 @@
-﻿using Dragablz;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static AutoMapper.Internal.ExpressionFactory;
-using System.Windows.Documents;
 using System.Windows;
-using System.Windows.Media;
 using System.Windows.Controls;
-using UtilityWpf.Attached;
+using System.Windows.Documents;
+using System.Windows.Media;
+using Dragablz;
 
 namespace UtilityWpf.Controls
 {
-    public class DragablzHorizontalItemsControl: DragablzItemsControl
+    public class DragablzHorizontalItemsControl : DragablzItemsControl
     {
         object number;
         double start = 0;
@@ -75,7 +71,7 @@ namespace UtilityWpf.Controls
 
         private void DragablzHorizontalItemsControl_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-           // throw new NotImplementedException();
+            // throw new NotImplementedException();
 
         }
 
@@ -87,7 +83,7 @@ namespace UtilityWpf.Controls
             }
 
             protected override void OnRender(DrawingContext drawingContext)
-{
+            {
                 if ((AdornedElement is not ItemsControl itemsControl))
                     return;
 
@@ -102,18 +98,18 @@ namespace UtilityWpf.Controls
                     .OfType<FrameworkElement>()
                     .Sum(a => a.ActualWidth);
 
-              
+
                 drawingContext.DrawRectangle(Brushes.Red, new Pen(Brushes.White, 1),
-                new Rect(new Point(width + 150,0), new Size(DesiredSize.Height, DesiredSize.Height)));
+                new Rect(new Point(width + 150, 0), new Size(DesiredSize.Height, DesiredSize.Height)));
                 //new Rect(new Point(10, DesiredSize.Height - 40), new Size(DesiredSize.Width - 20, 50)));
                 base.OnRender(drawingContext);
             }
         }
 
-        class CustomOrganiser: HorizontalOrganiser
+        class CustomOrganiser : HorizontalOrganiser
         {
             public event Action DragCompleted;
-            
+
             public override void OrganiseOnDragCompleted(DragablzItemsControl requestor, Size measureBounds, IEnumerable<DragablzItem> siblingItems, DragablzItem dragItem)
             {
                 DragCompleted?.Invoke();

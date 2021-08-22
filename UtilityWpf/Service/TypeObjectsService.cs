@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using UtilityInterface.NonGeneric;
 using UtilityWpf.Abstract;
 using UtilityWpf.Model;
@@ -9,7 +7,7 @@ using UtilityWpf.Model;
 namespace UtilityWpf.Service
 {
 
-    public class TypeObjectsService: ITypeObjectsService
+    public class TypeObjectsService : ITypeObjectsService
     {
         public virtual TypeObject[] SelectTypeObjects(Type[] types)
         {

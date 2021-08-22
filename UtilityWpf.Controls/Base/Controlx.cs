@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace UtilityWpf.Controls
 {
-    using Mixins;
     using System.Reactive.Linq;
+    using Mixins;
 
     public abstract class Controlx : Control, IPropertyListener, IControlListener
     {
@@ -19,7 +18,7 @@ namespace UtilityWpf.Controls
         public Controlx()
         {
             dict = new(this);
-      
+
             this.LoadedChanges()
                 .Take(1)
                 .Subscribe(a =>

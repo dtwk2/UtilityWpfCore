@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Timers;
 using System.Windows;
 using System.Windows.Input;
 
@@ -126,8 +123,8 @@ namespace UappUI.AppCode.Touch
                     // Init AllScrollDirections
                     if (AllScrollDirections == null)
                     {
-                        AllScrollDirections = GetTotalScrollDirections(indexFrom: _currentIndex); 
-                    
+                        AllScrollDirections = GetTotalScrollDirections(indexFrom: _currentIndex);
+
                         var nextIndex = ActiveTouchManagers.IndexOf(this) + 1;
 
                         // No more controls or single direction or I use both directions

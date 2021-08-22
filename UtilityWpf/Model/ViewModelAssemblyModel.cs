@@ -1,7 +1,6 @@
-﻿using Autofac;
+﻿using System.Threading.Tasks;
+using Autofac;
 using Nito.AsyncEx;
-using System;
-using System.Threading.Tasks;
 using UtilityWpf.Abstract;
 
 namespace UtilityWpf.Model

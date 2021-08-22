@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace UtilityWpf.Controls
@@ -34,9 +30,9 @@ namespace UtilityWpf.Controls
 
         protected override void OnTimeChanged(DateTime newTime)
         {
-            if(colon != null)
+            if (colon != null)
             {
-                if(ColonBlink && !ShowSeconds)
+                if (ColonBlink && !ShowSeconds)
                 {
                     colon.Visibility = colon.IsVisible ? Visibility.Hidden : Visibility.Visible;
                 }

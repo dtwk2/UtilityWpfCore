@@ -23,8 +23,8 @@ namespace UtilityWpf
             .FromEventPattern<EventHandler, EventArgs>
             (a => storyboard.Completed += a, a => storyboard.Completed -= a)
             .Select(a => a.EventArgs);
-        
-        
+
+
         public static IObservable<IList> SelectSelectionAddChanges(this Selector selector) =>
 
             Observable
@@ -38,16 +38,16 @@ namespace UtilityWpf
             .FromEventPattern<SelectionChangedEventHandler, SelectionChangedEventArgs>
             (a => selector.SelectionChanged += a, a => selector.SelectionChanged -= a)
             .Select(a => a.EventArgs.AddedItems)
-            .Where(a => a.Count ==1)
-            .Select(a=>a.Cast<object>().Single());    
-        
+            .Where(a => a.Count == 1)
+            .Select(a => a.Cast<object>().Single());
+
         public static IObservable<object> SelectSingleSelectionChanges(this ISelectionChanged selector) =>
             Observable
             .FromEventPattern<SelectionChangedEventHandler, SelectionChangedEventArgs>
             (a => selector.SelectionChanged += a, a => selector.SelectionChanged -= a)
             .Select(a => a.EventArgs.AddedItems)
-            .Where(a => a.Count ==1)
-            .Select(a=>a.Cast<object>().Single());
+            .Where(a => a.Count == 1)
+            .Select(a => a.Cast<object>().Single());
 
         public static IObservable<IList> SelectSelectionRemoveChanges(this Selector selector) =>
             Observable

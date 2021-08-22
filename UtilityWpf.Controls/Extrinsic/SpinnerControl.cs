@@ -57,15 +57,15 @@ namespace UtilityWpf.Controls.Extrinsic
 
 
 
-        public string  StringFormat
+        public string StringFormat
         {
-            get { return (string )GetValue(StringFormatProperty); }
+            get { return (string)GetValue(StringFormatProperty); }
             set { SetValue(StringFormatProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for StringFormat.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty StringFormatProperty =
-            DependencyProperty.Register("StringFormat", typeof(string ), typeof(SpinnerControl), new PropertyMetadata("f"));
+            DependencyProperty.Register("StringFormat", typeof(string), typeof(SpinnerControl), new PropertyMetadata("f"));
 
 
 

@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Windows.Controls;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Reflection;
 using System.Windows;
-using System.Windows.Threading;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using System.Reflection;
-using System.ComponentModel;
-using System.Collections.Generic;
-using System.Linq;
+using System.Windows.Threading;
 
 namespace ComputerCastleControls
 {

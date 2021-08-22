@@ -8,7 +8,7 @@ namespace UtilityWpf.Controls
     public class ValidationForm : ContentControl
     {
         public static readonly DependencyProperty IsValidProperty = DependencyProperty.Register("IsValid", typeof(bool), typeof(ValidationForm), new PropertyMetadata(false));
-     
+
         static ValidationForm()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ValidationForm), new FrameworkPropertyMetadata(typeof(ValidationForm)));

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -14,7 +11,7 @@ namespace UtilityWpf.Controls
         public delegate void ChangedEventHandler(object sender, ChangedEventArgs e);
         public class ChangedEventArgs : RoutedEventArgs
         {
-            public ChangedEventArgs(Type type , string property, string? value)
+            public ChangedEventArgs(Type type, string property, string? value)
             {
                 Type = type;
                 Property = property;
@@ -49,7 +46,7 @@ namespace UtilityWpf.Controls
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register("Value", typeof(string), typeof(TypeControl), new PropertyMetadata(null));
         public static readonly DependencyProperty TypeProperty = DependencyProperty.Register("Type", typeof(Type), typeof(TypeControl), new PropertyMetadata(null));
         public static readonly RoutedEvent ChangedEvent = EventManager.RegisterRoutedEvent("Changed", RoutingStrategy.Bubble, typeof(ChangedEventHandler), typeof(TypeControl));
-       
+
         static TypeControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TypeControl), new FrameworkPropertyMetadata(typeof(TypeControl)));

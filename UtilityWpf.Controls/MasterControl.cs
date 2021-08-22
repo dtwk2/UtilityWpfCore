@@ -1,6 +1,4 @@
-﻿using Evan.Wpf;
-using ReactiveUI;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +6,8 @@ using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using Evan.Wpf;
+using ReactiveUI;
 
 namespace UtilityWpf.Controls
 {

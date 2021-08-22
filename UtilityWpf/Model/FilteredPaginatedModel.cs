@@ -1,9 +1,9 @@
-﻿using DynamicData;
-using DynamicData.Operators;
-using ReactiveUI;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Reactive.Linq;
+using DynamicData;
+using DynamicData.Operators;
+using ReactiveUI;
 
 namespace UtilityWpf.Model
 {

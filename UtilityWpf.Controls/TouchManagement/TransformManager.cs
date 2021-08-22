@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 
 namespace UappUI.AppCode.Touch
 {
@@ -41,7 +38,7 @@ namespace UappUI.AppCode.Touch
             foreach (FrameworkElement item in visibleItems)
             {
                 double mappedHeightValue = GetElementPosition(item, listView).Y.
-                    Map(currentMinElementPosition, currentMaxElementPosition, 
+                    Map(currentMinElementPosition, currentMaxElementPosition,
                     MIN_SCALE, MAX_SCALE);
 
                 ScaleElement(item, Math.Sin(mappedHeightValue));

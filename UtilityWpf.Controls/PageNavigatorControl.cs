@@ -1,12 +1,12 @@
-﻿using DynamicData;
-using ReactiveUI;
-using System;
+﻿using System;
 using System.Collections;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
+using DynamicData;
+using ReactiveUI;
 using UtilityWpf.Model;
 
 namespace UtilityWpf.Controls
@@ -72,7 +72,7 @@ namespace UtilityWpf.Controls
             get { return (IEnumerable)GetValue(FilteredItemsProperty); }
             set { SetValue(FilteredItemsProperty, value); }
         }
-                
+
         public override void OnApplyTemplate()
         {
             SizeControl = this.GetTemplateChild("SizeControl") as SizeControl;

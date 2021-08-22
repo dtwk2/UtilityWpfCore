@@ -1,14 +1,10 @@
-﻿using Evan.Wpf;
-using ReactiveUI;
-using System;
+﻿using System;
 using System.Collections;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using UtilityHelper.NonGeneric;
 using UtilityHelperEx;
 using UtilityWpf.Abstract;
 

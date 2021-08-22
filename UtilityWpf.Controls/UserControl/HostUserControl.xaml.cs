@@ -1,6 +1,4 @@
-﻿using MoreLinq;
-using ReactiveUI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
@@ -8,6 +6,7 @@ using System.Reactive.Subjects;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using MoreLinq;
 using UtilityHelper.NonGeneric;
 
 namespace UtilityWpf.Controls

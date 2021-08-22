@@ -1,7 +1,5 @@
-﻿using Autofac;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
+using Autofac;
 using UtilityWpf.Abstract;
 using UtilityWpf.Model;
 using UtilityWpf.Service;

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace UtilityWpf.Converter
+﻿namespace UtilityWpf.Converter
 {
     public class BooleanConverter : BaseConverter<bool>
     {

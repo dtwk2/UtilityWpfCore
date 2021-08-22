@@ -16,7 +16,7 @@ namespace UtilityWpf.Controls
 
         private static void TimePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is Clock clock && e is { NewValue: DateTime dateTime , OldValue: DateTime oDateTime })
+            if (d is Clock clock && e is { NewValue: DateTime dateTime, OldValue: DateTime oDateTime })
             {
                 clock.RaiseEvent(new RoutedPropertyChangedEventArgs<DateTime>(oDateTime, dateTime, TimeChangedEvent));
             }
@@ -66,13 +66,13 @@ namespace UtilityWpf.Controls
 
         private void UpdateTimeState(DateTime time)
         {
-            if(time.Day == 25 && time.Month == 12)
+            if (time.Day == 25 && time.Month == 12)
             {
                 VisualStateManager.GoToState(this, "Christmas", false);
             }
             else
             {
-                if(time.Hour > 6 && time.Hour < 18)
+                if (time.Hour > 6 && time.Hour < 18)
                 {
                     VisualStateManager.GoToState(this, "Day", false);
                 }

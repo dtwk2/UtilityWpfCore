@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace UtilityWpf.Controls
 {
-    using Mixins;
     using System.Reactive.Linq;
+    using Mixins;
 
     public abstract class ListBoxx : ListBox, IPropertyListener, IControlListener
     {

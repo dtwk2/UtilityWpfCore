@@ -11,9 +11,9 @@ namespace UtilityWpf.Converter
 
         public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if(values.Length>=1 && values[0] is double val )
+            if (values.Length >= 1 && values[0] is double val)
             {
-                if(values.Length == 2 && values[1] is ScrollViewer { IsVisible: true })
+                if (values.Length == 2 && values[1] is ScrollViewer { IsVisible: true })
                 {
                     return val - ScrollBarWidth;
                 }

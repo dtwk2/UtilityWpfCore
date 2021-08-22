@@ -4,7 +4,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Media;
 
 namespace UtilityWpf.Behavior
 {
@@ -72,6 +71,6 @@ namespace UtilityWpf.Behavior
                     yield return dataGrid.Items[i];
                 }
             }
-        }  
+        }
     }
 }

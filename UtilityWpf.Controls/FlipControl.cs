@@ -478,7 +478,7 @@ namespace UtilityWpf.Controls
                 {
 
                     var count = ItemsSource.Cast<object>().Count();
-                    
+
                     oldCount = ItemsSource.Cast<int>().LastOrDefault();
                     storyboard = new Storyboard();
                     Int32Animation intAnimation = new Int32Animation()

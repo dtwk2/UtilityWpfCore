@@ -1,6 +1,5 @@
 ﻿#nullable enable
 
-using Splat;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,16 +8,17 @@ using System.Globalization;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using System.Reactive.Threading.Tasks;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
-using System.Threading.Tasks;
-using System.Reactive.Threading.Tasks;
+using Endless.Functional;
+using Splat;
 using UtilityWpf.Controls;
 using UtilityWpf.Controls.Utility;
-using Endless.Functional;
 
 namespace UtilityWpf.Controls
 {
