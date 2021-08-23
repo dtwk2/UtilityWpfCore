@@ -12,7 +12,9 @@
     mc:Ignorable="d">
     <TabControl>
 
-
+        <TabItem Header="Notes">
+            <view1:NotesUserControl />
+        </TabItem>
 
         <TabItem Header="TwoWay">
             <view1:MasterListUserControl />

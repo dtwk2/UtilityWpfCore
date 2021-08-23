@@ -47,6 +47,9 @@
         </ObjectAnimationUsingKeyFrames>
     </Storyboard>
 
+    <Geometry x:Key="RightGeometry">M0,0 L50,50 L100,0</Geometry>
+    <Geometry x:Key="LeftGeometry">M0,50 L50,0 L100,50</Geometry>
+    
     <Style x:Key="DragablzItemStyle" TargetType="dragablz:DragablzItem">
 
         <!--<Setter Property="Padding" Value="0 4 0 4" />-->
@@ -112,8 +115,102 @@
                                     <ContentPresenter  Margin="10" HorizontalAlignment="Stretch"/>
                                 </Button>
                             </materialDesign:Card>
-                            <Thumb VerticalAlignment="Bottom" HorizontalAlignment="Left" dragablz:DragablzItem.IsCustomThumb="True" Height="30" Width="30" Background="Yellow">
+                      
+                            <Thumb VerticalAlignment="Bottom" HorizontalAlignment="Left"  Margin="0,0,2,0" dragablz:DragablzItem.IsCustomThumb="True" Height="40" Width="50" Grid.Column="1" >
+                                <Thumb.Template>
+                                    <ControlTemplate>
 
+                                        <Border  Name="OutBox" >
+
+                                            <Grid >
+                                                <Path   Margin="0,1,0,0"
+                                        x:Name="PathLeft"
+                                        Width="20"
+                                        Height="20"
+                                         Visibility="Visible"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Top"
+                                        Data="{StaticResource LeftGeometry}"
+                                        RenderTransformOrigin="0.5,0.5"
+                                        Stretch="Uniform"
+                                        Stroke="Black"
+                                        StrokeThickness="4">
+                                                    <Path.RenderTransform>
+                                                        <TransformGroup>
+                                                            <TranslateTransform />
+                                                        </TransformGroup>
+                                                    </Path.RenderTransform>
+                                                </Path>
+
+                                                <Path   Margin="0,0,0,1"
+                                        x:Name="PathRight"
+                                    Visibility="Visible"
+                                        Width="20"
+                                        Height="20"
+                                          VerticalAlignment="Bottom"
+                                        HorizontalAlignment="Center"
+                                        Data="{StaticResource RightGeometry}"
+                                        RenderTransformOrigin="0.5,0.5"
+                                        Stretch="Uniform"
+                                        Stroke="Black"
+                                        StrokeThickness="4">
+                                                    <Path.RenderTransform>
+                                                        <TransformGroup>
+                                                            <TranslateTransform />
+                                                        </TransformGroup>
+                                                    </Path.RenderTransform>
+                                                </Path>
+
+                                            </Grid>
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Style.Setters>
+                                                        <Setter Property="Background" >
+                                                            <Setter.Value>
+                                                                <SolidColorBrush Color="Yellow" Opacity="0.1"></SolidColorBrush>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                        <Setter Property="CornerRadius" Value="5"></Setter>
+                                                    </Style.Setters>
+
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Cursor" Value="Hand" />
+                                                        </Trigger>
+                                                        <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+
+                                                                    <DoubleAnimation
+                                             Storyboard.TargetProperty="Background.Opacity"
+                                             From="0.1"
+                                             To="0.5"
+                                             Duration="0:0:0.2"
+                                             
+                                             />
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </EventTrigger>
+                                                        <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+
+                                                                    <DoubleAnimation
+                                             Storyboard.TargetProperty="Background.Opacity"
+                                             From="0.5"
+                                             To="0.1"
+                                             Duration="0:0:0.2"
+                                             
+                                             />
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </EventTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Thumb.Template>
                             </Thumb>
                         </Grid>
                     </Viewbox>
