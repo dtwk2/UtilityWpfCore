@@ -13,12 +13,15 @@
     <TabControl>
 
 
-        <TabItem Header="2     Z">
-            <view11:PersistListUserControl />
-        </TabItem>
-        <TabItem Header="Z     ">
+
+        <TabItem Header="TwoWay">
             <view1:MasterListUserControl />
         </TabItem>
+
+        <TabItem Header="Persist">
+            <view11:PersistListUserControl />
+        </TabItem>
+
 
         <TabItem Header="A      ">
             <view:MasterDetailView Items="{StaticResource Characters}" />
@@ -34,7 +37,7 @@
         <TabItem Header="B     2">
             <view:MasterDetail >
                 <view:MasterDetail.Selector>
-                    <view:MasterControl>
+                    <view:MasterControl Orientation="Vertical">
                         <ItemsControl ItemsSource="{StaticResource Characters}"/>
                     </view:MasterControl>        
                 </view:MasterDetail.Selector>
@@ -44,7 +47,7 @@
         <TabItem Header="B     3">
             <view:MasterDetail >
                 <view:MasterDetail.Selector>
-                    <view:MasterControl>
+                    <view:MasterControl Orientation="Vertical">
                         <ListBox ItemsSource="{StaticResource Characters}"/>
                     </view:MasterControl>        
                 </view:MasterDetail.Selector>

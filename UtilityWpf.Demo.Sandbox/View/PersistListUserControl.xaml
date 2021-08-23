@@ -47,7 +47,8 @@
             <TabItem>
                 <view:MasterDetail>
                     <view:MasterDetail.Selector>
-                        <local1:AddDragItemControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
+                        <local1:AddDragItemControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  
+                                                   Orientation="Vertical">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger  EventName="Change" >
                                     <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
