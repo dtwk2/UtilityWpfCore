@@ -11,7 +11,9 @@ using ReactiveUI;
 
 namespace UtilityWpf.Controls
 {
+    using System.Collections.Specialized;
     using Mixins;
+    using UtilityHelper.NonGeneric;
     using UtilityWpf.Abstract;
 
     [Flags]
@@ -95,6 +97,7 @@ namespace UtilityWpf.Controls
         public static readonly DependencyProperty CommandParameterProperty = DependencyHelper.Register<IEnumerator>();
         public static readonly DependencyProperty ItemsSourceProperty = DependencyHelper.Register<IEnumerable>();
         public static readonly DependencyProperty RemoveOrderProperty = DependencyHelper.Register<RemoveOrder>();
+        public static readonly DependencyProperty CountProperty = DependencyHelper.Register<int>();
         public static readonly DependencyProperty ButtonTypesProperty = DependencyHelper.Register<ButtonType>(new PropertyMetadata(ButtonType.All));
         public static readonly RoutedEvent ChangeEvent = EventManager.RegisterRoutedEvent("Change", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(MasterControl));
 
@@ -125,6 +128,13 @@ namespace UtilityWpf.Controls
                         dockPanel.Orientation = Orientation.Horizontal;
                     }
                 });
+        }
+        #region properties
+
+        public int Count
+        {
+            get { return (int)GetValue(CountProperty); }
+            set { SetValue(CountProperty, value); }
         }
 
         public IEnumerator CommandParameter
@@ -162,6 +172,10 @@ namespace UtilityWpf.Controls
             add => AddHandler(SelectionChangedEvent, value);
             remove => RemoveHandler(SelectionChangedEvent, value);
         }
+
+        #endregion properties
+
+
         protected virtual object? SelectedItem => itemsControl is Selector selector ? selector.SelectedItem : null;
 
         protected virtual int? SelectedIndex => itemsControl is Selector selector ? selector.SelectedIndex : null;
@@ -206,12 +220,32 @@ namespace UtilityWpf.Controls
 
             if (itemsControl is ISelectionChanged selectionChanged)
             {
-                selectionChanged.SelectionChanged += (s, e) => this.RaiseEvent(new SelectionChangedEventArgs(SelectionChangedEvent, e.RemovedItems, e.AddedItems));
+                selectionChanged.SelectionChanged += (s, e) =>
+                {
+                    this.RaiseEvent(new SelectionChangedEventArgs(SelectionChangedEvent, e.RemovedItems, e.AddedItems));
+                    //this.SetValue(MasterControl.CountProperty, selectionChanged.ItemsSource.Count());
+                };
             }
-            else if (itemsControl is Selector selector)
+            // Unlikely to be both ISelectionChanged and Selector
+            if (itemsControl is Selector selector)
             {
-                selector.SelectionChanged += (s, e) => this.RaiseEvent(new SelectionChangedEventArgs(SelectionChangedEvent, e.RemovedItems, e.AddedItems));
+                selector.SelectionChanged += (s, e) =>
+                {
+                    this.RaiseEvent(new SelectionChangedEventArgs(SelectionChangedEvent, e.RemovedItems, e.AddedItems));
+                    this.SetValue(CountProperty, selector.ItemsSource.Count());
+                };
+                this.SetValue(CountProperty, selector.ItemsSource.Count());
             }
+            else if (itemsControl is ItemsControl ic && ic.ItemsSource is INotifyCollectionChanged changed)
+            {
+                changed.CollectionChanged += (s, e) =>
+                {
+                    this.SetValue(CountProperty, ic.ItemsSource.Count());
+                };
+
+                Count = ic.ItemsSource.Count();
+            }
+
 
             base.OnApplyTemplate();
         }
@@ -242,7 +276,6 @@ namespace UtilityWpf.Controls
                         collection.RemoveAt(collection.Count - 1);
                         RaiseEvent(new CollectionChangedEventArgs(collection, new[] { item }, EventType.Removed, item, ChangeEvent));
                     }
-
                 }
             }
             else

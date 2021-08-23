@@ -9,9 +9,7 @@
         <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/themes/MaterialDesignTheme.Button.xaml" />-->
     </ResourceDictionary.MergedDictionaries>
 
-
-
-    <local1:CountToBooleanConverter x:Key="CountToBoolean" Invert="True" />
+    <local1:CountToBooleanConverter x:Key="CountToBoolean" />
     <local1:IsFirstItemSelectedConverter x:Key="IsFirstItemSelected" Invert="True" />
     <local1:IsLastItemSelectedConverter x:Key="IsLastItemSelected" Invert="True" />
 
@@ -19,15 +17,13 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:MasterControl}">
-
-
                     <DockPanel x:Name="DockPanel1">
                         <WrapPanel x:Name="WrapPanel1" Margin="5">
 
                             <Button
                                 x:Name="ButtonMinus"
                                 Margin="5"
-                                IsEnabled="{Binding Content.Count, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource CountToBoolean}, ConverterParameter=0}"
+                                IsEnabled="{Binding Count, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource CountToBoolean}, ConverterParameter='>0'}"
                                 Style="{DynamicResource MaterialDesignIconButton}">
                                 <materialDesign:PackIcon Kind="Minus" />
                             </Button>

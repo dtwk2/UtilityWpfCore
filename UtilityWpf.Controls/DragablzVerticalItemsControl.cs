@@ -45,36 +45,36 @@ namespace UtilityWpf.Controls
         {
             if (adorner != null)
             {
-                MessageBox.Show("Item deleted");
+                //MessageBox.Show("Item deleted");
             }
         }
 
         private void VerticalPositionMonitor_LocationChanged(object? sender, LocationChangedEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine(e.Location.Y);
-            if (number != e.Item)
-            {
-                number = e.Item;
-                start = e.Location.Y;
-            }
-            if (Math.Abs(e.Location.Y - start) > 50)
-            {
-                if (adorner == null)
-                {
-                    layer ??= AdornerLayer.GetAdornerLayer(this);
-                    adorner = new DeleteAdorner(this);
-                    layer.Add(adorner);
-                }
-                return;
-            }
-            adorner = null;
-            layer ??= AdornerLayer.GetAdornerLayer(this);
-            Adorner[] toRemoveArray = layer.GetAdorners(this);
-            if (toRemoveArray != null)
-                foreach (Adorner a in toRemoveArray)
-                {
-                    layer.Remove(a);
-                }
+            //System.Diagnostics.Debug.WriteLine(e.Location.Y);
+            //if (number != e.Item)
+            //{
+            //    number = e.Item;
+            //    start = e.Location.Y;
+            //}
+            //if (Math.Abs(e.Location.Y - start) > 50)
+            //{
+            //    if (adorner == null)
+            //    {
+            //        layer ??= AdornerLayer.GetAdornerLayer(this);
+            //        adorner = new DeleteAdorner(this);
+            //        layer.Add(adorner);
+            //    }
+            //    return;
+            //}
+            //adorner = null;
+            //layer ??= AdornerLayer.GetAdornerLayer(this);
+            //Adorner[] toRemoveArray = layer.GetAdorners(this);
+            //if (toRemoveArray != null)
+            //    foreach (Adorner a in toRemoveArray)
+            //    {
+            //        layer.Remove(a);
+            //    }
         }
 
         private void VerticalPositionMonitor_OrderChanged(object? sender, OrderChangedEventArgs e)
