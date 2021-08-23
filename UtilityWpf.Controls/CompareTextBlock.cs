@@ -167,8 +167,12 @@ namespace UtilityWpf.Controls
             Reset();
             if (Validate(mainText, CompareText) == false)
                 return;
+            if (tokenSource.IsCancellationRequested == false)
+                tokenSource.Cancel(false);
+            else
+            {
 
-            tokenSource.Cancel(false);
+            }
             tokenSource = new();
             Task<IReadOnlyCollection<TextGroup>> task = Task.Run(async () =>
             {
