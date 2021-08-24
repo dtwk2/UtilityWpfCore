@@ -30,7 +30,7 @@ namespace UtilityWpf.Demo.Sandbox.ViewModel
                 new(3)
             };
 
-            ChangeCommand = ReactiveUI.ReactiveCommand.Create<EventArgs, Unit>((a) =>
+            ChangeCommand = ReactiveUI.ReactiveCommand.Create<CollectionEventArgs, Unit>((a) =>
             {
                 switch (a)
                 {

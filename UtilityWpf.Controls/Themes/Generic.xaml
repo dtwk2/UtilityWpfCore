@@ -76,6 +76,7 @@
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/MasterDetailView.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Clock.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/MasterDetail.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/MasterNotesControl.xaml" />
 
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Button/GeometryButton.xaml" />
 

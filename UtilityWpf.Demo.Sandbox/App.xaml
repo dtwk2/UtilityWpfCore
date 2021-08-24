@@ -15,10 +15,9 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
+            <DataTemplate  DataType="{x:Type vm:NoteViewModel}">
 
-            <DataTemplate x:Key="NoteViewModel" DataType="{x:Type vm:NoteViewModel}">
-          
-                    <TextBox HorizontalAlignment="Stretch" FontSize="5"  
+                <TextBox HorizontalAlignment="Stretch" FontSize="5"  
                              
                              TextWrapping="Wrap"
                              AcceptsReturn="True"                            
@@ -27,9 +26,19 @@
                     <TextBox.Style>
                         <Style TargetType="TextBox">
                             <Setter Property="BorderThickness" Value="0"></Setter>
+                            <Setter Property="Background" Value="Transparent"></Setter>
                         </Style>                        
                     </TextBox.Style>
                 </TextBox>
+
+            </DataTemplate>
+            <DataTemplate x:Key="NoteViewModel" DataType="{x:Type vm:NoteViewModel}">
+          
+                    <TextBlock HorizontalAlignment="Stretch"  
+                             FontSize="20"
+                             TextWrapping="Wrap"                          
+                             Text="{Binding Text}" >                   
+                    </TextBlock>
                
             </DataTemplate>
             

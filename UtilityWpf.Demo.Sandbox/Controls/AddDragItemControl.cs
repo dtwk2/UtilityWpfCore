@@ -10,13 +10,13 @@ namespace UtilityWpf.Demo.View
         {            
         }
 
-        protected override void ExecuteAdd(object parameter)
+        protected override void ExecuteAdd()
         {
-            if (Content is DragablzItemsControl itemsControl)
-                itemsControl.AddToSource(parameter, AddLocationHint.Last);
-            else
-                throw new System.Exception("dfsd    sdf");
-            base.ExecuteAdd(parameter);
+            //if (Content is DragablzItemsControl itemsControl)
+            //    itemsControl.AddToSource(parameter, AddLocationHint.Last);
+            //else
+            //    throw new System.Exception("dfsd    sdf");
+            base.ExecuteAdd();
         }
     }
 }

@@ -12,9 +12,11 @@ using ReactiveUI;
 namespace UtilityWpf.Controls
 {
     using System.Collections.Specialized;
+using Dragablz;
     using Mixins;
     using UtilityHelper.NonGeneric;
     using UtilityWpf.Abstract;
+using static UtilityWpf.Controls.MasterControl;
 
     [Flags]
     public enum RemoveOrder
@@ -25,6 +27,7 @@ namespace UtilityWpf.Controls
     }
 
 
+    public delegate void CollectionChangedEventHandler(object sender, CollectionEventArgs e);
 
     public class MasterControl : ContentControlx, ISelectionChanged
     {
@@ -39,7 +42,7 @@ namespace UtilityWpf.Controls
             Add, Remove, Removed, MoveUp, MoveDown
         }
 
-        public class MovementEventArgs : EventArgs
+        public class MovementEventArgs : CollectionEventArgs
         {
             public MovementEventArgs(IReadOnlyCollection<IndexedObject> array, IReadOnlyCollection<IndexedObject> changes, EventType eventType, object? item, RoutedEvent @event) : base(eventType, item, @event)
             {
@@ -51,7 +54,7 @@ namespace UtilityWpf.Controls
             public IReadOnlyCollection<IndexedObject> Changes { get; }
         }
 
-        public class CollectionChangedEventArgs : EventArgs
+        public class CollectionChangedEventArgs : CollectionEventArgs
         {
             public CollectionChangedEventArgs(IList array, IReadOnlyCollection<object> changes, EventType eventType, object? item, RoutedEvent @event) : base(eventType, item, @event)
             {
@@ -64,9 +67,9 @@ namespace UtilityWpf.Controls
         }
 
 
-        public class EventArgs : RoutedEventArgs
+        public class CollectionEventArgs : RoutedEventArgs
         {
-            public EventArgs(EventType eventType, object? item, RoutedEvent @event) : base(@event)
+            public CollectionEventArgs(EventType eventType, object? item, RoutedEvent @event) : base(@event)
             {
                 EventType = eventType;
                 Item = item;
@@ -95,11 +98,11 @@ namespace UtilityWpf.Controls
 
         public static readonly DependencyProperty OrientationProperty = DependencyHelper.Register<Orientation>(new PropertyMetadata(Orientation.Horizontal));
         public static readonly DependencyProperty CommandParameterProperty = DependencyHelper.Register<IEnumerator>();
-        public static readonly DependencyProperty ItemsSourceProperty = DependencyHelper.Register<IEnumerable>();
+
         public static readonly DependencyProperty RemoveOrderProperty = DependencyHelper.Register<RemoveOrder>();
         public static readonly DependencyProperty CountProperty = DependencyHelper.Register<int>();
         public static readonly DependencyProperty ButtonTypesProperty = DependencyHelper.Register<ButtonType>(new PropertyMetadata(ButtonType.All));
-        public static readonly RoutedEvent ChangeEvent = EventManager.RegisterRoutedEvent("Change", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(MasterControl));
+        public static readonly RoutedEvent ChangeEvent = EventManager.RegisterRoutedEvent(nameof(Change), RoutingStrategy.Bubble, typeof(CollectionChangedEventHandler), typeof(MasterControl));
 
         public static readonly RoutedEvent SelectionChangedEvent = EventManager.RegisterRoutedEvent(nameof(SelectionChanged), RoutingStrategy.Bubble, typeof(SelectionChangedEventHandler), typeof(MasterControl));
 
@@ -161,7 +164,7 @@ namespace UtilityWpf.Controls
             set { SetValue(ButtonTypesProperty, value); }
         }
 
-        public event RoutedEventHandler Change
+        public event CollectionChangedEventHandler Change
         {
             add { AddHandler(ChangeEvent, value); }
             remove { RemoveHandler(ChangeEvent, value); }
@@ -197,13 +200,8 @@ namespace UtilityWpf.Controls
             var dockPanel = this.GetTemplateChild("DockPanel1") as DockPanel;
             var wrapPanel = this.GetTemplateChild("WrapPanel1") as WrapPanel;
 
-            buttonAdd.Click += (s, e) =>
-            {
-                if (CommandParameter == null)
-                    throw new Exception($"{nameof(CommandParameter)} is null");
-                CommandParameter.MoveNext();
-                ExecuteAdd(CommandParameter.Current);
-            };
+            buttonAdd.Click += (s, e) => ExecuteAdd();
+
 
             buttonRemove.Click += (s, e) => ExecuteRemove();
             buttonMoveUp.Click += (s, e) => ExecuteMoveUp();
@@ -212,11 +210,11 @@ namespace UtilityWpf.Controls
             itemsControl = (this.Content as ItemsControl) ?? (this.Content as DependencyObject)?.FindVisualChildren<ItemsControl>().SingleOrDefault()!;
             if (itemsControl != null)
             {
-                this.SetValue(ItemsSourceProperty, itemsControl.ItemsSource);
+                //this.SetValue(ItemsSourceProperty, itemsControl.ItemsSource);
                 wrapPanel.DataContext = itemsControl.ItemsSource;
             }
             else
-                throw new Exception($"Expected content to derive from type {nameof(ItemsControl)}.");
+                throw new Exception($"Expected content to derive from type of {nameof(ItemsControl)}.");
 
             if (itemsControl is ISelectionChanged selectionChanged)
             {
@@ -236,25 +234,50 @@ namespace UtilityWpf.Controls
                 };
                 this.SetValue(CountProperty, selector.ItemsSource.Count());
             }
-            else if (itemsControl is ItemsControl ic && ic.ItemsSource is INotifyCollectionChanged changed)
+            else if (itemsControl.ItemsSource is INotifyCollectionChanged changed)
             {
                 changed.CollectionChanged += (s, e) =>
                 {
-                    this.SetValue(CountProperty, ic.ItemsSource.Count());
+                    this.SetValue(CountProperty, itemsControl.ItemsSource.Count());
                 };
 
-                Count = ic.ItemsSource.Count();
+                Count = itemsControl.ItemsSource.Count();
+            }
+            else
+            {
+                itemsControl.WhenAnyValue(a => a.ItemsSource)
+                    .Subscribe(iSource =>
+                {
+                    if (iSource is INotifyCollectionChanged changed)
+                    {
+                        changed.CollectionChanged += (s, e) =>
+                        {
+                            this.SetValue(CountProperty, iSource.Count());
+                        };
+
+                        Count = iSource.Count();
+                    }
+                });
+
             }
 
 
             base.OnApplyTemplate();
         }
 
-
-
-        protected virtual void ExecuteAdd(object parameter)
+        protected virtual void ExecuteAdd()
         {
-            RaiseEvent(new EventArgs(EventType.Add, SelectedItem, ChangeEvent));
+            //if (CommandParameter == null)
+            //    throw new Exception($"{nameof(CommandParameter)} is null");
+            if (CommandParameter?.MoveNext() == true)
+            {
+                if (Content is DragablzItemsControl itemsControl)
+                    itemsControl.AddToSource(CommandParameter.Current, AddLocationHint.Last);
+            }
+            else
+            {
+                RaiseEvent(new CollectionEventArgs(EventType.Add, SelectedItem, ChangeEvent));
+            }
         }
 
         protected virtual void ExecuteRemove()
@@ -282,7 +305,7 @@ namespace UtilityWpf.Controls
             {
             }
 
-            RaiseEvent(new EventArgs(EventType.Remove, SelectedItem, ChangeEvent));
+            RaiseEvent(new CollectionEventArgs(EventType.Remove, SelectedItem, ChangeEvent));
         }
 
         protected virtual void ExecuteMoveUp()
