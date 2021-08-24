@@ -7,13 +7,13 @@
 
     <ResourceDictionary.MergedDictionaries>
         <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DragablzItem.xaml"></utilitywpf:SharedResourceDictionary>
-        <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls;component/Themes/MasterControl.xaml"></utilitywpf:SharedResourceDictionary>
+        <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls;component/Master/MasterControl.xaml"></utilitywpf:SharedResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="DragablzNotes2Style" TargetType="dragablz:DragablzItem">
         <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
         <!--<Setter Property="Width" Value="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=ActualWidth, Converter={x:Static conv:DefaultConverter.Instance}}"></Setter>-->
-        <Setter Property="Width"                 >
+        <Setter Property="Width">
             <Setter.Value>
                 <MultiBinding Converter="{x:Static conv:ActualWidthConverter.Instance}">
                     <Binding RelativeSource="{RelativeSource AncestorType=ItemsControl}" Path="ActualWidth" ></Binding>
@@ -40,6 +40,7 @@
                                 <materialDesign:Card x:Name="PART_Card" Height="0" Width="0"></materialDesign:Card>
 
                                 <TextBox Margin="2,1,17,2"  Width="200"  
+                                         x:Name="PART_TextBox"
                                          HorizontalAlignment="Stretch" FontSize="5"    
                                          TextWrapping="Wrap"
                                          AcceptsReturn="True"           
@@ -145,19 +146,18 @@
         </Setter>
     </Style>
 
+    <Style 
+           TargetType="{x:Type local:MasterNotesItemsControl}" 
+           BasedOn="{StaticResource {x:Type dragablz:DragablzItemsControl}}">
+        <Style.Setters>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="ItemContainerStyle" Value="{StaticResource DragablzNotes2Style}"/>
+        </Style.Setters>
+    </Style>
+
     <Style  TargetType="{x:Type local:MasterNotesControl}" BasedOn="{StaticResource {x:Type local:MasterControl}}">
         <Setter Property="ButtonTypes" Value="Add,Remove"></Setter>
         <Setter Property="RemoveOrder" Value="Last"></Setter>
-        <Setter Property="Content">
-            <Setter.Value>
-                <local:MasterNotesItemsControl x:Name="DragablzItemsControl"
-                                               VerticalAlignment="Center"
-                                               
-                                               ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource AncestorType=local:MasterNotesControl}}"
-                                               DisplayMemberPath="{Binding DisplayMemberPath, RelativeSource={RelativeSource AncestorType=local:MasterNotesControl}}"   
-                                               ItemContainerStyle="{StaticResource DragablzNotes2Style}"/>
-            </Setter.Value>
-        </Setter>
     </Style>
 
 </ResourceDictionary>

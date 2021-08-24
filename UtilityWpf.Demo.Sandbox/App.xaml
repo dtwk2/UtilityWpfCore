@@ -42,6 +42,12 @@
                
             </DataTemplate>
             
+            <DataTemplate x:Key="Int32Template" DataType="{x:Type vm:ElementViewModel}">
+                <Grid  Width="200"  Height="100" Tag="{Binding}">
+                    <TextBox  HorizontalAlignment="Center"   VerticalAlignment="Center"  Text="{Binding Value}" />
+                </Grid>
+            </DataTemplate>
+            
             <ResourceDictionary.MergedDictionaries>
      
                 <ResourceDictionary Source="/UtilityWpf.TestData;component/Themes/Generic.xaml" />

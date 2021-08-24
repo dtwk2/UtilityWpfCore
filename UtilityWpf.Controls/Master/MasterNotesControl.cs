@@ -1,62 +1,53 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Xml.Linq;
-using Evan.Wpf;
 
 namespace UtilityWpf.Controls
 {
-    public class MasterNotesControl : MasterControl
+    public class MasterNotesControl : MasterBindableControl
     {
-        public static readonly DependencyProperty DisplayMemberPathProperty = DependencyHelper.Register<string>();
-        public static readonly DependencyProperty ItemsSourceProperty = DependencyHelper.Register<IEnumerable>();
-
         static MasterNotesControl()
         {
             FrameworkElement.DefaultStyleKeyProperty.OverrideMetadata(typeof(MasterNotesControl), new FrameworkPropertyMetadata(typeof(MasterNotesControl)));
         }
 
-        public IEnumerable ItemsSource
+        public override void OnApplyTemplate()
         {
-            get { return (IEnumerable)GetValue(ItemsSourceProperty); }
-            set { SetValue(ItemsSourceProperty, value); }
-        }
+            this.Content = new MasterNotesItemsControl
+            {
+                DisplayMemberPath = this.DisplayMemberPath,
+                ItemsSource = this.ItemsSource
+            };
 
-        public string DisplayMemberPath
-        {
-            get { return (string)GetValue(DisplayMemberPathProperty); }
-            set { SetValue(DisplayMemberPathProperty, value); }
+            base.OnApplyTemplate();
         }
     }
 
     public class MasterNotesItemsControl : DragablzVerticalItemsControl
     {
-        //protected override void AddChild(object value)
-        //{
-        //    base.AddChild(value);
-        //}
+        static MasterNotesItemsControl()
+        {
+            FrameworkElement.DefaultStyleKeyProperty.OverrideMetadata(typeof(MasterNotesItemsControl), new FrameworkPropertyMetadata(typeof(MasterNotesItemsControl)));
+        }
 
         protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
         {
             if (element is not Control control)
                 return;
-            control.ApplyTemplate();
+            _ = control.ApplyTemplate();
             if (element.ChildOfType<TextBox>() is not TextBox textBox)
                 return;
-
+            if (string.IsNullOrEmpty(DisplayMemberPath))
+            {
+                return;
+            }
             Binding myBinding = new Binding
             {
                 Source = item,
                 Path = new PropertyPath(DisplayMemberPath),
                 Mode = BindingMode.TwoWay,
                 UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
-            };   
+            };
             BindingOperations.SetBinding(textBox, TextBox.TextProperty, myBinding);
 
             base.PrepareContainerForItemOverride(element, item);

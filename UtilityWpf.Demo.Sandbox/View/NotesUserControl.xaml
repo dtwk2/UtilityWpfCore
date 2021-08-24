@@ -16,55 +16,108 @@
     d:Background="White"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <FrameworkElement.DataContext>
-        <vm:NotesViewModel />
-    </FrameworkElement.DataContext>
-    <FrameworkElement.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DragablzItem.xaml"></ResourceDictionary>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </FrameworkElement.Resources>
-    <UniformGrid Rows="1">
-        <Panel.Background>
-            <VisualBrush
+
+    <UniformGrid Columns="1">
+
+
+        <UniformGrid Rows="1">
+            <FrameworkElement.DataContext>
+                <vm:NotesViewModel />
+            </FrameworkElement.DataContext>
+            <FrameworkElement.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DragablzItem.xaml"></ResourceDictionary>
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+            </FrameworkElement.Resources>
+            <Panel.Background>
+                <VisualBrush
                 TileMode="Tile" Viewport="0,0,10,10" 
                 ViewportUnits="Absolute" Viewbox="0,0,10,10"
                 ViewboxUnits="Absolute">
-                <VisualBrush.Visual>
-                    <Canvas>
-                        <Rectangle  Width="10" Height="10" />
-                        <Path Stroke="WhiteSmoke" Data="M 0 0 l 10 10" />
-                    </Canvas>
-                </VisualBrush.Visual>
-            </VisualBrush>
-        </Panel.Background>
+                    <VisualBrush.Visual>
+                        <Canvas>
+                            <Rectangle  Width="10" Height="10" />
+                            <Path Stroke="WhiteSmoke" Data="M 0 0 l 10 10" />
+                        </Canvas>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Panel.Background>
 
 
-        <local:AddDragItemControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
+            <local:AddDragItemControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
 
-            <i:Interaction.Triggers>
-                <i:EventTrigger  EventName="Change" >
-                    <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <view:DragablzVerticalItemsControl x:Name="DragablzItemsControl" 
+                <i:Interaction.Triggers>
+                    <i:EventTrigger  EventName="Change" >
+                        <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <view:DragablzVerticalItemsControl x:Name="DragablzItemsControl" 
                                            ItemsSource="{Binding Collection}" 
                                            VerticalAlignment="Center"     
                                            ItemContainerStyle="{StaticResource DragablzNotesStyle}">
-            </view:DragablzVerticalItemsControl>
-        </local:AddDragItemControl>
+                </view:DragablzVerticalItemsControl>
+            </local:AddDragItemControl>
 
-        <ItemsControl   ItemsSource="{Binding Collection}"          ItemTemplate="{StaticResource NoteViewModel}" />
+            <ItemsControl   ItemsSource="{Binding Collection}" ItemTemplate="{StaticResource NoteViewModel}" />
 
-
-
-        <view:MasterNotesControl 
+            <view:MasterNotesControl 
             CommandParameter="{Binding NewItem}"
             ItemsSource="{Binding Collection}" 
             Change="MasterNotesControl_Change"
             DisplayMemberPath="{mk:NameOf Type={x:Type vm:NoteViewModel}, Member=Text}">
-        </view:MasterNotesControl>
+            </view:MasterNotesControl>
+        </UniformGrid>
+
+        <UniformGrid Rows="1">
+            <FrameworkElement.DataContext>
+                <vm:NotesViewModel />
+            </FrameworkElement.DataContext>
+            <FrameworkElement.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DragablzItem.xaml"></ResourceDictionary>
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+            </FrameworkElement.Resources>
+            <Panel.Background>
+                <VisualBrush
+                TileMode="Tile" Viewport="0,0,10,10" 
+                ViewportUnits="Absolute" Viewbox="0,0,10,10"
+                ViewboxUnits="Absolute">
+                    <VisualBrush.Visual>
+                        <Canvas>
+                            <Rectangle  Width="10" Height="10" />
+                            <Path Stroke="WhiteSmoke" Data="M 0 0 l 10 10" />
+                        </Canvas>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Panel.Background>
+
+
+            <local:AddDragItemControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger  EventName="Change" >
+                        <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <view:DragablzVerticalItemsControl
+                                           ItemsSource="{Binding Collection}" 
+                                           VerticalAlignment="Center"     
+                                           ItemContainerStyle="{StaticResource DragablzNotesStyle}">
+                </view:DragablzVerticalItemsControl>
+            </local:AddDragItemControl>
+
+            <ItemsControl   ItemsSource="{Binding Collection}" ItemTemplate="{StaticResource NoteViewModel}" />
+
+            <view:MasterNotesControl 
+            CommandParameter="{Binding NewItem}"
+            ItemsSource="{Binding Collection}" 
+            Change="MasterNotesControl_Change"
+            DisplayMemberPath="{mk:NameOf Type={x:Type vm:NoteViewModel}, Member=Text}">
+            </view:MasterNotesControl>
+        </UniformGrid>
     </UniformGrid>
 </UserControl>

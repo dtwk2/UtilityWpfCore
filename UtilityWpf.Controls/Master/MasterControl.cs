@@ -12,11 +12,11 @@ using ReactiveUI;
 namespace UtilityWpf.Controls
 {
     using System.Collections.Specialized;
-using Dragablz;
+    using Dragablz;
     using Mixins;
     using UtilityHelper.NonGeneric;
     using UtilityWpf.Abstract;
-using static UtilityWpf.Controls.MasterControl;
+    using static UtilityWpf.Controls.MasterControl;
 
     [Flags]
     public enum RemoveOrder
@@ -98,7 +98,6 @@ using static UtilityWpf.Controls.MasterControl;
 
         public static readonly DependencyProperty OrientationProperty = DependencyHelper.Register<Orientation>(new PropertyMetadata(Orientation.Horizontal));
         public static readonly DependencyProperty CommandParameterProperty = DependencyHelper.Register<IEnumerator>();
-
         public static readonly DependencyProperty RemoveOrderProperty = DependencyHelper.Register<RemoveOrder>();
         public static readonly DependencyProperty CountProperty = DependencyHelper.Register<int>();
         public static readonly DependencyProperty ButtonTypesProperty = DependencyHelper.Register<ButtonType>(new PropertyMetadata(ButtonType.All));
