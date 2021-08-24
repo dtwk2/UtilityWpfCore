@@ -106,6 +106,22 @@
 	  <Compile Update="Browser\PathBrowser.cs">
 		  <DependentUpon>PathBrowser.xaml</DependentUpon>
 	  </Compile>
+
+    <Compile Update="Master\MasterControl.cs">
+      <DependentUpon>MasterControl.xaml</DependentUpon>
+    </Compile>
+
+    <Compile Update="Master\MasterDetail.cs">
+      <DependentUpon>MasterDetail.xaml</DependentUpon>
+    </Compile>
+
+    <Compile Update="Master\MasterDetailView.cs">
+      <DependentUpon>MasterDetailView.xaml</DependentUpon>
+    </Compile>
+
+    <Compile Update="Master\MasterNotesControl.cs">
+      <DependentUpon>MasterNotesControl.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -207,11 +223,11 @@
     <Page Update="Themes\LabelledTextBox.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\MasterDetail.xaml">
+    <Page Update="Master\MasterDetail.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\MasterDetailView.xaml">
+    <Page Update="Master\MasterDetailView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\NavigatorControl.xaml">
