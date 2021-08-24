@@ -6,12 +6,15 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:view="http://schemas.utility.com" 
     xmlns:view1="clr-namespace:UtilityWpf.Demo.View" xmlns:view11="clr-namespace:UtilityWpf.Demo.Sandbox.Infrastructure"
+    xmlns:view12="clr-namespace:UtilityWpf.Demo.Sandbox.View"
     Title="MainWindow"
     Width="825"
     Height="550"
     mc:Ignorable="d">
     <TabControl>
-
+        <TabItem Header="Group">
+            <view12:GroupsUserControl />
+        </TabItem>
         <TabItem Header="Notes">
             <view1:NotesUserControl />
         </TabItem>

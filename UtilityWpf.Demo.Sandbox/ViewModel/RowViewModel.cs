@@ -21,6 +21,9 @@ namespace UtilityWpf.Demo.Sandbox.ViewModel
 
     public class RowViewModel
     {
+
+        public string Header { get; } = "RowViewModel";
+    
         public RowViewModel()
         {
             Data = new ObservableCollection<ElementViewModel>

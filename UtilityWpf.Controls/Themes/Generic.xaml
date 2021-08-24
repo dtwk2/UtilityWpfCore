@@ -80,6 +80,7 @@
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/MasterDetailView.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/MasterDetail.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/MasterNotesControl.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/MasterGroupsControl.xaml" />
 
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Button/GeometryButton.xaml" />
 

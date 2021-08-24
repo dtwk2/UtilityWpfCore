@@ -14,13 +14,14 @@ namespace UtilityWpf.Demo.Sandbox.ViewModel
 {
     public class NotesViewModel
     {
+        private ICommand changeCommand;
+
+        public string Header { get; } = "NotesViewModel";
 
         public ObservableCollection<NoteViewModel> Collection { get; } = new ObservableCollection<NoteViewModel> {};
 
-
         public System.Collections.IEnumerator NewItem { get => 0.Repeat().Select(a=> new NoteViewModel(a.ToString())).GetEnumerator(); }
 
-        private ICommand changeCommand;
         public ICommand ChangeCommand => changeCommand ??= new ActionCommand(Change);
 
         private void Change()

@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="UtilityWpf.Demo.Sandbox.View.GroupsUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:view="http://schemas.utility.com" 
+             xmlns:vm="clr-namespace:UtilityWpf.Demo.Sandbox.ViewModel" 
+             xmlns:local1="clr-namespace:UtilityWpf.Demo.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    
+    <UserControl.DataContext>
+        <local1:GroupsViewModel />
+    </UserControl.DataContext>
+   
+
+    <UniformGrid Rows="1">
+        <ItemsControl ItemsSource="{Binding Data}"/>
+        <view:MasterGroupsControl           
+            ItemsSource="{Binding Data}" 
+            Change="MasterNotesControl_Change"
+            DisplayMemberPath="Header">
+        </view:MasterGroupsControl>
+    </UniformGrid>
+    
+</UserControl>
