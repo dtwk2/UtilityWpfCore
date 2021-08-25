@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Threading;
 using System.Windows;
 using UtilityHelperEx;
 
@@ -12,7 +13,7 @@ namespace UtilityWpf.Mixins
         protected IObservable<FrameworkElement> lazy { get; set; }
 
         public IObservable<T> Control<T>(string? name = null) where T : FrameworkElement
-        {
+        {     
             return Observable.Create<T>(observer =>
             {
                 lazy ??= Get().SelectMany();
@@ -25,7 +26,9 @@ namespace UtilityWpf.Mixins
                  });
                 //observer.OnCompleted();
                 return dis;
-            });
+            })
+            .ObserveOnDispatcher()
+            .SubscribeOnDispatcher();
         }
 
         protected IObservable<IEnumerable<FrameworkElement>> Get()
@@ -46,7 +49,9 @@ namespace UtilityWpf.Mixins
                            .ToArray();
                            observer.OnNext(t);
                        });
-                   });
+                   })
+                        .ObserveOnDispatcher()
+                        .SubscribeOnDispatcher();
                 }
             }
             return Observable
