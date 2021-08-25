@@ -80,7 +80,14 @@
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/MasterDetailView.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/MasterDetail.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/MasterNotesControl.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/MasterGroupsControl.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/MasterGroupsControl.xaml" />      
+        
+        
+        <!-- Dragabalz -->
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Dragablz/DragablzNoteStyle.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Dragablz/DragablzItem.xaml" />
+
+        
 
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Button/GeometryButton.xaml" />
 
@@ -120,7 +127,6 @@
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/IpAddrBox.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/FilterControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/LoopingListBox.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DragablzItem.xaml" />
 
 
         <!--  DataTemplate  -->

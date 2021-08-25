@@ -41,7 +41,7 @@ namespace UtilityWpf
             .Where(a => a.Count == 1)
             .Select(a => a.Cast<object>().Single());
 
-        public static IObservable<object> SelectSingleSelectionChanges(this ISelectionChanged selector) =>
+        public static IObservable<object> SelectSingleSelectionChanges(this ISelector selector) =>
             Observable
             .FromEventPattern<SelectionChangedEventHandler, SelectionChangedEventArgs>
             (a => selector.SelectionChanged += a, a => selector.SelectionChanged -= a)

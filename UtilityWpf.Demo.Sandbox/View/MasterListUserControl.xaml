@@ -10,7 +10,7 @@
     xmlns:view="http://schemas.utility.com" 
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:system="clr-namespace:System;assembly=System.Runtime"
-    xmlns:vm="clr-namespace:UtilityWpf.Demo.Sandbox.ViewModel"
+    xmlns:vm="clr-namespace:UtilityWpf.Demo.Sandbox.ViewModel" xmlns:utilitywpf="clr-namespace:UtilityWpf;assembly=UtilityWpf"
     d:DesignHeight="450"
     d:Background="White"
     d:DesignWidth="800"
@@ -27,7 +27,7 @@
                 </Grid>
             </DataTemplate>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DragablzItem.xaml"></ResourceDictionary>
+                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls;component/Dragablz/DragablzItem.xaml"></utilitywpf:SharedResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 
@@ -46,7 +46,7 @@
         <ListBox x:Name="MainListBox" ItemsSource="{Binding Rows}" SelectedIndex="0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <local:AddDragItemControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
+                    <view:MasterControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
                         <i:Interaction.Triggers>
                             <i:EventTrigger  EventName="Change" >
                                 <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
@@ -58,7 +58,7 @@
                                                        ItemContainerStyle="{StaticResource DragablzItemStyle2}"
                                                        ItemTemplate="{StaticResource Int32Template}">
                         </view:DragablzHorizontalItemsControl>
-                    </local:AddDragItemControl>
+                    </view:MasterControl>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

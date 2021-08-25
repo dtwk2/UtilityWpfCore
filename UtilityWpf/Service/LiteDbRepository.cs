@@ -9,9 +9,9 @@ using LiteDB;
 using NetFabric.Hyperlinq;
 using UtilityHelper;
 using UtilityInterface.NonGeneric.Database;
-using static UtilityWpf.Demo.Sandbox.ViewModel.LiteDbRepository;
+using static UtilityWpf.Service.LiteDbRepository;
 
-namespace UtilityWpf.Demo.Sandbox.ViewModel
+namespace UtilityWpf.Service
 {
     public class LiteDbRepository : IDatabaseService
     {
@@ -85,7 +85,7 @@ namespace UtilityWpf.Demo.Sandbox.ViewModel
         {
             using (GetCollection(out var collection))
             {
-                (collection).Insert(Convert(item));
+                collection.Insert(Convert(item));
                 return true;
             }
         }
@@ -94,7 +94,7 @@ namespace UtilityWpf.Demo.Sandbox.ViewModel
         {
             using (GetCollection(out var collection))
             {
-                (collection).Update(Convert(item));
+                collection.Update(Convert(item));
                 return true;
             }
         }
@@ -105,7 +105,7 @@ namespace UtilityWpf.Demo.Sandbox.ViewModel
             {
                 var cvt = Convert(item);
                 var query = Query.EQ(_key, cvt[_key]);
-                (collection).DeleteMany(query);
+                collection.DeleteMany(query);
                 return true;
             }
         }
@@ -118,7 +118,7 @@ namespace UtilityWpf.Demo.Sandbox.ViewModel
             }
         }
 
-  
+
 
         public IEnumerable SelectAll()
         {
@@ -137,7 +137,7 @@ namespace UtilityWpf.Demo.Sandbox.ViewModel
         {
             using (GetCollection(out var collection))
             {
-                return collection.FindById(new BsonValue(PropertyHelper.GetPropertyValue<IConvertible>(item, _key, typeof(object))));
+                return collection.FindById(new BsonValue(item.GetPropertyValue<IConvertible>(_key, typeof(object))));
             }
         }
 

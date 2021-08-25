@@ -12,7 +12,7 @@ using UtilityWpf.Attached;
 
 namespace UtilityWpf.Controls
 {
-    public class DragablzHorizontalItemsControl : DragablzItemsControl
+    public class DragablzHorizontalItemsControl : DragablzExItemsControl
     {
         object number;
         double start = 0;

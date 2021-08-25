@@ -3,7 +3,10 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=PresentationFramework"
-    xmlns:vm="clr-namespace:UtilityWpf.Demo.Sandbox.ViewModel"
+    xmlns:vm="clr-namespace:UtilityWpf.Demo.Sandbox.ViewModel" xmlns:view="http://schemas.utility.com"
+    xmlns:mk="clr-namespace:UtilityWpf.Markup;assembly=UtilityWpf" 
+    xmlns:local="clr-namespace:UtilityWpf.Demo.View" 
+    xmlns:utilitywpf="clr-namespace:UtilityWpf;assembly=UtilityWpf"
     StartupUri="MainWindow.xaml">
     
     <Application.Resources>
@@ -41,16 +44,37 @@
                     </TextBlock>
                
             </DataTemplate>
-            
+
+            <DataTemplate DataType="{x:Type vm:NotesViewModel}">
+                <view:MasterNotesControl                    
+                   Width="400"
+                    CommandParameter="{Binding NewItem}"
+            ItemsSource="{Binding Collection}" 
+            DisplayMemberPath="{mk:NameOf Type={x:Type vm:NoteViewModel}, Member=Text}">
+                </view:MasterNotesControl>
+            </DataTemplate>
+
             <DataTemplate x:Key="Int32Template" DataType="{x:Type vm:ElementViewModel}">
                 <Grid  Width="200"  Height="100" Tag="{Binding}">
                     <TextBox  HorizontalAlignment="Center"   VerticalAlignment="Center"  Text="{Binding Value}" />
                 </Grid>
             </DataTemplate>
             
+            <DataTemplate DataType="{x:Type vm:RowViewModel}">
+                <view:MasterControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove" Height="200" >
+                    <view:DragablzHorizontalItemsControl 
+                                                       ItemsSource="{Binding Data}"                                                       
+                                                       VerticalAlignment="Center"                                                 
+                                                       ItemContainerStyle="{StaticResource DragablzItemStyle2}"
+                                                       ItemTemplate="{StaticResource Int32Template}">
+                    </view:DragablzHorizontalItemsControl>
+                </view:MasterControl>
+            </DataTemplate>
+
+            
             <ResourceDictionary.MergedDictionaries>
-     
-                <ResourceDictionary Source="/UtilityWpf.TestData;component/Themes/Generic.xaml" />
+                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls;component/Dragablz/DragablzItem.xaml"></utilitywpf:SharedResourceDictionary>
+                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.TestData;component/Themes/Generic.xaml" />
                 
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />

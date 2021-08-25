@@ -65,6 +65,7 @@
     <PackageReference Include="MaterialDesignExtensions" Version="3.3.0-a01" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
     <PackageReference Include="Netsoft.Diff" Version="2.0.0" />
+    <PackageReference Include="PropertyTools.Wpf" Version="3.1.0-alpha0041" />
     <PackageReference Include="WPFTransitionals" Version="1.1.0" />
   </ItemGroup>
 
@@ -121,6 +122,10 @@
 
     <Compile Update="Master\MasterNotesControl.cs">
       <DependentUpon>MasterNotesControl.xaml</DependentUpon>
+    </Compile>
+
+    <Compile Update="Master\MasterGroupsControl.cs">
+      <DependentUpon>MasterGroupsControl.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 

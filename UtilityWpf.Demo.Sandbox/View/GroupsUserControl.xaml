@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:view="http://schemas.utility.com" 
              xmlns:vm="clr-namespace:UtilityWpf.Demo.Sandbox.ViewModel" 
-             xmlns:local1="clr-namespace:UtilityWpf.Demo.View"
+             xmlns:local1="clr-namespace:UtilityWpf.Demo.View" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     
@@ -20,6 +20,15 @@
             ItemsSource="{Binding Data}" 
             Change="MasterNotesControl_Change"
             DisplayMemberPath="Header">
+            <i:Interaction.Behaviors>
+                <view:DisableBehavior>                    
+                </view:DisableBehavior>
+            </i:Interaction.Behaviors>
+        </view:MasterGroupsControl>
+        <view:MasterGroupsControl           
+            ItemsSource="{Binding Data}" 
+            Change="MasterNotesControl_Change"
+            DisplayMemberPath="Header">        
         </view:MasterGroupsControl>
     </UniformGrid>
     

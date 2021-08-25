@@ -8,16 +8,17 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using Evan.Wpf;
 using ReactiveUI;
+using System.Collections.Specialized;
+using System.Reactive.Subjects;
+using Dragablz;
+using DynamicData;
+using Microsoft.Xaml.Behaviors;
+using UtilityHelper.NonGeneric;
+using UtilityHelperEx;
+using UtilityWpf.Abstract;
 
 namespace UtilityWpf.Controls
 {
-    using System.Collections.Specialized;
-    using Dragablz;
-    using Mixins;
-    using UtilityHelper.NonGeneric;
-    using UtilityWpf.Abstract;
-    using static UtilityWpf.Controls.MasterControl;
-
     [Flags]
     public enum RemoveOrder
     {
@@ -27,9 +28,7 @@ namespace UtilityWpf.Controls
     }
 
 
-    public delegate void CollectionChangedEventHandler(object sender, CollectionEventArgs e);
-
-    public class MasterControl : ContentControlx, ISelectionChanged
+    public class MasterControl : ContentControlx, ISelector, IChange
     {
         [Flags]
         public enum ButtonType
@@ -37,14 +36,9 @@ namespace UtilityWpf.Controls
             None = 0, Add = 1, Remove = 2, MoveUp = 4, MoveDown = 8, All = Add | Remove | MoveUp | MoveDown
         }
 
-        public enum EventType
-        {
-            Add, Remove, Removed, MoveUp, MoveDown
-        }
-
         public class MovementEventArgs : CollectionEventArgs
         {
-            public MovementEventArgs(IReadOnlyCollection<IndexedObject> array, IReadOnlyCollection<IndexedObject> changes, EventType eventType, object? item, RoutedEvent @event) : base(eventType, item, @event)
+            public MovementEventArgs(IReadOnlyCollection<IndexedObject> array, IReadOnlyCollection<IndexedObject> changes, EventType eventType, object? item, int index, RoutedEvent @event) : base(eventType, item, index, @event)
             {
                 Objects = array;
                 Changes = changes;
@@ -54,31 +48,6 @@ namespace UtilityWpf.Controls
             public IReadOnlyCollection<IndexedObject> Changes { get; }
         }
 
-        public class CollectionChangedEventArgs : CollectionEventArgs
-        {
-            public CollectionChangedEventArgs(IList array, IReadOnlyCollection<object> changes, EventType eventType, object? item, RoutedEvent @event) : base(eventType, item, @event)
-            {
-                Objects = array;
-                Changes = changes;
-            }
-
-            public IList Objects { get; }
-            public IReadOnlyCollection<object> Changes { get; }
-        }
-
-
-        public class CollectionEventArgs : RoutedEventArgs
-        {
-            public CollectionEventArgs(EventType eventType, object? item, RoutedEvent @event) : base(@event)
-            {
-                EventType = eventType;
-                Item = item;
-            }
-
-            public EventType EventType { get; }
-
-            public object? Item { get; }
-        }
 
         public class IndexedObject
         {
@@ -93,16 +62,24 @@ namespace UtilityWpf.Controls
             public object Object { get; }
         }
 
-        protected ItemsControl itemsControl;
-        private Selector Selector => itemsControl is Selector selector ? selector : throw new Exception($@"The ItemsControl used must be of type {nameof(Selector)} for operation.");
+        public ItemsControl ItemsControl { get; private set; }
+        private Selector Selector => ItemsControl is Selector selector ? selector : throw new Exception($@"The ItemsControl used must be of type {nameof(Selector)} for operation.");
 
-        public static readonly DependencyProperty OrientationProperty = DependencyHelper.Register<Orientation>(new PropertyMetadata(Orientation.Horizontal));
+        readonly Subject<Orientation> subject = new();
+        readonly Subject<WrapPanel> wrapPanelSubject = new();
+
+        public static readonly DependencyProperty OrientationProperty = DependencyHelper.Register<Orientation>(new PropertyMetadata(Orientation.Horizontal, OrientationChanged));
+
+        private static void OrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as MasterControl).subject.OnNext((Orientation)e.NewValue);
+        }
+
         public static readonly DependencyProperty CommandParameterProperty = DependencyHelper.Register<IEnumerator>();
-        public static readonly DependencyProperty RemoveOrderProperty = DependencyHelper.Register<RemoveOrder>();
+        public static readonly DependencyProperty RemoveOrderProperty = DependencyHelper.Register<RemoveOrder>(new PropertyMetadata(RemoveOrder.Selected));
         public static readonly DependencyProperty CountProperty = DependencyHelper.Register<int>();
         public static readonly DependencyProperty ButtonTypesProperty = DependencyHelper.Register<ButtonType>(new PropertyMetadata(ButtonType.All));
         public static readonly RoutedEvent ChangeEvent = EventManager.RegisterRoutedEvent(nameof(Change), RoutingStrategy.Bubble, typeof(CollectionChangedEventHandler), typeof(MasterControl));
-
         public static readonly RoutedEvent SelectionChangedEvent = EventManager.RegisterRoutedEvent(nameof(SelectionChanged), RoutingStrategy.Bubble, typeof(SelectionChangedEventHandler), typeof(MasterControl));
 
         static MasterControl()
@@ -112,9 +89,13 @@ namespace UtilityWpf.Controls
 
         public MasterControl()
         {
-            this.WhenAnyValue(a => a.Orientation)
-                .CombineLatest(this.Control<WrapPanel>("WrapPanel1"))
+            // should be on ui thread;
+            // SynchronizationContext context = new();
+            this.subject
+                .CombineLatest(wrapPanelSubject)
                 .Where(a => a.Second != null)
+                //.SubscribeOn(context)
+                //.ObserveOn(context)
                 .Subscribe(c =>
                 {
                     var (orientation, dockPanel) = c;
@@ -178,9 +159,34 @@ namespace UtilityWpf.Controls
         #endregion properties
 
 
-        protected virtual object? SelectedItem => itemsControl is Selector selector ? selector.SelectedItem : null;
+        public virtual object? SelectedItem
+        {
+            get
+            {
+                return (ItemsControl) switch
+                {
+                    Selector selector => selector.SelectedItem,
+                    ISelector selector => selector.SelectedItem,
+                    _ => null,
+                };
 
-        protected virtual int? SelectedIndex => itemsControl is Selector selector ? selector.SelectedIndex : null;
+            }
+        }
+
+        public virtual int SelectedIndex
+        {
+            get
+            {
+                return (ItemsControl) switch
+                {
+                    Selector selector => selector.SelectedIndex,
+                    ISelector selector => selector.SelectedIndex,
+                    _ => -1,
+                };
+
+            }
+        }
+
 
         public override void OnApplyTemplate()
         {
@@ -198,24 +204,22 @@ namespace UtilityWpf.Controls
 
             var dockPanel = this.GetTemplateChild("DockPanel1") as DockPanel;
             var wrapPanel = this.GetTemplateChild("WrapPanel1") as WrapPanel;
-
+            wrapPanelSubject.OnNext(wrapPanel);
             buttonAdd.Click += (s, e) => ExecuteAdd();
-
-
             buttonRemove.Click += (s, e) => ExecuteRemove();
             buttonMoveUp.Click += (s, e) => ExecuteMoveUp();
             buttonMoveDown.Click += (s, e) => ExecuteMoveDown();
 
-            itemsControl = (this.Content as ItemsControl) ?? (this.Content as DependencyObject)?.FindVisualChildren<ItemsControl>().SingleOrDefault()!;
-            if (itemsControl != null)
+            ItemsControl = (this.Content as ItemsControl) ?? (this.Content as DependencyObject)?.FindVisualChildren<ItemsControl>().SingleOrDefault()!;
+            if (ItemsControl != null)
             {
                 //this.SetValue(ItemsSourceProperty, itemsControl.ItemsSource);
-                wrapPanel.DataContext = itemsControl.ItemsSource;
+                wrapPanel.DataContext = ItemsControl.ItemsSource;
             }
             else
                 throw new Exception($"Expected content to derive from type of {nameof(ItemsControl)}.");
 
-            if (itemsControl is ISelectionChanged selectionChanged)
+            if (ItemsControl is ISelector selectionChanged)
             {
                 selectionChanged.SelectionChanged += (s, e) =>
                 {
@@ -224,7 +228,7 @@ namespace UtilityWpf.Controls
                 };
             }
             // Unlikely to be both ISelectionChanged and Selector
-            if (itemsControl is Selector selector)
+            if (ItemsControl is Selector selector)
             {
                 selector.SelectionChanged += (s, e) =>
                 {
@@ -233,18 +237,19 @@ namespace UtilityWpf.Controls
                 };
                 this.SetValue(CountProperty, selector.ItemsSource.Count());
             }
-            else if (itemsControl.ItemsSource is INotifyCollectionChanged changed)
+            else if (ItemsControl.ItemsSource is INotifyCollectionChanged changed)
             {
                 changed.CollectionChanged += (s, e) =>
                 {
-                    this.SetValue(CountProperty, itemsControl.ItemsSource.Count());
+                    this.SetValue(CountProperty, ItemsControl.ItemsSource.Count());
                 };
 
-                Count = itemsControl.ItemsSource.Count();
+                Count = ItemsControl.ItemsSource.Count();
             }
             else
             {
-                itemsControl.WhenAnyValue(a => a.ItemsSource)
+                ItemsControl
+                    .WhenAnyValue(a => a.ItemsSource)
                     .Subscribe(iSource =>
                 {
                     if (iSource is INotifyCollectionChanged changed)
@@ -275,28 +280,31 @@ namespace UtilityWpf.Controls
             }
             else
             {
-                RaiseEvent(new CollectionEventArgs(EventType.Add, SelectedItem, ChangeEvent));
+   
             }
+            RaiseEvent(new CollectionEventArgs(EventType.Add, SelectedItem, SelectedIndex, ChangeEvent));
         }
 
         protected virtual void ExecuteRemove()
         {
-            if (itemsControl != null)
+            RaiseEvent(new CollectionChangedEventArgs(ItemsControl.ItemsSource, new[] { SelectedItem }, EventType.Remove, SelectedItem, SelectedIndex, ChangeEvent));
+
+            if (ItemsControl != null)
             {
-                if (itemsControl.ItemsSource is IList collection && collection.Count > 0)
+                if (ItemsControl.ItemsSource is IList collection && collection.Count > 0)
                 {
                     if (RemoveOrder == RemoveOrder.Selected && SelectedIndex > -1)
                     {
-                        var item = itemsControl.ItemsSource.Cast<object>().ElementAt(SelectedIndex.Value);
-                        collection.RemoveAt(SelectedIndex.Value);
-                        RaiseEvent(new CollectionChangedEventArgs(collection, new[] { item }, EventType.Removed, item, ChangeEvent));
+                        var item = ItemsControl.ItemsSource.Cast<object>().ElementAt(SelectedIndex);
+                        collection.RemoveAt(SelectedIndex);
+                        RaiseEvent(new CollectionChangedEventArgs(collection, new[] { item }, EventType.Removed, item, SelectedIndex, ChangeEvent));
                     }
 
                     if (RemoveOrder == RemoveOrder.Last)
                     {
-                        var item = itemsControl.ItemsSource.Cast<object>().Last();
+                        var item = ItemsControl.ItemsSource.Cast<object>().Last();
                         collection.RemoveAt(collection.Count - 1);
-                        RaiseEvent(new CollectionChangedEventArgs(collection, new[] { item }, EventType.Removed, item, ChangeEvent));
+                        RaiseEvent(new CollectionChangedEventArgs(collection, new[] { item }, EventType.Removed, item, SelectedIndex, ChangeEvent));
                     }
                 }
             }
@@ -304,14 +312,13 @@ namespace UtilityWpf.Controls
             {
             }
 
-            RaiseEvent(new CollectionEventArgs(EventType.Remove, SelectedItem, ChangeEvent));
         }
 
         protected virtual void ExecuteMoveUp()
         {
             var list = GetIndexedObjects();
             List<IndexedObject> changes = new();
-            var index = itemsControl.Items.IndexOf(SelectedItem);
+            var index = ItemsControl.Items.IndexOf(SelectedItem);
             if (index != 0)
             {
 
@@ -319,7 +326,7 @@ namespace UtilityWpf.Controls
                 list[index].Index -= 1;
                 changes.Add(list[index]);
             }
-            RaiseEvent(new MovementEventArgs(list, changes, EventType.MoveUp, SelectedItem, ChangeEvent));
+            RaiseEvent(new MovementEventArgs(list, changes, EventType.MoveUp, SelectedItem, SelectedIndex, ChangeEvent));
         }
 
         protected virtual void ExecuteMoveDown()
@@ -328,28 +335,69 @@ namespace UtilityWpf.Controls
             List<IndexedObject> changes = new();
             if (SelectedItem != null)
             { }
-            var index = itemsControl.Items.IndexOf(SelectedItem);
-            if (index != itemsControl.Items.Count - 1)
+            var index = ItemsControl.Items.IndexOf(SelectedItem);
+            if (index != ItemsControl.Items.Count - 1)
             {
 
                 list[index + 1].Index -= 1;
                 list[index].Index += 1;
                 changes.Add(list[index]);
             }
-            RaiseEvent(new MovementEventArgs(list, changes, EventType.MoveUp, SelectedItem, ChangeEvent));
+            RaiseEvent(new MovementEventArgs(list, changes, EventType.MoveUp, SelectedItem, SelectedIndex, ChangeEvent));
         }
 
         protected virtual List<IndexedObject> GetIndexedObjects()
         {
             List<IndexedObject> list = new();
             //List<IndexedObject> changes = new();
-            foreach (var item in itemsControl.Items)
+            foreach (var item in ItemsControl.Items)
             {
-                var oldIndex = itemsControl.Items.IndexOf(item);
+                var oldIndex = ItemsControl.Items.IndexOf(item);
                 list.Add(new(item, oldIndex, oldIndex));
             }
 
             return list;
+        }
+    }
+
+
+    public class DisableBehavior : Behavior<MasterControl>
+    {
+        readonly IDisposable? compositeDisposable;
+
+        protected override void OnAttached()
+        {
+            base.OnAttached();
+            AssociatedObject.RemoveOrder = RemoveOrder.None;
+            AssociatedObject.Change += AssociatedObject_Change;
+        }
+
+        private void AssociatedObject_Change(object sender, CollectionEventArgs e)
+        {
+            if (e.EventType == EventType.Remove)
+            {
+                var element = AssociatedObject.ItemsControl.ItemContainerGenerator.ContainerFromItem(e.Item);
+                if (element is UIElement uiElement)
+                {
+                    uiElement.Opacity = 0.4;  
+                }
+            }
+
+            if (e.EventType == EventType.Add)
+            {
+                var element = AssociatedObject.ItemsControl.ItemContainerGenerator.ContainerFromItem(e.Item);
+                if (element is UIElement uiElement)
+                {
+                    uiElement.Opacity = 1;
+                }
+            }
+        }
+
+        protected override void OnDetaching()
+        {
+            AssociatedObject.Change -= AssociatedObject_Change;
+            base.OnDetaching();
+            compositeDisposable?.Dispose();
         }
     }
 }

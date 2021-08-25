@@ -82,7 +82,7 @@ namespace UtilityWpf.Controls
             {
                 return a switch
                 {
-                    (ISelectionChanged selector) => selector.SelectSingleSelectionChanges(),
+                    (ISelector selector) => selector.SelectSingleSelectionChanges(),
                     (Selector selector) => selector.SelectSingleSelectionChanges(),
                     _ => throw new Exception($"Unexpected type,{a.GetType().Name} for {nameof(Selector)} "),
                 };

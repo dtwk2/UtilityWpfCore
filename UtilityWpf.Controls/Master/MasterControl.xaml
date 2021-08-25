@@ -18,7 +18,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:MasterControl}">
                     <DockPanel x:Name="DockPanel1">
-                        <WrapPanel x:Name="WrapPanel1" Margin="5">
+                        <WrapPanel x:Name="WrapPanel1" Margin="5" DockPanel.Dock="Right" Orientation="Vertical">
 
                             <Button
                                 x:Name="ButtonMinus"

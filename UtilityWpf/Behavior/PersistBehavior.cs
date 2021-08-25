@@ -12,18 +12,17 @@ using System.Reactive.Subjects;
 using DynamicData;
 using System.Windows.Input;
 using System.ComponentModel;
-using UtilityWpf;
+using System.Reactive.Disposables;
 
-namespace UtilityDAL.View.Behavior
+namespace UtilityWpf.Behavior
 {
     public class PersistBehavior : Behavior<ItemsControl>
     {
-        private IDisposable disposable;
+        private IDisposable? disposable;
         private readonly ReplaySubject<IDatabaseService> changes = new(1);
 
         public static readonly DependencyProperty RepositoryProperty = DependencyProperty.Register("Repository", typeof(IDatabaseService), typeof(PersistBehavior), new PropertyMetadata(null, RepositoryChanged));
         public static readonly DependencyProperty CollectionChangeCommandProperty = DependencyProperty.Register("CollectionChangeCommand", typeof(ICommand), typeof(PersistBehavior), new PropertyMetadata(null));
-
 
         #region properties
         public IDatabaseService Repository
@@ -41,23 +40,22 @@ namespace UtilityDAL.View.Behavior
         #endregion properties
         public MintPlayer.ObservableCollection.ObservableCollection<object> Items { get; } = new();
 
-        //  public ReadOnlyObservableCollection<object> Items => items;
-
         protected override void OnAttached()
         {
             base.OnAttached();
 
+            var compositeDisposable = new CompositeDisposable();
 
-            IObservable<NewStruct> a = Items
+            IObservable<CollectionChange> a = Items
                 .SelectChanges()
-                .Select(a => new NewStruct(a.Action, a.NewItems?.Cast<object>()?.ToArray() ?? Array.Empty<object>()));
+                .Select(a => new CollectionChange(a.Action, a.NewItems?.Cast<object>()?.ToArray() ?? Array.Empty<object>()));
 
             var b = Items
                 .SelectChanges()
-                .Select(a => new NewStruct(a.Action, a.OldItems?.Cast<object>()?.ToArray() ?? Array.Empty<object>()));
+                .Select(a => new CollectionChange(a.Action, a.OldItems?.Cast<object>()?.ToArray() ?? Array.Empty<object>()));
 
-            disposable = a.Merge(b)
-             .Scan(default((NewStruct, NewStruct)), (a, b) => (a.Item2, b))
+            a.Merge(b)
+             .Scan(default((CollectionChange, CollectionChange)), (a, b) => (a.Item2, b))
              .WithLatestFrom(changes.WhereNotDefault())
              .Subscribe(cc =>
              {
@@ -85,7 +83,7 @@ namespace UtilityDAL.View.Behavior
                  //{
                  //    _docstore.Upsert(item);
                  //}
-             });
+             }).DisposeWith(compositeDisposable);
 
             var changeSet = ObservableChangeSet.Create<object, string>(observer =>
              {
@@ -122,29 +120,29 @@ namespace UtilityDAL.View.Behavior
                         Items.AddRange(objects);
                     });
 
-       
+
              }, a => a.ToString());
 
 
-            changeSet.OnItemUpdated((a,sd) =>
+            changeSet
+                .OnItemUpdated((a, sd) =>
                 {
 
                     Items.Replace(a, sd);
                 })
                 .Subscribe(a =>
                 {
-                
-                });
+
+                }).DisposeWith(compositeDisposable);
 
             AssociatedObject.ItemsSource = Items;
 
             changes.Subscribe(a =>
             {
 
-            });
+            }).DisposeWith(compositeDisposable);
 
-
-            return;
+            disposable = compositeDisposable;            
             // }
         }
 
@@ -170,12 +168,12 @@ namespace UtilityDAL.View.Behavior
         //}
     }
 
-    internal struct NewStruct
+    internal struct CollectionChange
     {
         public NotifyCollectionChangedAction Action;
         public IEnumerable<object> Item2;
 
-        public NewStruct(NotifyCollectionChangedAction action, IEnumerable<object> item2)
+        public CollectionChange(NotifyCollectionChangedAction action, IEnumerable<object> item2)
         {
             Action = action;
             Item2 = item2;
@@ -183,7 +181,7 @@ namespace UtilityDAL.View.Behavior
 
         public override bool Equals(object obj)
         {
-            return obj is NewStruct other &&
+            return obj is CollectionChange other &&
                    Action == other.Action &&
                    EqualityComparer<IEnumerable<object>>.Default.Equals(Item2, other.Item2);
         }
@@ -199,35 +197,14 @@ namespace UtilityDAL.View.Behavior
             item2 = Item2;
         }
 
-        public static implicit operator (NotifyCollectionChangedAction Action, IEnumerable<object>)(NewStruct value)
+        public static implicit operator (NotifyCollectionChangedAction Action, IEnumerable<object>)(CollectionChange value)
         {
             return (value.Action, value.Item2);
         }
 
-        public static implicit operator NewStruct((NotifyCollectionChangedAction Action, IEnumerable<object>) value)
+        public static implicit operator CollectionChange((NotifyCollectionChangedAction Action, IEnumerable<object>) value)
         {
-            return new NewStruct(value.Action, value.Item2);
+            return new CollectionChange(value.Action, value.Item2);
         }
     }
-
-
-
-
-
-    //private static void CollectionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    //{
-    //    (d as PathBrowser ?? throw new NullReferenceException("PathBrowser is null")).textBoxContentChanges.OnNext(e.NewValue);
-    //}
-
-    //public class CollectionChangedRoutedEventArgs : RoutedEventArgs
-    //{
-    //    public CollectionChangedRoutedEventArgs(RoutedEvent routedEvent, string text) : base(routedEvent)
-    //    {
-    //        Text = text;
-    //    }
-
-    //    public string Text { get; set; }
-    //}
-
-    //public delegate void TextChangeRoutedEventHandler(object sender, CollectionChanged e);
 }

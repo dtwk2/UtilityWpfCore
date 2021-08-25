@@ -12,8 +12,6 @@ namespace UtilityWpf.Demo.View
     /// </summary>
     public partial class NotesUserControl : UserControl
     {
-        private object[] _order;
-
         public NotesUserControl()
         {
             InitializeComponent();

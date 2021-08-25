@@ -12,7 +12,7 @@ namespace UtilityWpf.Demo.Sandbox.View
             InitializeComponent();
         }
 
-        private void MasterNotesControl_Change(object sender, Controls.MasterControl.CollectionEventArgs e)
+        private void MasterNotesControl_Change(object sender, Abstract.CollectionEventArgs e)
         {
 
         }

@@ -12,16 +12,19 @@ using UtilityWpf.Abstract;
 
 namespace UtilityWpf.Controls
 {
-    public class DragablzVerticalItemsControl : DragablzItemsControl, ISelectionChanged
+    public class DragablzVerticalItemsControl : DragablzExItemsControl
     {
         object number;
         double start = 0;
         private DeleteAdorner? adorner;
         private AdornerLayer layer;
 
-        public static readonly RoutedEvent SelectionChangedEvent = EventManager.RegisterRoutedEvent(nameof(SelectionChanged), RoutingStrategy.Bubble, typeof(SelectionChangedEventHandler), typeof(DragablzVerticalItemsControl));
 
 
+        static DragablzVerticalItemsControl()
+        {
+            //DragablzItemsControl.Is.OverrideMetadata(typeof(DragablzVerticalItemsControl), new PropertyMetadata(true))
+        }
 
         public DragablzVerticalItemsControl()
         {
@@ -33,12 +36,7 @@ namespace UtilityWpf.Controls
             var customOrganiser = new CustomOrganiser();
             customOrganiser.DragCompleted += CustomOrganiser_DragCompleted;
             this.ItemsOrganiser = customOrganiser;
-        }
 
-        public event SelectionChangedEventHandler SelectionChanged
-        {
-            add => AddHandler(SelectionChangedEvent, value);
-            remove => RemoveHandler(SelectionChangedEvent, value);
         }
 
         private void CustomOrganiser_DragCompleted()
@@ -88,31 +86,6 @@ namespace UtilityWpf.Controls
 
         }
 
-        protected override DependencyObject GetContainerForItemOverride()
-        {
-            var item = base.GetContainerForItemOverride();
-            (item as DragablzItem)?
-                .WhenAny(a => a.IsSelected, (a) => a)
-                .Skip(1)
-                .Subscribe(a =>
-            {
-                var items = Items.OfType<object>().Select(a => this.ItemContainerGenerator.ContainerFromItem(a)).Cast<DragablzItem>().ToArray();
-                var selected = items.Where(a => a.IsSelected).Select(a => a.Content).ToArray();
-                foreach (var ditem in items)
-                {
-                    if (ditem != item && ditem.IsSelected == true)
-                        ditem.IsSelected = false;
-                    else
-                    {
-
-                    }
-                }
-                this.RaiseEvent(new SelectionChangedEventArgs(SelectionChangedEvent, selected, new[] { a.Sender.Content }));
-
-            });
-            return item;
-
-        }
 
         class DeleteAdorner : Adorner
         {

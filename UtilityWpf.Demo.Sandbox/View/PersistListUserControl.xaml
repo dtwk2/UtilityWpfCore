@@ -3,13 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local1="clr-namespace:UtilityWpf.Demo.View" 
              xmlns:drag="http://dragablz.net/winfx/xaml/dragablz"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
              xmlns:view="http://schemas.utility.com" 
              xmlns:local11="clr-namespace:UtilityWpf.Demo.Sandbox.Infrastructure" 
-             xmlns:vm="clr-namespace:UtilityWpf.Demo.Sandbox.ViewModel"
-             xmlns:behavior="clr-namespace:UtilityDAL.View.Behavior"
+             xmlns:behavior1="clr-namespace:UtilityWpf.Behavior;assembly=UtilityWpf"
+             xmlns:service="clr-namespace:UtilityWpf.Service;assembly=UtilityWpf"
+             xmlns:utilitywpf="clr-namespace:UtilityWpf;assembly=UtilityWpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
@@ -21,10 +21,10 @@
                 <Setter Property="Margin" Value="10"></Setter>
                 <Setter Property="Padding" Value="5"></Setter>
             </Style>
-            <x:Type Type="{x:Type vm:LiteDbRepository}" x:Key="LiteDbRepo"></x:Type>
+            <x:Type Type="{x:Type service:LiteDbRepository}" x:Key="LiteDbRepo"></x:Type>
             <x:Type Type="{x:Type local11:DatabaseService}" x:Key="DatabaseService"></x:Type>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DragablzItem.xaml"></ResourceDictionary>
+                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls;component/Dragablz/DragablzItem.xaml"></utilitywpf:SharedResourceDictionary>
                 <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DualButtonControl.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -44,10 +44,10 @@
 
         <TabControl>
             
-            <TabItem>
+            <TabItem Header="With Header">
                 <view:MasterDetail>
                     <view:MasterDetail.Selector>
-                        <local1:AddDragItemControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  
+                        <view:MasterControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  
                                                    Orientation="Vertical">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger  EventName="Change" >
@@ -59,21 +59,21 @@
                                                        ItemContainerStyle="{StaticResource VerticalItemStyle}"                                                                                             
                                                        MouseDown="DragablzItemsControl_MouseDown">
                                 <i:Interaction.Behaviors>
-                                    <behavior:PersistBehavior x:Name="PersistBehavior" Repository="{Binding DatabaseService, Mode=OneWay}" 
+                                    <behavior1:PersistBehavior x:Name="PersistBehavior" Repository="{Binding DatabaseService, Mode=OneWay}" 
                                               CollectionChangeCommand="{Binding CollectionChangedCommand, Mode=OneTime}">
 
-                                    </behavior:PersistBehavior>
+                                    </behavior1:PersistBehavior>
                                 </i:Interaction.Behaviors>
                             </view:DragablzVerticalItemsControl>
-                        </local1:AddDragItemControl>
+                        </view:MasterControl>
                     </view:MasterDetail.Selector>        
                 </view:MasterDetail>
             </TabItem>    
             
             
-            <TabItem>
+            <TabItem Header="Without Detail">
 
-                <local1:AddDragItemControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
+                <view:MasterControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
                     <i:Interaction.Triggers>
                         <i:EventTrigger  EventName="Change" >
                             <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
@@ -84,13 +84,13 @@
                                                        ItemContainerStyle="{StaticResource VerticalItemStyle}"                                                                                             
                                                        MouseDown="DragablzItemsControl_MouseDown">
                         <i:Interaction.Behaviors>
-                            <behavior:PersistBehavior x:Name="Persist2Behavior" Repository="{Binding DatabaseService, Mode=OneWay}" 
+                            <behavior1:PersistBehavior x:Name="Persist2Behavior" Repository="{Binding DatabaseService, Mode=OneWay}" 
                                               CollectionChangeCommand="{Binding CollectionChangedCommand, Mode=OneTime}">
 
-                            </behavior:PersistBehavior>
+                            </behavior1:PersistBehavior>
                         </i:Interaction.Behaviors>
                     </view:DragablzVerticalItemsControl>
-                </local1:AddDragItemControl>
+                </view:MasterControl>
             </TabItem>
         </TabControl>
      

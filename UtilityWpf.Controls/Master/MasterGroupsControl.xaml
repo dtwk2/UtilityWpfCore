@@ -7,7 +7,7 @@
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     
     <ResourceDictionary.MergedDictionaries>
-        <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DragablzItem.xaml"></utilitywpf:SharedResourceDictionary>
+        <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls;component/Dragablz/DragablzItem.xaml"></utilitywpf:SharedResourceDictionary>
         <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls;component/Master/MasterControl.xaml"></utilitywpf:SharedResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
@@ -31,111 +31,143 @@
                         <Viewbox.RenderTransform>
                             <ScaleTransform x:Name="ScaleTransform" ScaleX="1" ScaleY="1" />
                         </Viewbox.RenderTransform>
-                        <Border BorderBrush="Gray" HorizontalAlignment="Stretch" BorderThickness="0.3" CornerRadius="8" Grid.Column="0" >
+                        <Border x:Name="MainBorder" HorizontalAlignment="Stretch" BorderThickness="0"  CornerRadius="8" Grid.Column="0" >
+                            <Border x:Name="SecondaryBorder" HorizontalAlignment="Stretch" BorderThickness="1"  CornerRadius="8" Grid.Column="0" >
+                                <Border.OpacityMask>
+                                <VisualBrush>
+                                    <VisualBrush.Visual>
+                                        <Border 
+                    Background="Black"
+                    SnapsToDevicePixels="True"
+                                            BorderBrush="White"
+                                            BorderThickness="{Binding BorderThickness, RelativeSource={RelativeSource AncestorType=Border}}"
+                    CornerRadius="{Binding CornerRadius, RelativeSource={RelativeSource AncestorType=Border}}"
+                    Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}"
+                    Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=Border}}"
+                    />
+                                    </VisualBrush.Visual>
+                                </VisualBrush>
+                            </Border.OpacityMask>
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"></RowDefinition>
                                     <RowDefinition Height="*"></RowDefinition>
                                 </Grid.RowDefinitions>
 
+                                <Grid>
+                                    
+                            
+                                <Thumb VerticalAlignment="Center"  dragablz:DragablzItem.IsCustomThumb="True" Height="15" Width="15" >
+                                    <Thumb.Template>
+                                        <ControlTemplate>
+                                            <Border  Name="OutBox" >
+                                           
+                                                <Border.Style>
+                                                    <Style TargetType="Border">
+                                                        <Style.Setters>
+                                                            <Setter Property="Background" >
+                                                                <Setter.Value>
+                                                                    <SolidColorBrush Color="Gold" Opacity="0.0"></SolidColorBrush>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                   
+                                                        </Style.Setters>
 
-                                <TextBlock Margin="2,2,2,2"  Width="200"  
-                                         x:Name="PART_TextBlock"
-                                         HorizontalAlignment="Stretch" FontSize="15">
-                                    <TextBlock.Style>
-                                        <Style TargetType="TextBlock">                                      
-                                            <Setter Property="Background" Value="Transparent"></Setter>
-                                        </Style>
-                                    </TextBlock.Style>
-                                </TextBlock>
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Cursor" Value="Hand" />
+                                                            </Trigger>
+                                                            <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                                                <BeginStoryboard>
+                                                                    <Storyboard>
+
+                                                                        <DoubleAnimation
+                                                                            Storyboard.TargetProperty="Background.Opacity"
+                                                                            From="0"
+                                                                            To="0.5"
+                                                                            Duration="0:0:0.2"/>
+                                                                    </Storyboard>
+                                                                </BeginStoryboard>
+                                                            </EventTrigger>
+                                                            <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                                                                <BeginStoryboard>
+                                                                    <Storyboard>
+
+                                                                        <DoubleAnimation
+                                                                            Storyboard.TargetProperty="Background.Opacity"
+                                                                            From="0.5"
+                                                                            To="0"
+                                                                            Duration="0:0:0.2"  />
+                                                                    </Storyboard>
+                                                                </BeginStoryboard>
+                                                            </EventTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Border.Style>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Thumb.Template>
+                                </Thumb>
+                                    <Grid Background="WhiteSmoke" HorizontalAlignment="Stretch" ClipToBounds="True">
+                                        
                                 
-                                <Grid Grid.Row="1" >
+                                    <TextBlock Margin="2,2,2,2"  MinWidth="20"  
+                                         x:Name="PART_TextBlock"
+                                         HorizontalAlignment="Center" FontSize="15">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Background" Value="Transparent"></Setter>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Row="1" DataContext="{Binding Converter={x:Static conv:DefaultConverter.Instance}}">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                                         <ColumnDefinition Width="*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <materialDesign:Card x:Name="PART_Card" Height="0" Width="0" Visibility="Collapsed"></materialDesign:Card>
-                                    
-                                    <ContentPresenter Grid.Column="1" Margin="10" HorizontalAlignment="Stretch"/>
-                    
-                                    <Thumb VerticalAlignment="Center"  dragablz:DragablzItem.IsCustomThumb="True" Height="15" Width="15" >
-                                        <Thumb.Template>
-                                            <ControlTemplate>
 
-                                                <Border  Name="OutBox" >
-                                                    <Grid >
-                                                        <Path   Margin="0,0,0,0"
-                                                            x:Name="PathLeft"
-                                                            Width="4"
-                                                            Height="4"
-                                                            Visibility="Visible"
-                                                            HorizontalAlignment="Center"
-                                                            VerticalAlignment="Center"
-                                                            Data="{StaticResource DotGeometry}"
-                                                            RenderTransformOrigin="0.5,0.5"
-                                                            Stretch="Uniform"
-                                                            Stroke="Black"
-                                                            StrokeThickness="2">
-                                                            <Path.RenderTransform>
-                                                                <TransformGroup>
-                                                                    <TranslateTransform />
-                                                                </TransformGroup>
-                                                            </Path.RenderTransform>
-                                                        </Path>
+                                    <ContentControl Content="{Binding}" Grid.Column="1" Margin="10" HorizontalAlignment="Stretch"/>
 
-
-                                                    </Grid>
-                                                    <Border.Style>
-                                                        <Style TargetType="Border">
-                                                            <Style.Setters>
-                                                                <Setter Property="Background" >
-                                                                    <Setter.Value>
-                                                                        <SolidColorBrush Color="Gold" Opacity="0.0"></SolidColorBrush>
-                                                                    </Setter.Value>
-                                                                </Setter>
-                                                                <Setter Property="CornerRadius" Value="15"></Setter>
-                                                            </Style.Setters>
-
-                                                            <Style.Triggers>
-                                                                <Trigger Property="IsMouseOver" Value="True">
-                                                                    <Setter Property="Cursor" Value="Hand" />
-                                                                </Trigger>
-                                                                <EventTrigger RoutedEvent="UIElement.MouseEnter">
-                                                                    <BeginStoryboard>
-                                                                        <Storyboard>
-
-                                                                            <DoubleAnimation
-                                                                            Storyboard.TargetProperty="Background.Opacity"
-                                                                            From="0"
-                                                                            To="0.5"
-                                                                            Duration="0:0:0.2"/>
-                                                                        </Storyboard>
-                                                                    </BeginStoryboard>
-                                                                </EventTrigger>
-                                                                <EventTrigger RoutedEvent="UIElement.MouseLeave">
-                                                                    <BeginStoryboard>
-                                                                        <Storyboard>
-
-                                                                            <DoubleAnimation
-                                                                            Storyboard.TargetProperty="Background.Opacity"
-                                                                            From="0.5"
-                                                                            To="0"
-                                                                            Duration="0:0:0.2"  />
-                                                                        </Storyboard>
-                                                                    </BeginStoryboard>
-                                                                </EventTrigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </Border.Style>
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Thumb.Template>
-                                    </Thumb>
                                 </Grid>
-                            </Grid>                          
+                            </Grid>
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Style.Setters>
+                                            <Setter Property="BorderBrush" >
+                                                <Setter.Value>
+                                                    <SolidColorBrush>
+                                                        <SolidColorBrush.Color>
+                                                            <Color A="5" R="10" G="10" B="10" />
+                                                        </SolidColorBrush.Color>
+                                                    </SolidColorBrush>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style.Setters>
+
+                                    </Style>
+                                </Border.Style>
+                            </Border>
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Style.Setters>
+                                        <Setter Property="BorderBrush" >
+                                            <Setter.Value>
+                                                <SolidColorBrush>
+                                                    <SolidColorBrush.Color>
+                                                        <Color A="5" R="10" G="10" B="10" />
+                                                    </SolidColorBrush.Color>
+                                                </SolidColorBrush>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style.Setters>
+
+                                </Style>
+                            </Border.Style>
                         </Border>
                     </Viewbox>
-
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsDragging" Value="True">
                             <Trigger.EnterActions>
@@ -145,13 +177,81 @@
                                 <BeginStoryboard Storyboard="{StaticResource Exit}" />
                             </Trigger.ExitActions>
                         </Trigger>
+
+                        <Trigger Property="IsSelected" Value="True">
+                            <Trigger.EnterActions>
+
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color" Storyboard.TargetName="MainBorder" Duration="0:0:0.3">
+                                            <ColorAnimation.To>
+                                                <Color A="100" R="10" G="10" B="10"/>
+                                            </ColorAnimation.To>
+                                        </ColorAnimation>
+
+                                        <ThicknessAnimation Storyboard.TargetProperty="BorderThickness" To="1" Storyboard.TargetName="MainBorder" Duration="0:0:0.3">
+
+                                        </ThicknessAnimation>
+                                        <ThicknessAnimation Storyboard.TargetProperty="BorderThickness" To="0" Storyboard.TargetName="SecondaryBorder" Duration="0:0:0.3">
+
+                                        </ThicknessAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color" Storyboard.TargetName="MainBorder" Duration="0:0:0.3">
+                                            <ColorAnimation.To>
+                                                <Color A="0" R="10" G="10" B="10"/>
+                                            </ColorAnimation.To>
+                                        </ColorAnimation>
+                                        <ThicknessAnimation Storyboard.TargetProperty="BorderThickness" To="0" Storyboard.TargetName="MainBorder" Duration="0:0:0.3">
+
+                                        </ThicknessAnimation>
+                                        <ThicknessAnimation Storyboard.TargetProperty="BorderThickness" To="1" Storyboard.TargetName="SecondaryBorder" Duration="0:0:0.3">
+
+                                        </ThicknessAnimation>
+                                    </Storyboard>
+
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color" Storyboard.TargetName="SecondaryBorder" Duration="0:0:0.3">
+                                            <ColorAnimation.To>
+                                                <Color A="10" R="10" G="10" B="10"/>
+                                            </ColorAnimation.To>
+                                        </ColorAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color" Storyboard.TargetName="SecondaryBorder" Duration="0:0:0.3">
+                                            <ColorAnimation.To>
+                                                <Color A="0" R="10" G="10" B="10"/>
+                                            </ColorAnimation.To>
+                                        </ColorAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
     
-    <Style TargetType="{x:Type local:MasterGroupsItemsControl}" BasedOn="{StaticResource {x:Type dragablz:DragablzItemsControl}}">
+    <Style TargetType="{x:Type local:MasterGroupsItemsControl}" BasedOn="{StaticResource {x:Type dragablz:DragablzItemsControl}}" >
         <Style.Setters>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="ItemContainerStyle" Value="{StaticResource DragablzGroupStyle}"/>
@@ -160,8 +260,7 @@
 
     <Style  TargetType="{x:Type local:MasterGroupsControl}" BasedOn="{StaticResource {x:Type local:MasterControl}}">
         <Setter Property="ButtonTypes" Value="Add,Remove"></Setter>
-        <Setter Property="RemoveOrder" Value="Last"></Setter>
-      
+        <Setter Property="RemoveOrder" Value="Selected"></Setter>      
     </Style>
 
 </ResourceDictionary>

@@ -3,29 +3,29 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:UtilityWpf.Demo.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:view="http://schemas.utility.com" 
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:vm="clr-namespace:UtilityWpf.Demo.Sandbox.ViewModel"
-    xmlns:mk="clr-namespace:UtilityWpf.Markup;assembly=UtilityWpf"
+    xmlns:mk="clr-namespace:UtilityWpf.Markup;assembly=UtilityWpf" xmlns:utilitywpf="clr-namespace:UtilityWpf;assembly=UtilityWpf"
     d:DesignHeight="450"
     d:Background="White"
     d:DesignWidth="800"
     mc:Ignorable="d">
-
+    <FrameworkElement.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls;component/Dragablz/DragablzNoteStyle.xaml"></utilitywpf:SharedResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </FrameworkElement.Resources>
+    
     <UniformGrid Columns="1">
         <UniformGrid Rows="1">
             <FrameworkElement.DataContext>
                 <vm:NotesViewModel />
             </FrameworkElement.DataContext>
-            <FrameworkElement.Resources>
-                <ResourceDictionary>
-                    <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DragablzItem.xaml"></ResourceDictionary>
-                    </ResourceDictionary.MergedDictionaries>
-                </ResourceDictionary>
-            </FrameworkElement.Resources>
+   
             <Panel.Background>
                 <VisualBrush
                 TileMode="Tile" Viewport="0,0,10,10" 
@@ -41,7 +41,7 @@
             </Panel.Background>
 
 
-            <local:AddDragItemControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
+            <view:MasterControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
 
                 <i:Interaction.Triggers>
                     <i:EventTrigger  EventName="Change" >
@@ -51,9 +51,9 @@
                 <view:DragablzVerticalItemsControl x:Name="DragablzItemsControl" 
                                            ItemsSource="{Binding Collection}" 
                                            VerticalAlignment="Center"     
-                                           ItemContainerStyle="{StaticResource DragablzNotesStyle}">
+                                           ItemContainerStyle="{StaticResource DragablzNoteStyle}">
                 </view:DragablzVerticalItemsControl>
-            </local:AddDragItemControl>
+            </view:MasterControl>
 
             <ItemsControl   ItemsSource="{Binding Collection}" ItemTemplate="{StaticResource NoteViewModel}" />
 
@@ -69,13 +69,7 @@
             <FrameworkElement.DataContext>
                 <vm:NotesViewModel />
             </FrameworkElement.DataContext>
-            <FrameworkElement.Resources>
-                <ResourceDictionary>
-                    <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DragablzItem.xaml"></ResourceDictionary>
-                    </ResourceDictionary.MergedDictionaries>
-                </ResourceDictionary>
-            </FrameworkElement.Resources>
+
             <Panel.Background>
                 <VisualBrush
                 TileMode="Tile" Viewport="0,0,10,10" 
@@ -91,7 +85,7 @@
             </Panel.Background>
 
 
-            <local:AddDragItemControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
+            <view:MasterControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
 
                 <i:Interaction.Triggers>
                     <i:EventTrigger  EventName="Change" >
@@ -101,9 +95,9 @@
                 <view:DragablzVerticalItemsControl
                                            ItemsSource="{Binding Collection}" 
                                            VerticalAlignment="Center"     
-                                           ItemContainerStyle="{StaticResource DragablzNotesStyle}">
+                                           ItemContainerStyle="{StaticResource DragablzNoteStyle}">
                 </view:DragablzVerticalItemsControl>
-            </local:AddDragItemControl>
+            </view:MasterControl>
 
             <ItemsControl   ItemsSource="{Binding Collection}" ItemTemplate="{StaticResource NoteViewModel}" />
 

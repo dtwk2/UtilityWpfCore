@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows;
+using Dragablz;
 
 namespace UtilityWpf.Controls
 {
@@ -36,9 +37,17 @@ namespace UtilityWpf.Controls
 
         protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
         {
-            if (element is not Control control)
-                return;
-            _ = control.ApplyTemplate();
+            if (element is Control control)
+            {
+                SetBinding(control, item); 
+            }
+            base.PrepareContainerForItemOverride(element, item);
+        }
+
+
+        private void SetBinding(Control element, object item)
+        {     
+            _ = element.ApplyTemplate();
             if (element.ChildOfType<TextBlock>() is not TextBlock textBox)
                 return;
             if (string.IsNullOrEmpty(DisplayMemberPath))
@@ -52,8 +61,6 @@ namespace UtilityWpf.Controls
                 Mode = BindingMode.OneWay
             };
             BindingOperations.SetBinding(textBox, TextBlock.TextProperty, myBinding);
-
-            base.PrepareContainerForItemOverride(element, item);
         }
     }
 }

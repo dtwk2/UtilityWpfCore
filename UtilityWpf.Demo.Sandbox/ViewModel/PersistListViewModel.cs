@@ -6,7 +6,7 @@ using System.Reactive;
 using LiteDB;
 using ReactiveUI;
 using UtilityInterface.NonGeneric.Database;
-using UtilityWpf.Demo.Sandbox.ViewModel;
+using UtilityWpf.Service;
 using UtilityWpf.TestData.Model;
 using static UtilityWpf.Controls.MasterControl;
 

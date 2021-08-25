@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using Dragablz;
 
 namespace UtilityWpf.Controls
 {
@@ -9,6 +10,11 @@ namespace UtilityWpf.Controls
         static MasterNotesControl()
         {
             FrameworkElement.DefaultStyleKeyProperty.OverrideMetadata(typeof(MasterNotesControl), new FrameworkPropertyMetadata(typeof(MasterNotesControl)));
+        }
+
+        public MasterNotesControl()
+        {
+            Orientation = Orientation.Vertical;
         }
 
         public override void OnApplyTemplate()
@@ -50,7 +56,21 @@ namespace UtilityWpf.Controls
             };
             BindingOperations.SetBinding(textBox, TextBox.TextProperty, myBinding);
 
+            textBox.MouseLeftButtonDown += TextBox_MouseLeftButtonDown;
+            textBox.GotFocus += TextBox_GotFocus;
             base.PrepareContainerForItemOverride(element, item);
         }
+
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if ((sender as TextBox)?.FindParent<DragablzItem>() is { } parent)
+                parent.IsSelected = true;
+        }
+
+        private void TextBox_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if((e.OriginalSource as TextBox)?.FindParent<DragablzItem>() is { } parent)
+                parent.IsSelected = true;
+        }  
     }
 }
