@@ -13,6 +13,7 @@ using DynamicData;
 using System.Windows.Input;
 using System.ComponentModel;
 using System.Reactive.Disposables;
+using UtilityWpf.Model;
 
 namespace UtilityWpf.Behavior
 {
@@ -38,7 +39,7 @@ namespace UtilityWpf.Behavior
             set { SetValue(CollectionChangeCommandProperty, value); }
         }
         #endregion properties
-        public MintPlayer.ObservableCollection.ObservableCollection<object> Items { get; } = new();
+        public ObservableRangeCollection<object> Items { get; } = new();
 
         protected override void OnAttached()
         {
@@ -116,8 +117,7 @@ namespace UtilityWpf.Behavior
                         CollectionChangeCommand?.Execute(observer.Items);
 
 
-                        Items.Clear();
-                        Items.AddRange(objects);
+                        Items.ReplaceWithRange(objects);
                     });
 
 

@@ -3,7 +3,7 @@
       
                        xmlns:local="clr-namespace:UtilityWpf.TestData.Model" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
 
-    <DataTemplate DataType="{x:Type local:Fields}">
+    <DataTemplate DataType="{x:Type local:ReactiveFields}">
       
         <Grid HorizontalAlignment="Stretch" >
             <Grid.Resources>       
@@ -34,7 +34,7 @@
                         Grid.Column="0"
                         Margin="3"
                         Text="Name" />
-            <TextBlock
+            <TextBox
                         Grid.Row="0"
                         Grid.Column="1"
                         Text="{Binding Name}" />
@@ -51,7 +51,7 @@
                         Grid.Column="0"
                         Margin="3"
                         Text="Surname" />
-            <TextBlock
+            <TextBox
                         Grid.Row="1"
                         Grid.Column="1"
                         Text="{Binding Surname}" />
@@ -68,7 +68,7 @@
                         Grid.Column="0"
                         Margin="3"
                         Text="Phone #" />
-            <TextBlock
+            <TextBox
                         Grid.Row="2"
                         Grid.Column="1"
                         Text="{Binding PhoneNumber}" />

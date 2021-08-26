@@ -1,9 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Reactive;
-using LiteDB;
 using ReactiveUI;
 using UtilityInterface.NonGeneric.Database;
 using UtilityWpf.Service;
@@ -14,7 +10,7 @@ namespace UtilityWpf.Demo.Sandbox.Infrastructure
 {
     public class PersistListViewModel : ReactiveObject
     {
-        private readonly FieldsFactory factory = new();
+        private readonly ReactiveFieldsFactory factory = new();
         private IDatabaseService dbS = new DatabaseService();
         //private IReadOnlyCollection<object> data;
 
@@ -44,7 +40,7 @@ namespace UtilityWpf.Demo.Sandbox.Infrastructure
                     DatabaseService = new DatabaseService();
                 }
                 else
-                    DatabaseService = new LiteDbRepository(new LiteDbRepository.ConnectionSettings(typeof(Fields), new System.IO.FileInfo("../../../Data/Data.litedb"), nameof(Fields.Id)));
+                    DatabaseService = new LiteDbRepository(new LiteDbRepository.ConnectionSettings(typeof(ReactiveFields), new System.IO.FileInfo("../../../Data/Data.litedb"), nameof(ReactiveFields.Id)));
 
 
                 return Unit.Default;
@@ -69,7 +65,7 @@ namespace UtilityWpf.Demo.Sandbox.Infrastructure
 
         }
 
-        public MintPlayer.ObservableCollection.ObservableCollection<Fields> Data { get; } = new MintPlayer.ObservableCollection.ObservableCollection<Fields>();
+        public MintPlayer.ObservableCollection.ObservableCollection<ReactiveFields> Data { get; } = new MintPlayer.ObservableCollection.ObservableCollection<ReactiveFields>();
 
         // public ObservableCollection<Fields> Data => new(factory.Build(5));
         //public IReadOnlyCollection<object> Data { get => data; set => this.RaiseAndSetIfChanged(ref data, value); }

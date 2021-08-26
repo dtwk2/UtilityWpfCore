@@ -40,9 +40,11 @@
   <ItemGroup>
     <PackageReference Include="akavache" Version="7.3.1" />
     <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="deniszykov.TypeConversion" Version="3.0.1" />
+    <PackageReference Include="CompareNETObjects" Version="4.73.0" />
+    <PackageReference Include="deniszykov.TypeConversion" Version="3.0.2" />
     <PackageReference Include="Endless" Version="0.7.0-alpha1" />
     <PackageReference Include="Evan.Wpf" Version="1.2.0" />
+    <PackageReference Include="fasterflect" Version="3.0.0" />
     <PackageReference Include="Humanizer" Version="2.11.10" />
     <PackageReference Include="Kaos.Collections" Version="4.1.0" />
     <PackageReference Include="LambdaConverters" Version="4.0.0" />
@@ -57,6 +59,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="ObjectsComparer" Version="1.4.1" />
     <PackageReference Include="ReactiveUI.Events.WPF" Version="15.1.1" />
     <PackageReference Include="ReactiveUI.WPF" Version="16.1.1" />
     <PackageReference Include="Soukoku.ExpressionParser" Version="3.1.0" />

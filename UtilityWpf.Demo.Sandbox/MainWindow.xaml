@@ -26,6 +26,10 @@
         <TabItem Header="Persist">
             <view11:PersistListUserControl />
         </TabItem>
+        
+        <TabItem Header="Persist 2">
+            <view11:PersistList2UserControl />
+        </TabItem>
 
 
         <TabItem Header="A      ">

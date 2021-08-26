@@ -84,6 +84,10 @@
   </ItemGroup>
   
   <ItemGroup>
+    <Page Update="DataTemplate\ReactiveFields.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="DataTemplate\Profile.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>

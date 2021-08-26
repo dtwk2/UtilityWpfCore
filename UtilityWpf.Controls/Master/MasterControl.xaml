@@ -18,25 +18,25 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:MasterControl}">
                     <DockPanel x:Name="DockPanel1">
-                        <WrapPanel x:Name="WrapPanel1" Margin="5" DockPanel.Dock="Right" Orientation="Vertical">
+                        <WrapPanel x:Name="WrapPanel1" Margin="2" DockPanel.Dock="Right" Orientation="Vertical">
 
                             <Button
                                 x:Name="ButtonMinus"
-                                Margin="5"
+                                Margin="2"
                                 IsEnabled="{Binding Count, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource CountToBoolean}, ConverterParameter='>0'}"
                                 Style="{DynamicResource MaterialDesignIconButton}">
                                 <materialDesign:PackIcon Kind="Minus" />
                             </Button>
                             <Button
                                 x:Name="ButtonPlus"
-                                Margin="5"
+                                Margin="2"
                                 Style="{DynamicResource MaterialDesignIconButton}">
                                 <materialDesign:PackIcon Kind="Add" />
                             </Button>
 
                             <Button
                                 x:Name="ButtonMoveUp"
-                                Margin="5"
+                                Margin="2"
                                 Style="{DynamicResource MaterialDesignIconButton}">
                                 <Button.IsEnabled>
                                     <MultiBinding Converter="{StaticResource IsFirstItemSelected}">
@@ -48,7 +48,7 @@
                             </Button>
                             <Button
                                 x:Name="ButtonMoveDown"
-                                Margin="5"
+                                Margin="2"
                                 Style="{DynamicResource MaterialDesignIconButton}">
                                 <Button.IsEnabled>
                                     <MultiBinding Converter="{StaticResource IsLastItemSelected}">

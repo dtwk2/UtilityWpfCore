@@ -62,7 +62,7 @@ namespace UtilityWpf.Controls
             public object Object { get; }
         }
 
-        public ItemsControl ItemsControl { get; private set; }
+
         private Selector Selector => ItemsControl is Selector selector ? selector : throw new Exception($@"The ItemsControl used must be of type {nameof(Selector)} for operation.");
 
         readonly Subject<Orientation> subject = new();
@@ -75,6 +75,8 @@ namespace UtilityWpf.Controls
             (d as MasterControl).subject.OnNext((Orientation)e.NewValue);
         }
 
+        private static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(MasterControl), new PropertyMetadata(null));
+        private static readonly DependencyProperty ItemsControlProperty =            DependencyProperty.Register("ItemsControl", typeof(ItemsControl), typeof(MasterControl), new PropertyMetadata(null));
         public static readonly DependencyProperty CommandParameterProperty = DependencyHelper.Register<IEnumerator>();
         public static readonly DependencyProperty RemoveOrderProperty = DependencyHelper.Register<RemoveOrder>(new PropertyMetadata(RemoveOrder.Selected));
         public static readonly DependencyProperty CountProperty = DependencyHelper.Register<int>();
@@ -112,6 +114,7 @@ namespace UtilityWpf.Controls
                     }
                 });
         }
+
         #region properties
 
         public int Count
@@ -187,6 +190,19 @@ namespace UtilityWpf.Controls
             }
         }
 
+        public IEnumerable ItemsSource
+        {
+            get { return (IEnumerable)GetValue(ItemsSourceProperty); }
+            private set { SetValue(ItemsSourceProperty, value); }
+            //set { SetValue(ItemsSourceProperty, value); }
+        }
+
+
+        public ItemsControl ItemsControl
+        {
+            get { return (ItemsControl)GetValue(ItemsControlProperty); }
+            private set { SetValue(ItemsControlProperty, value); }
+        }  
 
         public override void OnApplyTemplate()
         {
@@ -215,6 +231,11 @@ namespace UtilityWpf.Controls
             {
                 //this.SetValue(ItemsSourceProperty, itemsControl.ItemsSource);
                 wrapPanel.DataContext = ItemsControl.ItemsSource;
+                ItemsControl.WhenAnyValue(c => c.ItemsSource)
+                    .Subscribe(a =>
+                    {
+                        this.ItemsSource = a;
+                    });
             }
             else
                 throw new Exception($"Expected content to derive from type of {nameof(ItemsControl)}.");
@@ -243,8 +264,6 @@ namespace UtilityWpf.Controls
                 {
                     this.SetValue(CountProperty, ItemsControl.ItemsSource.Count());
                 };
-
-                Count = ItemsControl.ItemsSource.Count();
             }
             else
             {
@@ -262,8 +281,8 @@ namespace UtilityWpf.Controls
                         Count = iSource.Count();
                     }
                 });
-
             }
+            Count = ItemsControl.ItemsSource.Count();
 
 
             base.OnApplyTemplate();
@@ -280,7 +299,7 @@ namespace UtilityWpf.Controls
             }
             else
             {
-   
+
             }
             RaiseEvent(new CollectionEventArgs(EventType.Add, SelectedItem, SelectedIndex, ChangeEvent));
         }
@@ -379,7 +398,7 @@ namespace UtilityWpf.Controls
                 var element = AssociatedObject.ItemsControl.ItemContainerGenerator.ContainerFromItem(e.Item);
                 if (element is UIElement uiElement)
                 {
-                    uiElement.Opacity = 0.4;  
+                    uiElement.Opacity = 0.4;
                 }
             }
 

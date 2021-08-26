@@ -10,17 +10,14 @@ using UtilityWpf.Abstract;
 
 namespace UtilityWpf.Controls
 {
+    using System.ComponentModel;
     using System.Windows.Controls.Primitives;
     using Mixins;
-
+    using ReactiveUI;
+    using UtilityWpf.Service;
     using static DependencyPropertyFactory<MasterDetail>;
     public class MasterDetail : ContentControlx
     {
-        [Flags]
-        public enum ButtonType
-        {
-            None = 0, Duplicate = 1, Delete = 2, Check = 4, All = Duplicate | Delete | Check
-        }
 
         public static readonly DependencyProperty DataConverterProperty = Register<IValueConverter>();
         public static readonly DependencyProperty DataKeyProperty = Register<string>(nameof(DataKey));
@@ -77,31 +74,91 @@ namespace UtilityWpf.Controls
 
         protected virtual IObservable<object> SelectContent()
         {
-            return Transform(this.Observable<Control>()
-                .SelectMany(a =>
-            {
-                return a switch
-                {
-                    (ISelector selector) => selector.SelectSingleSelectionChanges(),
-                    (Selector selector) => selector.SelectSingleSelectionChanges(),
-                    _ => throw new Exception($"Unexpected type,{a.GetType().Name} for {nameof(Selector)} "),
-                };
-            }),
+            var replaySubject = Transform(SelectChanges(),
                 this.Observable<IValueConverter>(nameof(DataConverter)),
-                this.Observable<string>(nameof(DataKey)));
+                this.Observable<string>(nameof(DataKey))).ToReplaySubject(0);
+
+
+            replaySubject
+                .Select(a => a.Item2)
+                .Where(a =>
+                {
+                    return a.Item2 != null && a.Item1 != a.Item2;
+                })
+                .CombineLatest(SelectItemsSource())
+                .Subscribe(a =>
+                {
+
+                    if (a.Second is IList list)
+                    {
+                        int index = list.IndexOf(a.First.Item1);
+                        if(index<0)
+                        {
+                            return;
+                        }
+                        list.RemoveAt(index);
+                        list.Insert(index, a.First.Item2);
+                        return;
+                    }
+
+          
+                    var first = a.Item1;
+                    if (first.Item1 is not INotifyPropertyChanged)
+                    {
+                        MessageBox.Show("object does not implement INotifyPropertyChanged. Therefore change will not be noticed by subscribers and won't be automatically persisted!");
+                    }
+                    PropertyMerger.Instance.Set(first.Item1, first.Item2);
+
+
+                });
+
+            return replaySubject
+                .Select(a => a.Item1);
+        }
+
+        private IObservable<object> SelectChanges()
+        {
+            return this.Observable<Control>()
+                .Select(a =>
+                {
+                    return a switch
+                    {
+                        ISelector selector => selector.SelectSingleSelectionChanges(),
+                        Selector selector => selector.SelectSingleSelectionChanges(),
+                        _ => throw new ApplicationException($"Unexpected type,{a.GetType().Name} for {nameof(Selector)} "),
+                    };
+                }).Switch();
+        }
+
+
+        private IObservable<IEnumerable?> SelectItemsSource()
+        {
+            return this.Observable<Control>()
+                .CombineLatest(this.LoadedChanges(), (a, b) => a)
+                        .SelectMany(a =>
+                {
+                    return a switch
+                    {
+                        ISelector selector => selector.WhenAnyValue(a => a.ItemsSource),
+                        Selector selector => selector.WhenAnyValue(a => a.ItemsSource),
+                        _ => throw new ApplicationException($"Unexpected type,{a.GetType().Name} for {nameof(Selector)} "),
+                    };
+                });
         }
 
         protected virtual void SetContent(object content, object @object)
         {
             if (UseDataContext)
-                if (content is FrameworkElement c)
+            {
+                if (content is FrameworkElement frameworkElement)
                 {
-                    c.DataContext = @object;
+                    frameworkElement.DataContext = @object;
                 }
                 else
                 {
-                    throw new Exception("Content needs to be framework element is UseDataContext set to true");
+                    throw new ApplicationException("Content needs to be framework element is UseDataContext set to true");
                 }
+            }
             else if (@object is IEnumerable enumerable)
             {
                 if (content is IItemsSource oview)
@@ -125,8 +182,6 @@ namespace UtilityWpf.Controls
             {
                 Content = @object;
             }
-
-            // else throw new Exception(nameof(Content) + " needs to have property");
         }
 
         private class DefaultFilter : UtilityInterface.NonGeneric.IFilter
@@ -137,28 +192,50 @@ namespace UtilityWpf.Controls
             }
         }
 
-
-        protected static IObservable<object> Transform(IObservable<object> collectionViewModel, IObservable<IValueConverter> dataConversions, IObservable<string> dataKeys)
+        protected static IObservable<(object, (object?, object?) replace)> Transform(IObservable<object> collectionViewModel, IObservable<IValueConverter> dataConversions, IObservable<string> dataKeys)
         {
             collectionViewModel
                 .Subscribe(a =>
-            {
+                {
 
-            });
+                });
             return ObservableEx
                 .CombineLatest(collectionViewModel, dataConversions, dataKeys)
                 .ObserveOnDispatcher()
-                .Select(a =>
-                {
-                    var (selected, converter, dataKey) = a;
-                    return (converter, dataKey) switch
-                    {
-                        (IValueConverter conv, _) => conv.Convert(selected, default, default, default),
-                        (_, string k) => UtilityHelper.PropertyHelper.GetPropertyValue<object>(selected, k),
-                        //(null,null) => throw new Exception($"Either {nameof(DataConverter)} or {nameof(DataKey)} must be set if {nameof(ItemsSource)} set")
-                        (null, null) => selected
-                    };
-                });
+                .Scan(default((object, object, object?, object?, IValueConverter?, string?)), (a, b) =>
+             {
+
+                 var (selectedOld, conversion, ssOld, eeOld, converterOld, dataKeyOld) = a;
+                 var (selected, converter, dataKey) = b;
+
+
+                 var ee = (conversion, converterOld, dataKeyOld) switch
+                 {
+                     (null, _, _) => null,
+                     (object o, IValueConverter conv, _) => conv.ConvertBack(o, default, default, default),
+                     (object o, _, string key) => ConvertBack(selectedOld, key, o),
+                     //(null,null) => throw new Exception($"Either {nameof(DataConverter)} or {nameof(DataKey)} must be set if {nameof(ItemsSource)} set")
+                     (object o, null, null) => o
+                 };
+
+
+                 var ss = (converter, dataKey) switch
+                 {
+                     (IValueConverter conv, _) => conv.Convert(selected, default, default, default),
+                     (_, string key) => UtilityHelper.PropertyHelper.GetPropertyValue<object>(selected, key),
+                     //(null,null) => throw new Exception($"Either {nameof(DataConverter)} or {nameof(DataKey)} must be set if {nameof(ItemsSource)} set")
+                     (null, null) => selected
+                 };
+
+                 return (selected, ss, selectedOld, ee, converter, dataKey);
+             })
+                .Select(a => (a.Item2, (a.Item3, a.Item4)));
+
+            static object ConvertBack(object selected, string k, object selectedValueOld)
+            {
+                UtilityHelper.PropertyHelper.SetValue(selected, k, selectedValueOld);
+                return selectedValueOld;
+            }
         }
     }
 }

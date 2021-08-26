@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows;
+﻿using System.Collections;
 using System.Windows.Controls;
 
 namespace UtilityWpf.Abstract
@@ -11,8 +9,7 @@ namespace UtilityWpf.Abstract
         int SelectedIndex { get; }
 
         event SelectionChangedEventHandler SelectionChanged;
+
+        public IEnumerable ItemsSource { get; }
     }
-
-
-
 }

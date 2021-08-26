@@ -19,7 +19,6 @@
                 </Style.Triggers>
             </Style>
             <DataTemplate  DataType="{x:Type vm:NoteViewModel}">
-
                 <TextBox HorizontalAlignment="Stretch" FontSize="5"  
                              
                              TextWrapping="Wrap"
@@ -33,8 +32,8 @@
                         </Style>                        
                     </TextBox.Style>
                 </TextBox>
-
             </DataTemplate>
+            
             <DataTemplate x:Key="NoteViewModel" DataType="{x:Type vm:NoteViewModel}">
           
                     <TextBlock HorizontalAlignment="Stretch"  
