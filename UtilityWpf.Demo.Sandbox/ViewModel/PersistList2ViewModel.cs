@@ -69,7 +69,6 @@ namespace UtilityWpf.Demo.Sandbox.Infrastructure
                 {
                     cfg.CreateMap<ReactiveFields, Fields>();
                     cfg.CreateMap<Fields, ReactiveFields>();
-                    //cfg.AddProfile(new MergeProfile());
                 }).CreateMapper();
             }
         }
@@ -94,5 +93,4 @@ namespace UtilityWpf.Demo.Sandbox.Infrastructure
             return null;
         }
     }
-
 }

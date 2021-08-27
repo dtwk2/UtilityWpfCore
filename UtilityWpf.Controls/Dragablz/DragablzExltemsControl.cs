@@ -111,7 +111,7 @@ namespace UtilityWpf.Controls
 
         private void Child_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (sender is Dragablz.DragablzItem dItem)
+            if (sender is DragablzItem dItem)
             {
                 dItem.IsSelected = true;
                 return;
@@ -122,7 +122,7 @@ namespace UtilityWpf.Controls
 
         private void Child_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (sender is Dragablz.DragablzItem dItem)
+            if (sender is DragablzItem dItem)
             {
                 dItem.IsSelected = true;
                 return;

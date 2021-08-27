@@ -83,7 +83,8 @@ namespace UtilityWpf.Controls
                 .Select(a => a.Item2)
                 .Where(a =>
                 {
-                    return a.Item2 != null && (a.Item1?.Equals(a.Item2) == false);
+                    // either they are the same object or same type but don't equal
+                    return a.Item2 != null && (a.Item1 == a.Item2 || (a.Item1?.Equals(a.Item2) == false));
                 })
                 .CombineLatest(SelectItemsSource())
                 .Subscribe(a =>
@@ -225,9 +226,9 @@ namespace UtilityWpf.Controls
                      (null, null) => selected
                  };
 
-                 if (selectedOld != null && selectedOld == ee)
+                 if (selectedOld != null && selectedOld == ee && converterOld != null)
                  {
-                     throw new ApplicationException("selectedOld and ee can't be the same object in order to compare them");
+                     throw new ApplicationException("selectedOld and ee can't be the same object in order to compare them after conversion.");
                  }
                  return (selected, ss, selectedOld, ee, converter, dataKey);
              })
