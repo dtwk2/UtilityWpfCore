@@ -282,7 +282,7 @@ namespace UtilityWpf.Controls
 
                             Count = iSource.Count();
                         }
-                       // ItemsSource = iSource;
+                        // ItemsSource = iSource;
                     });
             }
             Count = ItemsSource?.Count() ?? 0;
@@ -305,7 +305,16 @@ namespace UtilityWpf.Controls
             if (CommandParameter?.MoveNext() == true)
             {
                 if (Content is DragablzItemsControl itemsControl)
-                    itemsControl.AddToSource(CommandParameter.Current, AddLocationHint.Last);
+                    try
+                    {
+                        itemsControl.AddToSource(CommandParameter.Current, AddLocationHint.Last);
+
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
             }
             else
             {

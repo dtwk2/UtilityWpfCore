@@ -127,7 +127,7 @@ namespace UtilityWpf.Controls
                 dItem.IsSelected = true;
                 return;
             }
-            if (sender is Dragablz.DragablzItem parent)
+            if (sender is DragablzItem parent)
                 parent.IsSelected = true;
         }
 

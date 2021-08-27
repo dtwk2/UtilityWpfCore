@@ -126,6 +126,10 @@
 
     <Compile Update="Master\MasterGroupsControl.cs">
       <DependentUpon>MasterGroupsControl.xaml</DependentUpon>
+    </Compile>   
+    
+    <Compile Update="Dragablz\ItemContainerBorder.cs">
+      <DependentUpon>ItemContainerBorder.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 

@@ -3,9 +3,6 @@ using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Media.Animation;
-using System.Windows.Media;
-using System.Windows.Threading;
 using Dragablz;
 using ReactiveUI;
 
@@ -34,29 +31,29 @@ namespace UtilityWpf.Controls
             this.WhenAnyValue(a => a.ItemsSource)
                 .WhereNotNull()
                 .CombineLatest(this.WhenAnyValue(a => a.DisplayMemberPath))
-          .Subscribe(a =>
-          {
-              
-              this.Dispatcher.InvokeAsync(() =>
-              {
-                  if (Content == null)
-                      this.Content = new MasterNotesItemsControl
-                      {
-                          DisplayMemberPath = this.DisplayMemberPath,
-                          ItemsSource = this.ItemsSource
-                      };
-                  else
-                  {
-                      if (this.Content is MasterNotesItemsControl msn)
-                      {
-                          msn.ItemsSource = this.ItemsSource;
-                          msn.DisplayMemberPath = this.DisplayMemberPath;
-                      }
-                      else
-                      {
-                          throw new ApplicationException("Expected Content to be MasterNotesItemsControl");
-                      }
-                  }
+                .Subscribe(a =>
+                {
+
+                    this.Dispatcher.InvokeAsync(() =>
+                    {
+                        if (Content == null)
+                            this.Content = new MasterNotesItemsControl
+                            {
+                                DisplayMemberPath = this.DisplayMemberPath,
+                                ItemsSource = this.ItemsSource
+                            };
+                        else
+                        {
+                            if (this.Content is MasterNotesItemsControl msn)
+                            {
+                                msn.ItemsSource = this.ItemsSource;
+                                msn.DisplayMemberPath = this.DisplayMemberPath;
+                            }
+                            else
+                            {
+                                throw new ApplicationException("Expected Content to be MasterNotesItemsControl");
+                            }
+                        }
 
                   //DoubleAnimation oLabelAngleAnimation    = new DoubleAnimation();
                   //oLabelAngleAnimation.From = 0;
@@ -66,7 +63,7 @@ namespace UtilityWpf.Controls
                   //this.BeginAnimation(MasterBindableControl.HeightProperty,                    oLabelAngleAnimation);
 
               }, System.Windows.Threading.DispatcherPriority.Background);
-          });
+                });
 
             base.OnApplyTemplate();
         }

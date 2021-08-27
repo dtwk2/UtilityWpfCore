@@ -18,8 +18,8 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:MasterControl}">
-                    <DockPanel x:Name="DockPanel1" Background="Transparent">
-                        <WrapPanel x:Name="WrapPanel1" Margin="2" DockPanel.Dock="Right" Orientation="Vertical"  Background="Transparent">
+                    <DockPanel x:Name="DockPanel1" Background="{Binding Background, Source=TemplatedParent}">
+                        <WrapPanel x:Name="WrapPanel1" Margin="2" DockPanel.Dock="Right" Orientation="Vertical" Background="{Binding Background, Source=TemplatedParent}">
 
                             <Button
                                 x:Name="ButtonMinus"

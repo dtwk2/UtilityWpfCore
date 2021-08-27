@@ -86,6 +86,7 @@
         <!-- Dragabalz -->
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Dragablz/DragablzNoteStyle.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Dragablz/DragablzItem.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Dragablz/ItemContainerBorder.xaml" />
 
         
 
