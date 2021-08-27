@@ -89,7 +89,10 @@ namespace UtilityWpf.Controls
                 .CombineLatest(SelectItemsSource())
                 .Subscribe(a =>
                 {
-
+                    if(a.Second is Array)
+                    {
+                        return;
+                    }
                     if (a.Second is IList list)
                     {
                         int index = list.IndexOf(a.First.Item1);
