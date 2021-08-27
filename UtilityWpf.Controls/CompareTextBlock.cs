@@ -17,6 +17,8 @@ namespace UtilityWpf.Controls
         {
             HighlightForeground = Brushes.Black;
             HighlightBackground = Brushes.Transparent;
+          
+            HighlightBackground3 = Brushes.Yellow;
         }
 
         protected override IReadOnlyCollection<TextGroup> Compare(string mainText, string compareText)
@@ -57,8 +59,8 @@ namespace UtilityWpf.Controls
         public static readonly DependencyProperty HighlightForeground4Property = DependencyProperty.Register("HighlightForeground4", typeof(Brush), typeof(CompareTextBlock), new PropertyMetadata(Brushes.White));
 
         public static readonly DependencyProperty HighlightBackgroundProperty = DependencyProperty.Register("HighlightBackground", typeof(Brush), typeof(CompareTextBlock), new PropertyMetadata(Brushes.Transparent));
-        public static readonly DependencyProperty HighlightBackground2Property = DependencyProperty.Register("HighlightBackground2", typeof(Brush), typeof(CompareTextBlock), new PropertyMetadata(Brushes.LightPink));
-        public static readonly DependencyProperty HighlightBackground3Property = DependencyProperty.Register("HighlightBackground3", typeof(Brush), typeof(CompareTextBlock), new PropertyMetadata(Brushes.Yellow));
+        public static readonly DependencyProperty HighlightBackground2Property = DependencyProperty.Register("HighlightBackground2", typeof(Brush), typeof(CompareTextBlock), new PropertyMetadata(Brushes.LightGreen));
+        public static readonly DependencyProperty HighlightBackground3Property = DependencyProperty.Register("HighlightBackground3", typeof(Brush), typeof(CompareTextBlock), new PropertyMetadata(Brushes.LightPink));
         public static readonly DependencyProperty HighlightBackground4Property = DependencyProperty.Register("HighlightBackground4", typeof(Brush), typeof(CompareTextBlock), new PropertyMetadata(Brushes.Purple));
 
         private TextBlock compareTextBlock;
@@ -179,8 +181,9 @@ namespace UtilityWpf.Controls
                 await Task.Delay(TimeSpan.FromSeconds(0.5));
                 return Compare(mainText, compareText);
             }, tokenSource.Token);
-
-            foreach (var group in await task)
+            var result = await task;
+            compareTextBlock.Inlines.Clear();
+            foreach (var group in result)
             {
                 var (foreground, background) = GetGrounds(group.Difference);
                 if (group.Difference == 1)
