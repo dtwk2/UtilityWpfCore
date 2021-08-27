@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.ComponentModel;
 using System.Reactive.Disposables;
 using UtilityWpf.Model;
+using UtilityHelper.NonGeneric;
 
 namespace UtilityWpf.Behavior
 {
@@ -80,6 +81,11 @@ namespace UtilityWpf.Behavior
                      foreach (var item in third)
                          docstore.Delete(item);
                  }
+                 var count = docstore.SelectAll().Count();
+                 if (count != Items.Count)
+                 {
+                    //TODO add logging
+                 }
                  //else if (reason == NotifyCollectionChangedAction.)
                  //{
                  //    _docstore.Upsert(item);
@@ -142,7 +148,7 @@ namespace UtilityWpf.Behavior
 
             }).DisposeWith(compositeDisposable);
 
-            disposable = compositeDisposable;            
+            disposable = compositeDisposable;
             // }
         }
 

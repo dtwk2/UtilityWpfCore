@@ -246,7 +246,7 @@
 
     <Style TargetType="{x:Type local:MasterGroupsItemsControl}" BasedOn="{StaticResource {x:Type dragablz:DragablzItemsControl}}" >
         <Style.Setters>
-            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
             <Setter Property="ItemContainerStyle" Value="{StaticResource DragablzGroupStyle}"/>
         </Style.Setters>
     </Style>

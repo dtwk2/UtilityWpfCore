@@ -14,7 +14,6 @@ using Dragablz;
 using DynamicData;
 using Microsoft.Xaml.Behaviors;
 using UtilityHelper.NonGeneric;
-using UtilityHelperEx;
 using UtilityWpf.Abstract;
 
 namespace UtilityWpf.Controls
@@ -75,8 +74,8 @@ namespace UtilityWpf.Controls
             (d as MasterControl).subject.OnNext((Orientation)e.NewValue);
         }
 
-        private static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(MasterControl), new PropertyMetadata(null));
-        private static readonly DependencyProperty ItemsControlProperty =            DependencyProperty.Register("ItemsControl", typeof(ItemsControl), typeof(MasterControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(MasterControl), new PropertyMetadata(null));
+        private static readonly DependencyProperty ItemsControlProperty = DependencyProperty.Register("ItemsControl", typeof(ItemsControl), typeof(MasterControl), new PropertyMetadata(null));
         public static readonly DependencyProperty CommandParameterProperty = DependencyHelper.Register<IEnumerator>();
         public static readonly DependencyProperty RemoveOrderProperty = DependencyHelper.Register<RemoveOrder>(new PropertyMetadata(RemoveOrder.Selected));
         public static readonly DependencyProperty CountProperty = DependencyHelper.Register<int>();
@@ -166,7 +165,7 @@ namespace UtilityWpf.Controls
         {
             get
             {
-                return (ItemsControl) switch
+                return ItemsControl switch
                 {
                     Selector selector => selector.SelectedItem,
                     ISelector selector => selector.SelectedItem,
@@ -180,7 +179,7 @@ namespace UtilityWpf.Controls
         {
             get
             {
-                return (ItemsControl) switch
+                return ItemsControl switch
                 {
                     Selector selector => selector.SelectedIndex,
                     ISelector selector => selector.SelectedIndex,
@@ -193,16 +192,14 @@ namespace UtilityWpf.Controls
         public IEnumerable ItemsSource
         {
             get { return (IEnumerable)GetValue(ItemsSourceProperty); }
-            private set { SetValue(ItemsSourceProperty, value); }
-            //set { SetValue(ItemsSourceProperty, value); }
+            set { SetValue(ItemsSourceProperty, value); }
         }
-
 
         public ItemsControl ItemsControl
         {
             get { return (ItemsControl)GetValue(ItemsControlProperty); }
             private set { SetValue(ItemsControlProperty, value); }
-        }  
+        }
 
         public override void OnApplyTemplate()
         {
@@ -230,11 +227,12 @@ namespace UtilityWpf.Controls
             if (ItemsControl != null)
             {
                 //this.SetValue(ItemsSourceProperty, itemsControl.ItemsSource);
-                wrapPanel.DataContext = ItemsControl.ItemsSource;
                 ItemsControl.WhenAnyValue(c => c.ItemsSource)
-                    .Subscribe(a =>
+
+                    .Subscribe(itemsSource =>
                     {
-                        this.ItemsSource = a;
+                        if (this.ItemsSource == null)
+                            this.ItemsSource = itemsSource;
                     });
             }
             else
@@ -267,23 +265,35 @@ namespace UtilityWpf.Controls
             }
             else
             {
+                wrapPanel.DataContext = ItemsControl.ItemsSource;
+
                 ItemsControl
                     .WhenAnyValue(a => a.ItemsSource)
+                     .WhereNotNull()
+                     .DistinctUntilChanged()
                     .Subscribe(iSource =>
-                {
-                    if (iSource is INotifyCollectionChanged changed)
                     {
-                        changed.CollectionChanged += (s, e) =>
+                        if (iSource is INotifyCollectionChanged changed)
                         {
-                            this.SetValue(CountProperty, iSource.Count());
-                        };
+                            changed.CollectionChanged += (s, e) =>
+                            {
+                                this.SetValue(CountProperty, iSource.Count());
+                            };
 
-                        Count = iSource.Count();
-                    }
-                });
+                            Count = iSource.Count();
+                        }
+                       // ItemsSource = iSource;
+                    });
             }
-            Count = ItemsControl.ItemsSource.Count();
+            Count = ItemsSource?.Count() ?? 0;
 
+            this.WhenAnyValue(a => a.ItemsSource)
+
+                .Subscribe(a =>
+            {
+                if (a != null)
+                    ItemsControl.ItemsSource = a;
+            });
 
             base.OnApplyTemplate();
         }
@@ -340,7 +350,6 @@ namespace UtilityWpf.Controls
             var index = ItemsControl.Items.IndexOf(SelectedItem);
             if (index != 0)
             {
-
                 list[index - 1].Index += 1;
                 list[index].Index -= 1;
                 changes.Add(list[index]);
@@ -357,7 +366,6 @@ namespace UtilityWpf.Controls
             var index = ItemsControl.Items.IndexOf(SelectedItem);
             if (index != ItemsControl.Items.Count - 1)
             {
-
                 list[index + 1].Index -= 1;
                 list[index].Index += 1;
                 changes.Add(list[index]);
@@ -368,7 +376,6 @@ namespace UtilityWpf.Controls
         protected virtual List<IndexedObject> GetIndexedObjects()
         {
             List<IndexedObject> list = new();
-            //List<IndexedObject> changes = new();
             foreach (var item in ItemsControl.Items)
             {
                 var oldIndex = ItemsControl.Items.IndexOf(item);

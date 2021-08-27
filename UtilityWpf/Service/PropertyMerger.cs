@@ -171,6 +171,10 @@ namespace UtilityWpf.Service
                 {
                     this.Log().Debug(difference);
                     var single = props.GetValueOrDefault(difference.PropertyName);
+                    if (single == default)
+                    {
+                        return;
+                    }
                     try
                     {
                         var conversion = TypeConvert.Convert(difference.Object1, single.type);

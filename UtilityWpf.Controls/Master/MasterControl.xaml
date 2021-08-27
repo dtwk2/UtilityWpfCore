@@ -14,11 +14,12 @@
     <local1:IsLastItemSelectedConverter x:Key="IsLastItemSelected" Invert="True" />
 
     <Style BasedOn="{StaticResource {x:Type ContentControl}}" TargetType="{x:Type local:MasterControl}">
+        <Setter Property="Background" Value="Transparent"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:MasterControl}">
-                    <DockPanel x:Name="DockPanel1">
-                        <WrapPanel x:Name="WrapPanel1" Margin="2" DockPanel.Dock="Right" Orientation="Vertical">
+                    <DockPanel x:Name="DockPanel1" Background="Transparent">
+                        <WrapPanel x:Name="WrapPanel1" Margin="2" DockPanel.Dock="Right" Orientation="Vertical"  Background="Transparent">
 
                             <Button
                                 x:Name="ButtonMinus"

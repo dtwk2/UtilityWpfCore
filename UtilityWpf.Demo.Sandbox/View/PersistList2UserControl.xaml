@@ -31,16 +31,7 @@
     </UserControl.Resources>
     <DockPanel>
 
-        <view:DualButtonControl Main="{Binding Path=Name, Source={StaticResource DatabaseService}}" 
-                                Alternate="{Binding Path=Name, Source={StaticResource LiteDbRepo}}" 
-                                Style="{StaticResource OutlinedDualButtonControl}" 
-                                ButtonWidth="130">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="ButtonToggle" >
-                    <i:InvokeCommandAction Command="{Binding ChangeRepositoryCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </view:DualButtonControl>
+     
 
         <TabControl>
 

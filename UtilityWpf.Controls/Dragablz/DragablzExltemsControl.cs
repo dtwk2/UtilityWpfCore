@@ -61,13 +61,13 @@ namespace UtilityWpf.Controls
             }
 
             (item as DragablzItem)?
-                .WhenAny(a => a.IsSelected, (a) => a)             
+                .WhenAny(a => a.IsSelected, (a) => a)
                 .Skip(1)
                 .ObserveOnDispatcher()
                 .SubscribeOnDispatcher()
                 .Subscribe(a =>
                 {
-                    if(a.Value == false)
+                    if (a.Value == false)
                     {
                         return;
                     }
@@ -85,7 +85,13 @@ namespace UtilityWpf.Controls
                         }
                         i++;
                     }
-                    SelectedItem = items.Where(a => a.IsSelected).Select(a => a.Content).SingleOrDefault();
+
+                    selected = items.Where(a => a.IsSelected).ToArray();
+                    if (selected.Length != 1)
+                    {
+                        throw new Exception("Expected only sinlge item to be selected. Make sure 'Equals' method is correctly implemented.");
+                    }
+                    SelectedItem = selected.Cast<DragablzItem>().Select(a => a.Content).SingleOrDefault();
                     SelectedIndex = index;
                     this.RaiseEvent(new SelectionChangedEventArgs(SelectionChangedEvent, selected, new[] { a.Sender.Content }));
 
@@ -96,7 +102,7 @@ namespace UtilityWpf.Controls
         }
 
         private void DragablzExItemsControl_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-        {        
+        {
         }
 
         private void DragablzExItemsControl_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)

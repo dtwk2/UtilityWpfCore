@@ -83,7 +83,7 @@ namespace UtilityWpf.Controls
                 .Select(a => a.Item2)
                 .Where(a =>
                 {
-                    return a.Item2 != null && a.Item1 != a.Item2;
+                    return a.Item2 != null && (a.Item1?.Equals(a.Item2) == false);
                 })
                 .CombineLatest(SelectItemsSource())
                 .Subscribe(a =>
@@ -92,7 +92,7 @@ namespace UtilityWpf.Controls
                     if (a.Second is IList list)
                     {
                         int index = list.IndexOf(a.First.Item1);
-                        if(index<0)
+                        if (index < 0)
                         {
                             return;
                         }
@@ -101,15 +101,13 @@ namespace UtilityWpf.Controls
                         return;
                     }
 
-          
+
                     var first = a.Item1;
                     if (first.Item1 is not INotifyPropertyChanged)
                     {
                         MessageBox.Show("object does not implement INotifyPropertyChanged. Therefore change will not be noticed by subscribers and won't be automatically persisted!");
                     }
-                    PropertyMerger.Instance.Set(first.Item1, first.Item2);
-
-
+                    PropertyMerger.Instance.Set(first.Item1!, first.Item2!);
                 });
 
             return replaySubject
@@ -139,7 +137,7 @@ namespace UtilityWpf.Controls
                 {
                     return a switch
                     {
-                        ISelector selector => selector.WhenAnyValue(a => a.ItemsSource),
+                        ISelector selector => selector.WhenAnyValue(a => a.ItemsSource).StartWith(selector.ItemsSource),
                         Selector selector => selector.WhenAnyValue(a => a.ItemsSource),
                         _ => throw new ApplicationException($"Unexpected type,{a.GetType().Name} for {nameof(Selector)} "),
                     };
@@ -192,7 +190,7 @@ namespace UtilityWpf.Controls
             }
         }
 
-        protected static IObservable<(object, (object?, object?) replace)> Transform(IObservable<object> collectionViewModel, IObservable<IValueConverter> dataConversions, IObservable<string> dataKeys)
+        protected static IObservable<(object newItem, (object? old, object? replacement) change)> Transform(IObservable<object> collectionViewModel, IObservable<IValueConverter> dataConversions, IObservable<string> dataKeys)
         {
             collectionViewModel
                 .Subscribe(a =>
@@ -227,6 +225,10 @@ namespace UtilityWpf.Controls
                      (null, null) => selected
                  };
 
+                 if (selectedOld != null && selectedOld == ee)
+                 {
+                     throw new ApplicationException("selectedOld and ee can't be the same object in order to compare them");
+                 }
                  return (selected, ss, selectedOld, ee, converter, dataKey);
              })
                 .Select(a => (a.Item2, (a.Item3, a.Item4)));

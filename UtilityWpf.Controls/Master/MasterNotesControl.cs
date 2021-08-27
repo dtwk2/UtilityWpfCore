@@ -1,7 +1,13 @@
-﻿using System.Windows;
+﻿using System;
+using System.Reactive.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media.Animation;
+using System.Windows.Media;
+using System.Windows.Threading;
 using Dragablz;
+using ReactiveUI;
 
 namespace UtilityWpf.Controls
 {
@@ -24,6 +30,43 @@ namespace UtilityWpf.Controls
                 DisplayMemberPath = this.DisplayMemberPath,
                 ItemsSource = this.ItemsSource
             };
+
+            this.WhenAnyValue(a => a.ItemsSource)
+                .WhereNotNull()
+                .CombineLatest(this.WhenAnyValue(a => a.DisplayMemberPath))
+          .Subscribe(a =>
+          {
+              
+              this.Dispatcher.InvokeAsync(() =>
+              {
+                  if (Content == null)
+                      this.Content = new MasterNotesItemsControl
+                      {
+                          DisplayMemberPath = this.DisplayMemberPath,
+                          ItemsSource = this.ItemsSource
+                      };
+                  else
+                  {
+                      if (this.Content is MasterNotesItemsControl msn)
+                      {
+                          msn.ItemsSource = this.ItemsSource;
+                          msn.DisplayMemberPath = this.DisplayMemberPath;
+                      }
+                      else
+                      {
+                          throw new ApplicationException("Expected Content to be MasterNotesItemsControl");
+                      }
+                  }
+
+                  //DoubleAnimation oLabelAngleAnimation    = new DoubleAnimation();
+                  //oLabelAngleAnimation.From = 0;
+                  //oLabelAngleAnimation.To = this?.ActualHeight??0;
+                  //oLabelAngleAnimation.Duration                    = new Duration(new TimeSpan(0, 0, 0, 0, 500));
+                  //oLabelAngleAnimation.RepeatBehavior = new RepeatBehavior(4);
+                  //this.BeginAnimation(MasterBindableControl.HeightProperty,                    oLabelAngleAnimation);
+
+              }, System.Windows.Threading.DispatcherPriority.Background);
+          });
 
             base.OnApplyTemplate();
         }
@@ -69,8 +112,8 @@ namespace UtilityWpf.Controls
 
         private void TextBox_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if((e.OriginalSource as TextBox)?.FindParent<DragablzItem>() is { } parent)
+            if ((e.OriginalSource as TextBox)?.FindParent<DragablzItem>() is { } parent)
                 parent.IsSelected = true;
-        }  
+        }
     }
 }
