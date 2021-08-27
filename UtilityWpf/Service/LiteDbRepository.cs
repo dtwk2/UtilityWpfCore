@@ -104,9 +104,13 @@ namespace UtilityWpf.Service
             using (GetCollection(out var collection))
             {
                 var cvt = Convert(item);
-                var query = Query.EQ(_key, cvt[_key]);
-                collection.DeleteMany(query);
-                return true;
+                var query = Query.EQ("_id", cvt["_id"]);
+                var select = collection.Find(query).ToArray();
+                if (select.Length != 1)
+                {
+                    throw new ApplicationException($"Expected length from query,{select.Length}, does not match one.");
+                }
+                return collection.Delete(cvt["_id"]);
             }
         }
 
