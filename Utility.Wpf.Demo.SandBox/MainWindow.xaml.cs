@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Utility.Wpf.Demo.SandBox
+namespace UtilityWpf.Demo.SandBox
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -24,5 +25,17 @@ namespace Utility.Wpf.Demo.SandBox
         {
             InitializeComponent();
         }
+    }
+
+    public class ViewModel
+    {
+        public IEnumerable Collection { get; } = new[] { new MeasurementViewModel { Header = "Height" }, new MeasurementViewModel { Header = "Width" } };
+    }
+
+
+    public class MeasurementViewModel
+    {
+        public string Header { get; init; }
+        public double Value { get; init; }
     }
 }
