@@ -86,13 +86,12 @@ namespace UtilityWpf.Controls
 
         private void SetBinding(Control element, object item)
         {
+            if (string.IsNullOrEmpty(DisplayMemberPath))
+                return;
             _ = element.ApplyTemplate();
             if (element.ChildOfType<TextBlock>() is not TextBlock textBox)
                 return;
-            if (string.IsNullOrEmpty(DisplayMemberPath))
-            {
-                return;
-            }
+      
             Binding myBinding = new Binding
             {
                 Source = item,

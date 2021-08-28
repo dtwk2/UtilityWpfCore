@@ -26,20 +26,7 @@
                 <vm:NotesViewModel />
             </FrameworkElement.DataContext>
    
-            <Panel.Background>
-                <VisualBrush
-                TileMode="Tile" Viewport="0,0,10,10" 
-                ViewportUnits="Absolute" Viewbox="0,0,10,10"
-                ViewboxUnits="Absolute">
-                    <VisualBrush.Visual>
-                        <Canvas>
-                            <Rectangle  Width="10" Height="10" />
-                            <Path Stroke="WhiteSmoke" Data="M 0 0 l 10 10" />
-                        </Canvas>
-                    </VisualBrush.Visual>
-                </VisualBrush>
-            </Panel.Background>
-
+      
 
             <view:MasterControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
 

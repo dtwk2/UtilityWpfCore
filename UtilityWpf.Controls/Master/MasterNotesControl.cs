@@ -78,28 +78,33 @@ namespace UtilityWpf.Controls
 
         protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
         {
+            if (string.IsNullOrEmpty(DisplayMemberPath))
+                return;
             if (element is not Control control)
                 return;
             _ = control.ApplyTemplate();
             if (element.ChildOfType<TextBox>() is not TextBox textBox)
                 return;
-            if (string.IsNullOrEmpty(DisplayMemberPath))
-            {
-                return;
-            }
-            Binding myBinding = new Binding
-            {
-                Source = item,
-                Path = new PropertyPath(DisplayMemberPath),
-                Mode = BindingMode.TwoWay,
-                UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
-            };
-            BindingOperations.SetBinding(textBox, TextBox.TextProperty, myBinding);
+
+            BindingOperations.SetBinding(textBox, TextBox.TextProperty, CreateBinding(item));
 
             textBox.MouseLeftButtonDown += TextBox_MouseLeftButtonDown;
             textBox.GotFocus += TextBox_GotFocus;
             base.PrepareContainerForItemOverride(element, item);
+
+            Binding CreateBinding(object item)
+            {
+                return new Binding
+                {
+                    Source = item,
+                    Path = new PropertyPath(DisplayMemberPath),
+                    Mode = BindingMode.TwoWay,
+                    UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+                };
+            }
         }
+
+    
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {

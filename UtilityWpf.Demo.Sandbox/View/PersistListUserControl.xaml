@@ -30,7 +30,6 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <DockPanel>
-
         <view:DualButtonControl Main="{Binding Path=Name, Source={StaticResource DatabaseService}}" 
                                 Alternate="{Binding Path=Name, Source={StaticResource LiteDbRepo}}" 
                                 Style="{StaticResource OutlinedDualButtonControl}" 
@@ -43,12 +42,25 @@
         </view:DualButtonControl>
 
         <TabControl>
-
             <TabItem Header="With Detail">
                 <view:MasterDetail>
                     <view:MasterDetail.Selector>
                         <view:MasterControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  
                                                    Orientation="Vertical">
+                            <view:MasterControl.Background>
+                                <VisualBrush   
+                                                TileMode="Tile" Viewport="0,0,10,10" 
+                                                ViewportUnits="Absolute" Viewbox="0,0,10,10"    
+                                                ViewboxUnits="Absolute">
+                                    <VisualBrush.Visual>
+                                        <Canvas>
+                                            <Rectangle  Width="10" Height="10" />
+                                            <Path Stroke="Gray" Data="M 0 0 l 10 10" />
+                                        </Canvas>
+                                    </VisualBrush.Visual>
+                                </VisualBrush>
+                            </view:MasterControl.Background>
+
                             <i:Interaction.Triggers>
                                 <i:EventTrigger  EventName="Change" >
                                     <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
@@ -66,13 +78,12 @@
                                 </i:Interaction.Behaviors>
                             </view:DragablzVerticalItemsControl>
                         </view:MasterControl>
-                    </view:MasterDetail.Selector>        
+                    </view:MasterDetail.Selector>
                 </view:MasterDetail>
-            </TabItem>    
-            
-            
-            <TabItem Header="Without Detail">
+            </TabItem>
 
+
+            <TabItem Header="Without Detail">
                 <view:MasterControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
                     <i:Interaction.Triggers>
                         <i:EventTrigger  EventName="Change" >
@@ -92,10 +103,6 @@
                     </view:DragablzVerticalItemsControl>
                 </view:MasterControl>
             </TabItem>
-            
-            
-            
         </TabControl>
-     
     </DockPanel>
 </UserControl>
