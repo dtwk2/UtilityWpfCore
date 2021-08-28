@@ -5,38 +5,31 @@
     xmlns:local1="clr-namespace:UtilityWpf;assembly=UtilityWpf"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
-    <ResourceDictionary.MergedDictionaries>
-        <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/themes/MaterialDesignTheme.Button.xaml" />-->
-    </ResourceDictionary.MergedDictionaries>
 
     <local1:CountToBooleanConverter x:Key="CountToBoolean" />
     <local1:IsFirstItemSelectedConverter x:Key="IsFirstItemSelected" Invert="True" />
     <local1:IsLastItemSelectedConverter x:Key="IsLastItemSelected" Invert="True" />
 
-    <Style BasedOn="{StaticResource {x:Type ContentControl}}" TargetType="{x:Type local:MasterControl}">
+    <Style TargetType="{x:Type local:MasterControl}" BasedOn="{StaticResource {x:Type local:ItemsWrapControl}}">
         <Setter Property="Background" Value="Transparent"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:MasterControl}">
-                    <DockPanel x:Name="DockPanel1" Background="{Binding Background, Source=TemplatedParent}">
-                        <WrapPanel x:Name="WrapPanel1" Margin="2" DockPanel.Dock="Right" Orientation="Vertical" Background="{Binding Background, Source=TemplatedParent}">
-
-                            <Button
-                                x:Name="ButtonMinus"
+                    <DockPanel x:Name="PART_DockPanel" Background="{Binding Background, Source=TemplatedParent}">
+                        <WrapPanel x:Name="PART_WrapPanel">
+                            <Button x:Name="ButtonMinus"
                                 Margin="2"
                                 IsEnabled="{Binding Count, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource CountToBoolean}, ConverterParameter='>0'}"
                                 Style="{DynamicResource MaterialDesignIconButton}">
                                 <materialDesign:PackIcon Kind="Minus" />
                             </Button>
-                            <Button
-                                x:Name="ButtonPlus"
+                            <Button x:Name="ButtonPlus"
                                 Margin="2"
                                 Style="{DynamicResource MaterialDesignIconButton}">
                                 <materialDesign:PackIcon Kind="Add" />
                             </Button>
 
-                            <Button
-                                x:Name="ButtonMoveUp"
+                            <Button x:Name="ButtonMoveUp"
                                 Margin="2"
                                 Style="{DynamicResource MaterialDesignIconButton}">
                                 <Button.IsEnabled>
@@ -47,8 +40,7 @@
                                 </Button.IsEnabled>
                                 <materialDesign:PackIcon Kind="ArrowUp" />
                             </Button>
-                            <Button
-                                x:Name="ButtonMoveDown"
+                            <Button x:Name="ButtonMoveDown"
                                 Margin="2"
                                 Style="{DynamicResource MaterialDesignIconButton}">
                                 <Button.IsEnabled>
@@ -59,41 +51,9 @@
                                 </Button.IsEnabled>
                                 <materialDesign:PackIcon Kind="ArrowDown" />
                             </Button>
-
-                            <!--<materialDesign:PopupBox
-                                Width="50"
-                                Height="50"
-                                Background="Transparent">
-                                <materialDesign:PopupBox.ToggleContent>
-                                    <materialDesign:PackIcon Kind="Add" />
-                                </materialDesign:PopupBox.ToggleContent>
-                                <ItemsControl VerticalAlignment="Top" VerticalContentAlignment="Top">
-                                    <system:String>Option A</system:String>
-                                    <system:String>Option B</system:String>
-                            -->
-                            <!--<ItemsControl.Resources>
-                                    <local:TypeNameConverter x:Key="TypeNameConverter"></local:TypeNameConverter>
-                                </ItemsControl.Resources>-->
-                            <!--
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Button
-                                                Width="50"
-                                                Background="Transparent"
-                                                Content="{Binding}" />
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <WrapPanel />
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                </ItemsControl>
-                            </materialDesign:PopupBox>-->
                         </WrapPanel>
                         <ContentPresenter />
                     </DockPanel>
-
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

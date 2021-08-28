@@ -4,7 +4,6 @@
 
 
     <Style x:Key="NewStyle" TargetType="{x:Type local:MasterDetail}">
-
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:MasterDetail}">
@@ -16,11 +15,8 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="5" />
                             <ColumnDefinition Width="5*" />
-                        </Grid.ColumnDefinitions>
-                        <!--<ListBox x:Name="PART_List" ></ListBox>-->
-                        <ContentControl Content="{TemplateBinding Selector}">
-
-                        </ContentControl>
+                        </Grid.ColumnDefinitions>     
+                        <ContentControl Content="{TemplateBinding Selector}"/>
                         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
                         <ContentPresenter Grid.Column="2"/>
                     </Grid>

@@ -130,6 +130,10 @@
     
     <Compile Update="Dragablz\ItemContainerBorder.cs">
       <DependentUpon>ItemContainerBorder.xaml</DependentUpon>
+    </Compile>  
+    
+    <Compile Update="Master\ItemsWrapControl.cs">
+      <DependentUpon>ItemsWrapControl.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 

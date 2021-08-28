@@ -76,6 +76,7 @@
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Clock.xaml" />
 
         <!-- Master -->
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/ItemsWrapControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/MasterControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/MasterDetailView.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/MasterDetail.xaml" />

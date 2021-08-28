@@ -5,16 +5,13 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using Evan.Wpf;
 using ReactiveUI;
-using System.Collections.Specialized;
-using System.Reactive.Subjects;
 using Dragablz;
 using DynamicData;
 using Microsoft.Xaml.Behaviors;
-using UtilityHelper.NonGeneric;
 using UtilityWpf.Abstract;
+using UtilityWpf.Mixins;
 
 namespace UtilityWpf.Controls
 {
@@ -27,7 +24,7 @@ namespace UtilityWpf.Controls
     }
 
 
-    public class MasterControl : ContentControlx, ISelector, IChange
+    public class MasterControl : ItemsWrapControl, IChange
     {
         [Flags]
         public enum ButtonType
@@ -62,76 +59,42 @@ namespace UtilityWpf.Controls
         }
 
 
-        private Selector Selector => ItemsControl is Selector selector ? selector : throw new Exception($@"The ItemsControl used must be of type {nameof(Selector)} for operation.");
+        // private Selector Selector => ItemsControl is Selector selector ? selector : throw new Exception($@"The ItemsControl used must be of type {nameof(Selector)} for operation.");
 
-        readonly Subject<Orientation> subject = new();
-        readonly Subject<WrapPanel> wrapPanelSubject = new();
+        //readonly Subject<Orientation> subject = new();
+        //readonly Subject<WrapPanel> wrapPanelSubject = new();
 
-        public static readonly DependencyProperty OrientationProperty = DependencyHelper.Register<Orientation>(new PropertyMetadata(Orientation.Horizontal, OrientationChanged));
+        //public static readonly DependencyProperty OrientationProperty = DependencyHelper.Register<Orientation>(new PropertyMetadata(Orientation.Horizontal, OrientationChanged));
 
-        private static void OrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            (d as MasterControl).subject.OnNext((Orientation)e.NewValue);
-        }
+        //private static void OrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        //{
+        //    (d as MasterControl).subject.OnNext((Orientation)e.NewValue);
+        //}
 
-        public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(MasterControl), new PropertyMetadata(null));
-        private static readonly DependencyProperty ItemsControlProperty = DependencyProperty.Register("ItemsControl", typeof(ItemsControl), typeof(MasterControl), new PropertyMetadata(null));
+        //public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(MasterControl), new PropertyMetadata(null));
+        //private static readonly DependencyProperty ItemsControlProperty = DependencyProperty.Register("ItemsControl", typeof(ItemsControl), typeof(MasterControl), new PropertyMetadata(null));
         public static readonly DependencyProperty CommandParameterProperty = DependencyHelper.Register<IEnumerator>();
         public static readonly DependencyProperty RemoveOrderProperty = DependencyHelper.Register<RemoveOrder>(new PropertyMetadata(RemoveOrder.Selected));
-        public static readonly DependencyProperty CountProperty = DependencyHelper.Register<int>();
+        //public static readonly DependencyProperty CountProperty = DependencyHelper.Register<int>();
         public static readonly DependencyProperty ButtonTypesProperty = DependencyHelper.Register<ButtonType>(new PropertyMetadata(ButtonType.All));
         public static readonly RoutedEvent ChangeEvent = EventManager.RegisterRoutedEvent(nameof(Change), RoutingStrategy.Bubble, typeof(CollectionChangedEventHandler), typeof(MasterControl));
-        public static readonly RoutedEvent SelectionChangedEvent = EventManager.RegisterRoutedEvent(nameof(SelectionChanged), RoutingStrategy.Bubble, typeof(SelectionChangedEventHandler), typeof(MasterControl));
+        //public static readonly RoutedEvent SelectionChangedEvent = EventManager.RegisterRoutedEvent(nameof(SelectionChanged), RoutingStrategy.Bubble, typeof(SelectionChangedEventHandler), typeof(MasterControl));
 
         static MasterControl()
         {
-            FrameworkElement.DefaultStyleKeyProperty.OverrideMetadata(typeof(MasterControl), new FrameworkPropertyMetadata(typeof(MasterControl)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(MasterControl), new FrameworkPropertyMetadata(typeof(MasterControl)));
         }
 
         public MasterControl()
         {
-            // should be on ui thread;
-            // SynchronizationContext context = new();
-            this.subject
-                .CombineLatest(wrapPanelSubject)
-                .Where(a => a.Second != null)
-                //.SubscribeOn(context)
-                //.ObserveOn(context)
-                .Subscribe(c =>
-                {
-                    var (orientation, dockPanel) = c;
-
-                    if (orientation == Orientation.Horizontal)
-                    {
-                        DockPanel.SetDock(dockPanel, Dock.Right);
-                        dockPanel.Orientation = Orientation.Vertical;
-                    }
-                    else if (orientation == Orientation.Vertical)
-                    {
-                        DockPanel.SetDock(dockPanel, Dock.Bottom);
-                        dockPanel.Orientation = Orientation.Horizontal;
-                    }
-                });
         }
 
         #region properties
-
-        public int Count
-        {
-            get { return (int)GetValue(CountProperty); }
-            set { SetValue(CountProperty, value); }
-        }
 
         public IEnumerator CommandParameter
         {
             get { return (IEnumerator)GetValue(CommandParameterProperty); }
             set { SetValue(CommandParameterProperty, value); }
-        }
-
-        public Orientation Orientation
-        {
-            get { return (Orientation)GetValue(OrientationProperty); }
-            set { SetValue(OrientationProperty, value); }
         }
 
         public RemoveOrder RemoveOrder
@@ -152,54 +115,7 @@ namespace UtilityWpf.Controls
             remove { RemoveHandler(ChangeEvent, value); }
         }
 
-        public event SelectionChangedEventHandler SelectionChanged
-        {
-            add => AddHandler(SelectionChangedEvent, value);
-            remove => RemoveHandler(SelectionChangedEvent, value);
-        }
-
         #endregion properties
-
-
-        public virtual object? SelectedItem
-        {
-            get
-            {
-                return ItemsControl switch
-                {
-                    Selector selector => selector.SelectedItem,
-                    ISelector selector => selector.SelectedItem,
-                    _ => null,
-                };
-
-            }
-        }
-
-        public virtual int SelectedIndex
-        {
-            get
-            {
-                return ItemsControl switch
-                {
-                    Selector selector => selector.SelectedIndex,
-                    ISelector selector => selector.SelectedIndex,
-                    _ => -1,
-                };
-
-            }
-        }
-
-        public IEnumerable ItemsSource
-        {
-            get { return (IEnumerable)GetValue(ItemsSourceProperty); }
-            set { SetValue(ItemsSourceProperty, value); }
-        }
-
-        public ItemsControl ItemsControl
-        {
-            get { return (ItemsControl)GetValue(ItemsControlProperty); }
-            private set { SetValue(ItemsControlProperty, value); }
-        }
 
         public override void OnApplyTemplate()
         {
@@ -209,99 +125,23 @@ namespace UtilityWpf.Controls
             var buttonMoveDown = this.GetTemplateChild("ButtonMoveDown") as Button;
 
 
-            buttonAdd.Visibility = ButtonTypes.HasFlag(ButtonType.Add) ? Visibility.Visible : Visibility.Collapsed;
-            buttonRemove.Visibility = ButtonTypes.HasFlag(ButtonType.Remove) ? Visibility.Visible : Visibility.Collapsed;
-            buttonMoveUp.Visibility = ButtonTypes.HasFlag(ButtonType.MoveUp) ? Visibility.Visible : Visibility.Collapsed;
-            buttonMoveDown.Visibility = ButtonTypes.HasFlag(ButtonType.MoveDown) ? Visibility.Visible : Visibility.Collapsed;
+            this.Observable<ButtonType>().Subscribe(buttonType =>
+           {
+               buttonAdd.Visibility = buttonType.HasFlag(ButtonType.Add) ? Visibility.Visible : Visibility.Collapsed;
+               buttonRemove.Visibility = buttonType.HasFlag(ButtonType.Remove) ? Visibility.Visible : Visibility.Collapsed;
+               buttonMoveUp.Visibility = buttonType.HasFlag(ButtonType.MoveUp) ? Visibility.Visible : Visibility.Collapsed;
+               buttonMoveDown.Visibility = buttonType.HasFlag(ButtonType.MoveDown) ? Visibility.Visible : Visibility.Collapsed;
+           });
 
-
-            var dockPanel = this.GetTemplateChild("DockPanel1") as DockPanel;
-            var wrapPanel = this.GetTemplateChild("WrapPanel1") as WrapPanel;
-            wrapPanelSubject.OnNext(wrapPanel);
             buttonAdd.Click += (s, e) => ExecuteAdd();
             buttonRemove.Click += (s, e) => ExecuteRemove();
             buttonMoveUp.Click += (s, e) => ExecuteMoveUp();
             buttonMoveDown.Click += (s, e) => ExecuteMoveDown();
-
-            ItemsControl = (this.Content as ItemsControl) ?? (this.Content as DependencyObject)?.FindVisualChildren<ItemsControl>().SingleOrDefault()!;
-            if (ItemsControl != null)
-            {
-                //this.SetValue(ItemsSourceProperty, itemsControl.ItemsSource);
-                ItemsControl.WhenAnyValue(c => c.ItemsSource)
-
-                    .Subscribe(itemsSource =>
-                    {
-                        if (this.ItemsSource == null)
-                            this.ItemsSource = itemsSource;
-                    });
-            }
-            else
-                throw new Exception($"Expected content to derive from type of {nameof(ItemsControl)}.");
-
-            if (ItemsControl is ISelector selectionChanged)
-            {
-                selectionChanged.SelectionChanged += (s, e) =>
-                {
-                    this.RaiseEvent(new SelectionChangedEventArgs(SelectionChangedEvent, e.RemovedItems, e.AddedItems));
-                    //this.SetValue(MasterControl.CountProperty, selectionChanged.ItemsSource.Count());
-                };
-            }
-            // Unlikely to be both ISelectionChanged and Selector
-            if (ItemsControl is Selector selector)
-            {
-                selector.SelectionChanged += (s, e) =>
-                {
-                    this.RaiseEvent(new SelectionChangedEventArgs(SelectionChangedEvent, e.RemovedItems, e.AddedItems));
-                    this.SetValue(CountProperty, selector.ItemsSource.Count());
-                };
-                this.SetValue(CountProperty, selector.ItemsSource.Count());
-            }
-            else if (ItemsControl.ItemsSource is INotifyCollectionChanged changed)
-            {
-                changed.CollectionChanged += (s, e) =>
-                {
-                    this.SetValue(CountProperty, ItemsControl.ItemsSource.Count());
-                };
-            }
-            else
-            {
-                wrapPanel.DataContext = ItemsControl.ItemsSource;
-
-                ItemsControl
-                    .WhenAnyValue(a => a.ItemsSource)
-                     .WhereNotNull()
-                     .DistinctUntilChanged()
-                    .Subscribe(iSource =>
-                    {
-                        if (iSource is INotifyCollectionChanged changed)
-                        {
-                            changed.CollectionChanged += (s, e) =>
-                            {
-                                this.SetValue(CountProperty, iSource.Count());
-                            };
-
-                            Count = iSource.Count();
-                        }
-                        // ItemsSource = iSource;
-                    });
-            }
-            Count = ItemsSource?.Count() ?? 0;
-
-            this.WhenAnyValue(a => a.ItemsSource)
-
-                .Subscribe(a =>
-            {
-                if (a != null)
-                    ItemsControl.ItemsSource = a;
-            });
-
             base.OnApplyTemplate();
         }
 
         protected virtual void ExecuteAdd()
         {
-            //if (CommandParameter == null)
-            //    throw new Exception($"{nameof(CommandParameter)} is null");
             if (CommandParameter?.MoveNext() == true)
             {
                 if (Content is DragablzItemsControl itemsControl)
