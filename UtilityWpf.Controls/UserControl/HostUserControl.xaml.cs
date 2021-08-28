@@ -29,7 +29,7 @@ namespace UtilityWpf.Controls
             // UserControls
             InitializeComponent();
 
-            this.DockPanel1.DataContext = this;
+            this.PART_DockPanel.DataContext = this;
 
             _ = subject
                 .Amb(Observable.Return(Assembly).Delay(TimeSpan.FromSeconds(1)))

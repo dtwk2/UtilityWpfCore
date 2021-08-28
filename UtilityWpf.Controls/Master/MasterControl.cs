@@ -58,27 +58,10 @@ namespace UtilityWpf.Controls
             public object Object { get; }
         }
 
-
-        // private Selector Selector => ItemsControl is Selector selector ? selector : throw new Exception($@"The ItemsControl used must be of type {nameof(Selector)} for operation.");
-
-        //readonly Subject<Orientation> subject = new();
-        //readonly Subject<WrapPanel> wrapPanelSubject = new();
-
-        //public static readonly DependencyProperty OrientationProperty = DependencyHelper.Register<Orientation>(new PropertyMetadata(Orientation.Horizontal, OrientationChanged));
-
-        //private static void OrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        //{
-        //    (d as MasterControl).subject.OnNext((Orientation)e.NewValue);
-        //}
-
-        //public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(MasterControl), new PropertyMetadata(null));
-        //private static readonly DependencyProperty ItemsControlProperty = DependencyProperty.Register("ItemsControl", typeof(ItemsControl), typeof(MasterControl), new PropertyMetadata(null));
         public static readonly DependencyProperty CommandParameterProperty = DependencyHelper.Register<IEnumerator>();
         public static readonly DependencyProperty RemoveOrderProperty = DependencyHelper.Register<RemoveOrder>(new PropertyMetadata(RemoveOrder.Selected));
-        //public static readonly DependencyProperty CountProperty = DependencyHelper.Register<int>();
         public static readonly DependencyProperty ButtonTypesProperty = DependencyHelper.Register<ButtonType>(new PropertyMetadata(ButtonType.All));
         public static readonly RoutedEvent ChangeEvent = EventManager.RegisterRoutedEvent(nameof(Change), RoutingStrategy.Bubble, typeof(CollectionChangedEventHandler), typeof(MasterControl));
-        //public static readonly RoutedEvent SelectionChangedEvent = EventManager.RegisterRoutedEvent(nameof(SelectionChanged), RoutingStrategy.Bubble, typeof(SelectionChangedEventHandler), typeof(MasterControl));
 
         static MasterControl()
         {

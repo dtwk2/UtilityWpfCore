@@ -27,5 +27,10 @@ namespace UtilityWpf.TestData.Model
         {
             return fieldsFaker.Value.GenerateForever().GetEnumerator();
         }
+
+        public IEnumerable<Fields> BuildCollection()
+        {
+            return fieldsFaker.Value.GenerateLazy(5);
+        }
     }
 }
