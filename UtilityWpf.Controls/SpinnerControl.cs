@@ -33,6 +33,8 @@ namespace UtilityWpf.Controls.Extrinsic
         private static readonly DependencyProperty MaximumValueProperty = DependencyProperty.Register("Maximum", typeof(decimal), typeof(SpinnerControl), new PropertyMetadata(DefaultMaximumValue));
         private static readonly DependencyProperty DecimalPlacesProperty = DependencyProperty.Register("DecimalPlaces", typeof(int), typeof(SpinnerControl), new PropertyMetadata(DefaultDecimalPlaces));
         private static readonly DependencyProperty ChangeProperty = DependencyProperty.Register("Change", typeof(decimal), typeof(SpinnerControl), new PropertyMetadata(DefaultChange));
+        public static readonly DependencyProperty StringFormatProperty =    DependencyProperty.Register("StringFormat", typeof(string), typeof(SpinnerControl), new PropertyMetadata("f"));
+
         public static RoutedCommand IncreaseCommand { get; set; } = new RoutedCommand("IncreaseCommand", typeof(SpinnerControl));
         public static RoutedCommand DecreaseCommand { get; set; } = new RoutedCommand("DecreaseCommand", typeof(SpinnerControl));
 
@@ -55,18 +57,13 @@ namespace UtilityWpf.Controls.Extrinsic
         {
         }
 
-
+        #region properties
 
         public string StringFormat
         {
             get { return (string)GetValue(StringFormatProperty); }
             set { SetValue(StringFormatProperty, value); }
         }
-
-        // Using a DependencyProperty as the backing store for StringFormat.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty StringFormatProperty =
-            DependencyProperty.Register("StringFormat", typeof(string), typeof(SpinnerControl), new PropertyMetadata("f"));
-
 
 
         public decimal Value
@@ -105,6 +102,9 @@ namespace UtilityWpf.Controls.Extrinsic
             remove { RemoveHandler(ValueChangedEvent, value); }
         }
 
+        #endregion properties
+
+
         protected static void OnIncreaseCommand(object sender, ExecutedRoutedEventArgs e)
         {
             SpinnerControl control = sender as SpinnerControl;
@@ -124,9 +124,7 @@ namespace UtilityWpf.Controls.Extrinsic
 
         protected static void OnDecreaseCommand(object sender, ExecutedRoutedEventArgs e)
         {
-            SpinnerControl control = sender as SpinnerControl;
-
-            if (control != null)
+            if (sender is SpinnerControl control)
             {
                 control.OnDecrease();
             }
@@ -168,8 +166,7 @@ namespace UtilityWpf.Controls.Extrinsic
         /// <param name="args"></param>
         private static void OnValueChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
         {
-            SpinnerControl control = obj as SpinnerControl;
-            if (control != null)
+            if (obj is SpinnerControl control)
             {
                 var newValue = (decimal)args.NewValue;
                 var oldValue = (decimal)args.OldValue;
@@ -194,9 +191,8 @@ namespace UtilityWpf.Controls.Extrinsic
         private static object CoerceValue(DependencyObject obj, object value)
         {
             decimal newValue = (decimal)value;
-            SpinnerControl control = obj as SpinnerControl;
 
-            if (control != null)
+            if (obj is SpinnerControl control)
             {
                 //  ensure that the value stays within the bounds of the minimum and
                 //  maximum values that we define.

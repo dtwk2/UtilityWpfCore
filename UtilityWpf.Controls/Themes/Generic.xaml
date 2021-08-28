@@ -103,7 +103,7 @@
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Extrinsic/AnimatedListBox.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Extrinsic/AnimatedScrollViewer.xaml" />
 
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/TypeControl.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/TypeControl.xaml"/>
 
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/ViewCollection.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DualButtonControl.xaml" />
@@ -117,14 +117,16 @@
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/HeaderedListBox.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/CompareTextBlock.xaml" />
 
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/ShortTimeSpanControl.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/SpinnerControl.xaml" />
+
         <!--  Extrinsic  -->
 
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/SliderWithTickLabels.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/TimeBar.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/CompareSlider.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/IpAddrBox.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/SpinnerControl.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/ShortTimeSpanControl.xaml" />
+        <!--<ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/SpinnerControl.xaml" />-->
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/IpAddrBox.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/FilterControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/LoopingListBox.xaml" />

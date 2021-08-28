@@ -277,6 +277,10 @@
     <Page Update="Themes\SliderItemsControl.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Themes\SpinnerControl.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Themes\SwitchControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>

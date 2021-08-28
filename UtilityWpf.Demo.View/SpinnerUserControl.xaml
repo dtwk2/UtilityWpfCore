@@ -14,7 +14,7 @@
     mc:Ignorable="d">
     <UniformGrid Columns="1">
 
-        <extrinsic:SpinnerControl Width="200" />
+        <view:SpinnerControl Width="200" />
 
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
             <view:TimeSpanControl
@@ -40,7 +40,7 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
 
-            <extrinsic:ShortTimeSpanControl x:Name="shortTimeSpanControl1" Width="300" />
+            <view:ShortTimeSpanControl x:Name="shortTimeSpanControl1" Width="300" />
 
             <TextBlock
                 x:Name="label1"
