@@ -59,7 +59,7 @@
                     </x:Array>
                 </view:WrapControl.ControlsCollection>
 
-                <ItemsControl  ItemsSource="{Binding Collection}"  ScrollViewer.VerticalScrollBarVisibility="Visible">
+                <ItemsControl  ItemsSource="{Binding Collection}" >
 
                 </ItemsControl>
             </view:WrapControl>
