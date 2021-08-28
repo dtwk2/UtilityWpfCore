@@ -28,7 +28,7 @@
             </Style>
 
             <Style TargetType="{x:Type local:NumberItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
-                <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>         
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
                 <Setter Property="MinWidth" Value="100"></Setter>
                 <Setter Property="Template">
                     <Setter.Value>
@@ -40,7 +40,7 @@
                                 </Viewbox.RenderTransform>
                                 <UniformGrid Columns="1">
                                     <TextBlock Height="25" Width="50" ></TextBlock>
-                                    <NumberBox Height="25" Width="50" SpinButtonPlacementMode="Inline"></NumberBox>                                
+                                    <NumberBox Height="25" Width="100" SpinButtonPlacementMode="Inline"></NumberBox>
                                 </UniformGrid>
                             </Viewbox>
                         </ControlTemplate>
