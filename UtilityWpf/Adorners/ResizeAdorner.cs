@@ -7,7 +7,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace UtilityWpf
+namespace UtilityWpf.Adorners
 {
 
 
@@ -97,7 +97,7 @@ namespace UtilityWpf
                 Height = adornedElement.RenderSize.Height,
                 Fill = Brushes.Transparent,
                 Stroke = Brushes.Green,
-                StrokeThickness = (double)1
+                StrokeThickness = 1
             };
 
         }
@@ -145,7 +145,7 @@ namespace UtilityWpf
                     //        element.Width += e.HorizontalChange;
                     //    }
                     //    break;
-                    case HorizontalAlignment.Right when (element.Width + e.HorizontalChange > MINIMAL_SIZE):
+                    case HorizontalAlignment.Right when element.Width + e.HorizontalChange > MINIMAL_SIZE:
                         element.Width += e.HorizontalChange;
                         thumbRectangle.Width += e.HorizontalChange;
                         break;
@@ -188,15 +188,15 @@ namespace UtilityWpf
         {
             back.Opacity = 1;
             var fef = new FrameworkElementFactory(typeof(Ellipse));
-            fef.SetValue(Ellipse.FillProperty, back);
-            fef.SetValue(Ellipse.StrokeProperty, Brushes.Green);
-            fef.SetValue(Ellipse.StrokeThicknessProperty, (double)1);
+            fef.SetValue(Shape.FillProperty, back);
+            fef.SetValue(Shape.StrokeProperty, Brushes.Green);
+            fef.SetValue(Shape.StrokeThicknessProperty, (double)1);
             return fef;
         }
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            double offset = (THUMB_SIZE / 2);
+            double offset = THUMB_SIZE / 2;
             Size sz = new Size(THUMB_SIZE, THUMB_SIZE);
 
             topLeftThumb.Arrange(new Rect(new Point(-offset, -offset), sz));
