@@ -195,9 +195,6 @@
     <Page Update="Themes\DynamicDataGrid.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\EnumComboBox.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-    </Page>
     <Page Update="Themes\ExpandItemStyle.xaml">
       <SubType>Designer</SubType>
     </Page>

@@ -108,7 +108,6 @@
 
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/ViewCollection.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DualButtonControl.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/EnumComboBox.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/IconContentControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/SwitchControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/LabelledInput.xaml" />
@@ -127,7 +126,6 @@
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/TimeBar.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/CompareSlider.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/IpAddrBox.xaml" />
-        <!--<ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/SpinnerControl.xaml" />-->
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/IpAddrBox.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/FilterControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/LoopingListBox.xaml" />
