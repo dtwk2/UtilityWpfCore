@@ -24,7 +24,7 @@ namespace UtilityWpf.Controls
 
         static WrapControl()
         {
-           // DefaultStyleKeyProperty.OverrideMetadata(typeof(WrapControl), new FrameworkPropertyMetadata(typeof(WrapControl)));
+            // DefaultStyleKeyProperty.OverrideMetadata(typeof(WrapControl), new FrameworkPropertyMetadata(typeof(WrapControl)));
         }
 
 
@@ -208,7 +208,7 @@ namespace UtilityWpf.Controls
                     this.RaiseEvent(new SelectionChangedEventArgs(SelectionChangedEvent, e.RemovedItems, e.AddedItems));
                     this.SetValue(CountProperty, selector.ItemsSource.Count());
                 };
-                this.SetValue(CountProperty, selector.ItemsSource.Count());
+                this.SetValue(CountProperty, selector.ItemsSource?.Count() ?? 0);
             }
             else if (ItemsControl.ItemsSource is INotifyCollectionChanged changed)
             {
