@@ -81,7 +81,12 @@ namespace UtilityWpf.Controls
         {
             this.Control<WrapPanel>().Subscribe(wrapPanelSubject);
 
-            this.Observable<Orientation>()
+            wrapPanelSubject.Subscribe(a =>
+            {
+
+            });
+
+            this.WhenAnyValue(a => a.Orientation)
                 .CombineLatest(wrapPanelSubject)
                 .Where(a => a.Second != null)
                 .Subscribe(c =>

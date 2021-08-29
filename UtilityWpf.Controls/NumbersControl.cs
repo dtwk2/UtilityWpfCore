@@ -1,10 +1,15 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
-using UniversalWPF;
+using UtilityWpf.Controls.Extrinsic;
 
-namespace UtilityWpf.Demo.SandBox
+namespace UtilityWpf.Controls
 {
     public class ListBox<T> : ListBox where T : DependencyObject, new()
     {
@@ -35,18 +40,18 @@ namespace UtilityWpf.Demo.SandBox
     {
         static NumberItem()
         {
-            FrameworkElement.DefaultStyleKeyProperty.OverrideMetadata(typeof(NumberItem), new FrameworkPropertyMetadata(typeof(NumberItem)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(NumberItem), new FrameworkPropertyMetadata(typeof(NumberItem)));
         }
     }
 
-    class NumbersControl : ListBox<NumberItem>
+    public class NumbersControl : ListBox<NumberItem>
     {
 
         public static readonly DependencyProperty DisplayKeyPathProperty = DependencyProperty.Register("DisplayKeyPath", typeof(string), typeof(NumbersControl), new PropertyMetadata(null));
 
         static NumbersControl()
         {
-            FrameworkElement.DefaultStyleKeyProperty.OverrideMetadata(typeof(NumbersControl), new FrameworkPropertyMetadata(typeof(NumbersControl)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(NumbersControl), new FrameworkPropertyMetadata(typeof(NumbersControl)));
         }
 
         public string DisplayKeyPath
@@ -64,7 +69,7 @@ namespace UtilityWpf.Demo.SandBox
 
             SetTextBinding(item, viewModel);
             SetValueBinding(item, viewModel);
-  
+
             return item;
         }
 
@@ -93,10 +98,10 @@ namespace UtilityWpf.Demo.SandBox
             if (string.IsNullOrEmpty(DisplayMemberPath))
                 return;
 
-            if (item.ChildOfType<NumberBox>() is not NumberBox numberBox)
+            if (item.ChildOfType<SpinnerControl>() is not SpinnerControl numberBox)
                 return;
 
-            BindingOperations.SetBinding(numberBox, NumberBox.ValueProperty, CreateBinding(viewModel));
+            BindingOperations.SetBinding(numberBox, SpinnerControl.ValueProperty, CreateBinding(viewModel));
 
 
             Binding CreateBinding(object item)

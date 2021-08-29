@@ -74,6 +74,8 @@
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/TimeSpanControl.xaml" />
   
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Clock.xaml" />
+        
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/NumbersControl.xaml" />
 
         <!-- Master -->
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/ItemsWrapControl.xaml" />
@@ -82,6 +84,7 @@
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/MasterDetail.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/MasterNotesControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/MasterGroupsControl.xaml" />      
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/MeasurementsControl.xaml" />      
         
         
         <!-- Dragabalz -->

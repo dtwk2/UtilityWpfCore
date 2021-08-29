@@ -29,7 +29,7 @@ namespace UtilityWpf.Controls.Extrinsic
         private static readonly DependencyProperty MinimumValueProperty = DependencyProperty.Register("Minimum", typeof(decimal), typeof(SpinnerControl), new PropertyMetadata(DefaultMinimumValue));
         private static readonly DependencyPropertyKey FormattedValuePropertyKey = DependencyProperty.RegisterAttachedReadOnly("FormattedValue", typeof(string), typeof(SpinnerControl), new PropertyMetadata(DefaultValue.ToString()));
         private static readonly DependencyProperty FormattedValueProperty = FormattedValuePropertyKey.DependencyProperty;
-        private static readonly DependencyProperty ValueProperty = DependencyProperty.Register("Value", typeof(decimal), typeof(SpinnerControl), new FrameworkPropertyMetadata(DefaultValue, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnValueChanged, CoerceValue));
+        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register("Value", typeof(decimal), typeof(SpinnerControl), new FrameworkPropertyMetadata(DefaultValue, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnValueChanged, CoerceValue));
         private static readonly DependencyProperty MaximumValueProperty = DependencyProperty.Register("Maximum", typeof(decimal), typeof(SpinnerControl), new PropertyMetadata(DefaultMaximumValue));
         private static readonly DependencyProperty DecimalPlacesProperty = DependencyProperty.Register("DecimalPlaces", typeof(int), typeof(SpinnerControl), new PropertyMetadata(DefaultDecimalPlaces));
         private static readonly DependencyProperty ChangeProperty = DependencyProperty.Register("Change", typeof(decimal), typeof(SpinnerControl), new PropertyMetadata(DefaultChange));

@@ -83,12 +83,12 @@
             <UniformGrid Rows="1">
                 <ComboBox x:Name="ComboBox">
                     <i:Interaction.Behaviors>
-                        <utl:EnumListBehavior EnumType="{x:Type Visibility}"></utl:EnumListBehavior>
+                        <utl:EnumSelectorBehavior EnumType="{x:Type Visibility}"></utl:EnumSelectorBehavior>
                     </i:Interaction.Behaviors>
                 </ComboBox>
                 <ListBox Visibility="{Binding ElementName=ComboBox, Path=SelectedValue}" Background="HotPink">
                     <i:Interaction.Behaviors>
-                        <utl:EnumListBehavior EnumType="{x:Type HorizontalAlignment}"></utl:EnumListBehavior>
+                        <utl:EnumSelectorBehavior EnumType="{x:Type HorizontalAlignment}"></utl:EnumSelectorBehavior>
                     </i:Interaction.Behaviors>
                 </ListBox>
             </UniformGrid>
