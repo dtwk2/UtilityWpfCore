@@ -3,50 +3,23 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:UtilityWpf.Demo.SandBox" xmlns:view="http://schemas.utility.com"
+        xmlns:local="clr-namespace:UtilityWpf.Demo.SandBox"
+        xmlns:view="http://schemas.utility.com"
+        xmlns:un="clr-namespace:UnitsNet.Units;assembly=UnitsNet"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:utl="http://schemas.utility.com/utilitywpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <FrameworkElement.DataContext>
         <local:ViewModel></local:ViewModel>
     </FrameworkElement.DataContext>
     <UniformGrid Rows="1">
-        <local:NumbersControl ItemsSource="{Binding Collection}" DisplayMemberPath="Value" DisplayKeyPath="Header">
-            
-        </local:NumbersControl>
-        
-    
-        <view:WrapControl Orientation="Vertical">
-            <view:WrapControl.Style>
-                <Style TargetType="{x:Type view:WrapControl}" BasedOn="{StaticResource {x:Type view:WrapControl}}">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type view:WrapControl}">
-                                <DockPanel x:Name="PART_DockPanel" Background="{Binding Background, Source=TemplatedParent}">
-                                    <WrapPanel x:Name="PART_WrapPanel">
-                                        <Button Height="40" Width="250">
-                                            A Button
-                                        </Button>
+        <!--<local:NumbersControl ItemsSource="{Binding Collection}" DisplayMemberPath="Value" DisplayKeyPath="Header"/>-->
 
-                                        <Button Height="40" Width="150">
-                                            A Button
-                                        </Button>
-
-                                        <TextBox Height="40" Width="150">
-                                            A TextBox
-                                        </TextBox>
-                                        <view:EnumComboBox EnumType="{x:Type Visibility}" SelectedIndex="0" Width="200" Height="30"/>
-                                    </WrapPanel>
-                                    <ContentPresenter />
-                                </DockPanel>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </view:WrapControl.Style>
-            <local:NumbersControl ItemsSource="{Binding Collection}" DisplayMemberPath="Value" DisplayKeyPath="Header">
-
-            </local:NumbersControl>
-        </view:WrapControl>
+        <local:MeasurementsControl
+            DisplayMemberPath="Value" DisplayKeyPath="Header"
+            ItemsSource="{Binding Collection}" 
+            Unit="{x:Static un:LengthUnit.AstronomicalUnit}"></local:MeasurementsControl>
 
     </UniformGrid>
 </Window>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media;
 using UniversalWPF;
 using UtilityWpf;
 
@@ -23,7 +24,7 @@ namespace UtilityWpf.Demo.SandBox
             InitialiseItem(element as T, item);
             base.PrepareContainerForItemOverride(element, item);
         }
- 
+
 
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
@@ -54,32 +55,22 @@ namespace UtilityWpf.Demo.SandBox
             FrameworkElement.DefaultStyleKeyProperty.OverrideMetadata(typeof(NumbersControl), new FrameworkPropertyMetadata(typeof(NumbersControl)));
         }
 
-
-        //public string DisplayValuePath
-        //{
-        //    get { return (string)GetValue(DisplayValuePathProperty); }
-        //    set { SetValue(DisplayValuePathProperty, value); }
-        //}
-
-
         public string DisplayKeyPath
         {
             get { return (string)GetValue(DisplayKeyPathProperty); }
             set { SetValue(DisplayKeyPathProperty, value); }
         }
 
-
-
         protected override NumberItem InitialiseItem(NumberItem item, object viewModel)
         {
             if (item is not Control control)
                 return item;
-       
-            _ = control.ApplyTemplate();
+            if (VisualTreeHelper.GetChildrenCount(control) == 0)
+                _ = control.ApplyTemplate();
 
             NewMethod(item, viewModel);
             NewMethod1(item, viewModel);
-  
+
             //textBox.MouseLeftButtonDown += TextBox_MouseLeftButtonDown;
             //textBox.GotFocus += TextBox_GotFocus;
             //base.PrepareContainerForItemOverride(element, item);
@@ -111,9 +102,9 @@ namespace UtilityWpf.Demo.SandBox
         {
             if (string.IsNullOrEmpty(DisplayMemberPath))
                 return;
-    
+
             if (item.ChildOfType<NumberBox>() is not NumberBox numberBox)
-                return; 
+                return;
 
             BindingOperations.SetBinding(numberBox, NumberBox.ValueProperty, CreateBinding(viewModel));
 

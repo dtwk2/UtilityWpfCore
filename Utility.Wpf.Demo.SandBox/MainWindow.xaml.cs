@@ -24,6 +24,7 @@ namespace UtilityWpf.Demo.SandBox
         public MainWindow()
         {
             InitializeComponent();
+       
         }
     }
 
