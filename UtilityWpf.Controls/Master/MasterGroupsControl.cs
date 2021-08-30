@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows;
-using Dragablz;
 using ReactiveUI;
 using System.Reactive.Linq;
 using System.Windows.Media.Animation;
@@ -15,6 +11,8 @@ namespace UtilityWpf.Controls
 {
     public class MasterGroupsControl : MasterBindableControl
     {
+        public static readonly DependencyProperty IsReadOnlyPathProperty = DependencyProperty.Register("IsReadOnlyPath", typeof(string), typeof(MasterGroupsControl), new PropertyMetadata(null));
+
         static MasterGroupsControl()
         {
             FrameworkElement.DefaultStyleKeyProperty.OverrideMetadata(typeof(MasterGroupsControl), new FrameworkPropertyMetadata(typeof(MasterGroupsControl)));
@@ -23,6 +21,11 @@ namespace UtilityWpf.Controls
         public MasterGroupsControl()
         {
         }
+        public string IsReadOnlyPath
+        {
+            get => (string)GetValue(IsReadOnlyPathProperty);
+            set => SetValue(IsReadOnlyPathProperty, value);
+        }
 
         public override void OnApplyTemplate()
         {
@@ -30,7 +33,7 @@ namespace UtilityWpf.Controls
             {
                 DisplayMemberPath = this.DisplayMemberPath,
                 ItemsSource = this.ItemsSource,
-
+                IsReadOnlyPath = this.IsReadOnlyPath
             };
 
 
@@ -45,6 +48,7 @@ namespace UtilityWpf.Controls
                              {
                                  msn.ItemsSource = this.ItemsSource;
                                  msn.DisplayMemberPath = this.DisplayMemberPath;
+                                 msn.IsReadOnlyPath = this.IsReadOnlyPath;
                              }
                              else
                              {
@@ -56,7 +60,7 @@ namespace UtilityWpf.Controls
                              oLabelAngleAnimation.From = 0;
                              oLabelAngleAnimation.To = this?.ActualHeight ?? 0;
                              oLabelAngleAnimation.Duration = new Duration(new TimeSpan(0, 0, 0, 0, 500));
-                             this.BeginAnimation(MasterBindableControl.HeightProperty, oLabelAngleAnimation);
+                             this.BeginAnimation(HeightProperty, oLabelAngleAnimation);
                              Visibility = Visibility.Visible;
 
                          }, System.Windows.Threading.DispatcherPriority.Background);
@@ -65,13 +69,49 @@ namespace UtilityWpf.Controls
 
             base.OnApplyTemplate();
         }
+
+        protected override void ExecuteAdd()
+        {
+            ExecuteAddRemove(true);
+            base.ExecuteAdd();
+        }
+
+
+        protected override void ExecuteRemove()
+        {
+            ExecuteAddRemove(false);
+            base.ExecuteRemove();
+        }
+
+        private void ExecuteAddRemove(bool isAdd)
+        {
+            if (SelectedItem is UIElement elem)
+            {
+      
+                elem.SetValue(Attached.Ex.IsReadOnlyProperty, isAdd);
+            }
+            else
+            {
+                var container = this.ItemsControl.ItemContainerGenerator.ContainerFromItem(SelectedItem);
+                container.SetValue(Attached.Ex.IsReadOnlyProperty, isAdd);
+            }
+        }
     }
 
     public class MasterGroupsItemsControl : DragablzVerticalItemsControl
     {
+        public static readonly DependencyProperty IsReadOnlyPathProperty = DependencyProperty.Register("IsReadOnlyPath", typeof(string), typeof(MasterGroupsItemsControl), new PropertyMetadata(null));
+
+
         static MasterGroupsItemsControl()
         {
             FrameworkElement.DefaultStyleKeyProperty.OverrideMetadata(typeof(MasterGroupsItemsControl), new FrameworkPropertyMetadata(typeof(MasterGroupsItemsControl)));
+        }
+
+        public string IsReadOnlyPath
+        {
+            get => (string)GetValue(IsReadOnlyPathProperty);
+            set => SetValue(IsReadOnlyPathProperty, value);
         }
 
         protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
@@ -79,6 +119,7 @@ namespace UtilityWpf.Controls
             if (element is Control control)
             {
                 SetBinding(control, item);
+                SetIsReadOnlyBinding(control, item);
             }
             base.PrepareContainerForItemOverride(element, item);
         }
@@ -89,7 +130,7 @@ namespace UtilityWpf.Controls
             if (string.IsNullOrEmpty(DisplayMemberPath))
                 return;
             _ = element.ApplyTemplate();
-            if (element.ChildOfType<TextBlock>() is not TextBlock textBox)
+            if (element.ChildOfType<TextBlock>() is not TextBlock textBlock)
                 return;
       
             Binding myBinding = new Binding
@@ -98,7 +139,22 @@ namespace UtilityWpf.Controls
                 Path = new PropertyPath(DisplayMemberPath),
                 Mode = BindingMode.OneWay
             };
-            BindingOperations.SetBinding(textBox, TextBlock.TextProperty, myBinding);
+            BindingOperations.SetBinding(textBlock, TextBlock.TextProperty, myBinding);
+        }     
+
+
+        private void SetIsReadOnlyBinding(Control element, object item)
+        {
+            if (string.IsNullOrEmpty(IsReadOnlyPath))
+                return;
+
+            Binding myBinding = new Binding
+            {
+                Source = item,
+                Path = new PropertyPath(IsReadOnlyPath),
+                Mode = BindingMode.TwoWay
+            };
+            BindingOperations.SetBinding(element, Attached.Ex.IsReadOnlyProperty, myBinding);
         }
     }
 }

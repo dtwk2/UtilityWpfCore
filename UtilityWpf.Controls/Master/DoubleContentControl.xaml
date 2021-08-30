@@ -10,7 +10,7 @@
                 <ControlTemplate TargetType="{x:Type local:DoubleContentControl}">
                     <DockPanel x:Name="PART_DockPanel" Background="{Binding Background, Source=TemplatedParent}">
                         <WrapPanel x:Name="PART_WrapPanel"/>
-                        <pt:DockPanelSplitter x:Name="PART_DockPanelSplitter" Background="Black"></pt:DockPanelSplitter>
+                        <pt:DockPanelSplitter x:Name="PART_DockPanelSplitter" Background="WhiteSmoke"></pt:DockPanelSplitter>
                         <ContentPresenter />
                     </DockPanel>
                 </ControlTemplate>

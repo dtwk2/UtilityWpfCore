@@ -16,7 +16,8 @@
 
     <UniformGrid Rows="1">
         <ItemsControl ItemsSource="{Binding Data}"/>
-        <view:MasterGroupsControl           
+        <view:MasterGroupsControl  
+            IsReadOnlyPath="IsReadOnly"
             ItemsSource="{Binding Data}" 
             Change="MasterNotesControl_Change"
             DisplayMemberPath="Header">
@@ -25,7 +26,8 @@
                 </view:DisableBehavior>
             </i:Interaction.Behaviors>
         </view:MasterGroupsControl>
-        <view:MasterGroupsControl           
+        <view:MasterGroupsControl      
+               IsReadOnlyPath="IsReadOnly"
             ItemsSource="{Binding Data}" 
             Change="MasterNotesControl_Change"
             DisplayMemberPath="Header">        

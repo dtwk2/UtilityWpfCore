@@ -21,9 +21,14 @@ namespace UtilityWpf.Demo.Sandbox.ViewModel
 
     public class RowViewModel
     {
+        private bool isReadOnly;
+        public bool IsReadOnly
+        {
+            get => isReadOnly; set =>isReadOnly = value;
+        }
 
-        public string Header { get; } = "RowViewModel";
-    
+        public string Header { get; } = "RowViewModel";            
+
         public RowViewModel()
         {
             Data = new ObservableCollection<ElementViewModel>

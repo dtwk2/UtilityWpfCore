@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:UtilityWpf.Controls"
-                    xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:local1="http://schemas.utility.com/utilitywpf">
+                    xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:local1="http://schemas.utility.com/utilitywpf" xmlns:pt="http://propertytools.org/wpf">
 
     <Style TargetType="{x:Type local:MeasurementsControl}" BasedOn="{StaticResource {x:Type local:DoubleContentControl}}">
         <Setter Property="Template">
@@ -10,24 +10,19 @@
                         <WrapPanel x:Name="PART_WrapPanel">
                             <ComboBox >
                                 <i:Interaction.Behaviors>
-                                    <local1:EnumSelectorBehavior EnumFilterCollection="{Binding EnumFilterCollection,RelativeSource={RelativeSource Mode=TemplatedParent} }"
+                                    <local1:EnumSelectorBehavior
+                                                                    SelectedEnumValue="{Binding SelectedUnit, RelativeSource={RelativeSource Mode=TemplatedParent}}"    
+                                                                    EnumFilterCollection="{Binding EnumFilterCollection,RelativeSource={RelativeSource Mode=TemplatedParent} }"
                                                                   EnumType="{Binding Unit, RelativeSource={RelativeSource Mode=TemplatedParent}}"></local1:EnumSelectorBehavior>
                                 </i:Interaction.Behaviors>
                             </ComboBox>
                         </WrapPanel>
+                        <pt:DockPanelSplitter x:Name="PART_DockPanelSplitter" Background="WhiteSmoke"></pt:DockPanelSplitter>
                         <ContentPresenter/>
                     </DockPanel>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <!--<Setter Property="Content">
-            <Setter.Value>
-                <local:NumbersControl 
-                            DisplayMemberPath="{Binding DisplayMemberPath, RelativeSource={RelativeSource AncestorType=local:MeasurementsControl}}"
-                            DisplayKeyPath="{Binding DisplayKeyPath, RelativeSource={RelativeSource AncestorType=local:MeasurementsControl}}">
-                </local:NumbersControl>
-            </Setter.Value>
-        </Setter>-->
     </Style>
 
     

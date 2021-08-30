@@ -16,6 +16,11 @@ namespace UtilityWpf.Demo.Sandbox.ViewModel
     {
         private ICommand changeCommand;
 
+        private bool isReadOnly;
+        public bool IsReadOnly
+        {
+            get => isReadOnly; set => isReadOnly = value;
+        }
         public string Header { get; } = "NotesViewModel";
 
         public ObservableCollection<NoteViewModel> Collection { get; } = new ObservableCollection<NoteViewModel> {};

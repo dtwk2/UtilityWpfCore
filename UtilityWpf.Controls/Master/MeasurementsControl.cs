@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
+using Evan.Wpf;
 using ReactiveUI;
-using UnitsNet.Units;
 using UtilityWpf.Behavior;
 
 namespace UtilityWpf.Controls
@@ -20,7 +15,8 @@ namespace UtilityWpf.Controls
         public static readonly DependencyProperty DisplayKeyPathProperty = NumbersControl.DisplayKeyPathProperty.AddOwner(typeof(MeasurementsControl));
         public static readonly DependencyProperty DisplayMemberPathProperty = ItemsControl.DisplayMemberPathProperty.AddOwner(typeof(MeasurementsControl));
         public static readonly DependencyProperty EnumFilterCollectionProperty = EnumSelectorBehavior.EnumFilterCollectionProperty.AddOwner(typeof(MeasurementsControl));
-
+        public static readonly DependencyProperty SelectedUnitProperty = DependencyHelper.Register<Enum>();
+        
         static MeasurementsControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(MeasurementsControl), new FrameworkPropertyMetadata(typeof(MeasurementsControl)));
@@ -65,6 +61,14 @@ namespace UtilityWpf.Controls
             set { SetValue(EnumFilterCollectionProperty, value); }
 
         }
+
+        public Enum SelectedUnit
+        {
+            get { return (Enum)GetValue(SelectedUnitProperty); }
+            set { SetValue(SelectedUnitProperty, value); }
+
+        }
+
         #endregion properties
     }
 }

@@ -3,6 +3,16 @@ using System.Runtime.CompilerServices;
 
 namespace UtilityWpf.Property
 {
+    public abstract class HeaderedNPC : NPC
+    {
+        public HeaderedNPC(string header)
+        {
+            Header = header;
+        }
+
+        public string Header { get; }
+    }
+
     public abstract class NPC : INotifyPropertyChanged
     {
         #region INotifyPropertyChanged Implementation

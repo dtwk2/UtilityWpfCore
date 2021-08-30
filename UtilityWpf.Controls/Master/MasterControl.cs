@@ -12,6 +12,7 @@ using DynamicData;
 using Microsoft.Xaml.Behaviors;
 using UtilityWpf.Abstract;
 using UtilityWpf.Mixins;
+using System.Windows.Media.Animation;
 
 namespace UtilityWpf.Controls
 {
@@ -226,6 +227,7 @@ namespace UtilityWpf.Controls
         protected override void OnAttached()
         {
             base.OnAttached();
+       
             AssociatedObject.RemoveOrder = RemoveOrder.None;
             AssociatedObject.Change += AssociatedObject_Change;
         }
@@ -237,7 +239,8 @@ namespace UtilityWpf.Controls
                 var element = AssociatedObject.ItemsControl.ItemContainerGenerator.ContainerFromItem(e.Item);
                 if (element is UIElement uiElement)
                 {
-                    uiElement.Opacity = 0.4;
+                    Storyboard myStoryboard = OpacityAnimation(uiElement, 0.4);
+                    myStoryboard.Begin();
                 }
             }
 
@@ -246,10 +249,27 @@ namespace UtilityWpf.Controls
                 var element = AssociatedObject.ItemsControl.ItemContainerGenerator.ContainerFromItem(e.Item);
                 if (element is UIElement uiElement)
                 {
-                    uiElement.Opacity = 1;
+                    Storyboard myStoryboard = OpacityAnimation(uiElement, 1);
+                    myStoryboard.Begin();
                 }
             }
+
+            static Storyboard OpacityAnimation(UIElement uiElement, double opacity)
+            {
+                DoubleAnimation opacityAnimation = new DoubleAnimation
+                {
+                    To = opacity,
+                    Duration = new Duration(new TimeSpan(0, 0, 0, 0, 300))
+                };
+                Storyboard.SetTarget(opacityAnimation, uiElement);
+                Storyboard.SetTargetProperty(opacityAnimation, new PropertyPath(UIElement.OpacityProperty));
+                Storyboard myStoryboard = new Storyboard();
+                myStoryboard.Children.Add(opacityAnimation);
+                return myStoryboard;
+            }   
+
         }
+
 
         protected override void OnDetaching()
         {

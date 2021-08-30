@@ -4,9 +4,9 @@ namespace UtilityWpf.Attached
 {
     public partial class Ex : DependencyObject
     {
-        public static readonly DependencyProperty SecurityIdProperty = DependencyProperty.RegisterAttached("SecurityId", typeof(object), typeof(Ex), new PropertyMetadata(null, asaas));
+        public static readonly DependencyProperty SecurityIdProperty = DependencyProperty.RegisterAttached("SecurityId", typeof(object), typeof(Ex), new PropertyMetadata(null, PropertyChanged));
 
-        private static void asaas(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             //SetSecurityId(d, e.NewValue);
         }
@@ -21,7 +21,7 @@ namespace UtilityWpf.Attached
             d.SetValue(SecurityIdProperty, value);
         }
 
-        public static readonly DependencyProperty KeyProperty = DependencyProperty.RegisterAttached("Key", typeof(object), typeof(Ex), new PropertyMetadata(null, asaas));
+        public static readonly DependencyProperty KeyProperty = DependencyProperty.RegisterAttached("Key", typeof(object), typeof(Ex), new PropertyMetadata(null, PropertyChanged));
 
         public static string GetKey(DependencyObject d)
         {
@@ -31,6 +31,18 @@ namespace UtilityWpf.Attached
         public static void SetKey(DependencyObject d, object value)
         {
             d.SetValue(KeyProperty, value);
+        }
+
+        public static readonly DependencyProperty IsReadOnlyProperty = DependencyProperty.RegisterAttached("IsReadOnly", typeof(bool), typeof(Ex), new PropertyMetadata(false, PropertyChanged));
+
+        public static bool GetIsReadOnly(DependencyObject d)
+        {
+            return (bool)d.GetValue(IsReadOnlyProperty);
+        }
+
+        public static void SetIsReadOnly(DependencyObject d, object value)
+        {
+            d.SetValue(KeyProperty, (bool)value);
         }
     }
 }

@@ -5,21 +5,37 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UtilityWpf.Demo.View" xmlns:local1="http://schemas.utility.com"
              xmlns:un="clr-namespace:UnitsNet.Units;assembly=UnitsNet"
+             xmlns:conv="http://schemas.utility.com/utilitywpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <FrameworkElement.DataContext>
         <local:ViewModel></local:ViewModel>
     </FrameworkElement.DataContext>
+
     <UniformGrid>
         <!--<local:NumbersControl ItemsSource="{Binding Collection}" DisplayMemberPath="Value" DisplayKeyPath="Header"/>-->
 
         <Border  BorderBrush="Gray" Margin="5"  BorderThickness="2">
+            <DockPanel>
+                <TextBlock Background="Pink" Height="30" Width="100" 
+                           Text="{Binding ElementName=MeasurementsControl,Path=SelectedUnit, Converter={x:Static conv:DefaultConverter.Instance}, UpdateSourceTrigger=PropertyChanged}">
+                </TextBlock>
         <local1:MeasurementsControl
+            x:Name="MeasurementsControl"
             DisplayMemberPath="Value"
              Position="Bottom"
             DisplayKeyPath="Header"
             ItemsSource="{Binding Collection}" 
-            Unit="{x:Type un:LengthUnit}"></local1:MeasurementsControl>
+            Unit="{x:Type un:LengthUnit}">
+                    <local1:MeasurementsControl.EnumFilterCollection>
+                        <x:Array Type="{x:Type un:LengthUnit}">
+                            <un:LengthUnit>Centimeter</un:LengthUnit>
+                            <un:LengthUnit>Inch</un:LengthUnit>
+                        </x:Array>                     
+                    </local1:MeasurementsControl.EnumFilterCollection>
+        </local1:MeasurementsControl>
+
+            </DockPanel>
         </Border>
         <Border  BorderBrush="Gray" Margin="5" BorderThickness="2">
             <local1:MeasurementsControl Position="Top"
