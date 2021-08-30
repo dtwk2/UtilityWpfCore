@@ -22,7 +22,7 @@ namespace UtilityWpf.Behavior
     {
         CompositeDisposable? disposable = null;
         public static readonly DependencyProperty EnumTypeProperty = DependencyProperty.Register("EnumType", typeof(Type), typeof(EnumSelectorBehavior), new PropertyMetadata(EnumTypeChanged));
-        public static readonly DependencyProperty PredicateProperty = DependencyHelper.Register<IEnumerable>();
+        public static readonly DependencyProperty EnumFilterCollectionProperty = DependencyHelper.Register<IEnumerable>();
         public static readonly DependencyProperty SelectedEnumValueProperty =
             DependencyProperty.Register("SelectedEnumValue", typeof(Enum), typeof(EnumSelectorBehavior), new FrameworkPropertyMetadata
             {
@@ -79,7 +79,7 @@ namespace UtilityWpf.Behavior
                 AssociatedObject.ItemsSource = a;
             }).DisposeWith(disposable);
 
-            this.WhenAnyValue(a => a.Predicate)
+            this.WhenAnyValue(a => a.EnumFilterCollection)
                 .WhereNotNull()
                 .Subscribe(a =>
             {
@@ -110,10 +110,10 @@ namespace UtilityWpf.Behavior
             set => SetValue(EnumTypeProperty, value);
         }
 
-        public IEnumerable Predicate
+        public IEnumerable EnumFilterCollection
         {
-            get => (IEnumerable)GetValue(PredicateProperty);
-            set => SetValue(PredicateProperty, value);
+            get => (IEnumerable)GetValue(EnumFilterCollectionProperty);
+            set => SetValue(EnumFilterCollectionProperty, value);
         }
 
         public Enum SelectedEnumValue

@@ -54,7 +54,7 @@
 
             <utl:TypeConverter x:Key="converter"></utl:TypeConverter>
 
-            <Style TargetType="{x:Type local:MeasurementsControl}" BasedOn="{StaticResource {x:Type view:ItemsWrapControl}}">
+            <Style TargetType="{x:Type local:MeasurementsControl}" BasedOn="{StaticResource {x:Type view:DoubleContentControl}}">
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type local:MeasurementsControl}">
@@ -62,7 +62,7 @@
                                 <WrapPanel x:Name="PART_WrapPanel">
                                     <ComboBox >
                                         <i:Interaction.Behaviors>
-                                            <utl:EnumSelectorBehavior Predicate="{Binding Predicate,RelativeSource={RelativeSource Mode=TemplatedParent} }"
+                                            <utl:EnumSelectorBehavior EnumFilterCollection="{Binding EnumFilterCollection,RelativeSource={RelativeSource Mode=TemplatedParent} }"
                                                                   EnumType="{Binding Unit, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource converter}}"></utl:EnumSelectorBehavior>
                                         </i:Interaction.Behaviors>
                                     </ComboBox>
