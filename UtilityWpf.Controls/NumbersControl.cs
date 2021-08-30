@@ -11,30 +11,6 @@ using UtilityWpf.Controls.Extrinsic;
 
 namespace UtilityWpf.Controls
 {
-    public class ListBox<T> : ListBox where T : DependencyObject, new()
-    {
-        protected override DependencyObject GetContainerForItemOverride()
-        {
-            return new T();
-        }
-
-        protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
-        {
-            InitialiseItem(element as T, item);
-            base.PrepareContainerForItemOverride(element, item);
-        }
-
-
-        protected override bool IsItemItsOwnContainerOverride(object item)
-        {
-            return item is T;
-        }
-
-        protected virtual T InitialiseItem(T item, object viewmModel)
-        {
-            return item;
-        }
-    }
 
     public class NumberItem : ListBoxItem
     {
