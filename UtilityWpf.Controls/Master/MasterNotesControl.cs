@@ -17,7 +17,7 @@ namespace UtilityWpf.Controls
 
         public MasterNotesControl()
         {
-            Orientation = Orientation.Vertical;
+            Position = Dock.Bottom;
         }
 
         public override void OnApplyTemplate()

@@ -10,20 +10,34 @@
     <FrameworkElement.DataContext>
         <local:ViewModel></local:ViewModel>
     </FrameworkElement.DataContext>
-    <UniformGrid Rows="1">
+    <UniformGrid>
         <!--<local:NumbersControl ItemsSource="{Binding Collection}" DisplayMemberPath="Value" DisplayKeyPath="Header"/>-->
 
+        <Border  BorderBrush="Gray" Margin="5"  BorderThickness="2">
         <local1:MeasurementsControl
             DisplayMemberPath="Value"
-             Orientation="Vertical"
+             Position="Bottom"
             DisplayKeyPath="Header"
             ItemsSource="{Binding Collection}" 
             Unit="{x:Type un:LengthUnit}"></local1:MeasurementsControl>
-
-
-        <local1:MeasurementsControl Orientation="Horizontal"
+        </Border>
+        <Border  BorderBrush="Gray" Margin="5" BorderThickness="2">
+            <local1:MeasurementsControl Position="Top"
             DisplayMemberPath="Value" DisplayKeyPath="Header"
             ItemsSource="{Binding Collection}" 
             Unit="{x:Type un:LengthUnit}"></local1:MeasurementsControl>
+        </Border>
+        <Border BorderBrush="Gray" Margin="5"  BorderThickness="2">
+            <local1:MeasurementsControl Position="Left"
+            DisplayMemberPath="Value" DisplayKeyPath="Header"
+            ItemsSource="{Binding Collection}" 
+            Unit="{x:Type un:LengthUnit}"></local1:MeasurementsControl>
+        </Border>
+        <Border BorderBrush="Gray" Margin="5" BorderThickness="2">
+            <local1:MeasurementsControl Position="Right"
+            DisplayMemberPath="Value" DisplayKeyPath="Header"
+            ItemsSource="{Binding Collection}" 
+            Unit="{x:Type un:LengthUnit}"></local1:MeasurementsControl>
+        </Border>
     </UniformGrid>
 </UserControl>

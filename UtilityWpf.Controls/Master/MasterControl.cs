@@ -24,7 +24,7 @@ namespace UtilityWpf.Controls
     }
 
 
-    public class MasterControl : ItemsWrapControl, IChange
+    public class MasterControl : ItemsContentControl, IChange
     {
         [Flags]
         public enum ButtonType

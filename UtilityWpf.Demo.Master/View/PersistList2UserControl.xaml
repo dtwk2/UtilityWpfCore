@@ -39,7 +39,7 @@
                 <view:MasterDetail DataConverter="{Binding ValueConverter}">
                     <view:MasterDetail.Selector>
                         <view:MasterControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  
-                                                   Orientation="Vertical">
+                                                   Position="Bottom">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger  EventName="Change" >
                                     <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>

@@ -132,8 +132,8 @@
       <DependentUpon>ItemContainerBorder.xaml</DependentUpon>
     </Compile>  
     
-    <Compile Update="Master\ItemsWrapControl.cs">
-      <DependentUpon>ItemsWrapControl.xaml</DependentUpon>
+    <Compile Update="Master\DoubleContentControl.cs">
+      <DependentUpon>DoubleContentControl.xaml</DependentUpon>
     </Compile>
     <Compile Update="Master\MeasurementsControl.cs">
       <DependentUpon>MeasurementsControl.xaml</DependentUpon>

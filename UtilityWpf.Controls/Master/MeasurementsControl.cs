@@ -14,22 +14,20 @@ using UtilityWpf.Behavior;
 
 namespace UtilityWpf.Controls
 {
-    public class MeasurementsControl : ItemsWrapControl
+    public class MeasurementsControl : ItemsContentControl
     {
         public static readonly DependencyProperty UnitProperty = DependencyProperty.Register("Unit", typeof(Type), typeof(MeasurementsControl));
+        public static readonly DependencyProperty DisplayKeyPathProperty = NumbersControl.DisplayKeyPathProperty.AddOwner(typeof(MeasurementsControl));
+        public static readonly DependencyProperty DisplayMemberPathProperty = ItemsControl.DisplayMemberPathProperty.AddOwner(typeof(MeasurementsControl));
+        public static readonly DependencyProperty EnumFilterCollectionProperty = EnumSelectorBehavior.EnumFilterCollectionProperty.AddOwner(typeof(MeasurementsControl));
 
         static MeasurementsControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(MeasurementsControl), new FrameworkPropertyMetadata(typeof(MeasurementsControl)));
         }
-        public static readonly DependencyProperty DisplayKeyPathProperty = NumbersControl.DisplayKeyPathProperty.AddOwner(typeof(MeasurementsControl));
-        public static readonly DependencyProperty DisplayMemberPathProperty = ItemsControl.DisplayMemberPathProperty.AddOwner(typeof(MeasurementsControl));
-        public static readonly DependencyProperty PredicateProperty = EnumSelectorBehavior.PredicateProperty.AddOwner(typeof(MeasurementsControl));
 
         public MeasurementsControl()
         {
-            Predicate = new[] { LengthUnit.Centimeter, LengthUnit.AstronomicalUnit };
-
             this.WhenAnyValue(a => a.DisplayMemberPath).CombineLatest(this.WhenAnyValue(a => a.DisplayKeyPath))
                  .Subscribe(a =>
                  {
@@ -42,6 +40,7 @@ namespace UtilityWpf.Controls
                  });
         }
 
+        #region properties
         public string DisplayKeyPath
         {
             get { return (string)GetValue(DisplayKeyPathProperty); }
@@ -60,11 +59,12 @@ namespace UtilityWpf.Controls
             set { SetValue(UnitProperty, value); }
         }
 
-        public IEnumerable Predicate
+        public IEnumerable EnumFilterCollection
         {
-            get { return (IEnumerable)GetValue(PredicateProperty); }
-            set { SetValue(PredicateProperty, value); }
+            get { return (IEnumerable)GetValue(EnumFilterCollectionProperty); }
+            set { SetValue(EnumFilterCollectionProperty, value); }
 
         }
+        #endregion properties
     }
 }

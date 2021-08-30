@@ -46,7 +46,7 @@
                 <view:MasterDetail>
                     <view:MasterDetail.Selector>
                         <view:MasterControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  
-                                                   Orientation="Vertical">
+                                                   Position="Top">
                             <view:MasterControl.Background>
                                 <VisualBrush   
                                                 TileMode="Tile" Viewport="0,0,10,10" 

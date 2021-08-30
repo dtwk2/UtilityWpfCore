@@ -13,99 +13,29 @@ using UtilityHelper.NonGeneric;
 using UtilityWpf.Abstract;
 using UtilityWpf.Mixins;
 using System.Reactive.Subjects;
+using NetFabric.Hyperlinq;
 
 namespace UtilityWpf.Controls
 {
-
-    public class WrapControl : ItemsWrapControl
-    {
-        public static readonly DependencyProperty ControlsCollectionProperty =
-            DependencyProperty.Register("ControlsCollection", typeof(IEnumerable), typeof(WrapControl), new PropertyMetadata(null));
-
-        static WrapControl()
-        {
-            // DefaultStyleKeyProperty.OverrideMetadata(typeof(WrapControl), new FrameworkPropertyMetadata(typeof(WrapControl)));
-        }
-
-
-        public WrapControl()
-        {
-            //this.Template = new ControlTemplate();
-
-            this.Observable<IEnumerable>(nameof(ControlsCollection)).Subscribe(a =>
-            {
-
-            });
-
-            this.Observable<IEnumerable>(nameof(ControlsCollection)).CombineLatest(wrapPanelSubject)
-                .Where(a => a.First != null && a.Second != null)
-                .Take(1)
-                .Subscribe(a =>
-                {
-                    var (collection, wrapPanel) = a;
-                    wrapPanel.Children.Clear();
-                    foreach (var item in ControlsCollection.OfType<UIElement>())
-                    {
-                        wrapPanel.Children.Add(item);
-                    }
-                });
-        }
-
-
-        public IEnumerable ControlsCollection
-        {
-            get { return (IEnumerable)GetValue(ControlsCollectionProperty); }
-            set { SetValue(ControlsCollectionProperty, value); }
-        }
-
-
-    }
-
-    public class ItemsWrapControl : ContentControlx, ISelector
+    /// <summary>
+    /// A ContentControl for content deriving from ItemsControl
+    /// </summary>
+    public class ItemsContentControl : DoubleContentControl, ISelector
     {
         private Selector Selector => ItemsControl is Selector selector ? selector : throw new Exception($@"The ItemsControl used must be of type {nameof(Selector)} for operation.");
 
-        public static readonly DependencyProperty OrientationProperty = DependencyHelper.Register<Orientation>(new PropertyMetadata(Orientation.Horizontal));
-        public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(ItemsWrapControl), new PropertyMetadata(null));
-        private static readonly DependencyProperty ItemsControlProperty = DependencyProperty.Register("ItemsControl", typeof(ItemsControl), typeof(ItemsWrapControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(ItemsContentControl), new PropertyMetadata(null));
+        private static readonly DependencyProperty ItemsControlProperty = DependencyProperty.Register("ItemsControl", typeof(ItemsControl), typeof(ItemsContentControl), new PropertyMetadata(null));
         public static readonly DependencyProperty CountProperty = DependencyHelper.Register<int>();
-        public static readonly RoutedEvent SelectionChangedEvent = EventManager.RegisterRoutedEvent(nameof(SelectionChanged), RoutingStrategy.Bubble, typeof(SelectionChangedEventHandler), typeof(ItemsWrapControl));
+        public static readonly RoutedEvent SelectionChangedEvent = EventManager.RegisterRoutedEvent(nameof(SelectionChanged), RoutingStrategy.Bubble, typeof(SelectionChangedEventHandler), typeof(ItemsContentControl));
         protected readonly ReplaySubject<WrapPanel> wrapPanelSubject = new(1);
 
-        static ItemsWrapControl()
+        static ItemsContentControl()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(ItemsWrapControl), new FrameworkPropertyMetadata(typeof(ItemsWrapControl)));
         }
 
-        public ItemsWrapControl()
-        {
-            this.Control<WrapPanel>().Subscribe(wrapPanelSubject);
-
-            wrapPanelSubject.Subscribe(a =>
-            {
-
-            });
-
-            this.WhenAnyValue(a => a.Orientation)
-                .CombineLatest(wrapPanelSubject)
-                .Where(a => a.Second != null)
-                .Subscribe(c =>
-                {
-                    var (orientation, wrapPanel) = c;
-
-                    wrapPanel.DataContext = ItemsControl?.ItemsSource;
-
-                    if (orientation == Orientation.Horizontal)
-                    {
-                        DockPanel.SetDock(wrapPanel, Dock.Right);
-                        wrapPanel.Orientation = Orientation.Vertical;
-                    }
-                    else if (orientation == Orientation.Vertical)
-                    {
-                        DockPanel.SetDock(wrapPanel, Dock.Bottom);
-                        wrapPanel.Orientation = Orientation.Horizontal;
-                    }
-                });
+        public ItemsContentControl()
+        {        
         }
 
         #region properties
@@ -114,12 +44,6 @@ namespace UtilityWpf.Controls
         {
             get { return (int)GetValue(CountProperty); }
             set { SetValue(CountProperty, value); }
-        }
-
-        public Orientation Orientation
-        {
-            get { return (Orientation)GetValue(OrientationProperty); }
-            set { SetValue(OrientationProperty, value); }
         }
 
         public event SelectionChangedEventHandler SelectionChanged
@@ -169,15 +93,7 @@ namespace UtilityWpf.Controls
 
         public override void OnApplyTemplate()
         {
-            var dockPanel = this.GetTemplateChild("PART_DockPanel") as DockPanel;
-            var wrapPanel = this.GetTemplateChild("PART_WrapPanel") as WrapPanel;
-            wrapPanelSubject.OnNext(wrapPanel);
-            if (dockPanel == null)
-                throw new ApplicationException();
-            if (wrapPanel == null)
-                throw new ApplicationException();
-
-
+           
             ItemsControl = (this.Content as ItemsControl) ?? (this.Content as DependencyObject)?.FindVisualChildren<ItemsControl>().SingleOrDefault()!;
             if (ItemsControl != null)
             {

@@ -50,7 +50,7 @@
         <TabItem Header="B     2">
             <view:MasterDetail >
                 <view:MasterDetail.Selector>
-                    <view:MasterControl Orientation="Vertical">
+                    <view:MasterControl Position="Bottom">
                         <ItemsControl ItemsSource="{StaticResource Characters}"/>
                     </view:MasterControl>        
                 </view:MasterDetail.Selector>
@@ -60,7 +60,7 @@
         <TabItem Header="B     3">
             <view:MasterDetail >
                 <view:MasterDetail.Selector>
-                    <view:MasterControl Orientation="Vertical">
+                    <view:MasterControl Position="Top">
                         <ListBox ItemsSource="{StaticResource Characters}"/>
                     </view:MasterControl>        
                 </view:MasterDetail.Selector>

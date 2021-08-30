@@ -13,7 +13,7 @@
     </FrameworkElement.DataContext>
     <UniformGrid>
         <Border BorderThickness="2" BorderBrush="Black" Margin="10">
-            <view:WrapControl Margin="10" Orientation="Vertical">
+            <view:WrapControl Margin="10" Position="Bottom">
                 <view:WrapControl.ControlsCollection>
                     <x:Array Type="Control">
                         <Button Height="40" Width="100">
@@ -33,16 +33,16 @@
         <Border BorderThickness="2" BorderBrush="Black" Margin="10">
 
 
-            <view:ItemsWrapControl Orientation="Horizontal"  Margin="10">             
+            <view:DoubleContentControl Position="Top"  Margin="10">             
                 <ItemsControl  ItemsSource="{Binding Collection}"  >
 
                 </ItemsControl>
-            </view:ItemsWrapControl>
+            </view:DoubleContentControl>
         </Border>
         <Border BorderThickness="2" BorderBrush="Black" Margin="10">
 
 
-            <view:WrapControl Orientation="Horizontal"  Margin="10">
+            <view:WrapControl Position="Right"  Margin="10">
                 <view:WrapControl.ControlsCollection>
                     <x:Array Type="Control">
                         <Button Height="40" Width="250">

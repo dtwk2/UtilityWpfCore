@@ -45,7 +45,8 @@
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type vm:NotesViewModel}">
-                <view:MasterNotesControl                    
+                <view:MasterNotesControl    
+                    
                    Width="400"
                     CommandParameter="{Binding NewItem}"
             ItemsSource="{Binding Collection}" 
@@ -60,7 +61,7 @@
             </DataTemplate>
             
             <DataTemplate DataType="{x:Type vm:RowViewModel}">
-                <view:MasterControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove" Height="200" >
+                <view:MasterControl CommandParameter="{Binding NewItem}" Position="Right" RemoveOrder="Last" ButtonTypes="Add,Remove" Height="200" >
                     <view:DragablzHorizontalItemsControl 
                                                        ItemsSource="{Binding Data}"                                                       
                                                        VerticalAlignment="Center"                                                 

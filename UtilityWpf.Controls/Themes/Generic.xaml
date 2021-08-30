@@ -78,7 +78,7 @@
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/NumbersControl.xaml" />
 
         <!-- Master -->
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/ItemsWrapControl.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/DoubleContentControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/MasterControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/MasterDetailView.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/MasterDetail.xaml" />
