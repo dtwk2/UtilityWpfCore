@@ -4,12 +4,11 @@ using System.Windows;
 using System.Windows.Forms;
 using ReactiveUI;
 
-namespace UtilityWpf.Controls.Browser
+namespace UtilityWpf.Controls.FileSystem
 {
     public class FolderBrowser : PathBrowser
     {
-        public static readonly DependencyProperty IsFolderPickerProperty =
-            DependencyProperty.Register("IsFolderPicker", typeof(bool), typeof(FolderBrowser), new PropertyMetadata(true));
+        public static readonly DependencyProperty IsFolderPickerProperty =            DependencyProperty.Register(nameof(IsFolderPicker), typeof(bool), typeof(FolderBrowser), new PropertyMetadata(true));
 
         public FolderBrowser()
         {
@@ -22,11 +21,13 @@ namespace UtilityWpf.Controls.Browser
                 .Subscribe(textChanges.OnNext);
         }
 
+        #region properties
         public bool IsFolderPicker
         {
             get => (bool)GetValue(IsFolderPickerProperty);
             set => SetValue(IsFolderPickerProperty, value);
         }
+        #endregion properties
 
         protected override (bool? result, string path) OpenDialog(string filter, string extension)
         {

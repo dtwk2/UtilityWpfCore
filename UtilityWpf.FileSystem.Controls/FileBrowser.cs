@@ -6,7 +6,7 @@ using Microsoft.Win32;
 using ReactiveUI;
 
 
-namespace UtilityWpf.Controls.Browser
+namespace UtilityWpf.Controls.FileSystem
 {
     public class FileBrowser : PathBrowser
     {

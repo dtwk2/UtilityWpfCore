@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Reactive.Linq;
-using UtilityWpf.Controls.Browser;
 
 namespace UtilityWpf.Controls.Infrastructure
 {
@@ -37,14 +36,5 @@ namespace UtilityWpf.Controls.Infrastructure
         //    }
         //}
 
-
-
-        public static IObservable<string> SelectPathChanges(this PathBrowser pathBrowser)
-        {
-            return Observable.FromEventPattern<PathBrowser.TextChangeRoutedEventHandler, PathBrowser.TextRoutedEventArgs>(
-                   a => pathBrowser.TextChange += a,
-                   a => pathBrowser.TextChange -= a)
-                .Select(a => a.EventArgs.Text);
-        }
     }
 }

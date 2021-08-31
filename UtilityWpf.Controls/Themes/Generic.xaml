@@ -96,10 +96,6 @@
 
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Button/GeometryButton.xaml" />
 
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Browser/FileView.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Browser/PathBrowser.xaml" />
-
-
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Progress/ProgressArc.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Progress/ProgressBar.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Progress/FlashThumb.xaml" />       

@@ -1,8 +1,12 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Controls;
-using UtilityWpf.Controls.Browser;
+using UtilityWpf.Controls.FileSystem;
 
-namespace Utility.WPF.Demo.Controls
+namespace UtilityWpf.Demo.FileSystem.Infrastructure
 {
     public class FileBrowser2 : FileBrowser
     {
@@ -10,7 +14,7 @@ namespace Utility.WPF.Demo.Controls
 
         public FileBrowser2()
         {
-            TextBlockOne = new TextBlock { Width = 300, VerticalAlignment = VerticalAlignment.Center };
+            TextBlockOne = new TextBlock { Width = 300, VerticalAlignment = System.Windows.VerticalAlignment.Center };
             this.TextBoxContent = TextBlockOne;
         }
 

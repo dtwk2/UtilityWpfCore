@@ -4,7 +4,7 @@ using Splat;
 //using Utility.WPF.Controls.Browser;
 using ReactiveUI;
 using System;
-using UtilityWpf.Controls.Browser;
+//using UtilityWpf.Controls.Browser;
 
 namespace Utility.WPF.Demo.Views
 {
@@ -25,19 +25,19 @@ namespace Utility.WPF.Demo.Views
 
         }
 
-        private void FolderBrowser1_OnTextChange(object sender, PathBrowser.TextRoutedEventArgs e)
-        {
-            Dispatcher.BeginInvoke(new Action(() => MessageBox.Show("Folder Change")));
-        }
+        //private void FolderBrowser1_OnTextChange(object sender, PathBrowser.TextRoutedEventArgs e)
+        //{
+        //    Dispatcher.BeginInvoke(new Action(() => MessageBox.Show("Folder Change")));
+        //}
 
-        private void FileBrowser_OnTextChange(object sender, PathBrowser.TextRoutedEventArgs e)
-        {
-            Dispatcher.BeginInvoke(new Action(() => MessageBox.Show("Path Change")));
-        }
+        //private void FileBrowser_OnTextChange(object sender, PathBrowser.TextRoutedEventArgs e)
+        //{
+        //    Dispatcher.BeginInvoke(new Action(() => MessageBox.Show("Path Change")));
+        //}
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-        {
-            FolderBrowser1.SetPath.Execute("A path");
-        }
+        //private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        //{
+        //    FolderBrowser1.SetPath.Execute("A path");
+        //}
     }
 }

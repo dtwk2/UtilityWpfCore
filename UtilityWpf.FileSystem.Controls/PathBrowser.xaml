@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:browser="clr-namespace:UtilityWpf.Controls.Browser"
+    xmlns:browser="clr-namespace:UtilityWpf.Controls.FileSystem"
     xmlns:converter="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf">
 
     <Style TargetType="{x:Type browser:PathBrowser}">

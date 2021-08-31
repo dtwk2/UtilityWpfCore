@@ -11,7 +11,7 @@ using Control = System.Windows.Controls.Control;
 using Label = System.Windows.Controls.Label;
 using TextBox = System.Windows.Controls.TextBox;
 
-namespace UtilityWpf.Controls.Browser
+namespace UtilityWpf.Controls.FileSystem
 {
     /// <summary>
     /// Interaction logic for PathBrowser.xaml
@@ -103,6 +103,7 @@ namespace UtilityWpf.Controls.Browser
             RaiseTextChangeEvent(path);
         }
 
+        #region properties
         public string Label
         {
             get => (string)GetValue(LabelProperty);
@@ -126,6 +127,7 @@ namespace UtilityWpf.Controls.Browser
             add => AddHandler(TextChangeEvent, value);
             remove => RemoveHandler(TextChangeEvent, value);
         }
+        #endregion properties
 
         protected abstract (bool? result, string path) OpenDialog(string filter, string extension);
 

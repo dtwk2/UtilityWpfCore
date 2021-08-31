@@ -1,0 +1,12 @@
+﻿<ResourceDictionary  xmlns:utl="clr-namespace:UtilityWpf.Controls.FileSystem.Infrastructure"
+                             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:utilfs="clr-namespace:UtilityWpf.FileSystem.Controls">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/UtilityWpf.Controls.FileSystem;component/FileView.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls.FileSystem;component/PathBrowser.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+
+</ResourceDictionary>

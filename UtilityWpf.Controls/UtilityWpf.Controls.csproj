@@ -100,12 +100,6 @@
 
 	  <Compile Update="Button\GeometryButton.cs">
 		  <DependentUpon>GeometryButton.xaml</DependentUpon>
-	  </Compile>	
-	  <Compile Update="Browser\FileView.cs">
-		  <DependentUpon>FileView.xaml</DependentUpon>
-	  </Compile>	
-	  <Compile Update="Browser\PathBrowser.cs">
-		  <DependentUpon>PathBrowser.xaml</DependentUpon>
 	  </Compile>
 
     <Compile Update="Master\MasterControl.cs">
@@ -201,9 +195,6 @@
     <Page Update="Themes\ExpandItemStyle.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Browser\FileView.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-    </Page>
     <Page Update="Themes\FlipControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
@@ -252,9 +243,6 @@
     </Page>
     <Page Update="Themes\PageNavigatorControl.xaml">
       <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Browser\PathBrowser.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
     <Page Update="Button\GeometryButton.xaml">
       <SubType>Designer</SubType>

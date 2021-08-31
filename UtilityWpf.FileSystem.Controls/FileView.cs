@@ -8,7 +8,7 @@ using MaterialDesignExtensions.Controls;
 using Microsoft.Xaml.Behaviors.Core;
 using ReactiveUI;
 
-namespace UtilityWpf.Controls
+namespace UtilityWpf.Controls.FileSystem
 {
     public class FileView : Control
     {
@@ -47,6 +47,7 @@ namespace UtilityWpf.Controls
             });
         }
 
+        #region properties
         public string Directory
         {
             get => (string)GetValue(DirectoryProperty);
@@ -58,7 +59,7 @@ namespace UtilityWpf.Controls
             get => (ICommand)GetValue(RefreshProperty);
             set => SetValue(RefreshProperty, value);
         }
-
+        #endregion properties
 
         protected virtual void OpenFileControl_FileSelected(object sender, RoutedEventArgs e)
         {
