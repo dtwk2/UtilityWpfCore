@@ -6,6 +6,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/UtilityWpf.Controls.FileSystem;component/FileView.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls.FileSystem;component/PathBrowser.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls.FileSystem;component/FolderOpenControl.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 

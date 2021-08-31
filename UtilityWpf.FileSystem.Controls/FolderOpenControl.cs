@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace UtilityWpf.Controls
+namespace UtilityWpf.Controls.FileSystem
 {
     using System;
     using UtilityWpf.Property;
@@ -33,13 +33,13 @@ namespace UtilityWpf.Controls
         public FolderOpenControl()
         {
             var foc = new FolderOpenCommand();
-            this.SetValue(FolderOpenCommandProperty, foc);
+            SetValue(FolderOpenCommandProperty, foc);
 
             foc.PropertyChanged += (sender, e) =>
             {
                 if (e.PropertyName == "Directory")
-                    this.Dispatcher.InvokeAsync(() => Path = foc.Directory,
-                                   System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
+                    Dispatcher.InvokeAsync(() => Path = foc.Directory,
+                                   System.Windows.Threading.DispatcherPriority.Background, default);
             };
         }
 

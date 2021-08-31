@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0-windows</TargetFramework>
@@ -6,7 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UtilityWpf.Controls\UtilityWpf.Controls.csproj" />
+    <PackageReference Include="MaterialDesignExtensions" Version="4.0.0-a02" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UtilityWpf\UtilityWpf.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,11 +20,18 @@
     <Compile Update="PathBrowser.cs">
       <DependentUpon>PathBrowser.xaml</DependentUpon>
     </Compile>
+    <Compile Update="FolderOpenControl.cs">
+      <DependentUpon>FolderOpenControl.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <Page Update="FileView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="FolderOpenControl.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
     </Page>
     <Page Update="PathBrowser.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
