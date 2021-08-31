@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows;
-using System.Text;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 

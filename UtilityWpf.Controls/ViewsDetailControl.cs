@@ -1,6 +1,4 @@
-﻿using MoreLinq;
-using ReactiveUI;
-using System;
+﻿using System;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
@@ -8,6 +6,8 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using MoreLinq;
+using ReactiveUI;
 
 
 namespace UtilityWpf.Controls
@@ -92,6 +92,9 @@ namespace UtilityWpf.Controls
 
         public ViewsDetailControl()
         {
+
+            var listBox = new ListBox();
+            this.Selector = listBox;
             UseDataContext = true;
             _ = subject
                 .WhereNotNull()
@@ -109,7 +112,7 @@ namespace UtilityWpf.Controls
                    .Select(a => new ViewType(a.Key, a.Value));
                   return ucs.ToArray();
               })
-              .Subscribe(pairs => ItemsSource = pairs);
+              .Subscribe(pairs => listBox.ItemsSource = pairs);
 
             Content = CreateContent();
 

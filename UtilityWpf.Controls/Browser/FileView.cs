@@ -1,19 +1,19 @@
-﻿using MaterialDesignExtensions.Controls;
-using Microsoft.Xaml.Behaviors.Core;
-using ReactiveUI;
-using System;
+﻿using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using MaterialDesignExtensions.Controls;
+using Microsoft.Xaml.Behaviors.Core;
+using ReactiveUI;
 
 namespace UtilityWpf.Controls
 {
     public class FileView : Control
     {
         public static readonly DependencyProperty DirectoryProperty = DependencyProperty.Register("Directory", typeof(string), typeof(FileView), new PropertyMetadata(null));
-        public static readonly DependencyProperty RefreshProperty =    DependencyProperty.Register("Refresh", typeof(ICommand), typeof(FileView), new PropertyMetadata(null));
+        public static readonly DependencyProperty RefreshProperty = DependencyProperty.Register("Refresh", typeof(ICommand), typeof(FileView), new PropertyMetadata(null));
 
         private OpenFileControl openFileControl;
         private ContentControl contentControl;

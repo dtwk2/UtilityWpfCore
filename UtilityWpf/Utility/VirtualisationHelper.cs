@@ -1,10 +1,10 @@
-﻿using DynamicData;
-using ReactiveUI;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
+using DynamicData;
+using ReactiveUI;
 using UtilityHelperEx;
 
 namespace UtilityWpf

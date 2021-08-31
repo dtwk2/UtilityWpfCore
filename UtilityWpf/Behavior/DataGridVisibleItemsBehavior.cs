@@ -1,10 +1,10 @@
-﻿using Microsoft.Xaml.Behaviors;
-using System;
+﻿using System;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using Microsoft.Xaml.Behaviors;
 
 namespace UtilityWpf.Behavior
 {
@@ -63,7 +63,7 @@ namespace UtilityWpf.Behavior
         }
 
         private void DataGridLoaded(DataGrid dataGrid)
-        {      
+        {
             if (VisualTreeHelperEx.FindVisualChildren<ScrollViewer>(dataGrid).FirstOrDefault() is ScrollViewer scrollViewer)
             {
                 // N.B this doesn't work well if VerticalScrollBar is used to scroll- works for mouse-wheel.

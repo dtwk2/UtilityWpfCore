@@ -6,19 +6,20 @@ namespace UtilityWpf
     using System.Linq;
     using System.Windows;
 
+
     /// <summary>
     /// The resource dictionary extensions.
     /// </summary>
     public static class ResourceDictionaryExtensions
     {
-       public static ResourceDictionary? FirstMatch(this IEnumerable<ResourceDictionary> dictionaries, string source)
-       {
-          return dictionaries
-                .Select(dictionary => dictionary.FindDictionary(source))
-                .FirstOrDefault();
-       }
+        public static ResourceDictionary? FirstMatch(this IEnumerable<ResourceDictionary> dictionaries, string source)
+        {
+            return dictionaries
+                  .Select(dictionary => dictionary.FindDictionary(source))
+                  .FirstOrDefault();
+        }
 
-      public static void ReplaceDictionary(this ResourceDictionary resourceDictionary, Uri source, ResourceDictionary destination)
+        public static void ReplaceDictionary(this ResourceDictionary resourceDictionary, Uri source, ResourceDictionary destination)
         {
             resourceDictionary.BeginInit();
 
@@ -63,7 +64,7 @@ namespace UtilityWpf
         /// </summary>
         public static ResourceDictionary? FindDictionary(this ResourceDictionary resourceDictionary, string source)
         {
-           // If this is the resource return it
+            // If this is the resource return it
             if (resourceDictionary.Source != null && resourceDictionary.Source.OriginalString == source)
             {
                 return resourceDictionary;

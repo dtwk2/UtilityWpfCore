@@ -10,8 +10,8 @@ namespace UtilityWpf.Model
             Content = content;
             Command = command;
         }
-        public object Content { get;  }
+        public object Content { get; }
 
-        public RelayCommand Command { get;  }
+        public RelayCommand Command { get; }
     }
 }

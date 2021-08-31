@@ -1,10 +1,10 @@
-﻿using Microsoft.Xaml.Behaviors;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Controls.Primitives;
+using Microsoft.Xaml.Behaviors;
 
 namespace UtilityWpf.Behavior
 {

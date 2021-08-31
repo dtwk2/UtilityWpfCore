@@ -9,15 +9,14 @@
     xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
     xmlns:views="clr-namespace:Utility.WPF.Demo.Views"
     xmlns:reactiveUi="http://reactiveui.net"
-   
+    xmlns:utilitywpf="clr-namespace:UtilityWpf;assembly=UtilityWpf"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <FrameworkElement.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DualButtonControl.xaml"/>
-
+                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DualButtonControl.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
 

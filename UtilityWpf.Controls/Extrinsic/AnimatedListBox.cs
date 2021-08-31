@@ -1,30 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AnimatedScrollViewer
 {
-   /// <summary>
-   /// <a href="http://matthiasshapiro.com/DisneyShorts/how-to-create-an-animated-scrollviewer-or-listbox-in-wpf"></a>
-   /// </summary>
-   [TemplatePart(Name = "PART_AnimatedScrollViewer", Type = typeof(AnimatedScrollViewer))]
+    /// <summary>
+    /// <a href="http://matthiasshapiro.com/DisneyShorts/how-to-create-an-animated-scrollviewer-or-listbox-in-wpf"></a>
+    /// </summary>
+    [TemplatePart(Name = "PART_AnimatedScrollViewer", Type = typeof(AnimatedScrollViewer))]
 
     public class AnimatedListBox : ListBox
     {
         #region PART holders
         AnimatedScrollViewer _scrollViewer;
         #endregion
-        
+
         static AnimatedListBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(AnimatedListBox), new FrameworkPropertyMetadata(typeof(AnimatedListBox)));

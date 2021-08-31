@@ -1,5 +1,4 @@
-﻿using DynamicData.Binding;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,6 +7,7 @@ using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using DynamicData.Binding;
 using UtilityHelper;
 using UtilityHelper.NonGeneric;
 using UtilityHelperEx;
@@ -67,7 +67,7 @@ namespace UtilityWpf.Attached
 
         private static void NewItemChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var collection = new ObservableCollection<object>(((d as ItemsControl)?.Items?.Cast<object>()?? Array.Empty<object>()).Concat(new[] { e.NewValue }));
+            var collection = new ObservableCollection<object>(((d as ItemsControl)?.Items?.Cast<object>() ?? Array.Empty<object>()).Concat(new[] { e.NewValue }));
             Application.Current.Dispatcher.InvokeAsync(() => (d as ItemsControl).ItemsSource = collection);
         }
 

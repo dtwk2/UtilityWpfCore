@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Reflection;
 using System.Windows;
 using UtilityWpf.Property;
 
@@ -48,13 +47,13 @@ namespace UtilityWpf.Mixins
                 var where = propertyInfos.Value.Where(a => a.PropertyType == type).ToArray();
                 if (where.Any())
                     if (where.Length == 1)
-                    {                 
-                        if (nameTypeDictionary.ContainsKey(type))                        
-                            throw new Exception($"dictionary already contains type, {type.Name}!");                        
-                        return nameTypeDictionary[type] = where.Single().Name; 
+                    {
+                        if (nameTypeDictionary.ContainsKey(type))
+                            throw new Exception($"dictionary already contains type, {type.Name}!");
+                        return nameTypeDictionary[type] = where.Single().Name;
                     }
                     else
-                        throw new Exception("UnExpected multiple types");                
+                        throw new Exception("UnExpected multiple types");
                 else
                     throw new Exception("No types match");
             }
@@ -70,11 +69,11 @@ namespace UtilityWpf.Mixins
             var where = propertyInfos.Value.Where(a => a.Name == name).ToArray();
             if (where.Any())
                 if (where.Length == 1)
-                {    
+                {
                 }
-                else if(where.Length > 1)
+                else if (where.Length > 1)
                     throw new Exception("UnExpected multiple types");
-    
+
             return subjects[name] = new();
         }
 

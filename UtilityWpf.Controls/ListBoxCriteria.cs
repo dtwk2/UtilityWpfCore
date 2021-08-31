@@ -12,7 +12,7 @@ namespace UtilityWpf.Controls
     public class ListBoxCriteria : ListBox
     {
         public static readonly DependencyProperty IsCriteriaMetProperty = DependencyProperty.Register("IsCriteriaMet", typeof(bool), typeof(ListBoxCriteria), new PropertyMetadata(false, MetChanged));
-        public static readonly DependencyProperty PropertyNameProperty =    DependencyProperty.Register("PropertyName", typeof(string), typeof(ListBoxCriteria), new PropertyMetadata(null, PropertyNameChanged));
+        public static readonly DependencyProperty PropertyNameProperty = DependencyProperty.Register("PropertyName", typeof(string), typeof(ListBoxCriteria), new PropertyMetadata(null, PropertyNameChanged));
 
         public ListBoxCriteria() : base()
         {

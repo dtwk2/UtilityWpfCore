@@ -7,7 +7,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Concurrency;
 using System.Threading;
-using UtilityWpf.Abstract;
 
 namespace UtilityWpf
 {
@@ -106,8 +105,8 @@ namespace UtilityWpf
         {
             //if (!CheckAccess())
             //{
-                lock (SyncRoot)
-                    (this as IMixedScheduler).ScheduleAction(() => { AddItem(item); });
+            lock (SyncRoot)
+                (this as IMixedScheduler).ScheduleAction(() => { AddItem(item); });
             //}
             //CheckReentrancy();
             //AddItem(item);

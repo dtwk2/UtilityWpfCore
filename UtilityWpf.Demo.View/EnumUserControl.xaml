@@ -7,7 +7,9 @@
     xmlns:local="clr-namespace:UtilityWpf.DemoApp"
     xmlns:test="clr-namespace:UtilityWpf.TestData;assembly=UtilityWpf.TestData"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:view="http://schemas.utility.com" xmlns:controls="http://schemas.utility.com"
+    xmlns:view="http://schemas.utility.com"
+    xmlns:utl="http://schemas.utility.com/utilitywpf"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
@@ -77,8 +79,20 @@
             </StackPanel>
         </TabItem>
 
-        <TabItem Header="ComboBox">
-            <controls:EnumComboBox EnumType="{x:Type Visibility}" SelectedIndex="0" />
+        <TabItem Header="Selector">
+            <UniformGrid Rows="1">
+                <ComboBox x:Name="ComboBox">
+                    <i:Interaction.Behaviors>
+                        <utl:EnumSelectorBehavior EnumType="{x:Type Visibility}"></utl:EnumSelectorBehavior>
+                    </i:Interaction.Behaviors>
+                </ComboBox>
+                <ListBox Visibility="{Binding ElementName=ComboBox, Path=SelectedValue}" Background="HotPink">
+                    <i:Interaction.Behaviors>
+                        <utl:EnumSelectorBehavior EnumType="{x:Type HorizontalAlignment}"></utl:EnumSelectorBehavior>
+                    </i:Interaction.Behaviors>
+                </ListBox>
+            </UniformGrid>
+           
         </TabItem>
     </TabControl>
 </UserControl>

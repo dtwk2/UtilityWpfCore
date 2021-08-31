@@ -1,10 +1,10 @@
-﻿using Evan.Wpf;
-using System;
+﻿using System;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using Evan.Wpf;
 using UtilityWpf.Property;
 
 namespace UtilityWpf.Mixins
@@ -147,11 +147,11 @@ namespace UtilityWpf.Mixins
         }
     }
 
-    public class SingleReplaySubject<T> :ISubject<T>
+    public class SingleReplaySubject<T> : ISubject<T>
     {
         private readonly ReplaySubject<T> subject;
 
-        public SingleReplaySubject() 
+        public SingleReplaySubject()
         {
             subject = new ReplaySubject<T>(1);
         }

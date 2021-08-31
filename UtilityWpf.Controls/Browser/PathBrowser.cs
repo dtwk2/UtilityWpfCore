@@ -1,11 +1,11 @@
-﻿using ReactiveUI;
-using System;
+﻿using System;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using ReactiveUI;
 using Button = System.Windows.Controls.Button;
 using Control = System.Windows.Controls.Control;
 using Label = System.Windows.Controls.Label;

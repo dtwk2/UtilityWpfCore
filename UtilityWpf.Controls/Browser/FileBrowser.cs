@@ -1,9 +1,9 @@
-﻿using Microsoft.Win32;
-using ReactiveUI;
-using System;
+﻿using System;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
+using Microsoft.Win32;
+using ReactiveUI;
 
 
 namespace UtilityWpf.Controls.Browser

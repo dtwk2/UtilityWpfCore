@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using System.Windows;
 using UtilityHelper;
 using UtilityWpf.Mixins;
-using System.Linq;
-using System.Reflection;
 
 namespace UtilityWpf
 {
@@ -71,7 +71,7 @@ namespace UtilityWpf
 
         static PropertyInfo GetProperty(string name)
         {
-            var props = typeof(TControl).GetProperties(BindingFlags.Instance| BindingFlags.Public)
+            var props = typeof(TControl).GetProperties(BindingFlags.Instance | BindingFlags.Public)
                                         .Where(a => a != null)
                                         .Where(p => p.Name == name && p.DeclaringType?.FullName?.StartsWith("System") == false)
                                         .ToArray();

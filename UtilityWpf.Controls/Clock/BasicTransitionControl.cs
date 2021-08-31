@@ -5,7 +5,7 @@ namespace UtilityWpf.Controls
 {
     public class BasicTransitionControl : Control
     {
-     
+
         public static readonly DependencyProperty UnCheckedContentProperty =
             DependencyProperty.Register("UnCheckedContent", typeof(object), typeof(BasicTransitionControl), new PropertyMetadata(null));
 
@@ -17,7 +17,7 @@ namespace UtilityWpf.Controls
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BasicTransitionControl), new FrameworkPropertyMetadata(typeof(BasicTransitionControl)));
         }
 
-     
+
         public object CheckedContent
         {
             get { return (object)GetValue(CheckedContentProperty); }

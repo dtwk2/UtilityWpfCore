@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Data;
-using System.Windows.Controls.Primitives;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace UtilityWpf
 {
@@ -11,11 +10,14 @@ namespace UtilityWpf
 
         public object Convert(object[] value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-
+            if (value[1] is null || value[1] == DependencyProperty.UnsetValue)
+            {
+                return true != Invert;
+            }
             if (value[0] is ItemsControl selector && value[1] is int index)
             {
                 int count = selector.Items.Count;
-                return (index == -1 || index == count - 1) != Invert; 
+                return (index == -1 || index == count - 1) != Invert;
             }
             return DependencyProperty.UnsetValue;
         }

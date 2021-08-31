@@ -1,13 +1,13 @@
 ﻿namespace UtilityWpf.Behavior
 {
-    //https://stackoverflow.com/questions/942548/setting-a-property-with-an-eventtrigger
-    // Neutrino
-    //FocusedWolf
-    using Microsoft.Xaml.Behaviors;
     using System;
     using System.ComponentModel;
     using System.Reflection;
     using System.Windows;
+    //https://stackoverflow.com/questions/942548/setting-a-property-with-an-eventtrigger
+    // Neutrino
+    //FocusedWolf
+    using Microsoft.Xaml.Behaviors;
 
     /// <summary>
     /// Sets a specified property to a value when invoked.

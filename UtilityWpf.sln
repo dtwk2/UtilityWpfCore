@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Controls", "Util
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf", "UtilityWpf\UtilityWpf.csproj", "{264293EB-59CF-4DAB-80AC-5BEE28AC1B88}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Demo.Sandbox", "UtilityWpf.Demo.Sandbox\UtilityWpf.Demo.Sandbox.csproj", "{16A7EE28-A173-4F13-8297-C5301C416121}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Demo.Master", "UtilityWpf.Demo.Master\UtilityWpf.Demo.Master.csproj", "{16A7EE28-A173-4F13-8297-C5301C416121}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Animation", "UtilityWpf.Animation\UtilityWpf.Animation.csproj", "{A4169ED7-F5DC-4C15-A76C-FC770F732751}"
 EndProject
@@ -24,6 +24,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Demo.View", "UtilityWpf.Demo.View\UtilityWpf.Demo.View.csproj", "{CA7E7B79-77F0-4372-BB8F-B932B6012374}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Demo.View.Animation", "UtilityWpf.Demo.View.Animation\UtilityWpf.Demo.View.Animation.csproj", "{BAD08594-D5E8-414F-AF1C-0D720D1A1ABA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityWpf.Demo.SandBox", "Utility.Wpf.Demo.SandBox\UtilityWpf.Demo.SandBox.csproj", "{D9E450B2-E245-4814-8574-8F5F06EB8BF7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +73,10 @@ Global
 		{BAD08594-D5E8-414F-AF1C-0D720D1A1ABA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAD08594-D5E8-414F-AF1C-0D720D1A1ABA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAD08594-D5E8-414F-AF1C-0D720D1A1ABA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9E450B2-E245-4814-8574-8F5F06EB8BF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9E450B2-E245-4814-8574-8F5F06EB8BF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9E450B2-E245-4814-8574-8F5F06EB8BF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9E450B2-E245-4814-8574-8F5F06EB8BF7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +89,7 @@ Global
 		{49F7599C-4295-4541-BBF2-BFC9ACC2B376} = {3E8F851B-BECA-4BAA-9275-2104CDEAEC3D}
 		{CA7E7B79-77F0-4372-BB8F-B932B6012374} = {3E8F851B-BECA-4BAA-9275-2104CDEAEC3D}
 		{BAD08594-D5E8-414F-AF1C-0D720D1A1ABA} = {3E8F851B-BECA-4BAA-9275-2104CDEAEC3D}
+		{D9E450B2-E245-4814-8574-8F5F06EB8BF7} = {3E8F851B-BECA-4BAA-9275-2104CDEAEC3D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D60CFCE-498F-4A6D-9B9B-5546561C117E}

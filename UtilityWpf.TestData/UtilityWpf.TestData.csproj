@@ -38,7 +38,9 @@
     <PackageReference Include="Endless" Version="0.7.0-alpha1" />
     <PackageReference Include="LambdaConverters" Version="4.0.0" />
     <PackageReference Include="MaterialDesignThemes" Version="3.2.0-ci1901" />
-    <PackageReference Include="ReactiveUI.WPF" Version="14.1.1" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
+    <PackageReference Include="PropertyTools.Wpf" Version="3.1.0" />
+    <PackageReference Include="ReactiveUI.WPF" Version="16.1.1" />
   </ItemGroup>
   
   <ItemGroup>
@@ -83,6 +85,10 @@
   </ItemGroup>
   
   <ItemGroup>
+    <Page Update="DataTemplate\ReactiveFields.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="DataTemplate\Profile.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>

@@ -26,7 +26,7 @@ namespace UtilityWpf.Mixins
             return listener.Control<T>(name);
         }
 
-        public static IObservable<object> Observable(this IPropertyListener listener, string name )
+        public static IObservable<object> Observable(this IPropertyListener listener, string name)
         {
             return listener.Observable(name);
         }

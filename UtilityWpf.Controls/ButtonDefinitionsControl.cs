@@ -29,7 +29,7 @@ namespace UtilityWpf.Controls
         }
 
         public override void OnApplyTemplate()
-        {           
+        {
             base.OnApplyTemplate();
         }
 

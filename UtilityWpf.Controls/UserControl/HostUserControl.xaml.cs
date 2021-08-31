@@ -1,6 +1,4 @@
-﻿using MoreLinq;
-using ReactiveUI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
@@ -8,6 +6,7 @@ using System.Reactive.Subjects;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using MoreLinq;
 using UtilityHelper.NonGeneric;
 
 namespace UtilityWpf.Controls
@@ -30,7 +29,7 @@ namespace UtilityWpf.Controls
             // UserControls
             InitializeComponent();
 
-            this.DockPanel1.DataContext = this;
+            this.PART_DockPanel.DataContext = this;
 
             _ = subject
                 .Amb(Observable.Return(Assembly).Delay(TimeSpan.FromSeconds(1)))

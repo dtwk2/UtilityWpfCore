@@ -64,6 +64,8 @@
     <PackageReference Include="LambdaConverters" Version="4.0.0" />
     <PackageReference Include="MaterialDesignExtensions" Version="3.3.0-a01" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
+    <PackageReference Include="Netsoft.Diff" Version="2.0.0" />
+    <PackageReference Include="PropertyTools.Wpf" Version="3.1.0-alpha0041" />
     <PackageReference Include="WPFTransitionals" Version="1.1.0" />
   </ItemGroup>
 
@@ -105,6 +107,37 @@
 	  <Compile Update="Browser\PathBrowser.cs">
 		  <DependentUpon>PathBrowser.xaml</DependentUpon>
 	  </Compile>
+
+    <Compile Update="Master\MasterControl.cs">
+      <DependentUpon>MasterControl.xaml</DependentUpon>
+    </Compile>
+
+    <Compile Update="Master\MasterDetail.cs">
+      <DependentUpon>MasterDetail.xaml</DependentUpon>
+    </Compile>
+
+    <Compile Update="Master\MasterDetailView.cs">
+      <DependentUpon>MasterDetailView.xaml</DependentUpon>
+    </Compile>
+
+    <Compile Update="Master\MasterNotesControl.cs">
+      <DependentUpon>MasterNotesControl.xaml</DependentUpon>
+    </Compile>
+
+    <Compile Update="Master\MasterGroupsControl.cs">
+      <DependentUpon>MasterGroupsControl.xaml</DependentUpon>
+    </Compile>   
+    
+    <Compile Update="Dragablz\ItemContainerBorder.cs">
+      <DependentUpon>ItemContainerBorder.xaml</DependentUpon>
+    </Compile>  
+    
+    <Compile Update="Master\DoubleContentControl.cs">
+      <DependentUpon>DoubleContentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Master\MeasurementsControl.cs">
+      <DependentUpon>MeasurementsControl.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -165,9 +198,6 @@
     <Page Update="Themes\DynamicDataGrid.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\EnumComboBox.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-    </Page>
     <Page Update="Themes\ExpandItemStyle.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -206,11 +236,11 @@
     <Page Update="Themes\LabelledTextBox.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\MasterDetail.xaml">
+    <Page Update="Master\MasterDetail.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\MasterDetailView.xaml">
+    <Page Update="Master\MasterDetailView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\NavigatorControl.xaml">
@@ -249,6 +279,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\SliderItemsControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\SpinnerControl.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\SwitchControl.xaml">

@@ -1,10 +1,10 @@
-﻿using ReactiveUI;
-using Splat;
-using System;
+﻿using System;
 using System.Collections;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
+using ReactiveUI;
+using Splat;
 
 namespace UtilityWpf.Controls.Infrastructure
 {

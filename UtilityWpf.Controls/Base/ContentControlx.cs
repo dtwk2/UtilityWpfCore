@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Reactive.Linq;
-using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
-using UtilityWpf.Abstract;
 using UtilityWpf.Mixins;
 
 namespace UtilityWpf.Controls

@@ -10,7 +10,7 @@
   d:DataContext="{d:DesignInstance Type=local:HostUserControl, IsDesignTimeCreatable=False}"
     mc:Ignorable="d">
 
-    <DockPanel x:Name="DockPanel1">
+    <DockPanel x:Name="PART_DockPanel">
 
         <Grid DockPanel.Dock="Left">
             <Grid.RowDefinitions>

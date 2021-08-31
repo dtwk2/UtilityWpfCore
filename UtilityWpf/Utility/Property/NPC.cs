@@ -3,6 +3,16 @@ using System.Runtime.CompilerServices;
 
 namespace UtilityWpf.Property
 {
+    public abstract class HeaderedNPC : NPC
+    {
+        public HeaderedNPC(string header)
+        {
+            Header = header;
+        }
+
+        public string Header { get; }
+    }
+
     public abstract class NPC : INotifyPropertyChanged
     {
         #region INotifyPropertyChanged Implementation
@@ -26,7 +36,7 @@ namespace UtilityWpf.Property
         ///  raises the PropertyChanged event for a single property
         ///  'propertyname' can be left null (e.g OnPropertyChanged()), if called from body of property
         /// </summary>
-        public void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -35,7 +45,7 @@ namespace UtilityWpf.Property
         ///  raises the PropertyChanged event for a single property
         ///  'propertyname' can be left null (e.g OnPropertyChanged()), if called from body of property
         /// </summary>
-        public void OnPropertyChanged<T>(ref T property, T value, [CallerMemberName] string propertyName = null)
+        public void OnPropertyChanged<T>(ref T property, T value, [CallerMemberName] string? propertyName = null)
         {
             property = value;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

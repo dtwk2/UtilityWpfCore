@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UappUI.AppCode.Touch
+﻿namespace UappUI.AppCode.Touch
 {
     public static class ValueMapHelper
     {

@@ -28,13 +28,6 @@ namespace UtilityWpf {
          return SelectResourceDictionaries(type.Assembly);
       }
 
-      IEnumerable<ResourceDictionary> SelectFromAddress(string dllAddress) {
-         //string address = @"WpfCustomControlLibrary.dll";
-         //List<Stream> bamlStreams = new List<Stream>();
-         Assembly assembly = Assembly.LoadFrom(dllAddress);
-         return SelectResourceDictionaries(assembly);
-      }
-
       IEnumerable<ResourceDictionary> SelectResourceDictionaries(Assembly assembly) {
 
          // Only interested in main resource file
@@ -86,6 +79,14 @@ namespace UtilityWpf {
             }
          }
       }
+
+        IEnumerable<ResourceDictionary> SelectFromAddress(string dllAddress)
+        {
+            //string address = @"WpfCustomControlLibrary.dll";
+            //List<Stream> bamlStreams = new List<Stream>();
+            Assembly assembly = Assembly.LoadFrom(dllAddress);
+            return SelectResourceDictionaries(assembly);
+        }
 
    }
 }
