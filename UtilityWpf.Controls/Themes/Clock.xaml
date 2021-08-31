@@ -41,29 +41,33 @@
                         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
                     </ControlTemplate.Resources>
                     <Viewbox>
-                        <Grid
-                            Width="{Binding FontSize, Converter={StaticResource MathConverter}, ConverterParameter=4*x, RelativeSource={RelativeSource TemplatedParent}}">
+                        <Grid 
+                            Width="{Binding FontSize, Converter={StaticResource MathConverter}, ConverterParameter=2.7*x, RelativeSource={RelativeSource TemplatedParent}}"
+                           >
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                                <ColumnDefinition Width="0.2*"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                                <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
 
                             <Border BorderBrush="{x:Null}"      Height="{Binding FontSize, Converter={StaticResource MathConverter}, ConverterParameter=5*x, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Right">
                                 <TextBlock VerticalAlignment="Center"
                                            Text="{Binding Time.Hour, StringFormat=00, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"></TextBlock>
                             </Border>
-                            <Border Grid.Column="1" BorderBrush="{x:Null}"   HorizontalAlignment="Center" Height="{Binding FontSize, Converter={StaticResource MathConverter}, ConverterParameter=5*x, RelativeSource={RelativeSource TemplatedParent}}">
-                                <TextBlock Text=":" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                            <Border Grid.Column="1" BorderBrush="{x:Null}"  VerticalAlignment="Center"  HorizontalAlignment="Center" Height="{Binding FontSize, Converter={StaticResource MathConverter}, ConverterParameter=5*x, RelativeSource={RelativeSource TemplatedParent}}">
+                                <TextBlock Text=":"  VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                             </Border>
-                            <Border Grid.Column="2" BorderBrush="{x:Null}"     Height="{Binding FontSize, Converter={StaticResource MathConverter}, ConverterParameter=5*x, RelativeSource={RelativeSource TemplatedParent}}">
+                            <Border 
+                               
+                                Grid.Column="2" BorderBrush="{x:Null}"     Height="{Binding FontSize, Converter={StaticResource MathConverter}, ConverterParameter=5*x, RelativeSource={RelativeSource TemplatedParent}}">
                                 <TextBlock TextWrapping="Wrap"  VerticalAlignment="Center"
                                            Text="{Binding Time.Minute, StringFormat=00, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
                             </Border>
                             <Border Grid.Column="3" 
                                     HorizontalAlignment="Left"
-                                    BorderBrush="{x:Null}"     Height="{Binding FontSize, Converter={StaticResource MathConverter}, ConverterParameter=5*x, RelativeSource={RelativeSource TemplatedParent}}"
+                                    BorderBrush="{x:Null}"    
+                                    Height="{Binding FontSize, Converter={StaticResource MathConverter}, ConverterParameter=5*x, RelativeSource={RelativeSource TemplatedParent}}"
                                     Visibility="{Binding ShowSeconds, Mode=OneWay,RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}" >
                                 <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" FontSize="{Binding FontSize, Converter={StaticResource MathConverter}, ConverterParameter=x/2, RelativeSource={RelativeSource TemplatedParent}}"
                                            Text="{Binding Time.Second, StringFormat=00, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
