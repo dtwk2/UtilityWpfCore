@@ -10,24 +10,47 @@
         <TabControl>
 
             <TabItem Header="One">
-                <Grid>
+            <ScrollViewer>
+
+    
+                <WrapPanel>
+
+
+                <Grid  Width="700" Height="700">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="5*"/>
-                        <RowDefinition Height="4*"/>
+                   
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
+               
                     </Grid.RowDefinitions>
 
-                    <Grid Height="200" Background="LightCyan"  Grid.Row="0">
-                        <custom:AnalogClock Grid.Row="0" Margin="0 0 0 0" />
+                    <Grid Grid.Row="0">
+                        <Grid.Background>
+                     
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" Opacity="0.3" >
+
+                                    <GradientStop Color="LightSeaGreen" Offset="0.1" />
+
+                                    <GradientStop Color="LightCyan" Offset="0.9" />
+
+
+                                </LinearGradientBrush>
+     
+                        </Grid.Background>
+                        <custom:AnalogClock Grid.Row="0" Margin="10" />
                     </Grid>
 
-                    <custom:AnalogClock Grid.Row="1" />
-
-                    <custom:SwitchClock Grid.Row="2" Margin="0 10 0 0" />
-                    <custom:DigitalClock Grid.Row="3" x:Name="DigitalClock" Margin="0 10 0 0" FontSize="36" HorizontalAlignment="Center"/>
+                    <custom:SwitchClock Grid.Row="1" Margin="0 10 0 0" />
                 </Grid>
-            </TabItem>
+                    <custom:DigitalClock x:Name="DigitalClock" FontSize="24" Height="600" HorizontalAlignment="Center"/>
+                <custom:AnalogClock Width="200"/>
+                <custom:DigitalClock x:Name="DigitalClock2" FontSize="2"  Height="300" HorizontalAlignment="Center"/>
+                    <custom:AnalogClock Width="100"/>
+                    <custom:AnalogClock Width="50"/>
+
+            </WrapPanel>
+            </ScrollViewer>
+        </TabItem>
         <TabItem  Header="Switch">
                 <Grid>
                     <Grid.RowDefinitions>
