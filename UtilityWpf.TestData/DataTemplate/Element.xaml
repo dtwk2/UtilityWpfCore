@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                         xmlns:vm="clr-namespace:UtilityWpf.TestData.Model">
+
+
+    <DataTemplate x:Key="Int32Template" DataType="{x:Type vm:ElementViewModel}">
+        <Grid  Width="200"  Height="100" Tag="{Binding}">
+            <TextBox  HorizontalAlignment="Center"   VerticalAlignment="Center"  Text="{Binding Value}" />
+        </Grid>
+    </DataTemplate>
+
+
+</ResourceDictionary>

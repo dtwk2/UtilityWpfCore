@@ -1,14 +1,15 @@
-﻿<utilityWpf:AutoResourceDictionary
+﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:utilityWpf="clr-namespace:UtilityWpf"
-    Type="{x:Type utilityWpf:AutoResourceDictionary}">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
 
-    <!--<ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/UtilityWpf.TestData;component/DataTemplate/Character.xaml" />
         <ResourceDictionary Source="/UtilityWpf.TestData;component/DataTemplate/Profile.xaml" />
         <ResourceDictionary Source="/UtilityWpf.TestData;component/DataTemplate/Fields.xaml" />
-    </ResourceDictionary.MergedDictionaries>-->
+        <ResourceDictionary Source="/UtilityWpf.TestData;component/DataTemplate/ReactiveFields.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.TestData;component/DataTemplate/Element.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.TestData;component/DataTemplate/Note.xaml" />
+    </ResourceDictionary.MergedDictionaries>
 
 
-</utilityWpf:AutoResourceDictionary>
+</ResourceDictionary>

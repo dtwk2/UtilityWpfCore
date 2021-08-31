@@ -1,33 +1,28 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
-using System.Windows.Input;
-using UtilityWpf.Controls;
-using static UtilityWpf.Controls.MasterControl;
+using System.Text;
+using System.Threading.Tasks;
 using Endless;
-namespace UtilityWpf.Demo.Sandbox.ViewModel
-{
-    public class ElementViewModel
-    {
-        public ElementViewModel(int value)
-        {
-            Value = value;
-        }
+using System.Windows.Input;
+using UtilityWpf.TestData.Model;
+using static UtilityWpf.Controls.MasterControl;
+using System.Collections.ObjectModel;
 
-        public int Value { get; set; }
-    }
+namespace UtilityWpf.Demo.Master.Infrastructure
+{
 
     public class RowViewModel
     {
         private bool isReadOnly;
         public bool IsReadOnly
         {
-            get => isReadOnly; set =>isReadOnly = value;
+            get => isReadOnly; set => isReadOnly = value;
         }
 
-        public string Header { get; } = "RowViewModel";            
+        public string Header { get; } = "RowViewModel";
 
         public RowViewModel()
         {
@@ -57,7 +52,7 @@ namespace UtilityWpf.Demo.Sandbox.ViewModel
 
         public ObservableCollection<ElementViewModel> Data { get; }
 
-        public ICommand ChangeCommand { get; }
+        public ICommand ChangeCommand { get; init; }
 
         public IEnumerator NewItem => Get().Repeat().GetEnumerator();
 
@@ -67,3 +62,5 @@ namespace UtilityWpf.Demo.Sandbox.ViewModel
         }
     }
 }
+
+

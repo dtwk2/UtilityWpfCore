@@ -4,6 +4,7 @@ using UtilityWpf.Demo.View.Animation;
 using UtilityWpf.Demo.View;
 using UtilityWpf.Demo.View.Panels;
 using UtilityWpf.Controls;
+using UtilityWpf.Demo.FileSystem;
 
 namespace UtilityWpf.DemoApp
 {
@@ -18,7 +19,9 @@ namespace UtilityWpf.DemoApp
             var a = typeof(BarUserControl);
             var b = typeof(CornerPanelView);
             var c = typeof(AdornerUserControl);
-            this.AddChild(new ViewsExDetailControl(new[] { c, a, b}));
+            var d = typeof(FileBrowserView);
+            var e = typeof(MasterListUserControl);
+            this.AddChild(new ViewsExDetailControl(new[] { c, a, b, d, e}));
         }
 
     }
