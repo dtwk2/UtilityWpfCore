@@ -72,14 +72,14 @@ namespace UtilityWpf.Controls
 
         protected override void ExecuteAdd()
         {
-            ExecuteAddRemove(true);
+            ExecuteAddRemove(false);
             base.ExecuteAdd();
         }
 
 
         protected override void ExecuteRemove()
         {
-            ExecuteAddRemove(false);
+            ExecuteAddRemove(true);
             base.ExecuteRemove();
         }
 
