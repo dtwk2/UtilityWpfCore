@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows;
 using ReactiveUI;
 using System.Reactive.Linq;
@@ -30,7 +28,7 @@ namespace UtilityWpf.Controls.Master
 
         public override void OnApplyTemplate()
         {
-            this.Content = new MasterGroupsItemsControl
+            this.Content = new GroupsControl
             {
                 DisplayMemberPath = this.DisplayMemberPath,
                 ItemsSource = this.ItemsSource,
@@ -45,7 +43,7 @@ namespace UtilityWpf.Controls.Master
                      {
                          this.Dispatcher.InvokeAsync(() =>
                          {
-                             if (this.Content is MasterGroupsItemsControl msn)
+                             if (this.Content is GroupsControl msn)
                              {
                                  msn.ItemsSource = this.ItemsSource;
                                  msn.DisplayMemberPath = this.DisplayMemberPath;
@@ -96,66 +94,6 @@ namespace UtilityWpf.Controls.Master
                 var container = this.ItemsControl.ItemContainerGenerator.ContainerFromItem(SelectedItem);
                 container.SetValue(Attached.Ex.IsReadOnlyProperty, isAdd);
             }
-        }
-    }
-
-    public class MasterGroupsItemsControl : DragablzVerticalItemsControl
-    {
-        public static readonly DependencyProperty IsReadOnlyPathProperty = DependencyProperty.Register("IsReadOnlyPath", typeof(string), typeof(MasterGroupsItemsControl), new PropertyMetadata(null));
-
-
-        static MasterGroupsItemsControl()
-        {
-            FrameworkElement.DefaultStyleKeyProperty.OverrideMetadata(typeof(MasterGroupsItemsControl), new FrameworkPropertyMetadata(typeof(MasterGroupsItemsControl)));
-        }
-
-        public string IsReadOnlyPath
-        {
-            get => (string)GetValue(IsReadOnlyPathProperty);
-            set => SetValue(IsReadOnlyPathProperty, value);
-        }
-
-        protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
-        {
-            if (element is Control control)
-            {
-                SetBinding(control, item);
-                SetIsReadOnlyBinding(control, item);
-            }
-            base.PrepareContainerForItemOverride(element, item);
-        }
-
-
-        private void SetBinding(Control element, object item)
-        {
-            if (string.IsNullOrEmpty(DisplayMemberPath))
-                return;
-            _ = element.ApplyTemplate();
-            if (element.ChildOfType<TextBlock>() is not TextBlock textBlock)
-                return;
-      
-            Binding myBinding = new Binding
-            {
-                Source = item,
-                Path = new PropertyPath(DisplayMemberPath),
-                Mode = BindingMode.OneWay
-            };
-            BindingOperations.SetBinding(textBlock, TextBlock.TextProperty, myBinding);
-        }     
-
-
-        private void SetIsReadOnlyBinding(Control element, object item)
-        {
-            if (string.IsNullOrEmpty(IsReadOnlyPath))
-                return;
-
-            Binding myBinding = new Binding
-            {
-                Source = item,
-                Path = new PropertyPath(IsReadOnlyPath),
-                Mode = BindingMode.TwoWay
-            };
-            BindingOperations.SetBinding(element, Attached.Ex.IsReadOnlyProperty, myBinding);
         }
     }
 }

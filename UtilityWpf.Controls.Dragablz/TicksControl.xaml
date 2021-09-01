@@ -5,18 +5,20 @@
                     xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
                     xmlns:utilitywpf="http://schemas.utility.com/utilitywpf"
                     xmlns:dragablz1="clr-namespace:UtilityWpf.Controls.Dragablz"
+                    xmlns:att="http://schemas.utility.com/utilitywpf"
                     xmlns:drag="http://schemas.utility.com/dragablz">
 
     <ResourceDictionary.MergedDictionaries>
         <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzNoteStyle.xaml"></utilitywpf:SharedResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
-    
+
     <EllipseGeometry x:Key="DotGeometry" Center="0,0" RadiusX="1" RadiusY="1" />
 
     <Geometry x:Key="TickGeometry">M908.3,132.5L336.7,704.2l-245-245L10,540.8l326.7,326.7l81.7-81.7L990,214.2L908.3,132.5z</Geometry>
-    
+    <Geometry x:Key="XGeometry">M0,0L16,16M16,0L0,16</Geometry>
 
-    <Style x:Key="DragablzNotes2Style" TargetType="dragablz:DragablzItem">
+
+    <Style x:Key="DragablzNotes3Style" TargetType="dragablz:DragablzItem">
         <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
         <!--<Setter Property="Width" Value="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=ActualWidth, Converter={x:Static conv:DefaultConverter.Instance}}"></Setter>-->
         <Setter Property="Width">
@@ -31,7 +33,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type dragablz:DragablzItem}">
-                    <Grid>
+                    <Grid x:Name="MainGrid">
                         <local:ItemContainerBorder
                             IsDragging="{Binding IsDragging, RelativeSource={RelativeSource TemplatedParent}}" 
                             IsSelected="{Binding IsSelected, RelativeSource={RelativeSource TemplatedParent}}"
@@ -43,7 +45,7 @@
                             <Viewbox.RenderTransform>
                                 <ScaleTransform x:Name="ScaleTransform" ScaleX="1" ScaleY="1" />
                             </Viewbox.RenderTransform>
-                            <Grid >
+                            <Grid x:Name="ViewBoxGrid" >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -63,29 +65,39 @@
                                         </Style>
                                     </TextBox.Style>
                                 </TextBox>
-                                <dragablz1:GeometryThumb VerticalAlignment="Center" 
+                                <dragablz1:GeometryThumb 
+                                    x:Name="GeometryThumb"
+                                    VerticalAlignment="Center" 
                                    HorizontalAlignment="Left" 
                                    dragablz:DragablzItem.IsCustomThumb="True"
                                    Height="15"
                                    Width="15" 
-                                   Geometry="{StaticResource DotGeometry}">
+                                   Geometry="{StaticResource TickGeometry}">
                                 </dragablz1:GeometryThumb>
                             </Grid>
                         </Viewbox>
                     </Grid>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Path=(att:Ex.IsChecked), RelativeSource={RelativeSource Mode=Self}}" Value="True">
+                            <Setter Property="Geometry" Value="{StaticResource TickGeometry}" TargetName="GeometryThumb" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=(att:Ex.IsChecked), RelativeSource={RelativeSource Mode=Self}}" Value="False">
+                            <Setter Property="Geometry" Value="{StaticResource XGeometry}" TargetName="GeometryThumb" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
     <Style 
-           TargetType="{x:Type local:NotesControl}" 
+           TargetType="{x:Type local:TicksControl}" 
            BasedOn="{StaticResource {x:Type dragablz:DragablzItemsControl}}">
         <Style.Setters>
             <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="ItemContainerStyle" Value="{StaticResource DragablzNotes2Style}"/>
+            <Setter Property="ItemContainerStyle" Value="{StaticResource DragablzNotes3Style}"/>
 
         </Style.Setters>
     </Style>
-    
+
 </ResourceDictionary>

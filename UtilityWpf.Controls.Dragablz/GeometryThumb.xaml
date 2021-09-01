@@ -3,18 +3,67 @@
                     xmlns:drag="clr-namespace:UtilityWpf.Controls.Dragablz">
 
     <ControlTemplate x:Key="ControlTemplate" TargetType="{x:Type drag:GeometryThumb}">
-        <Border  Name="OutBox" >
+
+    
             <Grid >
-                <Path   Margin="0,0,0,0"   
-                        Width="3"
-                        Height="3"
+            <Border Name="OutBox" Background="{DynamicResource SecondaryHueLightBrush}"/>
+
+            <Border Panel.ZIndex="2000">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Setters>
+                       
+                <!--Background="{DynamicResource SecondaryHueLightBrush}"-->
+                
+                            <Setter Property="Background"  >
+                                <Setter.Value>
+                                    <SolidColorBrush Color="White" Opacity="0.0"></SolidColorBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <!--<Setter Property="CornerRadius" Value="15"></Setter>-->
+                        </Style.Setters>
+
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Cursor" Value="Hand" />
+                            </Trigger>
+                            <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                  
+                                                                            Storyboard.TargetProperty="Background.Opacity"    
+                                                                            To="0.0"
+                                                                            Duration="0:0:1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                     
+                                                                            Storyboard.TargetProperty="Background.Opacity"                                                                     
+                                                                            To="0.5"
+                                                                            Duration="0:0:1"  />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
+            <Path   
                         Visibility="Visible"
+                        Margin="3"
+                
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Data="{Binding Geometry, RelativeSource={RelativeSource Mode=TemplatedParent}}"
                         RenderTransformOrigin="0.5,0.5"
                         Stretch="Uniform"
-                        Stroke="{DynamicResource PrimaryHueMidBrush}"
+                        Fill="{DynamicResource PrimaryHueDarkBrush}"
+                        Stroke="{DynamicResource PrimaryHueDarkBrush}"
                         StrokeThickness="2">
                     <Path.RenderTransform>
                         <TransformGroup>
@@ -23,45 +72,7 @@
                     </Path.RenderTransform>
                 </Path>
             </Grid>
-            <Border.Style>
-                <Style TargetType="Border">
-                    <Style.Setters>
-                        <Setter Property="Background" Value="{DynamicResource SecondaryHueMidBrush}">
-                            <!--<Setter.Value>
-                                <SolidColorBrush Color="{DynamicResource SecondaryHueMidBrush}" Opacity="0.0"></SolidColorBrush>
-                            </Setter.Value>-->
-                        </Setter>
-                        <Setter Property="CornerRadius" Value="15"></Setter>
-                    </Style.Setters>
-
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Cursor" Value="Hand" />
-                        </Trigger>
-                        <EventTrigger RoutedEvent="UIElement.MouseEnter">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimation
-                                                                            Storyboard.TargetProperty="Background.Opacity"    
-                                                                            To="0.5"
-                                                                            Duration="0:0:1"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                        <EventTrigger RoutedEvent="UIElement.MouseLeave">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimation
-                                                                            Storyboard.TargetProperty="Background.Opacity"                                                                     
-                                                                            To="0.0"
-                                                                            Duration="0:0:1"  />
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Border.Style>
-        </Border>
+       
     </ControlTemplate>
 
 

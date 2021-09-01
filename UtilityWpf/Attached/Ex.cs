@@ -44,5 +44,18 @@ namespace UtilityWpf.Attached
         {
             d.SetValue(KeyProperty, (bool)value);
         }
+
+
+        public static readonly DependencyProperty IsCheckedProperty = DependencyProperty.RegisterAttached("IsChecked", typeof(bool), typeof(Ex), new PropertyMetadata(false, PropertyChanged));
+
+        public static bool GetIsChecked(DependencyObject d)
+        {
+            return (bool)d.GetValue(IsCheckedProperty);
+        }
+
+        public static void SetIsChecked(DependencyObject d, object value)
+        {
+            d.SetValue(KeyProperty, (bool)value);
+        }
     }
 }
