@@ -4,9 +4,10 @@ using ReactiveUI;
 using UtilityInterface.NonGeneric.Database;
 using UtilityWpf.Service;
 using UtilityWpf.TestData.Model;
-using static UtilityWpf.Controls.MasterControl;
+using static UtilityWpf.Controls.Master.MasterControl;
 
-namespace UtilityWpf.Demo.Sandbox.Infrastructure
+
+namespace UtilityWpf.Demo.Master.Infrastructure
 {
     public class PersistListViewModel : ReactiveObject
     {
@@ -32,7 +33,7 @@ namespace UtilityWpf.Demo.Sandbox.Infrastructure
                 return Unit.Default;
             });
 
-            ChangeRepositoryCommand = ReactiveCommand.Create<object, Unit>((a) =>
+            ChangeRepositoryCommand = ReactiveCommand.Create<bool, Unit>((a) =>
             {
                 if (DatabaseService is LiteDbRepository service)
                 {
@@ -83,7 +84,7 @@ namespace UtilityWpf.Demo.Sandbox.Infrastructure
         }
 
         public ReactiveCommand<object, Unit> ChangeCommand { get; }
-        public ReactiveCommand<object, Unit> ChangeRepositoryCommand { get; }
+        public ReactiveCommand<bool, Unit> ChangeRepositoryCommand { get; }
         public ReactiveCommand<object, Unit> CollectionChangedCommand { get; }
 
         public IDatabaseService DatabaseService { get => dbS; private set => this.RaiseAndSetIfChanged(ref dbS, value); }

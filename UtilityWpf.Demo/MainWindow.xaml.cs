@@ -5,6 +5,8 @@ using UtilityWpf.Demo.View;
 using UtilityWpf.Demo.View.Panels;
 using UtilityWpf.Controls;
 using UtilityWpf.Demo.FileSystem;
+using UtilityWpf.Controls.Master;
+using UtilityWpf.Demo.Hybrid;
 
 namespace UtilityWpf.DemoApp
 {
@@ -21,7 +23,8 @@ namespace UtilityWpf.DemoApp
             var c = typeof(AdornerUserControl);
             var d = typeof(FileBrowserView);
             var e = typeof(MasterListUserControl);
-            this.AddChild(new ViewsExDetailControl(new[] { c, a, b, d, e}));
+            var f = typeof(MeasurementsUserControl);
+            this.AddChild(new ViewsExDetailControl(new[] { c, a, b, d, e, f}));
         }
 
     }

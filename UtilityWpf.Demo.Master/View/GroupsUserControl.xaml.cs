@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace UtilityWpf.Demo.Sandbox.View
+namespace UtilityWpf.Demo.Master.View
 {
     /// <summary>
     /// Interaction logic for GroupsUserControl.xaml

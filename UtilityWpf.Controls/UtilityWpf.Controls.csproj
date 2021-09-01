@@ -55,15 +55,7 @@
   </Target>
   
   <ItemGroup>
-    <PackageReference Include="MaterialDesignColors" Version="2.0.1" />
-    <PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
-    <PackageReference Include="Dragablz" Version="0.0.3.223" />
-    <PackageReference Include="Evan.Wpf" Version="1.2.0" />
-    <PackageReference Include="HandyControl" Version="3.2.0" />
-    <PackageReference Include="LambdaConverters" Version="4.0.0" />
-    <PackageReference Include="MaterialDesignExtensions" Version="3.3.0-a01" />   
-    <PackageReference Include="Netsoft.Diff" Version="2.0.0" />
-    <PackageReference Include="WPFTransitionals" Version="1.1.0" />
+
   </ItemGroup>
 
 
@@ -73,9 +65,6 @@
 
 
   <ItemGroup>
-    <Compile Update="UserControl\HostUserControl.xaml.cs">
-      <DependentUpon>HostUserControl.xaml</DependentUpon>
-    </Compile>
     <Compile Update="UserControl\TableUserControl.xaml.cs">
       <DependentUpon>TableUserControl.xaml</DependentUpon>
     </Compile>
@@ -98,58 +87,21 @@
 	  <Compile Update="Button\GeometryButton.cs">
 		  <DependentUpon>GeometryButton.xaml</DependentUpon>
 	  </Compile>
-
-    <Compile Update="Master\MasterControl.cs">
-      <DependentUpon>MasterControl.xaml</DependentUpon>
-    </Compile>
-
-    <Compile Update="Master\MasterDetail.cs">
-      <DependentUpon>MasterDetail.xaml</DependentUpon>
-    </Compile>
-
-    <Compile Update="Master\MasterDetailView.cs">
-      <DependentUpon>MasterDetailView.xaml</DependentUpon>
-    </Compile>
-
-    <Compile Update="Master\MasterNotesControl.cs">
-      <DependentUpon>MasterNotesControl.xaml</DependentUpon>
-    </Compile>
-
-    <Compile Update="Master\MasterGroupsControl.cs">
-      <DependentUpon>MasterGroupsControl.xaml</DependentUpon>
-    </Compile>   
-    
-    <Compile Update="Dragablz\ItemContainerBorder.cs">
-      <DependentUpon>ItemContainerBorder.xaml</DependentUpon>
-    </Compile>  
-    
-    <Compile Update="Master\DoubleContentControl.cs">
-      <DependentUpon>DoubleContentControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Master\MeasurementsControl.cs">
-      <DependentUpon>MeasurementsControl.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="DataTemplate\ViewAssemblyDataTemplate.xaml">
+    <Page Update="DataTemplate\KeyValuePairDataTemplate.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="DataTemplate\ViewTypeDataTemplate.xaml">
+    <Page Update="DataTemplate\PropertyDataTemplateSelector.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Progress\FlashThumb.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
-    <Page Update="DataTemplate\KeyValuePairDataTemplate.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="DataTemplate\PathDataTemplate.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="DataTemplate\PropertyDataTemplateSelector.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="DataTemplate\TypeDataTemplate.xaml">
@@ -221,13 +173,6 @@
     <Page Update="Themes\LabelledTextBox.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Master\MasterDetail.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Master\MasterDetailView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="Themes\NavigatorControl.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -275,9 +220,6 @@
     </Page>
     <Page Update="Themes\ViewCollection.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-    </Page>
-    <Page Update="UserControl\HostUserControl.xaml">
-      <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControl\TableUserControl.xaml">
       <SubType>Designer</SubType>

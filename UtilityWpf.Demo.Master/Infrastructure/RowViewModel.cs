@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Endless;
 using System.Windows.Input;
 using UtilityWpf.TestData.Model;
-using static UtilityWpf.Controls.MasterControl;
+using static UtilityWpf.Controls.Master.MasterControl;
 using System.Collections.ObjectModel;
 
 namespace UtilityWpf.Demo.Master.Infrastructure

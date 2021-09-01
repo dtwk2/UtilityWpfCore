@@ -2,7 +2,7 @@
 using System.Reactive;
 using System.Windows.Input;
 using UtilityWpf.Demo.Master.Infrastructure;
-using static UtilityWpf.Controls.MasterControl;
+using static UtilityWpf.Controls.Master.MasterControl;
 
 namespace UtilityWpf.Demo.View
 {

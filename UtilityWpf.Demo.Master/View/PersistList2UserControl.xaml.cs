@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace UtilityWpf.Demo.Sandbox.Infrastructure
+namespace UtilityWpf.Demo.Master.Infrastructure
 {
     /// <summary>
     /// Interaction logic for PersistListUserControl.xaml

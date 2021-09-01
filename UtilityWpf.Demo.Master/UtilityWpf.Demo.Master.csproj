@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UtilityWpf.Controls\UtilityWpf.Controls.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Controls.Master\UtilityWpf.Controls.Master.csproj" />
     <ProjectReference Include="..\UtilityWpf.TestData\UtilityWpf.TestData.csproj" />
   </ItemGroup>
 

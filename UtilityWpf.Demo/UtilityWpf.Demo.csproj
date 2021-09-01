@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UtilityWpf.Demo.FileSystem\UtilityWpf.Demo.FileSystem.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Demo.Hybrid\UtilityWpf.Demo.Hybrid.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.Master\UtilityWpf.Demo.Master.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.View.Animation\UtilityWpf.Demo.View.Animation.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.View.Panels\UtilityWpf.Demo.View.Panels.csproj" />

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace UtilityWpf.Demo.Sandbox
+namespace UtilityWpf.Demo.Master
 {
     /// <summary>
     /// Interaction logic for App.xaml

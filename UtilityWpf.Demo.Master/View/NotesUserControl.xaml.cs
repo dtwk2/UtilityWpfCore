@@ -1,9 +1,8 @@
-﻿using Dragablz;
+﻿
+using System;
 using System.Linq;
 using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Documents;
-using static UtilityWpf.Controls.MasterControl;
+
 
 namespace UtilityWpf.Demo.View
 {

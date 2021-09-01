@@ -2,7 +2,7 @@
 using System.Collections;
 using UtilityInterface.NonGeneric.Database;
 
-namespace UtilityWpf.Demo.Sandbox.Infrastructure
+namespace UtilityWpf.Demo.Master.Infrastructure
 {
     public class DatabaseService : IDatabaseService
     {

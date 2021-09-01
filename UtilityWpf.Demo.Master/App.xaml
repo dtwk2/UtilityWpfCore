@@ -1,5 +1,5 @@
 ﻿<Application
-    x:Class="UtilityWpf.Demo.Sandbox.App"
+    x:Class="UtilityWpf.Demo.Master.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=PresentationFramework"
@@ -22,7 +22,7 @@ xmlns:view="http://schemas.utility.com"
 
             
             <ResourceDictionary.MergedDictionaries>
-                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls;component/Dragablz/DragablzItem.xaml"></utilitywpf:SharedResourceDictionary>
+                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzItem.xaml"></utilitywpf:SharedResourceDictionary>
                 <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.TestData;component/Themes/Generic.xaml" />
                 <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Demo.Master;component/Templates.xaml" />
                 

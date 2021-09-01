@@ -1,15 +1,16 @@
-﻿<UserControl x:Class="UtilityWpf.Demo.Sandbox.Infrastructure.PersistListUserControl"
+﻿<UserControl x:Class="UtilityWpf.Demo.Master.Infrastructure.PersistListUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:drag="http://dragablz.net/winfx/xaml/dragablz"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
-             xmlns:view="http://schemas.utility.com" 
-             xmlns:local11="clr-namespace:UtilityWpf.Demo.Sandbox.Infrastructure" 
+             xmlns:view="http://schemas.utility.com/master" 
+             xmlns:local11="clr-namespace:UtilityWpf.Demo.Master.Infrastructure" 
              xmlns:behavior1="clr-namespace:UtilityWpf.Behavior;assembly=UtilityWpf"
              xmlns:service="clr-namespace:UtilityWpf.Service;assembly=UtilityWpf"
-             xmlns:utilitywpf="clr-namespace:UtilityWpf;assembly=UtilityWpf"
+             xmlns:utilitywpf="clr-namespace:UtilityWpf;assembly=UtilityWpf" 
+             xmlns:view1="http://schemas.utility.com/dragablz"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
@@ -24,13 +25,13 @@
             <x:Type Type="{x:Type service:LiteDbRepository}" x:Key="LiteDbRepo"></x:Type>
             <x:Type Type="{x:Type local11:DatabaseService}" x:Key="DatabaseService"></x:Type>
             <ResourceDictionary.MergedDictionaries>
-                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls;component/Dragablz/DragablzItem.xaml"></utilitywpf:SharedResourceDictionary>
-                <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DualButtonControl.xaml"/>
+                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzItem.xaml"></utilitywpf:SharedResourceDictionary>
+                <!--<ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DualButtonControl.xaml"/>-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
     <DockPanel>
-        <view:DualButtonControl Main="{Binding Path=Name, Source={StaticResource DatabaseService}}" 
+        <!--<view:DualButtonControl Main="{Binding Path=Name, Source={StaticResource DatabaseService}}" 
                                 Alternate="{Binding Path=Name, Source={StaticResource LiteDbRepo}}" 
                                 Style="{StaticResource OutlinedDualButtonControl}" 
                                 ButtonWidth="130">
@@ -39,8 +40,23 @@
                     <i:InvokeCommandAction Command="{Binding ChangeRepositoryCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-        </view:DualButtonControl>
+        </view:DualButtonControl>-->
 
+        <ToggleButton x:Name="ToggleButton" Style="{DynamicResource MaterialDesignActionLightToggleButton}" Width="200"  DockPanel.Dock="Top" Content="Repository Service">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Checked" >
+                    <i:InvokeCommandAction Command="{Binding ChangeRepositoryCommand}" 
+                                           PassEventArgsToCommand="True" 
+                                           CommandParameter="{Binding ElementName=ToggleButton, Path=IsChecked}" ></i:InvokeCommandAction>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="Unchecked" >
+                    <i:InvokeCommandAction Command="{Binding ChangeRepositoryCommand}" 
+                                           PassEventArgsToCommand="True" 
+                                           CommandParameter="{Binding ElementName=ToggleButton, Path=IsChecked}" ></i:InvokeCommandAction>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ToggleButton>
+        
         <TabControl>
             <TabItem Header="With Detail">
                 <view:MasterDetail>
@@ -66,7 +82,7 @@
                                     <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
-                            <view:DragablzVerticalItemsControl x:Name="DragablzItemsControl"                                                 
+                            <view1:DragablzVerticalItemsControl x:Name="DragablzItemsControl"                                                 
                                                        VerticalAlignment="Center"                                                
                                                        ItemContainerStyle="{StaticResource VerticalItemStyle}"                                                                                             
                                                        MouseDown="DragablzItemsControl_MouseDown">
@@ -76,7 +92,7 @@
 
                                     </behavior1:PersistBehavior>
                                 </i:Interaction.Behaviors>
-                            </view:DragablzVerticalItemsControl>
+                            </view1:DragablzVerticalItemsControl>
                         </view:MasterControl>
                     </view:MasterDetail.Selector>
                 </view:MasterDetail>
@@ -90,7 +106,7 @@
                             <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-                    <view:DragablzVerticalItemsControl x:Name="DragablzItemsControl2"                                                 
+                    <view1:DragablzVerticalItemsControl x:Name="DragablzItemsControl2"                                                 
                                                        VerticalAlignment="Center"                                                
                                                        ItemContainerStyle="{StaticResource VerticalItemStyle}"                                                                                             
                                                        MouseDown="DragablzItemsControl_MouseDown">
@@ -100,7 +116,7 @@
 
                             </behavior1:PersistBehavior>
                         </i:Interaction.Behaviors>
-                    </view:DragablzVerticalItemsControl>
+                    </view1:DragablzVerticalItemsControl>
                 </view:MasterControl>
             </TabItem>
         </TabControl>

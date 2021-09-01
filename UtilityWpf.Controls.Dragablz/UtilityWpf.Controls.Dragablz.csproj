@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UtilityWpf\UtilityWpf.csproj" />
+  </ItemGroup> 
+  
+  <ItemGroup>
+    <PackageReference Include="Dragablz" Version="0.0.3.223" />
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <Compile Update="ItemContainerBorder.cs">
+      <DependentUpon>ItemContainerBorder.xaml</DependentUpon>
+    </Compile>  
+    <Compile Update="NotesControl.cs">
+      <DependentUpon>NotesControl.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="DragablzItem.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="DragablzNoteStyle.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ItemContainerBorder.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

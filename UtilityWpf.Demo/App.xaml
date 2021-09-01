@@ -17,7 +17,7 @@
             <!--<Style TargetType="{x:Type local1:ViewHostControl}" BasedOn="{StaticResource {x:Type util:MasterDetail}}"></Style>-->
 
             <ResourceDictionary.MergedDictionaries>
-                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls;component/Dragablz/DragablzItem.xaml"/>
+                <!--<utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls;component/Dragablz/DragablzItem.xaml"/>-->
                 <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Demo.Master;component/Templates.xaml" />
                 <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.TestData;component/Themes/Generic.xaml" />
 

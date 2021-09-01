@@ -1,12 +1,12 @@
 ﻿<Window
-    x:Class="UtilityWpf.Demo.Sandbox.MainWindow"
+    x:Class="UtilityWpf.Demo.Master.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:view="http://schemas.utility.com" 
-    xmlns:view1="clr-namespace:UtilityWpf.Demo.View" xmlns:view11="clr-namespace:UtilityWpf.Demo.Sandbox.Infrastructure"
-    xmlns:view12="clr-namespace:UtilityWpf.Demo.Sandbox.View" xmlns:view121="clr-namespace:UtilityWpf.Demo.Master.View"
+    xmlns:view1="clr-namespace:UtilityWpf.Demo.View"
+    xmlns:view121="clr-namespace:UtilityWpf.Demo.Master.View" xmlns:view2="http://schemas.utility.com/master" xmlns:view11="clr-namespace:UtilityWpf.Demo.Master.Infrastructure"
     Title="MainWindow"
     Width="825"
     Height="550"
@@ -17,7 +17,7 @@
         </TabItem>    
         
         <TabItem Header="Group">
-            <view12:GroupsUserControl />
+            <view121:GroupsUserControl />
         </TabItem>
         <TabItem Header="Notes">
             <view1:NotesUserControl />
@@ -37,34 +37,34 @@
 
 
         <TabItem Header="A      ">
-            <view:MasterDetailView Items="{StaticResource Characters}" />
+            <view2:MasterDetailView Items="{StaticResource Characters}" />
         </TabItem>
 
         <TabItem Header="B    ">
-            <view:MasterDetail >
-                <view:MasterDetail.Selector>
+            <view2:MasterDetail >
+                <view2:MasterDetail.Selector>
                     <ListBox ItemsSource="{StaticResource Characters}"></ListBox>
-                </view:MasterDetail.Selector>
-            </view:MasterDetail>
+                </view2:MasterDetail.Selector>
+            </view2:MasterDetail>
         </TabItem>
         <TabItem Header="B     2">
-            <view:MasterDetail >
-                <view:MasterDetail.Selector>
-                    <view:MasterControl Position="Bottom">
+            <view2:MasterDetail >
+                <view2:MasterDetail.Selector>
+                    <view2:MasterControl Position="Bottom">
                         <ItemsControl ItemsSource="{StaticResource Characters}"/>
-                    </view:MasterControl>        
-                </view:MasterDetail.Selector>
-            </view:MasterDetail>
+                    </view2:MasterControl>        
+                </view2:MasterDetail.Selector>
+            </view2:MasterDetail>
         </TabItem>  
         
         <TabItem Header="B     3">
-            <view:MasterDetail >
-                <view:MasterDetail.Selector>
-                    <view:MasterControl Position="Top">
+            <view2:MasterDetail >
+                <view2:MasterDetail.Selector>
+                    <view2:MasterControl Position="Top">
                         <ListBox ItemsSource="{StaticResource Characters}"/>
-                    </view:MasterControl>        
-                </view:MasterDetail.Selector>
-            </view:MasterDetail>
+                    </view2:MasterControl>        
+                </view2:MasterDetail.Selector>
+            </view2:MasterDetail>
         </TabItem>
         <TabItem Header="2Z">
             <FrameworkElement.Resources>

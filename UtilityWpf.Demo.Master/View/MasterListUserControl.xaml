@@ -7,11 +7,11 @@
     xmlns:local="clr-namespace:UtilityWpf.Demo.View"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:view="http://schemas.utility.com" 
+    xmlns:view="http://schemas.utility.com/master" 
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:system="clr-namespace:System;assembly=System.Runtime"
     xmlns:utilitywpf="clr-namespace:UtilityWpf;assembly=UtilityWpf"
-    xmlns:vm="clr-namespace:UtilityWpf.TestData.Model;assembly=UtilityWpf.TestData"
+    xmlns:vm="clr-namespace:UtilityWpf.TestData.Model;assembly=UtilityWpf.TestData" xmlns:local1="clr-namespace:UtilityWpf.Demo.Master.Controls" xmlns:view1="http://schemas.utility.com/dragablz"
     d:DesignHeight="450"
     d:Background="White"
     d:DesignWidth="800"
@@ -28,7 +28,7 @@
                 </Grid>
             </DataTemplate>
             <ResourceDictionary.MergedDictionaries>
-                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls;component/Dragablz/DragablzItem.xaml"></utilitywpf:SharedResourceDictionary>
+                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzItem.xaml"></utilitywpf:SharedResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 
@@ -36,7 +36,7 @@
     </UserControl.Resources>
 
 
-    <local:AddRowControl CommandParameter="{Binding {x:Null}}" Position="Bottom" RemoveOrder="Selected" VerticalContentAlignment="Center"
+    <local1:AddRowControl CommandParameter="{Binding {x:Null}}" Position="Bottom" RemoveOrder="Selected" VerticalContentAlignment="Center"
                          ButtonTypes="Remove,MoveDown,MoveUp">
         <i:Interaction.Triggers>
             <i:EventTrigger  EventName="Change" >
@@ -53,15 +53,15 @@
                                 <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
-                        <view:DragablzHorizontalItemsControl x:Name="DragablzItemsControl" 
+                        <view1:DragablzHorizontalItemsControl x:Name="DragablzItemsControl" 
                                                        ItemsSource="{Binding Data}"                                                       
                                                        VerticalAlignment="Center"                                                 
                                                        ItemContainerStyle="{StaticResource DragablzItemStyle2}"
                                                        ItemTemplate="{StaticResource Int32Template}">
-                        </view:DragablzHorizontalItemsControl>
+                        </view1:DragablzHorizontalItemsControl>
                     </view:MasterControl>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-    </local:AddRowControl>
+    </local1:AddRowControl>
 </UserControl>

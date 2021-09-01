@@ -8,9 +8,9 @@ using ReactiveUI;
 using UtilityInterface.NonGeneric.Database;
 using UtilityWpf.Service;
 using UtilityWpf.TestData.Model;
-using static UtilityWpf.Controls.MasterControl;
+using static UtilityWpf.Controls.Master.MasterControl;
 
-namespace UtilityWpf.Demo.Sandbox.Infrastructure
+namespace UtilityWpf.Demo.Master.Infrastructure
 {
     public class PersistList2ViewModel : ReactiveObject
     {
