@@ -14,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="FileView.cs">
-      <DependentUpon>FileView.xaml</DependentUpon>
+    <Compile Update="FileViewer.cs">
+      <DependentUpon>FileViewer.xaml</DependentUpon>
     </Compile>
     <Compile Update="PathBrowser.cs">
       <DependentUpon>PathBrowser.xaml</DependentUpon>
@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="FileView.xaml">
+    <Page Update="FileViewer.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
     <Page Update="FolderOpenControl.xaml">

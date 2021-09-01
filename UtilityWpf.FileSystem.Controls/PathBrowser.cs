@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using ReactiveUI;
+using UtilityWpf.Controls.FileSystem.Infrastructure;
 using Button = System.Windows.Controls.Button;
 using Control = System.Windows.Controls.Control;
 using Label = System.Windows.Controls.Label;
@@ -34,7 +35,7 @@ namespace UtilityWpf.Controls.FileSystem
         public static readonly DependencyProperty SetPathProperty =
             DependencyProperty.Register("SetPath", typeof(ICommand), typeof(PathBrowser), new PropertyMetadata(null));
 
-        public static readonly RoutedEvent TextChangeEvent = EventManager.RegisterRoutedEvent("TextChange", RoutingStrategy.Bubble, typeof(TextChangeRoutedEventHandler), typeof(PathBrowser));
+        public static readonly RoutedEvent TextChangeEvent = EventManager.RegisterRoutedEvent("TextChange", RoutingStrategy.Bubble, typeof(TextChangedRoutedEventHandler), typeof(PathBrowser));
 
         public static readonly DependencyProperty LabelProperty =
             DependencyProperty.Register("Label", typeof(string), typeof(PathBrowser), new PropertyMetadata(null));
@@ -64,6 +65,8 @@ namespace UtilityWpf.Controls.FileSystem
 
             SetPath = ReactiveCommand.Create<string>(textChanges.OnNext);
 
+            Command.TextChanged += Command_TextChanged;
+
             textChanges
                 .WhereNotNull()
                 .DistinctUntilChanged()
@@ -80,9 +83,15 @@ namespace UtilityWpf.Controls.FileSystem
                 });
         }
 
+        private void Command_TextChanged(string obj)
+        {
+            textChanges.OnNext(obj);
+        }
+
         public override void OnApplyTemplate()
         {
             ButtonOne = GetTemplateChild("ButtonOne") as Button ?? throw new NullReferenceException("ButtonOne is null");
+            ButtonOne.Command = Command;
             ContentControlOne = GetTemplateChild("ContentControlOne") as ContentControl ?? throw new NullReferenceException("ContentControlOne is null");
             TextBoxOne = (GetTemplateChild("StackPanelOne") as FrameworkElement)?.Resources["TextBoxOne"] as TextBox ?? throw new NullReferenceException("StackPanelOne is null");
             TextBoxContent = TextBoxContent ??= TextBoxOne;
@@ -122,14 +131,14 @@ namespace UtilityWpf.Controls.FileSystem
             set => SetValue(SetPathProperty, value);
         }
 
-        public event TextChangeRoutedEventHandler TextChange
+        public event TextChangedRoutedEventHandler TextChange
         {
             add => AddHandler(TextChangeEvent, value);
             remove => RemoveHandler(TextChangeEvent, value);
         }
         #endregion properties
 
-        protected abstract (bool? result, string path) OpenDialog(string filter, string extension);
+        protected abstract BrowserCommand Command { get; }
 
         private static void TextBoxContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -138,19 +147,9 @@ namespace UtilityWpf.Controls.FileSystem
 
         protected void RaiseTextChangeEvent(string text)
         {
-            Dispatcher.Invoke(() => RaiseEvent(new TextRoutedEventArgs(TextChangeEvent, text)));
+            Dispatcher.Invoke(() => RaiseEvent(new TextChangedRoutedEventArgs(TextChangeEvent, text)));
         }
 
-        public class TextRoutedEventArgs : RoutedEventArgs
-        {
-            public TextRoutedEventArgs(RoutedEvent routedEvent, string text) : base(routedEvent)
-            {
-                Text = text;
-            }
 
-            public string Text { get; set; }
-        }
-
-        public delegate void TextChangeRoutedEventHandler(object sender, TextRoutedEventArgs e);
     }
 }

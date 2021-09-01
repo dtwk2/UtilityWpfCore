@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UtilityWpf.Controls.FileSystem.Infrastructure;
 
 namespace UtilityWpf.Demo.FileSystem
 {
@@ -30,7 +31,7 @@ namespace UtilityWpf.Demo.FileSystem
 
         }
 
-        private void FolderBrowser1_OnTextChange(object sender, Controls.FileSystem.PathBrowser.TextRoutedEventArgs e)
+        private void FolderBrowser1_OnTextChange(object sender, TextChangedRoutedEventArgs e)
         {
 
         }

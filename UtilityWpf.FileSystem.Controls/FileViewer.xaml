@@ -4,10 +4,10 @@
     xmlns:controls="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
     xmlns:view1="clr-namespace:UtilityWpf.Controls.FileSystem">
 
-    <Style TargetType="{x:Type view1:FileView}">
+    <Style TargetType="{x:Type view1:FileViewer}">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type view1:FileView}">
+                <ControlTemplate TargetType="{x:Type view1:FileViewer}">
                     <Grid>
                         <DockPanel>
                             <UniformGrid Rows="1">

@@ -10,16 +10,8 @@ namespace UtilityWpf.Controls.FileSystem
     public class FolderOpenControl : Control
     {
         public static readonly DependencyProperty PathProperty = DependencyProperty.Register("Path", typeof(string), typeof(FolderOpenControl), new PropertyMetadata(null, PathChanged));
-
         public static readonly DependencyProperty FolderOpenCommandProperty = DependencyProperty.Register("FolderOpenCommand", typeof(ICommand), typeof(FolderOpenControl));
 
-        public string Path
-        {
-            get { return (string)GetValue(PathProperty); }
-            set { SetValue(PathProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for Path.  This enables animation, styling, binding, etc...
 
         private static void PathChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -41,6 +33,12 @@ namespace UtilityWpf.Controls.FileSystem
                     Dispatcher.InvokeAsync(() => Path = foc.Directory,
                                    System.Windows.Threading.DispatcherPriority.Background, default);
             };
+        }
+
+        public string Path
+        {
+            get { return (string)GetValue(PathProperty); }
+            set { SetValue(PathProperty, value); }
         }
 
         class FolderOpenCommand : NPC, ICommand

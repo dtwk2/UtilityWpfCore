@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:UtilityWpf.Demo.FileSystem" xmlns:controlzex="urn:controlzex" xmlns:controls1="http://schemas.utility.com/filesystem"
+        xmlns:local="clr-namespace:UtilityWpf.Demo.FileSystem" xmlns:controlzex="urn:controlzex" xmlns:controls1="http://schemas.utility.com/filesystem" xmlns:p="http://propertytools.org/wpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <DockPanel>
@@ -19,31 +19,42 @@
                 <local:FileBrowser2View></local:FileBrowser2View>
             </TabItem>
 
-            <TabItem Header="Directory">
-                <local:FileBrowserView></local:FileBrowserView>
-            </TabItem>
-
-            <TabItem Header="File 2">
+               <TabItem Header="Folder">
                 <local:FolderBrowserView></local:FolderBrowserView>
             </TabItem>
 
-            <TabItem Header="File 3">
+            <TabItem Header="Folder Open">
                 <local:FolderOpenView></local:FolderOpenView>
             </TabItem>
 
-            <!--<TabItem Header="ViewModelViewHost">
-            <Grid>
-                <reactiveUi:ViewModelViewHost x:Name="FolderViewModelViewHost" />
-            </Grid>
-        </TabItem>-->
+            <TabItem Header="FileViewer">
 
-            <TabItem Header="FileView">
-
-                <controls1:FileView Directory="../../../Resources" />
+                <controls1:FileViewer Directory="../../../Resources" />
 
             </TabItem>
 
+            <TabItem Header="Property Tools">
+                <UniformGrid>
+                    
+                <StackPanel Width="400" VerticalAlignment="Center">
+                    <p:DirectoryPicker
+                Margin="4"
+                BrowseButtonContent="Browse..."
+                Directory="{Binding Directory}"
+                ExploreButtonContent="Explore..." />
+                    <Label Content="{Binding Directory}" />
+                </StackPanel>
+                <StackPanel>
+                    <p:FilePicker
+                Margin="4"
+                DefaultExtension=".txt"
+                FilePath="{Binding File}"
+                Filter="Text files|*.txt" />
+                    <Label Content="{Binding File}" />
+                </StackPanel>
+                </UniformGrid>
 
+            </TabItem>
 
 
         </controlzex:TabControlEx>

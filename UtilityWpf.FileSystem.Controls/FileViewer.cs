@@ -10,19 +10,19 @@ using ReactiveUI;
 
 namespace UtilityWpf.Controls.FileSystem
 {
-    public class FileView : Control
+    public class FileViewer : Control
     {
-        public static readonly DependencyProperty DirectoryProperty = DependencyProperty.Register("Directory", typeof(string), typeof(FileView), new PropertyMetadata(null));
-        public static readonly DependencyProperty RefreshProperty = DependencyProperty.Register("Refresh", typeof(ICommand), typeof(FileView), new PropertyMetadata(null));
+        public static readonly DependencyProperty DirectoryProperty = DependencyProperty.Register("Directory", typeof(string), typeof(FileViewer), new PropertyMetadata(null));
+        public static readonly DependencyProperty RefreshProperty = DependencyProperty.Register("Refresh", typeof(ICommand), typeof(FileViewer), new PropertyMetadata(null));
 
         private OpenFileControl openFileControl;
         private ContentControl contentControl;
 
-        static FileView()
+        static FileViewer()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(FileView), new FrameworkPropertyMetadata(typeof(FileView)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(FileViewer), new FrameworkPropertyMetadata(typeof(FileViewer)));
         }
-        public FileView()
+        public FileViewer()
         {
         }
 

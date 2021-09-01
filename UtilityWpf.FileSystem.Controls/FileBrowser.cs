@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
-using Microsoft.Win32;
+using System.Windows.Input;
 using ReactiveUI;
 
 
@@ -18,36 +19,15 @@ namespace UtilityWpf.Controls.FileSystem
 
         public static readonly DependencyProperty ExtensionProperty =
             DependencyProperty.Register("Extension", typeof(string), typeof(PathBrowser), new PropertyMetadata(null, ExtensionChanged));
+        private readonly FileBrowserCommand fileBrowserCommand = new();
 
         public FileBrowser()
         {
-            _ = applyTemplateSubject.Select(a => ButtonOne?.ToClicks() ?? throw new NullReferenceException("ButtonOne is null"))
-                .SelectMany(a => a)
-                .CombineLatest(filterChanges.StartWith(Filter).DistinctUntilChanged(),
-                    extensionChanges.StartWith(Extension).DistinctUntilChanged(),
-                    (a, b, c) => OpenDialog(b, c))
-                .Where(output => output.result ?? false)
-                .ObserveOnDispatcher()
-                .Select(output => output.path)
-                .WhereNotNull()
-                .Subscribe(textChanges.OnNext);
-        }
-
-        protected override (bool? result, string path) OpenDialog(string filter, string extension)
-        {
-            OpenFileDialog dlg = new();
-
-            //  dlg.DefaultExt = ".png";
-            //   dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
-            if (extension != null)
-                dlg.DefaultExt = extension.StartsWith(".") ? extension : "." + extension;
-            if (filter != null)
-                dlg.Filter = filter;
-
-            bool? result = dlg.ShowDialog();
-
-            // if dialog closed dlg.FileName may become inaccessible; hence check for result equal to true
-            return result == true ? (result, dlg.FileName) : (result, null);
+            this.WhenAnyValue(a => a.Filter)
+                .Subscribe(a => { fileBrowserCommand.Filter = a; });              
+            this.WhenAnyValue(a => a.Extension)
+                .Subscribe(a => { fileBrowserCommand.Extension = a; });
+        
         }
 
         public string Filter
@@ -56,15 +36,16 @@ namespace UtilityWpf.Controls.FileSystem
             set => SetValue(FilterProperty, value);
         }
 
-        private static void FilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            (d as FileBrowser)?.filterChanges.OnNext((string)e.NewValue);
-        }
-
         public string Extension
         {
             get => (string)GetValue(ExtensionProperty);
             set => SetValue(ExtensionProperty, value);
+        }
+        protected override BrowserCommand Command => fileBrowserCommand;
+
+        private static void FilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as FileBrowser)?.filterChanges.OnNext((string)e.NewValue);
         }
 
         private static void ExtensionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
