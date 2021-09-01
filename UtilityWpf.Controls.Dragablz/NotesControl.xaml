@@ -4,74 +4,14 @@
                     xmlns:conv="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"                    
                     xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
                     xmlns:utilitywpf="http://schemas.utility.com/utilitywpf"
-                    xmlns:dragablz1="UtilityWpf.Controls.Dragablz">
+                    xmlns:dragablz1="clr-namespace:UtilityWpf.Controls.Dragablz"
+                    xmlns:drag="http://schemas.utility.com/dragablz">
 
     <ResourceDictionary.MergedDictionaries>
         <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzNoteStyle.xaml"></utilitywpf:SharedResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
-
-
-    <ControlTemplate x:Key="DotThumbTemplate">
-        <Border  Name="OutBox" >
-            <Grid >
-                <Path   Margin="0,0,0,0"   
-                                                            Width="3"
-                                                            Height="3"
-                                                            Visibility="Visible"
-                                                            HorizontalAlignment="Center"
-                                                            VerticalAlignment="Center"
-                                                            Data="{StaticResource DotGeometry}"
-                                                            RenderTransformOrigin="0.5,0.5"
-                                                            Stretch="Uniform"
-                                                            Stroke="Black"
-                                                            StrokeThickness="2">
-                    <Path.RenderTransform>
-                        <TransformGroup>
-                            <TranslateTransform />
-                        </TransformGroup>
-                    </Path.RenderTransform>
-                </Path>
-            </Grid>
-            <Border.Style>
-                <Style TargetType="Border">
-                    <Style.Setters>
-                        <Setter Property="Background" >
-                            <Setter.Value>
-                                <SolidColorBrush Color="Gold" Opacity="0.0"></SolidColorBrush>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter Property="CornerRadius" Value="15"></Setter>
-                    </Style.Setters>
-
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Cursor" Value="Hand" />
-                        </Trigger>
-                        <EventTrigger RoutedEvent="UIElement.MouseEnter">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimation
-                                                                            Storyboard.TargetProperty="Background.Opacity"    
-                                                                            To="0.5"
-                                                                            Duration="0:0:1"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                        <EventTrigger RoutedEvent="UIElement.MouseLeave">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimation
-                                                                            Storyboard.TargetProperty="Background.Opacity"                                                                     
-                                                                            To="0.0"
-                                                                            Duration="0:0:1"  />
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Border.Style>
-        </Border>
-    </ControlTemplate>
+    
+    <EllipseGeometry x:Key="DotGeometry" Center="0,0" RadiusX="1" RadiusY="1" />
 
     <Style x:Key="DragablzNotes2Style" TargetType="dragablz:DragablzItem">
         <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
@@ -120,13 +60,13 @@
                                         </Style>
                                     </TextBox.Style>
                                 </TextBox>
-                                <Thumb VerticalAlignment="Center" 
+                                <dragablz1:GeometryThumb VerticalAlignment="Center" 
                                    HorizontalAlignment="Left" 
                                    dragablz:DragablzItem.IsCustomThumb="True"
                                    Height="15"
                                    Width="15" 
-                                   Template="{StaticResource DotThumbTemplate}">
-                                </Thumb>
+                                   Geometry="{StaticResource DotGeometry}">
+                                </dragablz1:GeometryThumb>
                             </Grid>
                         </Viewbox>
                     </Grid>

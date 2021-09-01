@@ -41,7 +41,6 @@ namespace UtilityWpf.Controls.Dragablz
         }
 
 
-
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             if ((sender as TextBox)?.FindParent<DragablzItem>() is { } parent)

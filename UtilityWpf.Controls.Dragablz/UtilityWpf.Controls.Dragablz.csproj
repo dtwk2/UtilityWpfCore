@@ -21,6 +21,9 @@
     </Compile>  
     <Compile Update="NotesControl.cs">
       <DependentUpon>NotesControl.xaml</DependentUpon>
+    </Compile>  
+    <Compile Update="GeometryThumb.cs">
+      <DependentUpon>GeometryThumb.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
