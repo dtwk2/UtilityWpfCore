@@ -16,26 +16,20 @@
         </TabItem>-->
 
             <TabItem Header="File">
-                <local:FileBrowser2View></local:FileBrowser2View>
+                <local:FileBrowserView></local:FileBrowserView>
             </TabItem>
 
-               <TabItem Header="Folder">
+             <TabItem Header="Folder">
                 <local:FolderBrowserView></local:FolderBrowserView>
             </TabItem>
 
-            <TabItem Header="Folder Open">
-                <local:FolderOpenView></local:FolderOpenView>
-            </TabItem>
-
+          
             <TabItem Header="FileViewer">
-
                 <controls1:FileViewer Directory="../../../Resources" />
-
             </TabItem>
 
             <TabItem Header="Property Tools">
-                <UniformGrid>
-                    
+                <UniformGrid>                    
                 <StackPanel Width="400" VerticalAlignment="Center">
                     <p:DirectoryPicker
                 Margin="4"
@@ -53,11 +47,7 @@
                     <Label Content="{Binding File}" />
                 </StackPanel>
                 </UniformGrid>
-
             </TabItem>
-
-
         </controlzex:TabControlEx>
-
     </DockPanel>
 </Window>

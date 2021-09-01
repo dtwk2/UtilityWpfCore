@@ -15,11 +15,13 @@
             Click="ButtonBase_OnClick">
             Set Path
         </Button>
-        
-        <fs:FolderBrowser
+
+        <fs:FolderBrowser Margin="20" 
                     x:Name="FolderBrowser1"
                     Label="Test"
                     TextChange="FolderBrowser1_OnTextChange" />
+
+        <fs:FolderOpenControl Margin="20" />
     </StackPanel>
     
 </UserControl>

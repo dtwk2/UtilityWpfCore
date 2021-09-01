@@ -18,9 +18,9 @@ namespace UtilityWpf.Demo.FileSystem
     /// <summary>
     /// Interaction logic for DirectoryView.xaml
     /// </summary>
-    public partial class DirectoryView : UserControl
+    public partial class FileViewerView : UserControl
     {
-        public DirectoryView()
+        public FileViewerView()
         {
             InitializeComponent();
         }

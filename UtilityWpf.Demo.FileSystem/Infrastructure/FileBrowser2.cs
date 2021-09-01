@@ -8,7 +8,7 @@ using UtilityWpf.Controls.FileSystem;
 
 namespace UtilityWpf.Demo.FileSystem.Infrastructure
 {
-    public class FileBrowser2 : FileBrowser
+    public class FileBrowser2 : FileBrowser<TextBlock>
     {
         private TextBlock TextBlockOne;
 
@@ -18,7 +18,7 @@ namespace UtilityWpf.Demo.FileSystem.Infrastructure
             this.TextBoxContent = TextBlockOne;
         }
 
-        protected override void OnTextChange(string path, TextBox textBox)
+        protected override void OnTextChange(string path, TextBlock textBox)
         {
             TextBlockOne.Text = path;
             TextBlockOne.Focus();
