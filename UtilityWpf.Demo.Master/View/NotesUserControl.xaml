@@ -51,6 +51,11 @@
             Change="MasterNotesControl_Change"
             DisplayMemberPath="{mk:NameOf Type={x:Type vm1:NoteViewModel}, Member=Text}">
             </view:MasterNotesControl>
+
+            <view1:NotesControl
+            ItemsSource="{Binding Collection}"         
+            DisplayMemberPath="{mk:NameOf Type={x:Type vm1:NoteViewModel}, Member=Text}">
+            </view1:NotesControl>
         </UniformGrid>
 
         <UniformGrid Rows="1">
