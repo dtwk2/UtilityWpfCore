@@ -10,28 +10,29 @@ namespace UtilityWpf.Controls.FileSystem
     {
         private string filter;
         private string extension;
+        private bool multiSelect;
         protected Subject<string> filterChanges = new();
         protected Subject<string> extensionChanges = new();
+        protected Subject<bool> multiSelectChanges = new();
 
-
-        public FileBrowserCommand() : base(Select(out var filterSubject, out var extensionSubject))
+        public FileBrowserCommand() : base(Select(out var filterSubject, out var extensionSubject, out var multiSelect))
         {
             filterChanges.StartWith(Filter).Subscribe(filterSubject);
             extensionChanges.StartWith(Extension).Subscribe(extensionSubject);
+            multiSelectChanges.StartWith(IsMultiSelect).Subscribe(multiSelect);
         }
 
-        private static Func<IObservable<string>> Select(out ReplaySubject<string> filter, out ReplaySubject<string> extension)
+        private static Func<IObservable<string>> Select(out ReplaySubject<string> filter, out ReplaySubject<string> extension, out ReplaySubject<bool> multiSelectChanges)
         {
             filter = new(1);
             extension = new(1);
+            multiSelectChanges = new(1);
 
-            var obs = filter.DistinctUntilChanged().WithLatestFrom(
-                extension.DistinctUntilChanged(),
-                (b, c) => OpenDialog(b, c))
+            var obs = filter.CombineLatest(extension, multiSelectChanges, (b, c, d) => OpenDialog(b, c, d))
                 .Take(1)
             .Where(output => output.result ?? false)
             .ObserveOnDispatcher()
-            .Select(output => output.path)
+            .SelectMany(output => output.path.ToObservable())
             .WhereNotNull();
             return new Func<IObservable<string>>(() => obs);
 
@@ -45,11 +46,15 @@ namespace UtilityWpf.Controls.FileSystem
         {
             get => extension; set { extension = value; extensionChanges.OnNext(value); }
         }
+        public bool IsMultiSelect
+{
+            get => multiSelect; set { multiSelect = value; multiSelectChanges.OnNext(value); }
+        }
 
-        protected static (bool? result, string path) OpenDialog(string filter, string extension)
+        protected static (bool? result, string[] path) OpenDialog(string filter, string extension, bool isMultiSelect)
         {
             OpenFileDialog dlg = new();
-
+            dlg.Multiselect = isMultiSelect;
             //  dlg.DefaultExt = ".png";
             //   dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
             if (extension != null)
@@ -58,9 +63,9 @@ namespace UtilityWpf.Controls.FileSystem
                 dlg.Filter = filter;
 
             bool? result = dlg.ShowDialog();
-
+         
             // if dialog closed dlg.FileName may become inaccessible; hence check for result equal to true
-            return result == true ? (result, dlg.FileName) : (result, null);
+            return result == true ? (result, dlg.FileNames) : (result, null);
         }
     }
 }

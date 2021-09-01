@@ -9,15 +9,12 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type browser:PathBrowser}">
 
-                    <Grid x:Name="StackPanelOne" Margin="2,2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <Grid x:Name="GridOne" Margin="2,2">
+                        
                         <FrameworkElement.Resources>
                             <ResourceDictionary>
                                 <TextBox
+                                    Background="WhiteSmoke"
                                     x:Key="TextBoxOne"
                                     Height="30"
                                     Margin="4,0,4,0"
@@ -27,6 +24,13 @@
                                     FontSize="14" />
                             </ResourceDictionary>
                         </FrameworkElement.Resources>
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+         
                         <Label
                             x:Name="LabelOne"
                             Grid.Column="0"
