@@ -38,16 +38,18 @@ namespace UtilityWpf.Controls.Master
 
             this.WhenAnyValue(a => a.ItemsSource)
                 .Skip(1)
-                .CombineLatest(this.WhenAnyValue(a => a.DisplayMemberPath))
+                .CombineLatest(this.WhenAnyValue(a => a.DisplayMemberPath), this.WhenAnyValue(a => a.IsReadOnlyPath))
                      .Subscribe(a =>
                      {
+                         var (itemsSource, memberPath, readOnlyPath) = a;
+
                          this.Dispatcher.InvokeAsync(() =>
                          {
                              if (this.Content is GroupsControl msn)
                              {
-                                 msn.ItemsSource = this.ItemsSource;
-                                 msn.DisplayMemberPath = this.DisplayMemberPath;
-                                 msn.IsReadOnlyPath = this.IsReadOnlyPath;
+                                 msn.ItemsSource = itemsSource;
+                                 msn.DisplayMemberPath = memberPath;
+                                 msn.IsReadOnlyPath = readOnlyPath;
                              }
                              else
                              {
@@ -86,7 +88,7 @@ namespace UtilityWpf.Controls.Master
         {
             if (SelectedItem is UIElement elem)
             {
-      
+
                 elem.SetValue(Attached.Ex.IsReadOnlyProperty, isAdd);
             }
             else

@@ -35,7 +35,7 @@ namespace UtilityWpf.Controls.Master
         }
 
         public ItemsContentControl()
-        {        
+        {
         }
 
         #region properties
@@ -93,7 +93,7 @@ namespace UtilityWpf.Controls.Master
 
         public override void OnApplyTemplate()
         {
-           
+
             ItemsControl = (this.Content as ItemsControl) ?? (this.Content as DependencyObject)?.FindVisualChildren<ItemsControl>().SingleOrDefault()!;
             if (ItemsControl != null)
             {
@@ -135,7 +135,7 @@ namespace UtilityWpf.Controls.Master
             {
                 changed.CollectionChanged += (s, e) =>
                 {
-                    this.SetValue(CountProperty, ItemsControl.ItemsSource.Count());
+                    this.SetValue(CountProperty, ItemsControl.ItemsSource?.Count() ?? -1);
                 };
             }
             else
