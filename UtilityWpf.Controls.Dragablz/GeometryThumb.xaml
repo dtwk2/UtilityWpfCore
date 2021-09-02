@@ -55,7 +55,7 @@
             </Border>
             <Path   
                         Visibility="Visible"
-                        Margin="3"
+                        Margin="5"
                 
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
@@ -64,7 +64,7 @@
                         Stretch="Uniform"
                         Fill="{DynamicResource PrimaryHueDarkBrush}"
                         Stroke="{DynamicResource PrimaryHueDarkBrush}"
-                        StrokeThickness="2">
+                        StrokeThickness="1">
                     <Path.RenderTransform>
                         <TransformGroup>
                             <TranslateTransform />
