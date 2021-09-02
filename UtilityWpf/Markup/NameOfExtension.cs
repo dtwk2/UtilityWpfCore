@@ -27,7 +27,10 @@ namespace UtilityWpf.Markup
             if (propertyInfo != null)
                 return Member;
             var fieldInfo = Type.GetRuntimeFields().FirstOrDefault(fi => fi.Name == Member);
-            if (fieldInfo == null)
+            if (fieldInfo != null)
+                return Member;
+            var eventInfo = Type.GetRuntimeEvents().FirstOrDefault(ei => ei.Name == Member);
+            if (eventInfo == null)            
                 throw new ArgumentException($"No property or field found for {Member} in {Type}");
 
             return Member;
