@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.ComponentModel;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using Dragablz;
@@ -7,8 +9,7 @@ namespace UtilityWpf.Controls.Dragablz
 {
     public class TicksControl : DragablzVerticalItemsControl
     {
-        public static readonly DependencyProperty IsCheckedPathProperty = DependencyProperty.Register("IsCheckedPath", typeof(string), typeof(GroupsControl), new PropertyMetadata(null));
-
+        public static readonly DependencyProperty IsCheckedPathProperty = DependencyProperty.Register("IsCheckedPath", typeof(string), typeof(TicksControl), new PropertyMetadata(null));
 
         static TicksControl()
         {
@@ -20,7 +21,6 @@ namespace UtilityWpf.Controls.Dragablz
             get => (string)GetValue(IsCheckedPathProperty);
             set => SetValue(IsCheckedPathProperty, value);
         }
-
 
         protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
         {
@@ -50,16 +50,17 @@ namespace UtilityWpf.Controls.Dragablz
                 };
             }
 
-            Binding? CreateIsCheckedBinding(object item)
+            Binding CreateIsCheckedBinding(object item)
             {
                 if (string.IsNullOrEmpty(IsCheckedPath))
-                    return null;
-     
+                    throw new ArgumentNullException(nameof(IsCheckedPath));
+    
                 Binding myBinding = new Binding
                 {
                     Source = item,
                     Path = new PropertyPath(IsCheckedPath),
-                    Mode = BindingMode.OneWay
+                    Mode = BindingMode.OneWay,                    
+                    UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
                 };
                 return myBinding;
             }
@@ -77,7 +78,5 @@ namespace UtilityWpf.Controls.Dragablz
             if ((e.OriginalSource as TextBox)?.FindParent<DragablzItem>() is { } parent)
                 parent.IsSelected = true;
         }
-
-
     }
 }

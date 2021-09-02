@@ -5,8 +5,7 @@
                     xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
                     xmlns:utilitywpf="http://schemas.utility.com/utilitywpf"
                     xmlns:dragablz1="clr-namespace:UtilityWpf.Controls.Dragablz"
-                    xmlns:att="http://schemas.utility.com/utilitywpf"
-                    xmlns:drag="http://schemas.utility.com/dragablz">
+                    xmlns:att="http://schemas.utility.com/utilitywpf">
 
     <ResourceDictionary.MergedDictionaries>
         <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzNoteStyle.xaml"></utilitywpf:SharedResourceDictionary>
@@ -18,9 +17,8 @@
     <Geometry x:Key="XGeometry">M0,0L16,16M16,0L0,16</Geometry>
 
 
-    <Style x:Key="DragablzNotes3Style" TargetType="dragablz:DragablzItem">
+    <Style x:Key="DragablzTickStyle" TargetType="dragablz:DragablzItem">
         <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-        <!--<Setter Property="Width" Value="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=ActualWidth, Converter={x:Static conv:DefaultConverter.Instance}}"></Setter>-->
         <Setter Property="Width">
             <Setter.Value>
                 <MultiBinding Converter="{x:Static conv:ActualWidthConverter.Instance}">
@@ -37,11 +35,8 @@
                         <local:ItemContainerBorder
                             IsDragging="{Binding IsDragging, RelativeSource={RelativeSource TemplatedParent}}" 
                             IsSelected="{Binding IsSelected, RelativeSource={RelativeSource TemplatedParent}}"
-                            IsSelectable="{Binding IsMouseOver, ElementName=Main_ViewBox}"
-                           />
-
+                            IsSelectable="{Binding IsMouseOver, ElementName=Main_ViewBox}"/>
                         <Viewbox x:Name="Main_ViewBox" HorizontalAlignment="Stretch" RenderTransformOrigin=".5, .5" Margin="0.5">
-
                             <Viewbox.RenderTransform>
                                 <ScaleTransform x:Name="ScaleTransform" ScaleX="1" ScaleY="1" />
                             </Viewbox.RenderTransform>
@@ -95,8 +90,7 @@
            BasedOn="{StaticResource {x:Type dragablz:DragablzItemsControl}}">
         <Style.Setters>
             <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="ItemContainerStyle" Value="{StaticResource DragablzNotes3Style}"/>
-
+            <Setter Property="ItemContainerStyle" Value="{StaticResource DragablzTickStyle}"/>
         </Style.Setters>
     </Style>
 
