@@ -4,8 +4,9 @@ using System.Windows;
 using System.Windows.Controls;
 using ReactiveUI;
 using UtilityWpf.Controls.Dragablz;
+using UtilityWpf.Controls.Master;
 
-namespace UtilityWpf.Controls.Master
+namespace UtilityWpf.Controls.Hybrid
 {
     public class MasterTicksControl : MasterBindableControl
     {
@@ -13,14 +14,14 @@ namespace UtilityWpf.Controls.Master
 
         static MasterTicksControl()
         {
-           // FrameworkElement.DefaultStyleKeyProperty.OverrideMetadata(typeof(MasterTicksControl), new FrameworkPropertyMetadata(typeof(MasterTicksControl)));
+            // FrameworkElement.DefaultStyleKeyProperty.OverrideMetadata(typeof(MasterTicksControl), new FrameworkPropertyMetadata(typeof(MasterTicksControl)));
         }
 
         public MasterTicksControl()
         {
             Position = Dock.Bottom;
             RemoveOrder = RemoveOrder.Selected;
-            this.ButtonTypes = ButtonType.Add | ButtonType.Remove;
+            ButtonTypes = ButtonType.Add | ButtonType.Remove;
             this.WhenAnyValue(a => a.ItemsSource)
            .CombineLatest(this.WhenAnyValue(a => a.DisplayMemberPath), this.WhenAnyValue(a => a.IsCheckedPath))
            .Subscribe(a =>
@@ -28,16 +29,16 @@ namespace UtilityWpf.Controls.Master
                var (itemsSource, display, isChecked) = a;
                //this.Dispatcher.InvokeAsync(() =>
                //{
-                   if ((this.Content ??= new TicksControl()) is TicksControl msn)
-                   {
-                       msn.ItemsSource = itemsSource;
-                       msn.IsCheckedPath = isChecked;
-                       msn.DisplayMemberPath = display;
-                   }
-                   else
-                   {
-                       throw new ApplicationException("Expected Content to be "+ nameof(TicksControl));
-                   }
+               if ((Content ??= new TicksControl()) is TicksControl msn)
+               {
+                   msn.ItemsSource = itemsSource;
+                   msn.IsCheckedPath = isChecked;
+                   msn.DisplayMemberPath = display;
+               }
+               else
+               {
+                   throw new ApplicationException("Expected Content to be " + nameof(TicksControl));
+               }
                //});
            });
         }

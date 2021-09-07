@@ -11,27 +11,6 @@
             <TextBox  HorizontalAlignment="Center"   VerticalAlignment="Center"  Text="{Binding Value}" />
         </Grid>
     </DataTemplate>
-    
-    <DataTemplate DataType="{x:Type vm:RowViewModel}">
-        <view1:MasterControl CommandParameter="{Binding NewItem}" Position="Right" RemoveOrder="Last" ButtonTypes="Add,Remove" Height="200" >
-            <view:DragablzHorizontalItemsControl 
-                                                       ItemsSource="{Binding Data}"                                                       
-                                                       VerticalAlignment="Center"                                                 
-                                                       ItemContainerStyle="{StaticResource DragablzItemStyle2}"
-                                                       ItemTemplate="{StaticResource Int32Template}">
-            </view:DragablzHorizontalItemsControl>
-        </view1:MasterControl>
-    </DataTemplate>
 
-
-    <DataTemplate DataType="{x:Type vm:NotesViewModel}">
-        <view1:MasterNotesControl    
-                    
-                   Width="400"
-                    CommandParameter="{Binding NewItem}"
-            ItemsSource="{Binding Collection}" 
-            DisplayMemberPath="{mk:NameOf Type={x:Type vm1:NoteViewModel}, Member=Text}">
-        </view1:MasterNotesControl>
-    </DataTemplate>
 
 </ResourceDictionary>

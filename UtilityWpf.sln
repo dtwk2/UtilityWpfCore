@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29102.190
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31612.314
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Demo", "UtilityWpf.Demo\UtilityWpf.Demo.csproj", "{DD952243-0875-4A4F-BFD0-E4DBD73FB7D5}"
 EndProject
@@ -27,17 +27,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Demo.View.Animat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Demo.SandBox", "Utility.Wpf.Demo.SandBox\UtilityWpf.Demo.SandBox.csproj", "{D9E450B2-E245-4814-8574-8F5F06EB8BF7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Controls.FileSystem", "UtilityWpf.FileSystem.Controls\UtilityWpf.Controls.FileSystem.csproj", "{EC3B8B23-5494-4532-98A4-AB97AF060A46}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Demo.FileSystem", "UtilityWpf.Demo.FileSystem\UtilityWpf.Demo.FileSystem.csproj", "{C29F816F-0E6E-4151-B210-F510AE288D42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityWpf.Controls.Master", "UtilityWpf.Controls.Master\UtilityWpf.Controls.Master.csproj", "{6CE9DA9D-0502-48AB-B4C5-C44AFA8BA7B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Controls.Master", "UtilityWpf.Controls.Master\UtilityWpf.Controls.Master.csproj", "{6CE9DA9D-0502-48AB-B4C5-C44AFA8BA7B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityWpf.Controls.Dragablz", "UtilityWpf.Controls.Dragablz\UtilityWpf.Controls.Dragablz.csproj", "{1313FE46-216F-4CCD-A569-4D58D62DE82F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Controls.Dragablz", "UtilityWpf.Controls.Dragablz\UtilityWpf.Controls.Dragablz.csproj", "{1313FE46-216F-4CCD-A569-4D58D62DE82F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityWpf.Controls.Hybrid", "UtilityWpf.Controls.Hybrid\UtilityWpf.Controls.Hybrid.csproj", "{D2C4AB55-2170-47AA-B972-C7A4C3C1949A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Controls.Hybrid", "UtilityWpf.Controls.Hybrid\UtilityWpf.Controls.Hybrid.csproj", "{D2C4AB55-2170-47AA-B972-C7A4C3C1949A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityWpf.Demo.Hybrid", "UtilityWpf.Demo.Hybrid\UtilityWpf.Demo.Hybrid.csproj", "{DBF3DD1A-A647-4983-A93E-2DE6FC41D666}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Demo.Hybrid", "UtilityWpf.Demo.Hybrid\UtilityWpf.Demo.Hybrid.csproj", "{DBF3DD1A-A647-4983-A93E-2DE6FC41D666}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Controls.FileSystem", "UtilityWpf.Controls.FileSystem\UtilityWpf.Controls.FileSystem.csproj", "{3EF5C76B-182B-4AD2-A968-E4DE109F6E8E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityWpf.Demo.Dragablz", "UtilityWpf.Demo.Dragablz\UtilityWpf.Demo.Dragablz.csproj", "{261A23B6-74B5-4D2A-80AD-A47AD71B3253}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,10 +91,6 @@ Global
 		{D9E450B2-E245-4814-8574-8F5F06EB8BF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9E450B2-E245-4814-8574-8F5F06EB8BF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9E450B2-E245-4814-8574-8F5F06EB8BF7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EC3B8B23-5494-4532-98A4-AB97AF060A46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EC3B8B23-5494-4532-98A4-AB97AF060A46}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EC3B8B23-5494-4532-98A4-AB97AF060A46}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EC3B8B23-5494-4532-98A4-AB97AF060A46}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C29F816F-0E6E-4151-B210-F510AE288D42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C29F816F-0E6E-4151-B210-F510AE288D42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C29F816F-0E6E-4151-B210-F510AE288D42}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -113,6 +111,14 @@ Global
 		{DBF3DD1A-A647-4983-A93E-2DE6FC41D666}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBF3DD1A-A647-4983-A93E-2DE6FC41D666}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBF3DD1A-A647-4983-A93E-2DE6FC41D666}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EF5C76B-182B-4AD2-A968-E4DE109F6E8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EF5C76B-182B-4AD2-A968-E4DE109F6E8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EF5C76B-182B-4AD2-A968-E4DE109F6E8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EF5C76B-182B-4AD2-A968-E4DE109F6E8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{261A23B6-74B5-4D2A-80AD-A47AD71B3253}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{261A23B6-74B5-4D2A-80AD-A47AD71B3253}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{261A23B6-74B5-4D2A-80AD-A47AD71B3253}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{261A23B6-74B5-4D2A-80AD-A47AD71B3253}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -128,6 +134,7 @@ Global
 		{D9E450B2-E245-4814-8574-8F5F06EB8BF7} = {3E8F851B-BECA-4BAA-9275-2104CDEAEC3D}
 		{C29F816F-0E6E-4151-B210-F510AE288D42} = {3E8F851B-BECA-4BAA-9275-2104CDEAEC3D}
 		{DBF3DD1A-A647-4983-A93E-2DE6FC41D666} = {3E8F851B-BECA-4BAA-9275-2104CDEAEC3D}
+		{261A23B6-74B5-4D2A-80AD-A47AD71B3253} = {3E8F851B-BECA-4BAA-9275-2104CDEAEC3D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D60CFCE-498F-4A6D-9B9B-5546561C117E}

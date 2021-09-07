@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UtilityWpf.FileSystem.Controls\UtilityWpf.Controls.FileSystem.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Controls.FileSystem\UtilityWpf.Controls.FileSystem.csproj" />
   </ItemGroup>
 
 </Project>

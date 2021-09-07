@@ -7,7 +7,6 @@ using System.Windows;
 using System.Windows.Controls;
 using Evan.Wpf;
 using ReactiveUI;
-using Dragablz;
 using DynamicData;
 using Microsoft.Xaml.Behaviors;
 using UtilityWpf.Abstract;
@@ -126,24 +125,24 @@ namespace UtilityWpf.Controls.Master
 
         protected virtual void ExecuteAdd()
         {
-            if (CommandParameter?.MoveNext() == true)
-            {
-                if (Content is DragablzItemsControl itemsControl)
-                    try
-                    {
-                        itemsControl.AddToSource(CommandParameter.Current, AddLocationHint.Last);
+            //if (CommandParameter?.MoveNext() == true)
+            //{
+            //    if (Content is DragablzItemsControl itemsControl)
+            //        try
+            //        {
+            //            itemsControl.AddToSource(CommandParameter.Current, AddLocationHint.Last);
 
 
-                    }
-                    catch (Exception ex)
-                    {
+            //        }
+            //        catch (Exception ex)
+            //        {
 
-                    }
-            }
-            else
-            {
+            //        }
+            //}
+            //else
+            //{
 
-            }
+            //}
             RaiseEvent(new CollectionEventArgs(EventType.Add, SelectedItem, SelectedIndex, ChangeEvent));
         }
 

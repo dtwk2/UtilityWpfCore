@@ -16,14 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\UtilityWpf.Controls.Dragablz\UtilityWpf.Controls.Dragablz.csproj" />
     <ProjectReference Include="..\UtilityWpf.Controls.Master\UtilityWpf.Controls.Master.csproj" />
     <ProjectReference Include="..\UtilityWpf.TestData\UtilityWpf.TestData.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="View\NotesUserControl.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="View\MasterListUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -36,10 +34,6 @@
     <Page Update="App.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="View\NotesUserControl.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
     </Page>
     <Page Update="View\MasterListUserControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>

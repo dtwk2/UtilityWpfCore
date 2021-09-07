@@ -14,20 +14,12 @@
     Height="550"
     mc:Ignorable="d">
     <TabControl>
-        <TabItem Header="Ticks">
-            <view121:TicksUserControl />
-        </TabItem>     
+    
         
         <TabItem Header="ItemsWrap">
             <view121:ItemsWrapUserControl />
         </TabItem>    
-        
-        <TabItem Header="Group">
-            <view121:GroupsUserControl />
-        </TabItem>
-        <TabItem Header="Notes">
-            <view1:NotesUserControl />
-        </TabItem>
+             
 
         <TabItem Header="TwoWay">
             <view1:MasterListUserControl />

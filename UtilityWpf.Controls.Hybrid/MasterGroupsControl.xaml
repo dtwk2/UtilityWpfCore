@@ -1,18 +1,18 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:UtilityWpf.Controls.Master" 
+                    xmlns:local="clr-namespace:UtilityWpf.Controls.Hybrid" 
                     xmlns:utilitywpf="http://schemas.utility.com/utilitywpf">
 
 
-    <ResourceDictionary.MergedDictionaries>
-        <!--<utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls;component/Dragablz/DragablzItem.xaml"></utilitywpf:SharedResourceDictionary>-->
+    <!--<ResourceDictionary.MergedDictionaries>
+        --><!--<utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls;component/Dragablz/DragablzItem.xaml"></utilitywpf:SharedResourceDictionary>--><!--
         <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Master;component/MasterControl.xaml"></utilitywpf:SharedResourceDictionary>
-    </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary.MergedDictionaries>-->
 
 
-    <Style  TargetType="{x:Type local:MasterGroupsControl}" BasedOn="{StaticResource {x:Type local:MasterControl}}">
+    <!--<Style  TargetType="{x:Type local:MasterGroupsControl}" BasedOn="{StaticResource {x:Type local:MasterControl}}">
         <Setter Property="ButtonTypes" Value="Add,Remove"></Setter>
         <Setter Property="RemoveOrder" Value="Selected"></Setter>
-    </Style>
+    </Style>-->
 
 </ResourceDictionary>

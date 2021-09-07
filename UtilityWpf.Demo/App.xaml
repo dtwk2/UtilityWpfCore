@@ -19,6 +19,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <!--<utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls;component/Dragablz/DragablzItem.xaml"/>-->
                 <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Demo.Master;component/Templates.xaml" />
+                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Demo.Hybrid;component/Templates.xaml" />
                 <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.TestData;component/Themes/Generic.xaml" />
 
                 <ResourceDictionary Source="/Themes/Material.xaml"></ResourceDictionary>

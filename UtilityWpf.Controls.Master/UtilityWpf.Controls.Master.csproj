@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UtilityWpf.Controls.Dragablz\UtilityWpf.Controls.Dragablz.csproj" />
     <ProjectReference Include="..\UtilityWpf\UtilityWpf.csproj" />
   </ItemGroup>
 
@@ -22,12 +21,6 @@
     </Compile>
     <Compile Update="MasterDetailView.cs">
       <DependentUpon>MasterDetailView.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="MasterGroupsControl.cs">
-      <DependentUpon>MasterGroupsControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="MasterNotesControl.cs">
-      <DependentUpon>MasterNotesControl.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -45,18 +38,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MasterDetailView.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="MasterTicksControl.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="MasterGroupsControl.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="MasterNotesControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

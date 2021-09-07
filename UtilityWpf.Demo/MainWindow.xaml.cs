@@ -24,7 +24,8 @@ namespace UtilityWpf.DemoApp
             var d = typeof(FileBrowserView);
             var e = typeof(MasterListUserControl);
             var f = typeof(MeasurementsUserControl);
-            this.AddChild(new ViewsExDetailControl(new[] { c, a, b, d, e, f}));
+            var g = typeof(UtilityWpf.Demo.Dragablz.NotesUserControl);
+            this.AddChild(new ViewsExDetailControl(new[] { c, a, b, d, e, f, g}));
         }
 
     }

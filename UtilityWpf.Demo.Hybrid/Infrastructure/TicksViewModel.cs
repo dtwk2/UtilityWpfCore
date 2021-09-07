@@ -8,13 +8,14 @@ using Microsoft.Xaml.Behaviors.Core;
 using System.Windows.Input;
 using UtilityWpf.TestData.Model;
 using System.Collections.ObjectModel;
+using NetFabric.Hyperlinq;
 
-namespace UtilityWpf.Demo.Master.Infrastructure
+namespace UtilityWpf.Demo.Hybrid
 {
-    public class NotesViewModel
+    public class TicksViewModel
     {
         private ICommand changeCommand;
-
+        static Random rand = new();
         private bool isReadOnly;
         public bool IsReadOnly
         {
@@ -22,9 +23,9 @@ namespace UtilityWpf.Demo.Master.Infrastructure
         }
         public string Header { get; } = "NotesViewModel";
 
-        public ObservableCollection<NoteViewModel> Collection { get; } = new ObservableCollection<NoteViewModel> { };
+        public ObservableCollection<TickViewModel> Collection { get; } = new ObservableCollection<TickViewModel> { new TickViewModel(false), new TickViewModel(true) };
 
-        public System.Collections.IEnumerator NewItem { get => 0.Repeat().Select(a => new NoteViewModel(a.ToString())).GetEnumerator(); }
+        public System.Collections.IEnumerator NewItem { get => 0.Repeat().Select(a => new TickViewModel(rand.Next(0, 2) == 0)).GetEnumerator(); }
 
         public ICommand ChangeCommand => changeCommand ??= new ActionCommand(Change);
 

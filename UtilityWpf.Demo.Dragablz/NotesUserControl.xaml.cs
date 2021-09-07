@@ -3,8 +3,7 @@ using System;
 using System.Linq;
 using System.Windows.Controls;
 
-
-namespace UtilityWpf.Demo.View
+namespace UtilityWpf.Demo.Dragablz
 {
     /// <summary>
     /// Interaction logic for DragUserControl.xaml

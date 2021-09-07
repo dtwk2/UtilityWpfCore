@@ -1,16 +1,15 @@
 ﻿using System.Collections.ObjectModel;
 using System.Reactive;
 using System.Windows.Input;
-using UtilityWpf.Demo.Master.Infrastructure;
 using static UtilityWpf.Controls.Master.MasterControl;
 
-namespace UtilityWpf.Demo.View
+namespace UtilityWpf.Demo.Hybrid
 {
     public class GroupsViewModel
     {
         public GroupsViewModel()
         {
-            Data = new ObservableCollection<object> { new RowViewModel(), new NotesViewModel(), };
+            Data = new ObservableCollection<object> { new RowViewModel(), new RowViewModel(), /*new NotesViewModel(),*/ };
             ChangeCommand = ReactiveUI.ReactiveCommand.Create<object, Unit>((a) =>
             {
                 switch (a)

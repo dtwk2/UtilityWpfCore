@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace UtilityWpf.Demo.Master.View
+namespace UtilityWpf.Demo.Hybrid
 {
     /// <summary>
     /// Interaction logic for TicksUserControl.xaml

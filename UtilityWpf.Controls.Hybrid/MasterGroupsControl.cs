@@ -5,20 +5,26 @@ using ReactiveUI;
 using System.Reactive.Linq;
 using System.Windows.Media.Animation;
 using UtilityWpf.Controls.Dragablz;
+using UtilityWpf.Controls.Master;
 
-namespace UtilityWpf.Controls.Master
+namespace UtilityWpf.Controls.Hybrid
 {
     public class MasterGroupsControl : MasterBindableControl
     {
         public static readonly DependencyProperty IsReadOnlyPathProperty = DependencyProperty.Register("IsReadOnlyPath", typeof(string), typeof(MasterGroupsControl), new PropertyMetadata(null));
 
-        static MasterGroupsControl()
-        {
-            FrameworkElement.DefaultStyleKeyProperty.OverrideMetadata(typeof(MasterGroupsControl), new FrameworkPropertyMetadata(typeof(MasterGroupsControl)));
-        }
+        //static MasterGroupsControl()
+        //{
+        //    DefaultStyleKeyProperty.OverrideMetadata(typeof(MasterGroupsControl), new FrameworkPropertyMetadata(typeof(MasterGroupsControl)));
+        //}
 
         public MasterGroupsControl()
         {
+            ButtonTypes = ButtonType.Add | ButtonType.Remove;
+            RemoveOrder = RemoveOrder.Selected;
+           //         < Setter Property = "ButtonTypes" Value = "Add,Remove" ></ Setter >
+   
+           //< Setter Property = "RemoveOrder" Value = "Selected" ></ Setter >
         }
         public string IsReadOnlyPath
         {
@@ -28,11 +34,11 @@ namespace UtilityWpf.Controls.Master
 
         public override void OnApplyTemplate()
         {
-            this.Content = new GroupsControl
+            Content = new GroupsControl
             {
-                DisplayMemberPath = this.DisplayMemberPath,
-                ItemsSource = this.ItemsSource,
-                IsReadOnlyPath = this.IsReadOnlyPath
+                DisplayMemberPath = DisplayMemberPath,
+                ItemsSource = ItemsSource,
+                IsReadOnlyPath = IsReadOnlyPath
             };
 
 
@@ -43,9 +49,9 @@ namespace UtilityWpf.Controls.Master
                      {
                          var (itemsSource, memberPath, readOnlyPath) = a;
 
-                         this.Dispatcher.InvokeAsync(() =>
+                         Dispatcher.InvokeAsync(() =>
                          {
-                             if (this.Content is GroupsControl msn)
+                             if (Content is GroupsControl msn)
                              {
                                  msn.ItemsSource = itemsSource;
                                  msn.DisplayMemberPath = memberPath;
@@ -61,7 +67,7 @@ namespace UtilityWpf.Controls.Master
                              oLabelAngleAnimation.From = 0;
                              oLabelAngleAnimation.To = this?.ActualHeight ?? 0;
                              oLabelAngleAnimation.Duration = new Duration(new TimeSpan(0, 0, 0, 0, 500));
-                             this.BeginAnimation(HeightProperty, oLabelAngleAnimation);
+                             BeginAnimation(HeightProperty, oLabelAngleAnimation);
                              Visibility = Visibility.Visible;
 
                          }, System.Windows.Threading.DispatcherPriority.Background);
@@ -93,7 +99,7 @@ namespace UtilityWpf.Controls.Master
             }
             else
             {
-                var container = this.ItemsControl.ItemContainerGenerator.ContainerFromItem(SelectedItem);
+                var container = ItemsControl.ItemContainerGenerator.ContainerFromItem(SelectedItem);
                 container.SetValue(Attached.Ex.IsReadOnlyProperty, isAdd);
             }
         }

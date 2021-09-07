@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\UtilityWpf.Demo.Dragablz\UtilityWpf.Demo.Dragablz.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.FileSystem\UtilityWpf.Demo.FileSystem.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.Hybrid\UtilityWpf.Demo.Hybrid.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.Master\UtilityWpf.Demo.Master.csproj" />
