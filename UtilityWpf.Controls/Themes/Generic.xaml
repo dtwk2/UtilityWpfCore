@@ -77,20 +77,6 @@
         
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/NumbersControl.xaml" />
 
-        <!-- Master -->
-        <!--<ResourceDictionary Source="/UtilityWpf.Controls;component/Master/DoubleContentControl.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/MasterControl.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/MasterDetailView.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/MasterDetail.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/MasterNotesControl.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/MasterGroupsControl.xaml" />      
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Master/MeasurementsControl.xaml" />-->      
-        
-        
-        <!-- Dragabalz -->
-        <!--<ResourceDictionary Source="/UtilityWpf.Controls;component/Dragablz/DragablzNoteStyle.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Dragablz/DragablzItem.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Dragablz/ItemContainerBorder.xaml" />-->
 
         
 

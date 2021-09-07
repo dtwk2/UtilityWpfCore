@@ -19,4 +19,5 @@ using System.Windows.Markup;
 [assembly: XmlnsDefinition("http://schemas.utility.com/utilitywpf", "UtilityWpf.Converter")]
 [assembly: XmlnsDefinition("http://schemas.utility.com/utilitywpf", "UtilityWpf.DataTemplateSelectors")]
 [assembly: XmlnsDefinition("http://schemas.utility.com/utilitywpf", "UtilityWpf.Markup")]
+[assembly: XmlnsDefinition("http://schemas.utility.com/utilitywpf", "UtilityWpf.Meta")]
 

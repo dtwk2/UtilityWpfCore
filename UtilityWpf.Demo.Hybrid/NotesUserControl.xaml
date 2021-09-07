@@ -7,29 +7,18 @@
     xmlns:view="http://schemas.utility.com/master" 
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:mk="clr-namespace:UtilityWpf.Markup;assembly=UtilityWpf" 
-    xmlns:utilitywpf="clr-namespace:UtilityWpf;assembly=UtilityWpf"
-    xmlns:vm="clr-namespace:UtilityWpf.Demo.Hybrid"
-    xmlns:vm1="clr-namespace:UtilityWpf.TestData.Model;assembly=UtilityWpf.TestData"
     xmlns:view1="http://schemas.utility.com/dragablz" 
     xmlns:view2="http://schemas.utility.com/hybrid" 
-    xmlns:vm2="clr-namespace:UtilityWpf.Demo.Hybrid"
+    xmlns:vm21="clr-namespace:UtilityWpf.Demo.Common.ViewModel;assembly=UtilityWpf.Demo.Common"
     d:DesignHeight="450"
     d:Background="White"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <FrameworkElement.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzNoteStyle.xaml"/>
-                <utilitywpf:SharedResourceDictionary  Source="/UtilityWpf.TestData;component/DataTemplate/Note.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </FrameworkElement.Resources>
-    
+
     <UniformGrid Columns="1">
         <UniformGrid Rows="1">
             <FrameworkElement.DataContext>
-                <vm2:NotesViewModel />
+                <vm21:NotesViewModel />
             </FrameworkElement.DataContext>
             
             <view:MasterControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
@@ -52,18 +41,18 @@
             CommandParameter="{Binding NewItem}"
             ItemsSource="{Binding Collection}" 
             Change="MasterNotesControl_Change"
-            DisplayMemberPath="{mk:NameOf Type={x:Type vm1:NoteViewModel}, Member=Text}">
+            DisplayMemberPath="{mk:NameOf Type={x:Type vm21:NoteViewModel}, Member=Text}">
             </view2:MasterNotesControl>
 
             <view1:NotesControl
             ItemsSource="{Binding Collection}"         
-            DisplayMemberPath="{mk:NameOf Type={x:Type vm1:NoteViewModel}, Member=Text}">
+            DisplayMemberPath="{mk:NameOf Type={x:Type vm21:NoteViewModel}, Member=Text}">
             </view1:NotesControl>
         </UniformGrid>
 
         <UniformGrid Rows="1">
             <FrameworkElement.DataContext>
-                <vm:NotesViewModel />
+                <vm21:NotesViewModel />
             </FrameworkElement.DataContext>
 
             <Panel.Background>
@@ -101,7 +90,7 @@
             CommandParameter="{Binding NewItem}"
             ItemsSource="{Binding Collection}" 
             Change="MasterNotesControl_Change"
-            DisplayMemberPath="{mk:NameOf Type={x:Type vm1:NoteViewModel}, Member=Text}">
+            DisplayMemberPath="{mk:NameOf Type={x:Type vm21:NoteViewModel}, Member=Text}">
             </view2:MasterNotesControl>
         </UniformGrid>
     </UniformGrid>

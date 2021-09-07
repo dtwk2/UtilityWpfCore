@@ -1,10 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-                                xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
-                    xmlns:utilitywpf="clr-namespace:UtilityWpf;assembly=UtilityWpf" 
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                    xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
                     xmlns:local="clr-namespace:UtilityWpf.Controls.Dragablz"
-                    xmlns:conv="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"                    >
-    
+                    xmlns:conv="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"
+                    xmlns:att="http://schemas.utility.com/utilitywpf">
+    <ResourceDictionary.MergedDictionaries>
+        <att:SharedResourceDictionary Source="UtilityWpf.Controls.Dragablz;component/Geometry.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
     <Style x:Key="DragablzGroupStyle" TargetType="dragablz:DragablzItem">
         <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
         <Setter Property="Width">
@@ -128,7 +131,7 @@
     <Style TargetType="{x:Type local:GroupsControl}" BasedOn="{StaticResource {x:Type dragablz:DragablzItemsControl}}" >
         <Style.Setters>
             <Setter Property="VerticalAlignment" Value="Stretch"/>
-            <Setter Property="ItemContainerStyle" Value="{StaticResource DragablzGroupStyle}"/>
+            <!--<Setter Property="ItemContainerStyle" Value="{StaticResource DragablzGroupStyle}"/>-->
         </Style.Setters>
     </Style>
 

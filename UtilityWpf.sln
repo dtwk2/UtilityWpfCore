@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Test", "UtilityW
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Demo.View.Panels", "UtilityWpf.Demo.View.Panels\UtilityWpf.Demo.View.Panels.csproj", "{A4557F4E-9AE5-495B-BD94-CF60EE5C6EBE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.TestData", "UtilityWpf.TestData\UtilityWpf.TestData.csproj", "{49F7599C-4295-4541-BBF2-BFC9ACC2B376}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Demo.Data", "UtilityWpf.TestData\UtilityWpf.Demo.Data.csproj", "{49F7599C-4295-4541-BBF2-BFC9ACC2B376}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Demo.View", "UtilityWpf.Demo.View\UtilityWpf.Demo.View.csproj", "{CA7E7B79-77F0-4372-BB8F-B932B6012374}"
 EndProject
@@ -40,6 +40,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Controls.FileSystem", "UtilityWpf.Controls.FileSystem\UtilityWpf.Controls.FileSystem.csproj", "{3EF5C76B-182B-4AD2-A968-E4DE109F6E8E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityWpf.Demo.Dragablz", "UtilityWpf.Demo.Dragablz\UtilityWpf.Demo.Dragablz.csproj", "{261A23B6-74B5-4D2A-80AD-A47AD71B3253}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility.Common", "Utility.Common\Utility.Common.csproj", "{74C75AA4-2DDF-48B6-B4AB-E166D821F86C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityWpf.Demo.Common", "UtilityWpf.Demo.Common\UtilityWpf.Demo.Common.csproj", "{C48F5E34-9293-4B33-B4CF-C0A4DCEE2013}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -119,6 +123,14 @@ Global
 		{261A23B6-74B5-4D2A-80AD-A47AD71B3253}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{261A23B6-74B5-4D2A-80AD-A47AD71B3253}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{261A23B6-74B5-4D2A-80AD-A47AD71B3253}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74C75AA4-2DDF-48B6-B4AB-E166D821F86C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74C75AA4-2DDF-48B6-B4AB-E166D821F86C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74C75AA4-2DDF-48B6-B4AB-E166D821F86C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74C75AA4-2DDF-48B6-B4AB-E166D821F86C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C48F5E34-9293-4B33-B4CF-C0A4DCEE2013}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C48F5E34-9293-4B33-B4CF-C0A4DCEE2013}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C48F5E34-9293-4B33-B4CF-C0A4DCEE2013}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C48F5E34-9293-4B33-B4CF-C0A4DCEE2013}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -135,6 +147,7 @@ Global
 		{C29F816F-0E6E-4151-B210-F510AE288D42} = {3E8F851B-BECA-4BAA-9275-2104CDEAEC3D}
 		{DBF3DD1A-A647-4983-A93E-2DE6FC41D666} = {3E8F851B-BECA-4BAA-9275-2104CDEAEC3D}
 		{261A23B6-74B5-4D2A-80AD-A47AD71B3253} = {3E8F851B-BECA-4BAA-9275-2104CDEAEC3D}
+		{C48F5E34-9293-4B33-B4CF-C0A4DCEE2013} = {3E8F851B-BECA-4BAA-9275-2104CDEAEC3D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D60CFCE-498F-4A6D-9B9B-5546561C117E}

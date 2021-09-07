@@ -2,9 +2,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
                     xmlns:conv="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"
-                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                    xmlns:utl="http://schemas.utility.com/utilitywpf">
 
-
+    <ResourceDictionary.MergedDictionaries>
+        <utl:SharedResourceDictionary  Source="UtilityWpf.Controls.Dragablz;component/Geometry.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
 
     <SineEase x:Key="Ease" EasingMode="EaseInOut" />
     <Storyboard x:Key="Enter">
@@ -36,11 +39,6 @@
                 Value="1" />
         </DoubleAnimationUsingKeyFrames>
     </Storyboard>
-
-    <Geometry x:Key="RightGeometry">M0,0 L50,50 L100,0</Geometry>
-    <Geometry x:Key="LeftGeometry">M0,50 L50,0 L100,50</Geometry>
-    <EllipseGeometry x:Key="DotGeometry" Center="0,0" RadiusX="1" RadiusY="1" />
-
     
     <Style x:Key="DragablzNoteStyle" TargetType="dragablz:DragablzItem">
         <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>

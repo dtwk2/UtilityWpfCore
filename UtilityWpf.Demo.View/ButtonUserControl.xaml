@@ -246,8 +246,8 @@
             <view:ImageButton
                 x:Name="ImageButton"
                 Margin="15,0,15,0"
-                Image="pack://application:,,,/UtilityWpf.TestData;component/Images/Settings.png"
-                PressedImage="pack://application:,,,/UtilityWpf.TestData;component/Images/bar-chart.png" />
+                Image="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Settings.png"
+                PressedImage="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/bar-chart.png" />
         </TabItem>
 
 

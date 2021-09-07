@@ -12,6 +12,11 @@ namespace UtilityWpf.Controls.Dragablz
             DefaultStyleKeyProperty.OverrideMetadata(typeof(NotesControl), new FrameworkPropertyMetadata(typeof(NotesControl)));
         }
 
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+        }
+
         protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
         {
             if (string.IsNullOrEmpty(DisplayMemberPath))

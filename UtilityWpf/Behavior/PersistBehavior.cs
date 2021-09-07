@@ -21,7 +21,7 @@ namespace UtilityWpf.Behavior
     public class PersistBehavior : Behavior<ItemsControl>
     {
         private IDisposable? disposable;
-        private readonly ReplaySubject<IDatabaseService> changes = new(1);
+        private readonly ReplaySubject<IDatabaseService> repositoryChanges = new(1);
 
         public static readonly DependencyProperty RepositoryProperty = DependencyProperty.Register("Repository", typeof(IDatabaseService), typeof(PersistBehavior), new PropertyMetadata(null, RepositoryChanged));
         public static readonly DependencyProperty CollectionChangeCommandProperty = DependencyProperty.Register("CollectionChangeCommand", typeof(ICommand), typeof(PersistBehavior), new PropertyMetadata(null));
@@ -48,17 +48,17 @@ namespace UtilityWpf.Behavior
 
             var compositeDisposable = new CompositeDisposable();
 
-            IObservable<CollectionChange> a = Items
+            IObservable<CollectionChange> newItems = Items
                 .SelectChanges()
                 .Select(a => new CollectionChange(a.Action, a.NewItems?.Cast<object>()?.ToArray() ?? Array.Empty<object>()));
 
-            var b = Items
+            var oldItems = Items
                 .SelectChanges()
                 .Select(a => new CollectionChange(a.Action, a.OldItems?.Cast<object>()?.ToArray() ?? Array.Empty<object>()));
 
-            a.Merge(b)
+            newItems.Merge(oldItems)
              .Scan(default((CollectionChange, CollectionChange)), (a, b) => (a.Item2, b))
-             .WithLatestFrom(changes.WhereNotDefault())
+             .WithLatestFrom(repositoryChanges.WhereNotDefault())
              .Subscribe(cc =>
              {
                  var (((action, first), (second, third)), docstore) = cc;
@@ -94,7 +94,7 @@ namespace UtilityWpf.Behavior
 
             var changeSet = ObservableChangeSet.Create<object, string>(observer =>
              {
-                 return changes
+                 return repositoryChanges
                     .Select(a => a.SelectAll().Cast<object>())
                     .Subscribe(objects =>
                     {
@@ -143,7 +143,7 @@ namespace UtilityWpf.Behavior
 
             AssociatedObject.ItemsSource = Items;
 
-            changes.Subscribe(a =>
+            repositoryChanges.Subscribe(a =>
             {
 
             }).DisposeWith(compositeDisposable);
@@ -165,7 +165,7 @@ namespace UtilityWpf.Behavior
 
         private static void RepositoryChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
-            (dependencyObject as PersistBehavior).changes.OnNext(e.NewValue as IDatabaseService);
+            (dependencyObject as PersistBehavior).repositoryChanges.OnNext(e.NewValue as IDatabaseService);
         }
 
         //protected void RaiseCollectionChangedEvent(string text)

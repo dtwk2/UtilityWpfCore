@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace UtilityWpf.TestData.Model
+namespace UtilityWpf.Demo.Data.Model
 {
     public class Text
     {

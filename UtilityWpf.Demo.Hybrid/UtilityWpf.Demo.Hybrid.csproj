@@ -8,7 +8,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UtilityWpf.Controls.Hybrid\UtilityWpf.Controls.Hybrid.csproj" />
-    <ProjectReference Include="..\UtilityWpf.TestData\UtilityWpf.TestData.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Demo.Common\UtilityWpf.Demo.Common.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Demo.Master\UtilityWpf.Demo.Master.csproj" />
+    <ProjectReference Include="..\UtilityWpf.TestData\UtilityWpf.Demo.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,7 +41,7 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Templates.xaml">
+    <Page Update="View\Templates.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

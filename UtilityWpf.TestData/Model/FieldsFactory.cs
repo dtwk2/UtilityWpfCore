@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using AutoBogus;
+using UtilityWpf.Demo.Common.ViewModel;
 
-namespace UtilityWpf.TestData.Model
+
+namespace UtilityWpf.Demo.Data.Model
 {
     public class FieldsFactory
     {

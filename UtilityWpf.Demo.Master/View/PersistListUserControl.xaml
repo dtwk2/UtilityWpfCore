@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:drag="http://dragablz.net/winfx/xaml/dragablz"
+                 xmlns:util="http://schemas.utility.com/utilitywpf"
+                 xmlns:common="clr-namespace:Utility.Common.EventArgs;assembly=Utility.Common"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
              xmlns:view="http://schemas.utility.com/master" 
              xmlns:local11="clr-namespace:UtilityWpf.Demo.Master.Infrastructure" 
@@ -22,12 +24,12 @@
                 <Setter Property="Margin" Value="10"></Setter>
                 <Setter Property="Padding" Value="5"></Setter>
             </Style>
-            <x:Type Type="{x:Type service:LiteDbRepository}" x:Key="LiteDbRepo"></x:Type>
-            <x:Type Type="{x:Type local11:DatabaseService}" x:Key="DatabaseService"></x:Type>
-            <ResourceDictionary.MergedDictionaries>
+            <!--<x:Type Type="{x:Type service:LiteDbRepository}" x:Key="LiteDbRepo"></x:Type>
+            <x:Type Type="{x:Type local11:DatabaseService}" x:Key="DatabaseService"></x:Type>-->
+            <!--<ResourceDictionary.MergedDictionaries>
                 <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzItem.xaml"></utilitywpf:SharedResourceDictionary>
-                <!--<ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DualButtonControl.xaml"/>-->
-            </ResourceDictionary.MergedDictionaries>
+                --><!--<ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DualButtonControl.xaml"/>--><!--
+            </ResourceDictionary.MergedDictionaries>-->
         </ResourceDictionary>
     </UserControl.Resources>
     <DockPanel>
@@ -61,7 +63,7 @@
             <TabItem Header="With Detail">
                 <view:MasterDetail>
                     <view:MasterDetail.Selector>
-                        <view:MasterControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  
+                        <view:MasterControl ItemsSource="{Binding Data, Mode=OneTime}" CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  
                                                    Position="Top">
                             <view:MasterControl.Background>
                                 <VisualBrush   
@@ -79,7 +81,11 @@
 
                             <i:Interaction.Triggers>
                                 <i:EventTrigger  EventName="Change" >
-                                    <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
+                                    <i:InvokeCommandAction Command="{Binding ChangeCommand}" 
+                                                           PassEventArgsToCommand="True"
+                                                           EventArgsConverter="{x:Static util:AutoMapperConverter.Instance}"
+                                                           EventArgsConverterParameter="{x:Type common:CollectionEventArgs}"
+                                                           ></i:InvokeCommandAction>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                             <view1:DragablzVerticalItemsControl x:Name="DragablzItemsControl"                                                 

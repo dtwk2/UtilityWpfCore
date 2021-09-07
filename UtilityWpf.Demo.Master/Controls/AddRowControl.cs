@@ -1,8 +1,10 @@
 ﻿using System.Windows.Controls;
 using UtilityWpf.Controls;
 using UtilityWpf.Controls.Master;
+using UtilityWpf.Demo.Common.ViewModel;
 using UtilityWpf.Demo.Master.Infrastructure;
-using UtilityWpf.Demo.View;
+using UtilityWpf.Demo.Master.ViewModel;
+using RowViewModel = UtilityWpf.Demo.Master.ViewModel.RowViewModel;
 
 namespace UtilityWpf.Demo.Master.Controls
 {

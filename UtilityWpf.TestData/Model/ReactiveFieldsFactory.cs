@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoBogus;
+using UtilityWpf.Demo.Common.ViewModel;
 
-namespace UtilityWpf.TestData.Model
+namespace UtilityWpf.Demo.Data.Model
 {
     public class ReactiveFieldsFactory
     {
@@ -22,7 +23,7 @@ namespace UtilityWpf.TestData.Model
                 .RuleFor(fake => fake.Surname, fake => fake.Name.LastName())
                 .RuleFor(fake => fake.Age, fake => fake.Random.Int(0, 100))
                 .RuleFor(fake => fake.PhoneNumber, fake => fake.Phone.PhoneNumber());
-               //.FinishWith((a,b)=> b.Id=a.Random.Guid());
+            //.FinishWith((a,b)=> b.Id=a.Random.Guid());
         });
 
 

@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Dragablz;
 using Evan.Wpf;
+using HandyControl.Themes;
 using ReactiveUI;
 using UtilityWpf.Abstract;
 

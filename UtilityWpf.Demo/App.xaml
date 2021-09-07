@@ -14,14 +14,17 @@
                 </Style.Triggers>
             </Style>
 
-            <!--<Style TargetType="{x:Type local1:ViewHostControl}" BasedOn="{StaticResource {x:Type util:MasterDetail}}"></Style>-->
-
             <ResourceDictionary.MergedDictionaries>
-                <!--<utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls;component/Dragablz/DragablzItem.xaml"/>-->
-                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Demo.Master;component/Templates.xaml" />
-                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Demo.Hybrid;component/Templates.xaml" />
-                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.TestData;component/Themes/Generic.xaml" />
 
+                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Demo.Dragablz;component/Templates.xaml" />
+                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Demo.Master;component/Templates.xaml" />
+                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Demo.Hybrid;component/View/Templates.xaml" />
+                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Demo.Data;component/Themes/Generic.xaml" />
+
+                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Demo.Common;component/View/Templates.xaml"/>
+                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/Themes/Generic.xaml" />
+         
+                
                 <ResourceDictionary Source="/Themes/Material.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
 

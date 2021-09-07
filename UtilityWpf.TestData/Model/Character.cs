@@ -9,7 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace UtilityWpf.TestData
+namespace UtilityWpf.Demo.Data.Model
 {
     public enum Gender
     {

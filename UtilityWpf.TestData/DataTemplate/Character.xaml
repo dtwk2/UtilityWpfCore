@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:UtilityWpf.TestData"
+    xmlns:local="clr-namespace:UtilityWpf.Demo.Data.Model"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
 
@@ -12,7 +12,7 @@
         Gender="Male"
         Last="Simpson"
         Location="25,150"
-        UriString="pack://application:,,,/UtilityWpf.TestData;component/Simpsons/bart.png"
+        UriString="pack://application:,,,/UtilityWpf.Demo.Data;component/Simpsons/bart.png"
         Color="Brown" />
 
     <x:Array
@@ -26,7 +26,7 @@
             Gender="Male"
             Last="Simpson"
             Location="75,0"
-            UriString="pack://application:,,,/UtilityWpf.TestData;component/Simpsons/homer.png"
+            UriString="pack://application:,,,/UtilityWpf.Demo.Data;component/Simpsons/homer.png"
             Color="DarkSalmon" />
         <local:Character
             Age="8"
@@ -34,7 +34,7 @@
             Gender="Female"
             Last="Bouvier"
             Location="125,150"
-            UriString="pack://application:,,,/UtilityWpf.TestData;component/Simpsons/lisa.png"
+            UriString="pack://application:,,,/UtilityWpf.Demo.Data;component/Simpsons/lisa.png"
             Color="ForestGreen" />
         <local:Character
             Age="0"
@@ -42,7 +42,7 @@
             Gender="Female"
             Last="Simpson"
             Location="225,150"
-            UriString="pack://application:,,,/UtilityWpf.TestData;component/Simpsons/maggie.png"
+            UriString="pack://application:,,,/UtilityWpf.Demo.Data;component/Simpsons/maggie.png"
             Color="DarkBlue" />
         <local:Character
             Age="38"
@@ -50,7 +50,7 @@
             Gender="Female"
             Last="Bouvier"
             Location="175,0"
-            UriString="pack://application:,,,/UtilityWpf.TestData;component/Simpsons/marge.png"
+            UriString="pack://application:,,,/UtilityWpf.Demo.Data;component/Simpsons/marge.png"
             Color="DarkCyan" />
     </x:Array>
 

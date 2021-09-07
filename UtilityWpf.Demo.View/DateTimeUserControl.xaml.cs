@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using UtilityHelper;
 using UtilityWpf.Controls.Infrastructure;
 using UtilityWpf.TestData;
+using UtilityWpf.Demo.Data.Model;
 
 namespace UtilityWpf.Demo.View
 {

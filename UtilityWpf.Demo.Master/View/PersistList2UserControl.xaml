@@ -5,12 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:drag="http://dragablz.net/winfx/xaml/dragablz"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
+                 xmlns:common="clr-namespace:Utility.Common.EventArgs;assembly=Utility.Common"
+                 xmlns:util="http://schemas.utility.com/utilitywpf"
              xmlns:local11="clr-namespace:UtilityWpf.Demo.Master.Infrastructure" 
              xmlns:behavior1="clr-namespace:UtilityWpf.Behavior;assembly=UtilityWpf"
              xmlns:service="clr-namespace:UtilityWpf.Service;assembly=UtilityWpf"
              xmlns:utilitywpf="clr-namespace:UtilityWpf;assembly=UtilityWpf"
              xmlns:view1="http://schemas.utility.com/dragablz"
              xmlns:view2="http://schemas.utility.com/master"
+          
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
@@ -22,12 +25,12 @@
                 <Setter Property="Margin" Value="10"></Setter>
                 <Setter Property="Padding" Value="5"></Setter>
             </Style>
-            <x:Type Type="{x:Type service:LiteDbRepository}" x:Key="LiteDbRepo"></x:Type>
-            <x:Type Type="{x:Type local11:DatabaseService}" x:Key="DatabaseService"></x:Type>
-            <ResourceDictionary.MergedDictionaries>
+            <!--<x:Type Type="{x:Type service:LiteDbRepository}" x:Key="LiteDbRepo"></x:Type>
+            <x:Type Type="{x:Type local11:DatabaseService}" x:Key="DatabaseService"></x:Type>-->
+            <!--<ResourceDictionary.MergedDictionaries>
                 <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzItem.xaml"></utilitywpf:SharedResourceDictionary>
-                <!--<ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DualButtonControl.xaml"/>-->
-            </ResourceDictionary.MergedDictionaries>
+                --><!--<ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DualButtonControl.xaml"/>--><!--
+            </ResourceDictionary.MergedDictionaries>-->
         </ResourceDictionary>
     </UserControl.Resources>
     <DockPanel>
@@ -43,7 +46,10 @@
                                                    Position="Bottom">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger  EventName="Change" >
-                                    <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
+                                    <i:InvokeCommandAction Command="{Binding ChangeCommand}"
+                                                           PassEventArgsToCommand="True" 
+                                                           EventArgsConverter="{x:Static util:AutoMapperConverter.Instance}"
+                                                           EventArgsConverterParameter="{x:Type common:CollectionEventArgs}"></i:InvokeCommandAction>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                             <view1:DragablzVerticalItemsControl x:Name="DragablzItemsControl"                                                 

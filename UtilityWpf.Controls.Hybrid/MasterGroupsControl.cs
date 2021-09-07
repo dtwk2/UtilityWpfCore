@@ -22,9 +22,6 @@ namespace UtilityWpf.Controls.Hybrid
         {
             ButtonTypes = ButtonType.Add | ButtonType.Remove;
             RemoveOrder = RemoveOrder.Selected;
-           //         < Setter Property = "ButtonTypes" Value = "Add,Remove" ></ Setter >
-   
-           //< Setter Property = "RemoveOrder" Value = "Selected" ></ Setter >
         }
         public string IsReadOnlyPath
         {

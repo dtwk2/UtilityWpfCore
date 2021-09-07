@@ -3,38 +3,21 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
-    xmlns:local="clr-namespace:UtilityWpf.Demo.View"
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:common="clr-namespace:Utility.Common.EventArgs;assembly=Utility.Common"
+    xmlns:util="http://schemas.utility.com/utilitywpf"
     xmlns:view="http://schemas.utility.com/master" 
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:system="clr-namespace:System;assembly=System.Runtime"
-    xmlns:utilitywpf="clr-namespace:UtilityWpf;assembly=UtilityWpf"
-    xmlns:vm="clr-namespace:UtilityWpf.TestData.Model;assembly=UtilityWpf.TestData" xmlns:local1="clr-namespace:UtilityWpf.Demo.Master.Controls" xmlns:view1="http://schemas.utility.com/dragablz"
+    xmlns:local1="clr-namespace:UtilityWpf.Demo.Master.Controls" 
+    xmlns:view1="http://schemas.utility.com/dragablz" 
+    xmlns:local2="clr-namespace:UtilityWpf.Demo.Master.ViewModel"
     d:DesignHeight="450"
     d:Background="White"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <UserControl.DataContext>
-        <local:MainViewModel />
+        <local2:MainViewModel />
     </UserControl.DataContext>
-    <UserControl.Resources>
-        <ResourceDictionary>
-
-            <DataTemplate x:Key="Int32Template" DataType="{x:Type vm:ElementViewModel}">
-                <Grid  Width="200"  Height="100" Tag="{Binding}">
-                    <TextBox  HorizontalAlignment="Center"   VerticalAlignment="Center"  Text="{Binding Value}" />
-                </Grid>
-            </DataTemplate>
-            <ResourceDictionary.MergedDictionaries>
-                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzItem.xaml"></utilitywpf:SharedResourceDictionary>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-
-
-    </UserControl.Resources>
-
 
     <local1:AddRowControl CommandParameter="{Binding {x:Null}}" Position="Bottom" RemoveOrder="Selected" VerticalContentAlignment="Center"
                          ButtonTypes="Remove,MoveDown,MoveUp">
@@ -50,7 +33,10 @@
                     <view:MasterControl CommandParameter="{Binding NewItem}" Position="Right" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
                         <i:Interaction.Triggers>
                             <i:EventTrigger  EventName="Change" >
-                                <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
+                                <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True" 
+                                                       EventArgsConverter="{x:Static util:AutoMapperConverter.Instance}"
+                                                       EventArgsConverterParameter="{x:Type common:CollectionEventArgs}"
+                                                       ></i:InvokeCommandAction>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                         <view1:DragablzHorizontalItemsControl x:Name="DragablzItemsControl" 

@@ -16,7 +16,7 @@
     <ProjectReference Include="..\UtilityWpf.Demo.View.Animation\UtilityWpf.Demo.View.Animation.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.View.Panels\UtilityWpf.Demo.View.Panels.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.View\UtilityWpf.Demo.View.csproj" />
-    <ProjectReference Include="..\UtilityWpf.TestData\UtilityWpf.TestData.csproj" />
+    <ProjectReference Include="..\UtilityWpf.TestData\UtilityWpf.Demo.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -12,7 +12,7 @@ namespace UtilityWpf
     /// </summary>
     public static class ResourceDictionaryExtensions
     {
-        public static ResourceDictionary? FirstMatch(this IEnumerable<ResourceDictionary> dictionaries, string source)
+        public static ResourceDictionary? FirstMatch(this IEnumerable<ResourceDictionary> dictionaries, Uri source)
         {
             return dictionaries
                   .Select(dictionary => dictionary.FindDictionary(source))
@@ -62,15 +62,15 @@ namespace UtilityWpf
         /// Find the resource dictionary by recursively looking in the merged dictionaries
         /// Throw an exceptionReturn if the dictionary could not be found
         /// </summary>
-        public static ResourceDictionary? FindDictionary(this ResourceDictionary resourceDictionary, string source)
+        public static ResourceDictionary? FindDictionary(this ResourceDictionary resourceDictionary, Uri source)
         {
             // If this is the resource return it
-            if (resourceDictionary.Source != null && resourceDictionary.Source.OriginalString == source)
+            if (resourceDictionary.Source != null && resourceDictionary.Source == source)
             {
                 return resourceDictionary;
             }
 
-            // Search the merges resource dictionaries
+            // Search the merged-resource dictionaries
             var foundDictionary = resourceDictionary.MergedDictionaries
                 .Select(mergedResource => mergedResource.FindDictionary(source))
                 .FirstOrDefault();
@@ -90,7 +90,7 @@ namespace UtilityWpf
                 return false;
             }
 
-            var foundDictionary = resourceDictionary.FindDictionary(resource.Source.OriginalString);
+            var foundDictionary = resourceDictionary.FindDictionary(resource.Source);
             return foundDictionary != null;
         }
 
@@ -98,9 +98,9 @@ namespace UtilityWpf
         /// Determines if the specified resource dictionary (source) exists anywhere in the 
         /// resource dictionary recursively.
         /// </summary>
-        public static bool ContainsDictionary(this ResourceDictionary resourceDictionary, string source)
+        public static bool ContainsDictionary(this ResourceDictionary resourceDictionary, Uri source)
         {
-            if (string.IsNullOrEmpty(source))
+            if (string.IsNullOrEmpty(source.LocalPath))
             {
                 return false;
             }
@@ -130,16 +130,16 @@ namespace UtilityWpf
 
         #region Private Methods
 
-        private static string GetSource(ResourceDictionary resourceDictionary)
-        {
-            SharedResourceDictionary sharedResourceDictionary = resourceDictionary as SharedResourceDictionary;
-            if (sharedResourceDictionary != null)
-            {
-                return sharedResourceDictionary.Source;
-            }
+        //private static Uri GetSource(ResourceDictionary resourceDictionary)
+        //{
+        //    SharedResourceDictionary sharedResourceDictionary = resourceDictionary as SharedResourceDictionary;
+        //    if (sharedResourceDictionary != null)
+        //    {
+        //        return sharedResourceDictionary.Source;
+        //    }
 
-            return resourceDictionary.Source.ToString();
-        }
+        //    return resourceDictionary.Source.ToString();
+        //}
 
         #endregion
     }

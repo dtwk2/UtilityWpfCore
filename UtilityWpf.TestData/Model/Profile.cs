@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Data;
 using System.Windows.Media;
+using UtilityWpf.Demo.Data.Model;
+using UtilityWpf.TestData;
 
-namespace UtilityWpf.TestData
+namespace UtilityWpf.Demo.Data.Model
 {
     public class Profile //: IEquatable<Profile>
     {

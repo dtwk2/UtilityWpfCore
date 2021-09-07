@@ -5,10 +5,14 @@ using System.Reactive;
 using System.Windows.Data;
 using AutoMapper;
 using ReactiveUI;
+using Utility.Common.EventArgs;
 using UtilityInterface.NonGeneric.Database;
+using UtilityWpf.Demo.Common.ViewModel;
 using UtilityWpf.Service;
-using UtilityWpf.TestData.Model;
-using static UtilityWpf.Controls.Master.MasterControl;
+using UtilityWpf.Demo.Data.Model;
+using DynamicData;
+using Utility.Common.Enum;
+using System.Collections.Generic;
 
 namespace UtilityWpf.Demo.Master.Infrastructure
 {
@@ -17,6 +21,7 @@ namespace UtilityWpf.Demo.Master.Infrastructure
         private readonly FieldsFactory factory = new();
 
         private IDatabaseService dbS = new LiteDbRepository(new LiteDbRepository.ConnectionSettings(typeof(Fields), new System.IO.FileInfo("../../../Data/Data.litedb"), nameof(Fields.Id)));
+        private IEnumerator<Fields> build;
 
         public PersistList2ViewModel()
         {
@@ -24,6 +29,10 @@ namespace UtilityWpf.Demo.Master.Infrastructure
             {
                 switch (a)
                 {
+                    case CollectionEventArgs { EventType: EventType.Add }:
+                        if (NewItem.MoveNext())
+                            Data.Add(NewItem.Current as Common.ViewModel.Fields);
+                        break;
                     case MovementEventArgs eventArgs:
                         foreach (var item in eventArgs.Changes)
                         {
@@ -44,7 +53,7 @@ namespace UtilityWpf.Demo.Master.Infrastructure
         {
             get
             {
-                var build = factory.Build();
+                build ??= factory.Build();
                 return build;
             }
         }
@@ -55,42 +64,5 @@ namespace UtilityWpf.Demo.Master.Infrastructure
 
         public IDatabaseService DatabaseService { get => dbS; private set => this.RaiseAndSetIfChanged(ref dbS, value); }
 
-        public IValueConverter ValueConverter { get; } = new ValueConverter();
-
-    }
-
-    public class ValueConverter : IValueConverter
-    {
-        class AutoMapperFactory
-        {
-            public static IMapper Create()
-            {
-                return new MapperConfiguration(cfg =>
-                {
-                    cfg.CreateMap<ReactiveFields, Fields>();
-                    cfg.CreateMap<Fields, ReactiveFields>();
-                }).CreateMapper();
-            }
-        }
-
-        private readonly Lazy<IMapper> mapper = new(() => AutoMapperFactory.Create());
-
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value is Fields fields)
-            {
-                return mapper.Value.Map<Fields, ReactiveFields>(fields);
-            }
-            return null;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value is ReactiveFields reactiveFields)
-            {
-                return mapper.Value.Map<ReactiveFields, Fields>(reactiveFields);
-            }
-            return null;
-        }
     }
 }

@@ -3,18 +3,13 @@
                     xmlns:local="clr-namespace:UtilityWpf.Controls.Dragablz"
                     xmlns:conv="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"                    
                     xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
-                    xmlns:utilitywpf="http://schemas.utility.com/utilitywpf"
-                    xmlns:dragablz1="clr-namespace:UtilityWpf.Controls.Dragablz"
-                    xmlns:drag="http://schemas.utility.com/dragablz">
+                    xmlns:dragablz1="clr-namespace:UtilityWpf.Controls.Dragablz" 
+                    xmlns:att="http://schemas.utility.com/utilitywpf">
 
     <ResourceDictionary.MergedDictionaries>
-        <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzNoteStyle.xaml"></utilitywpf:SharedResourceDictionary>
+        <att:SharedResourceDictionary Source="UtilityWpf.Controls.Dragablz;component/Geometry.xaml"/>
     </ResourceDictionary.MergedDictionaries>
-    
-    <EllipseGeometry x:Key="DotGeometry" Center="0,0" RadiusX="1" RadiusY="1" />
 
-    <Geometry x:Key="TickGeometry">M908.3,132.5L336.7,704.2l-245-245L10,540.8l326.7,326.7l81.7-81.7L990,214.2L908.3,132.5z</Geometry>
-    
 
     <Style x:Key="DragablzNotes2Style" TargetType="dragablz:DragablzItem">
         <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
@@ -64,6 +59,7 @@
                                     </TextBox.Style>
                                 </TextBox>
                                 <dragablz1:GeometryThumb VerticalAlignment="Center" 
+                                                         Margin="0.5"
                                    HorizontalAlignment="Left" 
                                    dragablz:DragablzItem.IsCustomThumb="True"
                                    Height="15"

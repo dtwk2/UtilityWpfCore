@@ -11,7 +11,8 @@ using System.Windows;
 using System.Windows.Baml2006;
 
 namespace UtilityWpf {
-   public class AutoResourceDictionary : ResourceDictionary {
+   public class AutoResourceDictionary : SharedResourceDictionary
+   {
       private Type type;
 
       public Type Type {
@@ -19,7 +20,7 @@ namespace UtilityWpf {
          set {
             type = value;
             foreach (var resourceDictionary in SelectFromType(value)) {
-               MergedDictionaries.Add(resourceDictionary);
+                 AddToMergedDictionaries(resourceDictionary);
             }
          }
       }
@@ -68,6 +69,7 @@ namespace UtilityWpf {
 
 
          IEnumerable<string> GetResourceNames() {
+            IEnumerable<string> allNames = assembly.GetManifestResourceNames();
             string[] resourceNames = assembly.GetManifestResourceNames().Where(a => a.EndsWith("g.resources")).ToArray();
             foreach (string resourceName in resourceNames) {
                ManifestResourceInfo info = assembly.GetManifestResourceInfo(resourceName);
@@ -79,14 +81,5 @@ namespace UtilityWpf {
             }
          }
       }
-
-        IEnumerable<ResourceDictionary> SelectFromAddress(string dllAddress)
-        {
-            //string address = @"WpfCustomControlLibrary.dll";
-            //List<Stream> bamlStreams = new List<Stream>();
-            Assembly assembly = Assembly.LoadFrom(dllAddress);
-            return SelectResourceDictionaries(assembly);
-        }
-
    }
 }

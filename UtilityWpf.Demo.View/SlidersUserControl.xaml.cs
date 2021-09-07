@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using UtilityWpf.TestData;
+using UtilityWpf.Demo.Data.Model;
 
 namespace UtilityWpf.DemoApp
 {

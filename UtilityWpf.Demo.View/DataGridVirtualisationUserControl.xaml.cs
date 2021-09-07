@@ -6,6 +6,7 @@ using System.Reactive.Linq;
 using System.Windows.Controls;
 using UtilityWpf.DemoApp;
 using UtilityWpf.TestData;
+using UtilityWpf.Demo.Data.Model;
 
 namespace UtilityWpf.Demo.View
 {

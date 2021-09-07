@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:util="http://schemas.utility.com" 
-    xmlns:model="clr-namespace:UtilityWpf.TestData.Model;assembly=UtilityWpf.TestData"
+    xmlns:model1="clr-namespace:UtilityWpf.Demo.Common.ViewModel;assembly=UtilityWpf.Demo.Common"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
@@ -23,7 +23,7 @@
                 Background="AliceBlue" />
         </StackPanel>
         <util:ValidationForm Grid.Row="1" IsValid="{Binding ElementName=ToggleButton1, Path=IsChecked}">
-            <model:Fields></model:Fields>
+            <model1:Fields></model1:Fields>
         </util:ValidationForm>
     </Grid>
 </UserControl>

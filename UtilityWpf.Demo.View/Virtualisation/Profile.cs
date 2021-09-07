@@ -9,6 +9,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reactive.Linq;
 using UtilityWpf.TestData;
+using UtilityWpf.Demo.Data.Model;
 
 namespace UtilityWpf.DemoApp
 {

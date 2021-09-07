@@ -7,8 +7,7 @@
     xmlns:mk="clr-namespace:UtilityWpf.Markup;assembly=UtilityWpf" 
     xmlns:utilitywpf="clr-namespace:UtilityWpf;assembly=UtilityWpf" 
     xmlns:vm="clr-namespace:UtilityWpf.Demo.Hybrid"
-    xmlns:vm1="clr-namespace:UtilityWpf.TestData.Model;assembly=UtilityWpf.TestData" 
-    xmlns:view1="http://schemas.utility.com/dragablz"
+    xmlns:view1="http://schemas.utility.com/dragablz" xmlns:vm1="clr-namespace:UtilityWpf.Demo.Common.ViewModel;assembly=UtilityWpf.Demo.Common"
     d:DesignHeight="450"
     d:Background="White"
     d:DesignWidth="800"
@@ -24,7 +23,7 @@
     <UniformGrid Columns="1">
         <UniformGrid Rows="1">
             <FrameworkElement.DataContext>
-                <vm:TicksViewModel />
+                <vm1:TicksViewModel />
             </FrameworkElement.DataContext>
 
 
@@ -52,11 +51,6 @@
             DisplayMemberPath="{mk:NameOf Type={x:Type vm1:NoteViewModel}, Member=Text}">
             </view:MasterNotesControl>-->
 
-            <view1:TicksControl
-              IsCheckedPath="{mk:NameOf Type={x:Type vm1:TickViewModel}, Member=IsChecked}"
-            ItemsSource="{Binding Collection}"         
-            DisplayMemberPath="{mk:NameOf Type={x:Type vm1:NoteViewModel}, Member=Text}">
-            </view1:TicksControl>
         </UniformGrid>
 
         <!--<UniformGrid Rows="1">

@@ -1,51 +1,54 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0-windows</TargetFramework>
-    <UseWPF>true</UseWPF>
+	<TargetFramework>net5.0-windows</TargetFramework>
+	<UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UtilityWpf\UtilityWpf.csproj" />
+	<ProjectReference Include="..\UtilityWpf\UtilityWpf.csproj" />
   </ItemGroup> 
   
   <ItemGroup>
-    <PackageReference Include="Dragablz" Version="0.0.3.223" />
+	<PackageReference Include="Dragablz" Version="0.0.3.223" />
   </ItemGroup>
 
 
-
   <ItemGroup>
-    <Compile Update="ItemContainerBorder.cs">
-      <DependentUpon>ItemContainerBorder.xaml</DependentUpon>
-    </Compile>  
-    <Compile Update="NotesControl.cs">
-      <DependentUpon>NotesControl.xaml</DependentUpon>
-    </Compile>  
-    <Compile Update="GeometryThumb.cs">
-      <DependentUpon>GeometryThumb.xaml</DependentUpon>
-    </Compile> 
-    <Compile Update="TicksControl.cs">
-      <DependentUpon>TicksControl.xaml</DependentUpon>
-    </Compile>
+	<Compile Update="ItemContainerBorder.cs">
+	  <DependentUpon>ItemContainerBorder.xaml</DependentUpon>
+	</Compile>  
+	<Compile Update="NotesControl.cs">
+	  <DependentUpon>NotesControl.xaml</DependentUpon>
+	</Compile>  
+	<Compile Update="GeometryThumb.cs">
+	  <DependentUpon>GeometryThumb.xaml</DependentUpon>
+	</Compile> 
+	<Compile Update="TicksControl.cs">
+	  <DependentUpon>TicksControl.xaml</DependentUpon>
+	</Compile>    
+	<Compile Update="GroupsControl.cs">
+	  <DependentUpon>GroupsControl.xaml</DependentUpon>
+	</Compile>
   </ItemGroup>
+	
   <ItemGroup>
-    <Page Update="DragablzItem.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="DragablzNoteStyle.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="ItemContainerBorder.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="TicksControl.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
+	<Page Update="DragablzItemStyle.xaml">
+	  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+	  <SubType>Designer</SubType>
+	</Page>
+	<Page Update="DragablzNoteStyle.xaml">
+	  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+	  <SubType>Designer</SubType>
+	</Page>
+	<Page Update="ItemContainerBorder.xaml">
+	  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+	  <SubType>Designer</SubType>
+	</Page>
+	<Page Update="TicksControl.xaml">
+	  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+	  <SubType>Designer</SubType>
+	</Page>
   </ItemGroup>
 
 </Project>

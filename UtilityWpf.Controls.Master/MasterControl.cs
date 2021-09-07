@@ -6,12 +6,12 @@ using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Evan.Wpf;
-using ReactiveUI;
 using DynamicData;
 using Microsoft.Xaml.Behaviors;
 using UtilityWpf.Abstract;
 using UtilityWpf.Mixins;
 using System.Windows.Media.Animation;
+using Utility.Common.Enum;
 
 namespace UtilityWpf.Controls.Master
 {
@@ -32,31 +32,9 @@ namespace UtilityWpf.Controls.Master
             None = 0, Add = 1, Remove = 2, MoveUp = 4, MoveDown = 8, All = Add | Remove | MoveUp | MoveDown
         }
 
-        public class MovementEventArgs : CollectionEventArgs
-        {
-            public MovementEventArgs(IReadOnlyCollection<IndexedObject> array, IReadOnlyCollection<IndexedObject> changes, EventType eventType, object? item, int index, RoutedEvent @event) : base(eventType, item, index, @event)
-            {
-                Objects = array;
-                Changes = changes;
-            }
+  
 
-            public IReadOnlyCollection<IndexedObject> Objects { get; }
-            public IReadOnlyCollection<IndexedObject> Changes { get; }
-        }
-
-
-        public class IndexedObject
-        {
-            public IndexedObject(object @object, int index, int oldIndex)
-            {
-                Object = @object;
-                Index = index;
-                OldIndex = oldIndex;
-            }
-            public int Index { get; set; }
-            public int OldIndex { get; }
-            public object Object { get; }
-        }
+  
 
         public static readonly DependencyProperty CommandParameterProperty = DependencyHelper.Register<IEnumerator>();
         public static readonly DependencyProperty RemoveOrderProperty = DependencyHelper.Register<RemoveOrder>(new PropertyMetadata(RemoveOrder.Selected));

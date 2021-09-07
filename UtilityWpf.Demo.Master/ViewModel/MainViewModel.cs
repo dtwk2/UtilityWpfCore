@@ -1,10 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.Reactive;
 using System.Windows.Input;
-using UtilityWpf.Demo.Master.Infrastructure;
-using static UtilityWpf.Controls.Master.MasterControl;
+using Utility.Common.EventArgs;
 
-namespace UtilityWpf.Demo.View
+namespace UtilityWpf.Demo.Master.ViewModel
 {
     public class MainViewModel
     {

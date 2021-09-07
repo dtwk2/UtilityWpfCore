@@ -4,58 +4,23 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:view="http://schemas.utility.com/master" 
-    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:vm1="clr-namespace:UtilityWpf.TestData.Model;assembly=UtilityWpf.TestData"
    xmlns:mk="http://schemas.utility.com/utilitywpf"
-    xmlns:vm="clr-namespace:UtilityWpf.Demo.Dragablz"
     xmlns:view1="http://schemas.utility.com/dragablz"
-    xmlns:utilitywpf="http://schemas.utility.com/utilitywpf"
+    xmlns:vm2="clr-namespace:UtilityWpf.Demo.Common.ViewModel;assembly=UtilityWpf.Demo.Common" 
+    xmlns:vm="clr-namespace:UtilityWpf.Demo.Dragablz.ViewModel"
     d:DesignHeight="450"
     d:Background="White"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <FrameworkElement.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzNoteStyle.xaml"></utilitywpf:SharedResourceDictionary>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </FrameworkElement.Resources>
 
-   
-            <FrameworkElement.DataContext>
-                <vm:NotesViewModel />
-            </FrameworkElement.DataContext>
-   
-      
+    <FrameworkElement.DataContext>
+        <vm:NotesViewModel />
+    </FrameworkElement.DataContext>
 
-            <!--<view:MasterControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
-
-                <i:Interaction.Triggers>
-                    <i:EventTrigger  EventName="Change" >
-                        <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <view1:DragablzVerticalItemsControl x:Name="DragablzItemsControl" 
-                                           ItemsSource="{Binding Collection}" 
-                                           VerticalAlignment="Center"     
-                                           ItemContainerStyle="{StaticResource DragablzNoteStyle}">
-                </view1:DragablzVerticalItemsControl>
-            </view:MasterControl>
-
-            <ItemsControl   ItemsSource="{Binding Collection}" ItemTemplate="{StaticResource NoteViewModel}" />
-
-            <view:MasterNotesControl 
-            CommandParameter="{Binding NewItem}"
-            ItemsSource="{Binding Collection}" 
-            Change="MasterNotesControl_Change"
-            DisplayMemberPath="{mk:NameOf Type={x:Type vm1:NoteViewModel}, Member=Text}">
-            </view:MasterNotesControl>-->
-
-            <view1:NotesControl
+    <Grid>
+        <view1:NotesControl
             ItemsSource="{Binding Collection}"         
-            DisplayMemberPath="{mk:NameOf Type={x:Type vm1:NoteViewModel}, Member=Text}">
-            </view1:NotesControl>
-
+            DisplayMemberPath="{mk:NameOf Type={x:Type vm2:NoteViewModel}, Member=Text}">
+        </view1:NotesControl>
+    </Grid>
 </UserControl>

@@ -4,20 +4,20 @@
 
     <ControlTemplate x:Key="ControlTemplate" TargetType="{x:Type drag:GeometryThumb}">
 
-    
-            <Grid >
-            <Border Name="OutBox" Background="{DynamicResource SecondaryHueLightBrush}"/>
 
-            <Border Panel.ZIndex="2000">
+        <Grid >
+            <Border Name="OutBox" CornerRadius="10" Background="{TemplateBinding HighlightBrush}"/>
+
+            <Border Panel.ZIndex="1000" CornerRadius="10">
                 <Border.Style>
                     <Style TargetType="Border">
                         <Style.Setters>
-                       
-                <!--Background="{DynamicResource SecondaryHueLightBrush}"-->
-                
+
+                            <!--Background="{DynamicResource SecondaryHueLightBrush}"-->
+
                             <Setter Property="Background"  >
                                 <Setter.Value>
-                                    <SolidColorBrush Color="White" Opacity="0.0"></SolidColorBrush>
+                                    <SolidColorBrush Color="White" Opacity="0.8"></SolidColorBrush>
                                 </Setter.Value>
                             </Setter>
                             <!--<Setter Property="CornerRadius" Value="15"></Setter>-->
@@ -34,7 +34,7 @@
                                   
                                                                             Storyboard.TargetProperty="Background.Opacity"    
                                                                             To="0.0"
-                                                                            Duration="0:0:1"/>
+                                                                            Duration="0:0:0.3"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -44,8 +44,8 @@
                                         <DoubleAnimation
                                      
                                                                             Storyboard.TargetProperty="Background.Opacity"                                                                     
-                                                                            To="0.5"
-                                                                            Duration="0:0:1"  />
+                                                                            To="0.8"
+                                                                            Duration="0:0:0.6"  />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -53,7 +53,7 @@
                     </Style>
                 </Border.Style>
             </Border>
-            <Path   
+            <Path   Panel.ZIndex="2000"
                         Visibility="Visible"
                         Margin="5"
                 
@@ -62,17 +62,58 @@
                         Data="{Binding Geometry, RelativeSource={RelativeSource Mode=TemplatedParent}}"
                         RenderTransformOrigin="0.5,0.5"
                         Stretch="Uniform"
-                        Fill="{DynamicResource PrimaryHueDarkBrush}"
-                        Stroke="{DynamicResource PrimaryHueDarkBrush}"
+                        Fill="{TemplateBinding Foreground}"
+                        Stroke="{TemplateBinding Foreground}"
                         StrokeThickness="1">
-                    <Path.RenderTransform>
-                        <TransformGroup>
-                            <TranslateTransform />
-                        </TransformGroup>
-                    </Path.RenderTransform>
-                </Path>
-            </Grid>
-       
+                <Path.RenderTransform>
+                    <TransformGroup>
+                        <TranslateTransform />
+                    </TransformGroup>
+                </Path.RenderTransform>
+                <Path.Style>
+                    <Style TargetType="Path">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Cursor" Value="Hand" />
+                            </Trigger>
+                            <EventTrigger RoutedEvent="UIElement.MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                  
+                                                                            Storyboard.TargetProperty="Fill.Opacity"    
+                                                                            To="1.0"
+                                                                            Duration="0:0:0.3"/>
+                                        <DoubleAnimation
+                                     
+                                                                            Storyboard.TargetProperty="Stroke.Opacity"                                                                     
+                                                                            To="1.0"
+                                                                            Duration="0:0:0.6"  />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="UIElement.MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                     
+                                                                            Storyboard.TargetProperty="Fill.Opacity"                                                                     
+                                                                            To="0.8"
+                                                                            Duration="0:0:0.6"  /> 
+                                        <DoubleAnimation
+                                     
+                                                                            Storyboard.TargetProperty="Stroke.Opacity"                                                                     
+                                                                            To="0.8"
+                                                                            Duration="0:0:0.6"  />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Path.Style>
+            </Path>
+        </Grid>
+
     </ControlTemplate>
 
 

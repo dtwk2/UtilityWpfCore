@@ -8,8 +8,14 @@
         Title="MainWindow" Height="450" Width="800">
     
     <TabControl>
-        <TabItem>
+        <TabItem Header="Notes">
             <local:NotesUserControl/>
+        </TabItem> 
+        <TabItem Header="Ticks">
+            <local:TicksUserControl/>
+        </TabItem>    
+        <TabItem Header="Groups">
+            <local:GroupsUserControl/>
         </TabItem>
     </TabControl>
     

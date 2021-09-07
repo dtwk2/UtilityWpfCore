@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using UtilityHelperEx;
 using UtilityWpf.Model;
 using UtilityWpf.TestData;
+using UtilityWpf.Demo.Data.Model;
 
 namespace UtilityWpf.DemoApp
 {

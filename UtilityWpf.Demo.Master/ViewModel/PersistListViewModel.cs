@@ -1,10 +1,14 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.Reactive;
+using DynamicData;
 using ReactiveUI;
+using Utility.Common.Enum;
+using Utility.Common.EventArgs;
 using UtilityInterface.NonGeneric.Database;
+using UtilityWpf.Demo.Common.ViewModel;
+using UtilityWpf.Demo.Data.Model;
 using UtilityWpf.Service;
-using UtilityWpf.TestData.Model;
-using static UtilityWpf.Controls.Master.MasterControl;
 
 
 namespace UtilityWpf.Demo.Master.Infrastructure
@@ -13,6 +17,8 @@ namespace UtilityWpf.Demo.Master.Infrastructure
     {
         private readonly ReactiveFieldsFactory factory = new();
         private IDatabaseService dbS = new DatabaseService();
+        private IEnumerator<ReactiveFields> build;
+
         //private IReadOnlyCollection<object> data;
 
         public PersistListViewModel()
@@ -21,6 +27,10 @@ namespace UtilityWpf.Demo.Master.Infrastructure
             {
                 switch (a)
                 {
+                    case CollectionEventArgs { EventType: EventType.Add }:
+                        if (NewItem.MoveNext())
+                            Data.Add(NewItem.Current as Common.ViewModel.ReactiveFields);
+                        break;
                     case MovementEventArgs eventArgs:
                         foreach (var item in eventArgs.Changes)
                         {
@@ -78,7 +88,7 @@ namespace UtilityWpf.Demo.Master.Infrastructure
         {
             get
             {
-                var build = factory.Build();
+                build ??= factory.Build();
                 return build;
             }
         }

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Input;
 
-namespace UtilityWpf.TestData
+namespace UtilityWpf.Demo.Data.Model
 {
     public static class Finance
     {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UtilityWpf.TestData.Model;
+using UtilityWpf.Demo.Data.Model;
 
 namespace UtilityWpf.Demo.Master.ViewModel
 {

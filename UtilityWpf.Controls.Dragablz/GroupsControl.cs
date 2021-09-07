@@ -10,7 +10,7 @@ namespace UtilityWpf.Controls.Dragablz
 
 
         static GroupsControl()
-        {
+        {            
             DefaultStyleKeyProperty.OverrideMetadata(typeof(GroupsControl), new FrameworkPropertyMetadata(typeof(GroupsControl)));
         }
 

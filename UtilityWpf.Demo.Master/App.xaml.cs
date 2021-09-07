@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using Autofac;
+using Splat.Autofac;
+using System.Windows;
+using UtilityWpf.Meta;
 
 namespace UtilityWpf.Demo.Master
 {
@@ -7,5 +10,13 @@ namespace UtilityWpf.Demo.Master
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            var builder = new ContainerBuilder();
+            builder.RegisterInstance(
+                new AutoMapperTypeCollection( 
+                typeof(UtilityWpf.Demo.Common.Infrastructure.Profile)));
+            builder.UseAutofacDependencyResolver();
+        }
     }
 }

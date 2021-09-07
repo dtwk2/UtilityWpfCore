@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
   xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             xmlns:util="http://schemas.utility.com" xmlns:model="clr-namespace:UtilityWpf.TestData.Model;assembly=UtilityWpf.TestData"
+             xmlns:util="http://schemas.utility.com" 
+             xmlns:model="clr-namespace:UtilityWpf.Demo.Data.Model;assembly=UtilityWpf.Demo.Data"        
              mc:Ignorable="d" 
              FontSize="20"
              d:DesignHeight="450" d:DesignWidth="800">

@@ -22,8 +22,9 @@ xmlns:view="http://schemas.utility.com"
 
             
             <ResourceDictionary.MergedDictionaries>
-                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzItem.xaml"></utilitywpf:SharedResourceDictionary>
-                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.TestData;component/Themes/Generic.xaml" />
+                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Demo.Common;component/View/Templates.xaml"/> 
+                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/Themes/Generic.xaml" />
+                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Demo.Data;component/Themes/Generic.xaml" />
                 <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Demo.Master;component/Templates.xaml" />
                 
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />

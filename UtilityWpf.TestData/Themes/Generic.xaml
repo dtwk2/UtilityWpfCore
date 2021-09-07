@@ -1,14 +1,9 @@
 ﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" >
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/UtilityWpf.TestData;component/DataTemplate/Character.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.TestData;component/DataTemplate/Profile.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.TestData;component/DataTemplate/Fields.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.TestData;component/DataTemplate/ReactiveFields.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.TestData;component/DataTemplate/Element.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.TestData;component/DataTemplate/Note.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Demo.Data;component/DataTemplate/Character.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Demo.Data;component/DataTemplate/Profile.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 
