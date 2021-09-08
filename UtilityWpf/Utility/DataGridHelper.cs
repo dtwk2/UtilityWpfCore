@@ -10,64 +10,65 @@ namespace UtilityWpf.Utility
     {
         public static System.Drawing.Point? GetTableIndices(System.Windows.DependencyObject dep)
         {
-            int columnIndex;
-            int rowIndex;
+
+
             while (dep != null && !(dep is DataGridCell) && !(dep is DataGridColumnHeader))
             {
                 dep = VisualTreeHelper.GetParent(dep);
             }
 
             if (dep == null)
-                return null;
-            else if (dep is DataGridColumnHeader)
             {
-                DataGridColumnHeader columnHeader = dep as DataGridColumnHeader;
+                return null;
+            }
+            else if (dep is DataGridColumnHeader header)
+            {
+                DataGridColumnHeader columnHeader = header;
                 //// find the property that this cell's column is bound to
                 //string boundPropertyName = DataGridHelpers.FindBoundProperty(columnHeader.Column);
 
-                columnIndex = columnHeader.Column.DisplayIndex;
+                var columnIndex = columnHeader.Column.DisplayIndex;
 
                 //ClickedItemDisplay.Text = $"Header clicked [{  columnIndex}] = { boundPropertyName}";
                 return new System.Drawing.Point(0, columnIndex);
             }
-            else if (dep is DataGridCell)
+            else if (dep is DataGridCell cell)
             {
-                DataGridCell cell = dep as DataGridCell;
-
                 // navigate further up the tree
-                while (dep != null && !(dep is DataGridRow))
+                while (dep != null && (dep is not DataGridRow))
                 {
                     dep = VisualTreeHelper.GetParent(dep);
                 }
-
-                if (dep == null)
-                    return null;
-
-                object value = GetValue(dep as DataGridRow, cell.Column);
-                columnIndex = cell.Column.DisplayIndex;
-                rowIndex = FindRowIndex(dep as DataGridRow);
-
-                return new System.Drawing.Point(rowIndex, columnIndex);
+                if (dep is DataGridRow row)
+                {
+                    //object value = GetValue(row, cell.Column);
+                    var columnIndex = cell.Column.DisplayIndex;
+                    if (FindRowIndex(row) is int rIndex)
+                    {
+                        return new System.Drawing.Point(rIndex, columnIndex);
+                    }
+                }
                 //ClickedItemDisplay.Text = string.Format("Cell clicked [{0}, {1}] = {2}", rowIndex, columnIndex, value.ToString());
             }
-            else
-            {
-                return null;
-            }
+
+            return null;
+
         }
 
         /// <summary>
         /// Determine the index of a DataGridRow
         /// </summary>
         /// <param name="row"></param>
-        /// <returns></returns>
-        public static int FindRowIndex(DataGridRow row)
+        /// <returns>
+        public static int? FindRowIndex(this DataGridRow row)
         {
-            DataGrid dataGrid = ItemsControl.ItemsControlFromItemContainer(row) as DataGrid;
+            if (ItemsControl.ItemsControlFromItemContainer(row) is DataGrid dataGrid)
+            {
+                int index = dataGrid.ItemContainerGenerator.IndexFromContainer(row);
 
-            int index = dataGrid.ItemContainerGenerator.IndexFromContainer(row);
-
-            return index;
+                return index;
+            }
+            return null;
         }
 
         /// <summary>
@@ -76,10 +77,11 @@ namespace UtilityWpf.Utility
         /// <param name="row"></param>
         /// <param name="cell"></param>
         /// <returns></returns>
-        public static object GetValue(DataGridRow row, DataGridColumn column)
+        public static object? GetValue(DataGridRow row, DataGridColumn column)
         {
             // find the property that this cell's column is bound to
-            string boundPropertyName = FindBoundProperty(column);
+            if (FindBoundProperty(column) is not { } boundPropertyName)
+                return null;
 
             // find the object that is realted to this row
             object data = row.Item;
@@ -97,20 +99,16 @@ namespace UtilityWpf.Utility
         /// </summary>
         /// <param name="col"></param>
         /// <returns></returns>
-        public static string FindBoundProperty(DataGridColumn col)
+        public static string? FindBoundProperty(DataGridColumn col)
         {
-            DataGridBoundColumn boundColumn = col as DataGridBoundColumn;
-
-            // find the property that this column is bound to
-            Binding binding = boundColumn.Binding as Binding;
-            string boundPropertyName = binding.Path.Path;
-
+            if (col is not DataGridBoundColumn { Binding: Binding { Path: { Path: { } boundPropertyName } } })
+                return null;
             return boundPropertyName;
         }
 
-        public static T GetVisualChild<T>(Visual parent) where T : Visual
+        public static T? GetVisualChild<T>(Visual parent) where T : Visual
         {
-            T child = default;
+            T? child = default;
             int numVisuals = VisualTreeHelper.GetChildrenCount(parent);
             for (int i = 0; i < numVisuals; i++)
             {
@@ -146,11 +144,11 @@ namespace UtilityWpf.Utility
             return row;
         }
 
-        public static DataGridCell GetCell(this DataGrid grid, DataGridRow row, int column)
+        public static DataGridCell? GetCell(this DataGrid grid, DataGridRow row, int column)
         {
             if (row != null)
             {
-                DataGridCellsPresenter presenter = GetVisualChild<DataGridCellsPresenter>(row);
+                DataGridCellsPresenter? presenter = GetVisualChild<DataGridCellsPresenter>(row);
 
                 if (presenter == null)
                 {
@@ -158,13 +156,13 @@ namespace UtilityWpf.Utility
                     presenter = GetVisualChild<DataGridCellsPresenter>(row);
                 }
 
-                DataGridCell cell = (DataGridCell)presenter.ItemContainerGenerator.ContainerFromIndex(column);
+                DataGridCell? cell = (DataGridCell?)presenter?.ItemContainerGenerator.ContainerFromIndex(column);
                 return cell;
             }
             return null;
         }
 
-        public static DataGridCell GetCell(this DataGrid grid, int row, int column)
+        public static DataGridCell? GetCell(this DataGrid grid, int row, int column)
         {
             DataGridRow rowContainer = grid.GetRow(row);
             return grid.GetCell(rowContainer, column);

@@ -30,11 +30,11 @@ namespace UtilityWpf.Controls
             {
             }
 
-            if (item is FileViewModel)
-                return FileDataTemplate;
-            else if (item is DirectoryViewModel)
-                return DirectoryDataTemplate;
-            else
+            //if (item is FileViewModel)
+            //    return FileDataTemplate;
+            //else if (item is DirectoryViewModel)
+            //    return DirectoryDataTemplate;
+            //else
                 return DefaultDataTemplate;
         }
     }

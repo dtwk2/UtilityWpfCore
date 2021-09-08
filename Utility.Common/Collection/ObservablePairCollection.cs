@@ -1,4 +1,6 @@
-﻿namespace UtilityWpf.Property
+﻿using UtilityWpf.Property;
+
+namespace Utility.ViewModel
 {
     using System;
     using System.Collections.Generic;

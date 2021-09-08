@@ -6,7 +6,7 @@ namespace UtilityWpf.Controls
 {
     public class GeometryButton : Button
     {
-        public const string InitialData = "M 234,40 L200,20 L200,60 Z";
+        public const string InitialData = "M 34,40 L0,20 L0,60 Z";
 
         public static readonly DependencyProperty DataProperty = DependencyProperty.Register("Data", typeof(Geometry), typeof(GeometryButton), new PropertyMetadata());
         public static readonly DependencyProperty HoverBackgroundProperty = DependencyProperty.Register("HoverBackground", typeof(Brush), typeof(GeometryButton), new PropertyMetadata(new SolidColorBrush(Color.FromArgb(255, 255, 139, 0))));

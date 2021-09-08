@@ -65,7 +65,13 @@ namespace UtilityWpf
 
                 var dd = keys.SequenceEqual(keys2);
                 var dde = z1.SequenceEqual(z);
-                return ((keys.Any() && keys2.Any()) || (z.Any() && z1.Any())) &&  dd && dde;
+                var bb = ((keys.Any() && keys2.Any()) || (z.Any() && z1.Any())) &&  dd && dde;
+
+                if(bb)
+                {
+
+                }
+                return bb;
             }
 
             public int GetHashCode([DisallowNull] ResourceDictionary obj)

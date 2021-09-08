@@ -25,24 +25,21 @@
                 <Setter Property="Margin" Value="10"></Setter>
                 <Setter Property="Padding" Value="5"></Setter>
             </Style>
-            <!--<x:Type Type="{x:Type service:LiteDbRepository}" x:Key="LiteDbRepo"></x:Type>
-            <x:Type Type="{x:Type local11:DatabaseService}" x:Key="DatabaseService"></x:Type>-->
-            <!--<ResourceDictionary.MergedDictionaries>
-                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzItem.xaml"></utilitywpf:SharedResourceDictionary>
-                --><!--<ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DualButtonControl.xaml"/>--><!--
-            </ResourceDictionary.MergedDictionaries>-->
+            <util:AutoMapperConverter x:Key="AutoValueConverter"/>
+            <ResourceDictionary.MergedDictionaries>
+                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzItemStyle.xaml"></utilitywpf:SharedResourceDictionary>
+                <!--<ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DualButtonControl.xaml"/>-->
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
     <DockPanel>
-
      
 
         <TabControl>
-
             <TabItem Header="With Detail">
-                <view2:MasterDetail DataConverter="{Binding ValueConverter}">
+                <view2:MasterDetail DataConverter="{StaticResource AutoValueConverter}">
                     <view2:MasterDetail.Selector>
-                        <view2:MasterControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  
+                        <view2:MasterControl ItemsSource="{Binding Data, Mode=OneTime}" CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  
                                                    Position="Bottom">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger  EventName="Change" >
@@ -56,22 +53,15 @@
                                                        VerticalAlignment="Center"                                                
                                                        ItemContainerStyle="{StaticResource VerticalItemStyle}"                                                                                             
                                                        MouseDown="DragablzItemsControl_MouseDown">
-                                <i:Interaction.Behaviors>
-                                    <behavior1:PersistBehavior x:Name="PersistBehavior" Repository="{Binding DatabaseService, Mode=OneWay}" 
-                                              CollectionChangeCommand="{Binding CollectionChangedCommand, Mode=OneTime}">
-
-                                    </behavior1:PersistBehavior>
-                                </i:Interaction.Behaviors>
+                           
                             </view1:DragablzVerticalItemsControl>
                         </view2:MasterControl>
                     </view2:MasterDetail.Selector>        
                 </view2:MasterDetail>
-            </TabItem>    
-            
+            </TabItem>                
             
             <TabItem Header="Without Detail">
-
-                <view2:MasterControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
+                <view2:MasterControl ItemsSource="{Binding Data, Mode=OneTime}" CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
                     <i:Interaction.Triggers>
                         <i:EventTrigger  EventName="Change" >
                             <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
@@ -81,12 +71,7 @@
                                                        VerticalAlignment="Center"                                                
                                                        ItemContainerStyle="{StaticResource VerticalItemStyle}"                                                                                             
                                                        MouseDown="DragablzItemsControl_MouseDown">
-                        <i:Interaction.Behaviors>
-                            <behavior1:PersistBehavior x:Name="Persist2Behavior" Repository="{Binding DatabaseService, Mode=OneWay}" 
-                                              CollectionChangeCommand="{Binding CollectionChangedCommand, Mode=OneTime}">
-
-                            </behavior1:PersistBehavior>
-                        </i:Interaction.Behaviors>
+                     
                     </view1:DragablzVerticalItemsControl>
                 </view2:MasterControl>
             </TabItem>

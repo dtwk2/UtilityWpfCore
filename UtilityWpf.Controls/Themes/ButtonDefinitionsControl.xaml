@@ -4,7 +4,7 @@
     xmlns:local="clr-namespace:UtilityWpf.Controls"
     xmlns:viewmodel="clr-namespace:UtilityWpf.Model;assembly=UtilityWpf">
 
-    <DataTemplate x:Key="ButtonDefinitionTemplate" DataType="{x:Type viewmodel:ButtonDefinition}">
+    <!--<DataTemplate x:Key="ButtonDefinitionTemplate" DataType="{x:Type viewmodel:ButtonDefinition}">
         <Button
             Margin="3"
             Command="{Binding Command}"
@@ -31,6 +31,6 @@
                 </Setter>
             </Trigger>
         </Style.Triggers>
-    </Style>
+    </Style>-->
     
 </ResourceDictionary>

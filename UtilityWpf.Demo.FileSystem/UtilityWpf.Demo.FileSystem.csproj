@@ -10,4 +10,8 @@
     <ProjectReference Include="..\UtilityWpf.Controls.FileSystem\UtilityWpf.Controls.FileSystem.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModel\" />
+  </ItemGroup>
+
 </Project>

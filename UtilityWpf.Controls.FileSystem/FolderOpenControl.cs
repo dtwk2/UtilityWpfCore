@@ -5,6 +5,7 @@ using System.Windows.Input;
 namespace UtilityWpf.Controls.FileSystem
 {
     using System;
+    using System.Reactive.Subjects;
     using UtilityWpf.Property;
 
     public class FolderOpenControl : Control
@@ -27,12 +28,11 @@ namespace UtilityWpf.Controls.FileSystem
             var foc = new FolderOpenCommand();
             SetValue(FolderOpenCommandProperty, foc);
 
-            foc.PropertyChanged += (sender, e) =>
+            foc.Subscribe(directory =>
             {
-                if (e.PropertyName == "Directory")
-                    Dispatcher.InvokeAsync(() => Path = foc.Directory,
-                                   System.Windows.Threading.DispatcherPriority.Background, default);
-            };
+
+                Dispatcher.InvokeAsync(() => Path = directory);
+            });
         }
 
         public string Path
@@ -41,10 +41,10 @@ namespace UtilityWpf.Controls.FileSystem
             set { SetValue(PathProperty, value); }
         }
 
-        class FolderOpenCommand : NPC, ICommand
+        class FolderOpenCommand : /*NPC,*/ ICommand, IObservable<string>
         {
             private string directory;
-
+            ReplaySubject<string> directoryChanges = new(1);
             public event EventHandler CanExecuteChanged;
 
             public bool CanExecute(object parameter)
@@ -52,11 +52,11 @@ namespace UtilityWpf.Controls.FileSystem
                 return true;
             }
 
-            public string Directory
-            {
-                get { return directory; }
-                set { OnPropertyChanged(ref directory, value); }
-            }
+            //public string Directory
+            //{
+            //    get { return directory; }
+            //    set { OnPropertyChanged(ref directory, value); }
+            //}
 
             public void Execute(object parameter)
             {
@@ -64,8 +64,13 @@ namespace UtilityWpf.Controls.FileSystem
                 {
                     System.Windows.Forms.DialogResult result = fbd.ShowDialog();
                     if (result == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
-                        Directory = fbd.SelectedPath;
+                        directoryChanges.OnNext(fbd.SelectedPath);
                 }
+            }
+
+            public IDisposable Subscribe(IObserver<string> observer)
+            {
+                return directoryChanges.Subscribe(observer);
             }
         }
     }

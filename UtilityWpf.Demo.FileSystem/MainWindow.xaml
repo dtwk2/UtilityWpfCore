@@ -11,41 +11,41 @@
         <Button DockPanel.Dock="Top" Click="Button_Click" Margin="10">remove Material Design</Button>
 
         <controlzex:TabControlEx>
-            <!--<TabItem Header="Folder">
-            <local:DirectoryView></local:DirectoryView>
-        </TabItem>-->
+            <TabItem Header="Folder">
+                <local:PathView></local:PathView>
+            </TabItem>
 
             <TabItem Header="File">
                 <local:FileBrowserView></local:FileBrowserView>
             </TabItem>
 
-             <TabItem Header="Folder">
+            <TabItem Header="Folder">
                 <local:FolderBrowserView></local:FolderBrowserView>
             </TabItem>
 
-          
+
             <TabItem Header="FileViewer">
                 <controls1:FileViewer Directory="../../../Resources" />
             </TabItem>
 
             <TabItem Header="Property Tools">
-                <UniformGrid>                    
-                <StackPanel Width="400" VerticalAlignment="Center">
-                    <p:DirectoryPicker
+                <UniformGrid>
+                    <StackPanel Width="400" VerticalAlignment="Center">
+                        <p:DirectoryPicker
                 Margin="4"
                 BrowseButtonContent="Browse..."
                 Directory="{Binding Directory}"
                 ExploreButtonContent="Explore..." />
-                    <Label Content="{Binding Directory}" />
-                </StackPanel>
-                <StackPanel>
-                    <p:FilePicker
+                        <Label Content="{Binding Directory}" />
+                    </StackPanel>
+                    <StackPanel>
+                        <p:FilePicker
                 Margin="4"
                 DefaultExtension=".txt"
                 FilePath="{Binding File}"
                 Filter="Text files|*.txt" />
-                    <Label Content="{Binding File}" />
-                </StackPanel>
+                        <Label Content="{Binding File}" />
+                    </StackPanel>
                 </UniformGrid>
             </TabItem>
         </controlzex:TabControlEx>

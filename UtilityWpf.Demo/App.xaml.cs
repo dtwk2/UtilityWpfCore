@@ -1,7 +1,8 @@
 ﻿using Autofac;
 using Splat.Autofac;
+using System.Reflection;
 using System.Windows;
-using UtilityWpf.Meta;
+using Utility.Common;
 
 namespace UtilityWpf.DemoApp
 {
@@ -11,7 +12,7 @@ namespace UtilityWpf.DemoApp
     public partial class App : Application
     {
         public App()
-        {
+        {         
             var builder = new ContainerBuilder();
             _ = builder.RegisterInstance(
                 new AutoMapperTypeCollection(

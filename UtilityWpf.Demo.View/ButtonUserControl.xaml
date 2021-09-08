@@ -83,6 +83,16 @@
 
     <TabControl>
 
+        <TabItem Header="Buttons">
+            <TabItem.DataContext>
+                <demoApp:ButtonsViewModel/>
+            </TabItem.DataContext>
+            <view:ButtonsControl ItemsSource="{Binding Data}"
+                             CommandPath="Command"
+                             DisplayMemberPath="Header">
+
+            </view:ButtonsControl>
+        </TabItem>
 
         <TabItem Header="Morph">
             <FrameworkElement.DataContext>

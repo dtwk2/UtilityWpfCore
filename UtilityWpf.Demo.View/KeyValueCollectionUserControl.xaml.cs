@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
+using Utility.ViewModel;
 using UtilityWpf.Property;
 
 namespace UtilityWpf.Demo.View

@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Threading;
 using DynamicData;
-using ReactiveUI;
 using UtilityHelperEx;
 
 namespace UtilityWpf
@@ -18,10 +18,12 @@ namespace UtilityWpf
 
         public static IObservable<IChangeSet<T>> CreateChangeSet<T>(IEnumerable<T> items, IObservable<IVirtualRequest> virtualRequests, int initialSize, Func<T> defaultItemGenerator)
         {
+            var context = SynchronizationContext.Current;
+
             return ObservableChangeSet.Create<T>(observableList =>
             {
                 return SelectReplacementItems(virtualRequests, observableList, initialSize, items, defaultItemGenerator)
-                              .ObserveOn(RxApp.MainThreadScheduler)
+                              .ObserveOn(context)
                               .Subscribe(a =>
                               {
                                   // This needs to occur on the Main thread!!!

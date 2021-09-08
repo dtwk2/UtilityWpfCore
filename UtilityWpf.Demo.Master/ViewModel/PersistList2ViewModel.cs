@@ -13,6 +13,9 @@ using UtilityWpf.Demo.Data.Model;
 using DynamicData;
 using Utility.Common.Enum;
 using System.Collections.Generic;
+//using UtilityWpf.Model;
+using Autofac.Core;
+using Utility.Common;
 
 namespace UtilityWpf.Demo.Master.Infrastructure
 {
@@ -20,18 +23,28 @@ namespace UtilityWpf.Demo.Master.Infrastructure
     {
         private readonly FieldsFactory factory = new();
 
-        private IDatabaseService dbS = new LiteDbRepository(new LiteDbRepository.ConnectionSettings(typeof(Fields), new System.IO.FileInfo("../../../Data/Data.litedb"), nameof(Fields.Id)));
+        private IDatabaseService databaseService = new LiteDbRepository(new LiteDbRepository.ConnectionSettings(typeof(Fields), new System.IO.FileInfo("../../../Data/Data.litedb"), nameof(Fields.Id)));
         private IEnumerator<Fields> build;
 
+        private readonly PersistService service = new();
+
         public PersistList2ViewModel()
-        {
-            ChangeCommand = ReactiveCommand.Create<object, Unit>((a) =>
+        {         
+            service.OnNext(new(databaseService));
+
+            ChangeCommand = ReactiveCommand.Create<object, Unit>((obj) =>
             {
-                switch (a)
+                switch (obj)
                 {
                     case CollectionEventArgs { EventType: EventType.Add }:
                         if (NewItem.MoveNext())
-                            Data.Add(NewItem.Current as Common.ViewModel.Fields);
+                            service.Items.Add(NewItem.Current);
+                        break;
+                    case CollectionEventArgs { EventType: EventType.Remove, Item: { } item }:
+                        service.Items.Remove(item);
+                        break;
+                    case CollectionEventArgs { EventType: EventType.Remove }:
+                        service.Items.RemoveAt(service.Items.Count - 1);
                         break;
                     case MovementEventArgs eventArgs:
                         foreach (var item in eventArgs.Changes)
@@ -47,7 +60,7 @@ namespace UtilityWpf.Demo.Master.Infrastructure
 
         }
 
-        public MintPlayer.ObservableCollection.ObservableCollection<Fields> Data { get; } = new MintPlayer.ObservableCollection.ObservableCollection<Fields>();
+        public IEnumerable Data => service.Items;
 
         public IEnumerator NewItem
         {
@@ -62,7 +75,7 @@ namespace UtilityWpf.Demo.Master.Infrastructure
         public ReactiveCommand<object, Unit> ChangeRepositoryCommand { get; }
         public ReactiveCommand<object, Unit> CollectionChangedCommand { get; }
 
-        public IDatabaseService DatabaseService { get => dbS; private set => this.RaiseAndSetIfChanged(ref dbS, value); }
+        //public IDatabaseService DatabaseService { get => dbS; private set => this.RaiseAndSetIfChanged(ref dbS, value); }
 
     }
 }

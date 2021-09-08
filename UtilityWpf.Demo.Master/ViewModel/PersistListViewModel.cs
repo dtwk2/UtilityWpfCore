@@ -1,13 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reactive;
-using DynamicData;
 using ReactiveUI;
+using Utility.Common;
 using Utility.Common.Enum;
 using Utility.Common.EventArgs;
 using UtilityInterface.NonGeneric.Database;
 using UtilityWpf.Demo.Common.ViewModel;
 using UtilityWpf.Demo.Data.Model;
+//using UtilityWpf.Model;
 using UtilityWpf.Service;
 
 
@@ -18,18 +20,26 @@ namespace UtilityWpf.Demo.Master.Infrastructure
         private readonly ReactiveFieldsFactory factory = new();
         private IDatabaseService dbS = new DatabaseService();
         private IEnumerator<ReactiveFields> build;
-
-        //private IReadOnlyCollection<object> data;
+        private readonly PersistService service = new();
 
         public PersistListViewModel()
         {
-            ChangeCommand = ReactiveCommand.Create<object, Unit>((a) =>
+            this.WhenAnyValue(a => a.DatabaseService)
+                .Subscribe(a => { service.OnNext(new(a)); });
+
+            ChangeCommand = ReactiveCommand.Create<object, Unit>((obj) =>
             {
-                switch (a)
+                switch (obj)
                 {
                     case CollectionEventArgs { EventType: EventType.Add }:
                         if (NewItem.MoveNext())
-                            Data.Add(NewItem.Current as Common.ViewModel.ReactiveFields);
+                            service.Items.Add(NewItem.Current);
+                        break;
+                    case CollectionEventArgs { EventType: EventType.Remove, Item: { } item }:
+                        service.Items.Remove(item);
+                        break;
+                    case CollectionEventArgs { EventType: EventType.Remove }:
+                        service.Items.RemoveAt(service.Items.Count - 1);
                         break;
                     case MovementEventArgs eventArgs:
                         foreach (var item in eventArgs.Changes)
@@ -45,8 +55,7 @@ namespace UtilityWpf.Demo.Master.Infrastructure
 
             ChangeRepositoryCommand = ReactiveCommand.Create<bool, Unit>((a) =>
             {
-                if (DatabaseService is LiteDbRepository service)
-                {
+                if (DatabaseService is LiteDbRepository service)                {
                     service.Dispose();
                     DatabaseService = new DatabaseService();
                 }
@@ -56,35 +65,12 @@ namespace UtilityWpf.Demo.Master.Infrastructure
 
                 return Unit.Default;
             });
-
-            CollectionChangedCommand = ReactiveCommand.Create<object, Unit>(a =>
-            {
-
-                if (a is IEnumerable enumerable)
-                {
-
-                    //Data.Clear();
-                    //Data.AddRange(enumerable.OfType<Fields>());
-                }
-                else
-                {
-
-                }
-                return Unit.Default;
-
-            });
-
         }
 
-        public MintPlayer.ObservableCollection.ObservableCollection<ReactiveFields> Data { get; } = new MintPlayer.ObservableCollection.ObservableCollection<ReactiveFields>();
-
-        // public ObservableCollection<Fields> Data => new(factory.Build(5));
-        //public IReadOnlyCollection<object> Data { get => data; set => this.RaiseAndSetIfChanged(ref data, value); }
-
-        //public IReadOnlyCollection<object> CombinedData { get => data; set => this.RaiseAndSetIfChanged(ref data, value); }
+        public IEnumerable Data => service.Items;
 
 
-        public IEnumerator NewItem 
+        public IEnumerator NewItem
         {
             get
             {

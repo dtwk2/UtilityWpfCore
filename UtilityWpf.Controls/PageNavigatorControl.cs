@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
 using DynamicData;
+using DynamicData.Operators;
 using ReactiveUI;
 using UtilityWpf.Model;
 
@@ -59,8 +61,6 @@ namespace UtilityWpf.Controls
                 });
         }
 
-
-
         public IEnumerable ItemsSource
         {
             get { return (IEnumerable)GetValue(ItemsSourceProperty); }
@@ -83,7 +83,6 @@ namespace UtilityWpf.Controls
             SizeControl.SelectedSizeChanged += SizeControl_SelectedSizeChanged;
         }
 
-
         private void NavigatorControl_SelectedIndex(object sender, RoutedEventArgs e)
         {
             pageRequests.OnNext(new PageRequest((e as NavigatorControl.SelectedIndexRoutedEventArgs).Index, (int)this.GetValue(PageSizeProperty)));
@@ -102,6 +101,30 @@ namespace UtilityWpf.Controls
         private static void PageSizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             (d as PageNavigatorControl).PageSizeChanges.OnNext((int)e.NewValue);
+        }
+
+        public class FilteredPaginatedModel<T> : ReactiveObject
+        {
+            private IPageResponse pageResponse;
+            private ReadOnlyObservableCollection<T> pitems;
+
+            public FilteredPaginatedModel(IObservable<IChangeSet<T>> obs, IObservable<PageRequest> request, IObservable<Func<T, bool>> filter)
+            {
+                obs
+                      .Filter(filter)
+                      .Page(request)
+                               .Do(_ =>
+                               {
+                                   PageResponse = ((IPageChangeSet<T>)_).Response;
+                               })
+                               .Bind(out pitems)
+                               .DisposeMany()
+                               .Subscribe();
+            }
+
+            public ReadOnlyObservableCollection<T> Items => pitems;
+            public IPageResponse PageResponse { get => pageResponse; set => this.RaiseAndSetIfChanged(ref pageResponse, value); }
+
         }
     }
 }

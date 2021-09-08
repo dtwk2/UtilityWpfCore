@@ -1,17 +1,17 @@
-﻿using UtilityWpf.Command;
+﻿using System.Windows.Input;
 
 namespace UtilityWpf.Model
 {
     public class ButtonDefinition
     {
 
-        public ButtonDefinition(object content, RelayCommand command)
+        public ButtonDefinition(object content, ICommand command)
         {
             Content = content;
             Command = command;
         }
         public object Content { get; }
 
-        public RelayCommand Command { get; }
+        public ICommand Command { get; }
     }
 }

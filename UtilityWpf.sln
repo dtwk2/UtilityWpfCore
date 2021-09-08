@@ -39,11 +39,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Demo.Hybrid", "U
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Controls.FileSystem", "UtilityWpf.Controls.FileSystem\UtilityWpf.Controls.FileSystem.csproj", "{3EF5C76B-182B-4AD2-A968-E4DE109F6E8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityWpf.Demo.Dragablz", "UtilityWpf.Demo.Dragablz\UtilityWpf.Demo.Dragablz.csproj", "{261A23B6-74B5-4D2A-80AD-A47AD71B3253}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Demo.Dragablz", "UtilityWpf.Demo.Dragablz\UtilityWpf.Demo.Dragablz.csproj", "{261A23B6-74B5-4D2A-80AD-A47AD71B3253}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility.Common", "Utility.Common\Utility.Common.csproj", "{74C75AA4-2DDF-48B6-B4AB-E166D821F86C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility.Common", "Utility.Common\Utility.Common.csproj", "{74C75AA4-2DDF-48B6-B4AB-E166D821F86C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityWpf.Demo.Common", "UtilityWpf.Demo.Common\UtilityWpf.Demo.Common.csproj", "{C48F5E34-9293-4B33-B4CF-C0A4DCEE2013}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Demo.Common", "UtilityWpf.Demo.Common\UtilityWpf.Demo.Common.csproj", "{C48F5E34-9293-4B33-B4CF-C0A4DCEE2013}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility.ViewModel", "Utility.ViewModel\Utility.ViewModel.csproj", "{22D187B6-222A-4EF1-92CA-A81B29CDBF2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityWpf.View", "UtilityWpf.View\UtilityWpf.View.csproj", "{8333F9DC-6DFA-4E2E-A42A-BE70B5A5CECD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -131,6 +135,14 @@ Global
 		{C48F5E34-9293-4B33-B4CF-C0A4DCEE2013}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C48F5E34-9293-4B33-B4CF-C0A4DCEE2013}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C48F5E34-9293-4B33-B4CF-C0A4DCEE2013}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22D187B6-222A-4EF1-92CA-A81B29CDBF2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22D187B6-222A-4EF1-92CA-A81B29CDBF2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22D187B6-222A-4EF1-92CA-A81B29CDBF2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22D187B6-222A-4EF1-92CA-A81B29CDBF2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8333F9DC-6DFA-4E2E-A42A-BE70B5A5CECD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8333F9DC-6DFA-4E2E-A42A-BE70B5A5CECD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8333F9DC-6DFA-4E2E-A42A-BE70B5A5CECD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8333F9DC-6DFA-4E2E-A42A-BE70B5A5CECD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

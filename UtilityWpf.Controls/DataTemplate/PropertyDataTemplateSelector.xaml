@@ -3,9 +3,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:json="clr-namespace:UtilityWpf.Controls"
     xmlns:rxui="http://reactiveui.net" 
-    xmlns:local1="clr-namespace:UtilityWpf.Controls.Infrastructure" xmlns:local11="http://schemas.utility.com/utilitywpf">
+ 
+    xmlns:local11="http://schemas.utility.com/utilitywpf">
 
-    <ResourceDictionary.MergedDictionaries>
+    <!--<ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/UtilityWpf.Controls;component/DataTemplate/KeyValuePairDataTemplate.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
@@ -71,6 +72,6 @@
         DictionaryDataTemplate="{StaticResource DictionaryTemplate}"
         EnumerableDataTemplate="{StaticResource EnumerableTemplate}"
         IConvertibleTemplate="{StaticResource IConvertibleTemplate}"
-        ViewModelHostViewTemplate="{StaticResource ViewModelTemplate}" />
+        ViewModelHostViewTemplate="{StaticResource ViewModelTemplate}" />-->
     
 </ResourceDictionary>

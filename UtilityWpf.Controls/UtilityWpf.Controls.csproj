@@ -65,7 +65,12 @@
 
 
   <ItemGroup>
-    <Compile Update="UserControl\TableUserControl.xaml.cs">
+	  <Compile Update="ButtonsControl.cs">
+		  <DependentUpon>ButtonsControl.xaml</DependentUpon>
+	  </Compile>
+
+
+	  <Compile Update="UserControl\TableUserControl.xaml.cs">
       <DependentUpon>TableUserControl.xaml</DependentUpon>
     </Compile>
 
@@ -90,6 +95,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="ButtonsControl.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="DataTemplate\KeyValuePairDataTemplate.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>

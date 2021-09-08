@@ -23,21 +23,18 @@
               
                 <UniformGrid Rows="1">
                     <StackPanel>
-                        <ToggleButton
-                    x:Name="ToggleButton1"                   
-                    Height="30"
-                   />
-                        <view:ButtonDefinitionsControl
+                        <ToggleButton x:Name="ToggleButton1" Height="30"/>
+                        <!--<view:ButtonDefinitionsControl
                             x:Name="bdc"
                             Orientation="{Binding ElementName=ToggleButton1, Path=IsChecked, Converter={StaticResource BooleanToOrientationConverter}}"
-                            Type="{x:Type test:Emotion}" />
+                            Type="{x:Type test:Emotion}" />-->
                         <TextBlock Text="{Binding ElementName=bdc, Path=Output, Mode=OneWay}" Margin="5" Background="AliceBlue" Height="30"/>
                     </StackPanel>
                     <StackPanel>
-                        <view:ButtonDefinitionsControl
+                        <!--<view:ButtonDefinitionsControl
                             x:Name="bdcs"
                             Orientation="Vertical"
-                            Type="{x:Type test:Emotion}" />
+                            Type="{x:Type test:Emotion}" />-->
                         <TextBlock Text="{Binding ElementName=bdcs, Path=Output}" />
                     </StackPanel>
                     <view:EnumItems Enum="{x:Type test:Emotion}" />

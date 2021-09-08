@@ -6,8 +6,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Fasterflect;
+using Utility.Common;
 
-namespace UtilityWpf.Model
+
+namespace UtilityWpf.Common
 {
     /// <summary>
     /// <a href="https://stackoverflow.com/questions/3300845/observablecollection-calling-oncollectionchanged-with-multiple-new-items"></a>
@@ -19,10 +22,7 @@ namespace UtilityWpf.Model
 
         public ObservableRangeCollection() { }
 
-        public ObservableRangeCollection(IEnumerable<T> items)
-            : base(items)
-        {
-        }
+        public ObservableRangeCollection(IEnumerable<T> items) : base(items) { }
 
         public override event NotifyCollectionChangedEventHandler CollectionChanged;
 
@@ -34,18 +34,10 @@ namespace UtilityWpf.Model
 
             foreach (NotifyCollectionChangedEventHandler handler in handlers.GetInvocationList())
             {
-                if (handler.Target is ReadOnlyObservableCollection<T>
-                    && !(handler.Target is ReadOnlyObservableRangeCollection<T>))
+                var collectionViewMethod = handler.Target?.GetType().Methods("Refresh").SingleOrDefault();
+                if (collectionViewMethod != null)
                 {
-                    throw new NotSupportedException(
-                        "ObservableRangeCollection is wrapped in ReadOnlyObservableCollection which might be bound to ItemsControl " +
-                        "which is internally using ListCollectionView which does not support range actions.\n" +
-                        "Instead of ReadOnlyObservableCollection, use ReadOnlyObservableRangeCollection");
-                }
-                var collectionView = handler.Target as ICollectionView;
-                if (collectionView != null)
-                {
-                    collectionView.Refresh();
+                    collectionViewMethod.Invoke(handler.Target, null);
                 }
                 else
                 {
@@ -113,35 +105,6 @@ namespace UtilityWpf.Model
             if (removableItems.Any())
             {
                 OnCollectionChangedMultiItem(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, removableItems));
-            }
-        }
-    }
-
-    public class ReadOnlyObservableRangeCollection<T> : ReadOnlyObservableCollection<T>
-    {
-        public ReadOnlyObservableRangeCollection(ObservableCollection<T> list)
-            : base(list)
-        {
-        }
-
-        protected override event NotifyCollectionChangedEventHandler CollectionChanged;
-
-        protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
-        {
-            var handlers = CollectionChanged;
-            if (handlers == null) return;
-
-            foreach (NotifyCollectionChangedEventHandler handler in handlers.GetInvocationList())
-            {
-                var collectionView = handler.Target as ICollectionView;
-                if (collectionView != null)
-                {
-                    collectionView.Refresh();
-                }
-                else
-                {
-                    handler(this, e);
-                }
             }
         }
     }

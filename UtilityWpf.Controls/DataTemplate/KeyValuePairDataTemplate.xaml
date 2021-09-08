@@ -4,7 +4,7 @@
     xmlns:Json="clr-namespace:UtilityWpf.Controls"
     xmlns:pt="http://propertytools.org/wpf">
 
-    <ResourceDictionary.MergedDictionaries />
+    <!--<ResourceDictionary.MergedDictionaries />
 
     <DataTemplate x:Key="KeyValuePairTemplate">
 
@@ -29,5 +29,5 @@
                 </ContentPresenter.ContentTemplate>
             </ContentPresenter>
         </Grid>
-    </DataTemplate>
+    </DataTemplate>-->
 </ResourceDictionary>

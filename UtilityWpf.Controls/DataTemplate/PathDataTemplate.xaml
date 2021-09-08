@@ -3,9 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:UtilityWpf.Controls"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:viewmodel="clr-namespace:UtilityWpf.Model;assembly=UtilityWpf">
+    >
 
-    <DataTemplate DataType="{x:Type viewmodel:PathViewModel}">
+    <!--<DataTemplate DataType="{x:Type viewmodel:PathViewModel}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -47,7 +47,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <!--<Image Grid.Column="0" Source="/folder.png" Margin="0 0 4 0" />-->
+            --><!--<Image Grid.Column="0" Source="/folder.png" Margin="0 0 4 0" />--><!--
             <materialDesign:PackIcon
                 Width="24"
                 Height="24"
@@ -81,5 +81,5 @@
                 </Grid>
             </DataTemplate>
         </local:PathDataTemplateSelector.DefaultDataTemplate>
-    </local:PathDataTemplateSelector>
+    </local:PathDataTemplateSelector>-->
 </ResourceDictionary>

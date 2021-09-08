@@ -8,13 +8,17 @@
     xmlns:view1="clr-namespace:UtilityWpf.Demo.View"
     xmlns:view121="clr-namespace:UtilityWpf.Demo.Master.View"
     xmlns:view2="http://schemas.utility.com/master" 
-    xmlns:view11="clr-namespace:UtilityWpf.Demo.Master.Infrastructure"
+    xmlns:view11="clr-namespace:UtilityWpf.Demo.Master.Infrastructure" xmlns:utl="http://schemas.utility.com/utilitywpf"
     Title="MainWindow"
     Width="825"
     Height="550"
     mc:Ignorable="d">
-    <TabControl>
     
+    <!--<FrameworkElement.Resources>
+        <utl:SharedResourceDictionary Source="/UtilityWpf.Demo.Data;component/DataTemplate/Character.xaml" />
+    </FrameworkElement.Resources>-->
+    
+    <TabControl>   
         
         <TabItem Header="ItemsWrap">
             <view121:ItemsWrapUserControl />

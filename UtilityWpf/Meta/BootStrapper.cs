@@ -10,19 +10,19 @@ namespace UtilityWpf.Meta
     }
 
 
-    public class BootStrapperTypeCollection : Collection<Type>
-    {
-        public BootStrapperTypeCollection(IReadOnlyCollection<Type> types)
-        {
-            this.Add(typeof(BootStrapperTypeCollection));
-            foreach (var type in types)
-                this.Add(type);
-        }
+    //public class BootStrapperTypeCollection : Collection<Type>
+    //{
+    //    public BootStrapperTypeCollection(IReadOnlyCollection<Type> types)
+    //    {
+    //        this.Add(typeof(BootStrapperTypeCollection));
+    //        foreach (var type in types)
+    //            this.Add(type);
+    //    }
 
-        public BootStrapperTypeCollection(params Type[] types) : this(types as IReadOnlyCollection<Type>)
-        {
-        }
-    }
+    //    public BootStrapperTypeCollection(params Type[] types) : this(types as IReadOnlyCollection<Type>)
+    //    {
+    //    }
+    //}
 
     public class BootStrapper
     {
