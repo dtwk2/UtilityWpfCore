@@ -9,7 +9,7 @@
 *.user
 *.userosscache
 *.sln.docstates
-
+*huge_dummy_file*
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 *.litedb
@@ -351,3 +351,4 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/Utility.FileSystem/Utility.FileSystem.Transfer.WPF.Demo/Data/Source/huge_dummy_file

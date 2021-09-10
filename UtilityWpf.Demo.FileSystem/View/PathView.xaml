@@ -1,14 +1,16 @@
-﻿<UserControl x:Class="UtilityWpf.Demo.FileSystem.PathView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:utilfs="http://schemas.utility.com/filesystem"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+﻿<UserControl
+    x:Class="UtilityWpf.Demo.FileSystem.PathView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:utilfs="http://schemas.utility.com/filesystem"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
     <UniformGrid Columns="1">
-        <utilfs:FileControl PathName="/Path/file.ext"></utilfs:FileControl>
-        <utilfs:DirectoryControl PathName="/Directory/Directory/Directory"></utilfs:DirectoryControl>
-        <utilfs:PathControl PathName="Path"></utilfs:PathControl>
+        <utilfs:FileControl PathName="/Path/file.ext" />
+        <utilfs:DirectoryControl PathName="/Directory/Directory/Directory" />
+        <utilfs:PathControl PathName="Path" />
     </UniformGrid>
 </UserControl>

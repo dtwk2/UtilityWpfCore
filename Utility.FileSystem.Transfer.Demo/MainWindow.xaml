@@ -1,0 +1,67 @@
+﻿<Window
+    x:Class="Utility.FileSystem.Transfer.Demo.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ufst="http://schemas.utility.com/filesystem/transfer"
+    Title="SecondaryWindow"
+    Width="800"
+    Height="450">
+    <TabControl>
+        <TabItem
+            Margin="0"
+            HorizontalAlignment="Right"
+            Header="Copy">
+            <ufst:TransferProgressControl
+                x:Name="FileProgressView1"
+                IsReadOnly="False"
+                ShowTransfer="True" />
+        </TabItem>
+        <TabItem
+            Margin="0"
+            HorizontalAlignment="Right"
+            Header="UnZip">
+            <ufst:TransferProgressControl
+                x:Name="FileProgressView3"
+                IsReadOnly="False"
+                ShowTransfer="True" />
+        </TabItem>
+        <TabItem
+            Margin="0"
+            HorizontalAlignment="Right"
+            Header="Dummy">
+            <ufst:ProgressControl
+                x:Name="ProgressView1"
+                IsReadOnly="False"
+                ShowTransfer="True" />
+        </TabItem>
+        <TabItem
+            Margin="0"
+            HorizontalAlignment="Right"
+            Header="Zip">
+            <ufst:TransferProgressControl
+                x:Name="FileProgressView4"
+                IsReadOnly="False"
+                ShowTransfer="True" />
+        </TabItem>
+        <TabItem
+            Margin="0"
+            HorizontalAlignment="Right"
+            Header="Delete">
+            <ufst:FileProgressControl
+                x:Name="FileProgressView5"
+                IsReadOnly="False"
+                ShowTransfer="True" />
+        </TabItem>
+        <TabItem x:Name="MultiStage" Header="Multi Stage">
+            <Button
+                x:Name="ShowDefault"
+                Width="250"
+                Height="40"
+                Margin="20"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Click="Show_Default_OnClick"
+                Content="Show Multi Stage Default" />
+        </TabItem>
+    </TabControl>
+</Window>
