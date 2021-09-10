@@ -1,18 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace UtilityWpf.Demo.FileSystem
 {
@@ -28,7 +15,9 @@ namespace UtilityWpf.Demo.FileSystem
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var dic in Application.Current.Resources.MergedDictionaries.ToArray().Where(a => a.Source.ToString().Contains("Material")))
+            foreach (var dic in Application.Current.Resources.MergedDictionaries.ToArray()
+                .Where(a => a.Source.ToString().Contains("Material") && 
+                            a.Source.ToString().Contains("MaterialDesignExtensions") == false))
             {
                 Application.Current.Resources.MergedDictionaries.Remove(dic);
 
