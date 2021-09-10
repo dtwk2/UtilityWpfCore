@@ -11,11 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf", "UtilityWpf\Ut
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Demo.Master", "UtilityWpf.Demo.Master\UtilityWpf.Demo.Master.csproj", "{16A7EE28-A173-4F13-8297-C5301C416121}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.TestData", "UtilityWpf.TestData\UtilityWpf.TestData.csproj", "{49F7599C-4295-4541-BBF2-BFC9ACC2B376}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Controls.FileSystem", "UtilityWpf.FileSystem.Controls\UtilityWpf.Controls.FileSystem.csproj", "{EC3B8B23-5494-4532-98A4-AB97AF060A46}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Demo.FileSystem", "UtilityWpf.Demo.FileSystem\UtilityWpf.Demo.FileSystem.csproj", "{C29F816F-0E6E-4151-B210-F510AE288D42}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Controls.FileSystem", "UtilityWpf.Controls.FileSystem\UtilityWpf.Controls.FileSystem.csproj", "{C48F6828-3036-4358-9099-EBB35454D11E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,25 +33,20 @@ Global
 		{16A7EE28-A173-4F13-8297-C5301C416121}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16A7EE28-A173-4F13-8297-C5301C416121}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16A7EE28-A173-4F13-8297-C5301C416121}.Release|Any CPU.Build.0 = Release|Any CPU
-		{49F7599C-4295-4541-BBF2-BFC9ACC2B376}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{49F7599C-4295-4541-BBF2-BFC9ACC2B376}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{49F7599C-4295-4541-BBF2-BFC9ACC2B376}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{49F7599C-4295-4541-BBF2-BFC9ACC2B376}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EC3B8B23-5494-4532-98A4-AB97AF060A46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EC3B8B23-5494-4532-98A4-AB97AF060A46}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EC3B8B23-5494-4532-98A4-AB97AF060A46}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EC3B8B23-5494-4532-98A4-AB97AF060A46}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C29F816F-0E6E-4151-B210-F510AE288D42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C29F816F-0E6E-4151-B210-F510AE288D42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C29F816F-0E6E-4151-B210-F510AE288D42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C29F816F-0E6E-4151-B210-F510AE288D42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C48F6828-3036-4358-9099-EBB35454D11E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C48F6828-3036-4358-9099-EBB35454D11E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C48F6828-3036-4358-9099-EBB35454D11E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C48F6828-3036-4358-9099-EBB35454D11E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{16A7EE28-A173-4F13-8297-C5301C416121} = {3E8F851B-BECA-4BAA-9275-2104CDEAEC3D}
-		{49F7599C-4295-4541-BBF2-BFC9ACC2B376} = {3E8F851B-BECA-4BAA-9275-2104CDEAEC3D}
 		{C29F816F-0E6E-4151-B210-F510AE288D42} = {3E8F851B-BECA-4BAA-9275-2104CDEAEC3D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
