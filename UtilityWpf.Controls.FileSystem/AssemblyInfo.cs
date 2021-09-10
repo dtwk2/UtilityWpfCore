@@ -12,5 +12,5 @@ using System.Windows.Markup;
 )]
 
 
-[assembly: XmlnsPrefix("http://schemas.utility.com/filesystem", "utilfs")]
+[assembly: XmlnsPrefix("http://schemas.utility.com/filesystem", "ufs")]
 [assembly: XmlnsDefinition("http://schemas.utility.com/filesystem", "UtilityWpf.Controls.FileSystem")]

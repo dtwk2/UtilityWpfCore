@@ -6,10 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include="MaterialDesignExtensions" Version="4.0.0-a02" />
-  </ItemGroup>
-
-  <ItemGroup>
 	<ProjectReference Include="..\UtilityWpf\UtilityWpf.csproj" />
   </ItemGroup>
 
