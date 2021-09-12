@@ -6,8 +6,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mk="clr-namespace:UtilityWpf.Markup;assembly=UtilityWpf" 
     xmlns:utilitywpf="clr-namespace:UtilityWpf;assembly=UtilityWpf" 
-    xmlns:vm="clr-namespace:UtilityWpf.Demo.Hybrid"
-    xmlns:view1="http://schemas.utility.com/dragablz" xmlns:vm1="clr-namespace:UtilityWpf.Demo.Common.ViewModel;assembly=UtilityWpf.Demo.Common"
+    xmlns:vm1="clr-namespace:UtilityWpf.Demo.Common.ViewModel;assembly=UtilityWpf.Demo.Common" 
+    xmlns:view="http://schemas.utility.com/hybrid"
     d:DesignHeight="450"
     d:Background="White"
     d:DesignWidth="800"
@@ -15,86 +15,28 @@
     <FrameworkElement.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzNoteStyle.xaml"></utilitywpf:SharedResourceDictionary>
+                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzNoteStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </FrameworkElement.Resources>
 
     <UniformGrid Columns="1">
-        <UniformGrid Rows="1">
+
             <FrameworkElement.DataContext>
                 <vm1:TicksViewModel />
             </FrameworkElement.DataContext>
 
 
 
-            <!--<view:MasterControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
-
-                <i:Interaction.Triggers>
-                    <i:EventTrigger  EventName="Change" >
-                        <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <view1:DragablzVerticalItemsControl x:Name="DragablzItemsControl" 
-                                           ItemsSource="{Binding Collection}" 
-                                           VerticalAlignment="Center"     
-                                           ItemContainerStyle="{StaticResource DragablzNoteStyle}">
-                </view1:DragablzVerticalItemsControl>
-            </view:MasterControl>
-
             <ItemsControl   ItemsSource="{Binding Collection}" ItemTemplate="{StaticResource NoteViewModel}" />
 
-            <view:MasterNotesControl 
+            <view:MasterTicksControl 
+                IsCheckedPath="{mk:NameOf Type={x:Type vm1:TickViewModel}, Member=IsChecked}"
             CommandParameter="{Binding NewItem}"
             ItemsSource="{Binding Collection}" 
-            Change="MasterNotesControl_Change"
-            DisplayMemberPath="{mk:NameOf Type={x:Type vm1:NoteViewModel}, Member=Text}">
-            </view:MasterNotesControl>-->
-
-        </UniformGrid>
-
-        <!--<UniformGrid Rows="1">
-            <FrameworkElement.DataContext>
-                <vm:NotesViewModel />
-            </FrameworkElement.DataContext>
-
-            <Panel.Background>
-                <VisualBrush
-                TileMode="Tile" Viewport="0,0,10,10" 
-                ViewportUnits="Absolute" Viewbox="0,0,10,10"
-                ViewboxUnits="Absolute">
-                    <VisualBrush.Visual>
-                        <Canvas>
-                            <Rectangle  Width="10" Height="10" />
-                            <Path Stroke="WhiteSmoke" Data="M 0 0 l 10 10" />
-                        </Canvas>
-                    </VisualBrush.Visual>
-                </VisualBrush>
-            </Panel.Background>
-
-
-            <view:MasterControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
-
-                <i:Interaction.Triggers>
-                    <i:EventTrigger  EventName="Change" >
-                        <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <view1:DragablzVerticalItemsControl
-                                           ItemsSource="{Binding Collection}" 
-                                           VerticalAlignment="Center"     
-                                           ItemContainerStyle="{StaticResource DragablzNoteStyle}">
-                </view1:DragablzVerticalItemsControl>
-            </view:MasterControl>
-
-            <ItemsControl   ItemsSource="{Binding Collection}" ItemTemplate="{StaticResource NoteViewModel}" />
-
-            <view:MasterNotesControl 
-            CommandParameter="{Binding NewItem}"
-            ItemsSource="{Binding Collection}" 
-            Change="MasterNotesControl_Change"
-            DisplayMemberPath="{mk:NameOf Type={x:Type vm1:NoteViewModel}, Member=Text}">
-            </view:MasterNotesControl>
-        </UniformGrid>-->
+            DisplayMemberPath="{mk:NameOf Type={x:Type vm1:TickViewModel}, Member=Text}">
+            </view:MasterTicksControl>
+   
     </UniformGrid>
+    
 </UserControl>

@@ -18,9 +18,9 @@
         
         <TabItem Header="Notes">
             <local:NotesUserControl />
-        </TabItem>     
+        </TabItem>
 
-        <TabItem Header="Persist">
+        <TabItem Header="Measurements">
             <local:MeasurementsUserControl />
         </TabItem>
     </TabControl>

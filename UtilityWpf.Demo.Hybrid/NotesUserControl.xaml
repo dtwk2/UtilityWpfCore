@@ -9,19 +9,26 @@
     xmlns:mk="clr-namespace:UtilityWpf.Markup;assembly=UtilityWpf" 
     xmlns:view1="http://schemas.utility.com/dragablz" 
     xmlns:view2="http://schemas.utility.com/hybrid" 
-    xmlns:vm21="clr-namespace:UtilityWpf.Demo.Common.ViewModel;assembly=UtilityWpf.Demo.Common"
+    xmlns:vm21="clr-namespace:UtilityWpf.Demo.Common.ViewModel;assembly=UtilityWpf.Demo.Common" 
+    xmlns:utilitywpf="http://schemas.utility.com/utilitywpf"
     d:DesignHeight="450"
     d:Background="White"
     d:DesignWidth="800"
     mc:Ignorable="d">
+    <FrameworkElement.Resources>
 
+            <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzNoteStyle.xaml"/>
+        
+    </FrameworkElement.Resources>
+
+    
     <UniformGrid Columns="1">
         <UniformGrid Rows="1">
             <FrameworkElement.DataContext>
                 <vm21:NotesViewModel />
             </FrameworkElement.DataContext>
             
-            <view:MasterControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
+            <view:MasterControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Remove"  >
 
                 <i:Interaction.Triggers>
                     <i:EventTrigger  EventName="Change" >
@@ -70,7 +77,7 @@
             </Panel.Background>
 
 
-            <view:MasterControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
+            <view:MasterControl CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Remove"  >
 
                 <i:Interaction.Triggers>
                     <i:EventTrigger  EventName="Change" >

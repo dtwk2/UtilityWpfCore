@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reactive.Disposables;
@@ -13,7 +14,14 @@ using System.Threading.Tasks;
 namespace Utility.Common
 {
     public static class ReflectionHelper
-    {        
+    {
+        public static bool IsReadOnly(this PropertyInfo prop)
+        {
+            ReadOnlyAttribute? attrib = Attribute.GetCustomAttribute(prop, typeof(ReadOnlyAttribute)) as ReadOnlyAttribute;
+            bool ro = !prop.CanWrite || (attrib != null && attrib.IsReadOnly);
+            return ro;
+        }
+
         public static IEnumerable<T?> TypesOf<T>(this IEnumerable<Assembly> assemblies) where T : class
         {
             return from type in assemblies.AllTypes()

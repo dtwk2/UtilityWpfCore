@@ -1,9 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using Dragablz;
+using Utility.Common;
 
 namespace UtilityWpf.Controls.Dragablz
 {
@@ -30,10 +32,10 @@ namespace UtilityWpf.Controls.Dragablz
 
 
             CreateAndSetTextBinding(item);
-    
+
             BindingOperations.SetBinding(element, Attached.Ex.IsCheckedProperty, CreateIsCheckedBinding(item));
 
- 
+
             base.PrepareContainerForItemOverride(element, item);
 
             void CreateAndSetTextBinding(object item)
@@ -46,14 +48,15 @@ namespace UtilityWpf.Controls.Dragablz
                 textBox.MouseLeftButtonDown += TextBox_MouseLeftButtonDown;
                 textBox.GotFocus += TextBox_GotFocus;
 
-                var binding= new Binding
+                var isReadOnly = item.GetType().GetProperty(DisplayMemberPath).IsReadOnly() ;
+                var binding = new Binding
                 {
                     Source = item,
                     Path = new PropertyPath(DisplayMemberPath),
-                    Mode = BindingMode.TwoWay,
+                    Mode = isReadOnly ? BindingMode.OneWay : BindingMode.TwoWay,
                     UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
                 };
-
+                textBox.IsReadOnly = isReadOnly;
                 BindingOperations.SetBinding(textBox, TextBox.TextProperty, binding);
             }
 
