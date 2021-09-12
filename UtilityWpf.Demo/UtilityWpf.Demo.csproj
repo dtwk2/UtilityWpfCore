@@ -25,6 +25,4 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
   </ItemGroup>
-
-
 </Project>

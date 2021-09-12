@@ -13,26 +13,23 @@ namespace Utility.Common
 
     public static class BootStrapHelper
     {
-        public static void AddRegistrations(this ContainerBuilder builder, IEnumerable<Assembly>? assembliesToScan = null)
+
+
+        public static void AddBootStrapperRegistrations(this ContainerBuilder builder, IEnumerable<Assembly>? assembliesToScan = null)
         {
-            foreach (var bs in SelectBootStrappers(assembliesToScan ?? AssemblySingleton.Instance.Assemblies))
+            foreach (IBootStrapper? bootStrapper in BootStrappers())
             {
-                bs?.Register(builder);
+                bootStrapper?.Register(builder);
             }
 
-            static IEnumerable<IBootStrapper?> SelectBootStrappers(IEnumerable<Assembly> assembliesToScan)
+            IEnumerable<IBootStrapper?> BootStrappers()
             {
-                return from type in SelectTypes(assembliesToScan)
-                       where typeof(IBootStrapper).IsAssignableFrom(type) && !type.IsAbstract
-                       select Activator.CreateInstance(type) as IBootStrapper;
-
-                static IEnumerable<TypeInfo> SelectTypes(IEnumerable<Assembly> assembliesToScan)
-                {
-                    return assembliesToScan
-                        .Where(a => !a.IsDynamic)
-                        .SelectMany(a => a.DefinedTypes);
-                }
+                return (assembliesToScan ?? AssemblySingleton.Instance.Assemblies.Where(a => !a.IsDynamic)).TypesOf<IBootStrapper>();
             }
         }
+
+     
     }
+
+
 }

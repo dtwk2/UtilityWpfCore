@@ -31,7 +31,7 @@ namespace UtilityWpf.Controls.Master
 
         public FrameworkElement DirtyView => lazy.Value;
 
-        public FrameworkElement View => (FrameworkElement)Activator.CreateInstance(Type);
+        public FrameworkElement View => lazy.Value; /*=> (FrameworkElement)Activator.CreateInstance(Type);*/
     }
 
     class ViewAssembly

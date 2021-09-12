@@ -40,6 +40,8 @@ namespace UtilityWpf.Model
 
         public TypeModel(Type[] types)
         {
+            if (types.Length == 0)
+                throw new Exception("3£££444");
             this.types = new AsyncLazy<Type[]>(() => Task.Run(() =>
             types
             .Select(t => t.Assembly)

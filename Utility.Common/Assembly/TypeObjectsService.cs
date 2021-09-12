@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
+using Utility.Common;
 using UtilityInterface.NonGeneric;
 using UtilityWpf.Abstract;
-using UtilityWpf.Model;
 
 namespace UtilityWpf.Service
 {
@@ -20,14 +20,16 @@ namespace UtilityWpf.Service
                        return arr;
                    }).ToArray();
 
-            return xs.Select(st =>
-            {
-                var (service, type) = st;
-                var name = typeof(IName).IsAssignableFrom(type) ?
-                                                (service as IName).Name :
-                                                 type.Name;
-                return new TypeObject { TypeName = type.Name, Key = name, Object = service, Type = type };
-            }).ToArray();
+            var aa = xs.Select(st =>
+             {
+                 var (service, type) = st;
+                 var name = typeof(IName).IsAssignableFrom(type) ?
+                                                 (service as IName).Name :
+                                                  type.Name;
+                 return new TypeObject { TypeName = type.Name, Key = name, Object = service, Type = type };
+             }).ToArray();
+
+            return aa;
         }
     }
 }

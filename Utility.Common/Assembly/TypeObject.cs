@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace UtilityWpf.Model
+namespace Utility.Common
 {
     public class TypeObject
     {
-        public string TypeName { get; set; }
-        public string Key { get; set; }
-        public object Object { get; set; }
-        public Type Type { get; set; }
+        public string? TypeName { get; init; }
+        public string? Key { get; init; }
+        public object? Object { get; init; }
+        public Type? Type { get; init; }
     }
 }

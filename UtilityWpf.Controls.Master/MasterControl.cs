@@ -58,6 +58,9 @@ namespace UtilityWpf.Controls.Master
             set { SetValue(CommandParameterProperty, value); }
         }
 
+        /// <summary>
+        /// Warning!!! Setting this property can mean items get removed via the view.
+        /// </summary>
         public RemoveOrder RemoveOrder
         {
             get { return (RemoveOrder)GetValue(RemoveOrderProperty); }

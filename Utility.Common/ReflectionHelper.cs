@@ -12,8 +12,22 @@ using System.Threading.Tasks;
 
 namespace Utility.Common
 {
-    public class ReflectionHelper
-    {
+    public static class ReflectionHelper
+    {        
+        public static IEnumerable<T?> TypesOf<T>(this IEnumerable<Assembly> assemblies) where T : class
+        {
+            return from type in assemblies.AllTypes()
+                   where typeof(T).IsAssignableFrom(type) && !type.IsAbstract
+                   select Activator.CreateInstance(type) as T;
+        }
+
+
+        public static IEnumerable<TypeInfo> AllTypes(this IEnumerable<Assembly> assembliesToScan)
+        {
+            return assembliesToScan
+                .SelectMany(a => a.DefinedTypes);
+        }
+
 
         public static IEnumerable RecursivePropertyValues(object e, string path)
         {
@@ -31,7 +45,7 @@ namespace Utility.Common
             }
             return lst.SelectMany(a => a.Cast<object>());
         }
-        public IObservable<Assembly> SelectAssemblies()
+        public static IObservable<Assembly> SelectAssemblies()
         {
             return Observable.Create<Assembly>(obs =>
             {
