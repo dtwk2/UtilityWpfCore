@@ -4,13 +4,10 @@
                     xmlns:mk="http://schemas.utility.com/utilitywpf"
                     xmlns:view11="http://schemas.utility.com/hybrid">
 
-
-
     <DataTemplate DataType="{x:Type vm:NotesViewModel}">
         <view11:MasterNotesControl    
-                    
-                   Width="400"
-                    CommandParameter="{Binding NewItem}"
+            Width="400"
+            CommandParameter="{Binding NewItem}"
             ItemsSource="{Binding Collection}" 
             DisplayMemberPath="{mk:NameOf Type={x:Type vm:NoteViewModel}, Member=Text}">
         </view11:MasterNotesControl>

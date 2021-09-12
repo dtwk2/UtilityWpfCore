@@ -6,7 +6,6 @@ using System.Windows;
 using System.Windows.Controls;
 using Dragablz;
 using Evan.Wpf;
-using HandyControl.Themes;
 using ReactiveUI;
 using UtilityWpf.Abstract;
 
@@ -43,20 +42,22 @@ namespace UtilityWpf.Controls.Dragablz
 
         protected override DependencyObject GetContainerForItemOverride()
         {
-            var item = base.GetContainerForItemOverride();
+            if (base.GetContainerForItemOverride() is not DragablzItem item)
+                throw new Exception("s444dfsdf");
 
-            (item as DragablzItem).MouseDown += Child_MouseDown;
-            (item as DragablzItem).GotFocus += Child_GotFocus;
-            (item as DragablzItem).MouseEnter += DragablzExItemsControl_MouseEnter;
-            (item as DragablzItem).PreviewKeyDown += DragablzExItemsControl_PreviewKeyDown;
-            (item as DragablzItem).PreviewKeyUp += DragablzExItemsControl_PreviewKeyDown;
-            foreach (var child in (item as DragablzItem).FindVisualChildren<FrameworkElement>())
+            item.MouseDown += Child_MouseDown;
+            item.GotFocus += Child_GotFocus;
+            item.MouseEnter += DragablzExItemsControl_MouseEnter;
+            item.PreviewKeyDown += DragablzExItemsControl_PreviewKeyDown;
+            item.PreviewKeyUp += DragablzExItemsControl_PreviewKeyDown;
+
+            foreach (var child in item.FindVisualChildren<FrameworkElement>())
             {
                 child.MouseDown += Child_MouseDown;
                 child.GotFocus += Child_GotFocus;
             }
 
-            (item as DragablzItem)?
+            item?
                 .WhenAny(a => a.IsSelected, (a) => a)
                 .Skip(1)
                 .ObserveOnDispatcher()
