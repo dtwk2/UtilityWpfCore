@@ -14,6 +14,23 @@ namespace Utility.Common
 {
     public class ReflectionHelper
     {
+
+        public static IEnumerable RecursivePropertyValues(object e, string path)
+        {
+            List<IEnumerable> lst = new List<IEnumerable>();
+            lst.Add(new[] { e });
+            try
+            {
+                var xx = UtilityHelper.PropertyHelper.GetPropertyValue<IEnumerable>(e, path);
+                foreach (var x in xx)
+                    lst.Add(RecursivePropertyValues(x, path));
+            }
+            catch (Exception ex)
+            {
+                //
+            }
+            return lst.SelectMany(a => a.Cast<object>());
+        }
         public IObservable<Assembly> SelectAssemblies()
         {
             return Observable.Create<Assembly>(obs =>

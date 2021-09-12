@@ -9,7 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using MoreLinq;
 using ReactiveUI;
-
+using UtilityHelper;
 
 namespace UtilityWpf.Controls.Master
 {
@@ -105,8 +105,8 @@ namespace UtilityWpf.Controls.Master
                    .GetTypes()
                    .Where(a => typeof(UserControl).IsAssignableFrom(a))
                    .GroupBy(type =>
-                   (type.Name.Contains("UserControl") ? type.Name?.Replace("UserControl", string.Empty) :
-                   type.Name.Contains("View") ? type.Name?.Replace("View", string.Empty) :
+                   (type.Name.Contains("UserControl") ? type.Name?.ReplaceLast("UserControl", string.Empty) :
+                   type.Name.Contains("View") ? type.Name?.ReplaceLast("View", string.Empty) :
                    type.Name)!)
                    .OrderBy(a => a.Key)
                    .ToDictionaryOnIndex()

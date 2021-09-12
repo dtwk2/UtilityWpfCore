@@ -16,6 +16,7 @@ namespace UtilityWpf.Controls.Master
     using ReactiveUI;
     using UtilityWpf.Service;
     using static DependencyPropertyFactory<MasterDetail>;
+
     public class MasterDetail : ContentControlx
     {
 
@@ -67,19 +68,18 @@ namespace UtilityWpf.Controls.Master
 
         public override void OnApplyTemplate()
         {
-           // var selector = Template.Resources["propertytemplateSelector"] as DataTemplateSelector;
+            // var selector = Template.Resources["propertytemplateSelector"] as DataTemplateSelector;
             //Content ??= new ContentControl { ContentTemplateSelector = selector };
             base.OnApplyTemplate();
         }
 
         protected virtual IObservable<object> SelectContent()
         {
-            var replaySubject = Transform(SelectChanges(),
+            var transform = Transform(SelectChanges(),
                 this.Observable<IValueConverter>(nameof(DataConverter)),
                 this.Observable<string>(nameof(DataKey))).ToReplaySubject(0);
 
-
-            replaySubject
+            transform
                 .Select(a => a.Item2)
                 .Where(a =>
                 {
@@ -89,11 +89,8 @@ namespace UtilityWpf.Controls.Master
                 .CombineLatest(SelectItemsSource())
                 .Subscribe(a =>
                 {
-                    if(a.Second is Array)
-                    {
-                        return;
-                    }
-                    if (a.Second is IList list)
+
+                    if (a.Second is IList { IsReadOnly: false, IsFixedSize: false } list)
                     {
                         int index = list.IndexOf(a.First.Item1);
                         if (index < 0)
@@ -114,15 +111,27 @@ namespace UtilityWpf.Controls.Master
                     PropertyMerger.Instance.Set(first.Item1!, first.Item2!);
                 });
 
-            return replaySubject
+            return transform
                 .Select(a => a.Item1);
         }
 
         private IObservable<object> SelectChanges()
         {
-            return this.Observable<Control>()
+            return this.WhenAnyValue(a => a.Selector)
+                .WhereNotNull()
                 .Select(a =>
                 {
+                    if (Selector?.Name == "dsfd")
+                    {
+
+                    }
+                    (Selector as Selector)
+                        ?.SelectSingleSelectionChanges()
+                        .Subscribe(a =>
+                        {
+
+                        });
+
                     return a switch
                     {
                         ISelector selector => selector.SelectSingleSelectionChanges(),
@@ -132,6 +141,9 @@ namespace UtilityWpf.Controls.Master
                 }).Switch();
         }
 
+        private void MasterDetail_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+        }
 
         private IObservable<IEnumerable?> SelectItemsSource()
         {
@@ -214,7 +226,7 @@ namespace UtilityWpf.Controls.Master
                  var ee = (conversion, converterOld, dataKeyOld) switch
                  {
                      (null, _, _) => null,
-                     (object o, IValueConverter conv, _) => conv.ConvertBack(o, default, default, default),
+                     (object o, IValueConverter conv, _) => null/*Catch(a=> conv.ConvertBack(o, default, default, default))*/,
                      (object o, _, string key) => ConvertBack(selectedOld, key, o),
                      //(null,null) => throw new Exception($"Either {nameof(DataConverter)} or {nameof(DataKey)} must be set if {nameof(ItemsSource)} set")
                      (object o, null, null) => o
@@ -242,6 +254,36 @@ namespace UtilityWpf.Controls.Master
                 UtilityHelper.PropertyHelper.SetValue(selected, k, selectedValueOld);
                 return selectedValueOld;
             }
+        }
+
+
+        protected static IObservable<object> Transform2(IObservable<object> collectionViewModel, IObservable<IValueConverter> dataConversions, IObservable<string> dataKeys)
+        {
+            collectionViewModel
+                .Subscribe(a =>
+                {
+
+                });
+            return ObservableEx
+                .CombineLatest(collectionViewModel, dataConversions, dataKeys)
+                .ObserveOnDispatcher()
+                .Scan(default((object, object, IValueConverter?, string?)), (a, b) =>
+             {
+
+                 var (selected, converter, dataKey) = b;
+
+                 var ss = (converter, dataKey) switch
+                 {
+                     (IValueConverter conv, _) => conv.Convert(selected, default, default, default),
+                     (_, string key) => UtilityHelper.PropertyHelper.GetPropertyValue<object>(selected, key),
+                     //(null,null) => throw new Exception($"Either {nameof(DataConverter)} or {nameof(DataKey)} must be set if {nameof(ItemsSource)} set")
+                     (null, null) => selected
+                 };
+
+                 return (selected, ss, converter, dataKey);
+             })
+                .Select(a => (a.Item2));
+
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using Autofac;
+using AutoMapper;
+using AutoMapper.Configuration;
 using Splat;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace Utility.Common
 {
+
     public class AutoMapperTypeCollection : Collection<Type>
     {
         public AutoMapperTypeCollection(IReadOnlyCollection<Type> types)
@@ -38,11 +41,14 @@ namespace Utility.Common
             //mapper = new MapperConfiguration(cfg => cfg.AddMaps(types.SelectMany(a=>a))).CreateMapper();
 
 
-            mapper = new MapperConfiguration(cfg => cfg.AddMaps(ReflectionHelper.GetAssemblies(a=>a.Name.StartsWith("Utility"))))
+            mapper = new MapperConfiguration(cfg => cfg.AddMaps(AssemblySingleton.Instance.Assemblies))
                 .CreateMapper();
 
         }
 
         public static IMapper Instance { get; } = new AutoMapperSingleton().mapper;
     }
+
+
+
 }

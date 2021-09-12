@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Autofac;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Utility.Common;
+using UtilityWpf.Model;
+using UtilityWpf.Service;
 
 namespace UtilityWpf.Meta
 {
-    public interface IBootStrapper
-    {
-       // static abstract void Register(ContainerBuilder containerBuilder);
-    }
 
 
     //public class BootStrapperTypeCollection : Collection<Type>
@@ -24,15 +24,15 @@ namespace UtilityWpf.Meta
     //    }
     //}
 
-    public class BootStrapper
+    public class BootStrapper : IBootStrapper
     {
 
-        //public static void Register(ContainerBuilder containerBuilder)
-        //{
-        //    containerBuilder.RegisterType<TypeModel>().As<ITypeModel>().UsingConstructor(() => new TypeModel());
-        //    containerBuilder.RegisterType<TypeObjectsService>().As<ITypeObjectsService>();
-        //    containerBuilder.RegisterType<ViewModelAssemblyModel>().As<IViewModelAssemblyModel>();
-        //}
+        public void Register(ContainerBuilder containerBuilder)
+        {
+            containerBuilder.RegisterType<TypeModel>();
+            containerBuilder.RegisterType<TypeObjectsService>();
+            containerBuilder.RegisterType<ViewModelAssemblyModel>();
+        }
 
         //public static void Register(ContainerBuilder containerBuilder, Type[] types)
         //{
