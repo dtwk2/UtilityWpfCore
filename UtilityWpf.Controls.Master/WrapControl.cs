@@ -21,12 +21,14 @@ namespace UtilityWpf.Controls.Master
 
         public WrapControl()
         {
-            this.Observable<IEnumerable>(nameof(ControlsCollection)).Subscribe(a =>
+            this.Observable<IEnumerable>(nameof(ControlsCollection))
+                .Subscribe(a =>
             {
 
             });
 
-            this.Observable<IEnumerable>(nameof(ControlsCollection)).CombineLatest(wrapPanelSubject)
+            this.Observable<IEnumerable>(nameof(ControlsCollection))
+                .CombineLatest(wrapPanelSubject)
                 .Where(a => a.First != null && a.Second != null)
                 .Take(1)
                 .Subscribe(a =>

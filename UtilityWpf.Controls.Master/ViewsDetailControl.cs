@@ -15,23 +15,23 @@ namespace UtilityWpf.Controls.Master
 {
     using static UtilityWpf.DependencyPropertyFactory<ViewsDetailControl>;
 
-    class ViewType
+    public class ViewType
     {
-        Lazy<FrameworkElement> lazy;
+        Lazy<FrameworkElement?> lazy;
         public ViewType(string key, Type type)
         {
             Key = key;
             Type = type;
-            lazy = new(() => (FrameworkElement)Activator.CreateInstance(Type));
+            lazy = new(() => (FrameworkElement?)Activator.CreateInstance(Type));
         }
 
         public string Key { get; }
 
         public Type Type { get; }
 
-        public FrameworkElement DirtyView => lazy.Value;
+      //  public FrameworkElement? DirtyView => lazy.Value;
 
-        public FrameworkElement View => lazy.Value; /*=> (FrameworkElement)Activator.CreateInstance(Type);*/
+        public FrameworkElement? View => lazy.Value; /*=> (FrameworkElement)Activator.CreateInstance(Type);*/
     }
 
     class ViewAssembly
@@ -41,7 +41,7 @@ namespace UtilityWpf.Controls.Master
             Assembly = assembly;
         }
 
-        public string Key => Assembly.FullName;
+        public string? Key => Assembly.FullName;
         public Assembly Assembly { get; }
     }
 
@@ -145,7 +145,6 @@ namespace UtilityWpf.Controls.Master
                 grid.Children.Add(contentControl);
                 return grid;
             }
-
         }
 
 
@@ -154,8 +153,6 @@ namespace UtilityWpf.Controls.Master
             get { return (Assembly)GetValue(AssemblyProperty); }
             set { SetValue(AssemblyProperty, value); }
         }
-
-
     }
 
     public static class Helper
