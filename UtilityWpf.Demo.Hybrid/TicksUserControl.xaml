@@ -21,22 +21,20 @@
     </FrameworkElement.Resources>
 
     <UniformGrid Columns="1">
+        <FrameworkElement.DataContext>
+            <vm1:TicksViewModel />
+        </FrameworkElement.DataContext>
 
-            <FrameworkElement.DataContext>
-                <vm1:TicksViewModel />
-            </FrameworkElement.DataContext>
+        <ItemsControl  
+                ItemsSource="{Binding Collection}"
+                ItemTemplate="{StaticResource NoteViewModel}" />
 
-
-
-            <ItemsControl   ItemsSource="{Binding Collection}" ItemTemplate="{StaticResource NoteViewModel}" />
-
-            <view:MasterTicksControl 
-                IsCheckedPath="{mk:NameOf Type={x:Type vm1:TickViewModel}, Member=IsChecked}"
-            CommandParameter="{Binding NewItem}"
-            ItemsSource="{Binding Collection}" 
-            DisplayMemberPath="{mk:NameOf Type={x:Type vm1:TickViewModel}, Member=Text}">
-            </view:MasterTicksControl>
-   
+        <view:MasterTicksControl 
+                IsCheckedPath="{mk:NameOf Type={x:Type vm1:TickViewModel}, Member=IsChecked}"                
+                CommandParameter="{Binding NewItem}"
+                ItemsSource="{Binding Collection}" 
+                DisplayMemberPath="{mk:NameOf Type={x:Type vm1:TickViewModel}, Member=Text}">
+        </view:MasterTicksControl>
     </UniformGrid>
-    
+
 </UserControl>

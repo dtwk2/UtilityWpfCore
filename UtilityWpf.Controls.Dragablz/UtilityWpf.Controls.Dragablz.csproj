@@ -29,6 +29,9 @@
 	</Compile>    
 	<Compile Update="GroupsControl.cs">
 	  <DependentUpon>GroupsControl.xaml</DependentUpon>
+	</Compile>	
+  <Compile Update="ClickableBorder.cs">
+	  <DependentUpon>ClickableBorder.xaml</DependentUpon>
 	</Compile>
   </ItemGroup>
 	

@@ -19,6 +19,8 @@
             </FrameworkElement.DataContext>
 
             <view1:TicksControl
+                DisplayMemberPath="{mk:NameOf Type={x:Type vm2:TickViewModel}, Member=Text}"
+                CommandPath="{mk:NameOf Type={x:Type vm2:TickViewModel}, Member=Command}"
             IsCheckedPath="{mk:NameOf Type={x:Type vm2:TickViewModel}, Member=IsChecked}"
             ItemsSource="{Binding Collection}" >
             </view1:TicksControl>

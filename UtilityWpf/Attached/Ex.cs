@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Windows.Input;
 
 namespace UtilityWpf.Attached
 {
@@ -56,6 +58,51 @@ namespace UtilityWpf.Attached
         public static void SetIsChecked(DependencyObject d, object value)
         {
             d.SetValue(KeyProperty, (bool)value);
+        }
+            
+        
+        public static readonly DependencyProperty IsPressedProperty = DependencyProperty.RegisterAttached("IsPressed", typeof(bool), typeof(Ex), new PropertyMetadata(false, Property3Changed));
+
+        private static void Property3Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            
+        }
+
+        public static bool GetIsPressed(DependencyObject d)
+        {
+            return (bool)d.GetValue(IsPressedProperty);
+        }
+
+        public static void SetIsPressed(DependencyObject d, object value)
+        {
+            d.SetValue(KeyProperty, (bool)value);
+        }
+
+
+        public static readonly DependencyProperty IsMouseOverProperty = DependencyProperty.RegisterAttached("IsMouseOver", typeof(bool), typeof(Ex), new PropertyMetadata(false, Property3Changed));
+
+   
+        public static bool GetIsMouseOver(DependencyObject d)
+        {
+            return (bool)d.GetValue(IsMouseOverProperty);
+        }
+
+        public static void SetIsMouseOver(DependencyObject d, object value)
+        {
+            d.SetValue(KeyProperty, (bool)value);
+        }
+
+
+        public static readonly DependencyProperty CommandProperty = DependencyProperty.RegisterAttached("Command", typeof(ICommand), typeof(Ex), new PropertyMetadata(null, PropertyChanged));
+
+        public static ICommand GetCommand(DependencyObject d)
+        {
+            return (ICommand)d.GetValue(CommandProperty);
+        }
+
+        public static void SetCommand(DependencyObject d, object value)
+        {
+            d.SetValue(CommandProperty, (ICommand)value);
         }
     }
 }
