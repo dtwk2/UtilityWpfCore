@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using UtilityWpf.Model;
 
 namespace UtilityWpf.Controls
 {

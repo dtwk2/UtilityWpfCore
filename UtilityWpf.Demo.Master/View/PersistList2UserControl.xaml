@@ -5,11 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:drag="http://dragablz.net/winfx/xaml/dragablz"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
-                 xmlns:common="clr-namespace:Utility.Common.EventArgs;assembly=Utility.Common"
-                 xmlns:util="http://schemas.utility.com/utilitywpf"
+             xmlns:common="clr-namespace:Utility.Common.EventArgs;assembly=Utility.Common"
+             xmlns:util="http://schemas.utility.com/utilitywpf"
              xmlns:local11="clr-namespace:UtilityWpf.Demo.Master.Infrastructure" 
-             xmlns:behavior1="clr-namespace:UtilityWpf.Behavior;assembly=UtilityWpf"
-             xmlns:service="clr-namespace:UtilityWpf.Service;assembly=UtilityWpf"
              xmlns:utilitywpf="clr-namespace:UtilityWpf;assembly=UtilityWpf"
              xmlns:view1="http://schemas.utility.com/dragablz"
              xmlns:view2="http://schemas.utility.com/master"
@@ -28,7 +26,6 @@
             <util:AutoMapperConverter x:Key="AutoValueConverter"/>
             <ResourceDictionary.MergedDictionaries>
                 <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzItemStyle.xaml"></utilitywpf:SharedResourceDictionary>
-                <!--<ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DualButtonControl.xaml"/>-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -37,9 +34,9 @@
 
         <TabControl>
             <TabItem Header="With Detail">
-                <view2:MasterDetail DataConverter="{StaticResource AutoValueConverter}">
+                <view2:MasterDetail Converter="{StaticResource AutoValueConverter}">
                     <view2:MasterDetail.Selector>
-                        <view2:MasterControl ItemsSource="{Binding Data, Mode=OneTime}" CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  
+                        <view2:MasterControl ItemsSource="{Binding Data, Mode=OneTime}" CommandParameter="{Binding NewItem}"  ButtonTypes="Add,Remove"  
                                                    Position="Bottom">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger  EventName="Change" >
@@ -61,7 +58,7 @@
             </TabItem>                
             
             <TabItem Header="Without Detail">
-                <view2:MasterControl ItemsSource="{Binding Data, Mode=OneTime}" CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
+                <view2:MasterControl ItemsSource="{Binding Data, Mode=OneTime}" CommandParameter="{Binding NewItem}" ButtonTypes="Add,Remove"  >
                     <i:Interaction.Triggers>
                         <i:EventTrigger  EventName="Change" >
                             <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>

@@ -32,9 +32,9 @@ namespace UtilityWpf.Controls.Master
             None = 0, Add = 1, Remove = 2, MoveUp = 4, MoveDown = 8, All = Add | Remove | MoveUp | MoveDown
         }
 
-  
 
-  
+
+
 
         public static readonly DependencyProperty CommandParameterProperty = DependencyHelper.Register<IEnumerator>();
         public static readonly DependencyProperty RemoveOrderProperty = DependencyHelper.Register<RemoveOrder>(new PropertyMetadata(RemoveOrder.Selected));
@@ -58,6 +58,9 @@ namespace UtilityWpf.Controls.Master
             set { SetValue(CommandParameterProperty, value); }
         }
 
+        /// <summary>
+        /// Warning!!! Setting this property can mean items get removed via the view.
+        /// </summary>
         public RemoveOrder RemoveOrder
         {
             get { return (RemoveOrder)GetValue(RemoveOrderProperty); }
@@ -130,7 +133,7 @@ namespace UtilityWpf.Controls.Master
 
             if (ItemsControl != null)
             {
-                if (ItemsControl.ItemsSource is IList collection && collection.Count > 0)
+                if (ItemsControl.ItemsSource is IList { IsReadOnly: false, IsFixedSize: false, Count: > 0 } collection)
                 {
                     if (RemoveOrder == RemoveOrder.Selected && SelectedIndex > -1)
                     {
@@ -204,7 +207,7 @@ namespace UtilityWpf.Controls.Master
         protected override void OnAttached()
         {
             base.OnAttached();
-       
+
             AssociatedObject.RemoveOrder = RemoveOrder.None;
             AssociatedObject.Change += AssociatedObject_Change;
         }
@@ -243,7 +246,7 @@ namespace UtilityWpf.Controls.Master
                 Storyboard myStoryboard = new Storyboard();
                 myStoryboard.Children.Add(opacityAnimation);
                 return myStoryboard;
-            }   
+            }
 
         }
 

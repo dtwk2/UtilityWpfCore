@@ -10,6 +10,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <mk:SharedResourceDictionary Source="/UtilityWpf.Demo.Common;component/View/Templates.xaml"/>
+        <mk:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzItemStyle.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
     <DataTemplate DataType="{x:Type vm:RowViewModel}">

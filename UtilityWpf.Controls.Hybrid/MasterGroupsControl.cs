@@ -94,7 +94,7 @@ namespace UtilityWpf.Controls.Hybrid
 
                 elem.SetValue(Attached.Ex.IsReadOnlyProperty, isAdd);
             }
-            else
+            else if (SelectedItem is { })
             {
                 var container = ItemsControl.ItemContainerGenerator.ContainerFromItem(SelectedItem);
                 container.SetValue(Attached.Ex.IsReadOnlyProperty, isAdd);

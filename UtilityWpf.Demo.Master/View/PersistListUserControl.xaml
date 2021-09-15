@@ -22,7 +22,6 @@
         
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!--<utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzItemStyle.xaml"></utilitywpf:SharedResourceDictionary>-->
                 <!--<ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DualButtonControl.xaml"/>-->
             </ResourceDictionary.MergedDictionaries>
             

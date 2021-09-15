@@ -37,37 +37,29 @@ namespace Utility.Common
 
     public class ExceptionCatcher
     {
+        public Exception? Exception { get; private set; }
+        public bool Success { get; private set; }
 
-        private Exception _Exception;
-        public Exception Exception
-        {
-            get { return _Exception; }
-        }
 
-        private bool _Success;
-        public bool Success
+        public object? Catch(SendOrPostCallback codeBlock)
         {
-            get { return _Success; }
-        }
-
-        public void Catch(SendOrPostCallback codeBlock)
-        {
-            _Exception = null;
+            Exception = null;
             try
             {
                 // need 1 argument, because it is a SendOrPostCallback
-                codeBlock.DynamicInvoke(1);
-
-                _Success = true;
+                var output = codeBlock.DynamicInvoke(1);
+                Success = true;
+                return output;
             }
             catch (Exception ex)
             {
 #if DEBUG
                 System.Diagnostics.Trace.WriteLine("ExceptionCatcher.Succeeded failure", ex.ToString());
 #endif
-                _Exception = ex;
-                _Success = false;
+                Exception = ex;
+                Success = false;
             }
+            return null;
         }
 
         public bool Failed(SendOrPostCallback codeBlock)
@@ -76,7 +68,7 @@ namespace Utility.Common
             return result;
         }
 
-        public bool Failed(out string exceptionString, SendOrPostCallback codeBlock)
+        public bool Failed(out string? exceptionString, SendOrPostCallback codeBlock)
         {
             bool result = !Succeeded(out exceptionString, codeBlock);
             return result;
@@ -85,19 +77,18 @@ namespace Utility.Common
         public bool Succeeded(SendOrPostCallback codeBlock)
         {
             Catch(codeBlock);
-            return _Success;
+            return Success;
         }
 
-        public bool Succeeded(out string exceptionString, SendOrPostCallback codeBlock)
+        public bool Succeeded(out string? exceptionString, SendOrPostCallback codeBlock)
         {
             bool result = Succeeded(codeBlock);
             if (result)
-                exceptionString = this.Exception.ToString();
+                exceptionString = this.Exception?.ToString();
             else
                 exceptionString = string.Empty;
             return result;
         }
-
     }
 }
 

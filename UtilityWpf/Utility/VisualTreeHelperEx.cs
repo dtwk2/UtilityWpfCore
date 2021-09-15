@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -205,6 +206,29 @@ namespace UtilityWpf
                 if (result != null) return result;
             }
             return null;
+        }
+
+        /// <summary>
+        /// Gets child of specific type
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="depObj"></param>
+        /// <returns></returns>
+        public static DependencyObject? ChildOfInterface<T>(this DependencyObject depObj) 
+        {
+            if (depObj == null) return default;
+
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+            {
+                var child = VisualTreeHelper.GetChild(depObj, i);
+
+                var result = child.GetType().GetInterfaces().Contains(typeof(T));
+                if (result) 
+                    return child;
+                else if(ChildOfInterface<T>(child) is { } obj)
+                    return obj;
+            }
+            return default;
         }
     }
 }

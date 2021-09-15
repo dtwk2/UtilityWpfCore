@@ -9,7 +9,6 @@ using System.Windows.Controls;
 using DynamicData;
 using DynamicData.Operators;
 using ReactiveUI;
-using UtilityWpf.Model;
 
 namespace UtilityWpf.Controls
 {

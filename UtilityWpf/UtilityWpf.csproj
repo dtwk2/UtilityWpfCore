@@ -63,6 +63,12 @@
     <ProjectReference Include="..\Utility.Common\Utility.Common.csproj" />
   </ItemGroup>
 
+ 
+
+  <ItemGroup>
+    <Folder Include="Model\" />
+  </ItemGroup>
+
   <!-- Only packs project if Configuration set to Release-->
    <Target Name="CustomPack" AfterTargets="build" Condition="'$(Configuration)'=='Release'">
         <Message Text="Custom Pack command starts ..." Importance="high" />

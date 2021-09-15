@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reactive.Disposables;
@@ -12,9 +13,47 @@ using System.Threading.Tasks;
 
 namespace Utility.Common
 {
-    public class ReflectionHelper
+    public static class ReflectionHelper
     {
-        public IObservable<Assembly> SelectAssemblies()
+        public static bool IsReadOnly(this PropertyInfo prop)
+        {
+            ReadOnlyAttribute? attrib = Attribute.GetCustomAttribute(prop, typeof(ReadOnlyAttribute)) as ReadOnlyAttribute;
+            bool ro = !prop.CanWrite || (attrib != null && attrib.IsReadOnly);
+            return ro;
+        }
+
+        public static IEnumerable<T?> TypesOf<T>(this IEnumerable<Assembly> assemblies) where T : class
+        {
+            return from type in assemblies.AllTypes()
+                   where typeof(T).IsAssignableFrom(type) && !type.IsAbstract
+                   select Activator.CreateInstance(type) as T;
+        }
+
+
+        public static IEnumerable<TypeInfo> AllTypes(this IEnumerable<Assembly> assembliesToScan)
+        {
+            return assembliesToScan
+                .SelectMany(a => a.DefinedTypes);
+        }
+
+
+        public static IEnumerable RecursivePropertyValues(object e, string path)
+        {
+            List<IEnumerable> lst = new List<IEnumerable>();
+            lst.Add(new[] { e });
+            try
+            {
+                var xx = UtilityHelper.PropertyHelper.GetPropertyValue<IEnumerable>(e, path);
+                foreach (var x in xx)
+                    lst.Add(RecursivePropertyValues(x, path));
+            }
+            catch (Exception ex)
+            {
+                //
+            }
+            return lst.SelectMany(a => a.Cast<object>());
+        }
+        public static IObservable<Assembly> SelectAssemblies()
         {
             return Observable.Create<Assembly>(obs =>
             {

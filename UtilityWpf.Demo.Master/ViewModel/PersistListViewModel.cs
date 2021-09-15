@@ -9,7 +9,6 @@ using Utility.Common.EventArgs;
 using UtilityInterface.NonGeneric.Database;
 using UtilityWpf.Demo.Common.ViewModel;
 using UtilityWpf.Demo.Data.Model;
-//using UtilityWpf.Model;
 using UtilityWpf.Service;
 
 

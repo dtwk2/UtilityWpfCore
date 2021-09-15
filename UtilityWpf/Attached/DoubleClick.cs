@@ -50,7 +50,8 @@ namespace UtilityWpf.Attached
 
         private static void OnMouseDoubleClick(object sender, RoutedEventArgs e)
         {
-            Control control = sender as Control;
+            if (sender is not Control control)
+                return;
             ICommand command = (ICommand)control.GetValue(CommandProperty);
             object commandParameter = control.GetValue(CommandParameterProperty);
             if (command.CanExecute(null))
@@ -59,49 +60,63 @@ namespace UtilityWpf.Attached
                 e.Handled = true;
             }
         }
+    }
 
-        //public class ControlDoubleClick : DependencyObject
-        //{
-        //    public static readonly DependencyProperty CommandProperty =
-        //        DependencyProperty.RegisterAttached("Command", typeof(ICommand), typeof(ControlDoubleClick), new PropertyMetadata(OnChangedCommand));
+    public class MouseSingleClick : DependencyObject
+    {
+        public static readonly DependencyProperty CommandProperty =
+            DependencyProperty.RegisterAttached("Command", typeof(ICommand), typeof(MouseSingleClick), new UIPropertyMetadata(CommandChanged));
 
-        //    public static readonly DependencyProperty ValueProperty =
-        //DependencyProperty.RegisterAttached("Value", typeof(bool), typeof(ControlDoubleClick), new PropertyMetadata(OnValueCommand));
+        public static readonly DependencyProperty CommandParameterProperty =
+            DependencyProperty.RegisterAttached("CommandParameter", typeof(object), typeof(MouseSingleClick), new UIPropertyMetadata(null));
 
-        //    private static void OnValueCommand(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        //    {
-        //    }
+        public static void SetCommand(DependencyObject target, ICommand value)
+        {
+            target.SetValue(CommandProperty, value);
+        }
 
-        //    public static ICommand GetCommand(Control target)
-        //    {
-        //        return (ICommand)target.GetValue(CommandProperty);
-        //    }
+        public static object GetCommand(DependencyObject target)
+        {
+            return target.GetValue(CommandProperty);
+        }
 
-        //    public static void SetCommand(Control target, ICommand value)
-        //    {
-        //        target.SetValue(CommandProperty, value);
-        //    }
+        public static void SetCommandParameter(DependencyObject target, object value)
+        {
+            target.SetValue(CommandParameterProperty, value);
+        }
 
-        //    private static void OnChangedCommand(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        //    {
-        //        Control control = d as Control;
-        //        control.PreviewMouseDoubleClick += new MouseButtonEventHandler(Element_PreviewMouseDoubleClick);
+        public static object GetCommandParameter(DependencyObject target)
+        {
+            return target.GetValue(CommandParameterProperty);
+        }
 
-        //    }
+        private static void CommandChanged(DependencyObject target, DependencyPropertyChangedEventArgs e)
+        {
+            if (target is Control control)
+            {
+                if ((e.NewValue != null) && (e.OldValue == null))
+                {
+                    control.MouseDown += OnMouseClick;
+                }
+                else if ((e.NewValue == null) && (e.OldValue != null))
+                {
+                    control.MouseDown -= OnMouseClick;
+                }
+            }
+        }
 
-        //    private static void Element_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
-        //    {
-        //        Control control = sender as Control;
-        //        ICommand command = GetCommand(control);
+        private static void OnMouseClick(object sender, RoutedEventArgs e)
+        {
+            if (sender is not Control control)
+                return;
 
-        //        if (command.CanExecute(null))
-        //        {
-        //            command.Execute(null);
-        //            e.Handled = true;
-        //            control.SetValue(ValueProperty, true);
-        //        }
-        //    }
-
-        //}
+            ICommand command = (ICommand)control.GetValue(CommandProperty);
+            object commandParameter = control.GetValue(CommandParameterProperty);
+            if (command.CanExecute(null))
+            {
+                command.Execute(commandParameter);
+                e.Handled = true;
+            }
+        }
     }
 }

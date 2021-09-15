@@ -16,11 +16,12 @@ namespace UtilityWpf.Controls.Master
     using ReactiveUI;
     using UtilityWpf.Service;
     using static DependencyPropertyFactory<MasterDetail>;
+
     public class MasterDetail : ContentControlx
     {
 
-        public static readonly DependencyProperty DataConverterProperty = Register<IValueConverter>();
-        public static readonly DependencyProperty DataKeyProperty = Register<string>(nameof(DataKey));
+        public static readonly DependencyProperty ConverterProperty = Register<IValueConverter>();
+        public static readonly DependencyProperty PropertyKeyProperty = Register<string>(nameof(PropertyKey));
         public static readonly DependencyProperty UseDataContextProperty = Register<bool>();
         public static readonly DependencyProperty SelectorProperty = Register<Control>();
 
@@ -32,6 +33,7 @@ namespace UtilityWpf.Controls.Master
         public MasterDetail()
         {
             _ = SelectContent()
+                .WhereNotNull()
                 .Subscribe(content =>
                 {
                     SetContent(Content, content);
@@ -39,10 +41,10 @@ namespace UtilityWpf.Controls.Master
         }
 
         #region properties
-        public IValueConverter DataConverter
+        public IValueConverter Converter
         {
-            get { return (IValueConverter)GetValue(DataConverterProperty); }
-            set { SetValue(DataConverterProperty, value); }
+            get { return (IValueConverter)GetValue(ConverterProperty); }
+            set { SetValue(ConverterProperty, value); }
         }
 
         public Control Selector
@@ -51,10 +53,10 @@ namespace UtilityWpf.Controls.Master
             set { SetValue(SelectorProperty, value); }
         }
 
-        public string DataKey
+        public string PropertyKey
         {
-            get { return (string)GetValue(DataKeyProperty); }
-            set { SetValue(DataKeyProperty, value); }
+            get { return (string)GetValue(PropertyKeyProperty); }
+            set { SetValue(PropertyKeyProperty, value); }
         }
 
         public bool UseDataContext
@@ -67,75 +69,80 @@ namespace UtilityWpf.Controls.Master
 
         public override void OnApplyTemplate()
         {
-           // var selector = Template.Resources["propertytemplateSelector"] as DataTemplateSelector;
+            // var selector = Template.Resources["propertytemplateSelector"] as DataTemplateSelector;
             //Content ??= new ContentControl { ContentTemplateSelector = selector };
             base.OnApplyTemplate();
         }
 
         protected virtual IObservable<object> SelectContent()
         {
-            var replaySubject = Transform(SelectChanges(),
-                this.Observable<IValueConverter>(nameof(DataConverter)),
-                this.Observable<string>(nameof(DataKey))).ToReplaySubject(0);
+            var transform = Transform(SelectChanges(),
+                this.Observable<IValueConverter>(nameof(Converter)),
+                this.Observable<string>(nameof(PropertyKey))).ToReplaySubject(0);
 
-
-            replaySubject
-                .Select(a => a.Item2)
+            _ = transform
+                .Select(a => a.change)
                 .Where(a =>
                 {
                     // either they are the same object or same type but don't equal
-                    return a.Item2 != null && (a.Item1 == a.Item2 || (a.Item1?.Equals(a.Item2) == false));
+                    return a.replacement != null && (a.old == a.replacement || (a.old?.Equals(a.replacement) == false));
                 })
                 .CombineLatest(SelectItemsSource())
                 .Subscribe(a =>
                 {
-                    if(a.Second is Array)
+                    if (a.Second is IList { IsReadOnly: false, IsFixedSize: false } list)
                     {
-                        return;
-                    }
-                    if (a.Second is IList list)
-                    {
-                        int index = list.IndexOf(a.First.Item1);
+                        int index = list.IndexOf(a.First.old);
                         if (index < 0)
                         {
                             return;
                         }
                         list.RemoveAt(index);
-                        list.Insert(index, a.First.Item2);
+                        list.Insert(index, a.First.replacement);
                         return;
                     }
 
-
-                    var first = a.Item1;
-                    if (first.Item1 is not INotifyPropertyChanged)
+                    var first = a.First;
+                    if (first.old is not INotifyPropertyChanged)
                     {
-                        MessageBox.Show("object does not implement INotifyPropertyChanged. Therefore change will not be noticed by subscribers and won't be automatically persisted!");
+                        //MessageBox.Show("object does not implement INotifyPropertyChanged. Therefore change will not be noticed by subscribers and won't be automatically persisted!");
                     }
-                    PropertyMerger.Instance.Set(first.Item1!, first.Item2!);
+                    PropertyMerger.Instance.Set(first.old!, first.replacement!);
                 });
 
-            return replaySubject
-                .Select(a => a.Item1);
+            return transform
+                .Select(a => a.newItem);
         }
 
-        private IObservable<object> SelectChanges()
+        protected virtual IObservable<object> SelectChanges()
         {
-            return this.Observable<Control>()
-                .Select(a =>
+            return this.WhenAnyValue(a => a.Selector)
+                .WhereNotNull()
+                .Select(slctr =>
                 {
-                    return a switch
-                    {
-                        ISelector selector => selector.SelectSingleSelectionChanges(),
-                        Selector selector => selector.SelectSingleSelectionChanges(),
-                        _ => throw new ApplicationException($"Unexpected type,{a.GetType().Name} for {nameof(Selector)} "),
-                    };
+                    return Selections(slctr);   
                 }).Switch();
         }
 
 
+        protected virtual IObservable<object> Selections(Control slctr)
+        {
+            return slctr switch
+            {
+                ISelector selector => selector.SelectSingleSelectionChanges(),
+                Selector selector => selector.SelectSingleSelectionChanges(),
+                _ => throw new ApplicationException($"Unexpected type,{slctr.GetType().Name} for {nameof(Selector)} "),
+            };
+        }
+
+        private void MasterDetail_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+        }
+
         private IObservable<IEnumerable?> SelectItemsSource()
         {
             return this.Observable<Control>()
+                .WhereNotNull()
                 .CombineLatest(this.LoadedChanges(), (a, b) => a)
                         .SelectMany(a =>
                 {
@@ -214,7 +221,7 @@ namespace UtilityWpf.Controls.Master
                  var ee = (conversion, converterOld, dataKeyOld) switch
                  {
                      (null, _, _) => null,
-                     (object o, IValueConverter conv, _) => conv.ConvertBack(o, default, default, default),
+                     (object o, IValueConverter conv, _) => null/*Catch(a=> conv.ConvertBack(o, default, default, default))*/,
                      (object o, _, string key) => ConvertBack(selectedOld, key, o),
                      //(null,null) => throw new Exception($"Either {nameof(DataConverter)} or {nameof(DataKey)} must be set if {nameof(ItemsSource)} set")
                      (object o, null, null) => o
@@ -242,6 +249,36 @@ namespace UtilityWpf.Controls.Master
                 UtilityHelper.PropertyHelper.SetValue(selected, k, selectedValueOld);
                 return selectedValueOld;
             }
+        }
+
+
+        protected static IObservable<object> Transform2(IObservable<object> collectionViewModel, IObservable<IValueConverter> dataConversions, IObservable<string> dataKeys)
+        {
+            collectionViewModel
+                .Subscribe(a =>
+                {
+
+                });
+            return ObservableEx
+                .CombineLatest(collectionViewModel, dataConversions, dataKeys)
+                .ObserveOnDispatcher()
+                .Scan(default((object, object, IValueConverter?, string?)), (a, b) =>
+             {
+
+                 var (selected, converter, dataKey) = b;
+
+                 var ss = (converter, dataKey) switch
+                 {
+                     (IValueConverter conv, _) => conv.Convert(selected, default, default, default),
+                     (_, string key) => UtilityHelper.PropertyHelper.GetPropertyValue<object>(selected, key),
+                     //(null,null) => throw new Exception($"Either {nameof(DataConverter)} or {nameof(DataKey)} must be set if {nameof(ItemsSource)} set")
+                     (null, null) => selected
+                 };
+
+                 return (selected, ss, converter, dataKey);
+             })
+                .Select(a => (a.Item2));
+
         }
     }
 }

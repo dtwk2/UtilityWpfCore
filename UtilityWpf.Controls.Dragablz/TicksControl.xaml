@@ -7,8 +7,12 @@
                     xmlns:att="http://schemas.utility.com/utilitywpf">
 
     <ResourceDictionary.MergedDictionaries>
-        <att:SharedResourceDictionary Source="UtilityWpf.Controls.Dragablz;component/Geometry.xaml"/> 
+        <att:SharedResourceDictionary Source="UtilityWpf.Controls.Dragablz;component/Geometry.xaml"/>
     </ResourceDictionary.MergedDictionaries>
+
+    <Color x:Key="ControlPressedColor">#FF211AA9</Color>
+    <Color x:Key="PressedBorderLightColor">#FF888888</Color>
+    <Color x:Key="PressedBorderDarkColor">#FF444444</Color>
 
     <Style x:Key="DragablzTickStyle" TargetType="dragablz:DragablzItem">
         <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
@@ -37,10 +41,25 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBox Margin="2,1,17,2"  Width="200"  
-                                         x:Name="PART_TextBox"
+
+                                <dragablz1:GeometryThumb Command="{Binding Path=(att:Ex.Command), RelativeSource={RelativeSource Mode=Self}}"
+                                                         x:Name="GeometryThumb"
+                                                         Margin="2"
+                                                         VerticalAlignment="Center" 
+                                                            HorizontalAlignment="Left" 
+                                                            dragablz:DragablzItem.IsCustomThumb="True"
+                                                            Height="15"
+                                                            Width="15" 
+                                                            Geometry="{StaticResource TickGeometry}">
+                                </dragablz1:GeometryThumb>
+
+
+                                <TextBox x:Name="PART_TextBox"
+                                         Margin="2,1,17,2"  
+                                         Width="200"                                           
                                          HorizontalAlignment="Stretch" FontSize="5"    
                                          TextWrapping="Wrap"
                                          AcceptsReturn="True"           
@@ -53,15 +72,6 @@
                                         </Style>
                                     </TextBox.Style>
                                 </TextBox>
-                                <dragablz1:GeometryThumb 
-                                    x:Name="GeometryThumb"
-                                    VerticalAlignment="Center" 
-                                   HorizontalAlignment="Left" 
-                                   dragablz:DragablzItem.IsCustomThumb="True"
-                                   Height="15"
-                                   Width="15" 
-                                   Geometry="{StaticResource TickGeometry}">
-                                </dragablz1:GeometryThumb>
                             </Grid>
                         </Viewbox>
                     </Grid>
