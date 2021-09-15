@@ -189,27 +189,3 @@
         </DockPanel>
     </Grid>
 </UserControl>
-
-<!--<view1:DayRangeSlider
-
-            Grid.Row="2"
-            Grid.Column="0"
-            Width="1000"
-                   Maximum="{Binding Max}"
-            Minimum="{Binding Min}"
-            Start="{Binding Start}"
-            End="{Binding End}"
-            TickFrequency="10"
-            HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-
-                    <view1:RangeSlider.TickLabelTemplate>
-                        <DataTemplate>
-                            <Grid Width="70" Height="20">
-                                <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding Converter={x:Static converter:LambdaConverter.DaysToDateTimeConverter}}" Padding="0" />
-                            </Grid>
-                        </DataTemplate>
-                    </view1:RangeSlider.TickLabelTemplate>
-                    <view1:RangeSlider.Background>
-                        <SolidColorBrush Color="Gray" Opacity="0.1" />
-                    </view1:RangeSlider.Background>
-                </view1:DayRangeSlider>-->

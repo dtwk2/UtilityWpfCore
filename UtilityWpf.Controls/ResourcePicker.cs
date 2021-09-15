@@ -10,7 +10,7 @@ namespace UtilityWpf.Controls
 {
     public class ResourcePicker : ComboBox
     {
-        private string[] keys = null;
+        private string[]? keys;
 
         static ResourcePicker()
         {
@@ -29,9 +29,9 @@ namespace UtilityWpf.Controls
 
         private void ResourcePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ResourceDictionary dic = null;
+            ResourceDictionary? dic = null;
             var uri = e.AddedItems.OfType<Uri>().FirstOrDefault();
-            if (uri.Equals(default) == false)
+            if (uri?.Equals(default) == false)
             {
                 using Stream fs = Application.GetResourceStream(uri).Stream;
                 dic = (ResourceDictionary)XamlReader.Load(fs);
@@ -47,7 +47,7 @@ namespace UtilityWpf.Controls
             }
 
             Application.Current.Resources.MergedDictionaries.Add(dic);
-            keys = dic.Keys.OfType<string>().ToArray();
+            keys = dic?.Keys.OfType<string>().ToArray();
         }
     }
 }

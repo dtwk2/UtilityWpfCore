@@ -22,15 +22,12 @@ using static LambdaConverters.ValueConverter;
 
 namespace UtilityWpf.Controls
 {
-
-
     public static class Commands
     {
         public static readonly RoutedCommand FooCommand = new RoutedCommand("Foo", typeof(JsonControl));
     }
 
     /// <summary>
-    /// Interaction logic for Json.xaml
     /// <a href="https://github.com/catsgotmytongue/JsonControls-WPF">JSON controls</a>
     /// </summary>
     public partial class JsonControl : TreeView
@@ -41,7 +38,6 @@ namespace UtilityWpf.Controls
 
         public static readonly DependencyProperty JsonProperty = DependencyProperty.Register(nameof(Json), typeof(string), typeof(JsonControl), new PropertyMetadata(null));
         public static readonly DependencyProperty ObjectProperty = DependencyProperty.Register(nameof(Object), typeof(object), typeof(JsonControl), new PropertyMetadata(null));
-        //private TreeView? jsonTreeView;
 
         static JsonControl()
         {
@@ -54,47 +50,37 @@ namespace UtilityWpf.Controls
 
             this.WhenAnyValue(a => a.Object)
                 .WhereNotNull()
-                .Select(e=> Newtonsoft.Json.JsonConvert.SerializeObject(e))
+                .Select(e => Newtonsoft.Json.JsonConvert.SerializeObject(e))
                 .Merge(this.WhenAnyValue(a => a.Json).WhereNotNull())
                 .CombineLatest(subject)
                 .Subscribe(a =>
                 {
-                    //var (e, treeView) = a;
                     this.Load(a.First, a.Second);
                 });
 
-            toggleItems.CombineLatest(subject)
+            toggleItems
+                .CombineLatest(subject)
                 .Subscribe(a =>
                 {
                     ToggleItems(a.First, a.Second);
                 });
-        }
-        private static void OnFoo(object sender, RoutedEventArgs e)
-        {
-            // here I need to have the instance of MyCustomControl so that I can call myCustCtrl.Foo();
-            // Foo(); // <--- problem! can't access this
-        }
 
-        private static void OnCanFoo(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-            e.Handled = true;
-        }
+            static void OnFoo(object sender, RoutedEventArgs e)
+            {
+                // here I need to have the instance of MyCustomControl so that I can call myCustCtrl.Foo();
+                // Foo(); // <--- problem! can't access this
+            }
 
-        public void Foo()
-        {
-            // does this like:
-            // this.Template.FindName(...
-            // so this method can't be static
-        }
+            static void OnCanFoo(object sender, CanExecuteRoutedEventArgs e)
+            {
+                e.CanExecute = true;
+                e.Handled = true;
+            }
 
-        public override void OnApplyTemplate()
-        {
-            //var jsonTreeView = this.GetTemplateChild("JsonTreeView") as TreeView;
-            subject.OnNext(this);
-            base.OnApplyTemplate();
+            static void Foo()
+            {
+            }
         }
-
         public string Json
         {
             get => (string)GetValue(JsonProperty);
@@ -107,39 +93,20 @@ namespace UtilityWpf.Controls
             set => SetValue(ObjectProperty, value);
         }
 
-        private static void ObjectChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        public override void OnApplyTemplate()
         {
-            //jsonControl.Load(Newtonsoft.Json.JsonConvert.SerializeObject(e.NewValue));
+            subject.OnNext(this);
+            base.OnApplyTemplate();
         }
-
-        //private static void JsonChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        //{
-        //    if (!(d is JsonControl JsonControl && e.NewValue is string json))
-        //    {
-        //        return;
-        //    }
-
-        //    JsonControl.Load(json);
-        //}
 
         private void Load(string json, TreeView jsonTreeView)
         {
             jsonTreeView.ItemsSource = null;
             jsonTreeView.Items.Clear();
 
-            var children = new List<JToken>();
-
             try
             {
-                var token = JToken.Parse(json);
-
-                if (token != null)
-                {
-                    children.Add(token);
-                }
-
-                jsonTreeView.ItemsSource = children;
-                jsonTreeView.ItemsSource = token.Children();
+                jsonTreeView.ItemsSource = JToken.Parse(json).Children();
             }
             catch (Exception ex)
             {
@@ -217,11 +184,12 @@ namespace UtilityWpf.Controls
 
 
     }
+
     public class ComplexPropertyMethodValueConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return Converters.MethodToValueConverter.Convert(value, null, parameter, culture);      
+            return Converters.MethodToValueConverter.Convert(value, null, parameter, culture);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -241,30 +209,24 @@ namespace UtilityWpf.Controls
 
         public static IValueConverter JTokenTypeToColorConverter => Create<JTokenType, Color>(a => NiceColors.Value[(byte)a.Value]);
 
-        public static IValueConverter MethodToValueConverter => Create<object, JEnumerable<JToken>, string>(a =>
-        a.Value != null &&
-        a.Parameter != null &&
-        a.Value.GetType().GetMethod(a.Parameter, new Type[0]) is MethodInfo methodInfo ?
-        (JEnumerable<JToken>)methodInfo.Invoke(a.Value, new object[0]) :
-        new JEnumerable<JToken>());
+        public static IValueConverter MethodToValueConverter => Create<object, JEnumerable<JToken>?, string>(a =>
+        {
+            if (a.Parameter != null && a.Value?.GetType().GetMethod(a.Parameter, Array.Empty<Type>()) is MethodInfo methodInfo)
+                return (JEnumerable<JToken>?)methodInfo.Invoke(a.Value, Array.Empty<object>());
+                return new JEnumerable<JToken>();
+        });
 
-        public static IValueConverter ComplexPropertyMethodToValueConverter => Create<string, JEnumerable<JToken>, string>(args =>
-
-        ((JEnumerable<JToken>)MethodToValueConverter
-        .Convert(args.Value, null, args.Parameter, args.Culture))
-            .First()
-            .Children());
-
-
+        //public static IValueConverter ComplexPropertyMethodToValueConverter => Create<object, JEnumerable<JToken>?, string>(args =>
+        //(JEnumerable<JToken>)MethodToValueConverter.Convert(args.Value, null, args.Parameter, args.Culture));
 
         public static IValueConverter JArrayLengthConverter => Create<object, string>(jToken =>
         {
-            if (jToken.Value is JToken jtoken)
-                return jtoken.Type switch
+            if (jToken.Value is JToken { Type: JTokenType type } jtoken)
+                return type switch
                 {
                     JTokenType.Array => $"[{jtoken.Children().Count()}]",
-                    JTokenType.Property => $"[ { jtoken.Children().FirstOrDefault().Children().Count()} ]",
-                    _ => throw new Exception("Type should be JProperty or JArray"),
+                    JTokenType.Property => $"[ { jtoken.Children().FirstOrDefault()?.Children().Count()} ]",
+                    _ => throw new ArgumentOutOfRangeException("Type should be JProperty or JArray"),
                 };
             throw new Exception("fsdfdfsd");
         }
@@ -280,8 +242,8 @@ namespace UtilityWpf.Controls
 
     internal static class TemplateSelector
     {
-        static Dictionary<string, object> resource = new();
-    
+        static readonly Dictionary<string, object> resource = new();
+
         public static DataTemplateSelector JPropertyDataTemplateSelector =
             Create<object>(
                 e =>
@@ -289,7 +251,7 @@ namespace UtilityWpf.Controls
                     {
                         (JProperty property, FrameworkElement frameworkElement) => property.Value.Type switch
                         {
-                            JTokenType.Object =>  resource.GetValueOrNew("ObjectPropertyTemplate", frameworkElement.FindResource("ObjectPropertyTemplate")),
+                            JTokenType.Object => resource.GetValueOrNew("ObjectPropertyTemplate", frameworkElement.FindResource("ObjectPropertyTemplate")),
                             JTokenType.Array => resource.GetValueOrNew("ArrayPropertyTemplate", frameworkElement.FindResource("ArrayPropertyTemplate")),
                             _ => resource.GetValueOrNew("PrimitivePropertyTemplate", frameworkElement.FindResource("PrimitivePropertyTemplate")),
                         },
@@ -297,35 +259,32 @@ namespace UtilityWpf.Controls
                         (_, FrameworkElement frameworkElement) =>
                         frameworkElement.FindResource(new DataTemplateKey(e.Item.GetType())),
                         _ => null
-                    } as DataTemplate
-                          );
+                    } as DataTemplate);
     }
 
     internal static class ColorStore
     {
-        public static readonly Dictionary<string, string> Collection = new Dictionary<string, string>
+        public static readonly Dictionary<string, string> Collection = new()
         {
-            { "navy", "#001F3F"} ,
-            { "blue", "#0074D9"} ,
-            { "aqua", "#7FDBFF"} ,
-            { "teal", "#39CCCC"} ,
-            { "olive", "#3D9970"} ,
-            { "green", "#2ECC40"} ,
-            { "d", "#d59aea"} ,
-            {  "yellow", "#FFDC00"} ,
-            { "black", "#111111"},
-            { "red", "#FF4136"} ,
-            { "fuchsia", "#F012BE"} ,
-
-            { "purple", "#B10DC9"} ,
-
-            { "maroon", "#85144B"} ,
-            { "gray", "#AAAAAA"} ,
-            { "silver", "#DDDDDD"} ,
-            {  "orange", "#FF851B"} ,
-            { "a", "#ff035c"},
-            { "b", "#9eb4cc"},
-            { "c", "#fbead3"},
+            { "navy", "#001F3F" },
+            { "blue", "#0074D9" },
+            { "aqua", "#7FDBFF" },
+            { "teal", "#39CCCC" },
+            { "olive", "#3D9970" },
+            { "green", "#2ECC40" },
+            { "d", "#d59aea" },
+            { "yellow", "#FFDC00" },
+            { "black", "#111111" },
+            { "red", "#FF4136" },
+            { "fuchsia", "#F012BE" },
+            { "purple", "#B10DC9" },
+            { "maroon", "#85144B" },
+            { "gray", "#AAAAAA" },
+            { "silver", "#DDDDDD" },
+            { "orange", "#FF851B" },
+            { "a", "#ff035c" },
+            { "b", "#9eb4cc" },
+            { "c", "#fbead3" },
         };
     }
 }

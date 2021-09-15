@@ -65,9 +65,9 @@
             </HierarchicalDataTemplate>
 
             <HierarchicalDataTemplate
-        x:Key="ArrayPropertyTemplate"
-        DataType="{x:Type jlinq:JProperty}"
-        ItemsSource="{Binding Converter={x:Static controls:Converters.ComplexPropertyMethodToValueConverter}, ConverterParameter='Children'}">
+                x:Key="ArrayPropertyTemplate"
+                DataType="{x:Type jlinq:JProperty}"
+                ItemsSource="{Binding Converter={x:Static controls:ComplexPropertyMethodValueConverter.Instance}, ConverterParameter='Children'}">
                 <StackPanel Margin="1" Orientation="Horizontal">
                     <TextBlock Width="100" Text="{Binding Path=Name, Mode=OneWay}" />
 

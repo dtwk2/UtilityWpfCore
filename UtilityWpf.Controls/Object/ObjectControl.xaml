@@ -4,32 +4,36 @@
                     xmlns:converter="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
-    <system:Int32 x:Key="Factor">2</system:Int32>
 
 
-    <DataTemplate x:Key="DefaultDataTemplate">
-        <Grid IsSharedSizeScope="True">
-            <ItemsControl Margin="10" ItemsSource="{Binding}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Vertical" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition SharedSizeGroup="ColumnOne" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock
+    <Style TargetType="{x:Type controls:ObjectControl}" BasedOn="{StaticResource {x:Type ContentControl}}" >
+
+        <Style.Resources>
+            <system:Int32 x:Key="Factor">2</system:Int32>
+
+            <DataTemplate x:Key="DefaultDataTemplate">
+                <Grid IsSharedSizeScope="True">
+                    <ItemsControl Margin="10" ItemsSource="{Binding}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Vertical" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition SharedSizeGroup="ColumnOne" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
                                 Grid.Column="0"
                                 Margin="5,1,5,1"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 Text="{Binding Key}"
                                 TextWrapping="WrapWithOverflow" />
-                            <controls:ObjectControl
+                                    <controls:ObjectControl
                                 Grid.Column="1"
                                 Margin="5,1,5,1"
                                 HorizontalAlignment="Left"
@@ -41,36 +45,36 @@
                         Converter={x:Static converter:HighestVisualParentConverter.Instance}}"
                                 Object="{Binding Value}"
                                 />
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </Grid>
-    </DataTemplate>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </DataTemplate>
 
-    <DataTemplate x:Key="StringDataTemplate" DataType="system:String">
-        <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding}" 
+            <DataTemplate x:Key="StringDataTemplate" DataType="system:String">
+                <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding}" 
                    Foreground="{Binding AccentBrush, RelativeSource={RelativeSource AncestorType=controls:ObjectControl, AncestorLevel=2}}"></TextBlock>
-    </DataTemplate>
+            </DataTemplate>
 
-    <DataTemplate x:Key="EnumerableDataTemplate" >
-        <ItemsControl ItemsSource="{Binding}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding}"
+            <DataTemplate x:Key="EnumerableDataTemplate" >
+                <ItemsControl ItemsSource="{Binding}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding}"
                                Foreground="{Binding AccentBrush, RelativeSource={RelativeSource AncestorType=controls:ObjectControl,  AncestorLevel=2}}"></TextBlock>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
 
-    </DataTemplate>
+            </DataTemplate>
 
 
-    <DataTemplate x:Key="EnumerableObjectDataTemplate" >
-        <ItemsControl ItemsSource="{Binding}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <controls:ObjectControl
+            <DataTemplate x:Key="EnumerableObjectDataTemplate" >
+                <ItemsControl ItemsSource="{Binding}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <controls:ObjectControl
                         Margin="5,1,5,1"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
@@ -80,22 +84,21 @@
                         Converter={x:Static converter:HighestVisualParentConverter.Instance}}"
                         Object="{Binding}"
                     />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
 
-    </DataTemplate>
+            </DataTemplate>
 
-    <controls:ObjectControlDataTemplateSelector x:Key="ObjectControlDataTemplateSelector" 
+            <controls:ObjectControlDataTemplateSelector x:Key="ObjectControlDataTemplateSelector" 
                                                 OtherTemplate="{StaticResource DefaultDataTemplate}" 
                                                 EnumerableTextTemplate="{StaticResource EnumerableDataTemplate}"
                                                 EnumerableObjectTemplate="{StaticResource EnumerableObjectDataTemplate}"
                                                 TextTemplate="{StaticResource StringDataTemplate}">
 
-    </controls:ObjectControlDataTemplateSelector>
+            </controls:ObjectControlDataTemplateSelector>
 
-
-    <Style BasedOn="{StaticResource {x:Type ContentControl}}" TargetType="{x:Type controls:ObjectControl}">
+        </Style.Resources>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:ObjectControl}">
@@ -117,7 +120,7 @@
                                 <TextBlock
                                 x:Name="MainTextBlock"
                                 Height="{Binding Path=FontSize, RelativeSource={RelativeSource TemplatedParent}, 
-Converter={x:Static converter:LambdaConverter.MultiplyConverter}, ConverterParameter={StaticResource Factor}}"
+                                    Converter={x:Static converter:LambdaConverter.MultiplyConverter}, ConverterParameter={StaticResource Factor}}"
                                 Margin="5,0"
                                 Padding="2"
                                 Foreground="White"
