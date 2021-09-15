@@ -214,7 +214,7 @@
     <Page Update="Themes\Slider.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\SliderItemsControl.xaml">
+    <Page Update="SliderItemsControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\SpinnerControl.xaml">
@@ -228,6 +228,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\ViewCollection.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Clock\BasicTransitionControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
   </ItemGroup>
