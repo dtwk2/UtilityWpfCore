@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29102.190
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31710.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{3E8F851B-BECA-4BAA-9275-2104CDEAEC3D}"
 EndProject
@@ -17,17 +17,27 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Controls.FileSys
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FileSystem.Transfer", "FileSystem.Transfer", "{A0404512-DA00-43B0-A59A-0F14A6C8D530}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility.FileSystem.Transfer.WPF.Controls", "Utility.FileSystem.Transfer.WPF.Contols\Utility.FileSystem.Transfer.WPF.Controls.csproj", "{0B826286-3054-43D9-AAEF-3A2FB2ADAF15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility.FileSystem.Transfer.WPF.Controls", "Utility.FileSystem.Transfer.WPF.Contols\Utility.FileSystem.Transfer.WPF.Controls.csproj", "{0B826286-3054-43D9-AAEF-3A2FB2ADAF15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility.FileSystem.Transfer.Common", "Utility.FileSystem.Common\Utility.FileSystem.Transfer.Common.csproj", "{4349516F-117A-4F29-9BF5-3F2407895D2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility.FileSystem.Transfer.Common", "Utility.FileSystem.Common\Utility.FileSystem.Transfer.Common.csproj", "{4349516F-117A-4F29-9BF5-3F2407895D2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility.FileSystem.Transfer.Abstract", "Utility.FileSystem.Abstract\Utility.FileSystem.Transfer.Abstract.csproj", "{26523E89-2DD5-418A-B677-39F5686D5C8A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility.FileSystem.Transfer.Abstract", "Utility.FileSystem.Abstract\Utility.FileSystem.Transfer.Abstract.csproj", "{26523E89-2DD5-418A-B677-39F5686D5C8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility.FileSystem.Transfer.Service", "Utility.FileSystem.Transfer.Service\Utility.FileSystem.Transfer.Service.csproj", "{781692DF-B372-4FE6-9F35-E66DC2A54F40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility.FileSystem.Transfer.Service", "Utility.FileSystem.Transfer.Service\Utility.FileSystem.Transfer.Service.csproj", "{781692DF-B372-4FE6-9F35-E66DC2A54F40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility.FileSystem.Helper", "Utility.FileSystem.Helper\Utility.FileSystem.Helper.csproj", "{7FE86FB1-414D-44AF-BE6C-7A037C914E0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility.FileSystem.Helper", "Utility.FileSystem.Helper\Utility.FileSystem.Helper.csproj", "{7FE86FB1-414D-44AF-BE6C-7A037C914E0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility.FileSystem.Transfer.Demo", "Utility.FileSystem.Transfer.Demo\Utility.FileSystem.Transfer.Demo.csproj", "{D255BC81-9158-4080-8D94-605B0ACCBD06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility.FileSystem.Transfer.Demo", "Utility.FileSystem.Transfer.Demo\Utility.FileSystem.Transfer.Demo.csproj", "{D255BC81-9158-4080-8D94-605B0ACCBD06}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utility", "Utility", "{55A08870-240F-4E66-AF7E-1FE6CC2D28AF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{772F1661-7280-4AA9-9A56-372023CF2357}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuggestBoxLib", "..\SuggestBoxLib\source\SuggestBoxLib\SuggestBoxLib.csproj", "{0471D7B9-4702-416C-889B-FEE449A71349}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuggestBoxLib.Infrastructure", "..\SuggestBoxLib\source\SuggestBoxLib.Infrastructure\SuggestBoxLib.Infrastructure.csproj", "{1CC7E9BD-2B78-4779-9EA2-FF73D099E0A5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CachedPathSuggest", "..\SuggestBoxLib\source\Demos\CachedPathSuggest\CachedPathSuggest.csproj", "{C0EA695D-B5E7-4957-B94E-8E73E7F42C76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,19 +89,37 @@ Global
 		{D255BC81-9158-4080-8D94-605B0ACCBD06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D255BC81-9158-4080-8D94-605B0ACCBD06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D255BC81-9158-4080-8D94-605B0ACCBD06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0471D7B9-4702-416C-889B-FEE449A71349}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0471D7B9-4702-416C-889B-FEE449A71349}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0471D7B9-4702-416C-889B-FEE449A71349}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0471D7B9-4702-416C-889B-FEE449A71349}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CC7E9BD-2B78-4779-9EA2-FF73D099E0A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CC7E9BD-2B78-4779-9EA2-FF73D099E0A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CC7E9BD-2B78-4779-9EA2-FF73D099E0A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CC7E9BD-2B78-4779-9EA2-FF73D099E0A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0EA695D-B5E7-4957-B94E-8E73E7F42C76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0EA695D-B5E7-4957-B94E-8E73E7F42C76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0EA695D-B5E7-4957-B94E-8E73E7F42C76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0EA695D-B5E7-4957-B94E-8E73E7F42C76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{662E0F27-75E5-4FB4-9B99-BBEF2CF28594} = {55A08870-240F-4E66-AF7E-1FE6CC2D28AF}
+		{264293EB-59CF-4DAB-80AC-5BEE28AC1B88} = {55A08870-240F-4E66-AF7E-1FE6CC2D28AF}
 		{16A7EE28-A173-4F13-8297-C5301C416121} = {3E8F851B-BECA-4BAA-9275-2104CDEAEC3D}
 		{C29F816F-0E6E-4151-B210-F510AE288D42} = {3E8F851B-BECA-4BAA-9275-2104CDEAEC3D}
+		{C48F6828-3036-4358-9099-EBB35454D11E} = {55A08870-240F-4E66-AF7E-1FE6CC2D28AF}
 		{0B826286-3054-43D9-AAEF-3A2FB2ADAF15} = {A0404512-DA00-43B0-A59A-0F14A6C8D530}
 		{4349516F-117A-4F29-9BF5-3F2407895D2B} = {A0404512-DA00-43B0-A59A-0F14A6C8D530}
 		{26523E89-2DD5-418A-B677-39F5686D5C8A} = {A0404512-DA00-43B0-A59A-0F14A6C8D530}
 		{781692DF-B372-4FE6-9F35-E66DC2A54F40} = {A0404512-DA00-43B0-A59A-0F14A6C8D530}
 		{7FE86FB1-414D-44AF-BE6C-7A037C914E0A} = {A0404512-DA00-43B0-A59A-0F14A6C8D530}
 		{D255BC81-9158-4080-8D94-605B0ACCBD06} = {3E8F851B-BECA-4BAA-9275-2104CDEAEC3D}
+		{0471D7B9-4702-416C-889B-FEE449A71349} = {772F1661-7280-4AA9-9A56-372023CF2357}
+		{1CC7E9BD-2B78-4779-9EA2-FF73D099E0A5} = {772F1661-7280-4AA9-9A56-372023CF2357}
+		{C0EA695D-B5E7-4957-B94E-8E73E7F42C76} = {772F1661-7280-4AA9-9A56-372023CF2357}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D60CFCE-498F-4A6D-9B9B-5546561C117E}

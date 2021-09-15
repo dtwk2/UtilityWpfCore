@@ -123,9 +123,6 @@
     <Page Update="Themes\Brushes.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\ButtonDefinitionsControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="Themes\CheckBoxStyle.xaml">
       <SubType>Designer</SubType>
     </Page>
