@@ -7,9 +7,9 @@ namespace UtilityWpf.Controls
     /// <summary>
     /// Interaction logic for TableUserControl.xaml
     /// </summary>
-    public partial class TableUserControl : UserControl
+    public partial class ScrollSyncUserControl : UserControl
     {
-        public static readonly DependencyProperty ItemsProperty = DependencyProperty.Register("Items", typeof(IEnumerable), typeof(TableUserControl));
+        public static readonly DependencyProperty ItemsProperty = DependencyProperty.Register("Items", typeof(IEnumerable), typeof(ScrollSyncUserControl));
 
         public IEnumerable Items
         {
@@ -17,7 +17,7 @@ namespace UtilityWpf.Controls
             set { SetValue(ItemsProperty, value); }
         }
 
-        public TableUserControl()
+        public ScrollSyncUserControl()
         {
             InitializeComponent();
             usercontrol.DataContext = this;

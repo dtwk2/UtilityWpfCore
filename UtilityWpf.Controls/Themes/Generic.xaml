@@ -98,7 +98,6 @@
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/IconContentControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/SwitchControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/LabelledInput.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/ObjectControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/FlipControl.xaml" />
         
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/HeaderedListBox.xaml" />
@@ -116,7 +115,14 @@
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/IpAddrBox.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/FilterControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/LoopingListBox.xaml" />
+        
+        <!-- New -->
 
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/CollapseBox.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Dialog/ConfirmationDialog.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Object/JsonControl.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Object/ObjectFlowControl.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Object/ObjectControl.xaml" />
 
         <!--  DataTemplate  -->
         

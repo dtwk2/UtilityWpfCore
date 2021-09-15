@@ -1,84 +1,18 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
-namespace WpfCollapseBox
+namespace UtilityWpf.Controls
 {
     [TemplatePart(Name = "PART_PathTransform", Type = typeof(RotateTransform))]
     public class CollapseBox : ToggleButton
     {
-        public object CollapsedContent
-        {
-            get { return GetValue(CollapsedContentProperty); }
-            set { SetValue(CollapsedContentProperty, value); }
-        }
 
-        public object ExpandedContent
-        {
-            get { return GetValue(ExpandedContentProperty); }
-            set { SetValue(ExpandedContentProperty, value); }
-        }
-
-        public TimeSpan ExpandTime
-        {
-            get { return (TimeSpan)GetValue(ExpandTimeProperty); }
-            set { SetValue(ExpandTimeProperty, value); }
-        }
-
-        public double TickThickness
-        {
-            get { return (double)GetValue(TickThicknessProperty); }
-            set { SetValue(TickThicknessProperty, value); }
-        }
-
-        public double TickSize
-        {
-            get { return (double)GetValue(TickSizeProperty); }
-            set { SetValue(TickSizeProperty, value); }
-        }
-
-        public bool RevertTick
-        {
-            get { return (bool)GetValue(RevertTickProperty); }
-            set { SetValue(RevertTickProperty, value); }
-        }
-
-        public VerticalAlignment TickVerticalAlignment
-        {
-            get { return (VerticalAlignment)GetValue(TickVerticalAlignmentProperty); }
-            set { SetValue(TickVerticalAlignmentProperty, value); }
-        }
-
-        public double CollapsedHeight
-        {
-            get { return (double)GetValue(CollapsedHeightProperty); }
-            set
-            {
-                SetValue(CollapsedHeightProperty, value);
-                if (!(IsChecked ?? throw new NullReferenceException("IsChecked is null")))
-                    Height = CollapsedHeight;
-            }
-        }
-
-        public double ExpandedHeight
-        {
-            get { return (double)GetValue(ExpandedHeightProperty); }
-            set
-            {
-                SetValue(ExpandedHeightProperty, value);
-                if (IsChecked ?? throw new NullReferenceException("IsChecked is null"))
-                    Height = ExpandedHeight;
-            }
-        }
-
-        public bool ExpandOverContent
-        {
-            get { return (bool)GetValue(ExpandOverContentProperty); }
-            set { SetValue(ExpandOverContentProperty, value); }
-        }
+        private RotateTransform _pathTransform;
+        private ContentControl _collapsedContent;
+        private ContentControl _expandedContent;
 
         public static readonly DependencyProperty CollapsedContentProperty =
             DependencyProperty.Register(nameof(CollapsedContent), typeof(object), typeof(CollapseBox), new FrameworkPropertyMetadata(null));
@@ -110,9 +44,7 @@ namespace WpfCollapseBox
         public static readonly DependencyProperty ExpandOverContentProperty =
             DependencyProperty.Register(nameof(ExpandOverContent), typeof(bool), typeof(CollapseBox), new PropertyMetadata(false));
 
-        private RotateTransform? _pathTransform;
-        private ContentControl? _collapsedContent;
-        private ContentControl? _expandedContent;
+
 
         static CollapseBox()
         {
@@ -124,25 +56,99 @@ namespace WpfCollapseBox
             ShowContents();
         }
 
+
+        public object CollapsedContent
+        {
+            get => GetValue(CollapsedContentProperty);
+            set => SetValue(CollapsedContentProperty, value);
+        }
+
+        public object ExpandedContent
+        {
+            get => GetValue(ExpandedContentProperty);
+            set => SetValue(ExpandedContentProperty, value);
+        }
+
+        public TimeSpan ExpandTime
+        {
+            get => (TimeSpan)GetValue(ExpandTimeProperty);
+            set => SetValue(ExpandTimeProperty, value);
+        }
+
+        public double TickThickness
+        {
+            get => (double)GetValue(TickThicknessProperty);
+            set => SetValue(TickThicknessProperty, value);
+        }
+
+        public double TickSize
+        {
+            get => (double)GetValue(TickSizeProperty);
+            set => SetValue(TickSizeProperty, value);
+        }
+
+        public bool RevertTick
+        {
+            get => (bool)GetValue(RevertTickProperty);
+            set => SetValue(RevertTickProperty, value);
+        }
+
+        public VerticalAlignment TickVerticalAlignment
+        {
+            get => (VerticalAlignment)GetValue(TickVerticalAlignmentProperty);
+            set => SetValue(TickVerticalAlignmentProperty, value);
+        }
+
+        public double CollapsedHeight
+        {
+            get => (double)GetValue(CollapsedHeightProperty);
+            set
+            {
+                SetValue(CollapsedHeightProperty, value);
+                if (IsChecked.Value == false)
+                    Height = CollapsedHeight;
+            }
+        }
+
+        public double ExpandedHeight
+        {
+            get => (double)GetValue(ExpandedHeightProperty);
+            set
+            {
+                SetValue(ExpandedHeightProperty, value);
+                if (IsChecked.Value)
+                    Height = ExpandedHeight;
+            }
+        }
+
+        public bool ExpandOverContent
+        {
+            get => (bool)GetValue(ExpandOverContentProperty);
+            set => SetValue(ExpandOverContentProperty, value);
+        }
+
         private static void PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is CollapseBox box)
+            switch (d)
             {
-                if (e.Property == ExpandedHeightProperty)
-                    box.ExpandedHeightChanged(e);
-                if (e.Property == CollapsedHeightProperty)
-                    box.CollapsedHeightChanged(e);
+                case CollapseBox collapseBox when e.Property == ExpandedHeightProperty:
+                    collapseBox.ExpandedHeightChanged(e);
+                    break;
+                case CollapseBox collapseBox when e.Property == CollapsedHeightProperty:
+                    collapseBox.CollapsedHeightChanged(e);
+                    break;
+
             }
         }
 
         private void ExpandedHeightChanged(DependencyPropertyChangedEventArgs e)
         {
-            AnimateChecked(IsChecked.HasValue ? IsChecked.Value : false, true);
+            AnimateChecked(IsChecked ?? false, true);
         }
 
         private void CollapsedHeightChanged(DependencyPropertyChangedEventArgs e)
         {
-            AnimateChecked(IsChecked.HasValue ? IsChecked.Value : false, true);
+            AnimateChecked(IsChecked ?? false, true);
         }
 
         public override void OnApplyTemplate()
@@ -192,7 +198,7 @@ namespace WpfCollapseBox
 
         private void ShowContents()
         {
-            bool expand = (IsChecked ?? false);
+            bool expand = IsChecked ?? false;
             if (_pathTransform != null)
                 _pathTransform.Angle = (expand ? -90 : 90) * (RevertTick ? -1 : 1);
             if (_collapsedContent != null)

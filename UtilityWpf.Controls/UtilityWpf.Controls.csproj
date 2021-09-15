@@ -53,10 +53,6 @@
   <Target Name="PostPack" AfterTargets="CustomPack" Condition="'$(Configuration)'=='Release'">
     <Exec Command="&#xD;&#xA;      set source=&quot;$(ProjectDir)bin\release &quot;&#xD;&#xA;&#xD;&#xA;      set target=&quot;C:\Users\rytal\Documents\Visual Studio 2019\NugetPackages &quot;  &#xD;&#xA;&#xD;&#xA;      RoboCopy %25source%25 %25target%25 *.nupkg  /XO  /NFL /NDL /NJH   &#xD;&#xA;&#xD;&#xA;      IF %ERRORLEVEL% GEQ 8 exit 1&#xD;&#xA;&#xD;&#xA;      exit 0" />
   </Target>
-  
-  <ItemGroup>
-
-  </ItemGroup>
 
 
   <ItemGroup>
@@ -68,11 +64,9 @@
 	  <Compile Update="ButtonsControl.cs">
 		  <DependentUpon>ButtonsControl.xaml</DependentUpon>
 	  </Compile>
-
-
-	  <Compile Update="UserControl\TableUserControl.xaml.cs">
-      <DependentUpon>TableUserControl.xaml</DependentUpon>
-    </Compile>
+	  <Compile Update="CollapseBox.cs">
+	    <DependentUpon>CollapseBox.xaml</DependentUpon>
+	  </Compile>
 
     <Compile Update="Progress\FlashThumb.cs">
       <DependentUpon>FlashThumb.xaml</DependentUpon>
@@ -91,7 +85,17 @@
 
 	  <Compile Update="Button\GeometryButton.cs">
 		  <DependentUpon>GeometryButton.xaml</DependentUpon>
-	  </Compile>
+	  </Compile>  
+    <Compile Update="Object\JsonControl.cs">
+		  <DependentUpon>JsonControl.xaml</DependentUpon>
+	  </Compile>  
+    <Compile Update="Object\ObjectFlowControl.cs">
+		  <DependentUpon>ObjectFlowControl.xaml</DependentUpon>
+	  </Compile>   
+    <Compile Update="Object\ObjectControl.cs">
+		  <DependentUpon>ObjectControl.xaml</DependentUpon>
+	  </Compile>   
+
   </ItemGroup>
 
   <ItemGroup>
@@ -123,10 +127,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\CheckBoxStyle.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Themes\CollapseBox.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\CollectionEditor.xaml">
@@ -185,7 +185,7 @@
     <Page Update="Themes\NavigatorControl.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\ObjectControl.xaml">
+    <Page Update="Object\ObjectControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
@@ -229,9 +229,6 @@
     </Page>
     <Page Update="Themes\ViewCollection.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-    </Page>
-    <Page Update="UserControl\TableUserControl.xaml">
-      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
 
