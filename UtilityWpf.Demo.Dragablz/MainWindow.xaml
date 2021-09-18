@@ -9,6 +9,9 @@
     
     <TabControl>
         <TabItem Header="Buttons">
+            <local:ResourceDictionariesUserControl/>
+        </TabItem>
+        <TabItem Header="Buttons">
             <local:ButtonsUserControl/>
         </TabItem>
         <TabItem Header="Notes">

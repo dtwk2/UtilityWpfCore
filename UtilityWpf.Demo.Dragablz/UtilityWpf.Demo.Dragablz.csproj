@@ -20,6 +20,9 @@
     <Compile Update="NotesUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="ResourceDictionariesUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="TicksUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -35,6 +38,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Templates.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ResourceDictionariesUserControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
