@@ -3,6 +3,7 @@
                     xmlns:vm="clr-namespace:UtilityWpf.Demo.Common.ViewModel;assembly=UtilityWpf.Demo.Common" 
                     xmlns:view="http://schemas.utility.com/dragablz" xmlns:utl="http://schemas.utility.com/utilitywpf">
     <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/UtilityWpf.Demo.Common;component/View/Templates.xaml"/>
         <utl:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzNoteStyle.xaml"/>
         <utl:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzItemStyle.xaml"/>
     </ResourceDictionary.MergedDictionaries>

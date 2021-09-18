@@ -9,7 +9,7 @@
     xmlns:utl="http://schemas.utility.com/utilitywpf">
 
     <ResourceDictionary.MergedDictionaries>
-        <utl:SharedResourceDictionary  Source="UtilityWpf.Controls.Dragablz;component/Geometry.xaml"/>
+        <utl:SharedResourceDictionary  Source="/UtilityWpf.Controls.Dragablz;component/GeometryResources.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     
     <SineEase x:Key="Ease" EasingMode="EaseInOut" />

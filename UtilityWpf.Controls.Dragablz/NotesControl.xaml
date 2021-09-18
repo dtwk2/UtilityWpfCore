@@ -7,7 +7,7 @@
                     xmlns:att="http://schemas.utility.com/utilitywpf">
 
     <ResourceDictionary.MergedDictionaries>
-        <att:SharedResourceDictionary Source="UtilityWpf.Controls.Dragablz;component/Geometry.xaml"/>
+        <att:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/GeometryResources.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
 
