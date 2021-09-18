@@ -6,6 +6,7 @@ using ReactiveUI;
 using Utility.Common;
 using Utility.Common.Enum;
 using Utility.Common.EventArgs;
+using Utility.Persist;
 using UtilityInterface.NonGeneric.Database;
 using UtilityWpf.Demo.Common.ViewModel;
 using UtilityWpf.Demo.Data.Model;
@@ -19,7 +20,7 @@ namespace UtilityWpf.Demo.Master.Infrastructure
         private readonly ReactiveFieldsFactory factory = new();
         private IDatabaseService dbS = new DatabaseService();
         private IEnumerator<ReactiveFields> build;
-        private readonly PersistService service = new();
+        private readonly CollectionService service = new();
 
         public PersistListViewModel()
         {

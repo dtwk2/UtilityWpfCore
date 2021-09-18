@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections;
-using System.Globalization;
+﻿using System.Collections;
 using System.Reactive;
-using System.Windows.Data;
-using AutoMapper;
 using ReactiveUI;
 using Utility.Common.EventArgs;
 using UtilityInterface.NonGeneric.Database;
 using UtilityWpf.Demo.Common.ViewModel;
 using UtilityWpf.Service;
 using UtilityWpf.Demo.Data.Model;
-using DynamicData;
 using Utility.Common.Enum;
 using System.Collections.Generic;
-using Utility.Common;
+using Utility.Persist;
 
 namespace UtilityWpf.Demo.Master.Infrastructure
 {
@@ -22,7 +17,7 @@ namespace UtilityWpf.Demo.Master.Infrastructure
 
         private IEnumerator<Fields> build;
 
-        private readonly PersistService service = new();
+        private readonly CollectionService service = new();
 
         public PersistList2ViewModel()
         {
