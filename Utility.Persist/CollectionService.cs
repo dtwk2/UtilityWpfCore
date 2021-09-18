@@ -90,10 +90,11 @@ namespace Utility.Persist
                            return;
                        foreach (var change in objects.OfType<INotifyPropertyChanged>())
                        {
-                           change.Changes()
+                           change
+                           .Changes()
                            .Subscribe(x =>
                            {
-                               observer.AddOrUpdate(x);
+                               observer.AddOrUpdate(x.source);
 
                            });
                        }
@@ -118,8 +119,10 @@ namespace Utility.Persist
             var dis2 = changeSet
                 .OnItemUpdated((a, sd) =>
                 {
-
-                    Items.Replace(a, sd);
+                    if (Items.Count > 0)
+                    {
+                        Items.Replace(a, sd);
+                    }
                 })
                 .Subscribe(a =>
                 {

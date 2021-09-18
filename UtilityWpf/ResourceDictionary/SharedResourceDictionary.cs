@@ -37,7 +37,7 @@ namespace UtilityWpf
                         var rd = SharedResources.Get(value);
                         AddToMergedDictionaries(rd);
                     }
-
+                    base.Source = source;
                 }
             }
         }
@@ -65,9 +65,9 @@ namespace UtilityWpf
 
                 var dd = keys.SequenceEqual(keys2);
                 var dde = z1.SequenceEqual(z);
-                var bb = ((keys.Any() && keys2.Any()) || (z.Any() && z1.Any())) &&  dd && dde;
+                var bb = ((keys.Any() && keys2.Any()) || (z.Any() && z1.Any())) && dd && dde;
 
-                if(bb)
+                if (bb)
                 {
 
                 }
@@ -175,16 +175,13 @@ namespace UtilityWpf
                 return foundDictionary;
             }
 
-            // Not found so remove the weak reference
-            if (SharedResources.ContainsKey(source))
+            if (SharedResources.ContainsKey(source) == false)
             {
-                SharedResources.Remove(source);
+                var newDictionary = createFunc(source);
+                SharedResources.Add(source, newDictionary);
+                return newDictionary;
             }
-
-            // Load the resource dictionary and hold a weak reference to it
-            var newDictionary = createFunc(source);
-            SharedResources.Add(source, newDictionary);
-            return newDictionary;
+            throw new Exception("sdf33 3233");
         }
     }
 }

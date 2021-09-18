@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows.Input;
 using ReactiveUI;
@@ -7,31 +9,81 @@ namespace UtilityWpf.Demo.Common.ViewModel
 {
     public record struct TickChange(string Text, bool NewValue);
 
-    public class TickViewModel : ReactiveObject, IObservable<TickChange>
+    public struct Tick
+    {
+        public int Id;
+        public string Text;
+        public bool IsChecked;
+    }
+
+    public class TickViewModel : ReactiveObject, IObservable<TickChange>, IEquatable<TickViewModel>
     {
         readonly ReplaySubject<TickChange> tickChanges = new();
         private bool isChecked;
+        private ICommand command;
 
-        public TickViewModel(bool isChecked, string text = "Tick")
+        public TickViewModel(Guid id, bool isChecked, string text = "Tick") : this()
         {
+            Id = id;
             IsChecked = isChecked;
             Text = text;
-            Command = ReactiveCommand.Create(() =>
-            {
-                IsChecked = !IsChecked;
-                tickChanges.OnNext(new TickChange(text, IsChecked));
-
-            });
         }
 
-        public bool IsChecked { get => isChecked; set => this.RaiseAndSetIfChanged(ref isChecked, value); }
-        public string Text { get; }
+        public TickViewModel()
+        {           
+        }
 
-        public ICommand Command { get; }
+        public Guid Id { get; init; }
+
+        public bool IsChecked { get => isChecked; set => this.RaiseAndSetIfChanged(ref isChecked, value); }
+
+        public string Text { get; init; }
+
+        public ICommand Command => command ??= CreateCommand();
 
         public IDisposable Subscribe(IObserver<TickChange> observer)
         {
             return tickChanges.Subscribe(observer);
+        }
+
+        private ICommand CreateCommand()
+        {
+            var command = ReactiveCommand.Create(() =>
+            {
+                IsChecked = !IsChecked;
+                tickChanges.OnNext(new TickChange(Text!, IsChecked));
+            }, this.WhenAnyValue(a => a.Text).Select(a => a != null));
+            return command;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return Equals(obj as TickViewModel);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Text);
+        }
+
+        public bool Equals(TickViewModel? other)
+        {
+            return other is TickViewModel model && Text == model.Text;
+        }
+
+        public override string? ToString()
+        {
+            return Text;
+        }
+
+        public static bool operator ==(TickViewModel? left, TickViewModel? right)
+        {
+            return EqualityComparer<TickViewModel>.Default.Equals(left, right);
+        }
+
+        public static bool operator !=(TickViewModel? left, TickViewModel? right)
+        {
+            return !(left == right);
         }
     }
 }

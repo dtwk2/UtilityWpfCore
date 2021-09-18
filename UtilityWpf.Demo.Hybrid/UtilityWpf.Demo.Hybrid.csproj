@@ -23,6 +23,9 @@
     <Compile Update="NotesUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="ResourceDictionariesUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="TicksUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -41,6 +44,14 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="ResourceDictionariesUserControl.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\Templates.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
@@ -49,6 +60,10 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\" />
   </ItemGroup>
 
 </Project>

@@ -14,9 +14,13 @@ namespace UtilityWpf
     {
         public static ResourceDictionary? FirstMatch(this IEnumerable<ResourceDictionary> dictionaries, Uri source)
         {
-            return dictionaries
-                  .Select(dictionary => dictionary.FindDictionary(source))
-                  .FirstOrDefault();
+            // Use forach over linq!
+            foreach (var dictionary in dictionaries)
+            {
+                if (dictionary.FindDictionary(source) is { } ss)
+                    return ss;
+            }
+            return null;
         }
 
         public static void ReplaceDictionary(this ResourceDictionary resourceDictionary, Uri source, ResourceDictionary destination)

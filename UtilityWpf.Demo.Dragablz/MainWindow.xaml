@@ -8,7 +8,7 @@
         Title="MainWindow" Height="450" Width="800">
     
     <TabControl>
-        <TabItem Header="Buttons">
+        <TabItem Header="ResourceDictionaries">
             <local:ResourceDictionariesUserControl/>
         </TabItem>
         <TabItem Header="Buttons">

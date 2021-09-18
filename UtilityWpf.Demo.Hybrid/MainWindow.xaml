@@ -6,8 +6,11 @@
         xmlns:local="clr-namespace:UtilityWpf.Demo.Hybrid" 
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    
+
     <TabControl>
+        <TabItem Header="Resource Dictionaries">
+            <local:ResourceDictionariesUserControl />
+        </TabItem>
         <TabItem Header="Ticks">
             <local:TicksUserControl />
         </TabItem>
