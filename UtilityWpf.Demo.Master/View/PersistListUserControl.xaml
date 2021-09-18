@@ -65,8 +65,13 @@
             <TabItem Header="With Detail">
                 <view:MasterDetail>
                     <view:MasterDetail.Selector>
-                        <view:MasterControl ItemsSource="{Binding Data, Mode=OneTime}" CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  
-                                                   Position="Top">
+                        <view:MasterControl
+                            Change="{util:EventBinding ChangeCommand}"  
+                            ItemsSource="{Binding Data, Mode=OneTime}" 
+                            CommandParameter="{Binding NewItem}"
+                            RemoveOrder="Last"
+                            ButtonTypes="Add,Remove" 
+                            Position="Top">
                             <view:MasterControl.Background>
                                 <VisualBrush   
                                                 TileMode="Tile" Viewport="0,0,10,10" 
@@ -79,17 +84,7 @@
                                         </Canvas>
                                     </VisualBrush.Visual>
                                 </VisualBrush>
-                            </view:MasterControl.Background>
-
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger  EventName="Change" >
-                                    <i:InvokeCommandAction Command="{Binding ChangeCommand}" 
-                                                           PassEventArgsToCommand="True"
-                                                           EventArgsConverter="{x:Static util:AutoMapperConverter.Instance}"
-                                                           EventArgsConverterParameter="{x:Type common:CollectionEventArgs}"
-                                                           ></i:InvokeCommandAction>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
+                            </view:MasterControl.Background>                         
                             <view1:DragablzVerticalItemsControl x:Name="DragablzItemsControl"                                                 
                                                        VerticalAlignment="Center"                                                
                                                        ItemContainerStyle="{StaticResource VerticalItemStyle}"                                                                                             
@@ -102,12 +97,12 @@
 
 
             <TabItem Header="Without Detail">
-                <view:MasterControl ItemsSource="{Binding Data, Mode=OneTime}" CommandParameter="{Binding NewItem}" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger  EventName="Change" >
-                            <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
+                <view:MasterControl 
+                                    Change="{util:EventBinding ChangeCommand}"  
+                                    ItemsSource="{Binding Data, Mode=OneTime}" 
+                                    CommandParameter="{Binding NewItem}" 
+                                    RemoveOrder="Last" 
+                                    ButtonTypes="Add,Remove"  >                
                     <view1:DragablzVerticalItemsControl x:Name="DragablzItemsControl2"                                                 
                                                        VerticalAlignment="Center"                                                
                                                        ItemContainerStyle="{StaticResource VerticalItemStyle}"                                                                                             
