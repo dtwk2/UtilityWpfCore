@@ -14,9 +14,7 @@
     /// </summary>
     public class SetterAction : TargetedTriggerAction<FrameworkElement>
     {
-        #region Properties
 
-        #region PropertyName
 
         /// <summary>
         /// Property that is being set by this setter.
@@ -31,9 +29,7 @@
             DependencyProperty.Register("PropertyName", typeof(string), typeof(SetterAction),
             new PropertyMetadata(String.Empty));
 
-        #endregion PropertyName
-
-        #region Value
+        
 
         /// <summary>
         /// Property value that is being set by this setter.
@@ -48,11 +44,7 @@
             DependencyProperty.Register("Value", typeof(object), typeof(SetterAction),
             new PropertyMetadata(null));
 
-        #endregion Value
-
-        #endregion Properties
-
-        #region Overrides
+      
 
         protected override void Invoke(object parameter)
         {
@@ -94,6 +86,5 @@
             property.SetValue(target, convertedValue);
         }
 
-        #endregion Overrides
     }
 }

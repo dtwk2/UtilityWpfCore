@@ -26,7 +26,7 @@
                 Enum="{x:Type enum:Tense}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Selected">
-                        <view11:EventCommandExecuter Command="{Binding Path=DatesChangeCommand, Mode=OneWay, ElementName=DatesList}" EventArgsConverter="{StaticResource TenseConverter}" />
+                        <i:InvokeCommandAction Command="{Binding Path=DatesChangeCommand, Mode=OneWay, ElementName=DatesList}" EventArgsConverter="{StaticResource TenseConverter}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </view:EnumToggleButton>

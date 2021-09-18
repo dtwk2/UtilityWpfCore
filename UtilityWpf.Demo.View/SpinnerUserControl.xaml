@@ -23,7 +23,7 @@
                 Height="50">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="ValueChanged">
-                        <common:EventCommandExecuter Command="{Binding ElementName=oc, Mode=OneWay}" />
+                        <i:InvokeCommandAction Command="{Binding ElementName=oc, Mode=OneWay}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </view:TimeSpanControl>

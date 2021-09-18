@@ -12,13 +12,17 @@ namespace UtilityWpf.Markup
         {
         }
 
-        public Type Type { get; set; }
-        public string Member { get; set; }
+        public Type? Type { get; set; }
+        public string? Member { get; set; }
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
             if (serviceProvider == null)
                 throw new ArgumentNullException(nameof(serviceProvider));
+            if (Type == null)
+                throw new ArgumentNullException(nameof(Type));
+            if (Member == null)
+                throw new ArgumentNullException(nameof(Member));
 
             if (Type == null || string.IsNullOrEmpty(Member) || Member.Contains("."))
                 throw new ArgumentException("Syntax for x:NameOf is Type={x:Type [className]} Member=[propertyName]");
@@ -30,7 +34,7 @@ namespace UtilityWpf.Markup
             if (fieldInfo != null)
                 return Member;
             var eventInfo = Type.GetRuntimeEvents().FirstOrDefault(ei => ei.Name == Member);
-            if (eventInfo == null)            
+            if (eventInfo == null)
                 throw new ArgumentException($"No property or field found for {Member} in {Type}");
 
             return Member;
