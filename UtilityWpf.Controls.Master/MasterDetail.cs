@@ -21,6 +21,7 @@ namespace UtilityWpf.Controls.Master
     {
 
         public static readonly DependencyProperty ConverterProperty = Register<IValueConverter>();
+        public static readonly DependencyProperty ConverterParameterProperty = Register<object>();
         public static readonly DependencyProperty PropertyKeyProperty = Register<string>(nameof(PropertyKey));
         public static readonly DependencyProperty UseDataContextProperty = Register<bool>();
         public static readonly DependencyProperty SelectorProperty = Register<Control>();
@@ -32,7 +33,13 @@ namespace UtilityWpf.Controls.Master
 
         public MasterDetail()
         {
-            _ = SelectContent()
+            var transform = Transform(
+                this.WhenAnyValue(a => a.Selector).WhereNotNull().Select(Selections).Switch(),
+                this.Observable<IValueConverter>(nameof(Converter)),
+                this.Observable<object>(nameof(ConverterParameter)),
+                this.Observable<string>(nameof(PropertyKey))).ToReplaySubject(0);
+
+            _ = SelectContent(transform)
                 .WhereNotNull()
                 .Subscribe(content =>
                 {
@@ -45,6 +52,12 @@ namespace UtilityWpf.Controls.Master
         {
             get { return (IValueConverter)GetValue(ConverterProperty); }
             set { SetValue(ConverterProperty, value); }
+        }
+
+        public object ConverterParameter
+        {
+            get { return (object)GetValue(ConverterParameterProperty); }
+            set { SetValue(ConverterParameterProperty, value); }
         }
 
         public Control Selector
@@ -67,18 +80,8 @@ namespace UtilityWpf.Controls.Master
 
         #endregion properties
 
-        public override void OnApplyTemplate()
+        protected virtual IObservable<object> SelectContent(IObservable<(object newItem, (object? old, object? replacement) change)> transform)
         {
-            // var selector = Template.Resources["propertytemplateSelector"] as DataTemplateSelector;
-            //Content ??= new ContentControl { ContentTemplateSelector = selector };
-            base.OnApplyTemplate();
-        }
-
-        protected virtual IObservable<object> SelectContent()
-        {
-            var transform = Transform(SelectChanges(),
-                this.Observable<IValueConverter>(nameof(Converter)),
-                this.Observable<string>(nameof(PropertyKey))).ToReplaySubject(0);
 
             _ = transform
                 .Select(a => a.change)
@@ -114,15 +117,7 @@ namespace UtilityWpf.Controls.Master
                 .Select(a => a.newItem);
         }
 
-        protected virtual IObservable<object> SelectChanges()
-        {
-            return this.WhenAnyValue(a => a.Selector)
-                .WhereNotNull()
-                .Select(slctr =>
-                {
-                    return Selections(slctr);   
-                }).Switch();
-        }
+
 
 
         protected virtual IObservable<object> Selections(Control slctr)
@@ -135,25 +130,6 @@ namespace UtilityWpf.Controls.Master
             };
         }
 
-        private void MasterDetail_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-        }
-
-        private IObservable<IEnumerable?> SelectItemsSource()
-        {
-            return this.Observable<Control>()
-                .WhereNotNull()
-                .CombineLatest(this.LoadedChanges(), (a, b) => a)
-                        .SelectMany(a =>
-                {
-                    return a switch
-                    {
-                        ISelector selector => selector.WhenAnyValue(a => a.ItemsSource).StartWith(selector.ItemsSource),
-                        Selector selector => selector.WhenAnyValue(a => a.ItemsSource),
-                        _ => throw new ApplicationException($"Unexpected type,{a.GetType().Name} for {nameof(Selector)} "),
-                    };
-                });
-        }
 
         protected virtual void SetContent(object content, object @object)
         {
@@ -193,15 +169,12 @@ namespace UtilityWpf.Controls.Master
             }
         }
 
-        private class DefaultFilter : UtilityInterface.NonGeneric.IFilter
-        {
-            public bool Filter(object o)
-            {
-                return true;
-            }
-        }
 
-        protected static IObservable<(object newItem, (object? old, object? replacement) change)> Transform(IObservable<object> collectionViewModel, IObservable<IValueConverter> dataConversions, IObservable<string> dataKeys)
+        protected static IObservable<(object newItem, (object? old, object? replacement) change)> Transform(
+            IObservable<object> collectionViewModel,
+            IObservable<IValueConverter> dataConversions, 
+            IObservable<object> converterParameters, 
+            IObservable<string> dataKeys)
         {
             collectionViewModel
                 .Subscribe(a =>
@@ -209,30 +182,28 @@ namespace UtilityWpf.Controls.Master
 
                 });
             return ObservableEx
-                .CombineLatest(collectionViewModel, dataConversions, dataKeys)
+                .CombineLatest(collectionViewModel, dataConversions, converterParameters, dataKeys)
                 .ObserveOnDispatcher()
-                .Scan(default((object, object, object?, object?, IValueConverter?, string?)), (a, b) =>
+                .Scan(default((object, object, object?, object?, IValueConverter?,  string?)), (a, b) =>
              {
 
                  var (selectedOld, conversion, ssOld, eeOld, converterOld, dataKeyOld) = a;
-                 var (selected, converter, dataKey) = b;
+                 var (selected, converter, converterParameter, dataKey) = b;
 
 
                  var ee = (conversion, converterOld, dataKeyOld) switch
                  {
                      (null, _, _) => null,
-                     (object o, IValueConverter conv, _) => null/*Catch(a=> conv.ConvertBack(o, default, default, default))*/,
-                     (object o, _, string key) => ConvertBack(selectedOld, key, o),
-                     //(null,null) => throw new Exception($"Either {nameof(DataConverter)} or {nameof(DataKey)} must be set if {nameof(ItemsSource)} set")
+                     (object o, IValueConverter conv, _) => conv.ConvertBack(o, default, converterParameter, default),
+                     (object o, _, string key) => PropertyConverter.ConvertBack(selectedOld, key, o),
                      (object o, null, null) => o
                  };
 
 
                  var ss = (converter, dataKey) switch
                  {
-                     (IValueConverter conv, _) => conv.Convert(selected, default, default, default),
-                     (_, string key) => UtilityHelper.PropertyHelper.GetPropertyValue<object>(selected, key),
-                     //(null,null) => throw new Exception($"Either {nameof(DataConverter)} or {nameof(DataKey)} must be set if {nameof(ItemsSource)} set")
+                     (IValueConverter conv, _) => conv.Convert(selected, default, converterParameter, default),
+                     (_, string key) => PropertyConverter.Convert(selected, key),
                      (null, null) => selected
                  };
 
@@ -244,41 +215,75 @@ namespace UtilityWpf.Controls.Master
              })
                 .Select(a => (a.Item2, (a.Item3, a.Item4)));
 
-            static object ConvertBack(object selected, string k, object selectedValueOld)
+        }
+
+        //protected static IObservable<object> Transform2(IObservable<object> collectionViewModel, IObservable<IValueConverter> dataConversions, IObservable<string> dataKeys)
+        //{
+        //    collectionViewModel
+        //        .Subscribe(a =>
+        //        {
+
+        //        });
+        //    return ObservableEx
+        //        .CombineLatest(collectionViewModel, dataConversions, dataKeys)
+        //        .ObserveOnDispatcher()
+        //        .Scan(default((object, object, IValueConverter?, string?)), (a, b) =>
+        //     {
+
+        //         var (selected, converter, dataKey) = b;
+
+        //         var ss = (converter, dataKey) switch
+        //         {
+        //             (IValueConverter conv, _) => conv.Convert(selected, default, default, default),
+        //             (_, string key) => UtilityHelper.PropertyHelper.GetPropertyValue<object>(selected, key),
+        //             //(null,null) => throw new Exception($"Either {nameof(DataConverter)} or {nameof(DataKey)} must be set if {nameof(ItemsSource)} set")
+        //             (null, null) => selected
+        //         };
+
+        //         return (selected, ss, converter, dataKey);
+        //     })
+        //        .Select(a => a.Item2);
+        //}
+
+
+
+        private IObservable<IEnumerable?> SelectItemsSource()
+        {
+            return this.Observable<Control>()
+                .WhereNotNull()
+                .CombineLatest(this.LoadedChanges(), (a, b) => a)
+                        .SelectMany(a =>
+                        {
+                            return a switch
+                            {
+                                ISelector selector => selector.WhenAnyValue(a => a.ItemsSource).StartWith(selector.ItemsSource),
+                                Selector selector => selector.WhenAnyValue(a => a.ItemsSource),
+                                _ => throw new ApplicationException($"Unexpected type,{a.GetType().Name} for {nameof(Selector)} "),
+                            };
+                        });
+        }
+
+
+        class PropertyConverter
+        {
+            public static object Convert(object selected, string key)
+            {
+
+                return UtilityHelper.PropertyHelper.GetPropertyValue<object>(selected, key);
+            }
+            public static object ConvertBack(object selected, string k, object selectedValueOld)
             {
                 UtilityHelper.PropertyHelper.SetValue(selected, k, selectedValueOld);
                 return selectedValueOld;
             }
         }
-
-
-        protected static IObservable<object> Transform2(IObservable<object> collectionViewModel, IObservable<IValueConverter> dataConversions, IObservable<string> dataKeys)
+        private class DefaultFilter : UtilityInterface.NonGeneric.IFilter
         {
-            collectionViewModel
-                .Subscribe(a =>
-                {
-
-                });
-            return ObservableEx
-                .CombineLatest(collectionViewModel, dataConversions, dataKeys)
-                .ObserveOnDispatcher()
-                .Scan(default((object, object, IValueConverter?, string?)), (a, b) =>
-             {
-
-                 var (selected, converter, dataKey) = b;
-
-                 var ss = (converter, dataKey) switch
-                 {
-                     (IValueConverter conv, _) => conv.Convert(selected, default, default, default),
-                     (_, string key) => UtilityHelper.PropertyHelper.GetPropertyValue<object>(selected, key),
-                     //(null,null) => throw new Exception($"Either {nameof(DataConverter)} or {nameof(DataKey)} must be set if {nameof(ItemsSource)} set")
-                     (null, null) => selected
-                 };
-
-                 return (selected, ss, converter, dataKey);
-             })
-                .Select(a => (a.Item2));
-
+            public bool Filter(object o)
+            {
+                return true;
+            }
         }
+
     }
 }
