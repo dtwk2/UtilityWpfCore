@@ -14,9 +14,6 @@ namespace UtilityWpf.DemoApp
         public App()
         {         
             var builder = new ContainerBuilder();
-            _ = builder.RegisterInstance(
-                new AutoMapperTypeCollection(
-                typeof(UtilityWpf.Demo.Common.Infrastructure.Profile)));
             builder.UseAutofacDependencyResolver();
         }
     }

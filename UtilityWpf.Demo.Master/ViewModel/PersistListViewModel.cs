@@ -27,18 +27,18 @@ namespace UtilityWpf.Demo.Master.Infrastructure
             this.WhenAnyValue(a => a.DatabaseService)
                 .Subscribe(a => { service.OnNext(new(a)); });
 
-            ChangeCommand = ReactiveCommand.Create<object, Unit>((obj) =>
+            ChangeCommand = ReactiveCommand.Create<CollectionEventArgs, Unit>((obj) =>
             {
                 switch (obj)
                 {
-                    case CollectionEventArgs { EventType: EventType.Add }:
+                    case { EventType: EventType.Add }:
                         if (NewItem.MoveNext())
                             service.Items.Add(NewItem.Current);
                         break;
-                    case CollectionEventArgs { EventType: EventType.Remove, Item: { } item }:
+                    case { EventType: EventType.Remove, Item: { } item }:
                         service.Items.Remove(item);
                         break;
-                    case CollectionEventArgs { EventType: EventType.Remove }:
+                    case { EventType: EventType.Remove }:
                         service.Items.RemoveAt(service.Items.Count - 1);
                         break;
                     case MovementEventArgs eventArgs:
@@ -55,7 +55,8 @@ namespace UtilityWpf.Demo.Master.Infrastructure
 
             ChangeRepositoryCommand = ReactiveCommand.Create<bool, Unit>((a) =>
             {
-                if (DatabaseService is LiteDbRepository service)                {
+                if (DatabaseService is LiteDbRepository service)
+                {
                     service.Dispose();
                     DatabaseService = new DatabaseService();
                 }
@@ -79,7 +80,7 @@ namespace UtilityWpf.Demo.Master.Infrastructure
             }
         }
 
-        public ReactiveCommand<object, Unit> ChangeCommand { get; }
+        public ReactiveCommand<CollectionEventArgs, Unit> ChangeCommand { get; }
         public ReactiveCommand<bool, Unit> ChangeRepositoryCommand { get; }
         public ReactiveCommand<object, Unit> CollectionChangedCommand { get; }
 

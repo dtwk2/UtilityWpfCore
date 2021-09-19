@@ -6,6 +6,7 @@
              xmlns:drag="http://dragablz.net/winfx/xaml/dragablz"
              xmlns:util="http://schemas.utility.com/utilitywpf"
              xmlns:local11="clr-namespace:UtilityWpf.Demo.Master.Infrastructure" 
+             xmlns:cmn="clr-namespace:UtilityWpf.Demo.Common.ViewModel;assembly=UtilityWpf.Demo.Common"
              xmlns:utilitywpf="clr-namespace:UtilityWpf;assembly=UtilityWpf"
              xmlns:view1="http://schemas.utility.com/dragablz"
              xmlns:view2="http://schemas.utility.com/master"          
@@ -20,7 +21,7 @@
                 <Setter Property="Margin" Value="10"></Setter>
                 <Setter Property="Padding" Value="5"></Setter>
             </Style>
-            <util:AutoMapperConverter x:Key="AutoValueConverter"/>
+            <util:AutoMapperConverter x:Key="AutoValueConverter" ToType="{x:Type cmn:ReactiveFields}" FromType="{x:Type cmn:Fields}"/>
 
             <view1:DragablzVerticalItemsControl x:Key="DragablzItemsControl2"                                                 
                                                        VerticalAlignment="Center"                                                
