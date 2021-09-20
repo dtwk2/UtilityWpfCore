@@ -8,25 +8,23 @@ using UtilityWpf.Controls.Master;
 
 namespace UtilityWpf.Controls.Hybrid
 {
-    public class MasterTicksControl : MasterBindableControl
+    public class ResourceDictionariesControl : MasterBindableControl
     {
         public static readonly DependencyProperty CommandPathProperty =
-      DependencyProperty.Register("CommandPath", typeof(string), typeof(ButtonsControl), new PropertyMetadata(null));
+DependencyProperty.Register("CommandPath", typeof(string), typeof(ResourceDictionariesControl), new PropertyMetadata(null));
 
-        public static readonly DependencyProperty IsCheckedPathProperty = DependencyProperty.Register("IsCheckedPath", typeof(string), typeof(MasterTicksControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty IsCheckedPathProperty = DependencyProperty.Register("IsCheckedPath", typeof(string), typeof(ResourceDictionariesControl), new PropertyMetadata(null));
 
-        static MasterTicksControl()
+        static ResourceDictionariesControl()
         {
             // FrameworkElement.DefaultStyleKeyProperty.OverrideMetadata(typeof(MasterTicksControl), new FrameworkPropertyMetadata(typeof(MasterTicksControl)));
         }
 
-        public MasterTicksControl()
+        public ResourceDictionariesControl()
         {
-            Position = Dock.Bottom;
-            RemoveOrder = RemoveOrder.Selected;
-            ButtonTypes = ButtonType.Add | ButtonType.Remove;
+            ButtonTypes = ButtonType.None;
             this.WhenAnyValue(a => a.ItemsSource)
-           .CombineLatest(this.WhenAnyValue(a => a.DisplayMemberPath), this.WhenAnyValue(a => a.IsCheckedPath), this.WhenAnyValue(a => a.CommandPath))
+           .CombineLatest(this.WhenAnyValue(a => a.DisplayMemberPath), this.WhenAnyValue(a => a.IsCheckedPath), this.WhenAnyValue(a=>a.CommandPath))
            .Subscribe(a =>
            {
                var (itemsSource, display, isChecked, commandPath) = a;
@@ -35,8 +33,8 @@ namespace UtilityWpf.Controls.Hybrid
                if ((Content ??= new TicksControl()) is TicksControl msn)
                {
                    msn.ItemsSource = itemsSource;
-                   msn.IsCheckedPath = isChecked;
                    msn.CommandPath = commandPath;
+                   msn.IsCheckedPath = isChecked;
                    msn.DisplayMemberPath = display;
                }
                else
@@ -47,17 +45,16 @@ namespace UtilityWpf.Controls.Hybrid
            });
         }
 
+        public string CommandPath
+        {
+            get => (string)GetValue(CommandPathProperty);
+            set => SetValue(CommandPathProperty, value);
+        }
 
         public string IsCheckedPath
         {
             get => (string)GetValue(IsCheckedPathProperty);
             set => SetValue(IsCheckedPathProperty, value);
-        }
-
-        public string CommandPath
-        {
-            get => (string)GetValue(CommandPathProperty);
-            set => SetValue(CommandPathProperty, value);
         }
     }
 }

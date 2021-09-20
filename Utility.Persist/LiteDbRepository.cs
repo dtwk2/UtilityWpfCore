@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LiteDB;
 using NetFabric.Hyperlinq;
 using UtilityHelper;
@@ -16,7 +14,7 @@ namespace UtilityWpf.Service
     public class LiteDbRepository : IDatabaseService
     {
 
-        public record ConnectionSettings(Type Type, FileInfo FileInfo, string IdProperty);
+        public record ConnectionSettings(Type Type, FileInfo FileInfo, string IdProperty, bool IgnoreBsonDocumentProperties = true);
 
         private string _key => Settings.IdProperty;
         //private readonly Settings settings;
@@ -62,14 +60,32 @@ namespace UtilityWpf.Service
 
         protected virtual BsonDocument Convert(object obj)
         {
-
-            var doc = _mapper.ToDocument(obj.GetType(), obj);
-            return doc;
-
+            var document = _mapper.ToDocument(obj.GetType(), obj);
+            if (Settings.IgnoreBsonDocumentProperties)
+                // removes any complex objects since these can't
+                // be guaranteed to have parameterless contructor
+                foreach (var xx in document)
+                {
+                    if (xx.Value is BsonDocument)
+                    {
+                        document.Remove(xx);
+                    }
+                }
+            return document;
         }
 
         protected virtual object ConvertBack(BsonDocument document)
         {
+            if (Settings.IgnoreBsonDocumentProperties)
+                // removes any complex objects since these can't
+                // be guaranteed to have parameterless contructor
+                foreach (var xx in document)
+                {
+                    if (xx.Value is BsonDocument)
+                    {
+                        document.Remove(xx);
+                    }
+                }
             var doc = _mapper.ToObject(Settings.Type, document);
             return doc;
         }

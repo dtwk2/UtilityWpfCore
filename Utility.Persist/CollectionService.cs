@@ -7,30 +7,26 @@ using System.Reactive.Linq;
 using UtilityInterface.NonGeneric.Database;
 using System.Reactive.Subjects;
 using DynamicData;
-using System.Windows.Input;
 using System.ComponentModel;
 using System.Reactive.Disposables;
-//using UtilityWpf.Model;
 using UtilityHelper.NonGeneric;
 using UtilityWpf;
-using System.Collections.ObjectModel;
 using UtilityWpf.Common;
 
-namespace Utility.Common
+namespace Utility.Persist
 {
-
     public record CollectionChangeMessage(IEnumerable<object> Objects);
     public record RepositoryMessage(IDatabaseService Service);
 
-    public class PersistService : IObserver<RepositoryMessage>, IObservable<CollectionChangeMessage>, IDisposable
+    public class CollectionService : IObserver<RepositoryMessage>, IObservable<CollectionChangeMessage>, IDisposable
     {
-        private IDisposable? disposable;
+        private IDisposable disposable;
         private readonly ReplaySubject<RepositoryMessage> repositoryMessages = new(1);
         private readonly ReplaySubject<CollectionChangeMessage> collectionChangeMessages = new(1);
 
         public ObservableRangeCollection<object> Items { get; } = new();
 
-        public PersistService(bool initialise = true)
+        public CollectionService(bool initialise = true)
         {
             if (initialise)
                 Init();
@@ -66,7 +62,6 @@ namespace Utility.Common
                                   docstore.Insert(item);
                               break;
                           }
-
                       case NotifyCollectionChangedAction.Remove:
                           {
                               foreach (var item in third)
@@ -95,10 +90,11 @@ namespace Utility.Common
                            return;
                        foreach (var change in objects.OfType<INotifyPropertyChanged>())
                        {
-                           change.Changes()
+                           change
+                           .Changes()
                            .Subscribe(x =>
                            {
-                               observer.AddOrUpdate(x);
+                               observer.AddOrUpdate(x.source);
 
                            });
                        }
@@ -123,17 +119,19 @@ namespace Utility.Common
             var dis2 = changeSet
                 .OnItemUpdated((a, sd) =>
                 {
-
-                    Items.Replace(a, sd);
+                    if (Items.Count > 0)
+                    {
+                        Items.Replace(a, sd);
+                    }
                 })
                 .Subscribe(a =>
                 {
 
                 });
 
-         //   changeSet.Bind(out ReadOnlyObservableCollection<object>? aa);
+            //   changeSet.Bind(out ReadOnlyObservableCollection<object>? aa);
 
-            disposable = new CompositeDisposable(dis1, dis2);          
+            disposable = new CompositeDisposable(dis1, dis2);
         }
 
         private IObservable<CollectionChange> OldItems()

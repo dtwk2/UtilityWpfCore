@@ -14,7 +14,7 @@ namespace UtilityWpf.Demo.Hybrid
         }
     }
 
-    public class ViewModel
+    public class MeasurementsViewModel
     {
         public IEnumerable Collection { get; } = new[] { new MeasurementViewModel { Header = "Height" }, new MeasurementViewModel { Header = "Width" } };
     }

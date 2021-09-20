@@ -59,7 +59,7 @@
                     Value="Age">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="ValueChanged">
-                            <behavior:EventCommandExecuter Command="{StaticResource ValueChangedCommand}" />
+                            <i:InvokeCommandAction Command="{StaticResource ValueChangedCommand}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </view:SliderItemsControl>

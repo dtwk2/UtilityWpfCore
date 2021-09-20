@@ -24,8 +24,6 @@
 
                 <ResourceDictionary Source="/UtilityWpf.Demo.Common;component/View/Templates.xaml"/>
                 <ResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/Themes/Generic.xaml" />
-         
-                <ResourceDictionary Source="/Themes/Material.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

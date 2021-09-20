@@ -12,7 +12,7 @@ namespace UtilityWpf.Behavior
             base.OnAttached();
         }
 
-        private void AssociatedObject_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        private void AssociatedObject_AutoGeneratingColumn(object? sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             if (((PropertyDescriptor)e.PropertyDescriptor).IsBrowsable == false)
                 e.Cancel = true;

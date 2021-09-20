@@ -21,9 +21,9 @@ namespace UtilityWpf.Demo.Common.ViewModel
         }
         public string Header { get; } = "NotesViewModel";
 
-        public ObservableCollection<TickViewModel> Collection { get; } = new ObservableCollection<TickViewModel> { new TickViewModel(false), new TickViewModel(true) };
+        public ObservableCollection<TickViewModel> Collection { get; } = new ObservableCollection<TickViewModel> { new TickViewModel(Guid.NewGuid(), false), new TickViewModel(Guid.NewGuid(), true) };
 
-        public System.Collections.IEnumerator NewItem { get => 0.Repeat().Select(a => new TickViewModel(rand.Next(0, 2) == 0)).GetEnumerator(); }
+        public System.Collections.IEnumerator NewItem { get => 0.Repeat().Select(a => new TickViewModel(Guid.NewGuid(), rand.Next(0, 2) == 0)).GetEnumerator(); }
 
         public ICommand ChangeCommand => changeCommand ??= new ActionCommand(Change);
 

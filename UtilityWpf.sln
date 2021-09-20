@@ -45,9 +45,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility.Common", "Utility.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Demo.Common", "UtilityWpf.Demo.Common\UtilityWpf.Demo.Common.csproj", "{C48F5E34-9293-4B33-B4CF-C0A4DCEE2013}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility.ViewModel", "Utility.ViewModel\Utility.ViewModel.csproj", "{22D187B6-222A-4EF1-92CA-A81B29CDBF2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility.ViewModel", "Utility.ViewModel\Utility.ViewModel.csproj", "{22D187B6-222A-4EF1-92CA-A81B29CDBF2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityWpf.View", "UtilityWpf.View\UtilityWpf.View.csproj", "{8333F9DC-6DFA-4E2E-A42A-BE70B5A5CECD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.View", "UtilityWpf.View\UtilityWpf.View.csproj", "{8333F9DC-6DFA-4E2E-A42A-BE70B5A5CECD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility.Persist", "Utility.Persist\Utility.Persist.csproj", "{C145BD0A-A5CB-4CB2-8240-384E0BA37983}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -143,6 +145,10 @@ Global
 		{8333F9DC-6DFA-4E2E-A42A-BE70B5A5CECD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8333F9DC-6DFA-4E2E-A42A-BE70B5A5CECD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8333F9DC-6DFA-4E2E-A42A-BE70B5A5CECD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C145BD0A-A5CB-4CB2-8240-384E0BA37983}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C145BD0A-A5CB-4CB2-8240-384E0BA37983}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C145BD0A-A5CB-4CB2-8240-384E0BA37983}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C145BD0A-A5CB-4CB2-8240-384E0BA37983}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
