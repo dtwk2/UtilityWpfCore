@@ -15,14 +15,14 @@ using UtilityWpf.Service;
 
 namespace UtilityWpf.Demo.Master.Infrastructure
 {
-    public class PersistListViewModel : ReactiveObject
+    public class ReadOnlyMasterDetailViewModel : ReactiveObject
     {
         private readonly ReactiveFieldsFactory factory = new();
         private IDatabaseService dbS = new DatabaseService();
         private IEnumerator<ReactiveFields> build;
         private readonly CollectionService service = new();
 
-        public PersistListViewModel()
+        public ReadOnlyMasterDetailViewModel()
         {
             this.WhenAnyValue(a => a.DatabaseService)
                 .Subscribe(a => { service.OnNext(new(a)); });

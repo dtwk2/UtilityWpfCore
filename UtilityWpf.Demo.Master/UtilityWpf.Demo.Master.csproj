@@ -27,7 +27,7 @@
     <Compile Update="View\MasterListUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\PersistList2UserControl.xaml.cs">
+    <Compile Update="View\MasterDetailUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -46,7 +46,7 @@
       <Generator>MSBuild:Compile</Generator>
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
-    <Page Update="View\PersistList2UserControl.xaml">
+    <Page Update="View\MasterDetailUserControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

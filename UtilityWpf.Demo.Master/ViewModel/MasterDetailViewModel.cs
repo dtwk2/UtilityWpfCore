@@ -12,14 +12,14 @@ using Utility.Persist;
 
 namespace UtilityWpf.Demo.Master.Infrastructure
 {
-    public class PersistList2ViewModel : ReactiveObject
+    public class MasterDetailViewModel : ReactiveObject
     {
 
         private IEnumerator<Fields> build;
 
         private readonly CollectionService service = new();
 
-        public PersistList2ViewModel()
+        public MasterDetailViewModel()
         {
             service.OnNext(new(DatabaseService()));
 

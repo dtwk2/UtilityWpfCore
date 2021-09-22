@@ -10,40 +10,46 @@ using UtilityWpf.Abstract;
 
 namespace UtilityWpf.Controls.Master
 {
-    using System.ComponentModel;
+
+    using System.Data;
     using System.Windows.Controls.Primitives;
     using Mixins;
     using ReactiveUI;
     using UtilityWpf.Service;
-    using static DependencyPropertyFactory<MasterDetail>;
+    using fac = DependencyPropertyFactory<ReadOnlyMasterDetail>;
+    using fac2 = DependencyPropertyFactory<MasterDetail>;
 
-    public class MasterDetail : ContentControlx
+    /// <summary>
+    /// Only transforms master-list items to the detail-item; and not vice-versa
+    /// </summary>
+    public class ReadOnlyMasterDetail : ContentControlx
     {
 
-        public static readonly DependencyProperty ConverterProperty = Register<IValueConverter>();
-        public static readonly DependencyProperty ConverterParameterProperty = Register<object>();
-        public static readonly DependencyProperty PropertyKeyProperty = Register<string>(nameof(PropertyKey));
-        public static readonly DependencyProperty UseDataContextProperty = Register<bool>();
-        public static readonly DependencyProperty SelectorProperty = Register<Control>();
+        public static readonly DependencyProperty ConverterProperty = fac.Register<IValueConverter>();
+        public static readonly DependencyProperty ConverterParameterProperty = fac.Register<object>();
+        public static readonly DependencyProperty PropertyKeyProperty = fac.Register<string>(nameof(PropertyKey));
+        public static readonly DependencyProperty UseDataContextProperty = fac.Register<bool>();
+        public static readonly DependencyProperty SelectorProperty = fac.Register<Control>();
 
-        static MasterDetail()
+        static ReadOnlyMasterDetail()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(MasterDetail), new FrameworkPropertyMetadata(typeof(MasterDetail)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(ReadOnlyMasterDetail), new FrameworkPropertyMetadata(typeof(ReadOnlyMasterDetail)));
         }
 
-        public MasterDetail()
+        public ReadOnlyMasterDetail()
         {
-            var transform = Transform(
-                this.WhenAnyValue(a => a.Selector).WhereNotNull().Select(Selections).Switch(),
+            TransformObservable = Transform(
+                this.WhenAnyValue(a => a.Selector).WhereNotNull().Select(SelectFromMaster).Switch(),
                 this.Observable<IValueConverter>(nameof(Converter)),
                 this.Observable<object>(nameof(ConverterParameter)),
                 this.Observable<string>(nameof(PropertyKey))).ToReplaySubject(0);
 
-            _ = SelectContent(transform)
+            _ = TransformObservable
+                .Select(a => a.New)
                 .WhereNotNull()
                 .Subscribe(content =>
                 {
-                    SetContent(Content, content);
+                    SetDetail(Content, content);
                 });
         }
 
@@ -80,47 +86,12 @@ namespace UtilityWpf.Controls.Master
 
         #endregion properties
 
-        protected virtual IObservable<object> SelectContent(IObservable<(object newItem, (object? old, object? replacement) change)> transform)
-        {
+        protected IObservable<TransformProduct?> TransformObservable { get; }
 
-            _ = transform
-                .Select(a => a.change)
-                .Where(a =>
-                {
-                    // either they are the same object or same type but don't equal
-                    return a.replacement != null && (a.old == a.replacement || (a.old?.Equals(a.replacement) == false));
-                })
-                .CombineLatest(SelectItemsSource())
-                .Subscribe(a =>
-                {
-                    if (a.Second is IList { IsReadOnly: false, IsFixedSize: false } list)
-                    {
-                        int index = list.IndexOf(a.First.old);
-                        if (index < 0)
-                        {
-                            return;
-                        }
-                        list.RemoveAt(index);
-                        list.Insert(index, a.First.replacement);
-                        return;
-                    }
-
-                    var first = a.First;
-                    if (first.old is not INotifyPropertyChanged)
-                    {
-                        //MessageBox.Show("object does not implement INotifyPropertyChanged. Therefore change will not be noticed by subscribers and won't be automatically persisted!");
-                    }
-                    PropertyMerger.Instance.Set(first.old!, first.replacement!);
-                });
-
-            return transform
-                .Select(a => a.newItem);
-        }
-
-
-
-
-        protected virtual IObservable<object> Selections(Control slctr)
+        /// <summary>
+        /// Gets the selections made in the master-list
+        /// </summary>
+        protected virtual IObservable<object> SelectFromMaster(Control slctr)
         {
             return slctr switch
             {
@@ -131,7 +102,10 @@ namespace UtilityWpf.Controls.Master
         }
 
 
-        protected virtual void SetContent(object content, object @object)
+        /// <summary>
+        /// Updates the detail-item with changes made to the  master-list
+        /// </summary>
+        protected virtual void SetDetail(object content, object @object)
         {
             if (UseDataContext)
             {
@@ -169,102 +143,54 @@ namespace UtilityWpf.Controls.Master
             }
         }
 
+        protected record TransformProduct(object New, object? Old, IValueConverter? Converter, object ConverterParameter, string? DataKey);
 
-        protected static IObservable<(object newItem, (object? old, object? replacement) change)> Transform(
+        /// <summary>
+        /// Makes any changes to selected-item before becoming the detail item
+        /// </summary>
+        protected static IObservable<TransformProduct?> Transform(
             IObservable<object> collectionViewModel,
-            IObservable<IValueConverter> dataConversions, 
-            IObservable<object> converterParameters, 
+            IObservable<IValueConverter> dataConversions,
+            IObservable<object> converterParameters,
             IObservable<string> dataKeys)
         {
-            collectionViewModel
-                .Subscribe(a =>
-                {
-
-                });
             return ObservableEx
                 .CombineLatest(collectionViewModel, dataConversions, converterParameters, dataKeys)
                 .ObserveOnDispatcher()
-                .Scan(default((object, object, object?, object?, IValueConverter?,  string?)), (a, b) =>
-             {
+                .Scan(default(TransformProduct), (a, b) =>
+                {
+                    var (selected, converter, converterParameter, dataKey) = b;
 
-                 var (selectedOld, conversion, ssOld, eeOld, converterOld, dataKeyOld) = a;
-                 var (selected, converter, converterParameter, dataKey) = b;
+                    var newItem = (converter, dataKey) switch
+                    {
+                        (IValueConverter conv, _) => conv.Convert(selected, default, converterParameter, default),
+                        (_, string key) => PropertyConverter.Convert(selected, key),
+                        (null, null) => selected
+                    };
 
-
-                 var ee = (conversion, converterOld, dataKeyOld) switch
-                 {
-                     (null, _, _) => null,
-                     (object o, IValueConverter conv, _) => conv.ConvertBack(o, default, converterParameter, default),
-                     (object o, _, string key) => PropertyConverter.ConvertBack(selectedOld, key, o),
-                     (object o, null, null) => o
-                 };
-
-
-                 var ss = (converter, dataKey) switch
-                 {
-                     (IValueConverter conv, _) => conv.Convert(selected, default, converterParameter, default),
-                     (_, string key) => PropertyConverter.Convert(selected, key),
-                     (null, null) => selected
-                 };
-
-                 if (selectedOld != null && selectedOld == ee && converterOld != null)
-                 {
-                     throw new ApplicationException("selectedOld and ee can't be the same object in order to compare them after conversion.");
-                 }
-                 return (selected, ss, selectedOld, ee, converter, dataKey);
-             })
-                .Select(a => (a.Item2, (a.Item3, a.Item4)));
-
+                    return new TransformProduct(newItem, selected, converter, converterParameter, dataKey);
+                });
         }
 
-        //protected static IObservable<object> Transform2(IObservable<object> collectionViewModel, IObservable<IValueConverter> dataConversions, IObservable<string> dataKeys)
-        //{
-        //    collectionViewModel
-        //        .Subscribe(a =>
-        //        {
 
-        //        });
-        //    return ObservableEx
-        //        .CombineLatest(collectionViewModel, dataConversions, dataKeys)
-        //        .ObserveOnDispatcher()
-        //        .Scan(default((object, object, IValueConverter?, string?)), (a, b) =>
-        //     {
-
-        //         var (selected, converter, dataKey) = b;
-
-        //         var ss = (converter, dataKey) switch
-        //         {
-        //             (IValueConverter conv, _) => conv.Convert(selected, default, default, default),
-        //             (_, string key) => UtilityHelper.PropertyHelper.GetPropertyValue<object>(selected, key),
-        //             //(null,null) => throw new Exception($"Either {nameof(DataConverter)} or {nameof(DataKey)} must be set if {nameof(ItemsSource)} set")
-        //             (null, null) => selected
-        //         };
-
-        //         return (selected, ss, converter, dataKey);
-        //     })
-        //        .Select(a => a.Item2);
-        //}
-
-
-
-        private IObservable<IEnumerable?> SelectItemsSource()
+        protected virtual IObservable<IEnumerable?> SelectItemsSource()
         {
             return this.Observable<Control>()
                 .WhereNotNull()
                 .CombineLatest(this.LoadedChanges(), (a, b) => a)
-                        .SelectMany(a =>
-                        {
-                            return a switch
-                            {
-                                ISelector selector => selector.WhenAnyValue(a => a.ItemsSource).StartWith(selector.ItemsSource),
-                                Selector selector => selector.WhenAnyValue(a => a.ItemsSource),
-                                _ => throw new ApplicationException($"Unexpected type,{a.GetType().Name} for {nameof(Selector)} "),
-                            };
-                        });
+                .SelectMany(a =>
+                {
+                    return a switch
+                    {
+                        ISelector selector => selector.WhenAnyValue(a => a.ItemsSource).StartWith(selector.ItemsSource),
+                        Selector selector => selector.WhenAnyValue(a => a.ItemsSource),
+                        _ => throw new ApplicationException($"Unexpected type,{a.GetType().Name} for {nameof(Selector)} "),
+                    };
+                });
         }
 
 
-        class PropertyConverter
+        protected class PropertyConverter
         {
             public static object Convert(object selected, string key)
             {
@@ -277,7 +203,7 @@ namespace UtilityWpf.Controls.Master
                 return selectedValueOld;
             }
         }
-        private class DefaultFilter : UtilityInterface.NonGeneric.IFilter
+        protected class DefaultFilter : UtilityInterface.NonGeneric.IFilter
         {
             public bool Filter(object o)
             {
@@ -285,5 +211,48 @@ namespace UtilityWpf.Controls.Master
             }
         }
 
+    }
+
+    public class MasterDetail : ReadOnlyMasterDetail
+    {
+        static MasterDetail()
+        {
+            //DefaultStyleKeyProperty.OverrideMetadata(typeof(MasterDetail), new FrameworkPropertyMetadata(typeof(MasterDetail)));
+        }
+
+        public MasterDetail()
+        {
+
+            Transform(TransformObservable);
+        }
+
+        protected static void Transform(IObservable<TransformProduct?> transforms)
+        {
+            transforms
+                 .WhereNotNull()
+                 .Scan((default(TransformProduct), default(TransformProduct)), (a, b) => (a.Item2, b))
+                 .Select(a => a.Item1)
+                 .WhereNotNull()
+                 .Where(a => a.Old != null)
+                 .Subscribe(tp =>
+                 {
+                     object? replacement = null;
+
+                     replacement = (tp.New, tp.Converter, tp.DataKey) switch
+                     {
+                         (null, _, _) => null,
+                         (object o, IValueConverter conv, _) => conv.ConvertBack(o, default, tp.ConverterParameter, default),
+                         (object o, _, string key) => PropertyConverter.ConvertBack(tp.Old!, key, o),
+                         (object o, null, null) => o
+                     };
+
+                     if (replacement == null)
+                         throw new Exception("7788dfdfgf");
+                     if (tp.Old != null && tp.Old == replacement && tp.Old != null)
+                         throw new ApplicationException("selectedOld and ee can't be the same object in order to compare them after conversion.");
+
+                     PropertyMerger.Instance.Set(tp.Old!, replacement);
+                 });
+        }
     }
 }
