@@ -98,7 +98,8 @@ namespace UtilityWpf.Controls.Master
             Selector = listBox;
             UseDataContext = true;
             _ = subject
-                .WhereNotNull()
+                .StartWith(Assembly)
+                .WhereNotNull()      
               .Select(assembly =>
               {
                   var ucs = assembly
