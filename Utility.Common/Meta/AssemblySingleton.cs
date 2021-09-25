@@ -7,7 +7,7 @@ namespace Utility.Common
     {
         private AssemblySingleton()
         {
-            Assemblies = ReflectionHelper.GetAssemblies(a => a.Name?.StartsWith("Utility") ?? false);
+            Assemblies = UtilityHelper.ReflectionHelper.GetAssemblies(a => a.Name?.StartsWith(Meta.Constants.GeneralAssemblyName) ?? false);
         }
         public IEnumerable<Assembly> Assemblies { get; }
 

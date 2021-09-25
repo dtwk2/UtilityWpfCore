@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using UtilityHelper;
 
 namespace Utility.Common
 {
@@ -13,9 +14,7 @@ namespace Utility.Common
 
     public static class BootStrapHelper
     {
-
-
-        public static void AddBootStrapperRegistrations(this ContainerBuilder builder, IEnumerable<Assembly>? assembliesToScan = null)
+        public static void AutoRegister(this ContainerBuilder builder, IEnumerable<Assembly>? assembliesToScan = null)
         {
             foreach (IBootStrapper? bootStrapper in BootStrappers())
             {
@@ -27,9 +26,5 @@ namespace Utility.Common
                 return (assembliesToScan ?? AssemblySingleton.Instance.Assemblies.Where(a => !a.IsDynamic)).TypesOf<IBootStrapper>();
             }
         }
-
-     
     }
-
-
 }

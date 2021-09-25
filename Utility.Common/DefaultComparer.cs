@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace UtilityWpf
+namespace Utility.Common
 {
     public class DefaultComparer<T, R> : IComparer<T> where R : IComparable<R>
     {
