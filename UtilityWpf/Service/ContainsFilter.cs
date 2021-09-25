@@ -1,24 +1,25 @@
 ﻿using UtilityHelper;
-using UtilityInterface.NonGeneric;
 
 namespace UtilityWpf.Service
 {
-    public class ContainsFilter : IFilter
+    public class ContainsFilter 
     {
-        private string _a = null;
-        private string _property = null;
+        private readonly string? a;
+        private readonly string property;
 
         public ContainsFilter(string a)
         {
-            _a = a;
+            this.a = a;
         }
 
-        public ContainsFilter(string a, string property = null)
+        public ContainsFilter(string a, string? property = null)
         {
-            _property = property;
-            _a = a;
+            this.property = property;
+            this.a = a;
         }
 
-        public bool Filter(object o) => _property == null ? ((string)o).Contains(_a, System.StringComparison.InvariantCultureIgnoreCase) : o.GetPropertyValue<string>(_property).Contains(_a, System.StringComparison.InvariantCultureIgnoreCase);
+        public bool Filter(object o) => property == null ?
+            ((string)o).Contains(a, System.StringComparison.InvariantCultureIgnoreCase) :
+            o.GetPropertyRefValue<string>(property)?.Contains(a, System.StringComparison.InvariantCultureIgnoreCase) ?? false;
     }
 }

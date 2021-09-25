@@ -4,7 +4,7 @@
 //using Microsoft.Xaml.Behaviors;
 //using System.Windows.Controls;
 //using System.Collections.Specialized;
-//using UtilityInterface.NonGeneric.Database;
+//using UtilityInterface.NonGeneric.Data;
 //using System.Reactive.Subjects;
 //using System.Windows.Input;
 //using System.ComponentModel;
@@ -16,16 +16,16 @@
 //    public class PersistBehavior : Behavior<ItemsControl>
 //    {
 //        private IDisposable? disposable;
-//        private readonly ReplaySubject<IDatabaseService> repositoryChanges = new(1);
+//        private readonly ReplaySubject<IRepository> repositoryChanges = new(1);
 //        private readonly PersistService persistService = new();
 
-//        public static readonly DependencyProperty RepositoryProperty = DependencyProperty.Register("Repository", typeof(IDatabaseService), typeof(PersistBehavior), new PropertyMetadata(null, RepositoryChanged));
+//        public static readonly DependencyProperty RepositoryProperty = DependencyProperty.Register("Repository", typeof(IRepository), typeof(PersistBehavior), new PropertyMetadata(null, RepositoryChanged));
 //        public static readonly DependencyProperty CollectionChangeCommandProperty = DependencyProperty.Register("CollectionChangeCommand", typeof(ICommand), typeof(PersistBehavior), new PropertyMetadata(null));
 
 //        #region properties
-//        public IDatabaseService Repository
+//        public IRepository Repository
 //        {
-//            get { return (IDatabaseService)GetValue(RepositoryProperty); }
+//            get { return (IRepository)GetValue(RepositoryProperty); }
 //            set { SetValue(RepositoryProperty, value); }
 //        }
 
@@ -62,7 +62,7 @@
 
 //        private static void RepositoryChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
 //        {
-//            (dependencyObject as PersistBehavior).repositoryChanges.OnNext(e.NewValue as IDatabaseService);
+//            (dependencyObject as PersistBehavior).repositoryChanges.OnNext(e.NewValue as IRepository);
 //        }
 
 //        //protected void RaiseCollectionChangedEvent(string text)

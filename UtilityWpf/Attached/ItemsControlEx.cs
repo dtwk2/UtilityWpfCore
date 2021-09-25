@@ -93,7 +93,7 @@ namespace UtilityWpf.Attached
             string arg = (string)e.NewValue;
             if (control.ItemsSource != null)
                 if (control.ItemsSource?.Count() > 0)
-                    control.ItemsSource = control.ItemsSource.GetPropertyValues<object>(arg);
+                    control.ItemsSource = control.ItemsSource.GetPropertyRefValues<object>(arg);
         }
 
         #endregion Variable
@@ -118,7 +118,7 @@ namespace UtilityWpf.Attached
             IEnumerable arg = (IEnumerable)e.NewValue;
             if (arg.Count() > 0)
                 Application.Current.Dispatcher.InvokeAsync(() =>
-                control.SetValue(ItemsSourceProperty, arg.GetPropertyValues<object>((string)control.GetValue(VariableProperty)).Cast<IEnumerable<object>>().SelectMany(_s => _s)),
+                control.SetValue(ItemsSourceProperty, arg.GetPropertyRefValues<object>((string)control.GetValue(VariableProperty)).Cast<IEnumerable<object>>().SelectMany(_s => _s)),
                     System.Windows.Threading.DispatcherPriority.Background, default);
             ;
         }
