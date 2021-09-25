@@ -59,7 +59,7 @@
                         <Storyboard>
                             <ColorAnimation Duration="0:0:0.3" To="CadetBlue" Storyboard.TargetProperty="BorderBrush.Color"/>
                             <ColorAnimation Duration="0:0:0.3" To="CadetBlue" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"/>
-                            <DoubleAnimation Duration="0:0:0.0" To="0.5" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Opacity)"/>
+                            <DoubleAnimation Duration="0:0:0.0" To="0.2" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Opacity)"/>
                             <ThicknessAnimation Duration="0:0:0.0" To="1.0" Storyboard.TargetProperty="BorderThickness"/>
                         </Storyboard>
                     </BeginStoryboard>

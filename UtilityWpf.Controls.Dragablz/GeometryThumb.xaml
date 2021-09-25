@@ -22,7 +22,7 @@
                     <MouseBinding MouseAction="LeftClick" Command="{Binding Command, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
                 </Border.InputBindings>
 
-                <Border.Style>
+                <!--<Border.Style>
                     <Style TargetType="Border">      
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -30,7 +30,7 @@
                             </Trigger>
                         </Style.Triggers>
                     </Style>
-                </Border.Style>
+                </Border.Style>-->
                 
                 <Border.Triggers>             
                 </Border.Triggers>
@@ -68,13 +68,18 @@
                                         <DoubleAnimation
                                   
                                                                             Storyboard.TargetProperty="Fill.Opacity"    
-                                                                            To="0.5"
+                                                                            To="0.2"
                                                                             Duration="0:0:0.3"/>
                                         <DoubleAnimation
                                      
                                                                             Storyboard.TargetProperty="Stroke.Opacity"                                                                     
-                                                                            To="0.5"
+                                                                            To="0.2"
                                                                             Duration="0:0:0.6"  />
+                                        <!--<DoubleAnimation
+                                     
+                                                                            Storyboard.TargetProperty="StrokeThickness"                                                                     
+                                                                            To="0.5"
+                                                                            Duration="0:0:0.3"  />-->
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -91,6 +96,11 @@
                                                                             Storyboard.TargetProperty="Stroke.Opacity"                                                                     
                                                                             To="1"
                                                                             Duration="0:0:0.6"  />
+                                        <!--<DoubleAnimation
+                                     
+                                                                            Storyboard.TargetProperty="StrokeThickness"                                                                     
+                                                                            To="1"
+                                                                            Duration="0:0:0.3"  />-->
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>

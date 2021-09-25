@@ -76,11 +76,18 @@
                         </Viewbox>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <DataTrigger Binding="{Binding Path=(att:Ex.IsChecked), RelativeSource={RelativeSource Mode=Self}}" Value="True">
+                        <DataTrigger Binding="{Binding Path=(att:Ex.State), RelativeSource={RelativeSource Mode=Self}}" Value="{x:Static att:State.Ticked}">
                             <Setter Property="Geometry" Value="{StaticResource TickGeometry}" TargetName="GeometryThumb" />
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding Path=(att:Ex.IsChecked), RelativeSource={RelativeSource Mode=Self}}" Value="False">
+                        <DataTrigger Binding="{Binding Path=(att:Ex.State), RelativeSource={RelativeSource Mode=Self}}" Value="{x:Static att:State.Crossed}">
                             <Setter Property="Geometry" Value="{StaticResource XGeometry}" TargetName="GeometryThumb" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=(att:Ex.State), RelativeSource={RelativeSource Mode=Self}}" Value="{x:Static att:State.Refreshable}">
+                            <Setter Property="Geometry" Value="{StaticResource RefreshGeometry}" TargetName="GeometryThumb" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=(att:Ex.State), RelativeSource={RelativeSource Mode=Self}}" Value="{x:Static att:State.None}">
+                            <Setter Property="Geometry" Value="{StaticResource NoneGeometry}" TargetName="GeometryThumb" />
+                            <Setter Property="IsEnabled" Value="False" TargetName="GeometryThumb" />
                         </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -89,7 +96,7 @@
     </Style>
 
     <Style 
-           TargetType="{x:Type local:TicksControl}" 
+           TargetType="{x:Type local:ListControl}" 
            BasedOn="{StaticResource {x:Type dragablz:DragablzItemsControl}}">
         <Style.Setters>
             <Setter Property="VerticalAlignment" Value="Center"/>

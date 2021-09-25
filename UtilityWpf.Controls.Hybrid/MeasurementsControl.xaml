@@ -19,7 +19,7 @@
                             <ComboBox >
                                 <i:Interaction.Behaviors>
                                     <local11:EnumSelectorBehavior
-                                                                    SelectedEnumValue="{Binding SelectedUnit, RelativeSource={RelativeSource Mode=TemplatedParent}}"    
+                                                                    SelectedEnum="{Binding SelectedUnit, RelativeSource={RelativeSource Mode=TemplatedParent}}"    
                                                                     EnumFilterCollection="{Binding EnumFilterCollection,RelativeSource={RelativeSource Mode=TemplatedParent} }"
                                                                   EnumType="{Binding Unit, RelativeSource={RelativeSource Mode=TemplatedParent}}"></local11:EnumSelectorBehavior>
                                 </i:Interaction.Behaviors>

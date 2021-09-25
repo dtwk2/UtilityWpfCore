@@ -19,14 +19,17 @@
     <Compile Update="MasterNotesControl.cs">
       <DependentUpon>MasterNotesControl.xaml</DependentUpon>
     </Compile>
-    <Compile Update="MasterTicksControl.cs">
-      <DependentUpon>MasterTicksControl.xaml</DependentUpon>
+    <Compile Update="MasterListControl.cs">
+      <DependentUpon>MasterListControl.xaml</DependentUpon>
     </Compile>
     <Compile Update="MeasurementsControl.cs">
       <DependentUpon>MeasurementsControl.xaml</DependentUpon>
     </Compile>
     <Compile Update="MeasurementsControl.cs">
       <DependentUpon>MeasurementsControl.xaml</DependentUpon>
+    </Compile>  
+	  <Compile Update="MasterButtonsControl.cs">
+      <DependentUpon>MasterButtonsControl.xaml</DependentUpon>
     </Compile>
 	  <Compile Update="ResourceDictionariesControl.cs">
 		  <DependentUpon>ResourceDictionariesControl.xaml</DependentUpon>
@@ -38,6 +41,10 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="MasterButtonsControl.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="MasterNotesControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
@@ -46,7 +53,7 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="MasterTicksControl.xaml">
+    <Page Update="MasterListControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

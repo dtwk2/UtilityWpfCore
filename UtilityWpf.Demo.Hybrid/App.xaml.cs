@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Splat.Autofac;
 using System.Windows;
+using Utility.Common;
 
 namespace UtilityWpf.Demo.Hybrid
 {
@@ -12,7 +13,8 @@ namespace UtilityWpf.Demo.Hybrid
         public App()
         {
             var builder = new ContainerBuilder();
-                      builder.UseAutofacDependencyResolver();
+            builder.AutoRegister();
+            builder.UseAutofacDependencyResolver();
         }
     }
 }

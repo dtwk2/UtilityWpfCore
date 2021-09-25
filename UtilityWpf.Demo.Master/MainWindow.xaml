@@ -18,8 +18,13 @@
         <utl:SharedResourceDictionary Source="/UtilityWpf.Demo.Data;component/DataTemplate/Character.xaml" />
     </FrameworkElement.Resources>-->
     
-    <TabControl>   
-        
+    <TabControl>
+
+        <TabItem Header="Master-Detail-Grid">
+            <view11:MasterDetailGridUserControl />
+        </TabItem>
+
+
         <TabItem Header="ItemsWrap">
             <view121:ItemsWrapUserControl />
         </TabItem>    

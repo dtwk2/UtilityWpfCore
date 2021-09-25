@@ -38,6 +38,13 @@ namespace UtilityWpf.Controls.Master
 
         public ReadOnlyMasterDetail()
         {
+            this.WhenAnyValue(a => a.Selector).WhereNotNull()
+                .CombineLatest(this.WhenAnyValue(a => a.DataContext).WhereNotNull())
+                .Subscribe(a =>
+                {
+                    a.First.DataContext = a.Second;
+                });
+
             TransformObservable = Transform(
                 this.WhenAnyValue(a => a.Selector).WhereNotNull().Select(SelectFromMaster).Switch(),
                 this.Observable<IValueConverter>(nameof(Converter)),
@@ -112,30 +119,34 @@ namespace UtilityWpf.Controls.Master
                 if (content is FrameworkElement frameworkElement)
                 {
                     frameworkElement.DataContext = @object;
+                    return;
                 }
                 else
                 {
                     throw new ApplicationException("Content needs to be framework element is UseDataContext set to true");
                 }
             }
-            else if (@object is IEnumerable enumerable)
+            if (@object is IEnumerable enumerable)
             {
                 if (content is IItemsSource oview)
                 {
                     oview.ItemsSource = enumerable;
+                    return;
                 }
                 else if (content is ItemsControl itemsControl)
                 {
                     itemsControl.ItemsSource = enumerable;
+                    return;
                 }
             }
             //else if (content is JsonView propertyGrid)
             //{
             //    propertyGrid.Object = propertyGrid;
             //}
-            else if (content is ContentControl contentControl)
+            if (content is ContentControl contentControl)
             {
                 contentControl.Content = @object;
+                return;
             }
             else
             {
@@ -143,7 +154,7 @@ namespace UtilityWpf.Controls.Master
             }
         }
 
-        protected record TransformProduct(object New, object? Old, IValueConverter? Converter, object ConverterParameter, string? DataKey);
+        protected record TransformProduct(object? New, object? Old, IValueConverter? Converter, object ConverterParameter, string? DataKey);
 
         /// <summary>
         /// Makes any changes to selected-item before becoming the detail item
@@ -161,41 +172,30 @@ namespace UtilityWpf.Controls.Master
                 {
                     var (selected, converter, converterParameter, dataKey) = b;
 
-                    var newItem = (converter, dataKey) switch
-                    {
-                        (IValueConverter conv, _) => conv.Convert(selected, default, converterParameter, default),
-                        (_, string key) => PropertyConverter.Convert(selected, key),
-                        (null, null) => selected
-                    };
+                    if (selected == null)
+                        throw new Exception("ds009fsd");
+                    object? newItem = Convert(selected, converter, converterParameter, dataKey);
 
                     return new TransformProduct(newItem, selected, converter, converterParameter, dataKey);
                 });
         }
 
-
-        protected virtual IObservable<IEnumerable?> SelectItemsSource()
+        protected static object? Convert(object selected, IValueConverter? converter, object? converterParameter, string? dataKey)
         {
-            return this.Observable<Control>()
-                .WhereNotNull()
-                .CombineLatest(this.LoadedChanges(), (a, b) => a)
-                .SelectMany(a =>
-                {
-                    return a switch
-                    {
-                        ISelector selector => selector.WhenAnyValue(a => a.ItemsSource).StartWith(selector.ItemsSource),
-                        Selector selector => selector.WhenAnyValue(a => a.ItemsSource),
-                        _ => throw new ApplicationException($"Unexpected type,{a.GetType().Name} for {nameof(Selector)} "),
-                    };
-                });
+            return (converter, dataKey) switch
+            {
+                (IValueConverter conv, _) => conv.Convert(selected, default, converterParameter, default),
+                (_, string key) => PropertyConverter.Convert(selected, key),
+                (null, null) => selected
+            };
         }
-
 
         protected class PropertyConverter
         {
             public static object Convert(object selected, string key)
             {
 
-                return UtilityHelper.PropertyHelper.GetPropertyValue<object>(selected, key);
+                return UtilityHelper.PropertyHelper.GetPropertyRefValue<object>(selected, key);
             }
             public static object ConvertBack(object selected, string k, object selectedValueOld)
             {
@@ -203,13 +203,13 @@ namespace UtilityWpf.Controls.Master
                 return selectedValueOld;
             }
         }
-        protected class DefaultFilter : UtilityInterface.NonGeneric.IFilter
-        {
-            public bool Filter(object o)
-            {
-                return true;
-            }
-        }
+        //protected class DefaultFilter : UtilityInterface.NonGeneric.IFilter
+        //{
+        //    public bool Filter(object o)
+        //    {
+        //        return true;
+        //    }
+        //}
 
     }
 
@@ -248,8 +248,8 @@ namespace UtilityWpf.Controls.Master
 
                      if (replacement == null)
                          throw new Exception("7788dfdfgf");
-                     if (tp.Old != null && tp.Old == replacement && tp.Old != null)
-                         throw new ApplicationException("selectedOld and ee can't be the same object in order to compare them after conversion.");
+                     //if (tp.Old != null && tp.Old == replacement && tp.Old != null)
+                     //    throw new ApplicationException("selectedOld and ee can't be the same object in order to compare them after conversion.");
 
                      PropertyMerger.Instance.Set(tp.Old!, replacement);
                  });

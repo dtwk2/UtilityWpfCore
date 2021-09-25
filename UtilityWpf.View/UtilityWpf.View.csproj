@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\UtilityWpf.Controls\UtilityWpf.Controls.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Page Update="KeyValuePairDataTemplate.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>

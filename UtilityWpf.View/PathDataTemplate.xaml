@@ -54,7 +54,7 @@
                 Kind="File" />
             <TextBlock Grid.Column="1" Text="{Binding Name}" />
         </Grid>
-    </DataTemplate>
+    </DataTemplate>-->
 
   
 </ResourceDictionary>

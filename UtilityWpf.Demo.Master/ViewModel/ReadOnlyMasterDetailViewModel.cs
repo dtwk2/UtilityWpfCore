@@ -7,7 +7,7 @@ using Utility.Common;
 using Utility.Common.Enum;
 using Utility.Common.EventArgs;
 using Utility.Persist;
-using UtilityInterface.NonGeneric.Database;
+using UtilityInterface.NonGeneric.Data;
 using UtilityWpf.Demo.Common.ViewModel;
 using UtilityWpf.Demo.Data.Model;
 using UtilityWpf.Service;
@@ -18,7 +18,7 @@ namespace UtilityWpf.Demo.Master.Infrastructure
     public class ReadOnlyMasterDetailViewModel : ReactiveObject
     {
         private readonly ReactiveFieldsFactory factory = new();
-        private IDatabaseService dbS = new DatabaseService();
+        private IRepository dbS = new MockDatabaseService();
         private IEnumerator<ReactiveFields> build;
         private readonly CollectionService service = new();
 
@@ -57,8 +57,7 @@ namespace UtilityWpf.Demo.Master.Infrastructure
             {
                 if (DatabaseService is LiteDbRepository service)
                 {
-                    service.Dispose();
-                    DatabaseService = new DatabaseService();
+                    DatabaseService = new MockDatabaseService();
                 }
                 else
                     DatabaseService = new LiteDbRepository(new LiteDbRepository.ConnectionSettings(typeof(ReactiveFields), new System.IO.FileInfo("../../../Data/Data.litedb"), nameof(ReactiveFields.Id)));
@@ -84,7 +83,7 @@ namespace UtilityWpf.Demo.Master.Infrastructure
         public ReactiveCommand<bool, Unit> ChangeRepositoryCommand { get; }
         public ReactiveCommand<object, Unit> CollectionChangedCommand { get; }
 
-        public IDatabaseService DatabaseService { get => dbS; private set => this.RaiseAndSetIfChanged(ref dbS, value); }
+        public IRepository DatabaseService { get => dbS; private set => this.RaiseAndSetIfChanged(ref dbS, value); }
     }
 
 }

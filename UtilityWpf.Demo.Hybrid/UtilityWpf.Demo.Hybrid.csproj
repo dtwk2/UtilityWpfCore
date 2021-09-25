@@ -26,7 +26,7 @@
     <Compile Update="ResourceDictionariesUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="TicksUserControl.xaml.cs">
+    <Compile Update="ListUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -56,7 +56,7 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="TicksUserControl.xaml">
+    <Page Update="ListUserControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

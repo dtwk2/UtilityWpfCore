@@ -77,7 +77,7 @@ namespace UtilityWpf.Controls.Dragablz
                     int index = -1;
                     foreach (var ditem in items)
                     {
-                        if (ditem != item && ditem.IsSelected == true)
+                        if (ditem.Content != item.Content && ditem.IsSelected == true)
                             ditem.IsSelected = false;
                         else if (ditem == item)
                         {

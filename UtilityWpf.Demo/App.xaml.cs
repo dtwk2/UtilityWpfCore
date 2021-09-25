@@ -20,6 +20,7 @@ namespace UtilityWpf.DemoApp
         public App()
         {         
             var builder = new ContainerBuilder();
+            builder.AutoRegister();
             builder.UseAutofacDependencyResolver();
 
             var a = typeof(BarUserControl);
