@@ -16,10 +16,10 @@
     <UniformGrid Rows="1">
         <!--<local:NumbersControl ItemsSource="{Binding Collection}" DisplayMemberPath="Value" DisplayKeyPath="Header"/>-->
 
-        <local:MeasurementsControl
+        <!--<local:MeasurementsControl
             DisplayMemberPath="Value" DisplayKeyPath="Header"
             ItemsSource="{Binding Collection}" 
-            Unit="{x:Static un:LengthUnit.AstronomicalUnit}"></local:MeasurementsControl>
+            Unit="{x:Static un:LengthUnit.AstronomicalUnit}"></local:MeasurementsControl>-->
 
     </UniformGrid>
 </Window>

@@ -38,7 +38,7 @@
                 </Setter>
             </Style>
 
-            <Style TargetType="{x:Type local:NumberItem}" BasedOn="{StaticResource NumberItemStyle}">
+            <!--<Style TargetType="{x:Type local:NumberItem}" BasedOn="{StaticResource NumberItemStyle}">
             </Style>
 
             <Style TargetType="{x:Type local:NumbersControl}" BasedOn="{StaticResource {x:Type ListBox}}">
@@ -81,7 +81,7 @@
                         </local:NumbersControl>
                     </Setter.Value>
                 </Setter>
-            </Style>
+            </Style>-->
 
 
 
