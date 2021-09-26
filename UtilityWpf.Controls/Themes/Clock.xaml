@@ -18,8 +18,8 @@
                             </Grid>
                         </view:BasicTransitionControl.CheckedContent>
                         <view:BasicTransitionControl.UnCheckedContent>
-                            <Grid Height="{Binding RelativeSource={RelativeSource AncestorType=view:TransitionControl}, Path=ActualHeight}"
-                                  Width="{Binding RelativeSource={RelativeSource AncestorType=view:TransitionControl}, Path=ActualWidth}"                                 
+                            <Grid Height="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ActualHeight}"
+                                  Width="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ActualWidth}"                                 
                                   >
                                 <view:AnalogClock Margin="10"/>
                             </Grid>

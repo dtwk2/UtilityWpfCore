@@ -1,17 +1,9 @@
-﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-
-    xmlns:converter="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf">
-
-    <!--  Controlx needs style so that OnApplyTemplate gets called  -->
-    <!--<Style TargetType="{x:Type local:Controlx}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:Controlx}" />
-            </Setter.Value>
-        </Setter>
-    </Style>-->
+﻿<utl:AutoResourceDictionary  xmlns:utl="http://schemas.utility.com/utilitywpf"
+                             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                             xmlns:local="clr-namespace:UtilityWpf.Controls"
+                             xmlns:converter="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"                      
+                             Type="{x:Type local:ObjectControl}">
 
     <converter:DescriptionConverter x:Key="DescriptionConverter" />
     <converter:DefaultConverter x:Key="DefaultConverter" />
@@ -48,81 +40,9 @@
     </Style>
 
     <ResourceDictionary.MergedDictionaries>
-
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/NavigatorControl.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/ButtonDefinitionsControl.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/PageNavigatorControl.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/EnumItems.xaml" />
-
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/CriteriaItem.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/ImageButton.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/SizeControl.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/SliderItemsControl.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DictionaryControl.xaml" />
-
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DatesList.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/LogViewer.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/TransitionControl.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/ValidationForm.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/MenuButton.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/SkipControl.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/ProgressTimeBar.xaml" />
-
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/ResourcePicker.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DateTimeControl.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/RangeSlider.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/TimeSpanControl.xaml" />
-  
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Clock.xaml" />
-        
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/NumbersControl.xaml" />
-        
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/ButtonsControl.xaml" />
-
-
-        
-
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Button/GeometryButton.xaml" />
-
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Progress/ProgressArc.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Progress/ProgressBar.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Progress/FlashThumb.xaml" />       
-        
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Extrinsic/AnimatedListBox.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Extrinsic/AnimatedScrollViewer.xaml" />
-
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/TypeControl.xaml"/>
-
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/ViewCollection.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DualButtonControl.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/IconContentControl.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/SwitchControl.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/LabelledInput.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/ObjectControl.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/FlipControl.xaml" />
-        
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/HeaderedListBox.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/CompareTextBlock.xaml" />
-
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/ShortTimeSpanControl.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/SpinnerControl.xaml" />
-
-        <!--  Extrinsic  -->
-
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/SliderWithTickLabels.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/TimeBar.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/CompareSlider.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/IpAddrBox.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/IpAddrBox.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/FilterControl.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Extrinsic/LoopingListBox.xaml" />
-
-
-        <!--  DataTemplate  -->
-        
-        <!--<ResourceDictionary Source="/UtilityWpf.Controls;component/DataTemplate/ViewTypeDataTemplate.xaml" />
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/DataTemplate/ViewAssemblyDataTemplate.xaml" />-->
-
-
+        <!-- The below use AncestorType-RelativeSource bindings, so can't be auto-loaded -->
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Object/ObjectControl.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/RangeSlider.xaml" />
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/SliderItemsControl.xaml" />
     </ResourceDictionary.MergedDictionaries>
-</ResourceDictionary> 
+</utl:AutoResourceDictionary>

@@ -65,6 +65,9 @@
     <Compile Update="SwitchViewUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="ScrollSyncUserControl.xaml.cs">
+      <DependentUpon>ScrollSyncUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Update="ValidationUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -73,7 +76,7 @@
     </Compile>
     <Compile Update="VisualBrushTooltipUserControl.xaml.cs">
       <SubType>Code</SubType>
-    </Compile>
+    </Compile> 
   </ItemGroup>
 
   <ItemGroup>
@@ -189,6 +192,10 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
     <Page Update="SwitchViewUserControl.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ScrollSyncUserControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

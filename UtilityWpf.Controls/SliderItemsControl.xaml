@@ -8,62 +8,9 @@
         <ResourceDictionary Source="/UtilityWpf.Controls;component/themes/Extrinsic/SliderWithTickLabels.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <!--<converter:GreaterThanConverter x:Key="GreaterThanConverter"></converter:GreaterThanConverter>-->
     <converter:MinMaxDivideConverter x:Key="MinMaxDivideConverter" Factor="10" />
 
-    <!--<DataTemplate  DataType="{x:Type local:KeyRange}" x:Shared="False">
 
-    -->
-    <!--<HeaderedContentControl Header="{Binding Key,Mode=OneTime}" Content="{Binding}" ContentTemplate="{StaticResource dt}">
-        </HeaderedContentControl>-->
-    <!--<Ellipse Fill="Red" Height="20" Width="20"></Ellipse>-->
-    <!--
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="25"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-            </Grid.RowDefinitions>
-            <TextBlock Text="{Binding Key,Mode=OneTime}"></TextBlock>
-            <Grid Height="100" Width="400" Grid.Row="1">
-                <foreign:SliderWithTickLabels HorizontalAlignment="Center" VerticalAlignment="Center" IsDirectionReversed="False" Orientation="Horizontal" Width="380" TickPlacement="TopLeft"
-                                         IsSnapToTickEnabled="True"
-                                         AutoToolTipPlacement="BottomRight"
-                                         Value="{Binding Value,Mode=TwoWay}" Minimum="{Binding Min,Mode=OneWay}" Maximum="{Binding Max,Mode=OneWay}"
-                                              Style="{StaticResource SliderItemsWithTickLabels}">
-                    <Slider.TickFrequency>
-                        <MultiBinding Converter="{StaticResource MinMaxDivideConverter}">
-                            <Binding Path="Min" Mode="OneWay" />
-                            <Binding Path="Max"  Mode="OneWay" />
-                        </MultiBinding>
-                    </Slider.TickFrequency>
-                    <foreign:SliderWithTickLabels.TickLabelTemplate>
-                        <DataTemplate>
-                            <Grid Width="20" Height="20"  Background="Gainsboro">
-                                <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding}" Padding="0" />
-                            </Grid>
-                        </DataTemplate>
-                    </foreign:SliderWithTickLabels.TickLabelTemplate>
-                </foreign:SliderWithTickLabels>
-            </Grid>
-    -->
-    <!--<ContentPresenter Grid.Row="1"
-                              x:Name="Presenter"
-                              Content="{Binding}"
-                             ContentTemplate="{StaticResource dt}">
-            </ContentPresenter>-->
-    <!--
-        </Grid>
-
-    -->
-    <!--<DataTemplate.Triggers>
-            <DataTrigger Binding="{Binding Value,Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}">
-                <Setter TargetName="Presenter"
-                        Property="ContentTemplate"
-                        Value="{StaticResource dt}" />
-            </DataTrigger>
-        </DataTemplate.Triggers>-->
-    <!--
-    </DataTemplate>-->
 
     <Style TargetType="{x:Type local:SliderItemsControl}">
 

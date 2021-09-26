@@ -52,34 +52,6 @@ namespace UtilityWpf.Controls
 
         public static readonly DependencyProperty IsTitleColoursInvertedProperty = DependencyProperty.Register("IsTitleColoursInverted", typeof(bool), typeof(ObjectControl), new PropertyMetadata(true, IsTitleColoursInvertedChanged));
 
-
-
-        public override void OnApplyTemplate()
-        {
-            const string textBlock1 = "MainTextBlock";
-            const string border1 = "MainBorder";
-
-            if (GetTemplateChild(textBlock1) is TextBlock textBlock)
-                textBlockChanges.OnNext(textBlock);
-            else
-                throw new Exception("Could not find " + textBlock1);
-
-            if (GetTemplateChild(border1) is Border border)
-                borderChanges.OnNext(border);
-            else
-                throw new Exception("Could not find " + border1);
-
-            if (Object != null)
-                objectChanges.OnNext(Object);
-            if (Converter != null)
-                converterChanges.OnNext(Converter);
-            descriptionConverterChanges.OnNext(DescriptionConverter);
-            comparerChanges.OnNext(Comparer);
-            filterChanges.OnNext(Filter);
-            isTitleColoursInvertedChanges.OnNext(IsTitleColoursInverted);
-            base.OnApplyTemplate();
-        }
-
         static ObjectControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ObjectControl), new FrameworkPropertyMetadata(typeof(ObjectControl)));
@@ -147,6 +119,31 @@ namespace UtilityWpf.Controls
                 });
         }
 
+        public override void OnApplyTemplate()
+        {
+            const string textBlock1 = "MainTextBlock";
+            const string border1 = "MainBorder";
+
+            if (GetTemplateChild(textBlock1) is TextBlock textBlock)
+                textBlockChanges.OnNext(textBlock);
+            else
+                throw new Exception("Could not find " + textBlock1);
+
+            if (GetTemplateChild(border1) is Border border)
+                borderChanges.OnNext(border);
+            else
+                throw new Exception("Could not find " + border1);
+
+            if (Object != null)
+                objectChanges.OnNext(Object);
+            if (Converter != null)
+                converterChanges.OnNext(Converter);
+            descriptionConverterChanges.OnNext(DescriptionConverter);
+            comparerChanges.OnNext(Comparer);
+            filterChanges.OnNext(Filter);
+            isTitleColoursInvertedChanges.OnNext(IsTitleColoursInverted);
+            base.OnApplyTemplate();
+        }
         public object Object
         {
             get => GetValue(ObjectProperty);
