@@ -93,7 +93,7 @@ namespace UtilityWpf.DemoApp
         public MethodsViewModel()
         {
             Data = new ObservableCollection<ButtonViewModel>(
-                ReflectionHelper.GetMethods(new Model())
+                UtilityHelper.ReflectionHelper.GetMethods(new Model())
                 .Select(a => new ButtonViewModel(a.Item1, ReactiveCommand.Create(() => { _ = a.Item2(); }))));                
         }
 

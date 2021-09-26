@@ -18,12 +18,12 @@
                 <vm2:ResourceDictionariesViewModel/>
             </FrameworkElement.DataContext>
 
-            <view1:TicksControl
+            <view1:ListControl
                 DisplayMemberPath="{mk:NameOf Type={x:Type vm2:TickViewModel}, Member=Text}"
                 CommandPath="{mk:NameOf Type={x:Type vm2:TickViewModel}, Member=Command}"
                 IsCheckedPath="{mk:NameOf Type={x:Type vm2:TickViewModel}, Member=IsChecked}"
                 ItemsSource="{Binding Collection}">
-            </view1:TicksControl>
+            </view1:ListControl>
         </UniformGrid>
     </UniformGrid>
 </UserControl>

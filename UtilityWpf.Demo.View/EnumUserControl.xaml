@@ -2,7 +2,6 @@
     x:Class="UtilityWpf.Demo.View.EnumUserControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:common="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:test="clr-namespace:Utility.Common.Enum;assembly=Utility.Common"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -16,26 +15,25 @@
 
         <TabItem Header="Items">
             <TabItem.Resources>
-                <common:BooleanToOrientationConverter x:Key="BooleanToOrientationConverter" />
+                <utl:BooleanToOrientationConverter x:Key="BooleanToOrientationConverter" />
             </TabItem.Resources>
 
-            <DockPanel>              
+            <DockPanel>
                 <UniformGrid Rows="1">
-                 
-   <StackPanel>
+                    <StackPanel>
                         <ToggleButton x:Name="ToggleButton1" Height="30"/>
                         <view:EnumItemsControl
-                            x:Name="bdc"
+                            x:Name="ebdc"
                             Orientation="{Binding ElementName=ToggleButton1, Path=IsChecked, Converter={StaticResource BooleanToOrientationConverter}}"
                             Enum="{x:Type test:Emotion}" />
-                        <TextBlock Text="{Binding ElementName=bdc, Path=Output, Mode=OneWay, Converter={x:Static utl:LambdaConverter.StringConverter}}" Margin="5" Background="AliceBlue" Height="30"/>
+                        <TextBlock Text="{Binding ElementName=ebdc, Path=Output, Mode=OneWay, Converter={x:Static utl:LambdaConverter.StringConverter}}" Margin="5" Background="AliceBlue" Height="30"/>
                     </StackPanel>
                     <StackPanel>
                         <view:EnumItemsControl
-                            x:Name="bdcs"
+                            x:Name="ebdcs"
                             Orientation="Vertical"
                             Enum="{x:Type test:Emotion}" />
-                        <TextBlock Text="{Binding ElementName=bdcs, Path=Output, Converter={x:Static utl:LambdaConverter.StringConverter}}" />
+                        <TextBlock Text="{Binding ElementName=ebdcs, Path=Output, Converter={x:Static utl:LambdaConverter.StringConverter}}" />
                     </StackPanel>
                     <view:EnumItemsControl Enum="{x:Type test:Emotion}" IsReadOnly="True" />
                     <StackPanel>
@@ -57,24 +55,9 @@
 
                 </UniformGrid>
             </DockPanel>
-        </TabItem>
+        </TabItem>        
 
-        <TabItem Header="Selector">
-            <UniformGrid Rows="1">
-                <ComboBox x:Name="ComboBox">
-                    <i:Interaction.Behaviors>
-                        <utl:EnumSelectorBehavior EnumType="{x:Type Visibility}"></utl:EnumSelectorBehavior>
-                    </i:Interaction.Behaviors>
-                </ComboBox>
-                <ListBox Visibility="{Binding ElementName=ComboBox, Path=SelectedValue}" Background="HotPink">
-                    <i:Interaction.Behaviors>
-                        <utl:EnumSelectorBehavior EnumType="{x:Type HorizontalAlignment}"></utl:EnumSelectorBehavior>
-                    </i:Interaction.Behaviors>
-                </ListBox>
-            </UniformGrid>
-
-        </TabItem>
-        <TabItem Header="Toggle">
+           <TabItem Header="Toggle">
             <StackPanel>
                 <Label>Default</Label>
                 <view:EnumToggleButton Margin="10" HorizontalAlignment="Center" />
@@ -119,7 +102,7 @@
                         <utl:EnumSelectorBehavior EnumType="{x:Type HorizontalAlignment}"></utl:EnumSelectorBehavior>
                     </i:Interaction.Behaviors>
                 </ListBox>
-            </UniformGrid>           
+            </UniformGrid>
         </TabItem>
     </TabControl>
 </UserControl>

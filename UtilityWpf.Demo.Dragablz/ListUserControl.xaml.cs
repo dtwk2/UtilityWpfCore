@@ -5,9 +5,9 @@ namespace UtilityWpf.Demo.Dragablz
     /// <summary>
     /// Interaction logic for TicksUserControl.xaml
     /// </summary>
-    public partial class TicksUserControl : UserControl
+    public partial class ListUserControl : UserControl
     {
-        public TicksUserControl()
+        public ListUserControl()
         {
             InitializeComponent();
         }

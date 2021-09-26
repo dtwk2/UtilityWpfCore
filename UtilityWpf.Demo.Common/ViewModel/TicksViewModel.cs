@@ -16,7 +16,7 @@ namespace UtilityWpf.Demo.Common.ViewModel
     {
         private ICommand changeCommand;
 
-        public string Header { get; } = "NotesViewModel";
+        public string Header { get; } = "Ticks_ViewModel";
 
         public ObservableCollection<TickViewModel> Collection { get; } = new ObservableCollection<TickViewModel>(Statics.Service<Factory>().Create<TickViewModel>(3).ToObservableCollection());
 

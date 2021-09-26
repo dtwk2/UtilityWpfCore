@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="UtilityWpf.Demo.Dragablz.TicksUserControl"
+    x:Class="UtilityWpf.Demo.Dragablz.ListUserControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -18,12 +18,12 @@
                 <vm2:TicksViewModel />
             </FrameworkElement.DataContext>
 
-            <view1:TicksControl
+            <view1:ListControl
                 DisplayMemberPath="{mk:NameOf Type={x:Type vm2:TickViewModel}, Member=Text}"
                 CommandPath="{mk:NameOf Type={x:Type vm2:TickViewModel}, Member=Command}"
             IsCheckedPath="{mk:NameOf Type={x:Type vm2:TickViewModel}, Member=IsChecked}"
             ItemsSource="{Binding Collection}" >
-            </view1:TicksControl>
+            </view1:ListControl>
         </UniformGrid>
 
   

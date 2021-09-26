@@ -291,7 +291,7 @@ namespace UtilityWpf.DemoApp.Controls
             UIElementCollection children = InternalChildren;
             int totalChildrenCount = children.Count;
             int nonFillChildrenCount = totalChildrenCount - (IsLastChildFilled ? 1 : 0);
-            IEnumerator<Corner> corners = UtilityHelper.EnumHelper.GetAllValuesAndDescriptions<Corner>().Select(a => a.Value).GetEnumerator();
+            IEnumerator<Corner> corners = UtilityHelper.EnumHelper.SelectAllValuesAndDescriptions<Corner>().Select(a => a.Value).GetEnumerator();
 
             double accumulatedTopLeft = 0;
             double accumulatedTopRight = 0;
@@ -375,7 +375,7 @@ namespace UtilityWpf.DemoApp.Controls
                 if (StartCorner.HasValue)
                 {
                     while (!corners.MoveNext())
-                        corners = UtilityHelper.EnumHelper.GetAllValuesAndDescriptions<Corner>().Select(a => a.Value).GetEnumerator();
+                        corners = UtilityHelper.EnumHelper.SelectAllValuesAndDescriptions<Corner>().Select(a => a.Value).GetEnumerator();
                     return corners.Current;
                 }
                 else

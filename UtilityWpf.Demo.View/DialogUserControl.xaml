@@ -10,10 +10,10 @@
         <UniformGrid>
 
 
-            <controls:ExceptionDialog Height="100" Width="300"/>
+            <!--<controls:ExceptionDialog Height="100" Width="300"/>
 
 
-            <controls:ConfirmationDialog Height="200" Width="200"/>
+            <controls:ConfirmationDialog Height="200" Width="200"/>-->
 
         </UniformGrid>
     </Grid>
