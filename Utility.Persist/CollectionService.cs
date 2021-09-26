@@ -4,7 +4,7 @@ using System.Linq;
 using System.Collections.Specialized;
 using UtilityHelperEx;
 using System.Reactive.Linq;
-using UtilityInterface.NonGeneric.Database;
+using UtilityInterface.NonGeneric.Data;
 using System.Reactive.Subjects;
 using DynamicData;
 using System.ComponentModel;
@@ -12,11 +12,12 @@ using System.Reactive.Disposables;
 using UtilityHelper.NonGeneric;
 using UtilityWpf;
 using UtilityWpf.Common;
+using Utility.Common.Helper;
 
 namespace Utility.Persist
 {
     public record CollectionChangeMessage(IEnumerable<object> Objects);
-    public record RepositoryMessage(IDatabaseService Service);
+    public record RepositoryMessage(IRepository Service);
 
     public class CollectionService : IObserver<RepositoryMessage>, IObservable<CollectionChangeMessage>, IDisposable
     {
@@ -39,7 +40,7 @@ namespace Utility.Persist
               .WithLatestFrom(repositoryMessages.Select(a => a.Service).WhereNotDefault())
               .Subscribe(cc =>
               {
-                  var (((action, first), (second, third)), docstore) = cc;
+                  var (((action, first), (second, third)), repository) = cc;
                   if (action == NotifyCollectionChangedAction.Reset)
                       return;
 
@@ -52,24 +53,24 @@ namespace Utility.Persist
                       case NotifyCollectionChangedAction.Replace:
                           {
                               foreach (var item in third)
-                                  docstore.Update(item);
+                                  repository.Update(item);
                               break;
                           }
 
                       case NotifyCollectionChangedAction.Add:
                           {
                               foreach (var item in third)
-                                  docstore.Insert(item);
+                                  repository.Add(item);
                               break;
                           }
                       case NotifyCollectionChangedAction.Remove:
                           {
                               foreach (var item in third)
-                                  docstore.Delete(item);
+                                  repository.Remove(item);
                               break;
                           }
                   }
-                  var count = docstore.SelectAll().Count();
+                  var count = repository.Count();
                   if (count != Items.Count)
                   {
                       //TODO add logging
@@ -83,7 +84,7 @@ namespace Utility.Persist
             var changeSet = ObservableChangeSet.Create<object, string>(observer =>
             {
                 return repositoryMessages.Select(a => a.Service).WhereNotDefault()
-                   .Select(a => a.SelectAll().Cast<object>())
+                   .Select(a => a.FindAll<object>())
                    .Subscribe(objects =>
                    {
                        if (objects.Any() == false)
@@ -155,7 +156,7 @@ namespace Utility.Persist
 
         //private static void RepositoryChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         //{
-        //    (dependencyObject as PersistBehavior).repositoryChanges.OnNext(e.NewValue as IDatabaseService);
+        //    (dependencyObject as PersistBehavior).repositoryChanges.OnNext(e.NewValue as IRepository);
         //}
 
         //private void Change_PropertyChanged(object sender, PropertyChangedEventArgs e)

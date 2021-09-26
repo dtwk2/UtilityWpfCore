@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using ReactiveUI;
 
@@ -22,15 +23,15 @@ namespace UtilityWpf.Demo.Common.ViewModel
         private bool isChecked;
         private ICommand command;
 
-        public TickViewModel(Guid id, bool isChecked, string text = "Tick") : this()
+        public TickViewModel(Guid id, string text) 
         {
             Id = id;
-            IsChecked = isChecked;
             Text = text;
         }
 
-        public TickViewModel()
-        {           
+        public TickViewModel([CallerMemberName] string? name = null)
+        {
+            throw new Exception("sdfsf444");
         }
 
         public Guid Id { get; init; }

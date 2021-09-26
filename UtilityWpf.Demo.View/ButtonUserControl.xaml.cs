@@ -1,11 +1,16 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using ReactiveUI;
+using Utility.Common;
 using UtilityWpf.Controls;
+using UtilityHelperEx;
+using Microsoft.Xaml.Behaviors.Core;
 
 namespace UtilityWpf.DemoApp
 {
@@ -60,9 +65,9 @@ namespace UtilityWpf.DemoApp
             Command = command;
         }
 
-        public ICommand Command { get; set; }
+        public ICommand Command { get; init; }
 
-        public string Header { get; set; }
+        public string Header { get; init; }
 
     }
 
@@ -72,7 +77,7 @@ namespace UtilityWpf.DemoApp
         {
             Data = new ObservableCollection<ButtonViewModel>
             {
-                new("1", ReactiveCommand.Create(()=>{ })),
+                new("1", new ActionCommand(()=>{ })),
                 new("2", ReactiveCommand.Create(()=>{ })),
                 new("3", ReactiveCommand.Create(()=>{ })),
             };
@@ -81,4 +86,41 @@ namespace UtilityWpf.DemoApp
         public ObservableCollection<ButtonViewModel> Data { get; }
 
     }
+
+
+    public class MethodsViewModel
+    {
+        public MethodsViewModel()
+        {
+            Data = new ObservableCollection<ButtonViewModel>(
+                ReflectionHelper.GetMethods(new Model())
+                .Select(a => new ButtonViewModel(a.Item1, ReactiveCommand.Create(() => { _ = a.Item2(); }))));                
+        }
+
+        public ObservableCollection<ButtonViewModel> Data { get; }
+
+    }
+
+    class Model
+    {
+        [Description("One")]
+        public void ShowOne()
+        {
+            MessageBox.Show("One");
+        }
+              
+        [Description("Two")]
+        public void ShowTwo()
+        {
+            MessageBox.Show("Two");
+        }
+               
+        [Description("Three")]
+        public void ShowThree()
+        {
+            MessageBox.Show("Three");
+        }
+
+    }
+
 }

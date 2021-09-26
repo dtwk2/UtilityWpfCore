@@ -1,6 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Reflection;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -8,25 +7,34 @@ using System.Windows.Data;
 using System.Windows.Input;
 using Dragablz;
 using Utility.Common;
+using UtilityHelper;
+using UtilityWpf.Attached;
 
 namespace UtilityWpf.Controls.Dragablz
 {
-    public class TicksControl : DragablzVerticalItemsControl
+    public class ListControl : DragablzVerticalItemsControl
     {
-        public static readonly DependencyProperty IsCheckedPathProperty = DependencyProperty.Register("IsCheckedPath", typeof(string), typeof(TicksControl), new PropertyMetadata(null));
-        public static readonly DependencyProperty CommandPathProperty = DependencyProperty.Register("CommandPath", typeof(string), typeof(TicksControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty IsCheckedPathProperty = DependencyProperty.Register("IsCheckedPath", typeof(string), typeof(ListControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty IsRefreshablePathProperty = DependencyProperty.Register("IsRefreshablePath", typeof(string), typeof(ListControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty CommandPathProperty = DependencyProperty.Register("CommandPath", typeof(string), typeof(ListControl), new PropertyMetadata(null));
 
-        static TicksControl()
+        static ListControl()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(TicksControl), new FrameworkPropertyMetadata(typeof(TicksControl)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(ListControl), new FrameworkPropertyMetadata(typeof(ListControl)));
         }
 
         public string IsCheckedPath
         {
             get => (string)GetValue(IsCheckedPathProperty);
             set => SetValue(IsCheckedPathProperty, value);
-        }      
-        
+        }
+
+        public string IsRefreshablePath
+        {
+            get => (string)GetValue(IsRefreshablePathProperty);
+            set => SetValue(IsRefreshablePathProperty, value);
+        }
+
         public string CommandPath
         {
             get => (string)GetValue(CommandPathProperty);
@@ -43,6 +51,7 @@ namespace UtilityWpf.Controls.Dragablz
             CreateAndSetTextBinding();
             CreateAndSetCommandBinding();
             CreateAndSetIsCheckedBinding();
+            CreateAndSetRefreshableBinding();
 
             base.PrepareContainerForItemOverride(element, item);
 
@@ -55,8 +64,8 @@ namespace UtilityWpf.Controls.Dragablz
 
                 textBox.MouseLeftButtonDown += TextBox_MouseLeftButtonDown;
                 textBox.GotFocus += TextBox_GotFocus;
-
-                var isReadOnly = item.GetType().GetProperty(DisplayMemberPath).IsReadOnly();
+                var prop = item.GetType().GetProperty(DisplayMemberPath);
+                var isReadOnly = prop.IsReadOnly() || prop.IsInitOnly();
                 var binding = new Binding
                 {
                     Source = item,
@@ -68,26 +77,47 @@ namespace UtilityWpf.Controls.Dragablz
                 BindingOperations.SetBinding(textBox, TextBox.TextProperty, binding);
             }
 
+            /// this will override the drag behavior
             void CreateAndSetIsCheckedBinding()
             {
-                BindingOperations.SetBinding(element, Attached.Ex.IsCheckedProperty, CreateIsCheckedBinding());
+                if (string.IsNullOrEmpty(IsCheckedPath) == false)
+                    BindingOperations.SetBinding(element, Attached.Ex.StateProperty, CreateBinding());
 
-                Binding CreateIsCheckedBinding()
-                {
-                    if (string.IsNullOrEmpty(IsCheckedPath))
-                        throw new ArgumentNullException(nameof(IsCheckedPath));
-
+                Binding CreateBinding()
+                {     
                     Binding binding = new Binding
                     {
                         Source = item,
                         Path = new PropertyPath(IsCheckedPath),
                         Mode = BindingMode.OneWay,
+                        Converter = new ValueConverter(),
+                        ConverterParameter = IsCheckedPathProperty,
                         UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
                     };
                     return binding;
                 }
             }
-     
+
+            /// this will override the drag behavior
+            void CreateAndSetRefreshableBinding()
+            {
+                if (string.IsNullOrEmpty(IsRefreshablePath) == false)
+                    BindingOperations.SetBinding(element, Attached.Ex.StateProperty, CreateBinding());
+
+                Binding CreateBinding()
+                {
+                    Binding binding = new Binding
+                    {
+                        Source = item,
+                        Path = new PropertyPath(IsRefreshablePath),
+                        Mode = BindingMode.OneWay,
+                        Converter = new ValueConverter(),
+                        ConverterParameter = IsRefreshablePathProperty,
+                        UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+                    };
+                    return binding;
+                }
+            }
 
             void CreateAndSetCommandBinding()
             {
@@ -124,6 +154,35 @@ namespace UtilityWpf.Controls.Dragablz
         {
             if ((e.OriginalSource as TextBox)?.FindParent<DragablzItem>() is { } parent)
                 parent.IsSelected = true;
+        }
+    }
+
+
+    class ValueConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is not bool balue)
+                throw new Exception("Expected boolean type.sdfsdf");
+            if (parameter is not DependencyProperty { Name: { } name })
+                throw new Exception("Expected DependencyProperty type.sdfsdf");
+
+            if (name == ListControl.IsCheckedPathProperty.Name)
+            {
+                return (bool?)balue switch { true => State.Ticked, false => State.Crossed, null => State.None };
+            }
+            else if (name == ListControl.IsRefreshablePathProperty.Name)
+            {
+                return (bool?)balue switch { true => State.Refreshable, false => State.None, null => State.None };
+            }
+
+            throw new ArgumentOutOfRangeException("Expected boolean type.sdfsdf");
+
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
         }
     }
 }

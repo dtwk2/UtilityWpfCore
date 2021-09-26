@@ -2,7 +2,6 @@
 using Splat.Autofac;
 using System.Windows;
 using Utility.Common;
-using UtilityWpf.Meta;
 
 namespace UtilityWpf.Demo.Master
 {
@@ -14,9 +13,7 @@ namespace UtilityWpf.Demo.Master
         public App()
         {
             var builder = new ContainerBuilder();
-            builder.RegisterInstance(
-                new AutoMapperTypeCollection( 
-                typeof(UtilityWpf.Demo.Common.Infrastructure.Profile)));
+            builder.AutoRegister();
             builder.UseAutofacDependencyResolver();
         }
     }

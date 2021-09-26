@@ -5,27 +5,21 @@ using System.IO;
 using System.Linq;
 using LiteDB;
 using NetFabric.Hyperlinq;
+using Utility.Common;
 using UtilityHelper;
-using UtilityInterface.NonGeneric.Database;
+using UtilityInterface.NonGeneric.Data;
 using static UtilityWpf.Service.LiteDbRepository;
 
 namespace UtilityWpf.Service
 {
-    public class LiteDbRepository : IDatabaseService
-    {
 
+    public class LiteDbRepository : IRepository, IIdRepository
+    {
         public record ConnectionSettings(Type Type, FileInfo FileInfo, string IdProperty, bool IgnoreBsonDocumentProperties = true);
 
         private string _key => Settings.IdProperty;
-        //private readonly Settings settings;
 
-        //private string _directory;
-        //private ILiteCollection<BsonDocument> collection => cfollection.Value.Item1;
-        //private IDisposable _disposable => cfollection.Value.Item2;
         private BsonMapper _mapper = new BsonMapper();
-
-
-        //private Type type =
 
         IDisposable GetCollection(out ILiteCollection<BsonDocument> collection)
         {
@@ -38,14 +32,7 @@ namespace UtilityWpf.Service
         public LiteDbRepository(ConnectionSettings settings)
         {
             var fileInfo = settings.FileInfo;
-            fileInfo.Directory.Create();
-            //cfollection = new Lazy<(ILiteCollection<BsonDocument>, IDisposable)>(() =>
-            // {
-            //     var ac = LiteDbHelper.GetCollection(settings, out var _disposable);
-            //     ac.EnsureIndex(a => a[_key]);
-            //     return (ac, _disposable);
-            // });
-
+            fileInfo.Directory.Create();     
             Settings = settings;
         }
 
@@ -53,10 +40,167 @@ namespace UtilityWpf.Service
         public ConnectionSettings Settings { get; }
 
 
-        //public IConvertible GetKey(object trade)
-        //{
-        //    return (PropertyHelper.GetPropertyValue<IConvertible>(trade, _key.ToString()));
-        //}
+        public object Find(object item)
+        {
+            using (GetCollection(out var collection))
+            {
+                return collection.FindById(new BsonValue(item.GetPropertyRefValue<IConvertible>(_key, typeof(object))));
+            }
+        }
+
+        public object Add(object item)
+        {
+            using (GetCollection(out var collection))
+            {
+                collection.Insert(Convert(item));
+                return true;
+            }
+        }
+
+        public object Update(object item)
+        {
+            using (GetCollection(out var collection))
+            {
+                collection.Update(Convert(item));
+                return true;
+            }
+        }
+
+        public object Remove(object item)
+        {
+            using (GetCollection(out var collection))
+            {
+                var converted = Convert(item);
+                var query = Query.EQ("_id", converted["_id"]);
+                var select = collection.Find(query).ToArray();
+                if (select.Length != 1)
+                {
+                    throw new ApplicationException($"Expected length from query,{select.Length}, does not match one.");
+                }
+                return collection.Delete(converted["_id"]);
+            }
+        }
+
+        public IEnumerable FindMany(IEnumerable items)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable IAddMany(IEnumerable items)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable UpdateMany(IEnumerable items)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable RemoveMany(IEnumerable items)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object FindBy(IQuery query)
+        {
+            using (GetCollection(out var collection))
+            {
+                switch (query)
+                {
+                    case CountQuery:
+                        return collection.Count();    
+                    case FirstQuery:
+                        return Convert(collection.Query().First());
+                    default:
+                        throw new ArgumentOutOfRangeException("789uu7fssd");
+                }
+            } 
+        }
+
+        public object AddBy(IQuery query)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object UpdateBy(IQuery query)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object RemoveBy(IQuery query)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable AddMany(IEnumerable items)
+        {
+            using (GetCollection(out var collection))
+            {
+                var bulk = collection.InsertBulk(Convert(items));
+                return Enumerable.Range(0, bulk);
+            }
+        }
+
+        public IEnumerable FindMany(IQuery query)
+        {
+            using (GetCollection(out var collection))
+            {
+
+                switch (query)
+                {
+                    case AllQuery:
+                        return ConvertBack(collection.FindAll()).ToArray();   
+                    default:
+                        throw new ArgumentOutOfRangeException("777fssd");
+                }
+            }
+        }
+
+        public IEnumerable AddManyBy(IQuery query)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable UpdateManyBy(IQuery query)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable RemoveMany(IQuery query)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object FindById(long id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object RemoveById(long id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable FindManyById(IEnumerable<long> ids)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable RemoveManyById(IEnumerable<long> ids)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected virtual IEnumerable<BsonDocument> Convert(IEnumerable objs)
+        {
+            //var doc = _mapper.ToD(obj.GetType(), objs);
+            return objs.Cast<object>().Select(obj => Convert(obj));
+        }
+        protected virtual IEnumerable<object> ConvertBack(IEnumerable<BsonDocument> objs)
+        {
+            //var doc = _mapper.ToD(obj.GetType(), objs);
+            return objs.Select(obj => ConvertBack(obj));
+        }
 
         protected virtual BsonDocument Convert(object obj)
         {
@@ -90,108 +234,6 @@ namespace UtilityWpf.Service
             return doc;
         }
 
-        protected virtual IEnumerable<BsonDocument> Convert(IEnumerable<object> objs)
-        {
-            //var doc = _mapper.ToD(obj.GetType(), objs);
-            return objs.Select(obj => Convert(obj));
-        }
-
-
-        public bool Insert(object item)
-        {
-            using (GetCollection(out var collection))
-            {
-                collection.Insert(Convert(item));
-                return true;
-            }
-        }
-
-        public bool Update(object item)
-        {
-            using (GetCollection(out var collection))
-            {
-                collection.Update(Convert(item));
-                return true;
-            }
-        }
-
-        public bool Delete(object item)
-        {
-            using (GetCollection(out var collection))
-            {
-                var cvt = Convert(item);
-                var query = Query.EQ("_id", cvt["_id"]);
-                var select = collection.Find(query).ToArray();
-                if (select.Length != 1)
-                {
-                    throw new ApplicationException($"Expected length from query,{select.Length}, does not match one.");
-                }
-                return collection.Delete(cvt["_id"]);
-            }
-        }
-
-        public int InsertBulk(IList<object> items)
-        {
-            using (GetCollection(out var collection))
-            {
-                return collection.InsertBulk(Convert(items));
-            }
-        }
-
-
-
-        public IEnumerable SelectAll()
-        {
-            using (GetCollection(out var collection))
-            {
-                return collection.FindAll().Select(a => ConvertBack(a)).ToArray();
-            }
-        }
-
-        //public IEnumerable SelectAll(object obj)
-        //{
-        //    return collection.Value.FindAll();
-        //}
-
-        public object Select(object item)
-        {
-            using (GetCollection(out var collection))
-            {
-                return collection.FindById(new BsonValue(item.GetPropertyValue<IConvertible>(_key, typeof(object))));
-            }
-        }
-
-        public object SelectById(object item)
-        {
-            using (GetCollection(out var collection))
-            {
-                return collection.FindById(new BsonValue(item));
-            }
-        }
-
-        public int InsertBulk(IEnumerable item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int UpdateBulk(IEnumerable item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int DeleteBulk(IEnumerable item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool DeleteById(object item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Dispose()
-        {
-        }
     }
 
     public static class LiteDbHelper

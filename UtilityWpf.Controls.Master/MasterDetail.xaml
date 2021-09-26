@@ -3,10 +3,10 @@
                     xmlns:local="clr-namespace:UtilityWpf.Controls.Master">
 
 
-    <Style x:Key="NewStyle" TargetType="{x:Type local:MasterDetail}">
+    <Style x:Key="NewStyle" TargetType="{x:Type local:ReadOnlyMasterDetail}">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:MasterDetail}">
+                <ControlTemplate TargetType="{x:Type local:ReadOnlyMasterDetail}">
                     <!--<ControlTemplate.Resources>
                         <ResourceDictionary Source="/UtilityWpf.Controls;component/DataTemplate/PropertyDataTemplateSelector.xaml" />
                     </ControlTemplate.Resources>-->
@@ -25,6 +25,6 @@
         </Setter>
     </Style>
 
-    <Style BasedOn="{StaticResource NewStyle}" TargetType="{x:Type local:MasterDetail}" />
+    <Style BasedOn="{StaticResource NewStyle}" TargetType="{x:Type local:ReadOnlyMasterDetail}" />
 
 </ResourceDictionary>

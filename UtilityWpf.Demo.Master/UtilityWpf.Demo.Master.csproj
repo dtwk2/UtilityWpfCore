@@ -28,10 +28,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="View\MasterDetailGridUserControl .xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\MasterListUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\PersistList2UserControl.xaml.cs">
+    <Compile Update="View\MasterDetailUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -40,6 +43,10 @@
     <Page Update="App.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="View\MasterDetailGridUserControl .xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
     </Page>
     <Page Update="View\MasterListUserControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
@@ -50,7 +57,7 @@
       <Generator>MSBuild:Compile</Generator>
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
-    <Page Update="View\PersistList2UserControl.xaml">
+    <Page Update="View\MasterDetailUserControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

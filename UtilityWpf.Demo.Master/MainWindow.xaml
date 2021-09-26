@@ -18,23 +18,28 @@
         <utl:SharedResourceDictionary Source="/UtilityWpf.Demo.Data;component/DataTemplate/Character.xaml" />
     </FrameworkElement.Resources>-->
     
-    <TabControl>   
-        
+    <TabControl>
+
+        <TabItem Header="Master-Detail-Grid">
+            <view11:MasterDetailGridUserControl />
+        </TabItem>
+
+
         <TabItem Header="ItemsWrap">
             <view121:ItemsWrapUserControl />
         </TabItem>    
              
 
-        <TabItem Header="TwoWay">
+        <TabItem Header="Two Orientations">
             <view1:MasterListUserControl />
         </TabItem>
 
-        <TabItem Header="Persist">
-            <view11:PersistListUserControl />
+        <TabItem Header="Read-Only-Master-Detail">
+            <view11:ReadOnlyMasterDetailUserControl />
         </TabItem>
-        
-        <TabItem Header="Persist 2">
-            <view11:PersistList2UserControl />
+
+        <TabItem Header="Master-Detail">
+            <view11:MasterDetailUserControl />
         </TabItem>
 
 

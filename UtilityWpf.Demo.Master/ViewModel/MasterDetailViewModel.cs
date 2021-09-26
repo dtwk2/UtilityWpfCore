@@ -2,7 +2,7 @@
 using System.Reactive;
 using ReactiveUI;
 using Utility.Common.EventArgs;
-using UtilityInterface.NonGeneric.Database;
+using UtilityInterface.NonGeneric.Data;
 using UtilityWpf.Demo.Common.ViewModel;
 using UtilityWpf.Service;
 using UtilityWpf.Demo.Data.Model;
@@ -12,14 +12,14 @@ using Utility.Persist;
 
 namespace UtilityWpf.Demo.Master.Infrastructure
 {
-    public class PersistList2ViewModel : ReactiveObject
+    public class MasterDetailViewModel : ReactiveObject
     {
 
         private IEnumerator<Fields> build;
 
         private readonly CollectionService service = new();
 
-        public PersistList2ViewModel()
+        public MasterDetailViewModel()
         {
             service.OnNext(new(DatabaseService()));
 
@@ -66,7 +66,7 @@ namespace UtilityWpf.Demo.Master.Infrastructure
 
         private FieldsFactory Factory() => new();
 
-        IDatabaseService DatabaseService() => new LiteDbRepository(new LiteDbRepository.ConnectionSettings(typeof(Fields), new System.IO.FileInfo("../../../Data/Data.litedb"), nameof(Fields.Id)));
+        IRepository DatabaseService() => new LiteDbRepository(new LiteDbRepository.ConnectionSettings(typeof(Fields), new System.IO.FileInfo("../../../Data/Data.litedb"), nameof(Fields.Id)));
 
     }
 }

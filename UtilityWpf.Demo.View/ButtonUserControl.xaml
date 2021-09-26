@@ -93,7 +93,16 @@
 
             </view:ButtonsControl>
         </TabItem>
+        <TabItem Header="Methods">
+            <TabItem.DataContext>
+                <demoApp:MethodsViewModel/>
+            </TabItem.DataContext>
+            <view:ButtonsControl ItemsSource="{Binding Data}"
+                             CommandPath="Command"
+                             DisplayMemberPath="Header">
 
+            </view:ButtonsControl>
+        </TabItem>
         <TabItem Header="Morph">
             <FrameworkElement.DataContext>
                 <demoApp:ToggleViewModel />

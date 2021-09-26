@@ -30,7 +30,7 @@ DependencyProperty.Register("CommandPath", typeof(string), typeof(ResourceDictio
                var (itemsSource, display, isChecked, commandPath) = a;
                //this.Dispatcher.InvokeAsync(() =>
                //{
-               if ((Content ??= new TicksControl()) is TicksControl msn)
+               if ((Content ??= new ListControl()) is ListControl msn)
                {
                    msn.ItemsSource = itemsSource;
                    msn.CommandPath = commandPath;
@@ -39,7 +39,7 @@ DependencyProperty.Register("CommandPath", typeof(string), typeof(ResourceDictio
                }
                else
                {
-                   throw new ApplicationException("Expected Content to be " + nameof(TicksControl));
+                   throw new ApplicationException("Expected Content to be " + nameof(ListControl));
                }
                //});
            });

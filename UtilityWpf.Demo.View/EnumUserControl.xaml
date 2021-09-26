@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:common="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:UtilityWpf.DemoApp"
     xmlns:test="clr-namespace:Utility.Common.Enum;assembly=Utility.Common"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:view="http://schemas.utility.com"
@@ -19,9 +18,11 @@
             <TabItem.Resources>
                 <common:BooleanToOrientationConverter x:Key="BooleanToOrientationConverter" />
             </TabItem.Resources>
+
             <DockPanel>              
                 <UniformGrid Rows="1">
-                    <StackPanel>
+                 
+   <StackPanel>
                         <ToggleButton x:Name="ToggleButton1" Height="30"/>
                         <view:EnumItemsControl
                             x:Name="bdc"
@@ -37,10 +38,42 @@
                         <TextBlock Text="{Binding ElementName=bdcs, Path=Output, Converter={x:Static utl:LambdaConverter.StringConverter}}" />
                     </StackPanel>
                     <view:EnumItemsControl Enum="{x:Type test:Emotion}" IsReadOnly="True" />
+                    <StackPanel>
+                        <view:ButtonsControl x:Name="bdc" Orientation="Vertical">
+                            <i:Interaction.Behaviors>
+                                <utl:EnumSelectorBehavior EnumType="{x:Type Visibility}"></utl:EnumSelectorBehavior>
+                            </i:Interaction.Behaviors>
+                        </view:ButtonsControl>
+                        <TextBlock Text="{Binding ElementName=bdc, Path=Output, Mode=OneWay}" Margin="5" Background="AliceBlue" Height="30"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <view:ButtonsControl x:Name="bdcs" DisplayMemberPath="{utl:NameOf Type={x:Type utl:EnumMember}, Member=Value}">
+                            <i:Interaction.Behaviors>
+                                <utl:EnumSelectorBehavior EnumType="{x:Type Visibility}"></utl:EnumSelectorBehavior>
+                            </i:Interaction.Behaviors>
+                        </view:ButtonsControl>
+                        <TextBlock Text="{Binding ElementName=bdcs, Path=Output}" />
+                    </StackPanel>
+
                 </UniformGrid>
             </DockPanel>
         </TabItem>
-        
+
+        <TabItem Header="Selector">
+            <UniformGrid Rows="1">
+                <ComboBox x:Name="ComboBox">
+                    <i:Interaction.Behaviors>
+                        <utl:EnumSelectorBehavior EnumType="{x:Type Visibility}"></utl:EnumSelectorBehavior>
+                    </i:Interaction.Behaviors>
+                </ComboBox>
+                <ListBox Visibility="{Binding ElementName=ComboBox, Path=SelectedValue}" Background="HotPink">
+                    <i:Interaction.Behaviors>
+                        <utl:EnumSelectorBehavior EnumType="{x:Type HorizontalAlignment}"></utl:EnumSelectorBehavior>
+                    </i:Interaction.Behaviors>
+                </ListBox>
+            </UniformGrid>
+
+        </TabItem>
         <TabItem Header="Toggle">
             <StackPanel>
                 <Label>Default</Label>
@@ -63,7 +96,6 @@
                         Enum="{x:Type test:Connected}"
                         UseEnumAsContent="False" />
                 </Grid>
-                <!--<TextBlock Text="{Binding ElementName=TenseControl,Path=Output}"></TextBlock>-->
 
                 <Viewbox Width="200" Height="50">
                     <view:EnumToggleButton

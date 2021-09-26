@@ -2,7 +2,7 @@
 using System.Collections;
 using UtilityWpf.Demo.Common.ViewModel;
 using UtilityWpf.Service;
-using UtilityInterface.NonGeneric.Database;
+using UtilityInterface.NonGeneric.Data;
 
 namespace UtilityWpf.Demo.Hybrid.ViewModel
 {
@@ -13,7 +13,7 @@ namespace UtilityWpf.Demo.Hybrid.ViewModel
         public ResourceDictionariesViewModel()
         {
             ResourceDictionaryService service = new();
-            collectionService.OnNext(new(DatabaseService()));
+            collectionService.OnNext(new(Repository()));
             foreach (var item in new TickViewModelFactory().Collection)
             {
                 if (collectionService.Items.Contains(item) == false)
@@ -31,7 +31,7 @@ namespace UtilityWpf.Demo.Hybrid.ViewModel
 
         public override IEnumerable Collection => collectionService.Items;
 
-        IDatabaseService DatabaseService() => new LiteDbRepository(
+        IRepository Repository() => new LiteDbRepository(
             new LiteDbRepository.ConnectionSettings(typeof(TickViewModel),
                 new System.IO.FileInfo("../../../Data/Data.litedb"),
                 nameof(TickViewModel.Id)));

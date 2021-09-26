@@ -24,8 +24,8 @@
 	<Compile Update="GeometryThumb.cs">
 	  <DependentUpon>GeometryThumb.xaml</DependentUpon>
 	</Compile> 
-	<Compile Update="TicksControl.cs">
-	  <DependentUpon>TicksControl.xaml</DependentUpon>
+	<Compile Update="ListControl.cs">
+	  <DependentUpon>ListControl.xaml</DependentUpon>
 	</Compile>    
 	<Compile Update="GroupsControl.cs">
 	  <DependentUpon>GroupsControl.xaml</DependentUpon>
@@ -48,7 +48,7 @@
 	  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 	  <SubType>Designer</SubType>
 	</Page>
-	<Page Update="TicksControl.xaml">
+	<Page Update="ListControl.xaml">
 	  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 	  <SubType>Designer</SubType>
 	</Page>

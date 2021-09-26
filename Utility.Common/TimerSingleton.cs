@@ -8,7 +8,7 @@ namespace UtilityWpf.Service
     {
         public IObservable<DateTime> Time { get; private set; }
 
-        private static TimerSingleton instance;
+        private static TimerSingleton? instance;
 
         private TimerSingleton()
         {

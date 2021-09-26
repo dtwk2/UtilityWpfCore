@@ -10,7 +10,7 @@ namespace CustomHelper
     {
         public static List<Dynamic> OnGetData(IEnumerable enumerable, string key, string value)
         {
-            var keys = ((IEnumerable)enumerable.First()).GetPropertyValues<object>(key);
+            var keys = ((IEnumerable)enumerable.First()).GetPropertyRefValues<object>(key);
 
             try
             {
@@ -24,7 +24,7 @@ namespace CustomHelper
 
             foreach (var en in enumerable)
             {
-                var values = ((IEnumerable)en).GetPropertyValues<object>(value);
+                var values = ((IEnumerable)en).GetPropertyRefValues<object>(value);
                 Dynamic customer1 = new Dynamic();// { FirstName = "Julie", LastName = "Smith" };
                 foreach (var val in values.Cast<object>().Zip(keys.Cast<object>(), (a, b) => new { a, b }))
                     customer1.SetPropertyValue((string)val.b, val.a);

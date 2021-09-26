@@ -12,9 +12,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+using System.Windows.Input;
 using Evan.Wpf;
 using Microsoft.Xaml.Behaviors;
 using ReactiveUI;
+using static UtilityWpf.Behavior.EnumSelectorBehavior;
 
 namespace UtilityWpf.Behavior
 {
@@ -23,8 +25,8 @@ namespace UtilityWpf.Behavior
         CompositeDisposable? disposable = null;
         public static readonly DependencyProperty EnumTypeProperty = DependencyProperty.Register("EnumType", typeof(Type), typeof(EnumSelectorBehavior), new PropertyMetadata(EnumTypeChanged));
         public static readonly DependencyProperty EnumFilterCollectionProperty = DependencyHelper.Register<IEnumerable>();
-        public static readonly DependencyProperty SelectedEnumValueProperty =
-            DependencyProperty.Register("SelectedEnumValue", typeof(Enum), typeof(EnumSelectorBehavior), new FrameworkPropertyMetadata
+        public static readonly DependencyProperty SelectedEnumProperty =
+            DependencyProperty.Register("SelectedEnum", typeof(Enum), typeof(EnumSelectorBehavior), new FrameworkPropertyMetadata
             {
                 BindsTwoWayByDefault = true,
                 DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
@@ -41,7 +43,9 @@ namespace UtilityWpf.Behavior
                 AssociatedObject.Height = 40;
             }
 
-            AssociatedObject.DisplayMemberPath = "Description";
+            AssociatedObject.DisplayMemberPath = string.IsNullOrEmpty(AssociatedObject.DisplayMemberPath) ? 
+                "Description" : 
+                AssociatedObject.DisplayMemberPath;
             AssociatedObject.SelectedValuePath = "Value";
             AssociatedObject.SelectedIndex = 0;
             AssociatedObject.HorizontalAlignment = HorizontalAlignment.Center;
@@ -50,7 +54,7 @@ namespace UtilityWpf.Behavior
             AssociatedObject.VerticalContentAlignment = VerticalAlignment.Center;
 
 
-            this.WhenAnyValue(a => a.SelectedEnumValue)
+            this.WhenAnyValue(a => a.SelectedEnum)
             .DistinctUntilChanged()
             .WhereNotNull()
             .CombineLatest(AssociatedObject.WhenAnyValue(a => a.ItemsSource)
@@ -71,7 +75,7 @@ namespace UtilityWpf.Behavior
                 .DistinctUntilChanged()
                 .Subscribe(c =>
                 {
-                    SetValue(SelectedEnumValueProperty, (Enum?)c);
+                    SetValue(SelectedEnumProperty, (Enum?)c);
                 }).DisposeWith(disposable);
 
             itemsSourceSubject.Subscribe(a =>
@@ -83,7 +87,7 @@ namespace UtilityWpf.Behavior
                 .WhereNotNull()
                 .Subscribe(a =>
             {
-               var flags = EnumHelper.Filter(a).ToArray();
+                var flags = EnumHelper.Filter(a).ToArray();
                 var members = EnumMember.EnumerateEnumMembers(a.GetType().GetElementType());
                 var aa = from flag in flags
                          join mem in members on flag equals mem.Value
@@ -116,10 +120,10 @@ namespace UtilityWpf.Behavior
             set => SetValue(EnumFilterCollectionProperty, value);
         }
 
-        public Enum SelectedEnumValue
+        public Enum SelectedEnum
         {
-            get => (Enum)GetValue(SelectedEnumValueProperty);
-            set => SetValue(SelectedEnumValueProperty, value);
+            get => (Enum)GetValue(SelectedEnumProperty);
+            set => SetValue(SelectedEnumProperty, value);
         }
         #endregion properties
 
@@ -156,41 +160,7 @@ namespace UtilityWpf.Behavior
             return itemsSource;
         }
 
-        public class EnumMember
-        {
 
-            public object Value { get; init; } = default!;
-
-            public string Description { get; init; } = null!;
-
-            public string StringValue { get; init; } = null!;
-
-
-            /// <exception cref="ArgumentException">T must be of type enumeration.</exception>
-            public static IEnumerable<EnumMember> EnumerateEnumMembers(Type type)
-            {
-                if (!type.IsEnum)
-                {
-                    throw new ArgumentException("T must be of type enumeration.");
-                }
-
-                foreach (var memberInfo in type.GetMembers(BindingFlags.Public | BindingFlags.Static))
-                {
-                    var descriptionAttribute = memberInfo.GetCustomAttributes(true).OfType<DescriptionAttribute>().SingleOrDefault();
-                    var attr = memberInfo.GetCustomAttributes(true).OfType<StringValueAttribute>().SingleOrDefault();
-
-                    var enumMember = new EnumMember
-                    {
-                        Value = Enum.Parse(type, memberInfo.Name),
-                        Description = attr?.Value ?? descriptionAttribute?.Description ?? memberInfo.Name,
-                        StringValue = memberInfo.Name
-                    };
-
-                    yield return enumMember;
-                }
-            }
-
-        }
 
         /// <summary>
         /// Simple attribute class for storing String Values
@@ -208,6 +178,40 @@ namespace UtilityWpf.Behavior
         }
     }
 
+    public class EnumMember
+    {
+
+        public object Value { get; init; } = default!;
+
+        public string Description { get; init; } = null!;
+
+        public string StringValue { get; init; } = null!;
+
+        /// <exception cref="ArgumentException">T must be of type enumeration.</exception>
+        public static IEnumerable<EnumMember> EnumerateEnumMembers(Type type)
+        {
+            if (!type.IsEnum)
+            {
+                throw new ArgumentException("T must be of type enumeration.");
+            }
+
+            foreach (var memberInfo in type.GetMembers(BindingFlags.Public | BindingFlags.Static))
+            {
+                var descriptionAttribute = memberInfo.GetCustomAttributes(true).OfType<DescriptionAttribute>().SingleOrDefault();
+                var attr = memberInfo.GetCustomAttributes(true).OfType<StringValueAttribute>().SingleOrDefault();
+
+                var enumMember = new EnumMember
+                {
+                    Value = Enum.Parse(type, memberInfo.Name),
+                    Description = attr?.Value ?? descriptionAttribute?.Description ?? memberInfo.Name,
+                    StringValue = memberInfo.Name
+                };
+
+                yield return enumMember;
+            }
+        }
+
+    }
 
     static class EnumHelper
     {
@@ -216,10 +220,10 @@ namespace UtilityWpf.Behavior
             var elementType = input.GetType().GetElementType();
 
             foreach (Enum value in Enum.GetValues(elementType))
-                if(input.OfType<Enum>().Contains(value))
+                if (input.OfType<Enum>().Contains(value))
                     yield return value;
         }
-    
+
         public static IEnumerable<Enum> GetFlags(object input)
         {
             foreach (Enum value in Enum.GetValues(input.GetType()))

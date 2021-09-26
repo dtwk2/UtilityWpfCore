@@ -4,6 +4,16 @@ using System.Windows.Input;
 
 namespace UtilityWpf.Attached
 {
+
+    public enum State
+    {
+        None,
+        Ticked, 
+        Crossed,
+        Refreshable
+
+    }
+
     public partial class Ex : DependencyObject
     {
         public static readonly DependencyProperty SecurityIdProperty = DependencyProperty.RegisterAttached("SecurityId", typeof(object), typeof(Ex), new PropertyMetadata(null, PropertyChanged));
@@ -44,20 +54,20 @@ namespace UtilityWpf.Attached
 
         public static void SetIsReadOnly(DependencyObject d, object value)
         {
-            d.SetValue(KeyProperty, (bool)value);
+            d.SetValue(IsReadOnlyProperty, (bool)value);
         }
 
 
-        public static readonly DependencyProperty IsCheckedProperty = DependencyProperty.RegisterAttached("IsChecked", typeof(bool), typeof(Ex), new PropertyMetadata(false, PropertyChanged));
+        public static readonly DependencyProperty StateProperty = DependencyProperty.RegisterAttached("State", typeof(State), typeof(Ex), new PropertyMetadata(State.None, PropertyChanged));
 
-        public static bool GetIsChecked(DependencyObject d)
+        public static State GetState(DependencyObject d)
         {
-            return (bool)d.GetValue(IsCheckedProperty);
+            return (State)d.GetValue(StateProperty);
         }
 
-        public static void SetIsChecked(DependencyObject d, object value)
+        public static void SetState(DependencyObject d, object value)
         {
-            d.SetValue(KeyProperty, (bool)value);
+            d.SetValue(StateProperty, (State)value);
         }
             
         
@@ -75,7 +85,7 @@ namespace UtilityWpf.Attached
 
         public static void SetIsPressed(DependencyObject d, object value)
         {
-            d.SetValue(KeyProperty, (bool)value);
+            d.SetValue(IsPressedProperty, (bool)value);
         }
 
 
@@ -89,7 +99,7 @@ namespace UtilityWpf.Attached
 
         public static void SetIsMouseOver(DependencyObject d, object value)
         {
-            d.SetValue(KeyProperty, (bool)value);
+            d.SetValue(IsMouseOverProperty, (bool)value);
         }
 
 
@@ -103,6 +113,19 @@ namespace UtilityWpf.Attached
         public static void SetCommand(DependencyObject d, object value)
         {
             d.SetValue(CommandProperty, (ICommand)value);
+        }
+
+
+        public static readonly DependencyProperty IsCheckedProperty = DependencyProperty.RegisterAttached("IsChecked", typeof(bool), typeof(Ex), new PropertyMetadata(false, PropertyChanged));
+
+        public static bool GetIsChecked(DependencyObject d)
+        {
+            return (bool)d.GetValue(IsCheckedProperty);
+        }
+
+        public static void SetIsChecked(DependencyObject d, object value)
+        {
+            d.SetValue(IsCheckedProperty, (bool)value);
         }
     }
 }

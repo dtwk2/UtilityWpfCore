@@ -2,17 +2,22 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:json="clr-namespace:UtilityWpf.Controls"
-    xmlns:rxui="http://reactiveui.net" 
-    xmlns:local1="clr-namespace:UtilityWpf.Controls.Infrastructure" xmlns:local11="http://schemas.utility.com/utilitywpf">
+    xmlns:rui="http://reactiveui.net" 
+    xmlns:local1="clr-namespace:UtilityWpf.Controls.Infrastructure" 
+    xmlns:local11="http://schemas.utility.com/utilitywpf">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/UtilityWpf.Controls;component/DataTemplate/KeyValuePairDataTemplate.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <DataTemplate x:Key="DefaultTemplate">
-        <Viewbox>
+        <Ellipse
+                    Width="20"
+                    Height="20"
+                    Fill="BlueViolet" />
+        <!--<Viewbox>
             <json:JsonView Object="{Binding}" />
-        </Viewbox>
+        </Viewbox>-->
     </DataTemplate>
 
     <DataTemplate x:Key="ContentPresenterTemplate">
@@ -50,20 +55,20 @@
     </DataTemplate>
 
     <DataTemplate x:Key="ViewModelTemplate">
-        <rxui:ViewModelViewHost
+        <!--<rui:ViewModelViewHost
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch"
             ViewModel="{Binding}">
-            <rxui:ViewModelViewHost.DefaultContent>
+            <rxui:ViewModelViewHost.DefaultContent>-->
                 <Ellipse
                     Width="20"
                     Height="20"
                     Fill="Red" />
-            </rxui:ViewModelViewHost.DefaultContent>
-        </rxui:ViewModelViewHost>
+            <!--</rxui:ViewModelViewHost.DefaultContent>
+        </rui:ViewModelViewHost>-->
     </DataTemplate>
 
-    <local11:SwissArmyKnifeTemplateSelector
+    <!--<local11:SwissArmyKnifeTemplateSelector
         x:Key="propertytemplateSelector"
         ColorTemplate="{StaticResource ColorTemplate}"
         ContentPresenterTemplate="{StaticResource ContentPresenterTemplate}"
@@ -71,6 +76,6 @@
         DictionaryDataTemplate="{StaticResource DictionaryTemplate}"
         EnumerableDataTemplate="{StaticResource EnumerableTemplate}"
         IConvertibleTemplate="{StaticResource IConvertibleTemplate}"
-        ViewModelHostViewTemplate="{StaticResource ViewModelTemplate}" />
+        ViewModelHostViewTemplate="{StaticResource ViewModelTemplate}" />-->
     
 </ResourceDictionary>

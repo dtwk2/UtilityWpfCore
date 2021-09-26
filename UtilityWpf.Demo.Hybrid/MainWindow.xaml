@@ -8,6 +8,15 @@
         Title="MainWindow" Height="450" Width="800">
 
     <TabControl>
+
+        <TabItem Header="Data">
+            <local:DataUserControl />
+        </TabItem>
+        
+        <TabItem Header="Factory Logs">
+            <local:FactoryLogUserControl />
+        </TabItem>   
+        
         <TabItem Header="Resource Dictionaries">
             <local:ResourceDictionariesUserControl />
         </TabItem>

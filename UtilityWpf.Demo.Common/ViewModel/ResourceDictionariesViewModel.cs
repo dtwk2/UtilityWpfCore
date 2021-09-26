@@ -14,7 +14,7 @@ namespace UtilityWpf.Demo.Common.ViewModel
 {
     public class ResourceDictionariesViewModel
     {
-        private bool isReadOnly;
+        //private bool isReadOnly;
 
         private readonly ActionCommand changeCommand;
         private readonly IReadOnlyCollection<TickViewModel> collection = new TickViewModelFactory().Collection;
@@ -24,10 +24,10 @@ namespace UtilityWpf.Demo.Common.ViewModel
             changeCommand = new ActionCommand(Change);
         }
 
-        public bool IsReadOnly
-        {
-            get => isReadOnly; set => isReadOnly = value;
-        }
+        //public bool IsReadOnly
+        //{
+        //    get => isReadOnly; set => isReadOnly = value;
+        //}
         public string Header { get; } = "Resource-Dictionaries ViewModel";
 
         public virtual IEnumerable Collection => collection;
@@ -56,13 +56,11 @@ namespace UtilityWpf.Demo.Common.ViewModel
 
         private IEnumerable<TickViewModel> CreateViewModels(Collection<ResourceDictionary> coll)
         {
-            const bool defaultValue = false;
-
             foreach (var dic in coll)
             {
                 //if (dic.Source == null)
                 //    continue;
-                var tick = new TickViewModel(Guid.NewGuid(), defaultValue, GetName(dic));
+                var tick = new TickViewModel(Guid.NewGuid(), GetName(dic));
 
                 yield return tick;
             }

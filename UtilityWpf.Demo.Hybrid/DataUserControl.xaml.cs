@@ -13,25 +13,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace UtilityWpf.Demo.Master.Infrastructure
+namespace UtilityWpf.Demo.Hybrid
 {
     /// <summary>
-    /// Interaction logic for PersistListUserControl.xaml
+    /// Interaction logic for DataUserControl.xaml
     /// </summary>
-    public partial class PersistListUserControl : UserControl
+    public partial class DataUserControl : UserControl
     {
-        public PersistListUserControl()
+        public DataUserControl()
         {
             InitializeComponent();
-            //(this.DataContext as PersistListViewModel).Data = PersistBehavior.Items;
         }
 
-        private void DragablzItemsControl_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
-        private void dfsdsf(object sender, RoutedEventArgs e)
+        private void MasterNotesControl_Change(object sender, Abstract.CollectionEventArgs e)
         {
 
         }

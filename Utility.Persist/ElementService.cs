@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using Utility.Common.Helper;
 using UtilityHelper.NonGeneric;
 
 namespace Utility.Persist
@@ -19,16 +20,15 @@ namespace Utility.Persist
                 .Take(1)
                 .Subscribe(a =>
                 {
-                    // this is not very good
-                    value = (T)a.Service.SelectAll().First();
+                    value = a.Service.First<T>();
                 });
 
             subject
                 .CombineLatest(itemSubject)
                 .Subscribe(a =>
                 {
-                    if (a.First.Service.Update(a) == false)
-                        a.First.Service.Insert(a);
+                    if ((bool)a.First.Service.Update(a) == false)
+                        a.First.Service.Add(a);
                 });
         }
 

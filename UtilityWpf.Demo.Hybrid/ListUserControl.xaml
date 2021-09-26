@@ -20,7 +20,7 @@
         </ResourceDictionary>
     </FrameworkElement.Resources>
 
-    <UniformGrid Columns="1">
+    <UniformGrid Rows="1">
         <FrameworkElement.DataContext>
             <vm1:TicksViewModel />
         </FrameworkElement.DataContext>
@@ -29,12 +29,22 @@
                 ItemsSource="{Binding Collection}"
                 ItemTemplate="{StaticResource NoteViewModel}" />
 
-        <view:MasterTicksControl 
+        <view:MasterListControl 
                 IsCheckedPath="{mk:NameOf Type={x:Type vm1:TickViewModel}, Member=IsChecked}"                
                 CommandParameter="{Binding NewItem}"
                 ItemsSource="{Binding Collection}" 
                 DisplayMemberPath="{mk:NameOf Type={x:Type vm1:TickViewModel}, Member=Text}">
-        </view:MasterTicksControl>
+        </view:MasterListControl>      
+        
+        <view:MasterListControl 
+                IsRefreshablePath="{mk:NameOf Type={x:Type vm1:ButtonViewModel}, Member=IsRefreshable}"   
+                CommandPath="{mk:NameOf Type={x:Type vm1:ButtonViewModel}, Member=Command}" 
+                ItemsSource="{Binding Data}" 
+                DisplayMemberPath="{mk:NameOf Type={x:Type vm1:ButtonViewModel}, Member=Header}">
+            <FrameworkElement.DataContext>
+                <vm1:ButtonsViewModel />
+            </FrameworkElement.DataContext>
+        </view:MasterListControl>
     </UniformGrid>
 
 </UserControl>

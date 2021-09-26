@@ -7,7 +7,7 @@ using Utility.Common;
 using Utility.Common.Enum;
 using Utility.Common.EventArgs;
 using Utility.Persist;
-using UtilityInterface.NonGeneric.Database;
+using UtilityInterface.NonGeneric.Data;
 using UtilityWpf.Demo.Common.ViewModel;
 using UtilityWpf.Demo.Data.Model;
 using UtilityWpf.Service;
@@ -15,30 +15,30 @@ using UtilityWpf.Service;
 
 namespace UtilityWpf.Demo.Master.Infrastructure
 {
-    public class PersistListViewModel : ReactiveObject
+    public class ReadOnlyMasterDetailViewModel : ReactiveObject
     {
         private readonly ReactiveFieldsFactory factory = new();
-        private IDatabaseService dbS = new DatabaseService();
+        private IRepository dbS = new MockDatabaseService();
         private IEnumerator<ReactiveFields> build;
         private readonly CollectionService service = new();
 
-        public PersistListViewModel()
+        public ReadOnlyMasterDetailViewModel()
         {
             this.WhenAnyValue(a => a.DatabaseService)
                 .Subscribe(a => { service.OnNext(new(a)); });
 
-            ChangeCommand = ReactiveCommand.Create<object, Unit>((obj) =>
+            ChangeCommand = ReactiveCommand.Create<CollectionEventArgs, Unit>((obj) =>
             {
                 switch (obj)
                 {
-                    case CollectionEventArgs { EventType: EventType.Add }:
+                    case { EventType: EventType.Add }:
                         if (NewItem.MoveNext())
                             service.Items.Add(NewItem.Current);
                         break;
-                    case CollectionEventArgs { EventType: EventType.Remove, Item: { } item }:
+                    case { EventType: EventType.Remove, Item: { } item }:
                         service.Items.Remove(item);
                         break;
-                    case CollectionEventArgs { EventType: EventType.Remove }:
+                    case { EventType: EventType.Remove }:
                         service.Items.RemoveAt(service.Items.Count - 1);
                         break;
                     case MovementEventArgs eventArgs:
@@ -55,9 +55,9 @@ namespace UtilityWpf.Demo.Master.Infrastructure
 
             ChangeRepositoryCommand = ReactiveCommand.Create<bool, Unit>((a) =>
             {
-                if (DatabaseService is LiteDbRepository service)                {
-                    service.Dispose();
-                    DatabaseService = new DatabaseService();
+                if (DatabaseService is LiteDbRepository service)
+                {
+                    DatabaseService = new MockDatabaseService();
                 }
                 else
                     DatabaseService = new LiteDbRepository(new LiteDbRepository.ConnectionSettings(typeof(ReactiveFields), new System.IO.FileInfo("../../../Data/Data.litedb"), nameof(ReactiveFields.Id)));
@@ -79,11 +79,11 @@ namespace UtilityWpf.Demo.Master.Infrastructure
             }
         }
 
-        public ReactiveCommand<object, Unit> ChangeCommand { get; }
+        public ReactiveCommand<CollectionEventArgs, Unit> ChangeCommand { get; }
         public ReactiveCommand<bool, Unit> ChangeRepositoryCommand { get; }
         public ReactiveCommand<object, Unit> CollectionChangedCommand { get; }
 
-        public IDatabaseService DatabaseService { get => dbS; private set => this.RaiseAndSetIfChanged(ref dbS, value); }
+        public IRepository DatabaseService { get => dbS; private set => this.RaiseAndSetIfChanged(ref dbS, value); }
     }
 
 }
