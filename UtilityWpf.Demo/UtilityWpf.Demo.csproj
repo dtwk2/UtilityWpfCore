@@ -9,6 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Page Remove="Themes\StyleChange\Blue.xaml" />
+    <Page Remove="Themes\StyleChange\Green.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\UtilityWpf.Demo.Dragablz\UtilityWpf.Demo.Dragablz.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.FileSystem\UtilityWpf.Demo.FileSystem.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.Hybrid\UtilityWpf.Demo.Hybrid.csproj" />
@@ -17,6 +22,11 @@
     <ProjectReference Include="..\UtilityWpf.Demo.View.Panels\UtilityWpf.Demo.View.Panels.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.View\UtilityWpf.Demo.View.csproj" />
     <ProjectReference Include="..\UtilityWpf.TestData\UtilityWpf.Demo.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Themes\StyleChange\Blue.xaml" />
+    <Resource Include="Themes\StyleChange\Green.xaml" />
   </ItemGroup>
 
   <ItemGroup>

@@ -18,9 +18,26 @@
             <TabItem.Resources>
                 <common:BooleanToOrientationConverter x:Key="BooleanToOrientationConverter" />
             </TabItem.Resources>
-            <DockPanel>
 
+            <DockPanel>              
                 <UniformGrid Rows="1">
+                 
+   <StackPanel>
+                        <ToggleButton x:Name="ToggleButton1" Height="30"/>
+                        <view:EnumItemsControl
+                            x:Name="bdc"
+                            Orientation="{Binding ElementName=ToggleButton1, Path=IsChecked, Converter={StaticResource BooleanToOrientationConverter}}"
+                            Enum="{x:Type test:Emotion}" />
+                        <TextBlock Text="{Binding ElementName=bdc, Path=Output, Mode=OneWay, Converter={x:Static utl:LambdaConverter.StringConverter}}" Margin="5" Background="AliceBlue" Height="30"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <view:EnumItemsControl
+                            x:Name="bdcs"
+                            Orientation="Vertical"
+                            Enum="{x:Type test:Emotion}" />
+                        <TextBlock Text="{Binding ElementName=bdcs, Path=Output, Converter={x:Static utl:LambdaConverter.StringConverter}}" />
+                    </StackPanel>
+                    <view:EnumItemsControl Enum="{x:Type test:Emotion}" IsReadOnly="True" />
                     <StackPanel>
                         <view:ButtonsControl x:Name="bdc" Orientation="Vertical">
                             <i:Interaction.Behaviors>
@@ -37,6 +54,7 @@
                         </view:ButtonsControl>
                         <TextBlock Text="{Binding ElementName=bdcs, Path=Output}" />
                     </StackPanel>
+
                 </UniformGrid>
             </DockPanel>
         </TabItem>
@@ -89,5 +107,19 @@
             </StackPanel>
         </TabItem>
 
+        <TabItem Header="Selector">
+            <UniformGrid Rows="1">
+                <ComboBox x:Name="ComboBox">
+                    <i:Interaction.Behaviors>
+                        <utl:EnumSelectorBehavior EnumType="{x:Type Visibility}"></utl:EnumSelectorBehavior>
+                    </i:Interaction.Behaviors>
+                </ComboBox>
+                <ListBox Visibility="{Binding ElementName=ComboBox, Path=SelectedValue}" Background="HotPink">
+                    <i:Interaction.Behaviors>
+                        <utl:EnumSelectorBehavior EnumType="{x:Type HorizontalAlignment}"></utl:EnumSelectorBehavior>
+                    </i:Interaction.Behaviors>
+                </ListBox>
+            </UniformGrid>           
+        </TabItem>
     </TabControl>
 </UserControl>

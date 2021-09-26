@@ -22,6 +22,11 @@
         </Button>
 
         <controlzex:TabControlEx>
+            <TabItem Header="Directory">
+                <local:DirectoryComboBoxView />
+            </TabItem>
+
+            
             <TabItem Header="Folder">
                 <local:PathView />
             </TabItem>

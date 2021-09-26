@@ -27,14 +27,15 @@
         </StackPanel>
         <Grid>
             <UniformGrid>
-                <view:JsonView Object="{StaticResource Characters}" />
-                <view:JsonView Object="{StaticResource exception}" />
-                <view:ObjectView Object="{StaticResource exception}" />
+                <view:JsonControl Object="{StaticResource Characters}" />
+                <view:JsonControl Object="{StaticResource exception}" />
+                <view:ObjectFlowControl Object="{StaticResource exception}" />
+                
                 <Grid>
                     <Grid.Resources>
                         <!--  DataTemplate for Published Date column defined in Grid.Resources.  PublishDate is a property on the ItemsSource of type DateTime  -->
                         <DataTemplate x:Key="DateTemplate">
-                            <view:JsonView Object="{Binding}" />
+                            <view:JsonControl Object="{Binding}" />
                         </DataTemplate>
                         <!--  DataTemplate for the Published Date column when in edit mode.  -->
                         <DataTemplate x:Key="EditingDateTemplate">

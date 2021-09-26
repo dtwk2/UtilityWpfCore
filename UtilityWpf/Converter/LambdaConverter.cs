@@ -26,6 +26,9 @@ namespace UtilityWpf.Converter
         public static IValueConverter HumanizerConverter =>
             LambdaConverters.ValueConverter.Create<string, string>(a => a.Value.Humanize());
 
+        public static IValueConverter StringConverter =>
+     LambdaConverters.ValueConverter.Create<object, string>(a => a.Value?.ToString() ?? "null");
+
         public static IValueConverter CountConverter =>
             LambdaConverters.ValueConverter.Create<int, bool>(a => a.Value != 0);
 
