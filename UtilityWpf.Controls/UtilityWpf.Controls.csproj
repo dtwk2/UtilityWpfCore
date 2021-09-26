@@ -119,9 +119,6 @@
     <Page Update="Themes\Brushes.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\CheckBoxStyle.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="Themes\CollapseBox.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
