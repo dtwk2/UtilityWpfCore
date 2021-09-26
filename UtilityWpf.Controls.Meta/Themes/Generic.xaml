@@ -1,0 +1,11 @@
+﻿<utl:AutoResourceDictionary  xmlns:utl="http://schemas.utility.com/utilitywpf"
+                             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                             xmlns:local="clr-namespace:UtilityWpf.Controls.Meta"
+                             Type="{x:Type local:ViewsDetailControl}">
+
+    
+    <!--<ResourceDictionary.MergedDictionaries>
+        <utl:SharedResourceDictionary Source="/UtilityWpf.Controls.Master;component/Themes/ViewTypeDataTemplate.xaml"/>
+    </ResourceDictionary.MergedDictionaries>-->
+</utl:AutoResourceDictionary>
