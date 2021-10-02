@@ -34,6 +34,7 @@ namespace UtilityWpf.Controls
                 .Select(a => BuildFromEnum(a.First, a.Second).ToArray())
                 .Subscribe(enums =>
                 {
+                    Output = enums.First().Enum;
                     disposable?.Dispose();
                     disposable = new();
                     //Enums = enums;

@@ -3,7 +3,7 @@
                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                              xmlns:local="clr-namespace:UtilityWpf.Controls"
                              xmlns:converter="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"                      
-                             Type="{x:Type local:ObjectControl}">
+                             Type="{x:Type local:CollapseBox}">
 
     <converter:DescriptionConverter x:Key="DescriptionConverter" />
     <converter:DefaultConverter x:Key="DefaultConverter" />
@@ -40,8 +40,7 @@
     </Style>
 
     <ResourceDictionary.MergedDictionaries>
-        <!-- The below use AncestorType-RelativeSource bindings, so can't be auto-loaded -->
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Object/ObjectControl.xaml" />
+        <!-- The below use AncestorType-RelativeSource bindings, so can't be auto-loaded -->      
         <ResourceDictionary Source="/UtilityWpf.Controls;component/RangeSlider.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/SliderItemsControl.xaml" />
     </ResourceDictionary.MergedDictionaries>

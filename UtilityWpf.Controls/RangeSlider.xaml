@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:UtilityWpf.Controls" 
     xmlns:infra="clr-namespace:UtilityWpf.Controls.Panels" 
-     xmlns:converter="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf">
+     xmlns:converter="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf" xmlns:infra1="http://schemas.utility.com/panels">
 
     <ResourceDictionary.MergedDictionaries />
     <converter:ThicknessConverter x:Key="ThicknessConverter"></converter:ThicknessConverter>
@@ -137,7 +137,7 @@
                         Visibility="Visible">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <infra:UniformRow x:Name="TickLabelContainer" />
+                                <infra1:UniformRow x:Name="TickLabelContainer" />
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemContainerStyle>

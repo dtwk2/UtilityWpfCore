@@ -235,6 +235,10 @@ namespace UtilityWpf.Controls
 
         public void Execute(object parameter)
         {
+            if(parameter==null)
+            {
+                return;
+            }
             var kvp = (parameter as SliderItemsControl.KeyValuePairRoutedEventArgs).KeyValuePair;
 
             Event.Invoke(kvp);

@@ -7,7 +7,7 @@ using System.Windows.Media.Animation;
 namespace UtilityWpf.Controls
 {
     [TemplatePart(Name = "PART_PathTransform", Type = typeof(RotateTransform))]
-    public class CollapseBox : ToggleButton
+    public class CollapseBox : System.Windows.Controls.Primitives.ToggleButton
     {
 
         private RotateTransform _pathTransform;

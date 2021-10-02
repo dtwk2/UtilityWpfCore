@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Controls;
 using Evan.Wpf;
 using UtilityEnum;
-using UtilityWpf.Controls.Extrinsic;
 using UtilityWpf.Controls.Infrastructure;
 using UtilityWpf.Utility;
 
@@ -13,6 +12,7 @@ using UtilityWpf.Utility;
 namespace UtilityWpf.Controls
 {
     using Mixins;
+
     public class TimeSpanControl : Controlx
     {
         public static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent("ValueChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler<(decimal value, TimeInterval timeInterval)>), typeof(TimeSpanControl));

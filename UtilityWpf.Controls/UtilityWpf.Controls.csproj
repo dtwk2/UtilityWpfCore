@@ -56,53 +56,101 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\UtilityWpf.Panels\UtilityWpf.Panels.csproj" />
     <ProjectReference Include="..\UtilityWpf\UtilityWpf.csproj" />
   </ItemGroup>
 
 
   <ItemGroup>
-	  <Compile Update="ButtonsControl.cs">
-		  <DependentUpon>ButtonsControl.xaml</DependentUpon>
-	  </Compile>
 	  <Compile Update="CollapseBox.cs">
 	    <DependentUpon>CollapseBox.xaml</DependentUpon>
 	  </Compile>
-
-    <Compile Update="Progress\FlashThumb.cs">
-      <DependentUpon>FlashThumb.xaml</DependentUpon>
-    </Compile>  
-    <Compile Update="Progress\ProgressArc.cs">
-      <DependentUpon>ProgressArc.xaml</DependentUpon>
-    </Compile>
-
-	  <Compile Update="Extrinsic\AnimatedListBox.cs">
-		  <DependentUpon>AnimatedListBox.xaml</DependentUpon>
-	  </Compile>
-
-	  <Compile Update="Extrinsic\AnimatedScrollViewer.cs">
-		  <DependentUpon>AnimatedScrollViewer.xaml</DependentUpon>
-	  </Compile>	
-
-	  <Compile Update="Button\GeometryButton.cs">
-		  <DependentUpon>GeometryButton.xaml</DependentUpon>
-	  </Compile>  
-    <Compile Update="Object\JsonControl.cs">
-		  <DependentUpon>JsonControl.xaml</DependentUpon>
-	  </Compile>  
-    <Compile Update="Object\ObjectFlowControl.cs">
-		  <DependentUpon>ObjectFlowControl.xaml</DependentUpon>
+	  <Compile Update="SliderWithTickLabels.cs">
+	    <DependentUpon>SliderWithTickLabels.xaml</DependentUpon>
 	  </Compile>   
-    <Compile Update="Object\ObjectControl.cs">
-		  <DependentUpon>ObjectControl.xaml</DependentUpon>
+	  <Compile Update="CompareTextBlock.cs">
+	    <DependentUpon>CompareTextBlock.xaml</DependentUpon>
 	  </Compile>   
+	  <Compile Update="DatesList.cs">
+	    <DependentUpon>DatesList.xaml</DependentUpon>
+	  </Compile>   
+	  <Compile Update="DateTimeControl.cs">
+	    <DependentUpon>DateTimeControl.xaml</DependentUpon>
+	  </Compile>   
+	  <Compile Update="DictionaryControl.cs">
+	    <DependentUpon>DictionaryControl.xaml</DependentUpon>
+	  </Compile>   
+	  <Compile Update="DynamicDataGrid.cs">
+	    <DependentUpon>DynamicDataGrid.xaml</DependentUpon>
+	  </Compile>   
+	  <Compile Update="EnumItem.cs">
+	    <DependentUpon>EnumItem.xaml</DependentUpon>
+	  </Compile>   
+	  <Compile Update="EnumItemsControl.cs">
+	    <DependentUpon>EnumItemsControl.xaml</DependentUpon>
+	  </Compile>   
+	  <Compile Update="FlipControl.cs">
+	    <DependentUpon>FlipControl.xaml</DependentUpon>
+	  </Compile>   
+	  <Compile Update="HeaderedListBox.cs">
+	    <DependentUpon>HeaderedListBox.xaml</DependentUpon>
+	  </Compile>   
+	  <Compile Update="IconContentControl.cs">
+	    <DependentUpon>IconContentControl.xaml</DependentUpon>
+	  </Compile>     
+	  <Compile Update="LabelledInput.cs">
+	    <DependentUpon>LabelledInput.xaml</DependentUpon>
+	  </Compile>     
+	  <Compile Update="LogViewer.cs">
+	    <DependentUpon>LogViewer.xaml</DependentUpon>
+	  </Compile>     
+	  <Compile Update="NavigatorControl.cs">
+	    <DependentUpon>NavigatorControl.xaml</DependentUpon>
+	  </Compile>     
+	  <Compile Update="NumbersControl.cs">
+	    <DependentUpon>NumbersControl.xaml</DependentUpon>
+	  </Compile>     
+	  <Compile Update="PageNavigatorControl.cs">
+	    <DependentUpon>PageNavigatorControl.xaml</DependentUpon>
+	  </Compile>   
+	  <Compile Update="RangeSlider.cs">
+	    <DependentUpon>RangeSlider.xaml</DependentUpon>
+	  </Compile>   
+	  <Compile Update="ShortTimeSpanControl.cs">
+	    <DependentUpon>ShortTimeSpanControl.xaml</DependentUpon>
+	  </Compile>   
+	  <Compile Update="SkipControl.cs">
+	    <DependentUpon>SkipControl.xaml</DependentUpon>
+	  </Compile> 
+	  <Compile Update="SizeControl.cs">
+	    <DependentUpon>SizeControl.xaml</DependentUpon>
+	  </Compile>   
+	  <Compile Update="SliderItemsControl.cs">
+	    <DependentUpon>SliderItemsControl.xaml</DependentUpon>
+	  </Compile>  
+	  <Compile Update="SpinnerControl.cs">
+	    <DependentUpon>SpinnerControl.xaml</DependentUpon>
+	  </Compile>  
+	  <Compile Update="TimeSpanControl.cs">
+	    <DependentUpon>TimeSpanControl.xaml</DependentUpon>
+	  </Compile>   
+
+	  <Compile Update="TransitionControl.cs">
+	    <DependentUpon>TransitionControl.xaml</DependentUpon>
+	  </Compile>   
+
+	  <Compile Update="TypeControl.cs">
+	    <DependentUpon>TypeControl.xaml</DependentUpon>
+	  </Compile>   
+
+	  <Compile Update="ValidationForm.cs">
+	    <DependentUpon>ValidationForm.xaml</DependentUpon>
+	  </Compile>   
+
 
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="ButtonsControl.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="DataTemplate\KeyValuePairDataTemplate.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
@@ -111,13 +159,14 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Progress\FlashThumb.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-    </Page>
     <Page Update="DataTemplate\PathDataTemplate.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="DataTemplate\TypeDataTemplate.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="SliderWithTickLabels.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\Brushes.xaml">
@@ -127,109 +176,74 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\CollectionEditor.xaml">
+    <Page Update="CollectionEditor.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\CriteriaItem.xaml">
+    <Page Update="CriteriaItem.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\DatesList.xaml">
+    <Page Update="DatesList.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\DefaultListBoxItemStyle.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\DictionaryControl.xaml">
+    <Page Update="DictionaryControl.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\DualButtonControl.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-    </Page>
-    <Page Update="Themes\DynamicDataGrid.xaml">
+    <Page Update="DynamicDataGrid.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\ExpandItemStyle.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\FlipControl.xaml">
+    <Page Update="FlipControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Themes\Extrinsic\SliderWithTickLabels.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\Generic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Update="Themes\Geometry.xaml">
+    <Page Update="HeaderedListBox.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\HeaderedListBox.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Themes\IconContentControl.xaml">
+    <Page Update="IconContentControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
-    <Page Update="Themes\ImageButton.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Themes\LabelledInput.xaml">
+    <Page Update="LabelledInput.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
-    <Page Update="Themes\LabelledTextBox.xaml">
+    <Page Update="LabelledTextBox.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\NavigatorControl.xaml">
+    <Page Update="NavigatorControl.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Object\ObjectControl.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Themes\PageNavigatorControl.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Button\GeometryButton.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="Progress\ProgressBar.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Themes\ProgressTimeBar.xaml">
+    <Page Update="PageNavigatorControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\ResourcePicker.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\SizeControl.xaml">
+    <Page Update="SizeControl.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\SkipControl.xaml">
+    <Page Update="SkipControl.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\Slider.xaml">
+    <Page Update="Slider.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="SliderItemsControl.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\SpinnerControl.xaml">
+    <Page Update="SpinnerControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Themes\SwitchControl.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-    </Page>
-    <Page Update="Themes\ValidationForm.xaml">
+    <Page Update="ValidationForm.xaml">
       <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Themes\ViewCollection.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-    </Page>
-    <Page Update="Clock\BasicTransitionControl.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
   </ItemGroup>
 

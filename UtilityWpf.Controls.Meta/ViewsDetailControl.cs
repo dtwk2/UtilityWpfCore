@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
@@ -7,15 +6,21 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using MoreLinq;
 using ReactiveUI;
-using UtilityHelper;
 using UtilityWpf.Controls.Master;
 using UtilityWpf.Model;
 
 namespace UtilityWpf.Controls.Meta
 {
     using static UtilityWpf.DependencyPropertyFactory<ViewsDetailControl>;
+
+    class ViewTypeItem : ListBoxItem
+    {
+    }
+
+    class ViewTypeItemListBox : ListBox<ViewTypeItem>
+    {
+    }
 
     public class ViewsDetailControl : MasterDetail
     {
@@ -25,7 +30,7 @@ namespace UtilityWpf.Controls.Meta
         public ViewsDetailControl()
         {
 
-            var listBox = new ListBox();
+            var listBox = new ViewTypeItemListBox();
             Selector = listBox;
             UseDataContext = true;
             _ = subject
@@ -35,7 +40,12 @@ namespace UtilityWpf.Controls.Meta
               {
                   return ViewType.ViewTypes(assembly);
               })
-              .Subscribe(pairs => listBox.ItemsSource = pairs);
+              .Subscribe(pairs =>
+              {
+                  listBox.ItemsSource = pairs;
+                  listBox.SelectedIndex = 0;
+
+              });
 
             Content = CreateContent();
 

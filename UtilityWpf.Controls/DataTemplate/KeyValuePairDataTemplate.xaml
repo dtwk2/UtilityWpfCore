@@ -4,8 +4,6 @@
     xmlns:Json="clr-namespace:UtilityWpf.Controls"
     xmlns:pt="http://propertytools.org/wpf">
 
-    <!--<ResourceDictionary.MergedDictionaries />
-
     <DataTemplate x:Key="KeyValuePairTemplate">
 
         <Grid MinHeight="50" Margin="2" >
@@ -21,13 +19,8 @@
                 Grid.Column="1"
                 Margin="1"
                 HorizontalAlignment="Center"
-                Content="{Binding Path=Value}">
-                <ContentPresenter.ContentTemplate>
-                    <DataTemplate>
-                        <Json:JsonView Object="{Binding}" />
-                    </DataTemplate>
-                </ContentPresenter.ContentTemplate>
+                Content="{Binding Path=Value}">             
             </ContentPresenter>
         </Grid>
-    </DataTemplate>-->
+    </DataTemplate>
 </ResourceDictionary>

@@ -1,9 +1,8 @@
 ﻿<Application
-    x:Class="UtilityWpf.DemoApp.App"
+    x:Class="UtilityWpf.Demo.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=PresentationFramework" 
-    xmlns:utilitywpf="http://schemas.utility.com/utilitywpf">
+    xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=PresentationFramework">
     
     <Application.Resources>
         <ResourceDictionary>
@@ -16,13 +15,15 @@
             </Style>
 
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UtilityWpf.Controls.Meta;component/Themes/ViewTypeDataTemplate.xaml"/>
                 <ResourceDictionary Source="/UtilityWpf.Demo.Dragablz;component/Templates.xaml" />
+                <ResourceDictionary Source="/UtilityWpf.Controls.Meta;component/Themes/Generic.xaml" />
                 <ResourceDictionary Source="/UtilityWpf.Demo.Master;component/Templates.xaml" />
                 <ResourceDictionary Source="/UtilityWpf.Demo.Hybrid;component/View/Templates.xaml" />
                 <ResourceDictionary Source="/UtilityWpf.Demo.Data;component/Themes/Generic.xaml" />
-
                 <ResourceDictionary Source="/UtilityWpf.Demo.Common;component/View/Templates.xaml"/>
                 <ResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/Themes/Generic.xaml" />
+                <!--<ResourceDictionary Source="/Themes/Themes.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

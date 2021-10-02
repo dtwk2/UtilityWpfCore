@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:utl="http://schemas.utility.com/utilitywpf">
+
+    <ResourceDictionary.MergedDictionaries>
+        <utl:SharedResourceDictionary Source="/UtilityWpf.Demo.Common;component/Themes/Default.xaml"/>
+        <utl:SharedResourceDictionary Source="/UtilityWpf.Demo.Common;component/Themes/Material.xaml"/>   
+        <utl:SharedResourceDictionary Source="/UtilityWpf.Demo.Common;component/Themes/Handy.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    
+</ResourceDictionary>

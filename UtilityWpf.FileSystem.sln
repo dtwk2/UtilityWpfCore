@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Controls.FileSys
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FileSystem.Transfer", "FileSystem.Transfer", "{A0404512-DA00-43B0-A59A-0F14A6C8D530}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility.FileSystem.Transfer.WPF.Controls", "Utility.FileSystem.Transfer.WPF.Contols\Utility.FileSystem.Transfer.WPF.Controls.csproj", "{0B826286-3054-43D9-AAEF-3A2FB2ADAF15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility.FileSystem.Transfer.WPF.Controls", "Utility.FileSystem.Transfer.WPF.Controls\Utility.FileSystem.Transfer.WPF.Controls.csproj", "{0B826286-3054-43D9-AAEF-3A2FB2ADAF15}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility.FileSystem.Transfer.Common", "Utility.FileSystem.Common\Utility.FileSystem.Transfer.Common.csproj", "{4349516F-117A-4F29-9BF5-3F2407895D2B}"
 EndProject
