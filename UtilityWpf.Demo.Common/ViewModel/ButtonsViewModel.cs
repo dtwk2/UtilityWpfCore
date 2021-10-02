@@ -31,7 +31,6 @@ namespace UtilityWpf.Demo.Common.ViewModel
         public bool IsRefreshable { get; init; }
 
         public string Header { get; init; }
-
     }
 
     public class ButtonsViewModel

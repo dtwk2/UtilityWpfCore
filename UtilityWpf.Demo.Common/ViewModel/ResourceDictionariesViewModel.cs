@@ -17,7 +17,7 @@ namespace UtilityWpf.Demo.Common.ViewModel
         //private bool isReadOnly;
 
         private readonly ActionCommand changeCommand;
-        private readonly IReadOnlyCollection<TickViewModel> collection = new TickViewModelFactory().Collection;
+        private readonly IReadOnlyCollection<TickViewModel> collection = new ThemesViewModelFactory().Collection;
 
         public ResourceDictionariesViewModel()
         {
@@ -40,9 +40,9 @@ namespace UtilityWpf.Demo.Common.ViewModel
         }
     }
 
-    public class TickViewModelFactory
+    public class ThemesViewModelFactory
     {
-        public TickViewModelFactory()
+        public ThemesViewModelFactory()
         {
             var coll = Source.ThemeDictionary;
 
