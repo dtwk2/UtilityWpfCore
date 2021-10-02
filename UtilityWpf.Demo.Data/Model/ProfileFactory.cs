@@ -5,9 +5,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Media.Imaging;
-using UtilityWpf.Demo.Data.Model;
 
-namespace UtilityWpf.TestData
+namespace UtilityWpf.Demo.Data.Model
 {
 
     /// <summary>
