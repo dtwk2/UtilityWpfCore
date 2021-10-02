@@ -18,6 +18,7 @@ namespace UtilityWpf.Controls.Master
         public static readonly DependencyProperty PositionProperty = DependencyHelper.Register<Dock>(new PropertyMetadata(Dock.Bottom));
         protected readonly ReplaySubject<WrapPanel> wrapPanelSubject = new(1);
         protected readonly ReplaySubject<DockPanelSplitter> dockPanelSplitterSubject = new(1);
+        public static readonly DependencyProperty OrientationProperty = DependencyHelper.Register<Orientation>();
 
         static DoubleContentControl()
         {
@@ -28,9 +29,10 @@ namespace UtilityWpf.Controls.Master
         {
             this.Control<WrapPanel>().Subscribe(wrapPanelSubject);
 
-            wrapPanelSubject.Subscribe(a =>
+            wrapPanelSubject.Take(1).CombineLatest(this.Observable<Orientation>().DistinctUntilChanged())
+                .Subscribe(a =>
             {
-
+                a.First.Orientation = a.Second;
             });
 
             this.WhenAnyValue(a => a.Position)
@@ -72,6 +74,11 @@ namespace UtilityWpf.Controls.Master
             set { SetValue(PositionProperty, value); }
         }
 
+        public Orientation Orientation
+        {
+            get { return (Orientation)GetValue(OrientationProperty); }
+            set { SetValue(OrientationProperty, value); }
+        }
 
         #endregion properties
 

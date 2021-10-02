@@ -14,7 +14,7 @@ namespace UtilityWpf.Demo.Hybrid.ViewModel
         {
             ResourceDictionaryService service = new();
             collectionService.OnNext(new(Repository()));
-            foreach (var item in new TickViewModelFactory().Collection)
+            foreach (var item in new ThemesViewModelFactory().Collection)
             {
                 if (collectionService.Items.Contains(item) == false)
                     collectionService.Items.Add(item);

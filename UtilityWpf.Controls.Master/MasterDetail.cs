@@ -22,7 +22,7 @@ namespace UtilityWpf.Controls.Master
     /// <summary>
     /// Only transforms master-list items to the detail-item; and not vice-versa
     /// </summary>
-    public class ReadOnlyMasterDetail : ContentControlx
+    public class ReadOnlyMasterDetail : ContentControlx, ISelector
     {
 
         public static readonly DependencyProperty ConverterProperty = fac.Register<IValueConverter>();
@@ -30,6 +30,7 @@ namespace UtilityWpf.Controls.Master
         public static readonly DependencyProperty PropertyKeyProperty = fac.Register<string>(nameof(PropertyKey));
         public static readonly DependencyProperty UseDataContextProperty = fac.Register<bool>();
         public static readonly DependencyProperty SelectorProperty = fac.Register<Control>();
+        public static readonly DependencyProperty OrientationProperty = fac.Register(initialValue: Orientation.Horizontal);
 
         static ReadOnlyMasterDetail()
         {
@@ -60,7 +61,39 @@ namespace UtilityWpf.Controls.Master
                 });
         }
 
+        event SelectionChangedEventHandler ISelector.SelectionChanged
+        {
+            add
+            {
+                switch (Selector)
+                {
+                    case ISelector selector : 
+                        selector.SelectionChanged += value;
+                        break;
+                    case Selector selector :
+                        selector.SelectionChanged += value;
+                        break;
+                    default: throw new ApplicationException($"Unexpected type,{Selector.GetType().Name} for {nameof(Selector)} ");
+                };
+            }
+
+            remove
+            {
+                switch (Selector)
+                {
+                    case ISelector selector:
+                        selector.SelectionChanged -= value;
+                        break;
+                    case Selector selector:
+                        selector.SelectionChanged -= value;
+                        break;
+                    default: throw new ApplicationException($"Unexpected type,{Selector.GetType().Name} for {nameof(Selector)} ");
+                };
+            }
+        }
+
         #region properties
+
         public IValueConverter Converter
         {
             get { return (IValueConverter)GetValue(ConverterProperty); }
@@ -91,9 +124,53 @@ namespace UtilityWpf.Controls.Master
             set { SetValue(UseDataContextProperty, value); }
         }
 
+        public Orientation Orientation
+        {
+            get { return (Orientation)GetValue(OrientationProperty); }
+            set { SetValue(OrientationProperty, value); }
+        }
+
         #endregion properties
 
         protected IObservable<TransformProduct?> TransformObservable { get; }
+
+        object ISelector.SelectedItem
+        {
+            get
+            {
+                return Selector switch
+                {
+                    ISelector selector => selector.SelectedItem,
+                    Selector selector => selector.SelectedItem,
+                    _ => throw new ApplicationException($"Unexpected type,{Selector.GetType().Name} for {nameof(Selector)} "),
+                };
+            }
+        }
+        int ISelector.SelectedIndex
+        {
+            get
+            {
+                return Selector switch
+                {
+                    ISelector selector => selector.SelectedIndex,
+                    Selector selector => selector.SelectedIndex,
+                    _ => throw new ApplicationException($"Unexpected type,{Selector.GetType().Name} for {nameof(Selector)} "),
+                };
+            }
+        }
+
+        IEnumerable ISelector.ItemsSource
+        {
+            get
+            {
+                return Selector switch
+                {
+                    ISelector selector => selector.ItemsSource,
+                    Selector selector => selector.ItemsSource,
+                    _ => throw new ApplicationException($"Unexpected type,{Selector.GetType().Name} for {nameof(Selector)} "),
+                };
+            }
+        }
 
         /// <summary>
         /// Gets the selections made in the master-list

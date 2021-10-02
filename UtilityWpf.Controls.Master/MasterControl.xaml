@@ -60,8 +60,8 @@
                         <pt:DockPanelSplitter x:Name="PART_DockPanelSplitter" Background="WhiteSmoke"></pt:DockPanelSplitter>
                         <ContentPresenter />
                     </DockPanel>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+                </ControlTemplate>                
+            </Setter.Value>            
+        </Setter>       
     </Style>
 </ResourceDictionary>

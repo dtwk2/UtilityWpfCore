@@ -33,10 +33,10 @@ namespace UtilityWpf.Controls.Master
         }
 
 
-
-
-
         public static readonly DependencyProperty CommandParameterProperty = DependencyHelper.Register<IEnumerator>();
+        /// <summary>
+        /// Warning!!! Setting this property can mean items get removed via the view.
+        /// </summary>
         public static readonly DependencyProperty RemoveOrderProperty = DependencyHelper.Register<RemoveOrder>(new PropertyMetadata(RemoveOrder.Selected));
         public static readonly DependencyProperty ButtonTypesProperty = DependencyHelper.Register<ButtonType>(new PropertyMetadata(ButtonType.All));
         public static readonly RoutedEvent ChangeEvent = EventManager.RegisterRoutedEvent(nameof(Change), RoutingStrategy.Bubble, typeof(CollectionChangedEventHandler), typeof(MasterControl));
@@ -50,17 +50,14 @@ namespace UtilityWpf.Controls.Master
         {
         }
 
-        #region properties
+        #region properties  
 
         public IEnumerator CommandParameter
         {
             get { return (IEnumerator)GetValue(CommandParameterProperty); }
             set { SetValue(CommandParameterProperty, value); }
         }
-
-        /// <summary>
-        /// Warning!!! Setting this property can mean items get removed via the view.
-        /// </summary>
+            
         public RemoveOrder RemoveOrder
         {
             get { return (RemoveOrder)GetValue(RemoveOrderProperty); }
@@ -158,7 +155,7 @@ namespace UtilityWpf.Controls.Master
 
         protected virtual void ExecuteMoveUp()
         {
-            var list = GetIndexedObjects();
+            var list = IndexedObjects();
             List<IndexedObject> changes = new();
             var index = ItemsControl.Items.IndexOf(SelectedItem);
             if (index != 0)
@@ -172,7 +169,7 @@ namespace UtilityWpf.Controls.Master
 
         protected virtual void ExecuteMoveDown()
         {
-            var list = GetIndexedObjects();
+            var list = IndexedObjects();
             List<IndexedObject> changes = new();
             if (SelectedItem != null)
             { }
@@ -186,7 +183,7 @@ namespace UtilityWpf.Controls.Master
             RaiseEvent(new MovementEventArgs(list, changes, EventType.MoveUp, SelectedItem, SelectedIndex, ChangeEvent));
         }
 
-        protected virtual List<IndexedObject> GetIndexedObjects()
+        protected virtual List<IndexedObject> IndexedObjects()
         {
             List<IndexedObject> list = new();
             foreach (var item in ItemsControl.Items)
