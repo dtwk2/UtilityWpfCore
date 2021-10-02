@@ -35,13 +35,6 @@
     <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Model\**" />
-    <EmbeddedResource Remove="Model\**" />
-    <None Remove="Model\**" />
-    <Page Remove="Model\**" />
-  </ItemGroup>
-
  
 
   <ItemGroup>

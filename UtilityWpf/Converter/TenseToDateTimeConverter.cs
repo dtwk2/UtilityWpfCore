@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
+using UtilityEnum;
 
 namespace UtilityWpf.Converter
 {
@@ -12,10 +13,13 @@ namespace UtilityWpf.Converter
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool?)((dynamic)value).IsChecked switch
+            if (value is not Tense tense)
+                throw new Exception("Tensefsdfdfsdfsd");
+
+            return tense switch
             {
-                true => DateTime.Now.GetRange(DateTime.Now.AddDays(Days)).ToList(),
-                false => DateTime.Now.AddDays(-Days).GetRange(DateTime.Now).ToList(),
+                Tense.Future => DateTime.Now.GetRange(DateTime.Now.AddDays(Days)).ToList(),
+                Tense.Past => DateTime.Now.AddDays(-Days).GetRange(DateTime.Now).ToList(),
                 _ => new[] { DateTime.Now },
             };
         }
