@@ -9,7 +9,8 @@
              xmlns:cmn="clr-namespace:UtilityWpf.Demo.Common.ViewModel;assembly=UtilityWpf.Demo.Common"
              xmlns:utilitywpf="clr-namespace:UtilityWpf;assembly=UtilityWpf"
              xmlns:view1="http://schemas.utility.com/dragablz"
-             xmlns:view2="http://schemas.utility.com/master"          
+             xmlns:view2="http://schemas.utility.com/master"    
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
@@ -36,19 +37,25 @@
     </UserControl.Resources>
     <DockPanel>
 
+        <ToolBar DockPanel.Dock="Top">
+            <ToggleButton x:Name="OrientationToggleButton" Content="{x:Static Orientation.Vertical}">
+                <i:Interaction.Behaviors>
+                    <util:ToggleButtonContentBehavior UnCheckedContent="{x:Static Orientation.Horizontal}"/>
+                </i:Interaction.Behaviors>
+            </ToggleButton>
+        </ToolBar>
 
         <TabControl>
             <TabItem Header="With Detail">
-                <view2:MasterDetail Converter="{StaticResource AutoValueConverter}">
+                <view2:MasterDetail Converter="{StaticResource AutoValueConverter}" Orientation="{Binding ElementName=OrientationToggleButton, Path=Content}">
                     <view2:MasterDetail.Selector>
-                        <DataGrid ItemsSource="{Binding Data, Mode=OneTime}" IsReadOnly="True">
-
-                        </DataGrid>
+                        <DataGrid ItemsSource="{Binding Data, Mode=OneTime}" IsReadOnly="True"/>
                     </view2:MasterDetail.Selector>
                 </view2:MasterDetail>
             </TabItem>
             <TabItem Header="With Detail">
                 <view2:ReadOnlyMasterDetail Converter="{x:Static local11:CollectionConverter.Instance}"
+                                            Orientation="{Binding ElementName=OrientationToggleButton, Path=Content}"
                                              UseDataContext="True">
                     <view2:ReadOnlyMasterDetail.Selector>
                         <ListBox>
