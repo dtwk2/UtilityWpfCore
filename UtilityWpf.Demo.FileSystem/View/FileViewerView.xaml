@@ -6,7 +6,10 @@
              xmlns:controls1="http://schemas.utility.com/filesystem"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <FrameworkElement.Resources>
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/Generic.xaml" />
+    </FrameworkElement.Resources>
     <Grid>
-        <controls1:FileViewer Directory="../../../Resources" />
+        <controls1:FileViewer Directory="../../../" />
     </Grid>
 </UserControl>
