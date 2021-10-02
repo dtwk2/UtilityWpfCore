@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Media.Imaging;
+using UtilityWpf.Utility;
 
 namespace UtilityWpf.Demo.Data.Model
 {
@@ -19,7 +22,11 @@ namespace UtilityWpf.Demo.Data.Model
         {
         }
 
-        private static BitmapImage GetImage(string path) => new BitmapImage(new Uri(System.IO.Path.GetFullPath("../../../../UtilityWpf.TestData/" + path)));
+        /// <remarks>
+        /// Make sure assembly folder matches assembly name and files are stored in ProfilePics folder
+        /// </remarks>
+        private static BitmapImage GetImage(string path) =>
+            new BitmapImage(PathHelper.FindUri(typeof(ProfileFactory).Assembly.GetName().Name, "ProfilePics", path + ".png"));
 
         public static IReadOnlyList<Profile> BuildPool() =>
                 new ReadOnlyCollection<Profile>(
@@ -35,7 +42,7 @@ namespace UtilityWpf.Demo.Data.Model
                         "Epic Coders",
                         new List<string>{ "UI", "UX", "photoshop" },
                         4,
-                        GetImage("ProfilePics\\00_Wide.png")),
+                        ToBitmapImage(Resource1._00_Wide)),
                     new Profile(
                         "mobile designer",
                         "$32/hr",
@@ -46,7 +53,7 @@ namespace UtilityWpf.Demo.Data.Model
                         null,
                         new List<string>{ "PHP", "android", "iOS"},
                         2,
-                        GetImage("ProfilePics/01_Paria.png")),
+                        GetImage("01_Paria")),
                     new Profile(
                         "mobile designer",
                         "$42/hr",
@@ -57,7 +64,7 @@ namespace UtilityWpf.Demo.Data.Model
                         null,
                         new List<string>{ "PHP", "android", "iOS"},
                         12,
-                         GetImage("ProfilePics/02_Morexandra.png")),
+                         GetImage("02_Morexandra")),
                     new Profile(
                         "interactive designer",
                         "$44/hr",
@@ -68,7 +75,7 @@ namespace UtilityWpf.Demo.Data.Model
                         null,
                         new List<string>{ "PHP", "android", "iOS"},
                         2,
-                         GetImage("ProfilePics/03_Smennifer.png")),
+                         GetImage("03_Smennifer")),
                     new Profile(
                         "mobile designer",
                         "$40/hr",
@@ -79,7 +86,7 @@ namespace UtilityWpf.Demo.Data.Model
                         null,
                         new List<string>{ "PHP", "android", "iOS"},
                         2,
-                         GetImage("ProfilePics/04_Anyetlana.png")),
+                         GetImage("04_Anyetlana")),
                     new Profile(
                         "UI/UX designer",
                         "$30/hr",
@@ -90,7 +97,7 @@ namespace UtilityWpf.Demo.Data.Model
                         "Visual Madness",
                         new List<string>{ "UI", "UX", "photoshop"},
                         4,
-                         GetImage("ProfilePics/05_Korko.png")),
+                         GetImage("05_Korko")),
                     new Profile(
                         "UX designer",
                         "$50/hr",
@@ -101,7 +108,7 @@ namespace UtilityWpf.Demo.Data.Model
                         "Apple Inc",
                         new List<string>{ "UI", "UX", "photoshop" },
                         4,
-                         GetImage("ProfilePics/06_Kowel.png")),
+                         GetImage("06_Kowel")),
                     new Profile(
                         "mobile designer",
                         "$32/hr",
@@ -112,7 +119,7 @@ namespace UtilityWpf.Demo.Data.Model
                         null,
                         new List<string>{ "PHP", "android", "iOS" },
                         2,
-                         GetImage("ProfilePics/07_Sinia.png")),
+                         GetImage("07_Sinia")),
                     new Profile(
                         "photographer",
                         "$40/hr",
@@ -123,7 +130,7 @@ namespace UtilityWpf.Demo.Data.Model
                         "Epic Coders",
                         new List<string>{ "UI", "UX", "photoshop" },
                         4,
-                         GetImage("ProfilePics/08_Wonathan.png")),
+                         GetImage("08_Wonathan")),
                     new Profile(
                         "Superhero",
                         "free",
@@ -134,7 +141,7 @@ namespace UtilityWpf.Demo.Data.Model
                         null,
                         new List<string>{ "tech", "IT", "martial arts" },
                         69,
-                         GetImage("ProfilePics/09_Matban.png")),
+                         GetImage("09_Matban")),
                     new Profile(
                         "mobile designer",
                         "$39/hr",
@@ -145,7 +152,7 @@ namespace UtilityWpf.Demo.Data.Model
                         null,
                         new List<string>{ "PHP", "android", "iOS" },
                         2,
-                         GetImage("ProfilePics/10_Surgiana.png")),
+                         GetImage("10_Surgiana")),
                     new Profile(
                         "UI/UX designer",
                         "$45/hr",
@@ -156,7 +163,25 @@ namespace UtilityWpf.Demo.Data.Model
                         "Epic Coders",
                         new List<string>{ "UI", "UX", "photoshop" },
                         4,
-                         GetImage("ProfilePics/11_Jogory.png"))
+                         GetImage("11_Jogory"))
                     });
+
+        static BitmapImage ToBitmapImage(System.Drawing.Bitmap bitmap)
+        {
+            using (MemoryStream memory = new MemoryStream())
+            {
+                bitmap.Save(memory, ImageFormat.Png);
+                memory.Position = 0;
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.StreamSource = memory;
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.EndInit();
+                return bitmapImage;
+            }
+        }
     }
+
+
+
 }

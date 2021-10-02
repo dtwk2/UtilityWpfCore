@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Input;
+using UtilityWpf.Utility;
 
 namespace UtilityWpf.Demo.Data.Model
 {
@@ -13,9 +14,12 @@ namespace UtilityWpf.Demo.Data.Model
     {
         private static ICachedEnumerable<Sector> sectors = SelectSectors().Cached();
 
+        const string StockTablePath = "/stocknet-dataset-master/StockTable.csv";
+        const string StockPricePath = "/stocknet-dataset-master/price/HL/ABB.csv";
+
         private static IEnumerable<Sector> SelectSectors()
         {
-            var reader = new StreamReader("../../../../UtilityWpf.TestData/stocknet-dataset-master/StockTable.csv");
+            var reader = new StreamReader(PathHelper.FindPath(typeof(Finance).Assembly.GetName().Name + StockTablePath));
 
             return from myRow in Csv.CsvReader.Read(reader)
                    group myRow by myRow["Sector"] into g
@@ -33,7 +37,7 @@ namespace UtilityWpf.Demo.Data.Model
 
         private static IEnumerable<Price> SelectPrices()
         {
-            var reader = new StreamReader("../../../../UtilityWpf.TestData/stocknet-dataset-master/price/HL/ABB.csv");
+            var reader = new StreamReader(PathHelper.FindPath(typeof(Finance).Assembly.GetName().Name + StockPricePath));
             var start = DateTime.Today.AddYears(-5);
             return from line in Csv.CsvReader.Read(reader)
                    select new Price
