@@ -27,7 +27,7 @@
 		<PackageReference Include="Soukoku.ExpressionParser" Version="3.1.0" />
 		<PackageReference Include="UtilityEnum" Version="2.3.0" />
 		<PackageReference Include="UtilityHelperEx" Version="0.0.2-alpha-02" />
-		<PackageReference Include="UtilityInterface" Version="5.0.1" />
+		<PackageReference Include="UtilityInterface" Version="5.1.0" />
 		<PackageReference Include="UtilityStruct" Version="1.0.9-alpha" />
 		<PackageReference Include="YetAnotherStringMatcher" Version="1.0.2" />
 	</ItemGroup>
