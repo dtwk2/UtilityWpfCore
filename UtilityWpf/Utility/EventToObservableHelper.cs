@@ -2,6 +2,7 @@
 using ReactiveUI;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
@@ -12,6 +13,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media.Animation;
 using UtilityWpf.Abstract;
+using UtilityWpf.Events;
 
 namespace UtilityWpf
 {
@@ -41,6 +43,12 @@ namespace UtilityWpf
             .Where(a => a.Count == 1)
             .Select(a => a.Cast<object>().Single());
 
+        public static IObservable<ListBoxItem[]> SelectMultiSelectionChanges(this Selector selector) =>
+            Observable
+            .FromEventPattern<SelectionChangedEventHandler, SelectionChangedEventArgs>
+            (a => selector.SelectionChanged += a, a => selector.SelectionChanged -= a)
+            .Select(a => selector.Items.Cast<ListBoxItem>().Where(a => a.IsSelected).ToArray());
+
         public static IObservable<object> SelectSingleSelectionChanges(this ISelector selector) =>
             Observable
             .FromEventPattern<SelectionChangedEventHandler, SelectionChangedEventArgs>
@@ -48,6 +56,13 @@ namespace UtilityWpf
             .Select(a => a.EventArgs.AddedItems)
             .Where(a => a.Count == 1)
             .Select(a => a.Cast<object>().Single());
+
+        // public static IObservable<object> SelectMultiSelectionChanges(this ISelector selector) =>
+        //Observable
+        //.FromEventPattern<SelectionChangedEventHandler, SelectionChangedEventArgs>
+        //(a => selector.SelectionChanged += a, a => selector.SelectionChanged -= a)
+        //.Select(a => a.EventArgs.AddedItems)
+        //.Select(a => a.Cast<object>().Single());
 
         public static IObservable<IList> SelectSelectionRemoveChanges(this Selector selector) =>
             Observable
@@ -224,5 +239,22 @@ namespace UtilityWpf
         {
             return Observable.FromEventPattern(a => animation.Completed += a, a => animation.Completed -= a).Take(1).ToTask();
         }
+
+        public static IObservable<CheckedChangedEventArgs> SelectCheckedChangedEventArgs(this ICheckedSelector selector) =>
+            Observable
+            .FromEventPattern<CheckedChangedEventHandler, CheckedChangedEventArgs>
+            (a => selector.CheckedChanged += a, a => selector.CheckedChanged -= a)
+            .Select(a => a.EventArgs);
+
+        public static IObservable<IReadOnlyCollection<(object obj,bool isChecked)>> SelectCheckedAndUnCheckedItems(this ICheckedSelector selector) =>
+    Observable
+    .FromEventPattern<CheckedChangedEventHandler, CheckedChangedEventArgs>
+    (a => selector.CheckedChanged += a, a => selector.CheckedChanged -= a)
+    .Select(a => a.EventArgs.Checked.Select(a => (a, true)).Concat(a.EventArgs.UnChecked.Select(a => (a, false))).ToArray());
+
+        public static IObservable<IReadOnlyCollection<object>> SelectCheckedItems(this ICheckedSelector selector) =>
+            SelectCheckedChangedEventArgs(selector).Select(a => a.Checked);
+        public static IObservable<IReadOnlyCollection<object>> SelectUnCheckedItems(this ICheckedSelector selector) =>
+                    SelectCheckedChangedEventArgs(selector).Select(a => a.UnChecked);
     }
 }

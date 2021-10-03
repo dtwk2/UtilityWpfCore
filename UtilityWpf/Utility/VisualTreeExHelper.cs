@@ -11,7 +11,7 @@ namespace UtilityWpf
     /// <summary>
     /// https://github.com/Rudnicky/VisualTreeHelper/blob/master/VisualTreeTraversionPoC/Utils/VisualTreeTraverseHelper.cs
     /// </summary>
-    public static class VisualTreeHelperEx
+    public static class VisualTreeExHelper
     {
 
         //https://stackoverflow.com/questions/974598/find-all-controls-in-wpf-window-by-type/978352#978352

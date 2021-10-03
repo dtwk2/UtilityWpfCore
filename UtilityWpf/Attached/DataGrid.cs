@@ -43,7 +43,7 @@ namespace UtilityWpf.Behavior
 
         private static void DataGridLoaded(DataGrid dataGrid)
         {
-            if (VisualTreeHelperEx.FindChildren<ScrollViewer>(dataGrid).FirstOrDefault() is ScrollViewer scrollViewer)
+            if (VisualTreeExHelper.FindChildren<ScrollViewer>(dataGrid).FirstOrDefault() is ScrollViewer scrollViewer)
             {
                 SetSenderDataGrid(scrollViewer, dataGrid);
                 scrollViewer.ScrollChanged += ScrollViewerOnScrollChanged;
@@ -53,7 +53,7 @@ namespace UtilityWpf.Behavior
         private static void ScrollViewerOnScrollChanged(object sender, ScrollChangedEventArgs e)
         {
             if (sender is ScrollViewer scrollViewer)
-                if (VisualTreeHelperEx.FindChildren<ScrollBar>(scrollViewer).FirstOrDefault(s => s.Orientation == Orientation.Vertical) is ScrollBar verticalScrollBar)
+                if (VisualTreeExHelper.FindChildren<ScrollBar>(scrollViewer).FirstOrDefault(s => s.Orientation == Orientation.Vertical) is ScrollBar verticalScrollBar)
                 {
                     DataGrid dataGrid = GetSenderDataGrid(scrollViewer);
 

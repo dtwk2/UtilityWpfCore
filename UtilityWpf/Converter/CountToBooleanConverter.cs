@@ -51,7 +51,7 @@ namespace UtilityWpf
                     {
                         return ic.ItemsSource?.Count();
                     }
-                    var itemsControl = VisualTreeHelperEx.ChildOfType<ItemsControl>(ui);
+                    var itemsControl = VisualTreeExHelper.ChildOfType<ItemsControl>(ui);
                     return itemsControl?.ItemsSource?.Count();
                 }
                 if (value.ToString() is string str)

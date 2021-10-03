@@ -66,7 +66,7 @@ namespace UtilityWpf.Behavior
 
         private void DataGridLoaded()
         {
-            if (VisualTreeHelperEx.FindVisualChildren<ScrollViewer>(AssociatedObject).FirstOrDefault() is ScrollViewer scrollViewer)
+            if (VisualTreeExHelper.FindVisualChildren<ScrollViewer>(AssociatedObject).FirstOrDefault() is ScrollViewer scrollViewer)
             {
                 // N.B this doesn't work well if VerticalScrollBar is used to scroll- works for mouse-wheel.
                 if (MouseFactor > 1)
@@ -101,7 +101,7 @@ namespace UtilityWpf.Behavior
             {
                 //AssociatedObject_ScrollChanged();
 
-                if (VisualTreeHelperEx.FindVisualChildren<ScrollBar>(scrollViewer).Single(s => s.Orientation == Orientation.Vertical) is ScrollBar verticalScrollBar)
+                if (VisualTreeExHelper.FindVisualChildren<ScrollBar>(scrollViewer).Single(s => s.Orientation == Orientation.Vertical) is ScrollBar verticalScrollBar)
                 {
                     int totalCount = dataGrid.Items.Count;
                     var firstVisible = verticalScrollBar.Value;
