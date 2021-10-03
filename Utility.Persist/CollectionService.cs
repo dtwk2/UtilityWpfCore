@@ -16,14 +16,14 @@ using Utility.Common.Helper;
 
 namespace Utility.Persist
 {
-    public record CollectionChangeMessage(IEnumerable<object> Objects);
+    public record CollectionChangeMessage(CollectionChange change);
     public record RepositoryMessage(IRepository Service);
 
     public class CollectionService : IObserver<RepositoryMessage>, IObservable<CollectionChangeMessage>, IDisposable
     {
         private IDisposable disposable;
         private readonly ReplaySubject<RepositoryMessage> repositoryMessages = new(1);
-        private readonly ReplaySubject<CollectionChangeMessage> collectionChangeMessages = new(1);
+        private readonly ReplaySubject<CollectionChangeMessage> collectionChangeMessages = new();
 
         public ObservableRangeCollection<object> Items { get; } = new();
 
@@ -40,11 +40,12 @@ namespace Utility.Persist
               .WithLatestFrom(repositoryMessages.Select(a => a.Service).WhereNotDefault())
               .Subscribe(cc =>
               {
-                  var (((action, first), (second, third)), repository) = cc;
-                  if (action == NotifyCollectionChangedAction.Reset)
+                  var ((a, b), repository) = cc;
+           
+                  if (a?.Action == NotifyCollectionChangedAction.Reset)
                       return;
 
-                  switch (second)
+                  switch (b.Action)
                   {
                       case NotifyCollectionChangedAction.Reset:
                           {
@@ -52,20 +53,20 @@ namespace Utility.Persist
                           }
                       case NotifyCollectionChangedAction.Replace:
                           {
-                              foreach (var item in third)
+                              foreach (var item in b.Items)
                                   repository.Update(item);
                               break;
                           }
 
                       case NotifyCollectionChangedAction.Add:
                           {
-                              foreach (var item in third)
+                              foreach (var item in b.Items)
                                   repository.Add(item);
                               break;
                           }
                       case NotifyCollectionChangedAction.Remove:
                           {
-                              foreach (var item in third)
+                              foreach (var item in b.Items)
                                   repository.Remove(item);
                               break;
                           }
@@ -108,7 +109,7 @@ namespace Utility.Persist
                            }
                        });
                        //CollectionChangeCommand?.Execute(observer.Items);
-                       collectionChangeMessages.OnNext(new CollectionChangeMessage(observer.Items.ToArray()));
+                       collectionChangeMessages.OnNext(new CollectionChangeMessage(new CollectionChange(NotifyCollectionChangedAction.Add, observer.Items.ToArray())));
 
                        Items.ReplaceWithRange(objects);
                    });
@@ -166,6 +167,8 @@ namespace Utility.Persist
 
         public IDisposable Subscribe(IObserver<CollectionChangeMessage> observer)
         {
+
+            observer.OnNext(new(new(NotifyCollectionChangedAction.Add, Items)));
             return collectionChangeMessages.Subscribe(observer);
         }
 
@@ -185,43 +188,31 @@ namespace Utility.Persist
         }
     }
 
-    internal struct CollectionChange
+    public record CollectionChange
     {
-        public NotifyCollectionChangedAction Action;
-        public IEnumerable<object> Item2;
+        public NotifyCollectionChangedAction Action { get; }
+        public IEnumerable<object> Items { get; }
 
         public CollectionChange(NotifyCollectionChangedAction action, IEnumerable<object> item2)
         {
             Action = action;
-            Item2 = item2;
+            Items = item2;
         }
 
-        public override bool Equals(object obj)
-        {
-            return obj is CollectionChange other &&
-                   Action == other.Action &&
-                   EqualityComparer<IEnumerable<object>>.Default.Equals(Item2, other.Item2);
-        }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(Action, Item2);
-        }
-
-        public void Deconstruct(out NotifyCollectionChangedAction action, out IEnumerable<object> item2)
+        public void Deconstruct(out NotifyCollectionChangedAction action, out IEnumerable<object> item)
         {
             action = Action;
-            item2 = Item2;
+            item = Items;
         }
 
         public static implicit operator (NotifyCollectionChangedAction Action, IEnumerable<object>)(CollectionChange value)
         {
-            return (value.Action, value.Item2);
+            return (value.Action, value.Items);
         }
 
-        public static implicit operator CollectionChange((NotifyCollectionChangedAction Action, IEnumerable<object>) value)
+        public static implicit operator CollectionChange((NotifyCollectionChangedAction , IEnumerable<object>) value)
         {
-            return new CollectionChange(value.Action, value.Item2);
+            return new CollectionChange(value.Item1, value.Item2);
         }
     }
 }

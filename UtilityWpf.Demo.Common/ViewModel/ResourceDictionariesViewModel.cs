@@ -1,5 +1,4 @@
-﻿using Microsoft.Xaml.Behaviors.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Subjects;
@@ -9,15 +8,16 @@ using System.Collections.ObjectModel;
 using System.Collections;
 using UtilityHelper;
 using System.Reactive.Linq;
+using Microsoft.Xaml.Behaviors.Core;
 
 namespace UtilityWpf.Demo.Common.ViewModel
 {
-    public class ResourceDictionariesViewModel
+    public abstract class ResourceDictionariesViewModel
     {
         //private bool isReadOnly;
 
         private readonly ActionCommand changeCommand;
-        private readonly IReadOnlyCollection<TickViewModel> collection = new ThemesViewModelFactory().Collection;
+   
 
         public ResourceDictionariesViewModel()
         {
@@ -30,7 +30,7 @@ namespace UtilityWpf.Demo.Common.ViewModel
         //}
         public string Header { get; } = "Resource-Dictionaries ViewModel";
 
-        public virtual IEnumerable Collection => collection;
+        public abstract IEnumerable Collection { get; }
 
         public ICommand ChangeCommand => changeCommand;
 
@@ -42,19 +42,17 @@ namespace UtilityWpf.Demo.Common.ViewModel
 
     public class ThemesViewModelFactory
     {
-        public ThemesViewModelFactory()
-        {
-            var coll = Source.ThemeDictionary;
+        //public ThemesViewModelFactory()
+        //{
+        //    var coll = Source.ThemeDictionary;
+                 
 
-            if (coll == null)
-                throw new Exception("No Themes ResourceDictionary");
+        //    Collection = CreateViewModels(coll.MergedDictionaries).ToArray();
+        //}
 
-            Collection = CreateViewModels(coll.MergedDictionaries).ToArray();
-        }
+        //public IReadOnlyCollection<TickViewModel> Collection { get; }
 
-        public IReadOnlyCollection<TickViewModel> Collection { get; }
-
-        private IEnumerable<TickViewModel> CreateViewModels(Collection<ResourceDictionary> coll)
+        public static IEnumerable<TickViewModel> CreateViewModels(IReadOnlyCollection<ResourceDictionary> coll)
         {
             foreach (var dic in coll)
             {
@@ -71,7 +69,7 @@ namespace UtilityWpf.Demo.Common.ViewModel
         }
     }
 
-    class Source
+    public class Source
     {
         public static ResourceDictionary? ThemeDictionary { get; } = Application.Current.Resources
                         .MergedDictionaries
@@ -91,12 +89,13 @@ namespace UtilityWpf.Demo.Common.ViewModel
     }
 
     public class ResourceDictionaryService : IObserver<TickViewModel>
-    {
-        private readonly Dictionary<ResourceDictionary, bool> dictionary = Source.ThemeDictionary.MergedDictionaries.ToDictionary(a => a, a => false);
+    {     
+        private readonly Dictionary<ResourceDictionary, bool> dictionary;
         ReplaySubject<TickViewModel> tickViewModel = new();
 
-        public ResourceDictionaryService()
+        public ResourceDictionaryService(IReadOnlyCollection<ResourceDictionary> resourceDictionaries)
         {
+            dictionary = resourceDictionaries.ToDictionary(a => a, a => false);
             ReplaySubject<(ResourceDictionary, bool)> rSubject = new(1);
 
             UpdateMergedDictionaries(rSubject);
@@ -109,7 +108,7 @@ namespace UtilityWpf.Demo.Common.ViewModel
 
                 rSubject.OnNext((MatchDictionary(tick.Text), tick.IsChecked));
             });
-            rSubject.OnNext((Source.ThemeDictionary, false));
+            //rSubject.OnNext((Source.ThemeDictionary, false));
         }
 
         private void UpdateMergedDictionaries(ReplaySubject<(ResourceDictionary, bool)> rSubject)

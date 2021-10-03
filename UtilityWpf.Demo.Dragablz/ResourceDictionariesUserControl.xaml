@@ -6,7 +6,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mk="clr-namespace:UtilityWpf.Markup;assembly=UtilityWpf" 
     xmlns:view1="http://schemas.utility.com/dragablz" 
-    xmlns:vm2="clr-namespace:UtilityWpf.Demo.Common.ViewModel;assembly=UtilityWpf.Demo.Common"   
+    xmlns:vm="clr-namespace:UtilityWpf.Demo.Common.ViewModel;assembly=UtilityWpf.Demo.Common"
+    xmlns:local="clr-namespace:UtilityWpf.Demo.Dragablz.ViewModel"
+    xmlns:utl="http://schemas.utility.com/utilitywpf"
     d:DesignHeight="450"
     d:Background="White"
     d:DesignWidth="800"
@@ -15,13 +17,15 @@
     <UniformGrid Columns="1">
         <UniformGrid Rows="1">
             <FrameworkElement.DataContext>
-                <vm2:ResourceDictionariesViewModel/>
-            </FrameworkElement.DataContext>
-
+                <local:ResourceDictionariesViewModel/>
+            </FrameworkElement.DataContext>    
+            <FrameworkElement.Resources>
+                <utl:SharedResourceDictionary Source="/UtilityWpf.Demo.Dragablz;component/Themes/Themes.xaml"/>
+            </FrameworkElement.Resources>
             <view1:ListControl
-                DisplayMemberPath="{mk:NameOf Type={x:Type vm2:TickViewModel}, Member=Text}"
-                CommandPath="{mk:NameOf Type={x:Type vm2:TickViewModel}, Member=Command}"
-                IsCheckedPath="{mk:NameOf Type={x:Type vm2:TickViewModel}, Member=IsChecked}"
+                DisplayMemberPath="{mk:NameOf Type={x:Type vm:TickViewModel}, Member=Text}"
+                CommandPath="{mk:NameOf Type={x:Type vm:TickViewModel}, Member=Command}"
+                IsCheckedPath="{mk:NameOf Type={x:Type vm:TickViewModel}, Member=IsChecked}"
                 ItemsSource="{Binding Collection}">
             </view1:ListControl>
         </UniformGrid>
