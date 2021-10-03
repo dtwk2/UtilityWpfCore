@@ -23,8 +23,11 @@ namespace UtilityWpf.Meta
         readonly Subject<Assembly> subject = new();
         public static readonly DependencyProperty AssemblyProperty = Register(nameof(Assembly), a => a.subject, initialValue: Assembly.GetEntryAssembly());
 
-        public UserControls()
+        public UserControls(Assembly? assembly = null)
         {
+            if (assembly != null)
+                Assembly = assembly;
+
             var listBox = new ViewListBox();
 
             this.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.0, GridUnitType.Auto) });
