@@ -1,4 +1,8 @@
-﻿using System.Windows;
+﻿using Autofac;
+using Splat.Autofac;
+using System.Windows;
+using Utility.Common;
+using UtilityWpf.Meta;
 
 namespace UtilityWpf.Demo.Dragablz
 {
@@ -7,5 +11,13 @@ namespace UtilityWpf.Demo.Dragablz
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            var builder = new ContainerBuilder();
+            //var d = typeof(UtilityWpf.Demo.Common.ViewModel.Tick);
+            builder.AutoRegister();
+            builder.UseAutofacDependencyResolver();
+        }
+
     }
 }

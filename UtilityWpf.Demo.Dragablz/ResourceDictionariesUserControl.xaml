@@ -19,9 +19,7 @@
             <FrameworkElement.DataContext>
                 <local:ResourceDictionariesViewModel/>
             </FrameworkElement.DataContext>    
-            <FrameworkElement.Resources>
-                <utl:SharedResourceDictionary Source="/UtilityWpf.Demo.Dragablz;component/Themes/Themes.xaml"/>
-            </FrameworkElement.Resources>
+            
             <view1:ListControl
                 DisplayMemberPath="{mk:NameOf Type={x:Type vm:TickViewModel}, Member=Text}"
                 CommandPath="{mk:NameOf Type={x:Type vm:TickViewModel}, Member=Command}"
