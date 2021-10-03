@@ -85,6 +85,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Controls", "Controls", "{2E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{392FD82C-ADC4-4230-8881-89BD4E2B84EE}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Demo.Chart", "UtilityWpf.Demo.Chart\UtilityWpf.Demo.Chart.csproj", "{A6618B1D-8B71-49B5-B71C-4B5C822FA6DD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Controls.Chart", "UtilityWpf.Controls.Chart\UtilityWpf.Controls.Chart.csproj", "{7E193DBF-9E8F-44E6-AE31-2731707849FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -239,6 +243,14 @@ Global
 		{2B519584-AE82-4CA2-8369-A703DD1E91D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B519584-AE82-4CA2-8369-A703DD1E91D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B519584-AE82-4CA2-8369-A703DD1E91D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6618B1D-8B71-49B5-B71C-4B5C822FA6DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6618B1D-8B71-49B5-B71C-4B5C822FA6DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6618B1D-8B71-49B5-B71C-4B5C822FA6DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6618B1D-8B71-49B5-B71C-4B5C822FA6DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E193DBF-9E8F-44E6-AE31-2731707849FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E193DBF-9E8F-44E6-AE31-2731707849FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E193DBF-9E8F-44E6-AE31-2731707849FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E193DBF-9E8F-44E6-AE31-2731707849FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -281,6 +293,8 @@ Global
 		{4EB35CF5-478A-4D50-AF5F-D423E0027ADD} = {3E8F851B-BECA-4BAA-9275-2104CDEAEC3D}
 		{035AFF34-5D0E-40A7-88E5-0105DD66A009} = {3E8F851B-BECA-4BAA-9275-2104CDEAEC3D}
 		{2B519584-AE82-4CA2-8369-A703DD1E91D9} = {3E8F851B-BECA-4BAA-9275-2104CDEAEC3D}
+		{A6618B1D-8B71-49B5-B71C-4B5C822FA6DD} = {3E8F851B-BECA-4BAA-9275-2104CDEAEC3D}
+		{7E193DBF-9E8F-44E6-AE31-2731707849FF} = {2ED92AB3-1BF8-4B9F-85BF-2739EDF1915C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D60CFCE-498F-4A6D-9B9B-5546561C117E}
