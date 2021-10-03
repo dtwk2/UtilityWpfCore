@@ -56,16 +56,16 @@ namespace UtilityWpf
             .Select(a => a.EventArgs.RemovedItems)
             .Where(a => a.Count > 0);
 
-        public static IObservable<RoutedEventArgs?> LoadedChanges(this FrameworkElement combo)
+        public static IObservable<Unit> LoadedChanges(this FrameworkElement combo)
         {
             var obs = Observable
             .FromEventPattern<RoutedEventHandler, RoutedEventArgs>
             (a => combo.Loaded += a, a => combo.Loaded -= a)
-            .Select(a => a.EventArgs);
+            .Select(a => Unit.Default);
 
             if (combo.IsLoaded)
             {
-                return Observable.Return(default(RoutedEventArgs));
+                return Observable.Return(default(Unit));
             }
             return obs;
         }
