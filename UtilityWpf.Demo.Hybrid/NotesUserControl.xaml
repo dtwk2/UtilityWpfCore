@@ -17,7 +17,7 @@
     mc:Ignorable="d">
     <FrameworkElement.Resources>
 
-            <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzNoteStyle.xaml"/>
+            <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Demo.Common;component/View/DragablzNoteStyle.xaml"/>
         
     </FrameworkElement.Resources>
 
