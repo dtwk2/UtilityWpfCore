@@ -11,13 +11,12 @@ using UtilityWpf.Abstract;
 namespace UtilityWpf.Controls.Master
 {
 
-    using System.Data;
-    using System.Windows.Controls.Primitives;
     using Mixins;
     using ReactiveUI;
+    using System.Data;
+    using System.Windows.Controls.Primitives;
     using UtilityWpf.Service;
     using fac = DependencyPropertyFactory<ReadOnlyMasterDetail>;
-    using fac2 = DependencyPropertyFactory<MasterDetail>;
 
     /// <summary>
     /// Only transforms master-list items to the detail-item; and not vice-versa
@@ -67,10 +66,10 @@ namespace UtilityWpf.Controls.Master
             {
                 switch (Selector)
                 {
-                    case ISelector selector : 
+                    case ISelector selector:
                         selector.SelectionChanged += value;
                         break;
-                    case Selector selector :
+                    case Selector selector:
                         selector.SelectionChanged += value;
                         break;
                     default: throw new ApplicationException($"Unexpected type,{Selector.GetType().Name} for {nameof(Selector)} ");

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows;
-using System.Text;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
@@ -32,7 +30,7 @@ namespace UtilityWpf.Demo.Panels
             DoubleAnimation animation = new DoubleAnimation(0, TimeSpan.FromMilliseconds(1000))
             {
                 IsCumulative = false,
-                EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut },     
+                EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut },
             };
 
             animation.From = translationPoint.X;

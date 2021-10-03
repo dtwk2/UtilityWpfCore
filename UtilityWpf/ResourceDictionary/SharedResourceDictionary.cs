@@ -1,6 +1,4 @@
-﻿using DynamicData;
-using HandyControl.Tools;
-using Newtonsoft.Json;
+﻿using HandyControl.Tools;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;

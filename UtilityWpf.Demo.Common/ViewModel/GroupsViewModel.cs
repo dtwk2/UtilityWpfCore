@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Reactive;
 using System.Windows.Input;
 
 namespace UtilityWpf.Demo.Common.ViewModel

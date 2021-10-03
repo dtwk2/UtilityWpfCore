@@ -1,10 +1,10 @@
-﻿using System;
+﻿using LiteDB;
+using NetFabric.Hyperlinq;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using LiteDB;
-using NetFabric.Hyperlinq;
 using Utility.Common;
 using UtilityHelper;
 using UtilityInterface.NonGeneric.Data;
@@ -32,7 +32,7 @@ namespace UtilityWpf.Service
         public LiteDbRepository(ConnectionSettings settings)
         {
             var fileInfo = settings.FileInfo;
-            fileInfo.Directory.Create();     
+            fileInfo.Directory.Create();
             Settings = settings;
         }
 
@@ -108,13 +108,13 @@ namespace UtilityWpf.Service
                 switch (query)
                 {
                     case CountQuery:
-                        return collection.Count();    
+                        return collection.Count();
                     case FirstQuery:
                         return Convert(collection.Query().First());
                     default:
                         throw new ArgumentOutOfRangeException("789uu7fssd");
                 }
-            } 
+            }
         }
 
         public object AddBy(IQuery query)
@@ -149,7 +149,7 @@ namespace UtilityWpf.Service
                 switch (query)
                 {
                     case AllQuery:
-                        return ConvertBack(collection.FindAll()).ToArray();   
+                        return ConvertBack(collection.FindAll()).ToArray();
                     default:
                         throw new ArgumentOutOfRangeException("777fssd");
                 }

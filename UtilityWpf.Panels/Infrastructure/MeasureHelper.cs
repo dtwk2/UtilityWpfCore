@@ -15,12 +15,12 @@ namespace UtilityWpf.Demo.Panels
             var relativeHeightCount = heightWeights.Count(a => !a.HasValue);
 
             var widthAbsoluteCount = widthWeights.Where(a => a.HasValue);
-      
+
 
             var absoluteWidth = widthWeights.Where(a => a.HasValue).Sum(a => a.Value);
             var absoluteHeight = heightWeights.Where(a => a.HasValue).Sum(a => a.Value);
 
-            var remainingWidthDivision = (availableSize.Width - absoluteWidth) / widthCount ;
+            var remainingWidthDivision = (availableSize.Width - absoluteWidth) / widthCount;
             var remainingHeightDivision = (availableSize.Height - absoluteHeight) / heightCount;
 
             var widthTotalSize = absoluteWidth + (double.IsInfinity(remainingWidthDivision) ? 0 : availableSize.Width - absoluteWidth);

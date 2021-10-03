@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace UtilityWpf.Controls
 {
     public class DatesList : ListBox
     {
-        
+
         static DatesList()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DatesList), new FrameworkPropertyMetadata(typeof(DatesList)));
@@ -16,7 +14,7 @@ namespace UtilityWpf.Controls
 
         public DatesList()
         {
-          
+
         }
 
 

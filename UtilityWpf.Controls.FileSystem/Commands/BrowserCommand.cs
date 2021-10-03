@@ -6,8 +6,8 @@ using UtilityWpf.Command;
 namespace UtilityWpf.Controls.FileSystem
 {
     public class BrowserCommand : RelayCommand
-    { 
-        public BrowserCommand(Func<IObservable<string>> func) :base(GetAction(func, out var sub))
+    {
+        public BrowserCommand(Func<IObservable<string>> func) : base(GetAction(func, out var sub))
         {
             sub.Subscribe(a =>
             {
@@ -24,16 +24,16 @@ namespace UtilityWpf.Controls.FileSystem
             return new Action(() =>
             {
                 disposable?.Dispose();
-                disposable = func().Subscribe(a=>
+                disposable = func().Subscribe(a =>
                 rSubject1.OnNext(a));
-            });       
+            });
         }
 
         protected void RaiseTextChangedEvent(string text)
         {
             this.TextChanged?.Invoke(text);
-        }    
+        }
 
-        public event Action<string> TextChanged;      
+        public event Action<string> TextChanged;
     }
 }

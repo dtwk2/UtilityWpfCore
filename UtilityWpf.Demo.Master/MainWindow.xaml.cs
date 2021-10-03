@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Windows;
+﻿using System.Windows;
 
 
 namespace UtilityWpf.Demo.Master
@@ -11,7 +10,7 @@ namespace UtilityWpf.Demo.Master
     {
         public MainWindow()
         {
-            InitializeComponent();          
+            InitializeComponent();
         }
     }
 }

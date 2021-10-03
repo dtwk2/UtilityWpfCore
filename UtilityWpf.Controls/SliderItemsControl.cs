@@ -235,7 +235,7 @@ namespace UtilityWpf.Controls
 
         public void Execute(object parameter)
         {
-            if(parameter==null)
+            if (parameter == null)
             {
                 return;
             }

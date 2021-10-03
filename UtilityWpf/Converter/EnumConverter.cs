@@ -10,10 +10,10 @@ namespace UtilityWpf.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-           
+
             try
             {
-                if(targetType.FullName=="System.Type")
+                if (targetType.FullName == "System.Type")
                 {
                     return Enum.Parse(value.GetType(), value?.ToString() ?? throw new NullReferenceException("value is null"));
                 }

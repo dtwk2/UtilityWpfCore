@@ -1,7 +1,6 @@
 ﻿namespace Auxide.Controls
 {
     using System;
-    using System.Diagnostics;
     using System.Linq;
     using System.Windows;
     using System.Windows.Controls;

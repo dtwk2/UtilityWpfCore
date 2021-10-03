@@ -1,6 +1,6 @@
-﻿using System;
+﻿using AutoBogus;
+using System;
 using System.Collections.Generic;
-using AutoBogus;
 using UtilityWpf.Demo.Common.ViewModel;
 
 

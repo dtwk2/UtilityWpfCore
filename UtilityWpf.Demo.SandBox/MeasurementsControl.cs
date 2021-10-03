@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Linq;
-using System.Reactive.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using ReactiveUI;
-using UnitsNet.Units;
-using UtilityWpf.Behavior;
-using UtilityWpf.Controls;
-
-namespace UtilityWpf.Demo.SandBox
+﻿namespace UtilityWpf.Demo.SandBox
 {
     //public class MeasurementsControl : DoubleContentControl
     //{

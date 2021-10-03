@@ -1,6 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows;
 
 namespace UtilityWpf.Controls.Dragablz
 {
@@ -10,7 +10,7 @@ namespace UtilityWpf.Controls.Dragablz
 
 
         static GroupsControl()
-        {            
+        {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(GroupsControl), new FrameworkPropertyMetadata(typeof(GroupsControl)));
         }
 

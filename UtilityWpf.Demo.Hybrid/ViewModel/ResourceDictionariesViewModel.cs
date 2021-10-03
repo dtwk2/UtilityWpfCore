@@ -1,11 +1,11 @@
 ﻿using System;
-using Utility.Persist;
 using System.Collections;
-using UtilityWpf.Demo.Common.ViewModel;
-using UtilityWpf.Service;
-using UtilityInterface.NonGeneric.Data;
 using System.Linq;
 using System.Reactive.Linq;
+using Utility.Persist;
+using UtilityInterface.NonGeneric.Data;
+using UtilityWpf.Demo.Common.ViewModel;
+using UtilityWpf.Service;
 
 namespace UtilityWpf.Demo.Hybrid.ViewModel
 {

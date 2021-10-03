@@ -2,7 +2,6 @@
 using System.Linq;
 using Utility.Common;
 using UtilityInterface.NonGeneric;
-using UtilityWpf.Abstract;
 
 namespace UtilityWpf.Service
 {

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Humanizer;
+using System;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
-using Humanizer;
 
 namespace UtilityWpf.Converter
 {

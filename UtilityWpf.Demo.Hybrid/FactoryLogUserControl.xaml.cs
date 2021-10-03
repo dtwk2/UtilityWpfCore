@@ -1,5 +1,4 @@
-﻿using Splat;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using UtilityWpf.Demo.Common.Meta;
 
 namespace UtilityWpf.Demo.Hybrid

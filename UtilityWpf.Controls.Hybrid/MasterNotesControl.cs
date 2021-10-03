@@ -1,10 +1,9 @@
-﻿using System;
+﻿using ReactiveUI;
+using System;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using ReactiveUI;
 using UtilityWpf.Controls.Dragablz;
-using UtilityWpf.Controls.Master;
 
 namespace UtilityWpf.Controls.Hybrid
 {

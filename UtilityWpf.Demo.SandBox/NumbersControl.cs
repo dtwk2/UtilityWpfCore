@@ -64,7 +64,7 @@ namespace UtilityWpf.Demo.SandBox
 
             SetTextBinding(item, viewModel);
             SetValueBinding(item, viewModel);
-  
+
             return item;
         }
 

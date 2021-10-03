@@ -16,7 +16,7 @@ namespace Utility.Common
             {
                 var files = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*" + Meta.Constants.GeneralAssemblyName + "*.dll").ToArray();
                 return files
-                    .Select(x => Assembly.Load(AssemblyName.GetAssemblyName(x)));                 
+                    .Select(x => Assembly.Load(AssemblyName.GetAssemblyName(x)));
             }
         }
 

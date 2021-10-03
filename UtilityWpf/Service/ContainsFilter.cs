@@ -2,7 +2,7 @@
 
 namespace UtilityWpf.Service
 {
-    public class ContainsFilter 
+    public class ContainsFilter
     {
         private readonly string? a;
         private readonly string property;

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using ReactiveUI;
+using System;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using ReactiveUI;
 
 namespace UtilityWpf.Controls
 {

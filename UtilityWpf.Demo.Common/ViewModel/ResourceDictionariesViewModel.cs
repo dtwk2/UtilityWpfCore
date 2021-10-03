@@ -1,14 +1,13 @@
-﻿using System;
+﻿using Microsoft.Xaml.Behaviors.Core;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reactive.Subjects;
-using System.Windows.Input;
-using System.Windows;
-using System.Collections.ObjectModel;
-using System.Collections;
-using UtilityHelper;
 using System.Reactive.Linq;
-using Microsoft.Xaml.Behaviors.Core;
+using System.Reactive.Subjects;
+using System.Windows;
+using System.Windows.Input;
+using UtilityHelper;
 
 namespace UtilityWpf.Demo.Common.ViewModel
 {
@@ -17,7 +16,7 @@ namespace UtilityWpf.Demo.Common.ViewModel
         //private bool isReadOnly;
 
         private readonly ActionCommand changeCommand;
-   
+
 
         public ResourceDictionariesViewModel()
         {
@@ -45,7 +44,7 @@ namespace UtilityWpf.Demo.Common.ViewModel
         //public ThemesViewModelFactory()
         //{
         //    var coll = Source.ThemeDictionary;
-                 
+
 
         //    Collection = CreateViewModels(coll.MergedDictionaries).ToArray();
         //}
@@ -89,7 +88,7 @@ namespace UtilityWpf.Demo.Common.ViewModel
     }
 
     public class ResourceDictionaryService : IObserver<TickViewModel>
-    {     
+    {
         private readonly Dictionary<ResourceDictionary, bool> dictionary;
         ReplaySubject<TickViewModel> tickViewModel = new();
 

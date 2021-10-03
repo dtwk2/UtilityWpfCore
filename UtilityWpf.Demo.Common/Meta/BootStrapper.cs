@@ -7,7 +7,7 @@ namespace UtilityWpf.Demo.Common.Meta
     {
         public void Register(ContainerBuilder containerBuilder)
         {
-          
+
             containerBuilder.RegisterType<FactoryLogger>().SingleInstance();
             containerBuilder.RegisterType<Factory>().SingleInstance();
             containerBuilder.RegisterType<KeyStore>().SingleInstance();

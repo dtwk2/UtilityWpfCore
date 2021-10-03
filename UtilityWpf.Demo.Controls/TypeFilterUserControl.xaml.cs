@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Windows.Controls;
 using System.Windows.Data;
 using UtilityWpf.Controls;
@@ -15,7 +13,7 @@ namespace UtilityWpf.Demo.Controls
         CollectionView view => (CollectionView)CollectionViewSource.GetDefaultView(listBox.ItemsSource);
 
         public TypeFilterUserControl()
-        { 
+        {
             InitializeComponent();
         }
 

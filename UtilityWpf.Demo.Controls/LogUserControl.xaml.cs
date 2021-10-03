@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using ReactiveUI;
+﻿using ReactiveUI;
 using Splat;
 using System.Windows.Controls;
 //using ArxOne.MrAdvice.Advice;

@@ -40,7 +40,7 @@ namespace UtilityWpf.Controls.Dragablz
             if (string.IsNullOrEmpty(DisplayMemberPath) == false)
                 BindingOperations.SetBinding(textBlock, TextBlock.TextProperty, CreateBinding());
 
- 
+
             base.PrepareContainerForItemOverride(element, item);
 
 

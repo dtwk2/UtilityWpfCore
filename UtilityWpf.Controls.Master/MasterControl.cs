@@ -1,17 +1,17 @@
-﻿using System;
+﻿using DynamicData;
+using Evan.Wpf;
+using Microsoft.Xaml.Behaviors;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Evan.Wpf;
-using DynamicData;
-using Microsoft.Xaml.Behaviors;
-using UtilityWpf.Abstract;
-using UtilityWpf.Mixins;
 using System.Windows.Media.Animation;
 using Utility.Common.Enum;
+using UtilityWpf.Abstract;
+using UtilityWpf.Mixins;
 
 namespace UtilityWpf.Controls.Master
 {
@@ -57,7 +57,7 @@ namespace UtilityWpf.Controls.Master
             get { return (IEnumerator)GetValue(CommandParameterProperty); }
             set { SetValue(CommandParameterProperty, value); }
         }
-            
+
         public RemoveOrder RemoveOrder
         {
             get { return (RemoveOrder)GetValue(RemoveOrderProperty); }

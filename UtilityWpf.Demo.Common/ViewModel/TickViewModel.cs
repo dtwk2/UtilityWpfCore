@@ -1,10 +1,10 @@
-﻿using System;
+﻿using ReactiveUI;
+using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using ReactiveUI;
 
 namespace UtilityWpf.Demo.Common.ViewModel
 {
@@ -23,7 +23,7 @@ namespace UtilityWpf.Demo.Common.ViewModel
         private bool isChecked;
         private ICommand command;
 
-        public TickViewModel(Guid id, string text) 
+        public TickViewModel(Guid id, string text)
         {
             Id = id;
             Text = text;

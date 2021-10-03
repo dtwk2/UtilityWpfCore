@@ -3,13 +3,16 @@ using System.Windows.Controls;
 
 namespace UtilityWpf.Controls.Dialog
 {
-    public class ConfirmationDialog : ContentControl {
+    public class ConfirmationDialog : ContentControl
+    {
 
-        static ConfirmationDialog() {
+        static ConfirmationDialog()
+        {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ConfirmationDialog), new FrameworkPropertyMetadata(typeof(ConfirmationDialog)));
         }
 
-        public ConfirmationDialog() {
+        public ConfirmationDialog()
+        {
         }
     }
 }

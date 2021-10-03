@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections;
+﻿using NetFabric.Hyperlinq;
+using Soukoku.ExpressionParser;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using CsvHelper;
-using NetFabric.Hyperlinq;
-using Soukoku.ExpressionParser;
 using UtilityHelper;
 using UtilityHelper.NonGeneric;
-using UtilityWpf.Abstract;
 
 namespace UtilityWpf
 {
@@ -35,7 +32,7 @@ namespace UtilityWpf
                     return (i >= param) != Invert;
             }
 
-            if (ExpressionCharacters(parameter.ToString()?? string.Empty).Any())
+            if (ExpressionCharacters(parameter.ToString() ?? string.Empty).Any())
                 if (GetInt(value) is int i2)
                     return (int.Parse(evaluator.Evaluate($"{i2}{parameter}").Value) == 1) != Invert;
 

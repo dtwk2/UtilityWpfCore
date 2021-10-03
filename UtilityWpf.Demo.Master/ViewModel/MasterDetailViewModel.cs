@@ -1,14 +1,14 @@
-﻿using System.Collections;
+﻿using ReactiveUI;
+using System.Collections;
+using System.Collections.Generic;
 using System.Reactive;
-using ReactiveUI;
+using Utility.Common.Enum;
 using Utility.Common.EventArgs;
+using Utility.Persist;
 using UtilityInterface.NonGeneric.Data;
 using UtilityWpf.Demo.Common.ViewModel;
-using UtilityWpf.Service;
 using UtilityWpf.Demo.Data.Model;
-using Utility.Common.Enum;
-using System.Collections.Generic;
-using Utility.Persist;
+using UtilityWpf.Service;
 
 namespace UtilityWpf.Demo.Master.Infrastructure
 {

@@ -23,7 +23,7 @@ namespace UtilityWpf
                             .Select(e => (source, e.EventArgs.PropertyName));
         }
 
-        public static IObservable<R?> Changes<T, R>(this T source, string name) where R:class
+        public static IObservable<R?> Changes<T, R>(this T source, string name) where R : class
             where T : INotifyPropertyChanged
         {
             var xx = typeof(T).GetProperty(name);

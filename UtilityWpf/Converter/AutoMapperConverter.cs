@@ -4,7 +4,8 @@ using System.Windows.Data;
 using Utility.Common;
 
 namespace UtilityWpf.Converter
-{    public class AutoMapperConverter : IValueConverter
+{
+    public class AutoMapperConverter : IValueConverter
     {
         public Type? ToType { get; init; }
         public Type? FromType { get; init; }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 
 namespace UtilityWpf.Demo.Panels
@@ -296,8 +295,8 @@ namespace UtilityWpf.Demo.Panels
                 var maxWidth = elements.Max(a => a.DesiredSize.Width);
                 var maxHeight = elements.Max(a => a.DesiredSize.Height);
                 division = isWiderThanTall ?
-                    maxWidth>0? maxWidth: elements.Max(a => a.ActualHeight) :
-                    maxHeight > 0? maxHeight : elements.Max(a => a.ActualWidth);
+                    maxWidth > 0 ? maxWidth : elements.Max(a => a.ActualHeight) :
+                    maxHeight > 0 ? maxHeight : elements.Max(a => a.ActualWidth);
             }
 
             var point = rect.Location;

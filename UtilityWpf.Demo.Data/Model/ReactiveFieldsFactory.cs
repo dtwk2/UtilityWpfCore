@@ -1,9 +1,6 @@
-﻿using System;
+﻿using AutoBogus;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoBogus;
 using UtilityWpf.Demo.Common.ViewModel;
 
 namespace UtilityWpf.Demo.Data.Model

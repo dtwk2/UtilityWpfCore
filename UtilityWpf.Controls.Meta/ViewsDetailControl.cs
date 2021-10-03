@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReactiveUI;
+using System;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
@@ -6,7 +7,6 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using ReactiveUI;
 using UtilityWpf.Controls.Master;
 using UtilityWpf.Model;
 
@@ -79,7 +79,7 @@ namespace UtilityWpf.Controls.Meta
             }
         }
 
-     
+
 
         public Assembly Assembly
         {

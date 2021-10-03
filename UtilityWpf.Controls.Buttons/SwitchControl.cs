@@ -1,10 +1,10 @@
-﻿using System;
+﻿using ReactiveUI;
+using System;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using ReactiveUI;
 
 namespace UtilityWpf.Controls.Buttons
 {

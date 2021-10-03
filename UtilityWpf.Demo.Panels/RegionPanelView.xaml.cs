@@ -4,7 +4,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Shapes;
 
 namespace UtilityWpf.Demo.Panels
 {
@@ -32,34 +31,34 @@ namespace UtilityWpf.Demo.Panels
             //}
         }
 
-  
+
 
         private void AddToCollection(object sender, RoutedEventArgs e)
         {
-        //    var next = random.Next(0, cr.Length - 1);
-        //    var crs = cr[next];
-        //    //var crs = CircleRegion.Right;
-        //    var rec = new Rectangle { Fill = brushes[next], Opacity = 0.5 };
+            //    var next = random.Next(0, cr.Length - 1);
+            //    var crs = cr[next];
+            //    //var crs = CircleRegion.Right;
+            //    var rec = new Rectangle { Fill = brushes[next], Opacity = 0.5 };
 
-        //    EdgeLegacyPanel.SetCircleRegion(rec, crs);
+            //    EdgeLegacyPanel.SetCircleRegion(rec, crs);
 
-        //    this.EdgePanelControl.Children.Add(rec);
-        //    if (collection.Contains(crs) == false)
-        //        collection.Add(crs);
+            //    this.EdgePanelControl.Children.Add(rec);
+            //    if (collection.Contains(crs) == false)
+            //        collection.Add(crs);
         }
 
         private void RemoveFromCollection(object sender, RoutedEventArgs e)
         {
-        //    while (EdgePanelControl.Children.Count > 0)
-        //    {
-        //        this.EdgePanelControl.Children.RemoveAt(this.EdgePanelControl.Children.Count - 1);
-        //    }
+            //    while (EdgePanelControl.Children.Count > 0)
+            //    {
+            //        this.EdgePanelControl.Children.RemoveAt(this.EdgePanelControl.Children.Count - 1);
+            //    }
         }
 
         private void EdgePanelControl_SizeChanged(object sender, SizeChangedEventArgs e)
-        { 
-        //    HeightBox.Text = e.NewSize.Height.ToString("F");
-        //    WidthBox.Text = e.NewSize.Width.ToString("F");
+        {
+            //    HeightBox.Text = e.NewSize.Height.ToString("F");
+            //    WidthBox.Text = e.NewSize.Width.ToString("F");
         }
     }
 }

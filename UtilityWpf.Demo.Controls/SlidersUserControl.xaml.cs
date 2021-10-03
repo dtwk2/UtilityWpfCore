@@ -66,11 +66,11 @@ namespace UtilityWpf.Demo.Controls
                 //});
                 var personFaker = new AutoFaker<Person>()
                 .RuleFor(fake => fake.First, fake => fake.Random.Word())
-                .RuleFor(fake => fake.Last, fake => fake.Random.Word()) 
+                .RuleFor(fake => fake.Last, fake => fake.Random.Word())
                 .RuleFor(fake => fake.Gender, fake => fake.Random.Enum<Gender>())
                 .RuleFor(fake => fake.Age, fake => fake.Random.Int(0, 10000));
 
-                this.Dispatcher.InvokeAsync(() => sic.Data = personFaker.Generate(10).DistinctBy(a=>a.First));
+                this.Dispatcher.InvokeAsync(() => sic.Data = personFaker.Generate(10).DistinctBy(a => a.First));
             });
         }
 

@@ -1,9 +1,7 @@
-﻿using System;
+﻿using Fasterflect;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using Fasterflect;
-using PropertyTools.Wpf;
 
 namespace UtilityWpf.Controls.Buttons
 {
@@ -74,7 +72,7 @@ namespace UtilityWpf.Controls.Buttons
                 }
                 if (string.IsNullOrEmpty(DisplayMemberPath) == false)
                 {
-              
+
                     if (button.Content is TextBlock textBlock)
                         BindingOperations.SetBinding(textBlock, TextBlock.TextProperty, CreateBinding());
                 }
@@ -91,7 +89,7 @@ namespace UtilityWpf.Controls.Buttons
                     Path = new PropertyPath(DisplayMemberPath),
                     Mode = BindingMode.OneWay,
                 };
-            }     
+            }
         }
 
         protected virtual void Button_Click(object sender, RoutedEventArgs e)

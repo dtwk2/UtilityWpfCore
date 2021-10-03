@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace UtilityWpf.Demo.Panels
+﻿namespace UtilityWpf.Demo.Panels
 {
     //using System;
     //using System.Collections.Generic;
@@ -24,13 +20,10 @@ namespace UtilityWpf.Demo.Panels
     //              Spec at DockPanel.xml
     //
 
-    using System.Windows.Media;
-
     using System;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Collections.Generic;
-    using System.Linq;
+    using System.Windows.Media;
 
     #region Dock enum type
 

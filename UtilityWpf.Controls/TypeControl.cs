@@ -99,8 +99,8 @@ namespace UtilityWpf.Controls
                 textBox.Visibility = Visibility.Collapsed;
             textBox.SelectionChanged += (a, e) => { Value = textBox.Text; RaiseChangedEvent(); };
             comboBox.SelectionChanged += (a, e) => { Property = e.AddedItems.Cast<string>().First(); RaiseChangedEvent(); };
-                //buttonFilter.Click += ButtonFilter_Click;
-                buttonClear.Click += ButtonClear_Click;
+            //buttonFilter.Click += ButtonFilter_Click;
+            buttonClear.Click += ButtonClear_Click;
             comboBox.ItemsSource = Type.GetProperties().Select(a => a.Name);
 
         }

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Evan.Wpf;
+using System;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using Evan.Wpf;
 using UtilityWpf.Property;
 
 namespace UtilityWpf.Mixins

@@ -147,12 +147,13 @@ namespace animTextBox
                 _fe = fe;
 
                 // Initialize the Storyboard
-                sb = new Storyboard {AutoReverse = false};
+                sb = new Storyboard { AutoReverse = false };
 
                 // Initialize the animation
                 anim = new DoubleAnimation
                 {
-                    Name = "anim", EasingFunction = new CubicEase() {EasingMode = EasingMode.EaseInOut}
+                    Name = "anim",
+                    EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseInOut }
                 };
 
                 // Set the EasingFunction on a new instance of CubicEase whose EasingMode is EaseInOut

@@ -54,7 +54,7 @@ namespace UtilityWpf.Demo.Panels
 
         public bool IsTouching(Coordinate coordinate)
         {
-            return Math.Abs(coordinate.Y - this.Y) <= 1 && Math.Abs(coordinate.X - this.X) <= 1 ;
+            return Math.Abs(coordinate.Y - this.Y) <= 1 && Math.Abs(coordinate.X - this.X) <= 1;
         }
     }
 }

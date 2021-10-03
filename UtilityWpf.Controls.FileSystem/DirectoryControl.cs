@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using MaterialDesignThemes.Wpf;
+﻿using MaterialDesignThemes.Wpf;
 
 namespace UtilityWpf.Controls.FileSystem
 {
@@ -14,7 +7,7 @@ namespace UtilityWpf.Controls.FileSystem
 
         static DirectoryControl()
         {
-          //  DefaultStyleKeyProperty.OverrideMetadata(typeof(DirectoryControl), new FrameworkPropertyMetadata(typeof(DirectoryControl)));
+            //  DefaultStyleKeyProperty.OverrideMetadata(typeof(DirectoryControl), new FrameworkPropertyMetadata(typeof(DirectoryControl)));
         }
 
         public DirectoryControl()

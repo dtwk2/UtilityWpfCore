@@ -1,9 +1,4 @@
-﻿using AutoMapper;
-using Splat;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using Utility.Common.EventArgs;
+﻿using Utility.Common.EventArgs;
 
 namespace UtilityWpf.Meta
 {
@@ -17,5 +12,5 @@ namespace UtilityWpf.Meta
             CreateMap<Abstract.CollectionChangedEventArgs, CollectionChangedEventArgs>();
         }
     }
-   
+
 }

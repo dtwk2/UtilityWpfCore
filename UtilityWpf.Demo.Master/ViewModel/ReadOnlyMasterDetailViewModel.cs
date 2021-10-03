@@ -1,9 +1,8 @@
-﻿using System;
+﻿using ReactiveUI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reactive;
-using ReactiveUI;
-using Utility.Common;
 using Utility.Common.Enum;
 using Utility.Common.EventArgs;
 using Utility.Persist;

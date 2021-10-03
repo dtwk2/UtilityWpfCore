@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Endless;
+﻿using Endless;
 using Microsoft.Xaml.Behaviors.Core;
-using System.Windows.Input;
 using System.Collections.ObjectModel;
-using UtilityWpf.Demo.Common.Meta;
+using System.Linq;
+using System.Windows.Input;
 using UtilityHelperEx;
+using UtilityWpf.Demo.Common.Meta;
 
 namespace UtilityWpf.Demo.Common.ViewModel
 {

@@ -82,7 +82,7 @@ namespace UtilityWpf.Controls.Clocks
             //if (dateTime.Second == lastTime.Second)
             //    return;
             var milliSecondInSeconds = dateTime.Millisecond / 1000d;
-            AngleSecond = 6 * (dateTime.Second+ milliSecondInSeconds);
+            AngleSecond = 6 * (dateTime.Second + milliSecondInSeconds);
             AngleMinute = 6 * dateTime.Minute + AngleSecond / 60;
             AngleHour = 30 * (dateTime.Hour % 12) + AngleMinute / 12;
             lastTime = dateTime;

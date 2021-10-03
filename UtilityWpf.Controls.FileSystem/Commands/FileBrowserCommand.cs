@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using ReactiveUI;
+using System;
+using System.Collections.Generic;
 using System.Drawing.Imaging;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Text;
-using Microsoft.Win32;
-using ReactiveUI;
-using System.Linq;
-using System.Collections.Generic;
 
 namespace UtilityWpf.Controls.FileSystem
 {
@@ -81,7 +81,7 @@ namespace UtilityWpf.Controls.FileSystem
             foreach (var (filenameExtension, codecName) in GetCaption(codecs))
             {
                 filter.Append($"{sep}{codecName} ({filenameExtension})|{filenameExtension}");
-                allfilter.Append(filenameExtension+";");
+                allfilter.Append(filenameExtension + ";");
                 sep = "|";
             }
 

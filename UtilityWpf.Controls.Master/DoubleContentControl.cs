@@ -1,14 +1,14 @@
 ﻿
+using Evan.Wpf;
+using PropertyTools.Wpf;
+using ReactiveUI;
 using System;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
-using Evan.Wpf;
-using ReactiveUI;
 using UtilityWpf.Mixins;
-using System.Reactive.Subjects;
-using PropertyTools.Wpf;
 
 namespace UtilityWpf.Controls.Master
 {

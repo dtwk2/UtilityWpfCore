@@ -1,18 +1,18 @@
-﻿using System;
+﻿using DynamicData;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Collections.Specialized;
-using UtilityHelperEx;
-using System.Reactive.Linq;
-using UtilityInterface.NonGeneric.Data;
-using System.Reactive.Subjects;
-using DynamicData;
 using System.ComponentModel;
+using System.Linq;
 using System.Reactive.Disposables;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
+using Utility.Common.Helper;
 using UtilityHelper.NonGeneric;
+using UtilityHelperEx;
+using UtilityInterface.NonGeneric.Data;
 using UtilityWpf;
 using UtilityWpf.Common;
-using Utility.Common.Helper;
 
 namespace Utility.Persist
 {
@@ -41,7 +41,7 @@ namespace Utility.Persist
               .Subscribe(cc =>
               {
                   var ((a, b), repository) = cc;
-           
+
                   if (a?.Action == NotifyCollectionChangedAction.Reset)
                       return;
 
@@ -210,7 +210,7 @@ namespace Utility.Persist
             return (value.Action, value.Items);
         }
 
-        public static implicit operator CollectionChange((NotifyCollectionChangedAction , IEnumerable<object>) value)
+        public static implicit operator CollectionChange((NotifyCollectionChangedAction, IEnumerable<object>) value)
         {
             return new CollectionChange(value.Item1, value.Item2);
         }

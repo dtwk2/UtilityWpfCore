@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Splat.Autofac;
-using System;
 using System.Windows;
 using Utility.Common;
 using UtilityWpf.Meta;

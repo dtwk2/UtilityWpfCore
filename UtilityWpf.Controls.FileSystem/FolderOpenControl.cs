@@ -6,7 +6,6 @@ namespace UtilityWpf.Controls.FileSystem
 {
     using System;
     using System.Reactive.Subjects;
-    using UtilityWpf.Property;
 
     public class FolderOpenControl : Control
     {

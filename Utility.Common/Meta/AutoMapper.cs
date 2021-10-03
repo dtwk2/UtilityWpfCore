@@ -1,15 +1,4 @@
-﻿using Autofac;
-using AutoMapper;
-using AutoMapper.Configuration;
-using Splat;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Reactive.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 
 namespace Utility.Common
 {

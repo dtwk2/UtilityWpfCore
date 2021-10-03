@@ -1,13 +1,10 @@
-﻿using System;
+﻿using Endless;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
-using System.Text;
-using System.Threading.Tasks;
-using Endless;
 using System.Windows.Input;
-using System.Collections.ObjectModel;
 using Utility.Common.EventArgs;
 
 namespace UtilityWpf.Demo.Common.ViewModel

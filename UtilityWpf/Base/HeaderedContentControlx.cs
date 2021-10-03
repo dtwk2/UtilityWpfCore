@@ -6,7 +6,7 @@ using UtilityWpf.Mixins;
 
 namespace UtilityWpf.Controls
 {
-        public abstract class HeaderedContentControlx : ContentControl, IPropertyListener, IControlListener
+    public abstract class HeaderedContentControlx : ContentControl, IPropertyListener, IControlListener
     {
         private readonly NameTypeDictionary<SingleReplaySubject<object>> nameTypeDictionary;
 

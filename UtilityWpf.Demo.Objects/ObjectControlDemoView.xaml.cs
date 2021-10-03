@@ -1,7 +1,7 @@
 ﻿#nullable enable
 
-using System;
 using Bogus;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
@@ -31,7 +31,7 @@ namespace UtilityWpf.Demo.Objects
             }
         }
 
-     
+
 
         public static Empty Empty => new Empty();
 

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
@@ -17,8 +12,8 @@ namespace UtilityWpf.Controls.Dragablz
     public class GeometryThumb : Thumb, ICommandSource
     {
         public static readonly DependencyProperty GeometryProperty = DependencyProperty.Register("Geometry", typeof(Geometry), typeof(GeometryThumb), new PropertyMetadata(null));
-        public static readonly DependencyProperty HighlightBrushProperty =    DependencyProperty.Register("HighlightBrush", typeof(Brush), typeof(GeometryThumb), new PropertyMetadata(Brushes.WhiteSmoke));
-        public static readonly DependencyProperty PressedBrushProperty =    DependencyProperty.Register("PressedBrush", typeof(Brush), typeof(GeometryThumb), new PropertyMetadata(Brushes.Gray));
+        public static readonly DependencyProperty HighlightBrushProperty = DependencyProperty.Register("HighlightBrush", typeof(Brush), typeof(GeometryThumb), new PropertyMetadata(Brushes.WhiteSmoke));
+        public static readonly DependencyProperty PressedBrushProperty = DependencyProperty.Register("PressedBrush", typeof(Brush), typeof(GeometryThumb), new PropertyMetadata(Brushes.Gray));
         //   public static readonly DependencyProperty CommandProperty =  DependencyProperty.Register("Command", typeof(ICommand), typeof(GeometryThumb), new PropertyMetadata(null));
 
         public static readonly DependencyProperty CommandProperty;

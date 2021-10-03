@@ -1,19 +1,18 @@
 ﻿
+using Evan.Wpf;
+using NetFabric.Hyperlinq;
+using ReactiveUI;
 using System;
 using System.Collections;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using Evan.Wpf;
-using ReactiveUI;
-using System.Collections.Specialized;
 using UtilityHelper.NonGeneric;
 using UtilityWpf.Abstract;
-using UtilityWpf.Mixins;
-using System.Reactive.Subjects;
-using NetFabric.Hyperlinq;
 
 namespace UtilityWpf.Controls.Master
 {

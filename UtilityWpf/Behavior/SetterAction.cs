@@ -1,13 +1,13 @@
 ﻿namespace UtilityWpf.Behavior
 {
-    using System;
-    using System.ComponentModel;
-    using System.Reflection;
-    using System.Windows;
     //https://stackoverflow.com/questions/942548/setting-a-property-with-an-eventtrigger
     // Neutrino
     //FocusedWolf
     using Microsoft.Xaml.Behaviors;
+    using System;
+    using System.ComponentModel;
+    using System.Reflection;
+    using System.Windows;
 
     /// <summary>
     /// Sets a specified property to a value when invoked.
@@ -29,7 +29,7 @@
             DependencyProperty.Register("PropertyName", typeof(string), typeof(SetterAction),
             new PropertyMetadata(String.Empty));
 
-        
+
 
         /// <summary>
         /// Property value that is being set by this setter.
@@ -44,7 +44,7 @@
             DependencyProperty.Register("Value", typeof(object), typeof(SetterAction),
             new PropertyMetadata(null));
 
-      
+
 
         protected override void Invoke(object parameter)
         {

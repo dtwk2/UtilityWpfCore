@@ -1,8 +1,8 @@
-﻿using System;
+﻿using ReactiveUI;
+using System;
 using System.Linq;
-using System.Windows;
-using ReactiveUI;
 using System.Reactive.Linq;
+using System.Windows;
 using System.Windows.Media.Animation;
 using UtilityWpf.Controls.Dragablz;
 using UtilityWpf.Controls.Master;

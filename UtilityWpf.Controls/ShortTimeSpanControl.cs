@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Evan.Wpf;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using Evan.Wpf;
 
 namespace UtilityWpf.Controls
 {

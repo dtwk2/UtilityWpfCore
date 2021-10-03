@@ -4,8 +4,8 @@ using System.Windows.Controls;
 
 namespace UtilityWpf.Controls
 {
-    using System.Reactive.Linq;
     using Mixins;
+    using System.Reactive.Linq;
 
     public abstract class ListBoxx : ListBox, IPropertyListener, IControlListener
     {

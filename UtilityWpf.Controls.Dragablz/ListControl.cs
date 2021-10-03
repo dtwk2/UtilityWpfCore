@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Dragablz;
+using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
-using Dragablz;
 using Utility.Common;
 using UtilityHelper;
 using UtilityWpf.Attached;
@@ -84,7 +84,7 @@ namespace UtilityWpf.Controls.Dragablz
                     BindingOperations.SetBinding(element, Attached.Ex.StateProperty, CreateBinding());
 
                 Binding CreateBinding()
-                {     
+                {
                     Binding binding = new Binding
                     {
                         Source = item,

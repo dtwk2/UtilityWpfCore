@@ -18,12 +18,10 @@
 //              Spec at DockPanel.xml
 //
 
-using System.Windows.Media;
-
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Collections.Generic;
+using System.Windows.Media;
 
 
 namespace UtilityWpf.Demo.Panels
@@ -156,8 +154,8 @@ namespace UtilityWpf.Demo.Panels
             for (int i = 0; i < children.Count; ++i)
             {
                 UIElement child = children[i];
-                if (child == null) 
-                    continue; 
+                if (child == null)
+                    continue;
 
                 if (GetValue(child)?.Equals(CurrentValue) ?? false)
                 {

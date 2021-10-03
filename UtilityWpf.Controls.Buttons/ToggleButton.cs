@@ -30,7 +30,7 @@ namespace UtilityWpf.Controls.Buttons
         public RadioButton()
         {
             object? checkedContent = null;
-            ToggleButtonContentBehavior.ConfigureContent(this,this.WhenAnyValue(a=>a.UnCheckedContent), checkedContent);
+            ToggleButtonContentBehavior.ConfigureContent(this, this.WhenAnyValue(a => a.UnCheckedContent), checkedContent);
         }
 
         public object UnCheckedContent

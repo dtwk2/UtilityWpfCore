@@ -12,7 +12,7 @@ namespace UtilityWpf.Demo.Common.ViewModel
         private string? phoneNumber;
 
         public Guid Id { get; init; }
-        public string Name { get => name??""; set => name = value; }
+        public string Name { get => name ?? ""; set => name = value; }
         public string Surname { get => surname ?? ""; set => surname = value; }
         public int Age { get => age; set => age = value; }
         public string PhoneNumber { get => phoneNumber ?? ""; set => phoneNumber = value; }

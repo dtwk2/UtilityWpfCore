@@ -1,12 +1,7 @@
 ﻿using Dragablz;
 using Evan.Wpf;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using Utility.Common.Enum;
 
 
 namespace UtilityWpf.Controls.Hybrid

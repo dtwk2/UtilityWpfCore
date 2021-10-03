@@ -1,11 +1,9 @@
-﻿using System;
-using System.Reactive;
+﻿using ReactiveUI;
+using System;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using ReactiveUI;
 using UtilityWpf.Utility;
 
 namespace UtilityWpf.Controls.FileSystem
@@ -18,7 +16,7 @@ namespace UtilityWpf.Controls.FileSystem
             textBoxContentChanges
             .OfType<TextBox>()
             .SelectMany(EventToObservableHelper.ToThrottledObservable)
-            .Subscribe(textChanges.OnNext);      
+            .Subscribe(textChanges.OnNext);
         }
 
         public override void OnApplyTemplate()

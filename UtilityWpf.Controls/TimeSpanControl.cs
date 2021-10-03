@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Evan.Wpf;
+using System;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Evan.Wpf;
 using UtilityEnum;
 using UtilityWpf.Controls.Infrastructure;
 using UtilityWpf.Utility;

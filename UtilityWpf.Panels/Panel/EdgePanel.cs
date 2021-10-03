@@ -1,13 +1,12 @@
 ﻿
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Linq;
-    using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Media;
-    using System.Windows.Shapes;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Shapes;
 using UtilityWpf.Demo.Panels;
 
 namespace UtilityWpf.Panels
@@ -16,7 +15,7 @@ namespace UtilityWpf.Panels
     public class EdgePanel : Panel
     {
         const string MyRectangleName = "MyRectangle";
-       Size availableSize;
+        Size availableSize;
         private Size totalSize;
         Size finalSize;
         private UIElement[] children;
@@ -59,7 +58,7 @@ namespace UtilityWpf.Panels
             var sizer = SizerFactory.Create(circleRegion: CircleRegion.TopLeft);
 
             foreach (var (size, _) in array)
-            { 
+            {
                 sizer.Append(size);
             }
 

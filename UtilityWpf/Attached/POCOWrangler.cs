@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Data;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace UtilityWpf.Attached
 {
@@ -29,7 +25,7 @@ namespace UtilityWpf.Attached
         private static void BindPropertyToText_PropertyChanged(DependencyObject dObject, DependencyPropertyChangedEventArgs e)
         {
             if (e.NewValue is string str && dObject is TextBox textBox)
-            {  
+            {
                 var binding = new Binding(str);
 
                 //  The POCO object we're editing must be the DataContext of the TextBox, 

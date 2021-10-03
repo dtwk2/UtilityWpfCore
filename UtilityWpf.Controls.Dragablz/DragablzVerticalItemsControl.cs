@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dragablz;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
@@ -6,14 +7,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
-using Dragablz;
-using ReactiveUI;
-using UtilityWpf.Abstract;
 
 namespace UtilityWpf.Controls.Dragablz
 {
     public class DragablzVerticalItemsControl : DragablzExItemsControl
-    { 
+    {
         //object number;
         //double start = 0;
         //private DeleteAdorner adorner;
@@ -39,10 +37,10 @@ namespace UtilityWpf.Controls.Dragablz
 
         private void CustomOrganiser_DragCompleted()
         {
-           // if (adorner != null)
+            // if (adorner != null)
             //{
-                //MessageBox.Show("Item deleted");
-           // }
+            //MessageBox.Show("Item deleted");
+            // }
         }
 
         private void VerticalPositionMonitor_LocationChanged(object sender, LocationChangedEventArgs e)

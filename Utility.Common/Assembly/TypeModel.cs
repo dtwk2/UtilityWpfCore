@@ -1,10 +1,10 @@
-﻿using System;
+﻿using MoreLinq;
+using Nito.AsyncEx;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using MoreLinq;
-using Nito.AsyncEx;
 
 namespace UtilityWpf.Model
 {

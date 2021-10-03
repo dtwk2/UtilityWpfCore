@@ -13,7 +13,7 @@
 
 //        public void Register(ContainerBuilder containerBuilder)
 //        {
-       
+
 //            containerBuilder.Register(c => new TypeModel(typeof(BootStrapper)));
 //            containerBuilder.RegisterType<TypeObjectsService>().SingleInstance();
 //            containerBuilder.RegisterType<ViewModelAssemblyModel>().SingleInstance();

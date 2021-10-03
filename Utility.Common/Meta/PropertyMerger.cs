@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
-using Splat;
-using System.Collections.Generic;
-using System;
 using Fasterflect;
-using System.Linq;
-using Microsoft.VisualBasic.CompilerServices;
 using KellermanSoftware.CompareNetObjects;
-using System.ComponentModel;
+using Splat;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace UtilityWpf.Service
 {

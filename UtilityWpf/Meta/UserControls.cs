@@ -1,15 +1,15 @@
-﻿using System;
+﻿using MoreLinq;
+using ReactiveUI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Reflection;
-using System.Windows.Controls;
 using System.Windows;
-using System.Reactive.Linq;
-using ReactiveUI;
-using UtilityHelper;
+using System.Windows.Controls;
 using System.Windows.Data;
-using MoreLinq;
+using UtilityHelper;
 using UtilityWpf.Model;
 
 namespace UtilityWpf.Meta
@@ -53,7 +53,7 @@ namespace UtilityWpf.Meta
                     Margin = new Thickness(20),
                     FontSize = 20
                 };
-                grid.Children.Add(textBlock);              
+                grid.Children.Add(textBlock);
                 textBlock.SetBinding(TextBlock.TextProperty, new Binding()
                 {
                     Path = new PropertyPath(nameof(ViewType.Key)),
@@ -65,7 +65,7 @@ namespace UtilityWpf.Meta
                 };
                 textBlock.SetBinding(ContentControl.DataContextProperty, selectedItemBinding);
                 var contentControl = new ContentControl { Content = "Empty" };
-                Grid.SetRow(contentControl, 1);     
+                Grid.SetRow(contentControl, 1);
                 contentControl.SetBinding(ContentControl.ContentProperty, new Binding
                 {
                     Path = new PropertyPath(nameof(ViewType.View)),

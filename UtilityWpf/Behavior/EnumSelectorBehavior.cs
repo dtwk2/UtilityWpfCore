@@ -1,4 +1,7 @@
 ﻿#nullable enable
+using Evan.Wpf;
+using Microsoft.Xaml.Behaviors;
+using ReactiveUI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,10 +15,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
-using System.Windows.Input;
-using Evan.Wpf;
-using Microsoft.Xaml.Behaviors;
-using ReactiveUI;
 using static UtilityWpf.Behavior.EnumSelectorBehavior;
 
 namespace UtilityWpf.Behavior
@@ -43,8 +42,8 @@ namespace UtilityWpf.Behavior
                 AssociatedObject.Height = 40;
             }
 
-            AssociatedObject.DisplayMemberPath = string.IsNullOrEmpty(AssociatedObject.DisplayMemberPath) ? 
-                "Description" : 
+            AssociatedObject.DisplayMemberPath = string.IsNullOrEmpty(AssociatedObject.DisplayMemberPath) ?
+                "Description" :
                 AssociatedObject.DisplayMemberPath;
             AssociatedObject.SelectedValuePath = "Value";
             AssociatedObject.SelectedIndex = 0;

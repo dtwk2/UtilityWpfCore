@@ -9,8 +9,8 @@ using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
 using UtilityHelperEx;
-using UtilityWpf.Model;
 using UtilityWpf.Demo.Data.Model;
+using UtilityWpf.Model;
 
 namespace UtilityWpf.Demo.Controls
 {

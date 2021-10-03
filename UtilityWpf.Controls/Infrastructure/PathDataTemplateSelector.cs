@@ -34,7 +34,7 @@ namespace UtilityWpf.Controls
             //else if (item is DirectoryViewModel)
             //    return DirectoryDataTemplate;
             //else
-                return DefaultDataTemplate;
+            return DefaultDataTemplate;
         }
     }
 

@@ -13,11 +13,11 @@ namespace UtilityWpf.Controls.FileSystem
             textBoxContentChanges
             .OfType<TextBox>()
             .SelectMany(EventToObservableHelper.ToThrottledObservable)
-            .Subscribe(textChanges.OnNext);  
+            .Subscribe(textChanges.OnNext);
         }
 
         public override void OnApplyTemplate()
-        {            
+        {
             var gridOne = GetTemplateChild("GridOne");
             var textBlock = (gridOne as FrameworkElement)?.Resources["TextBoxOne"] as TextBox ?? throw new NullReferenceException("GridOne is null");
             TextBoxContent = textBlock.Clone();

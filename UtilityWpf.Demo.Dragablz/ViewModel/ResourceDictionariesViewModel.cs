@@ -31,7 +31,7 @@ namespace UtilityWpf.Demo.Dragablz.ViewModel
 
         public override IEnumerable Collection => collection;
 
-  
+
 
     }
 }

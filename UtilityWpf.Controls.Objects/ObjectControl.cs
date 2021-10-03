@@ -1,5 +1,7 @@
 ﻿#nullable enable
 
+using Endless.Functional;
+using Splat;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,8 +17,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
-using Endless.Functional;
-using Splat;
 
 namespace UtilityWpf.Controls.Objects
 {

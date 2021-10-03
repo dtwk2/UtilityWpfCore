@@ -1,6 +1,4 @@
 ﻿using ReactiveUI;
-using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -24,7 +22,7 @@ namespace UtilityWpf.Demo.Controls
 
         public DoubleClickViewModel()
         {
-      
+
             MyCommand = ReactiveCommand.Create(() => MessageBox.Show("double click!"));
         }
     }

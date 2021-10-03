@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Threading;
 
 namespace UtilityWpf.Controls
 {
@@ -56,7 +55,7 @@ namespace UtilityWpf.Controls
                 Source = viewmodel
             };
             criteriaItem.SetBinding(CriteriaItem.MeetsCriteriaProperty, myBinding);
-            criteriaItem.CriteriaChanged += CriteriaItem_CriteriaChanged;      
+            criteriaItem.CriteriaChanged += CriteriaItem_CriteriaChanged;
             CriteriaItem_CriteriaChanged(this, default);
             return criteriaItem;
         }
@@ -85,7 +84,7 @@ namespace UtilityWpf.Controls
             }
             if (indices.Count > 0)
             {
-                 IsCriteriaMet = true;
+                IsCriteriaMet = true;
             }
 
             RaiseEvent(new CriteriaMetEventArgs(CriteriaMetEvent, metItems, missedItems, indices.ToArray()));
@@ -98,8 +97,8 @@ namespace UtilityWpf.Controls
             }
         }
 
-    
- 
+
+
         public class CriteriaMetEventArgs : RoutedEventArgs
         {
             public int[] Indices { get; }

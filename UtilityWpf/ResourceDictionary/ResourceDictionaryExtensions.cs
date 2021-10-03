@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Windows;
 using System.Windows.Baml2006;
-using System.Collections.Generic;
 
 namespace UtilityWpf
 {
@@ -38,7 +38,7 @@ namespace UtilityWpf
                         loadedObject = System.Windows.Markup.XamlReader.Load(bamlReader) as ResourceDictionary;
 
                         if (loadedObject != null)
-                        {             
+                        {
                             dictionary = loadedObject;
                         }
                         else
@@ -67,7 +67,7 @@ namespace UtilityWpf
                 string[] resourceNames = assembly.GetManifestResourceNames().Where(a => a.EndsWith("g.resources")).ToArray();
                 foreach (string resourceName in resourceNames)
                 {
-      
+
                     ManifestResourceInfo? info = assembly.GetManifestResourceInfo(resourceName);
                     if (info?.ResourceLocation != ResourceLocation.ContainedInAnotherAssembly)
                     {

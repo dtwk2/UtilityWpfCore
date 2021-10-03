@@ -16,7 +16,7 @@ namespace UtilityWpf.Demo.Panels
         {
             InitializeComponent();
             array = this.Resources["Array"] as Array;
-            foreach(var item in array)
+            foreach (var item in array)
             {
                 CirclePanel1.Children.Add(item as UIElement);
                 i++;
@@ -33,7 +33,7 @@ namespace UtilityWpf.Demo.Panels
         private void Button2_Click(object sender, RoutedEventArgs e)
         {
             CirclePanel1.Children.Remove(array.GetValue(--i) as UIElement);
-           // CirclePanel1.AddLine();
+            // CirclePanel1.AddLine();
         }
     }
 }

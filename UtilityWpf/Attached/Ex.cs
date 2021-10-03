@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 
 namespace UtilityWpf.Attached
@@ -8,7 +7,7 @@ namespace UtilityWpf.Attached
     public enum State
     {
         None,
-        Ticked, 
+        Ticked,
         Crossed,
         Refreshable
 
@@ -69,13 +68,13 @@ namespace UtilityWpf.Attached
         {
             d.SetValue(StateProperty, (State)value);
         }
-            
-        
+
+
         public static readonly DependencyProperty IsPressedProperty = DependencyProperty.RegisterAttached("IsPressed", typeof(bool), typeof(Ex), new PropertyMetadata(false, Property3Changed));
 
         private static void Property3Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            
+
         }
 
         public static bool GetIsPressed(DependencyObject d)
@@ -91,7 +90,7 @@ namespace UtilityWpf.Attached
 
         public static readonly DependencyProperty IsMouseOverProperty = DependencyProperty.RegisterAttached("IsMouseOver", typeof(bool), typeof(Ex), new PropertyMetadata(false, Property3Changed));
 
-   
+
         public static bool GetIsMouseOver(DependencyObject d)
         {
             return (bool)d.GetValue(IsMouseOverProperty);

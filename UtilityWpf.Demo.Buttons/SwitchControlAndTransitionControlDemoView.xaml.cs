@@ -1,12 +1,10 @@
 ﻿#nullable enable
-using ReactiveUI;
 using System;
 using System.Globalization;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Controls;
 using System.Windows.Data;
-using Splat;
 
 namespace UtilityWpf.Demo.Buttons
 {

@@ -17,7 +17,7 @@ namespace UtilityWpf.Controls
         {
             HighlightForeground = Brushes.Black;
             HighlightBackground = Brushes.Transparent;
-          
+
             HighlightBackground3 = Brushes.Yellow;
         }
 

@@ -37,9 +37,9 @@ namespace UtilityWpf.Model
        .ToDictionaryOnIndex()
        .Select(a => new ViewType(a.Key, a.Value));
 
-  
-       
-        
+
+
+
     }
 
     static class Helper

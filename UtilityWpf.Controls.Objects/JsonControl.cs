@@ -1,5 +1,7 @@
 ﻿# nullable enable
 
+using Newtonsoft.Json.Linq;
+using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -14,8 +16,6 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
-using Newtonsoft.Json.Linq;
-using ReactiveUI;
 using UtilityHelper;
 using static LambdaConverters.TemplateSelector;
 using static LambdaConverters.ValueConverter;
@@ -213,7 +213,7 @@ namespace UtilityWpf.Controls.Objects
         {
             if (a.Parameter != null && a.Value?.GetType().GetMethod(a.Parameter, Array.Empty<Type>()) is MethodInfo methodInfo)
                 return (JEnumerable<JToken>?)methodInfo.Invoke(a.Value, Array.Empty<object>());
-                return new JEnumerable<JToken>();
+            return new JEnumerable<JToken>();
         });
 
         //public static IValueConverter ComplexPropertyMethodToValueConverter => Create<object, JEnumerable<JToken>?, string>(args =>

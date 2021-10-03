@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xaml.Behaviors.Core;
+using System;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
@@ -8,7 +9,6 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
-using Microsoft.Xaml.Behaviors.Core;
 
 namespace UtilityWpf.Controls.Progress
 {

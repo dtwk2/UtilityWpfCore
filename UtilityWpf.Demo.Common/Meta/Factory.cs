@@ -1,14 +1,11 @@
 ﻿using ReactiveUI;
+using Splat;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using Utility.Common.Helper;
 using UtilityHelper;
 using UtilityWpf.Demo.Common.ViewModel;
-using Utility.Common.Helper;
-using Splat;
-using System.Collections.ObjectModel;
 
 namespace UtilityWpf.Demo.Common.Meta
 {
@@ -16,7 +13,7 @@ namespace UtilityWpf.Demo.Common.Meta
     {
         public record FactoryLog(DateTime Date, string Key, string Type);
 
-       // readonly Kaos.Collections.RankedSet<FactoryLog> logs = new Kaos.Collections.RankedSet<FactoryLog>(Comparer<FactoryLog>.Create(new Comparison<FactoryLog>((a, b) => (int)(a.Date - b.Date).Ticks)));
+        // readonly Kaos.Collections.RankedSet<FactoryLog> logs = new Kaos.Collections.RankedSet<FactoryLog>(Comparer<FactoryLog>.Create(new Comparison<FactoryLog>((a, b) => (int)(a.Date - b.Date).Ticks)));
         readonly ObservableCollection<FactoryLog> logs = new ObservableCollection<FactoryLog>();
 
         public void Add(DateTime Date, string Key, string Type)

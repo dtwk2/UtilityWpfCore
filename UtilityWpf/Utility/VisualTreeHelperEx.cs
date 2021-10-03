@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -214,7 +214,7 @@ namespace UtilityWpf
         /// <typeparam name="T"></typeparam>
         /// <param name="depObj"></param>
         /// <returns></returns>
-        public static DependencyObject? ChildOfInterface<T>(this DependencyObject depObj) 
+        public static DependencyObject? ChildOfInterface<T>(this DependencyObject depObj)
         {
             if (depObj == null) return default;
 
@@ -223,9 +223,9 @@ namespace UtilityWpf
                 var child = VisualTreeHelper.GetChild(depObj, i);
 
                 var result = child.GetType().GetInterfaces().Contains(typeof(T));
-                if (result) 
+                if (result)
                     return child;
-                else if(ChildOfInterface<T>(child) is { } obj)
+                else if (ChildOfInterface<T>(child) is { } obj)
                     return obj;
             }
             return default;

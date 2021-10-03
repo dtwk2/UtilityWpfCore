@@ -1,10 +1,10 @@
 ﻿using Autofac;
 using Splat.Autofac;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using Utility.Common;
 using UtilityWpf.Controls.Meta;
-using System.Linq;
-using System.Windows.Controls;
 
 namespace UtilityWpf.Demo
 {

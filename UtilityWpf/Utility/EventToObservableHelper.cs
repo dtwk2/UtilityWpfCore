@@ -1,4 +1,6 @@
-﻿using System;
+﻿using deniszykov.TypeConversion;
+using ReactiveUI;
+using System;
 using System.Collections;
 using System.Linq;
 using System.Reactive;
@@ -9,8 +11,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media.Animation;
-using deniszykov.TypeConversion;
-using ReactiveUI;
 using UtilityWpf.Abstract;
 
 namespace UtilityWpf

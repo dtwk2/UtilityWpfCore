@@ -10,13 +10,13 @@ namespace UtilityWpf.Demo.Buttons
         {
             MessageBox.Show("One");
         }
-              
+
         [Description("Two")]
         public void ShowTwo()
         {
             MessageBox.Show("Two");
         }
-               
+
         [Description("Three")]
         public void ShowThree()
         {

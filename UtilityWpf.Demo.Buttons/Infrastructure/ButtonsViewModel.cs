@@ -1,6 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using Microsoft.Xaml.Behaviors.Core;
 using ReactiveUI;
-using Microsoft.Xaml.Behaviors.Core;
+using System.Collections.ObjectModel;
 
 namespace UtilityWpf.Demo.Buttons
 {
