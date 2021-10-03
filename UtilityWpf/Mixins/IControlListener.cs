@@ -32,25 +32,27 @@ namespace UtilityWpf.Mixins
 
         protected IObservable<IEnumerable<FrameworkElement>> Get()
         {
-            var dependencyObject = (this as DependencyObject ?? throw new Exception("Expected type to DependencyObject"));
+            var dependencyObject = this as DependencyObject ?? throw new Exception("Expected type to DependencyObject");
             if (dependencyObject is FrameworkElement control)
             {
                 if (control.IsLoaded == false)
                 {
                     return Observable.Create<FrameworkElement[]>(observer =>
-                   {
-                       return control
-                           .LoadedChanges()
-                           .Subscribe(a =>
-                       {
-                           var t = dependencyObject
-                           .FindVisualChildren<FrameworkElement>()
-                           .ToArray();
-                           observer.OnNext(t);
-                       });
-                   })
-                        .ObserveOnDispatcher()
-                        .SubscribeOnDispatcher();
+                    {
+                        return control
+                            .LoadedChanges()
+                            .Subscribe(a =>
+                        {
+                            var t = dependencyObject
+                            .FindVisualChildren<FrameworkElement>()
+                            .ToArray();
+                            observer.OnNext(t);
+                        });
+                    })
+                         .ObserveOnDispatcher()
+                         .SubscribeOnDispatcher()
+                         .ToReplaySubject(1);
+
                 }
             }
             return Observable
