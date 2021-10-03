@@ -62,6 +62,7 @@ namespace Utility.Persist
                           {
                               foreach (var item in b.Items)
                                   repository.Add(item);
+                              collectionChangeMessages.OnNext(new CollectionChangeMessage(new CollectionChange(NotifyCollectionChangedAction.Add, b.Items)));
                               break;
                           }
                       case NotifyCollectionChangedAction.Remove:
@@ -107,9 +108,7 @@ namespace Utility.Persist
                            {
                                a.AddOrUpdate(change);
                            }
-                       });
-                       //CollectionChangeCommand?.Execute(observer.Items);
-                       collectionChangeMessages.OnNext(new CollectionChangeMessage(new CollectionChange(NotifyCollectionChangedAction.Add, observer.Items.ToArray())));
+                       });                    
 
                        Items.ReplaceWithRange(objects);
                    });
