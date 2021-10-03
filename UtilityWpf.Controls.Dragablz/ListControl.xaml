@@ -43,9 +43,9 @@
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-
-
-                                <dragablz1:GeometryThumb Command="{Binding Path=(att:Ex.Command), RelativeSource={RelativeSource Mode=Self}}"
+                                
+                             
+                                <dragablz1:GeometryThumb Command="{Binding Path=(att:Ex.Command), RelativeSource={RelativeSource Mode=Self}}"                                                   
                                                          x:Name="GeometryThumb"
                                                          Margin="2"
                                                          VerticalAlignment="Center" 
@@ -53,13 +53,13 @@
                                                             dragablz:DragablzItem.IsCustomThumb="True"
                                                             Height="15"
                                                             Width="15" 
-                                                            Geometry="{StaticResource TickGeometry}">
+                                                            Geometry="{StaticResource TickGeometry}">                         
                                 </dragablz1:GeometryThumb>
 
 
                                 <TextBox x:Name="PART_TextBox"
                                          Margin="2,1,17,2"  
-                                         Width="200"                                           
+                                         MinWidth="100"                                           
                                          HorizontalAlignment="Stretch" FontSize="5"    
                                          TextWrapping="Wrap"
                                          AcceptsReturn="True"           
@@ -81,7 +81,7 @@
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Path=(att:Ex.State), RelativeSource={RelativeSource Mode=Self}}" Value="{x:Static att:State.Crossed}">
                             <Setter Property="Geometry" Value="{StaticResource XGeometry}" TargetName="GeometryThumb" />
-                        </DataTrigger>
+                        </DataTrigger>      
                         <DataTrigger Binding="{Binding Path=(att:Ex.State), RelativeSource={RelativeSource Mode=Self}}" Value="{x:Static att:State.Refreshable}">
                             <Setter Property="Geometry" Value="{StaticResource RefreshGeometry}" TargetName="GeometryThumb" />
                         </DataTrigger>

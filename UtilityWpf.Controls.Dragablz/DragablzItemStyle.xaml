@@ -87,22 +87,9 @@
                             <dragablz1:ItemContainerBorder 
                             IsDragging="{Binding IsDragging, RelativeSource={RelativeSource TemplatedParent}}" 
                             IsSelected="{Binding IsSelected, RelativeSource={RelativeSource TemplatedParent}}"
-                            IsSelectable="{Binding IsMouseOver, ElementName=Main_ViewBox}"
-                           />
-                            <!--<Grid.Background>
-                                <VisualBrush   
-                                                TileMode="Tile" Viewport="0,0,10,10" 
-                                                ViewportUnits="Absolute" Viewbox="0,0,10,10"    
-                                                ViewboxUnits="Absolute">
-                                    <VisualBrush.Visual>
-                                        <Canvas>
-                                            <Rectangle  Width="10" Height="10" />
-                                            <Path Stroke="Gray" Data="M 0 0 l 10 10" />
-                                        </Canvas>
-                                    </VisualBrush.Visual>
-                                </VisualBrush>
-                            </Grid.Background>-->
-
+                            IsSelectable="{Binding IsMouseOver, ElementName=Main_ViewBox}"/>
+               
+                            
                             <materialDesign:Card x:Name="PART_Card" Margin="10" HorizontalAlignment="Stretch">
                                 <Button>
                                     <Button.Style>

@@ -81,19 +81,38 @@ namespace UtilityWpf.Controls.Dragablz
             void CreateAndSetIsCheckedBinding()
             {
                 if (string.IsNullOrEmpty(IsCheckedPath) == false)
+                {
                     BindingOperations.SetBinding(element, Attached.Ex.StateProperty, CreateBinding());
+                    BindingOperations.SetBinding(element, Attached.Ex.IsCheckedProperty, CreateBinding2());
+                }
 
                 Binding CreateBinding()
                 {
+                    var prop = item.GetType().GetProperty(IsCheckedPath);
+                    var isReadOnly = prop.IsReadOnly() || prop.IsInitOnly() || prop.GetSetMethod()==null;
+                    Binding binding = new Binding
+                    {
+                        Source = item,
+                        Path = new PropertyPath(IsCheckedPath),
+                        Mode = isReadOnly ? BindingMode.OneWay : BindingMode.TwoWay,
+                        Converter = new ValueConverter(),
+                        ConverterParameter = IsCheckedPathProperty,
+                        UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+                    };
+                    return binding;
+                }
+
+                Binding CreateBinding2()
+                {
+                    var prop = item.GetType().GetProperty(IsCheckedPath);
                     Binding binding = new Binding
                     {
                         Source = item,
                         Path = new PropertyPath(IsCheckedPath),
                         Mode = BindingMode.OneWay,
-                        Converter = new ValueConverter(),
-                        ConverterParameter = IsCheckedPathProperty,
                         UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
                     };
+                                    
                     return binding;
                 }
             }
@@ -102,7 +121,7 @@ namespace UtilityWpf.Controls.Dragablz
             void CreateAndSetRefreshableBinding()
             {
                 if (string.IsNullOrEmpty(IsRefreshablePath) == false)
-                    BindingOperations.SetBinding(element, Attached.Ex.StateProperty, CreateBinding());
+                    BindingOperations.SetBinding(element, Ex.StateProperty, CreateBinding());
 
                 Binding CreateBinding()
                 {
@@ -121,12 +140,11 @@ namespace UtilityWpf.Controls.Dragablz
 
             void CreateAndSetCommandBinding()
             {
-                if (element.ChildOfInterface<ICommandSource>() is not DependencyObject button || string.IsNullOrEmpty(CommandPath))
+                if (element.ChildOfInterface<ICommandSource>() is not DependencyObject dependencyObjec || string.IsNullOrEmpty(CommandPath))
                     return;
 
-                //if (element.ChildOfType<Button>() is not DependencyObject button || string.IsNullOrEmpty(CommandPath))
-                //    return;
-                BindingOperations.SetBinding(button, ButtonBase.CommandProperty, CreateCommandBinding(item));
+                BindingOperations.SetBinding(dependencyObjec, ButtonBase.CommandProperty, CreateCommandBinding(item));
+
 
                 Binding? CreateCommandBinding(object item)
                 {

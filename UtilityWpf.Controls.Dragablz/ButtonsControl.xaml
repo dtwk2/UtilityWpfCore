@@ -2,14 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:UtilityWpf.Controls.Dragablz"
                     xmlns:conv="http://schemas.utility.com/utilitywpf"
-                    xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
-                    xmlns:att="http://schemas.utility.com/utilitywpf">
+                    xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz">
 
 
 
-    <ResourceDictionary.MergedDictionaries>
-        <att:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/GeometryResources.xaml"/>
-    </ResourceDictionary.MergedDictionaries>
 
 
     <Style x:Key="ButtonStyle" TargetType="dragablz:DragablzItem">
