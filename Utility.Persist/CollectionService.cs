@@ -62,7 +62,6 @@ namespace Utility.Persist
                           {
                               foreach (var item in b.Items)
                                   repository.Add(item);
-                              collectionChangeMessages.OnNext(new CollectionChangeMessage(new CollectionChange(NotifyCollectionChangedAction.Add, b.Items)));
                               break;
                           }
                       case NotifyCollectionChangedAction.Remove:
@@ -72,6 +71,8 @@ namespace Utility.Persist
                               break;
                           }
                   }
+                  collectionChangeMessages.OnNext(new CollectionChangeMessage(new CollectionChange(b.Action, b.Items)));
+
                   var count = repository.Count();
                   if (count != Items.Count)
                   {
