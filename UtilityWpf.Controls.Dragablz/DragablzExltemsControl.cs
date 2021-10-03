@@ -2,28 +2,50 @@
 using Evan.Wpf;
 using ReactiveUI;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using UtilityWpf.Abstract;
+using UtilityWpf.Attached;
+using UtilityWpf.Events;
 
 namespace UtilityWpf.Controls.Dragablz
 {
-    public class DragablzExItemsControl : DragablzItemsControl, ISelector
+
+    public class DragablzExItemsControl : DragablzItemsControl, ISelector, ICheckedSelector
     {
         public static readonly DependencyProperty SelectedItemProperty = DependencyHelper.Register<object>();
         public static readonly DependencyProperty SelectedIndexProperty = DependencyHelper.Register<int>();
+        public static readonly DependencyProperty CheckedItemsProperty = DependencyHelper.Register<IReadOnlyCollection<object>>();
+        public static readonly DependencyProperty UnCheckedItemsProperty = DependencyHelper.Register<IReadOnlyCollection<object>>();
         public static readonly RoutedEvent SelectionChangedEvent = EventManager.RegisterRoutedEvent(nameof(SelectionChanged), RoutingStrategy.Bubble, typeof(SelectionChangedEventHandler), typeof(DragablzVerticalItemsControl));
+        public static readonly RoutedEvent CheckedChangedEvent = EventManager.RegisterRoutedEvent(nameof(CheckedChanged), RoutingStrategy.Bubble, typeof(CheckedChangedEventHandler), typeof(DragablzVerticalItemsControl));
 
         public DragablzExItemsControl()
         {
         }
 
+        #region properties
+
         public object SelectedItem
         {
             get { return GetValue(SelectedItemProperty); }
             set { SetValue(SelectedItemProperty, value); }
+        }
+
+        public IEnumerable CheckedItems
+        {
+            get { return (IEnumerable)GetValue(CheckedItemsProperty); }
+            set { SetValue(CheckedItemsProperty, value); }
+        }
+
+        public IEnumerable UnCheckedItems
+        {
+            get { return (IEnumerable)GetValue(UnCheckedItemsProperty); }
+            set { SetValue(UnCheckedItemsProperty, value); }
         }
 
         public int SelectedIndex
@@ -38,6 +60,13 @@ namespace UtilityWpf.Controls.Dragablz
             remove => RemoveHandler(SelectionChangedEvent, value);
         }
 
+        public event CheckedChangedEventHandler CheckedChanged
+        {
+            add { AddHandler(CheckedChangedEvent, value); }
+            remove { RemoveHandler(CheckedChangedEvent, value); }
+        }
+
+        #endregion
 
         protected override DependencyObject GetContainerForItemOverride()
         {
@@ -95,6 +124,20 @@ namespace UtilityWpf.Controls.Dragablz
                     RaiseEvent(new SelectionChangedEventArgs(SelectionChangedEvent, selected, new[] { a.Sender.Content }));
 
                 });
+
+            Ex.Observable<bool>(a => a == item, a => a.Name == nameof(Ex.IsChecked))
+                  //.Skip(1)
+                  .ObserveOnDispatcher()
+                  .SubscribeOnDispatcher()
+                  .Subscribe(a =>
+                  {
+
+                      var items = Items.OfType<object>().Select(a => ItemContainerGenerator.ContainerFromItem(a)).Cast<DragablzItem>().ToArray();
+                      var @checked = items.Where(a => Ex.GetIsChecked(a)).Select(a => a.Content).ToArray();
+                      var @unchecked = items.Where(a => Ex.GetIsChecked(a)==false).Select(a => a.Content).ToArray();
+
+                      RaiseEvent(new CheckedChangedEventArgs(CheckedChangedEvent, this, @checked, @unchecked));
+                  });
 
             return item;
 
