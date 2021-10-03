@@ -9,7 +9,7 @@ namespace Utility.Common.Helper
 
         public static IEnumerable<T> FindAll<T>(this IRepository repository)
         {
-            return repository.FindMany(new AllQuery()).Cast<T>();
+            return repository.FindManyBy(new AllQuery()).Cast<T>();
         }
 
         public static int Count(this IRepository repository)
