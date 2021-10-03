@@ -91,6 +91,11 @@ namespace UtilityWpf
             // Try and find the resource dictionary in the application scope 
             return Application.Current != null && Application.Current.Resources.ContainsDictionary(resource.Source);
         }
+
+        public override string? ToString()
+        {
+            return this.source?.ToString() ?? "none" + " " + string.Join(',', this.Keys);
+        }
     }
 
 
