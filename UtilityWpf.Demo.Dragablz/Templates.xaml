@@ -5,7 +5,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/UtilityWpf.Demo.Common;component/View/Templates.xaml"/>
         <utl:SharedResourceDictionary Source="/UtilityWpf.Demo.Common;component/View/DragablzNoteStyle.xaml"/>
-        <!--<utl:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzItemStyle.xaml"/>-->
+        <utl:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzItemStyle.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     <DataTemplate DataType="{x:Type vm:NotesViewModel}">    
         <view:DragablzVerticalItemsControl 

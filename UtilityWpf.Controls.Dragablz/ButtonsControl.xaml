@@ -4,7 +4,9 @@
                     xmlns:conv="http://schemas.utility.com/utilitywpf"
                     xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz">
 
-
+    <ResourceDictionary.MergedDictionaries>
+        <conv:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/GeometryResources.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
 
 
 
