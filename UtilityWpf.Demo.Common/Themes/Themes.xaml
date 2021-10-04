@@ -4,6 +4,8 @@
         <ResourceDictionary Source="/UtilityWpf.Demo.Common;component/Themes/Default.xaml"/>
         <ResourceDictionary Source="/UtilityWpf.Demo.Common;component/Themes/Material.xaml"/>   
         <ResourceDictionary Source="/UtilityWpf.Demo.Common;component/Themes/Handy.xaml"/>
+        <ResourceDictionary Source="/UtilityWpf.Demo.Common;component/Themes/AdonisUI.xaml"/>
+        <ResourceDictionary Source="/UtilityWpf.Demo.Common;component/Themes/FluentWPF.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     
 </ResourceDictionary>
