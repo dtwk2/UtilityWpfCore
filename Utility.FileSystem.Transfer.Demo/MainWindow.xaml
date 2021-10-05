@@ -2,57 +2,53 @@
     x:Class="Utility.FileSystem.Transfer.Demo.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:ufst="http://schemas.utility.com/filesystem/transfer"
+    xmlns:ufst="http://schemas.utility.com/filesystem/transfer" 
+    xmlns:ufst1="clr-namespace:Utility.FileSystem.Transfer.Demo"
     Title="SecondaryWindow"
     Width="800"
     Height="450">
-    <TabControl>
-        <TabItem
-            Margin="0"
-            HorizontalAlignment="Right"
-            Header="Copy">
+    <TabControl Margin="-2,0,2,0">
+        <TabItem             Header="demo" Height="20" VerticalAlignment="Top">
+            <ufst1:TransferUserControl
+                x:Name="FileProgressView1334"          />
+        </TabItem>
+
+        <TabItem            Header="copy">
             <ufst:TransferProgressControl
                 x:Name="FileProgressView1"
                 IsReadOnly="False"
                 ShowTransfer="True" />
         </TabItem>
-        <TabItem
-            Margin="0"
-            HorizontalAlignment="Right"
-            Header="UnZip">
+        
+        <TabItem            Header="un-zip">
             <ufst:TransferProgressControl
                 x:Name="FileProgressView3"
                 IsReadOnly="False"
                 ShowTransfer="True" />
         </TabItem>
-        <TabItem
-            Margin="0"
-            HorizontalAlignment="Right"
-            Header="Dummy">
+        
+        <TabItem            Header="dummy">
             <ufst:ProgressControl
                 x:Name="ProgressView1"
                 IsReadOnly="False"
                 ShowTransfer="True" />
         </TabItem>
-        <TabItem
-            Margin="0"
-            HorizontalAlignment="Right"
-            Header="Zip">
+        
+        <TabItem            Header="zip">
             <ufst:TransferProgressControl
                 x:Name="FileProgressView4"
                 IsReadOnly="False"
                 ShowTransfer="True" />
         </TabItem>
-        <TabItem
-            Margin="0"
-            HorizontalAlignment="Right"
-            Header="Delete">
+        
+        <TabItem            Header="delete">
             <ufst:FileProgressControl
                 x:Name="FileProgressView5"
                 IsReadOnly="False"
                 ShowTransfer="True" />
         </TabItem>
-        <TabItem x:Name="MultiStage" Header="Multi Stage">
+        
+        <TabItem x:Name="MultiStage" Header="multi-stage">
             <Button
                 x:Name="ShowDefault"
                 Width="250"

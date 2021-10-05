@@ -12,12 +12,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\SuggestBoxLib\source\Demos\CachedPathSuggest\CachedPathSuggest.csproj" />
+    <ProjectReference Include="..\..\SuggestBoxLib\source\SuggestBoxLib\SuggestBoxLib.csproj" />
     <ProjectReference Include="..\Utility.FileSystem.Transfer.Service\Utility.FileSystem.Transfer.Service.csproj" />
     <ProjectReference Include="..\Utility.FileSystem.Transfer.WPF.Contols\Utility.FileSystem.Transfer.WPF.Controls.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Data\Destination\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Gu.Wpf.NumericInput" Version="0.5.5" />
   </ItemGroup>
 
 </Project>
