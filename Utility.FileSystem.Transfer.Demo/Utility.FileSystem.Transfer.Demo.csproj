@@ -12,6 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\HistoryControlLib\source\BrowseHistory\BrowseHistory.csproj" />
+    <ProjectReference Include="..\..\HistoryControlLib\source\NavigationHistory.Controls\BrowseHistory.Controls.csproj" />
     <ProjectReference Include="..\..\SuggestBoxLib\source\Demos\CachedPathSuggest\CachedPathSuggest.csproj" />
     <ProjectReference Include="..\..\SuggestBoxLib\source\SuggestBoxLib\SuggestBoxLib.csproj" />
     <ProjectReference Include="..\Utility.FileSystem.Transfer.Service\Utility.FileSystem.Transfer.Service.csproj" />
