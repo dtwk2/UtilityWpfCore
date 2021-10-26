@@ -12,10 +12,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\breadcrumb\BreadCrumbLib\BreadcrumbLib.csproj" />
     <ProjectReference Include="..\..\HistoryControlLib\source\BrowseHistory\BrowseHistory.csproj" />
     <ProjectReference Include="..\..\HistoryControlLib\source\NavigationHistory.Controls\BrowseHistory.Controls.csproj" />
-    <ProjectReference Include="..\..\SuggestBoxLib\source\Demos\CachedPathSuggest\CachedPathSuggest.csproj" />
-    <ProjectReference Include="..\..\SuggestBoxLib\source\SuggestBoxLib\SuggestBoxLib.csproj" />
+    <ProjectReference Include="..\..\SuggestBoxLib\source\Demos\CachedPathSuggest\Suggest.FileSystem.csproj" />
+    <ProjectReference Include="..\..\SuggestBoxLib\source\SuggestBoxLib\Popup.WPF.csproj" />
+    <ProjectReference Include="..\Suggest.WPF.FileSystem\Suggest.WPF.FileSystem.csproj" />
+    <ProjectReference Include="..\Suggest.WPF\Suggest.WPF.csproj" />
     <ProjectReference Include="..\Utility.FileSystem.Transfer.Service\Utility.FileSystem.Transfer.Service.csproj" />
     <ProjectReference Include="..\Utility.FileSystem.Transfer.WPF.Contols\Utility.FileSystem.Transfer.WPF.Controls.csproj" />
   </ItemGroup>

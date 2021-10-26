@@ -1,17 +1,13 @@
 ﻿using BrowseHistory;
 using BrowserHistoryDemoLib.ViewModels;
-using CachedPathSuggest.Service;
-using HistoryControlLib.ViewModels.Base;
-using SuggestBoxLib.Infrastructure.Interfaces;
 using System.ComponentModel;
 using System.Windows.Controls;
 
-namespace Utility.FileSystem.Transfer.Demo
-{
-    /// <summary>
-    /// Interaction logic for FileSelectorUserControl.xaml
-    /// </summary>
-    public partial class FileSelectorUserControl : UserControl
+namespace Utility.FileSystem.Transfer.Demo {
+   /// <summary>
+   /// Interaction logic for FileSelectorUserControl.xaml
+   /// </summary>
+   public partial class FileSelectorUserControl : UserControl
     {
         public FileSelectorUserControl()
         {
@@ -21,10 +17,8 @@ namespace Utility.FileSystem.Transfer.Demo
             SuggestViewModel = new SuggestViewModel();
 
             SuggestViewModel.PropertyChanged += SuggestViewModel_PropertyChanged;
-
-            HistoryNavigationControl.DataContext = NavigationViewModel;
-            SuggestBox.DataContext = SuggestViewModel;
-
+            //HistoryNavigationControl.DataContext = NavigationViewModel;
+            //SuggestBox.DataContext = SuggestViewModel;
             NavigationViewModel.PropertyChanged += NavigationViewModel_PropertyChanged;
         }
 
@@ -48,30 +42,6 @@ namespace Utility.FileSystem.Transfer.Demo
         public SuggestViewModel SuggestViewModel { get; }
 
         public NavigationViewModel NavigationViewModel { get; }
-    }
-
-
-    public class SuggestViewModel : BaseViewModel
-    {
-        private string text;
-
-        public SuggestViewModel()
-        {
-
-            Suggest = new DirectoryAsyncSuggest();
-        }
-
-        public string Text
-        {
-            get => text;
-            set
-            {
-                text = value;
-                OnPropertyChanged(nameof(Text));
-            }
-        }
-
-        public IAsyncSuggest Suggest { get; set; }
     }
 
 
