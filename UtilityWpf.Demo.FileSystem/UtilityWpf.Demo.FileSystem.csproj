@@ -14,6 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="PropertyTools.Wpf" Version="3.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\UtilityWpf.Controls.FileSystem\UtilityWpf.Controls.FileSystem.csproj" />
   </ItemGroup>
 

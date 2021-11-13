@@ -36,9 +36,7 @@ namespace UtilityWpf.Service
             Settings = settings;
         }
 
-
         public ConnectionSettings Settings { get; }
-
 
         public object Find(object item)
         {
@@ -234,6 +232,10 @@ namespace UtilityWpf.Service
             return doc;
         }
 
+        public IEnumerable FindManyBy(IQuery query)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public static class LiteDbHelper
@@ -254,7 +256,6 @@ namespace UtilityWpf.Service
             if (db.CollectionExists(collectionName))
                 return db.GetCollection<T>(collectionName);
 
-
             var names = db.GetCollectionNames();
             throw new Exception($"Collection does not exist in collection, {string.Join(", ", names)}");
         }
@@ -270,7 +271,6 @@ namespace UtilityWpf.Service
             //return db.GetCollection("Default");
             //throw new Exception($"Collection does not exist in collection, {name}");
         }
-
 
         //public static ILiteCollection<object> GetCollection(string directory, string name, out IDisposable disposable)
         //{

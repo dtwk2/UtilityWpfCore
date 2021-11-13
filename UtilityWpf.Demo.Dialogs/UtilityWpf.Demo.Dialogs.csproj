@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UtilityWpf.Controls.Dialog\UtilityWpf.Controls.Dialog.csproj" />
-    <ProjectReference Include="..\UtilityWpf.Controls.Objects\UtilityWpf.Controls.Objects.csproj" />
   </ItemGroup>
 
 </Project>

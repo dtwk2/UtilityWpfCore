@@ -12,9 +12,6 @@ namespace UtilityWpf.Demo.Master.Infrastructure
         //    return true;
         //}
 
-
-
-
         //public bool Insert(object item)
         //{
         //    System.Windows.MessageBox.Show("Insert");
@@ -59,6 +56,11 @@ namespace UtilityWpf.Demo.Master.Infrastructure
         public IEnumerable FindMany(IQuery query)
         {
             return new[] { "d", "fdfs", "fsddfdd" };
+        }
+
+        public IEnumerable FindManyBy(IQuery query)
+        {
+            throw new NotImplementedException();
         }
 
         public object Remove(object item)
