@@ -29,10 +29,8 @@ namespace UtilityWpf.Meta
                 Assembly = assembly;
 
             var listBox = new ViewListBox();
-
             this.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.0, GridUnitType.Auto) });
             this.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1.0, GridUnitType.Star) });
-
             this.Children.Add(listBox);
 
             _ = subject
@@ -41,44 +39,8 @@ namespace UtilityWpf.Meta
                 .Select(assembly => ViewType.ViewTypes(assembly))
                 .Subscribe(pairs => listBox.ItemsSource = pairs);
 
-            var grid = CreateContent(listBox);
-            this.Children.Add(grid);
-
-
-            static Grid CreateContent(ListBox listBox)
-            {
-                var grid = new Grid();
-                Grid.SetColumn(grid, 1);
-                grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1.0, GridUnitType.Auto) });
-                grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1.0, GridUnitType.Star) });
-                var textBlock = new TextBlock
-                {
-                    Margin = new Thickness(20),
-                    FontSize = 20
-                };
-                grid.Children.Add(textBlock);
-                textBlock.SetBinding(TextBlock.TextProperty, new Binding()
-                {
-                    Path = new PropertyPath(nameof(ViewType.Key)),
-                });
-                var selectedItemBinding = new Binding
-                {
-                    Path = new PropertyPath(nameof(ListBox.SelectedItem)),
-                    Source = listBox,
-                };
-                textBlock.SetBinding(ContentControl.DataContextProperty, selectedItemBinding);
-                var contentControl = new ContentControl { Content = "Empty" };
-                Grid.SetRow(contentControl, 1);
-                contentControl.SetBinding(ContentControl.ContentProperty, new Binding
-                {
-                    Path = new PropertyPath(nameof(ViewType.View)),
-                });
-                contentControl.SetBinding(ContentControl.DataContextProperty, selectedItemBinding);
-                grid.Children.Add(contentControl);
-                return grid;
-            }
+            this.Children.Add(ControlFactory.CreateMainGrid(listBox));
         }
-
 
         public Assembly Assembly
         {
@@ -100,6 +62,65 @@ namespace UtilityWpf.Meta
                 {
                     Path = new PropertyPath(nameof(ViewType.Key)),
                 });
+            }
+        }
+    }
+
+    static class ControlFactory
+    {
+        public static Grid CreateMainGrid(ListBox listBox)
+        {
+            var grid = new Grid();
+            Grid.SetColumn(grid, 1);
+            int i = 0;
+            foreach (var (item, gut) in CreateContent(CreateBinding(listBox)))
+            {
+                grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1.0, gut) });
+                grid.Children.Add(item);
+                Grid.SetRow(item, i);
+                i++;
+            }
+            return grid;
+
+            static Binding CreateBinding(ListBox listBox)
+            {
+                return new Binding
+                {
+                    Path = new PropertyPath(nameof(ListBox.SelectedItem)),
+                    Source = listBox,
+                };
+            }
+
+            static IEnumerable<(FrameworkElement, GridUnitType)> CreateContent(Binding selectedItemBinding)
+            {
+                yield return (CreateTextBlock(selectedItemBinding), GridUnitType.Auto);
+                yield return (CreateContentControl(selectedItemBinding), GridUnitType.Star);
+
+                static TextBlock CreateTextBlock(Binding selectedItemBinding)
+                {
+                    TextBlock textBlock = new()
+                    {
+                        Margin = new Thickness(20),
+                        FontSize = 20
+                    };
+                    _ = textBlock.SetBinding(TextBlock.TextProperty, new Binding()
+                    {
+                        Path = new PropertyPath(nameof(ViewType.Key)),
+                    });
+                    _ = textBlock.SetBinding(ContentControl.DataContextProperty, selectedItemBinding);
+                    return textBlock;
+                }
+
+                static ContentControl CreateContentControl(Binding selectedItemBinding)
+                {
+                    ContentControl contentControl = new() { Content = "Empty" };
+                    _ = contentControl.SetBinding(ContentControl.ContentProperty, new Binding
+                    {
+                        Path = new PropertyPath(nameof(ViewType.View)),
+                    });
+                    _ = contentControl.SetBinding(ContentControl.DataContextProperty, selectedItemBinding);
+                    return contentControl;
+                }
             }
         }
     }
