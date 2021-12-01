@@ -23,10 +23,9 @@
         /// <summary>
         /// Class constructor.
         /// </summary>
-        public NavigationViewModel()
+        public NavigationViewModel(BrowseHistory<PathItem> naviHistory)
         {
-
-            naviHistory = new BrowseHistory<PathItem>();
+            this.naviHistory = naviHistory;
 
             SelectionCommand = CreateSelectionChanged(naviHistory);
 
@@ -52,7 +51,9 @@
                 return a;
             }, Observable.Return(true));
             NavigateCommand = navigateCommand;
-            navigateCommand.Where(a => PathHelper.IsValidPath(a))
+            navigateCommand
+                .WhereNotNull()
+                .Where(a => PathHelper.IsValidPath(a))
                 .DistinctUntilChanged().Subscribe(a =>
             {
                 naviHistory.Navigate(new PathItem(a));

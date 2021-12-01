@@ -23,7 +23,7 @@ namespace Utility.FileSystem.Transfer.Demo
 
             this.InitializeComponent();
 
-  
+
 
          this.FileProgressView1.Source = "../../../Data/Source/huge_dummy_file";
             this.FileProgressView1.SourceType = PathType.File;

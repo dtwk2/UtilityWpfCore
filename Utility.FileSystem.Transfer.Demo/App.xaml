@@ -4,15 +4,24 @@
                    xmlns:sb="http://schemas.suggest.com/wpf"
              xmlns:vm2="clr-namespace:Suggest.FileSystem.ViewModel;assembly=Suggest.FileSystem"
                  xmlns:vm="clr-namespace:Suggest.Infrastructure.ViewModel;assembly=Suggest.Infrastructure"
+             xmlns:bh="clr-namespace:BrowseHistory;assembly=BrowseHistory"
     xmlns:local="clr-namespace:Utility.FileSystem.Transfer.Demo"
              StartupUri="MainWindow.xaml">
   
     <Application.Resources>
         <ResourceDictionary>
 
-            <DataTemplate DataType="{x:Type local:Suggestion}">
-                <TextBlock Text="{Binding Path=Name}"/>
+            <DataTemplate DataType="{x:Type bh:PathItem}">
+                <TextBlock Text="{Binding Path=Path}"/>
             </DataTemplate>
+
+
+            <HierarchicalDataTemplate DataType="{x:Type local:DirectorySuggestion}" ItemsSource="{Binding Path=Collection}">
+                <TextBlock Text="{Binding Path=Name}"/>
+            </HierarchicalDataTemplate>
+
+            
+     
 
             <DataTemplate DataType="{x:Type vm:ItemSeparator}">
                 <Line

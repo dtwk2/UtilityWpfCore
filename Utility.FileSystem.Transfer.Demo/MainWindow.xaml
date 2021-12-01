@@ -20,10 +20,10 @@
             <ufst1:FileSelector2UserControl/>
         </TabItem>
         <TabItem             Header="Popup TextBox" Height="20" VerticalAlignment="Top">
-            <pow:PopupTextBox></pow:PopupTextBox>
+            <pow:PopupTextBox Height="25" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center"></pow:PopupTextBox>
         </TabItem>
         <TabItem             Header="Path Trimming" Height="20" VerticalAlignment="Top">
-            <sbf:PathTrimmingTextBlock Path="c:\fsfddsfs\foo\barrr.file"/>
+            <sbf:PathTrimmingTextBlock Path="c:\fsfddsfs\foo\sdsfdffffffffffffffffff6876fffffffffffffffffffffff877fffffffffffff\barrr.file" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </TabItem>
         <TabItem             Header="Breadcrumb" Height="20" VerticalAlignment="Top">
             <bc:Breadcrumb></bc:Breadcrumb>

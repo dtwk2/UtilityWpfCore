@@ -45,13 +45,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrowseHistory", "..\History
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BreadcrumbLib", "..\breadcrumb\BreadCrumbLib\BreadcrumbLib.csproj", "{B7CE16D2-3A6D-4B27-AE87-BEAA5A584CD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suggest.WPF", "Suggest.WPF\Suggest.WPF.csproj", "{63E9693E-DAA9-4E13-B2CE-08279B7A3DB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suggest.WPF", "Suggest.WPF\Suggest.WPF.csproj", "{63E9693E-DAA9-4E13-B2CE-08279B7A3DB1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "..\SuggestBoxLib\source\Infrastructure\Infrastructure.csproj", "{B7D101A5-CF89-46A4-A825-6FE97C05BE2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityWpf.Controls.Navigation", "UtilityWpf.Controls.FileSystem.Ex\UtilityWpf.Controls.Navigation.csproj", "{954BC2FD-CBFC-4A35-A438-A7DC9104CF71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityWpf.Controls.Navigation", "UtilityWpf.Controls.FileSystem.Ex\UtilityWpf.Controls.Navigation.csproj", "{954BC2FD-CBFC-4A35-A438-A7DC9104CF71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suggest.WPF.FileSystem", "Suggest.WPF.FileSystem\Suggest.WPF.FileSystem.csproj", "{CD33CC29-A065-4021-985C-DADF574FC13C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suggest.WPF.FileSystem", "Suggest.WPF.FileSystem\Suggest.WPF.FileSystem.csproj", "{CD33CC29-A065-4021-985C-DADF574FC13C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplitButton", "SplitButton\SplitButton.csproj", "{793E6E35-ECBE-46C8-A690-2FABB4B0F9B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -143,6 +145,10 @@ Global
 		{CD33CC29-A065-4021-985C-DADF574FC13C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD33CC29-A065-4021-985C-DADF574FC13C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD33CC29-A065-4021-985C-DADF574FC13C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{793E6E35-ECBE-46C8-A690-2FABB4B0F9B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{793E6E35-ECBE-46C8-A690-2FABB4B0F9B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{793E6E35-ECBE-46C8-A690-2FABB4B0F9B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{793E6E35-ECBE-46C8-A690-2FABB4B0F9B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -169,6 +175,7 @@ Global
 		{B7D101A5-CF89-46A4-A825-6FE97C05BE2F} = {772F1661-7280-4AA9-9A56-372023CF2357}
 		{954BC2FD-CBFC-4A35-A438-A7DC9104CF71} = {55A08870-240F-4E66-AF7E-1FE6CC2D28AF}
 		{CD33CC29-A065-4021-985C-DADF574FC13C} = {772F1661-7280-4AA9-9A56-372023CF2357}
+		{793E6E35-ECBE-46C8-A690-2FABB4B0F9B0} = {772F1661-7280-4AA9-9A56-372023CF2357}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D60CFCE-498F-4A6D-9B9B-5546561C117E}

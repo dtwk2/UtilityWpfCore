@@ -6,14 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 using BrowseHistory;
 using BrowserHistoryDemoLib.ViewModels;
+using HistoryControlLib.ViewModels;
 using ReactiveUI;
 
 namespace Utility.FileSystem.Transfer.Demo.ViewModel {
    internal class FileSelectorViewModel : ReactiveObject {
       public FileSelectorViewModel() {
-   
-         NavigationViewModel = new NavigationViewModel();
-         SuggestViewModel = new SuggestViewModel();
+
+         var naviHistory = new BrowseHistory<PathItem>();
+         NavigationViewModel = new NavigationViewModel(naviHistory);
+         SuggestViewModel = new SuggestViewModel(naviHistory);
 
          SuggestViewModel.PropertyChanged += SuggestViewModel_PropertyChanged;
          //HistoryNavigationControl.DataContext = NavigationViewModel;

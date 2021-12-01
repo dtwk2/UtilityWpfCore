@@ -57,10 +57,10 @@
           
         <suggestBoxLib1:SuggestBox Name="SuggestBox"
                                       Grid.Column="1" 
-                                        Height="{Binding ElementName=HistoryNavigationControl, Path=ActualHeight}"
+                                      Height="{Binding ElementName=HistoryNavigationControl, Path=ActualHeight}"
                                       d:DataContext="{d:DesignInstance Type=local:SuggestViewModel, IsDesignTimeCreatable=True}"
                                       HorizontalAlignment="Stretch"
-                                          DataContext="{Binding SuggestViewModel}"
+                                      DataContext="{Binding SuggestViewModel}"
                                       SuggestSource="{Binding Suggest}"
                                       Style="{StaticResource SuggestBoxStyle}"
                                       ItemContainerStyle="{StaticResource ItemContainerStyle}"
@@ -74,7 +74,7 @@
                 <breadcrumbLib:Breadcrumb x:Name="Breadcrumb" IsHitTestVisible="True" >
                     
                     <!--  Root  -->
-                    <breadcrumbLib:BreadcrumbItem ItemsSource="{Binding ItemsSource}" >
+                    <breadcrumbLib:BreadcrumbItem ItemsSource="{Binding DataContext.Collection, Mode=OneTime}" >
                         <breadcrumbLib:BreadcrumbItem.Header>
                             <Viewbox Margin="6" MaxHeight="24" MaxWidth="24">
                                 <Path Data="{StaticResource Folder}" Fill="Black" ></Path>
