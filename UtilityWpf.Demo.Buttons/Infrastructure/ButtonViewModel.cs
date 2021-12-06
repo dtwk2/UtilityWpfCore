@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace UtilityWpf.Demo.Buttons
+namespace UtilityWpf.Demo.Buttons.Infrastructure
 {
     public class ButtonViewModel
     {
@@ -10,6 +10,11 @@ namespace UtilityWpf.Demo.Buttons
             Header = header;
             Command = command;
         }
+
+        public ButtonViewModel()
+        {
+        }
+
 
         public ICommand Command { get; init; }
 

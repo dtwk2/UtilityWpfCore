@@ -66,27 +66,27 @@ namespace UtilityWpf.Controls.Buttons
                     if (string.IsNullOrEmpty(CommandPath) == false)
                         button.Command = (System.Windows.Input.ICommand)item.TryGetValue(CommandPath);
 
-                    if (string.IsNullOrEmpty(DisplayMemberPath) == false)
-                        BindingOperations.SetBinding(button, FrameworkElement.TagProperty, CreateBinding());
+                    if (string.IsNullOrEmpty(SelectedValuePath) == false)
+                        BindingOperations.SetBinding(button, FrameworkElement.TagProperty, CreateBinding(SelectedValuePath));
                     button.Click += Button_Click;
                 }
                 if (string.IsNullOrEmpty(DisplayMemberPath) == false)
                 {
 
                     if (button.Content is TextBlock textBlock)
-                        BindingOperations.SetBinding(textBlock, TextBlock.TextProperty, CreateBinding());
+                        BindingOperations.SetBinding(textBlock, TextBlock.TextProperty, CreateBinding(DisplayMemberPath));
                 }
             }
 
             base.PrepareContainerForItemOverride(element, item);
 
 
-            Binding CreateBinding()
+            Binding CreateBinding(string path)
             {
                 return new Binding
                 {
                     Source = item,
-                    Path = new PropertyPath(DisplayMemberPath),
+                    Path = new PropertyPath(path),
                     Mode = BindingMode.OneWay,
                 };
             }

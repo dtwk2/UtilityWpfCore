@@ -6,37 +6,94 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utl="http://schemas.utility.com/utilitywpf"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:view1="http://schemas.utility.com/buttons"
+    xmlns:view="http://schemas.utility.com/buttons" 
+    xmlns:demoApp="clr-namespace:UtilityWpf.Demo.Buttons"
+    xmlns:infra="clr-namespace:UtilityWpf.Demo.Buttons.Infrastructure"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
 
     <FrameworkElement.Resources>
         <utl:BooleanToOrientationConverter x:Key="BooleanToOrientationConverter" />
+
     </FrameworkElement.Resources>
 
-    <Grid>
+    <UniformGrid >
+        <GroupBox>
 
-        <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <!--<FrameworkElement.Resources>
+            <ContentControl>
+                <ContentControl.DataContext>
+                    <demoApp:ButtonsViewModel/>
+                </ContentControl.DataContext>
+                <view:ButtonsControl ItemsSource="{Binding Data}"
+                             CommandPath="Command"
+                             DisplayMemberPath="Header">
+
+                </view:ButtonsControl>
+            </ContentControl>
+        </GroupBox>
+        <GroupBox>
+            <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <!--<FrameworkElement.Resources>
                 <utl:SharedResourceDictionary Source="/UtilityWpf.Demo.Common;component/Themes/Material.xaml"/>
             </FrameworkElement.Resources>-->
-            <view1:ToggleButton x:Name="ToggleButton" 
+                <view:ToggleButton x:Name="ToggleButton" 
                                 Content="{x:Static Orientation.Horizontal}"
                                 UnCheckedContent="{x:Static Orientation.Vertical}"
                                 >
-            </view1:ToggleButton>
-            <view1:ButtonsControl x:Name="ButtonsControl"
-                                  Orientation="{Binding ElementName=ToggleButton, Path=IsChecked, Converter={StaticResource BooleanToOrientationConverter}}"
-                                  DisplayMemberPath="{utl:NameOf Type={x:Type utl:EnumMember}, Member=Value}">
-                <i:Interaction.Behaviors>
-                    <utl:EnumSelectorBehavior EnumType="{x:Type Visibility}"></utl:EnumSelectorBehavior>
-                </i:Interaction.Behaviors>
-            </view1:ButtonsControl>
+                </view:ToggleButton>
 
-            <Rectangle Height="40" Width="40" Fill="Violet" Visibility="{Binding ElementName=ButtonsControl, Path=Output}"></Rectangle>
-        </DockPanel>
-    </Grid>
+                <view:ButtonsControl x:Name="ButtonsControl"
+                                  Orientation="{Binding ElementName=ToggleButton, Path=IsChecked, Converter={StaticResource BooleanToOrientationConverter}}" >
+                    <i:Interaction.Behaviors>
+                        <utl:EnumSelectorBehavior EnumType="{x:Type Visibility}"></utl:EnumSelectorBehavior>
+                    </i:Interaction.Behaviors>
+                </view:ButtonsControl>
 
+                <Rectangle Height="40" Width="40" Fill="Violet" Visibility="{Binding ElementName=ButtonsControl, Path=Output}"></Rectangle>
+            </DockPanel>
+        </GroupBox>
+
+        <GroupBox>
+            <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+         
+                <view:ButtonsControl x:Name="Buttons2Control"
+                                     Orientation="{Binding ElementName=ToggleButton, Path=IsChecked, Converter={StaticResource BooleanToOrientationConverter}}"   >
+
+                    <FrameworkElement.Resources>
+                        <DataTemplate x:Key="Red"  DataType="{x:Type infra:ButtonViewModel}">
+                            <Border BorderBrush="YellowGreen">
+                                <Ellipse Fill="Red" Height="40" Width="40" ></Ellipse>
+                            </Border>
+                        </DataTemplate>
+
+                        <DataTemplate x:Key="Blue" DataType="{x:Type infra:ButtonViewModel}">
+                            <Rectangle Fill="Blue" Height="50" Width="50"></Rectangle>
+                        </DataTemplate>
+                    </FrameworkElement.Resources>
+                    <i:Interaction.Behaviors>
+                        <utl:DataTemplateSelectorBehavior Type="{x:Type infra:ButtonViewModel}"/>
+                    </i:Interaction.Behaviors>
+                </view:ButtonsControl>
+                <ContentControl ContentTemplate="{Binding ElementName=Buttons2Control, Path=Output}">
+                    <ContentControl.Content>
+                        <infra:ButtonViewModel/>
+                    </ContentControl.Content>
+                </ContentControl>
+            </DockPanel>
+        </GroupBox>
+
+        <GroupBox>
+            <FrameworkElement.DataContext>
+                <demoApp:MethodsViewModel/>
+            </FrameworkElement.DataContext>
+            <view:ButtonsControl
+                ItemsSource="{Binding Data}"
+                CommandPath="Command"
+                DisplayMemberPath="Header">
+
+            </view:ButtonsControl>
+        </GroupBox>
+    </UniformGrid>
 
 </UserControl>

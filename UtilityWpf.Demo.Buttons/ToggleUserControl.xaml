@@ -7,38 +7,70 @@
              xmlns:uc="clr-namespace:Utility.Common.Enum;assembly=Utility.Common"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <TabControl>
+    <FrameworkElement.Resources>
+        <PathGeometry x:Key="XGeometry">
+            <PathGeometry.Figures>
+                <PathFigure StartPoint="0.5,0">
+                    <LineSegment Point="-1,0" />
+                </PathFigure>
+                <PathFigure StartPoint="-0.5,0">
+                    <LineSegment Point="1,0" />
+                </PathFigure>
+            </PathGeometry.Figures>
+        </PathGeometry>
 
-        <TabItem Header="Toggle">
-            <StackPanel>
-                <Label>Default</Label>
-                <view:EnumToggleButton Margin="10" HorizontalAlignment="Center" />
-                <Label>Using enum</Label>
-                <Grid Margin="10" HorizontalAlignment="Center">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <TextBlock Text="{Binding ElementName=etb, Path=Output}" />
-                    <view:EnumToggleButton
+    </FrameworkElement.Resources>
+
+    <UniformGrid Rows="1">
+        <StackPanel>
+            <Label>Default</Label>
+            <view:EnumToggleButton Margin="10" HorizontalAlignment="Center" />
+            <Label>Using enum</Label>
+            <Grid Margin="10" HorizontalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="{Binding ElementName=etb, Path=Output}" />
+                <view:EnumToggleButton
                         x:Name="etb"
                         Grid.Row="1"
                         Enum="{x:Type uc:Connected}" />
-                    <view:EnumToggleButton
+                <view:EnumToggleButton
                         x:Name="etb2"
                         Grid.Row="2"
                         Enum="{x:Type uc:Connected}" />
-                </Grid>
+            </Grid>
 
-                <Viewbox Width="200" Height="50">
-                    <view:EnumToggleButton
+            <Viewbox Width="200" Height="50">
+                <view:EnumToggleButton
                         xmlns:enum="clr-namespace:UtilityEnum;assembly=UtilityEnum"
                         x:Name="TenseControl"
                         HorizontalAlignment="Center"
                         Enum="{x:Type enum:Tense}" />
-                </Viewbox>
+            </Viewbox>
+        </StackPanel>
+
+        <UniformGrid Columns="1">
+            <view:GeometryButton
+                    Height="70"
+                    Data="{StaticResource XGeometry}"
+                    HoverBackground="RoyalBlue" />
+
+            <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
+                <view:GeometryButton x:Name="PathButton" Height="100" />
+                <TextBox
+                        x:Name="PathTextBox"
+                        Width="200"
+                        Height="30"
+                        Margin="4"
+                        FontSize="14" />
+                <TextBlock x:Name="ErrorTextBlock" Foreground="Red" />
             </StackPanel>
-        </TabItem>
-    </TabControl>
+
+            <view:XGeometryButton />
+        </UniformGrid>
+
+    </UniformGrid>
 </UserControl>

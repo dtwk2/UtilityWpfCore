@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using UtilityHelperEx;
+using UtilityWpf.Demo.Buttons.Infrastructure;
 
 namespace UtilityWpf.Demo.Buttons
 {
@@ -10,7 +11,7 @@ namespace UtilityWpf.Demo.Buttons
         public MethodsViewModel()
         {
             Data = new ObservableCollection<ButtonViewModel>(
-                UtilityHelper.ReflectionHelper.GetMethods(new Model())
+                UtilityHelper.ReflectionHelper.GetMethods(new UtilityWpf.Demo.Buttons.Infrastructure.Model())
                 .Select(a => new ButtonViewModel(a.Item1, ReactiveCommand.Create(() => { _ = a.Item2(); }))));
         }
 

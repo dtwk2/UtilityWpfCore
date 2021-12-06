@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 
-namespace UtilityWpf.Demo.Buttons
+namespace UtilityWpf.Demo.Buttons.Infrastructure
 {
-    class Model
+    public class Model
     {
         [Description("One")]
         public void ShowOne()
@@ -22,7 +22,5 @@ namespace UtilityWpf.Demo.Buttons
         {
             MessageBox.Show("Three");
         }
-
     }
-
 }

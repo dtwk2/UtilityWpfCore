@@ -6,20 +6,25 @@
         xmlns:local="clr-namespace:UtilityWpf.Demo.Buttons"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
     <TabControl>
         <TabItem Header="Buttons">
             <local:ButtonsUserControl/>
         </TabItem>
-        
         <TabItem Header="Button">
             <local:ButtonUserControl/>
-        </TabItem>   
-   
+        </TabItem>
+        <TabItem Header="Morph">
+            <local:MorphUserControl/>
+        </TabItem>
         <TabItem Header="Switch">
             <local:SwitchControlAndTransitionControlDemoView/>
-        </TabItem>    
-        <TabItem Header="Switch">
+        </TabItem>
+        <TabItem Header="Toggle">
             <local:ToggleUserControl/>
+        </TabItem>
+        <TabItem Header="Image">
+            <local:ImageUserControl/>
         </TabItem>
     </TabControl>
 </Window>
