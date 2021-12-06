@@ -35,7 +35,7 @@
     <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
   </PropertyGroup>
 
- 
+
 
   <ItemGroup>
     <PackageReference Include="Evan.Wpf" Version="1.2.0" />
@@ -59,7 +59,7 @@
     <PackageReference Include="WPFTransitionals" Version="1.1.0" />
   </ItemGroup>
 
- 
+
 
   <ItemGroup>
     <ProjectReference Include="..\Utility.Common\Utility.Common.csproj" />
@@ -72,7 +72,7 @@
      <Message Text="dotnet pack $(MSBuildProjectFile)  -o &quot;$(ProjectDir)bin\release&quot;" Importance="high" />
      <Exec Command="dotnet pack $(MSBuildProjectFile)  -o &quot;$(ProjectDir)bin\release&quot;" />
   </Target>
-  
+
     <!-- Only copy packages if Configuration set to Release-->
   <Target Name="PostPack" AfterTargets="CustomPack" Condition="'$(Configuration)'=='Release'">
     <Exec Command="&#xD;&#xA;      set source=&quot;$(ProjectDir)bin\release &quot;&#xD;&#xA;&#xD;&#xA;      set target=&quot;C:\Users\rytal\Documents\Visual Studio 2019\NugetPackages &quot;  &#xD;&#xA;&#xD;&#xA;      RoboCopy %25source%25 %25target%25 *.nupkg  /XO  /NFL /NDL /NJH   &#xD;&#xA;&#xD;&#xA;      IF %ERRORLEVEL% GEQ 8 exit 1&#xD;&#xA;&#xD;&#xA;      exit 0" />

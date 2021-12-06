@@ -44,8 +44,6 @@ namespace UtilityWpf.Controls
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SliderItemsControl), new FrameworkPropertyMetadata(typeof(SliderItemsControl)));
         }
 
-
-
         public SliderItemsControl()
         {
             this.Observable(nameof(Data))

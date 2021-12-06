@@ -139,21 +139,6 @@ namespace UtilityWpf.Service
             }
         }
 
-        public IEnumerable FindMany(IQuery query)
-        {
-            using (GetCollection(out var collection))
-            {
-
-                switch (query)
-                {
-                    case AllQuery:
-                        return ConvertBack(collection.FindAll()).ToArray();
-                    default:
-                        throw new ArgumentOutOfRangeException("777fssd");
-                }
-            }
-        }
-
         public IEnumerable AddManyBy(IQuery query)
         {
             throw new NotImplementedException();
@@ -234,7 +219,17 @@ namespace UtilityWpf.Service
 
         public IEnumerable FindManyBy(IQuery query)
         {
-            throw new NotImplementedException();
+            using (GetCollection(out var collection))
+            {
+
+                switch (query)
+                {
+                    case AllQuery:
+                        return ConvertBack(collection.FindAll()).ToArray();
+                    default:
+                        throw new ArgumentOutOfRangeException("777fssd");
+                }
+            }
         }
     }
 
