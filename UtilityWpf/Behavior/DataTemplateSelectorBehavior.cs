@@ -22,6 +22,7 @@ namespace UtilityWpf.Behavior
         readonly ReplaySubject<IEnumerable> itemsSourceSubject = new(1);
 
         public static readonly DependencyProperty TypeProperty = DependencyProperty.Register("Type", typeof(Type), typeof(DataTemplateSelectorBehavior));
+        public static readonly DependencyProperty ObjectProperty = DependencyProperty.Register("Object", typeof(object), typeof(DataTemplateSelectorBehavior));
         //public static readonly DependencyProperty ResourceDictionaryProperty = DependencyProperty.Register("ResourceDictionary", typeof(ResourceDictionary), typeof(DataTemplateSelectorBehavior), new PropertyMetadata(ResourceDictionaryChanged));
         public static readonly DependencyProperty DataTemplateFilterCollectionProperty = DependencyHelper.Register<IEnumerable>();
         public static readonly DependencyProperty SelectedDataTemplateProperty =
@@ -37,8 +38,8 @@ namespace UtilityWpf.Behavior
 
             FormatAssociatedObject(AssociatedObject);
 
-
-            _ = AssociatedObject.WhenAnyValue(a => a.SelectedItem)
+            _ = AssociatedObject
+                .WhenAnyValue(a => a.SelectedItem)
                 .DistinctUntilChanged()
                 .WhereNotNull()
                 .CombineLatest(AssociatedObject.WhenAnyValue(a => a.ItemsSource).WhereNotNull())
@@ -70,18 +71,19 @@ namespace UtilityWpf.Behavior
                 .DisposeWith(disposable);
 
             this.WhenAnyValue(a => a.Type)
-                .Subscribe(type =>
+                .Merge(this.WhenAnyValue(a => a.Object).Select(a => a?.GetType()))
+                .WhereNotNull()
+                .Select(type =>
                 {
-                    var dts = DataTemplateEnumerable(type).Concat(DataTemplateEnumerable(this.AssociatedObject.Resources, type)).ToArray();
-                    this.itemsSourceSubject.OnNext(dts);
+                    return DataTemplateEnumerable(type).Concat(DataTemplateEnumerable(this.AssociatedObject.Resources, type)).ToArray();
                 })
+                .Subscribe(dts => this.itemsSourceSubject.OnNext(dts))
                 .DisposeWith(disposable);
 
             base.OnAttached();
 
             static void FormatAssociatedObject(Selector associatedObject)
             {
-
                 if (associatedObject is ComboBox box)
                 {
                     box.IsEditable = false;
@@ -123,6 +125,12 @@ namespace UtilityWpf.Behavior
             set => SetValue(TypeProperty, value);
         }
 
+        public object Object
+        {
+            get => GetValue(ObjectProperty);
+            set => SetValue(ObjectProperty, value);
+        }
+
         //public ResourceDictionary ResourceDictionary
         //{
         //    get => (ResourceDictionary)GetValue(ResourceDictionaryProperty);
@@ -160,7 +168,7 @@ namespace UtilityWpf.Behavior
                 var (key, value) = entry;
                 if (value is DataTemplate { DataType: Type datatype })
                 {
-                    if (datatype == type)
+                    if (datatype.IsAssignableFrom(type))
                     {
                         yield return entry;
                     }

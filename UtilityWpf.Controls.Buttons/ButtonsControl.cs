@@ -16,8 +16,7 @@ namespace UtilityWpf.Controls.Buttons
 
     public class ButtonsControl : ListBox<ButtonTextControl>
     {
-        public static readonly DependencyProperty CommandPathProperty =
-            DependencyProperty.Register("CommandPath", typeof(string), typeof(ButtonsControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty CommandPathProperty = DependencyProperty.Register("CommandPath", typeof(string), typeof(ButtonsControl), new PropertyMetadata(null));
         public static readonly DependencyProperty OutputProperty = DependencyProperty.Register("Output", typeof(object), typeof(ButtonsControl));
         public static readonly DependencyProperty OrientationProperty = DependencyProperty.Register("Orientation", typeof(Orientation), typeof(ButtonsControl), new PropertyMetadata(Orientation.Vertical, Changed));
 
@@ -67,8 +66,10 @@ namespace UtilityWpf.Controls.Buttons
                         button.Command = (System.Windows.Input.ICommand)item.TryGetValue(CommandPath);
 
                     if (string.IsNullOrEmpty(SelectedValuePath) == false)
+                    {
                         BindingOperations.SetBinding(button, FrameworkElement.TagProperty, CreateBinding(SelectedValuePath));
-                    button.Click += Button_Click;
+                        button.Click += Button_Click;
+                    }
                 }
                 if (string.IsNullOrEmpty(DisplayMemberPath) == false)
                 {
@@ -79,7 +80,6 @@ namespace UtilityWpf.Controls.Buttons
             }
 
             base.PrepareContainerForItemOverride(element, item);
-
 
             Binding CreateBinding(string path)
             {
@@ -94,7 +94,7 @@ namespace UtilityWpf.Controls.Buttons
 
         protected virtual void Button_Click(object sender, RoutedEventArgs e)
         {
-            Output = (sender as FrameworkElement)?.Tag;
+            Output = ((FrameworkElement)sender).Tag;
         }
     }
 }
