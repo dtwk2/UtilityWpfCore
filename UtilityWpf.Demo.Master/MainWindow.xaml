@@ -4,31 +4,31 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:view="http://schemas.utility.com" 
+    xmlns:view="http://schemas.utility.com"
     xmlns:view1="clr-namespace:UtilityWpf.Demo.View"
     xmlns:view121="clr-namespace:UtilityWpf.Demo.Master.View"
-    xmlns:view2="http://schemas.utility.com/master" 
+    xmlns:view2="http://schemas.utility.com/master"
     xmlns:view11="clr-namespace:UtilityWpf.Demo.Master.Infrastructure" xmlns:utl="http://schemas.utility.com/utilitywpf"
     Title="MainWindow"
     Width="825"
     Height="550"
     mc:Ignorable="d">
-    
+
     <!--<FrameworkElement.Resources>
         <utl:SharedResourceDictionary Source="/UtilityWpf.Demo.Data;component/DataTemplate/Character.xaml" />
     </FrameworkElement.Resources>-->
-    
+
     <TabControl>
+
+
 
         <TabItem Header="Master-Detail-Grid">
             <view11:MasterDetailGridUserControl />
         </TabItem>
 
-
         <TabItem Header="ItemsWrap">
             <view121:ItemsWrapUserControl />
-        </TabItem>    
-             
+        </TabItem>
 
         <TabItem Header="Two Orientations">
             <view1:MasterListUserControl />
@@ -41,7 +41,6 @@
         <TabItem Header="Master-Detail">
             <view11:MasterDetailUserControl />
         </TabItem>
-
 
         <TabItem Header="A      ">
             <view2:MasterDetailView Items="{StaticResource Characters}" />
@@ -59,17 +58,17 @@
                 <view2:MasterDetail.Selector>
                     <view2:MasterControl Position="Bottom">
                         <ItemsControl ItemsSource="{StaticResource Characters}"/>
-                    </view2:MasterControl>        
+                    </view2:MasterControl>
                 </view2:MasterDetail.Selector>
             </view2:MasterDetail>
-        </TabItem>  
-        
+        </TabItem>
+
         <TabItem Header="B     3">
             <view2:MasterDetail >
                 <view2:MasterDetail.Selector>
                     <view2:MasterControl Position="Top">
                         <ListBox ItemsSource="{StaticResource Characters}"/>
-                    </view2:MasterControl>        
+                    </view2:MasterControl>
                 </view2:MasterDetail.Selector>
             </view2:MasterDetail>
         </TabItem>
@@ -104,6 +103,23 @@
                 <sys:String>Green</sys:String>
             </HeaderedItemsControl>
             <!--<view:HeaderedListBox Header="!dffsdfs  £" />-->
+        </TabItem>
+
+        <TabItem Header="Master-Detail-Grid">
+            <StackPanel>
+                <view2:OrientationListBox >
+                    <Ellipse Fill="PaleGoldenrod" Height="10" Width="10"></Ellipse>
+                    <Ellipse Fill="PaleGoldenrod" Height="10" Width="10"></Ellipse>
+                    <Ellipse Fill="PaleGoldenrod" Height="10" Width="10"></Ellipse>
+                    <Ellipse Fill="PaleGoldenrod" Height="10" Width="10"></Ellipse>
+                </view2:OrientationListBox>
+                <view2:OrientationListBox Orientation="Vertical">
+                    <Ellipse Fill="PaleGoldenrod" Height="10" Width="10"></Ellipse>
+                    <Ellipse Fill="PaleGoldenrod" Height="10" Width="10"></Ellipse>
+                    <Ellipse Fill="PaleGoldenrod" Height="10" Width="10"></Ellipse>
+                    <Ellipse Fill="PaleGoldenrod" Height="10" Width="10"></Ellipse>
+                </view2:OrientationListBox>
+            </StackPanel>
         </TabItem>
     </TabControl>
 </Window>

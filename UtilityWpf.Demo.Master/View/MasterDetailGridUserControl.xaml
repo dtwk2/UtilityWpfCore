@@ -1,17 +1,17 @@
 ﻿<UserControl x:Class="UtilityWpf.Demo.Master.Infrastructure.MasterDetailGridUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:drag="http://dragablz.net/winfx/xaml/dragablz"
              xmlns:util="http://schemas.utility.com/utilitywpf"
-             xmlns:local11="clr-namespace:UtilityWpf.Demo.Master.Infrastructure" 
+             xmlns:local11="clr-namespace:UtilityWpf.Demo.Master.Infrastructure"
              xmlns:cmn="clr-namespace:UtilityWpf.Demo.Common.ViewModel;assembly=UtilityWpf.Demo.Common"
              xmlns:utilitywpf="clr-namespace:UtilityWpf;assembly=UtilityWpf"
              xmlns:view1="http://schemas.utility.com/dragablz"
-             xmlns:view2="http://schemas.utility.com/master"    
+             xmlns:view2="http://schemas.utility.com/master"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
         <local11:MasterDetailViewModel />
@@ -24,9 +24,9 @@
             </Style>
             <util:AutoMapperConverter x:Key="AutoValueConverter" ToType="{x:Type cmn:ReactiveFields}" FromType="{x:Type cmn:Fields}"/>
 
-            <view1:DragablzVerticalItemsControl x:Key="DragablzItemsControl2"                                                 
-                                                       VerticalAlignment="Center"                                                
-                                                       ItemContainerStyle="{StaticResource VerticalItemStyle}"                                                                                             
+            <view1:DragablzVerticalItemsControl x:Key="DragablzItemsControl2"
+                                                       VerticalAlignment="Center"
+                                                       ItemContainerStyle="{StaticResource VerticalItemStyle}"
                                                        MouseDown="DragablzItemsControl_MouseDown">
             </view1:DragablzVerticalItemsControl>
 
@@ -46,19 +46,20 @@
         </ToolBar>
 
         <TabControl>
-            <TabItem Header="With Detail">
-                <view2:MasterDetail Converter="{StaticResource AutoValueConverter}" Orientation="{Binding ElementName=OrientationToggleButton, Path=Content}">
+            <TabItem Header="First">
+                <view2:MasterDetail
+                    Converter="{StaticResource AutoValueConverter}" Orientation="{Binding ElementName=OrientationToggleButton, Path=Content}">
                     <view2:MasterDetail.Selector>
                         <DataGrid ItemsSource="{Binding Data, Mode=OneTime}" IsReadOnly="True"/>
                     </view2:MasterDetail.Selector>
                 </view2:MasterDetail>
             </TabItem>
-            <TabItem Header="With Detail">
+            <TabItem Header="Second">
                 <view2:ReadOnlyMasterDetail Converter="{x:Static local11:CollectionConverter.Instance}"
                                             Orientation="{Binding ElementName=OrientationToggleButton, Path=Content}"
-                                             UseDataContext="True">
+                                            UseDataContext="True">
                     <view2:ReadOnlyMasterDetail.Selector>
-                        <ListBox>
+                        <ListBox SelectedIndex="3">
                             <Grid>
                                 <Rectangle Fill="DarkCyan" Height="20"></Rectangle>
                                 <TextBlock Text="6"></TextBlock>
@@ -79,19 +80,69 @@
                     </view2:ReadOnlyMasterDetail.Selector>
                     <view2:ReadOnlyMasterDetail>
                         <view2:ReadOnlyMasterDetail.Selector>
-                            <DataGrid  
+                            <DataGrid
                                 IsReadOnly="True"
                                 ItemsSource="{Binding Converter={x:Static util:DefaultConverter.Instance}}" ></DataGrid>
                         </view2:ReadOnlyMasterDetail.Selector>
                     </view2:ReadOnlyMasterDetail>
                 </view2:ReadOnlyMasterDetail>
             </TabItem>
+            <TabItem Header="Third">
+                <view2:ReadOnlyMasterDetail Orientation="{Binding ElementName=OrientationToggleButton, Path=Content}"                                           >
+                    <view2:ReadOnlyMasterDetail.Selector>
+                        <ListBox SelectedIndex="0">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Ellipse Height="50" Width="50" Fill="{Binding Children[0].Fill}"></Ellipse>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                            <Grid>
+                                <Rectangle Fill="DarkCyan" Height="20"></Rectangle>
+                                <TextBlock Text="6"></TextBlock>
+                            </Grid>
+                            <Grid>
+                                <Rectangle Fill="Bisque" Height="20"></Rectangle>
+                                <TextBlock Text="gdf66gdf"></TextBlock>
+                            </Grid>
+                            <Grid>
+                                <Rectangle Fill="Plum" Height="20"></Rectangle>
+                                <TextBlock Text="gd66fgdf"></TextBlock>
+                            </Grid>
+                            <Grid>
+                                <Rectangle Fill="Beige" Height="20"></Rectangle>
+                                <TextBlock Text="ghg565dfgdf"></TextBlock>
+                            </Grid>
+                        </ListBox>
+                    </view2:ReadOnlyMasterDetail.Selector>
+                </view2:ReadOnlyMasterDetail>
+            </TabItem>
+            <TabItem Header="Fourth">
+                <view2:ReadOnlyMasterDetail Orientation="{Binding ElementName=OrientationToggleButton, Path=Content}"                                           >
+                    <view2:ReadOnlyMasterDetail.Selector>
+                        <view2:OrientationListBox SelectedIndex="0">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Ellipse Height="50" Width="50" Fill="{Binding Children[0].Fill}"></Ellipse>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                            <Grid>
+                                <Rectangle Fill="Plum" Height="20"></Rectangle>
+                                <TextBlock Text="gd66fgdf"></TextBlock>
+                            </Grid>
+                            <Grid>
+                                <Rectangle Fill="Beige" Height="20"></Rectangle>
+                                <TextBlock Text="ghg565dfgdf"></TextBlock>
+                            </Grid>
+                        </view2:OrientationListBox>
+                    </view2:ReadOnlyMasterDetail.Selector>
+                </view2:ReadOnlyMasterDetail>
+            </TabItem>
             <!--<TabItem Header="Without Detail">
-                <view2:MasterControl ItemsSource="{Binding Data, Mode=OneTime}" 
-                                     Change="{util:EventBinding ChangeCommand}"  
+                <view2:MasterControl ItemsSource="{Binding Data, Mode=OneTime}"
+                                     Change="{util:EventBinding ChangeCommand}"
                                      CommandParameter="{Binding NewItem}"
                                      ButtonTypes="Add,Remove"  >
-                    <StaticResource ResourceKey="DragablzItemsControl2"></StaticResource>                  
+                    <StaticResource ResourceKey="DragablzItemsControl2"></StaticResource>
                 </view2:MasterControl>
             </TabItem>-->
         </TabControl>

@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="View\MasterDetailGridUserControl .xaml.cs">
+    <Compile Update="View\MasterDetailGridUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\MasterListUserControl.xaml.cs">
@@ -44,7 +44,7 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Update="View\MasterDetailGridUserControl .xaml">
+    <Page Update="View\MasterDetailGridUserControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

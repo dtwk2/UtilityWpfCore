@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="PropertyTools.Wpf" Version="3.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\UtilityWpf\UtilityWpf.csproj" />
   </ItemGroup>
 

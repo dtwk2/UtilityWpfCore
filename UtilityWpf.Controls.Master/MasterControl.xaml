@@ -4,8 +4,8 @@
     xmlns:local="clr-namespace:UtilityWpf.Controls.Master"
     xmlns:local1="clr-namespace:UtilityWpf;assembly=UtilityWpf"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:pt="http://propertytools.org/wpf" 
-    xmlns:utilitywpf="http://schemas.utility.com/utilitywpf">
+    xmlns:pt="http://propertytools.org/wpf"
+    xmlns:utilitywpf="http://schemas.utility.com/utilitywpf" xmlns:pt1="clr-namespace:PropertyTools.Wpf">
 
     <ResourceDictionary.MergedDictionaries>
         <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Master;component/DoubleContentControl.xaml"></utilitywpf:SharedResourceDictionary>
@@ -57,11 +57,11 @@
                                 <materialDesign:PackIcon Kind="ArrowDown" />
                             </Button>
                         </WrapPanel>
-                        <pt:DockPanelSplitter x:Name="PART_DockPanelSplitter" Background="WhiteSmoke"></pt:DockPanelSplitter>
+                        <pt1:DockPanelSplitter x:Name="PART_DockPanelSplitter" Background="WhiteSmoke"></pt1:DockPanelSplitter>
                         <ContentPresenter />
                     </DockPanel>
-                </ControlTemplate>                
-            </Setter.Value>            
-        </Setter>       
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>

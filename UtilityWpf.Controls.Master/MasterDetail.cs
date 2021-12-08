@@ -38,7 +38,8 @@ namespace UtilityWpf.Controls.Master
 
         public ReadOnlyMasterDetail()
         {
-            this.WhenAnyValue(a => a.Selector).WhereNotNull()
+            _ = this.WhenAnyValue(a => a.Selector)
+                .WhereNotNull()
                 .CombineLatest(this.WhenAnyValue(a => a.DataContext).WhereNotNull())
                 .Subscribe(a =>
                 {
@@ -57,6 +58,17 @@ namespace UtilityWpf.Controls.Master
                 .Subscribe(content =>
                 {
                     SetDetail(Content, content);
+                });
+
+            _ = this.WhenAnyValue(a => a.Orientation)
+                .CombineLatest(this.WhenAnyValue(a => a.Selector))
+                .Subscribe(combined =>
+                {
+                    if (combined.Second is IOrientation iori)
+                    {
+
+                        iori.Orientation = (Orientation)(((int)combined.First + 1) % ((int)Orientation.Vertical + 1));
+                    }
                 });
         }
 
@@ -183,7 +195,6 @@ namespace UtilityWpf.Controls.Master
                 _ => throw new ApplicationException($"Unexpected type,{slctr.GetType().Name} for {nameof(Selector)} "),
             };
         }
-
 
         /// <summary>
         /// Updates the detail-item with changes made to the  master-list
