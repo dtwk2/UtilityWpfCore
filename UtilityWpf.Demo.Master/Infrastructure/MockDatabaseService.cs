@@ -53,14 +53,9 @@ namespace UtilityWpf.Demo.Master.Infrastructure
             throw new NotImplementedException();
         }
 
-        public IEnumerable FindMany(IQuery query)
-        {
-            return new[] { "d", "fdfs", "fsddfdd" };
-        }
-
         public IEnumerable FindManyBy(IQuery query)
         {
-            throw new NotImplementedException();
+            return new[] { "d", "fdfs", "fsddfdd" };
         }
 
         public object Remove(object item)

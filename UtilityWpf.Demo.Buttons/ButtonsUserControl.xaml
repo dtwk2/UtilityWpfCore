@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utl="http://schemas.utility.com/utilitywpf"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:view="http://schemas.utility.com/buttons" 
+    xmlns:view="http://schemas.utility.com/buttons"
     xmlns:demoApp="clr-namespace:UtilityWpf.Demo.Buttons"
     xmlns:infra="clr-namespace:UtilityWpf.Demo.Buttons.Infrastructure"
     d:DesignHeight="450"
@@ -37,7 +37,7 @@
                 <!--<FrameworkElement.Resources>
                 <utl:SharedResourceDictionary Source="/UtilityWpf.Demo.Common;component/Themes/Material.xaml"/>
             </FrameworkElement.Resources>-->
-                <view:ToggleButton x:Name="ToggleButton" 
+                <view:ToggleButton x:Name="ToggleButton"
                                 Content="{x:Static Orientation.Horizontal}"
                                 UnCheckedContent="{x:Static Orientation.Vertical}"
                                 >
@@ -56,7 +56,6 @@
 
         <GroupBox>
             <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-         
                 <view:ButtonsControl x:Name="Buttons2Control"
                                      Orientation="{Binding ElementName=ToggleButton, Path=IsChecked, Converter={StaticResource BooleanToOrientationConverter}}"   >
 
