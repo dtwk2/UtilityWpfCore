@@ -25,11 +25,20 @@
                 <ContentControl.DataContext>
                     <demoApp:ButtonsViewModel/>
                 </ContentControl.DataContext>
-                <view:ButtonsControl ItemsSource="{Binding Data}"
+                <DockPanel>
+                    <view:ButtonsControl ItemsSource="{Binding Data}"
                              CommandPath="Command"
                              DisplayMemberPath="Header">
+                    </view:ButtonsControl>
 
-                </view:ButtonsControl>
+                    <ListBox ItemsSource="{Binding Numbers, Mode=OneTime}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Value, Mode=OneTime}" FontSize="24"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </DockPanel>
             </ContentControl>
         </GroupBox>
         <GroupBox>
