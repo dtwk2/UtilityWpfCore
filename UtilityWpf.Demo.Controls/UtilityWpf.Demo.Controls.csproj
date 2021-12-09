@@ -115,7 +115,7 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="LabelledInputView.xaml">
+    <Page Update="LabelledContentView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
     <Page Update="ListBoxCriteriaUserControl.xaml">

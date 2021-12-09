@@ -3,11 +3,11 @@
 namespace UtilityWpf.Demo.Views
 {
     /// <summary>
-    /// Interaction logic for LabelledInputView.xaml
+    /// Interaction logic for LabelledContentView.xaml
     /// </summary>
-    public partial class LabelledInputView : UserControl
+    public partial class LabelledContentView : UserControl
     {
-        public LabelledInputView()
+        public LabelledContentView()
         {
             InitializeComponent();
         }

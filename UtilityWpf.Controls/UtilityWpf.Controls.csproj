@@ -98,8 +98,8 @@
 	  <Compile Update="IconContentControl.cs">
 	    <DependentUpon>IconContentControl.xaml</DependentUpon>
 	  </Compile>     
-	  <Compile Update="LabelledInput.cs">
-	    <DependentUpon>LabelledInput.xaml</DependentUpon>
+	  <Compile Update="LabelledContent.cs">
+	    <DependentUpon>LabelledContent.xaml</DependentUpon>
 	  </Compile>     
 	  <Compile Update="LogViewer.cs">
 	    <DependentUpon>LogViewer.xaml</DependentUpon>
@@ -211,11 +211,8 @@
     <Page Update="IconContentControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
-    <Page Update="LabelledInput.xaml">
+    <Page Update="LabelledContent.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-    </Page>
-    <Page Update="LabelledTextBox.xaml">
-      <SubType>Designer</SubType>
     </Page>
     <Page Update="NavigatorControl.xaml">
       <SubType>Designer</SubType>
