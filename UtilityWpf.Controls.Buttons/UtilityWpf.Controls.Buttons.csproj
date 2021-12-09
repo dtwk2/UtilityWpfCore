@@ -16,12 +16,15 @@
 	</Compile>
 	<Compile Update="GeometryButton.cs">
 	  <DependentUpon>GeometryButton.xaml</DependentUpon>
-	</Compile>   
+	</Compile>
 	  <Compile Update="ImageButton.cs">
 	  <DependentUpon>ImageButton.xaml</DependentUpon>
 	</Compile>
 	  <Compile Update="DualButtonControl.cs">
 	  <DependentUpon>DualButtonControl.xaml</DependentUpon>
+	</Compile>
+	  <Compile Update="SwitchControl.cs">
+	  <DependentUpon>SwitchControl.xaml</DependentUpon>
 	</Compile>
   </ItemGroup>
 

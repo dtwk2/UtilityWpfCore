@@ -107,7 +107,6 @@ namespace UtilityWpf.Behavior
                 associatedObject.VerticalAlignment = VerticalAlignment.Center;
                 associatedObject.HorizontalContentAlignment = HorizontalAlignment.Center;
                 associatedObject.VerticalContentAlignment = VerticalAlignment.Center;
-
             }
         }
 
@@ -145,16 +144,6 @@ namespace UtilityWpf.Behavior
 
         #endregion properties
 
-        //private static void TypeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        //{
-        //    if (d is not Microsoft.Xaml.Behaviors.Behavior { AssociatedObject: { } obj } @control ||
-        //        d is not DataTemplateSelectorBehavior { Type: { } type } behavior) return;
-
-        //    var dts = DataTemplateEnumerable(type).Concat(DataTemplateEnumerable(@control)).ToArray();
-        //    behavior.itemsSourceSubject.OnNext(dts);
-
-        //}
-
         private static IEnumerable<DictionaryEntry> DataTemplateEnumerable(Type type)
         {
             var dataTemplateKey = new DataTemplateKey(type);
@@ -176,16 +165,5 @@ namespace UtilityWpf.Behavior
 
             }
         }
-
-        //private static void ResourceDictionaryChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        //{
-        //    if (d is not DataTemplateSelectorBehavior { ResourceDictionary: { } resourceDictionary } behavior) return;
-
-        //    if (DataTemplateEnumerable(resourceDictionary) is { } enm)
-        //        behavior.itemsSourceSubject.OnNext(enm);
-        //    else
-        //        throw new ApplicationException("F c44 SDfd");
-        //}
-
     }
 }

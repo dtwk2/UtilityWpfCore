@@ -25,15 +25,14 @@ namespace UtilityWpf.Markup
         /// </summary>
         private readonly string commandName;
 
-
         public EventBindingExtension(string commandName)
         {
             this.commandName = commandName;
         }
 
-        public IValueConverter? Converter { get; init; } = null;
-        public object? ConverterParameter { get; init; } = null;
-        public Type? ConverterType { get; init; } = null;
+        public IValueConverter? Converter { get; init; }
+        public object? ConverterParameter { get; init; }
+        public Type? ConverterType { get; init; }
 
         /// <summary>
         /// Retrieves the context in which the markup extension is used, and (if used in the
@@ -51,7 +50,7 @@ namespace UtilityWpf.Markup
                 // Check if the current context is an event or a method call with two parameters
                 var type = info switch
                 {   // If the context is an event, simply return the helper method as delegate
-                    // (this delegate will be invoked when the event fires)     
+                    // (this delegate will be invoked when the event fires)
                     EventInfo { EventHandlerType: { } e } => e,
                     MethodInfo property => GetMethodInfoType(property),
                     _ => throw new ArgumentOutOfRangeException("sfddfsdf333")
@@ -114,7 +113,7 @@ namespace UtilityWpf.Markup
         {
             switch (cmd)
             {
-                case ICommand when cmd.GetType().BaseType?.Name == (typeof(ReactiveCommandBase<,>)).Name:
+                case ICommand when cmd.GetType().BaseType?.Name == typeof(ReactiveCommandBase<,>).Name:
                     if (Converter != null)
                     {
                         return Converter?.Convert(args, null, ConverterParameter, CultureInfo.CurrentCulture);
