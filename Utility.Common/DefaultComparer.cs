@@ -18,4 +18,12 @@ namespace Utility.Common
             return func(x).CompareTo(func(y));
         }
     }
+
+    public class EqualityComparer
+    {
+        public static DefaultComparer<T, R> Create<T, R>(Func<T, R> func) where R : IComparable<R>
+        {
+            return new DefaultComparer<T, R>(func);
+        }
+    }
 }
