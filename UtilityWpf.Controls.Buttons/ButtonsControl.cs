@@ -70,12 +70,13 @@ namespace UtilityWpf.Controls.Buttons
                         BindingOperations.SetBinding(button, FrameworkElement.TagProperty, CreateBinding(SelectedValuePath));
                         button.Click += Button_Click;
                     }
-                }
-                if (string.IsNullOrEmpty(DisplayMemberPath) == false)
-                {
 
-                    if (button.Content is TextBlock textBlock)
-                        BindingOperations.SetBinding(textBlock, TextBlock.TextProperty, CreateBinding(DisplayMemberPath));
+                    if (string.IsNullOrEmpty(DisplayMemberPath) == false)
+                    {
+
+                        if (button.Content is TextBlock textBlock)
+                            BindingOperations.SetBinding(textBlock, TextBlock.TextProperty, CreateBinding(DisplayMemberPath));
+                    }
                 }
             }
 
