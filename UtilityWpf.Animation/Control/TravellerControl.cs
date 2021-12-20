@@ -3,61 +3,89 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using UtilityWpf.Animation.Infrastructure;
 
 namespace UtilityWpf.Animation
 {
-
     public class TravellerControl : Canvas
     {
+        public enum Direction
+        {
+            None, SourceToTarget, TargetToSource
+        }
 
         private readonly EllipseGeometry particlePath;
-        private Path ellipsePath;
-        private readonly Path journeyPath;
+        private readonly Path ellipsePath;
+        private Path journeyPath;
+
         public static readonly DependencyProperty PointProperty = DependencyProperty.Register("Point", typeof(object), typeof(TravellerControl), new PropertyMetadata(default(Point), Changed));
         public static readonly DependencyProperty DurationProperty = DependencyProperty.Register("Duration", typeof(TimeSpan), typeof(TravellerControl), new PropertyMetadata(TimeSpan.FromSeconds(2)));
         public static readonly DependencyProperty RadiusYProperty = DependencyProperty.Register("RadiusY", typeof(double), typeof(TravellerControl), new PropertyMetadata(5d));
         public static readonly DependencyProperty RadiusXProperty = DependencyProperty.Register("RadiusX", typeof(double), typeof(TravellerControl), new PropertyMetadata(5d));
         public static readonly DependencyProperty StrokeProperty = DependencyProperty.Register("Stroke", typeof(Brush), typeof(TravellerControl), new PropertyMetadata(Brushes.Black));
         public static readonly DependencyProperty ForegroundProperty = DependencyProperty.Register("Foreground", typeof(Brush), typeof(TravellerControl), new PropertyMetadata(Brushes.White));
+        public static readonly DependencyProperty ShowPathProperty = DependencyProperty.Register("ShowPath", typeof(bool), typeof(TravellerControl), new PropertyMetadata(true));
+        public static readonly DependencyProperty RunCommandProperty = DependencyProperty.Register("RunCommand", typeof(ICommand), typeof(TravellerControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty RunProperty = DependencyProperty.Register("Run", typeof(Direction), typeof(TravellerControl), new PropertyMetadata(Direction.SourceToTarget, RunChanged));
+        private DependencyPropertyChangedEventArgs e;
+
+        private static void RunChanged(DependencyObject d, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
+        {
+            if (d is TravellerControl traveller)
+                traveller._Run(traveller.e, (Direction)dependencyPropertyChangedEventArgs.NewValue);
+        }
 
         public TravellerControl()
         {
-
-            journeyPath = new Path
+            RunCommand = ReactiveUI.ReactiveCommand.Create(() =>
             {
-                Stroke = Stroke,
-                StrokeThickness = Math.Max(RadiusX, RadiusY) + 1,
-                Data = new[] { new Point(0, 0), new Point(00, 00) }
-                  .ToArray().ToPathGeometry()
-            };
+                try
+                {
+                    _Run(e, Run);
+                }
+                catch (Exception ex)
+                {
+                }
+            });
 
-            this.Children.Add(journeyPath);
+            if (ShowPath)
+            {
+                Children.Add(journeyPath = CreateJourneyPath());
+            }
 
             particlePath = new EllipseGeometry { RadiusX = RadiusX, RadiusY = RadiusY };
             ellipsePath = new Path { Fill = Foreground, Data = particlePath };
-
-            this.Children.Add(ellipsePath);
+            Children.Add(ellipsePath);
         }
 
         public Point LastPoint => Point switch
         {
-
             Point[] points => points.LastOrDefault(),
             Point point => point,
             _ => throw new Exception("sdf  dd")
-
         };
 
+        public Direction Run
+        {
+            get => (Direction)GetValue(RunProperty);
+            set => SetValue(RunProperty, value);
+        }
 
         public object Point
         {
-            get => (object)GetValue(PointProperty);
+            get => GetValue(PointProperty);
             set => SetValue(PointProperty, value);
         }
 
+        public ICommand RunCommand
+        {
+            get => (ICommand)GetValue(RunCommandProperty);
+            set => SetValue(RunCommandProperty, value);
+        }
 
         public Brush Foreground
         {
@@ -89,69 +117,132 @@ namespace UtilityWpf.Animation
             set => SetValue(RadiusYProperty, value);
         }
 
+        public bool ShowPath
+        {
+            get => (bool)GetValue(ShowPathProperty);
+            set => SetValue(ShowPathProperty, value);
+        }
+
         private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-
             if (!(d is TravellerControl control))
                 return;
+            if (e.NewValue == null)
+                return;
+            control.e = e;
+        }
 
-            SetChildProperties(control);
-            GetPoints(e, out var oldPoint, out var points);
-            control.journeyPath.Data = new[] { oldPoint }.Concat(points).ToArray().ToPathGeometry();
+        private void _Run(DependencyPropertyChangedEventArgs e, Direction direction)
+        {
+            if (direction == Direction.None)
+                return;
 
-            Queue<PointAnimation> list = new Queue<PointAnimation>();
-            foreach (var point in points)
+            SetChildProperties();
+            GetPoints(e.NewValue, e.OldValue, out var oldPoint, out var points);
+
+            switch (direction)
+            {
+                case Direction.TargetToSource:
+                    oldPoint = points.FirstOrDefault();
+                    points = points.Reverse().ToArray();
+                    break;
+
+                case Direction.SourceToTarget:
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            if (ShowPath && points.Length > 0)
+            {
+                if (Children.Count == 1)
+                    Children.Add(journeyPath = CreateJourneyPath());
+                journeyPath.Data = points.ToArray().ToPathGeometry();
+            }
+            else if (Children.Count == 2)
+            {
+                Children.Remove(journeyPath);
+            }
+
+            var animations = GetAnimations(oldPoint, points, Duration);
+
+            Helper.ProcessAnimationsQueue(animations, particlePath, EllipseGeometry.CenterProperty);
+            var anim = CreateTargetAnimation(ellipsePath, 0.1);
+            Storyboard sb = new();
+            sb.Children.Add(anim);
+            sb.Begin();
+        }
+
+        private Path CreateJourneyPath()
+        {
+            return new Path
+            {
+                Stroke = Stroke,
+                StrokeThickness = Math.Max(RadiusX, RadiusY) + 1,
+                Data = new[] { new Point(0, 0), new Point(0, 0) }
+                  .ToArray().ToPathGeometry()
+            };
+        }
+
+        private static void GetPoints(object newValue, object oldValue, out Point oldPoint, out Point[] points)
+        {
+            points = newValue switch
+            {
+                Point[] pts => pts,
+                Point pnt => new[] { pnt },
+                PathGeometry geometry => geometry.ToPoints().ToArray(),
+                null => new Point[] { },// throw new Exception($"Points can't be null"),
+                _ => throw new Exception($"Points must be a Point or array of points and not {newValue.GetType().Name}")
+            };
+
+            oldPoint = oldValue switch
+            {
+                Point[] opts => opts.LastOrDefault(),
+                Point opnt => opnt,
+                PathGeometry geometry => geometry.ToPoints().Last(),
+                _ => default
+            };
+        }
+
+        private static Queue<AnimationTimeline> GetAnimations(Point oldPoint, Point[] points, TimeSpan duration)
+        {
+            Queue<AnimationTimeline> list = new();
+
+            if (points.Length > 1)
+                points.Skip(1).Aggregate(points.First(), (current, point) => OldPoint(current, duration, point, list));
+            else
+                points.Aggregate(oldPoint, (current, point) => OldPoint(current, duration, point, list));
+
+            return list;
+
+            static Point OldPoint(Point oldPoint, TimeSpan duration, Point point, Queue<AnimationTimeline> list)
             {
                 var pointAnimation = new PointAnimation
                 {
-                    Duration = control.Duration,
+                    Duration = duration,
                     From = oldPoint,
                     To = point
                 };
                 oldPoint = point;
                 list.Enqueue(pointAnimation);
-            }
-
-            Helper.ProcessAnimationsQueue(list, control.particlePath, EllipseGeometry.CenterProperty);
-
-            static void GetPoints(DependencyPropertyChangedEventArgs e, out Point oldPoint, out Point[] points)
-            {
-
-                oldPoint = default;
-
-                if (e.NewValue is Point[] pts)
-                {
-                    points = pts;
-                }
-                else if (e.NewValue is Point pnt)
-                {
-                    points = new[] { pnt };
-                }
-                else
-                {
-                    throw new Exception("Points must be a Point or array of points");
-                }
-
-                if (e.OldValue is Point[] opts)
-                {
-                    oldPoint = opts.LastOrDefault();
-                }
-
-                if (e.OldValue is Point opnt)
-                {
-                    oldPoint = opnt;
-                }
+                return oldPoint;
             }
         }
 
-        private static void SetChildProperties(TravellerControl pointControl)
+        private void SetChildProperties()
         {
-            pointControl.particlePath.RadiusX = pointControl.RadiusX;
-            pointControl.particlePath.RadiusY = pointControl.RadiusY;
-            pointControl.ellipsePath.Fill = pointControl.Foreground;
-            pointControl.journeyPath.Stroke = pointControl.Stroke;
-            pointControl.journeyPath.StrokeThickness = Math.Max(pointControl.RadiusX, pointControl.RadiusY) + 1;
+            particlePath.RadiusX = RadiusX;
+            particlePath.RadiusY = RadiusY;
+            ellipsePath.Fill = Foreground;
+            journeyPath.Stroke = Stroke;
+            journeyPath.StrokeThickness = Math.Max(RadiusX, RadiusY) + 1;
+        }
+
+        public static ColorAnimation CreateTargetAnimation(UIElement toEll, double pointTime)
+        {
+            var anim = ExplosionAnimationHelper.SetColorAnimation(toEll, pointTime);
+            ExplosionAnimationHelper.ApplyOpacityMask(toEll);
+            return anim;
         }
     }
 }
-
