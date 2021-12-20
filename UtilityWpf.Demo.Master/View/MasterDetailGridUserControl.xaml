@@ -22,7 +22,7 @@
                 <Setter Property="Margin" Value="10"></Setter>
                 <Setter Property="Padding" Value="5"></Setter>
             </Style>
-            <util:AutoMapperConverter x:Key="AutoValueConverter" ToType="{x:Type cmn:ReactiveFields}" FromType="{x:Type cmn:Fields}"/>
+            <util:AutoMapperConverter x:Key="AutoValueConverter" ToType="{x:Type cmn:ReactiveFields}" FromType="{x:Type cmn:Fields}" />
 
             <view1:DragablzVerticalItemsControl x:Key="DragablzItemsControl2"
                                                        VerticalAlignment="Center"
@@ -40,7 +40,7 @@
         <ToolBar DockPanel.Dock="Top">
             <ToggleButton x:Name="OrientationToggleButton" Content="{x:Static Orientation.Vertical}">
                 <i:Interaction.Behaviors>
-                    <util:ToggleButtonContentBehavior UnCheckedContent="{x:Static Orientation.Horizontal}"/>
+                    <util:ToggleButtonContentBehavior UnCheckedContent="{x:Static Orientation.Horizontal}" />
                 </i:Interaction.Behaviors>
             </ToggleButton>
         </ToolBar>
@@ -50,7 +50,7 @@
                 <view2:MasterDetail
                     Converter="{StaticResource AutoValueConverter}" Orientation="{Binding ElementName=OrientationToggleButton, Path=Content}">
                     <view2:MasterDetail.Selector>
-                        <DataGrid ItemsSource="{Binding Data, Mode=OneTime}" IsReadOnly="True"/>
+                        <DataGrid ItemsSource="{Binding Data, Mode=OneTime}" IsReadOnly="True" />
                     </view2:MasterDetail.Selector>
                 </view2:MasterDetail>
             </TabItem>
@@ -88,7 +88,7 @@
                 </view2:ReadOnlyMasterDetail>
             </TabItem>
             <TabItem Header="Third">
-                <view2:ReadOnlyMasterDetail Orientation="{Binding ElementName=OrientationToggleButton, Path=Content}"                                           >
+                <view2:ReadOnlyMasterDetail Orientation="{Binding ElementName=OrientationToggleButton, Path=Content}">
                     <view2:ReadOnlyMasterDetail.Selector>
                         <ListBox SelectedIndex="0">
                             <ListBox.ItemTemplate>
@@ -117,22 +117,26 @@
                 </view2:ReadOnlyMasterDetail>
             </TabItem>
             <TabItem Header="Fourth">
-                <view2:ReadOnlyMasterDetail Orientation="{Binding ElementName=OrientationToggleButton, Path=Content}"                                           >
+                <view2:ReadOnlyMasterDetail Orientation="{Binding ElementName=OrientationToggleButton, Path=Content}">
+                    <FrameworkElement.Resources>
+                        <Style TargetType="{x:Type HeaderedContentControl}">
+                            <Setter Property="FontSize" Value="18"></Setter>
+                            <Setter Property="FontWeight" Value="Bold"></Setter>
+                        </Style>
+                    </FrameworkElement.Resources>
                     <view2:ReadOnlyMasterDetail.Selector>
                         <view2:OrientationListBox SelectedIndex="0">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <Ellipse Height="50" Width="50" Fill="{Binding Children[0].Fill}"></Ellipse>
+                                    <TextBlock Height="50" Width="50" Text="{Binding Header}"></TextBlock>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
-                            <Grid>
+                            <HeaderedContentControl Header="First">
                                 <Rectangle Fill="Plum" Height="20"></Rectangle>
-                                <TextBlock Text="gd66fgdf"></TextBlock>
-                            </Grid>
-                            <Grid>
-                                <Rectangle Fill="Beige" Height="20"></Rectangle>
-                                <TextBlock Text="ghg565dfgdf"></TextBlock>
-                            </Grid>
+                            </HeaderedContentControl>
+                            <HeaderedContentControl Header="Second">
+                                <TextBlock Text="ghg565dfgdf" FontSize="12" FontWeight="Light"></TextBlock>
+                            </HeaderedContentControl>
                         </view2:OrientationListBox>
                     </view2:ReadOnlyMasterDetail.Selector>
                 </view2:ReadOnlyMasterDetail>
@@ -141,11 +145,10 @@
                 <view2:MasterControl ItemsSource="{Binding Data, Mode=OneTime}"
                                      Change="{util:EventBinding ChangeCommand}"
                                      CommandParameter="{Binding NewItem}"
-                                     ButtonTypes="Add,Remove"  >
+                                     ButtonTypes="Add,Remove">
                     <StaticResource ResourceKey="DragablzItemsControl2"></StaticResource>
                 </view2:MasterControl>
             </TabItem>-->
         </TabControl>
-
     </DockPanel>
 </UserControl>
