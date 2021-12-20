@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
@@ -12,27 +13,45 @@ using Utility.Common;
 
 namespace UtilityWpf.Markup
 {
+    public enum ConversionType
+    {
+        None,
+        Default,
+        SingleAdds
+    }
+
     /// <summary>
-    /// Based on
-    /// <a href="https://github.com/mobilemotion/event-binding/blob/master/MvvmEventBinding/WPF/MvvmEventBinding/EventBindingExtension.cs"/></a>
-    /// Custom markup extension that allows direct binding of Commands to events.
+    /// <a href="https://github.com/mobilemotion/event-binding/blob/master/MvvmEventBinding/WPF/MvvmEventBinding/EventBindingExtension.cs">Custom markup extension</a>
+    /// that allows direct binding of commands to events.
+    /// <example>
+    /// <code>
+    /// &lt;ListBox SelectionChanged=&quot;{utl:Command MyCommand}&quot;/&gt;
+    /// </code>
+    /// </example>
     /// </summary>
     [MarkupExtensionReturnType(typeof(Delegate))]
-    public class EventBindingExtension : MarkupExtension
+    public class CommandExtension : MarkupExtension
     {
-        /// <summary>
-        /// Name of the Command to be invoked when the event fires
-        /// </summary>
+        private IDisposable? disposable;
         private readonly string commandName;
 
-        public EventBindingExtension(string commandName)
+        /// <summary>
+        /// </summary>
+        /// <param name="commandName">
+        /// Name of the Command to be invoked when the event fires
+        /// </param>
+        public CommandExtension(string commandName)
         {
             this.commandName = commandName;
         }
 
         public IValueConverter? Converter { get; init; }
+
         public object? ConverterParameter { get; init; }
+
         public Type? ConverterType { get; init; }
+
+        public ConversionType ConversionType { get; init; }
 
         /// <summary>
         /// Retrieves the context in which the markup extension is used, and (if used in the
@@ -53,7 +72,7 @@ namespace UtilityWpf.Markup
                     // (this delegate will be invoked when the event fires)
                     EventInfo { EventHandlerType: { } e } => e,
                     MethodInfo property => GetMethodInfoType(property),
-                    _ => throw new ArgumentOutOfRangeException("sfddfsdf333")
+                    _ => throw new Exception("sfddfsdf333")
                 };
                 return methodInfo.CreateDelegate(type, this);
 
@@ -69,7 +88,6 @@ namespace UtilityWpf.Markup
                     }
                     throw new Exception("f&&&sddffds");
                 }
-
             }
             throw new InvalidOperationException("The EventBinding markup extension is valid only in the context of events.");
         }
@@ -85,7 +103,9 @@ namespace UtilityWpf.Markup
             if (string.IsNullOrEmpty(commandName) == false &&
                 sender is FrameworkElement frameworkElement)
             {
-                frameworkElement
+                disposable?.Dispose();
+                disposable =
+                    frameworkElement
                     .WhenAnyValue(a => a.DataContext)
                     .WhereNotNull()
                     .Select(context => (context, context.GetType().GetProperty(commandName)?.GetValue(context)))
@@ -95,21 +115,36 @@ namespace UtilityWpf.Markup
                         {
                             if (command.CanExecute(args))
                             {
-                                var conversion = GetConversion(args, command);
+                                var conversion = ConversionType switch
+                                {
+                                    ConversionType.None => args,
+                                    ConversionType.Default => Conversion(args, command),
+                                    ConversionType.SingleAdds => SingleSelectorConversion(args, frameworkElement),
+                                    _ => throw new NotImplementedException(),
+                                };
                                 command.Execute(conversion);
                             }
                             return;
                         }
 
                         throw new Exception($"{commandName} does not correspond to a {nameof(ICommand)} on {a.Item1.GetType().Name}");
-
                     });
             }
             else
                 throw new Exception("55jjsdsd");
         }
 
-        private object? GetConversion(EventArgs args, ICommand cmd)
+        private object? SingleSelectorConversion(EventArgs args, FrameworkElement element)
+        {
+            if (args is SelectionChangedEventArgs selectionArgs)
+                if (element.GetValue(ListBox.SelectionModeProperty) is SelectionMode.Single)
+                {
+                    return selectionArgs.AddedItems.Cast<object>().FirstOrDefault();
+                }
+            return null;
+        }
+
+        protected virtual object? Conversion(EventArgs args, ICommand cmd)
         {
             switch (cmd)
             {
@@ -120,12 +155,16 @@ namespace UtilityWpf.Markup
                     }
                     else if (cmd.GetType().GetGenericArguments().First() is Type type)
                     {
-                        if (type != typeof(object))
+                        if (type != typeof(object) && AutoMapperSingleton.Instance.ConfigurationProvider.ResolveTypeMap(args.GetType(), type) is { } map)
                         {
                             return AutoMapperSingleton.Instance.Map(args, args.GetType(), type);
                         }
                         else
-                            throw new Exception($"The generic-argument, object, of the type of ReactiveCommand used, is too broad to map.");
+                        {
+                            return args;
+                        }
+
+                        //throw new Exception($"The generic-argument, object, of the type of ReactiveCommand used, is too broad to map.");
                     }
                     else
                     {
@@ -141,7 +180,8 @@ namespace UtilityWpf.Markup
                         return AutoMapperSingleton.Instance.Map(args, args.GetType(), ConverterType);
                     }
                     else
-                        throw new Exception("s6666333dfsdsd");
+                        return args;
+
                 default:
                     throw new Exception("s33333dfsdsd");
             }
