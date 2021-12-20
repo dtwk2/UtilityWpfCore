@@ -10,7 +10,6 @@ using UtilityWpf.Abstract;
 
 namespace UtilityWpf.Controls.Master
 {
-
     using Mixins;
     using ReactiveUI;
     using System.Data;
@@ -23,7 +22,6 @@ namespace UtilityWpf.Controls.Master
     /// </summary>
     public class ReadOnlyMasterDetail : ContentControlx, ISelector
     {
-
         public static readonly DependencyProperty ConverterProperty = fac.Register<IValueConverter>();
         public static readonly DependencyProperty ConverterParameterProperty = fac.Register<object>();
         public static readonly DependencyProperty PropertyKeyProperty = fac.Register<string>(nameof(PropertyKey));
@@ -66,7 +64,6 @@ namespace UtilityWpf.Controls.Master
                 {
                     if (combined.Second is IOrientation iori)
                     {
-
                         iori.Orientation = (Orientation)(((int)combined.First + 1) % ((int)Orientation.Vertical + 1));
                     }
                 });
@@ -81,9 +78,11 @@ namespace UtilityWpf.Controls.Master
                     case ISelector selector:
                         selector.SelectionChanged += value;
                         break;
+
                     case Selector selector:
                         selector.SelectionChanged += value;
                         break;
+
                     default: throw new ApplicationException($"Unexpected type,{Selector.GetType().Name} for {nameof(Selector)} ");
                 };
             }
@@ -95,9 +94,11 @@ namespace UtilityWpf.Controls.Master
                     case ISelector selector:
                         selector.SelectionChanged -= value;
                         break;
+
                     case Selector selector:
                         selector.SelectionChanged -= value;
                         break;
+
                     default: throw new ApplicationException($"Unexpected type,{Selector.GetType().Name} for {nameof(Selector)} ");
                 };
             }
@@ -157,6 +158,7 @@ namespace UtilityWpf.Controls.Master
                 };
             }
         }
+
         int ISelector.SelectedIndex
         {
             get
@@ -230,7 +232,7 @@ namespace UtilityWpf.Controls.Master
             //{
             //    propertyGrid.Object = propertyGrid;
             //}
-            if (content is ContentControl contentControl)
+            if (content is ContentControl contentControl && @object is not ContentControl _)
             {
                 contentControl.Content = @object;
                 return;
@@ -281,15 +283,16 @@ namespace UtilityWpf.Controls.Master
         {
             public static object Convert(object selected, string key)
             {
-
                 return UtilityHelper.PropertyHelper.GetPropertyRefValue<object>(selected, key);
             }
+
             public static object ConvertBack(object selected, string k, object selectedValueOld)
             {
                 UtilityHelper.PropertyHelper.SetValue(selected, k, selectedValueOld);
                 return selectedValueOld;
             }
         }
+
         //protected class DefaultFilter : UtilityInterface.NonGeneric.IFilter
         //{
         //    public bool Filter(object o)
@@ -297,7 +300,6 @@ namespace UtilityWpf.Controls.Master
         //        return true;
         //    }
         //}
-
     }
 
     public class MasterDetail : ReadOnlyMasterDetail
@@ -309,7 +311,6 @@ namespace UtilityWpf.Controls.Master
 
         public MasterDetail()
         {
-
             Transform(TransformObservable);
         }
 
