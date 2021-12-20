@@ -1,5 +1,4 @@
-﻿
-namespace UtilityWpf.Demo.Panels
+﻿namespace UtilityWpf.Demo.Panels
 {
     using System;
     using System.Collections.Generic;
@@ -8,13 +7,11 @@ namespace UtilityWpf.Demo.Panels
     using System.Windows;
     using System.Windows.Controls;
 
-
     public class SidePanel : Panel
     {
         private int rows;
         private int columns;
-        bool columnsChanged, rowsChanged;
-
+        private bool columnsChanged, rowsChanged;
 
         // Using a DependencyProperty as the backing store for Region.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty RegionProperty =
@@ -92,8 +89,6 @@ namespace UtilityWpf.Demo.Panels
                 fsd.Append(individualSize, ChildSizer.GetCoordinate(i, columns));
                 i++;
                 child.Measure(individualSize);
-
-
             }
             //return fsd.TotalSize();
 
@@ -119,7 +114,6 @@ namespace UtilityWpf.Demo.Panels
             return new Size(width, height);
         }
 
-
         /// <summary>
         /// Arrange the children
         /// </summary>
@@ -133,13 +127,10 @@ namespace UtilityWpf.Demo.Panels
             }
 
             return finalSize;
-
         }
 
         private IEnumerable<(UIElement, (int, int, Rect))> NewMethod(Size finalSize)
         {
-
-
             var sdff = Region switch
             {
                 CircleRegion.Top => new ChildSizer(rows, columns, finalSize, Region),
@@ -161,7 +152,7 @@ namespace UtilityWpf.Demo.Panels
             }
         }
 
-        class ChildSizer
+        private class ChildSizer
         {
             private readonly int columns;
             private readonly int rows;
@@ -203,15 +194,12 @@ namespace UtilityWpf.Demo.Panels
             /// <param name="finalSize"></param>
             public static (int, int, Rect) GetChildRect(Coordinate coordinate, Size childSize, Size totalSize, int rows, int columns, CircleRegion region)
             {
-
-
                 var (row, column) = region switch
                 {
                     CircleRegion.Left => (coordinate.Y, coordinate.X),
                     CircleRegion.Right => (coordinate.Y, coordinate.X),
                     CircleRegion.Top => (coordinate.X, coordinate.Y),
                     CircleRegion.Bottom => (coordinate.X, coordinate.Y),
-
                 };
 
                 Point center = new Point(totalSize.Width / 2, totalSize.Height / 2);
@@ -226,10 +214,7 @@ namespace UtilityWpf.Demo.Panels
                     CircleRegion.Bottom => (center.X + (column - offSetFactor) * childSize.Width, totalSize.Height - ((row + 1) * childSize.Height)),
                 };
 
-
-
                 // Debug.WriteLine("x:" + xPosition + distance.X + " y:" + yPosition + distance.Y);
-
 
                 return (row, column, new Rect(
                     xPosition,
@@ -237,10 +222,10 @@ namespace UtilityWpf.Demo.Panels
             }
         }
 
-        class fsd
+        private class fsd
         {
-            Dictionary<int, double> widthSizes = new Dictionary<int, double>();
-            Dictionary<int, double> heightSizes = new Dictionary<int, double>();
+            private Dictionary<int, double> widthSizes = new Dictionary<int, double>();
+            private Dictionary<int, double> heightSizes = new Dictionary<int, double>();
 
             public fsd()
             {
@@ -282,13 +267,11 @@ namespace UtilityWpf.Demo.Panels
 //    using System.Windows;
 //    using System.Windows.Controls;
 
-
 //    public class Side2Panel : Panel
 //    {
 //        private int rows;
 //        private int columns;
 //        bool columnsChanged, rowsChanged;
-
 
 //        // Using a DependencyProperty as the backing store for Region.  This enables animation, styling, binding, etc...
 //        public static readonly DependencyProperty RegionProperty =
@@ -333,8 +316,6 @@ namespace UtilityWpf.Demo.Panels
 //            set { SetValue(RowsProperty, value); }
 //        }
 
-
-
 //        /// <summary>
 //        /// Measure the children
 //        /// </summary>
@@ -372,7 +353,6 @@ namespace UtilityWpf.Demo.Panels
 //        /// <returns>Size used</returns>
 //        protected override Size ArrangeOverride(Size finalSize)
 //        {
-
 //            foreach (var (child, (a, b, c)) in NewMethod(finalSize))
 //            {
 //                child.Arrange(c);
@@ -384,8 +364,6 @@ namespace UtilityWpf.Demo.Panels
 
 //        private IEnumerable<(UIElement, (int, int, Rect))> NewMethod(Size finalSize)
 //        {
-
-
 //            var sdff = Region switch
 //            {
 //                CircleRegion.Top => new ChildSizer(rows, columns, finalSize, Region),
@@ -442,8 +420,6 @@ namespace UtilityWpf.Demo.Panels
 //            /// <param name="finalSize"></param>
 //            public static (int, int, Rect) GetChildRect(Coordinate coordinate, Size childSize, Size totalSize, int rows, int columns, CircleRegion region)
 //            {
-
-
 //                var (row, column) = region switch
 //                {
 //                    CircleRegion.Left => (coordinate.Y, coordinate.X),
@@ -466,10 +442,7 @@ namespace UtilityWpf.Demo.Panels
 //                    CircleRegion.Bottom => (center.X + (column - offSetFactor) * childSize.Width, totalSize.Height - ((row + 1) * childSize.Height)),
 //                };
 
-
-
 //                // Debug.WriteLine("x:" + xPosition + distance.X + " y:" + yPosition + distance.Y);
-
 
 //                return (row, column, new Rect(
 //                    xPosition,
@@ -481,7 +454,6 @@ namespace UtilityWpf.Demo.Panels
 //        {
 //            return CircleRegion switch
 //            {
-
 //                CircleRegion.Top => new Point(0, 0),
 //                CircleRegion.Bottom => new Point(0, -size.Y),
 

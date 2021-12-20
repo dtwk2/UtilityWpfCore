@@ -15,7 +15,6 @@ namespace UtilityWpf.Controls.Hybrid
         public static readonly DependencyProperty IsCheckedPathProperty = DependencyProperty.Register("IsCheckedPath", typeof(string), typeof(MasterListControl), new PropertyMetadata(null));
         public static readonly DependencyProperty IsRefreshablePathProperty = DependencyProperty.Register("IsRefreshablePath", typeof(string), typeof(MasterListControl), new PropertyMetadata(null));
 
-
         static MasterListControl()
         {
             // FrameworkElement.DefaultStyleKeyProperty.OverrideMetadata(typeof(MasterTicksControl), new FrameworkPropertyMetadata(typeof(MasterTicksControl)));
@@ -54,7 +53,6 @@ namespace UtilityWpf.Controls.Hybrid
            });
         }
 
-
         public string IsCheckedPath
         {
             get => (string)GetValue(IsCheckedPathProperty);
@@ -72,6 +70,5 @@ namespace UtilityWpf.Controls.Hybrid
             get { return (string)GetValue(IsRefreshablePathProperty); }
             set { SetValue(IsRefreshablePathProperty, value); }
         }
-
     }
 }

@@ -48,7 +48,7 @@
                         </ItemsPanelTemplate>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="ItemContainerStyle" Value="{StaticResource NumberItemStyle}"/>
+                <Setter Property="ItemContainerStyle" Value="{StaticResource NumberItemStyle}" />
             </Style>
 
             <utl:TypeConverter x:Key="converter"></utl:TypeConverter>
@@ -59,30 +59,27 @@
                         <ControlTemplate TargetType="{x:Type local:MeasurementsControl}">
                             <DockPanel x:Name="PART_DockPanel" Background="{Binding Background, Source=TemplatedParent}">
                                 <WrapPanel x:Name="PART_WrapPanel">
-                                    <ComboBox >
+                                    <ComboBox>
                                         <i:Interaction.Behaviors>
                                             <utl:EnumSelectorBehavior EnumFilterCollection="{Binding EnumFilterCollection,RelativeSource={RelativeSource Mode=TemplatedParent} }"
                                                                   EnumType="{Binding Unit, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource converter}}"></utl:EnumSelectorBehavior>
                                         </i:Interaction.Behaviors>
                                     </ComboBox>
                                 </WrapPanel>
-                                <ContentPresenter/>                       
+                                <ContentPresenter />
                             </DockPanel>
                         </ControlTemplate>
-                    </Setter.Value>                  
+                    </Setter.Value>
                 </Setter>
                 <Setter Property="Content">
                     <Setter.Value>
-                        <local:NumbersControl 
+                        <local:NumbersControl
                             DisplayMemberPath="{Binding DisplayMemberPath, RelativeSource={RelativeSource AncestorType=local:MeasurementsControl}}"
                             DisplayKeyPath="{Binding DisplayKeyPath, RelativeSource={RelativeSource AncestorType=local:MeasurementsControl}}">
-                            
                         </local:NumbersControl>
                     </Setter.Value>
                 </Setter>
             </Style>-->
-
-
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />

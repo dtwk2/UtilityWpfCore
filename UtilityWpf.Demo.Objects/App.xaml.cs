@@ -10,15 +10,12 @@ namespace UtilityWpf.Demo.Objects
     /// </summary>
     public partial class App : Application
     {
-
         public App()
         {
             var builder = new ContainerBuilder();
             var d = typeof(UtilityWpf.Demo.Common.ViewModel.Tick);
             builder.AutoRegister();
             builder.UseAutofacDependencyResolver();
-
-
         }
     }
 }

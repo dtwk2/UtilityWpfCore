@@ -37,7 +37,6 @@ namespace UtilityWpf.Controls
 
             var obs = pageRequests.StartWith(new PageRequest(1, 20));
 
-
             var filteredPaginatedVM = new FilteredPaginatedModel<object>(ItemsSourceChanges.Select(a => a.Cast<object>().ToObservable()).Switch().ToObservableChangeSet(),
            obs,
            obs.Select(_ => new Func<object, bool>(a => true)));
@@ -123,7 +122,6 @@ namespace UtilityWpf.Controls
 
             public ReadOnlyObservableCollection<T> Items => pitems;
             public IPageResponse PageResponse { get => pageResponse; set => this.RaiseAndSetIfChanged(ref pageResponse, value); }
-
         }
     }
 }

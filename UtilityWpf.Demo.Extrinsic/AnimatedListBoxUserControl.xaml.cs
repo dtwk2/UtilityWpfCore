@@ -11,7 +11,8 @@ namespace UtilityWpf.Demo.Extrinsic
     /// </summary>
     public partial class AnimatedListBoxUserControl : UserControl
     {
-        Random random = new Random();
+        private Random random = new Random();
+
         public AnimatedListBoxUserControl()
         {
             InitializeComponent();
@@ -23,6 +24,5 @@ namespace UtilityWpf.Demo.Extrinsic
             var index = random.Next(0, AnimatedListBox.ItemsSource.Count() - 1);
             AnimatedListBox.SelectedItem = AnimatedListBox.ItemsSource.Cast<object>().ElementAt(index);
         }
-
     }
 }

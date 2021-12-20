@@ -15,7 +15,6 @@ namespace UtilityWpf.Demo.Data.Model
         Unknown
     }
 
-
     public class Character : INotifyPropertyChanged, IEquatable<Character>
     {
         private string _first = string.Empty;
@@ -131,13 +130,13 @@ namespace UtilityWpf.Demo.Data.Model
             return First.GetHashCode() * Last.GetHashCode() * Age.GetHashCode();
         }
     }
+
     public class Person : INotifyPropertyChanged
     {
         private string _first = string.Empty;
         private string _last = string.Empty;
         private int _age = 0;
         private Gender _gender = Gender.Unknown;
-
 
         public string First
         {
@@ -158,7 +157,6 @@ namespace UtilityWpf.Demo.Data.Model
                 RaisePropertyChanged();
             }
         }
-
 
         public int Age
         {
@@ -181,7 +179,6 @@ namespace UtilityWpf.Demo.Data.Model
             }
         }
 
-
         #region INotifyPropertyChanged Members
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -192,6 +189,5 @@ namespace UtilityWpf.Demo.Data.Model
         }
 
         #endregion INotifyPropertyChanged Members
-
     }
 }

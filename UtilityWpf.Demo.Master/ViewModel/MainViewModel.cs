@@ -20,15 +20,16 @@ namespace UtilityWpf.Demo.Master.ViewModel
                             Rows.Move(item.OldIndex, item.Index);
                         }
                         break;
+
                     default:
                         break;
                 }
                 return Unit.Default;
             });
         }
+
         public ObservableCollection<RowViewModel> Rows { get; }
 
         public ICommand ChangeCommand { get; }
-
     }
 }

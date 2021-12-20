@@ -11,7 +11,8 @@ namespace UtilityWpf.Model
 {
     public class ViewType
     {
-        Lazy<FrameworkElement?> lazy;
+        private Lazy<FrameworkElement?> lazy;
+
         public ViewType(string key, Type type)
         {
             Key = key;
@@ -25,7 +26,6 @@ namespace UtilityWpf.Model
 
         public FrameworkElement? View => lazy.Value;
 
-
         public static IEnumerable<ViewType> ViewTypes(Assembly assembly) => assembly
        .GetTypes()
        .Where(a => typeof(UserControl).IsAssignableFrom(a))
@@ -36,13 +36,9 @@ namespace UtilityWpf.Model
        .OrderBy(a => a.Key)
        .ToDictionaryOnIndex()
        .Select(a => new ViewType(a.Key, a.Value));
-
-
-
-
     }
 
-    static class Helper
+    internal static class Helper
     {
         public static Dictionary<string, T> ToDictionaryOnIndex<T>(this IEnumerable<IGrouping<string, T>> groupings)
              => groupings

@@ -11,10 +11,11 @@ using static UtilityWpf.Controls.Chart.ViewModel.MultiTimeModel;
 
 namespace UtilityWpf.Chart.Demo.ViewModel
 {
-    class ChartDetailsViewModel
+    internal class ChartDetailsViewModel
     {
         //private ReadOnlyObservableCollection<KeyValuePair<string, DateTimePoint>> collection;
-        readonly Random random = new();
+        private readonly Random random = new();
+
         private ReadOnlyObservableCollection<ChartDetailViewModel> collection;
 
         public ChartDetailsViewModel()

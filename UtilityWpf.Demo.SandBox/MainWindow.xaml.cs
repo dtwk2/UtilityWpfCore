@@ -11,7 +11,6 @@ namespace UtilityWpf.Demo.SandBox
         public MainWindow()
         {
             InitializeComponent();
-
         }
     }
 
@@ -19,7 +18,6 @@ namespace UtilityWpf.Demo.SandBox
     {
         public IEnumerable Collection { get; } = new[] { new MeasurementViewModel { Header = "Height" }, new MeasurementViewModel { Header = "Width" } };
     }
-
 
     public class MeasurementViewModel
     {

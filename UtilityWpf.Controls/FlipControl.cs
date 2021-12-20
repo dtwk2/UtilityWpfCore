@@ -61,7 +61,7 @@ namespace UtilityWpf.Controls
             typeof(FlipControl),
             new PropertyMetadata(0, OnSelectedIndexProxyChanged));
 
-        #endregion
+        #endregion Dependency Properties
 
         #region Fields
 
@@ -72,7 +72,7 @@ namespace UtilityWpf.Controls
         private int oldCount;
         private Storyboard storyboard;
 
-        #endregion
+        #endregion Fields
 
         #region Constructors
 
@@ -97,7 +97,7 @@ namespace UtilityWpf.Controls
             Loaded += OnLoaded;
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Public Properties
 
@@ -164,7 +164,7 @@ namespace UtilityWpf.Controls
             set { SetValue(SelectedIndexProxyProperty, value); }
         }
 
-        #endregion
+        #endregion Public Properties
 
         #region Public Methods
 
@@ -173,15 +173,13 @@ namespace UtilityWpf.Controls
         /// </summary>
         public override void OnApplyTemplate()
         {
-
             content = (ContentControl)GetTemplateChild("PART_Content");
             previousContent = (ContentControl)GetTemplateChild("PART_PreviousContent");
             previousContent.Visibility = Visibility.Collapsed;
             base.OnApplyTemplate();
-
         }
 
-        #endregion
+        #endregion Public Methods
 
         #region Protected Methods
 
@@ -280,7 +278,7 @@ namespace UtilityWpf.Controls
             Animate();
         }
 
-        #endregion
+        #endregion Protected Methods
 
         #region Private Static Methods
 
@@ -453,7 +451,7 @@ namespace UtilityWpf.Controls
             return storyboard;
         }
 
-        #endregion
+        #endregion Private Static Methods
 
         #region Private Methods
 
@@ -476,7 +474,6 @@ namespace UtilityWpf.Controls
 
                 if (ItemsSource != null && content != null)
                 {
-
                     var count = ItemsSource.Cast<object>().Count();
 
                     oldCount = ItemsSource.Cast<int>().LastOrDefault();
@@ -544,6 +541,6 @@ namespace UtilityWpf.Controls
             }
         }
 
-        #endregion
+        #endregion Private Methods
     }
 }

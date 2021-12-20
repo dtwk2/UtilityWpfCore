@@ -17,8 +17,6 @@ namespace UtilityWpf.Utility
             .FromFileTime(Convert.ToInt64(Path.GetFileName(path).Replace(Path.GetExtension(path), "")))
             .ToShortDateString();
 
-
-
         public static string? FindPath(string endPath, int depth = 10)
         {
             string path = endPath.First() == '/' ? endPath.Remove(0, 1) : endPath;
@@ -37,7 +35,6 @@ namespace UtilityWpf.Utility
             if (FindPath(assemblyName + "/" + folder + "/" + file) is string uri)
                 return new Uri(uri);
             return null;
-
         }
     }
 }

@@ -26,7 +26,7 @@
         //
         //-----------------------------------------
 
-        #region Dependency Properties 
+        #region Dependency Properties
 
         /// <summary>
         /// Columns DependencyProperty
@@ -47,7 +47,6 @@
             new FrameworkPropertyMetadata(Orientation.Vertical, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         #endregion Dependency Properties
-
 
         //-----------------------------------------
         //
@@ -85,7 +84,6 @@
         }
 
         #endregion Public Properties
-
 
         //-----------------------------------------
         //
@@ -268,7 +266,6 @@
             }
         }
 
-
         /// <summary>
         /// Arrange the individual children
         /// </summary>
@@ -337,15 +334,13 @@
             ItemsControl itemsControl = ItemsControl.GetItemsOwner(this);
             int itemCount = itemsControl.HasItems ? itemsControl.Items.Count : 0;
 
-
             if (lastVisibleItemIndex >= itemCount)
             {
                 lastVisibleItemIndex = itemCount - 1;
             }
         }
 
-        #endregion
-
+        #endregion Layout Specific Code
 
         //-----------------------------------------
         //
@@ -424,8 +419,6 @@
             get { return _viewport.Width; }
         }
 
-
-
         public void LineLeft()
         {
             this.SetHorizontalOffset(this._offset.X - _scrollLength);
@@ -440,6 +433,7 @@
         {
             this.SetVerticalOffset(this._offset.Y - _scrollLength);
         }
+
         public void LineDown()
         {
             this.SetVerticalOffset(this._offset.Y + _scrollLength);
@@ -503,7 +497,6 @@
         {
             this.SetHorizontalOffset(this._offset.X + _viewport.Width);
         }
-
 
         public void SetHorizontalOffset(double offset)
         {

@@ -18,7 +18,7 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!--<ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DualButtonControl.xaml"/>-->
+                <!--<ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DualButtonControl.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="VerticalItemStyle" TargetType="{x:Type drag:DragablzItem}" BasedOn="{StaticResource DragablzItemStyle}">
@@ -27,7 +27,6 @@
             </Style>
             <!--<x:Type Type="{x:Type service:LiteDbRepository}" x:Key="LiteDbRepo"></x:Type>
                  <x:Type Type="{x:Type local11:DatabaseService}" x:Key="DatabaseService"></x:Type>-->
-
         </ResourceDictionary>
     </UserControl.Resources>
     <DockPanel>
@@ -36,7 +35,7 @@
              Style="{StaticResource OutlinedDualButtonControl}"
              ButtonWidth="130">
              <i:Interaction.Triggers>
-             <i:EventTrigger EventName="ButtonToggle" >
+             <i:EventTrigger EventName="ButtonToggle">
              <i:InvokeCommandAction Command="{Binding ChangeRepositoryCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
              </i:EventTrigger>
              </i:Interaction.Triggers>
@@ -44,12 +43,12 @@
 
         <ToggleButton x:Name="ToggleButton" Style="{DynamicResource MaterialDesignActionLightToggleButton}" Width="200"  DockPanel.Dock="Top" Content="Repository Service">
             <i:Interaction.Triggers>
-                <i:EventTrigger EventName="Checked" >
+                <i:EventTrigger EventName="Checked">
                     <i:InvokeCommandAction Command="{Binding ChangeRepositoryCommand}"
                                            PassEventArgsToCommand="True"
                                            CommandParameter="{Binding ElementName=ToggleButton, Path=IsChecked}" ></i:InvokeCommandAction>
                 </i:EventTrigger>
-                <i:EventTrigger EventName="Unchecked" >
+                <i:EventTrigger EventName="Unchecked">
                     <i:InvokeCommandAction Command="{Binding ChangeRepositoryCommand}"
                                            PassEventArgsToCommand="True"
                                            CommandParameter="{Binding ElementName=ToggleButton, Path=IsChecked}" ></i:InvokeCommandAction>
@@ -91,14 +90,13 @@
                 </view:ReadOnlyMasterDetail>
             </TabItem>
 
-
             <TabItem Header="Without Detail">
                 <view:MasterControl
                     Change="{util:EventBinding ChangeCommand}"
                     ItemsSource="{Binding Data, Mode=OneTime}"
                     CommandParameter="{Binding NewItem}"
                     RemoveOrder="Last"
-                    ButtonTypes="Add,Remove"  >
+                    ButtonTypes="Add,Remove">
                     <view1:DragablzVerticalItemsControl x:Name="DragablzItemsControl2"
                                                         VerticalAlignment="Center"
                                                         ItemContainerStyle="{StaticResource VerticalItemStyle}"

@@ -8,11 +8,10 @@
         Title="MainWindow" Height="450" Width="800">
     <TabControl>
         <TabItem Header="Clock">
-            <local:ClockUserControl/>
-        </TabItem>  
-        <TabItem Header="Switch">
-            <local:SwitchUserControl/>
+            <local:ClockUserControl />
         </TabItem>
-
+        <TabItem Header="Switch">
+            <local:SwitchUserControl />
+        </TabItem>
     </TabControl>
 </Window>

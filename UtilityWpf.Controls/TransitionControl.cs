@@ -7,10 +7,13 @@ namespace UtilityWpf.Controls
     {
         public static readonly DependencyProperty UnCheckedButtonContentProperty =
             DependencyProperty.Register("UnCheckedButtonContent", typeof(object), typeof(TransitionControl), new PropertyMetadata(null));
+
         public static readonly DependencyProperty UnCheckedContentProperty =
             DependencyProperty.Register("UnCheckedContent", typeof(object), typeof(TransitionControl), new PropertyMetadata(null));
+
         public static readonly DependencyProperty CheckedContentProperty =
             DependencyProperty.Register("CheckedContent", typeof(object), typeof(TransitionControl), new PropertyMetadata(null));
+
         public static readonly DependencyProperty CheckedButtonContentProperty =
             DependencyProperty.Register("CheckedButtonContent", typeof(object), typeof(TransitionControl), new PropertyMetadata(null));
 

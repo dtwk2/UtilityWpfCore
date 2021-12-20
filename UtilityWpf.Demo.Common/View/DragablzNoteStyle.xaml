@@ -1,10 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz">
+                    xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <EllipseGeometry x:Key="DotGeometry" Center="0,0" RadiusX="1" RadiusY="1" />
-
-
 
     <SineEase x:Key="Ease" EasingMode="EaseInOut" />
     <Storyboard x:Key="Enter">
@@ -50,19 +48,19 @@
                         <Viewbox.RenderTransform>
                             <ScaleTransform x:Name="ScaleTransform" ScaleX="1" ScaleY="1" />
                         </Viewbox.RenderTransform>
-                        <Border BorderBrush="Gray" HorizontalAlignment="Stretch" BorderThickness="0.3" CornerRadius="8" Grid.Column="0" >
-                            <Grid IsEnabled="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType=dragablz:DragablzItem}}" >
+                        <Border BorderBrush="Gray" HorizontalAlignment="Stretch" BorderThickness="0.3" CornerRadius="8" Grid.Column="0">
+                            <Grid IsEnabled="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType=dragablz:DragablzItem}}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <ContentPresenter  Margin="2,1,17,2"  Width="200"    Grid.Column="1"/>
-                                <Thumb VerticalAlignment="Center"  dragablz:DragablzItem.IsCustomThumb="True" Height="15" Width="15" >
+                                <ContentPresenter  Margin="2,1,17,2"  Width="200"    Grid.Column="1" />
+                                <Thumb VerticalAlignment="Center"  dragablz:DragablzItem.IsCustomThumb="True" Height="15" Width="15">
                                     <Thumb.Template>
                                         <ControlTemplate>
 
-                                            <Border  Name="OutBox" >
-                                                <Grid >
+                                            <Border  Name="OutBox">
+                                                <Grid>
                                                     <Path   Margin="0,0,0,0"
                                                             x:Name="PathLeft"
                                                             Width="4"
@@ -81,13 +79,11 @@
                                                             </TransformGroup>
                                                         </Path.RenderTransform>
                                                     </Path>
-
-
                                                 </Grid>
                                                 <Border.Style>
                                                     <Style TargetType="Border">
                                                         <Style.Setters>
-                                                            <Setter Property="Background" >
+                                                            <Setter Property="Background">
                                                                 <Setter.Value>
                                                                     <SolidColorBrush Color="Gold" Opacity="0.0"></SolidColorBrush>
                                                                 </Setter.Value>
@@ -107,7 +103,7 @@
                                                                             Storyboard.TargetProperty="Background.Opacity"
                                                                             From="0"
                                                                             To="0.5"
-                                                                            Duration="0:0:0.2"/>
+                                                                            Duration="0:0:0.2" />
                                                                     </Storyboard>
                                                                 </BeginStoryboard>
                                                             </EventTrigger>
@@ -119,7 +115,7 @@
                                                                             Storyboard.TargetProperty="Background.Opacity"
                                                                             From="0.5"
                                                                             To="0"
-                                                                            Duration="0:0:5"  />
+                                                                            Duration="0:0:5" />
                                                                     </Storyboard>
                                                                 </BeginStoryboard>
                                                             </EventTrigger>

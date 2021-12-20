@@ -10,7 +10,7 @@ namespace UtilityWpf.Demo.Panels
     public partial class EdgeLegacyPanelView : UserControl
     {
         private readonly Array array;
-        int i;
+        private int i;
 
         public EdgeLegacyPanelView()
         {
@@ -30,6 +30,7 @@ namespace UtilityWpf.Demo.Panels
                 CirclePanel1.Children.Add(array.GetValue(i++) as UIElement);
             }
         }
+
         private void Button2_Click(object sender, RoutedEventArgs e)
         {
             CirclePanel1.Children.Remove(array.GetValue(--i) as UIElement);

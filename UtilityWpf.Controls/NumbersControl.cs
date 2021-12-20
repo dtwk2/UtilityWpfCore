@@ -5,7 +5,6 @@ using System.Windows.Media;
 
 namespace UtilityWpf.Controls
 {
-
     public class NumberItem : ListBoxItem
     {
         static NumberItem()
@@ -16,7 +15,6 @@ namespace UtilityWpf.Controls
 
     public class NumbersControl : ListBox<NumberItem>
     {
-
         public static readonly DependencyProperty DisplayKeyPathProperty = DependencyProperty.Register("DisplayKeyPath", typeof(string), typeof(NumbersControl), new PropertyMetadata(null));
 
         static NumbersControl()
@@ -73,7 +71,6 @@ namespace UtilityWpf.Controls
 
             BindingOperations.SetBinding(numberBox, SpinnerControl.ValueProperty, CreateBinding(viewModel));
 
-
             Binding CreateBinding(object item)
             {
                 return new Binding
@@ -84,8 +81,6 @@ namespace UtilityWpf.Controls
                     UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
                 };
             }
-
         }
-
     }
 }

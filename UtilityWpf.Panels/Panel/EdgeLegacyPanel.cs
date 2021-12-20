@@ -27,16 +27,15 @@ namespace UtilityWpf.Demo.Panels
         FromParent
     }
 
-
     public class EdgeLegacyPanel : Panel
     {
         #region DependencyProperties
+
         public double HeightRatio
         {
             get { return (double)GetValue(HeightRatioProperty); }
             set { SetValue(HeightRatioProperty, value); }
         }
-
 
         public static readonly DependencyProperty HeightRatioProperty = DependencyProperty.Register("HeightRatio", typeof(double),
             typeof(EdgeLegacyPanel), new FrameworkPropertyMetadata(0.5d, OnCorner2Changed));
@@ -47,12 +46,9 @@ namespace UtilityWpf.Demo.Panels
             set { SetValue(WidthRatioProperty, value); }
         }
 
-
         public static readonly DependencyProperty WidthRatioProperty =
             DependencyProperty.Register("WidthRatio", typeof(double), typeof(EdgeLegacyPanel),
                 new FrameworkPropertyMetadata(0.5d, OnCorner2Changed));
-
-
 
         private static void OnCorner2Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -69,7 +65,6 @@ namespace UtilityWpf.Demo.Panels
         {
             return true;
         }
-
 
         /// <summary>
         /// Reads the attached property Dock from the given element.
@@ -145,7 +140,6 @@ namespace UtilityWpf.Demo.Panels
             }
         }
 
-
         public static readonly DependencyProperty WidthSizingProperty = DependencyProperty.RegisterAttached("WidthSizing", typeof(Sizing), typeof(EdgeLegacyPanel),
                 new FrameworkPropertyMetadata(Sizing.Auto, new PropertyChangedCallback(OnWidthSizingChanged)), new ValidateValueCallback(IsValid3Corner));
 
@@ -186,16 +180,17 @@ namespace UtilityWpf.Demo.Panels
                 p.InvalidateMeasure();
             }
         }
-        #endregion One
+
+        #endregion DependencyProperties
 
         //readonly Dictionary<CircleRegion, Sizer> sizes = new Dictionary<CircleRegion, Sizer>();
         //readonly Dictionary<CircleRegion, List<(Point, Vector, UIElement)>> list = new Dictionary<CircleRegion, List<(Point, Vector, UIElement)>>();
 
-        double leftRequiredWidth = 0, centerRequiredWidth = 0, rightRequiredWidth = 0;
-        double topRequiredHeight = 0, middleRequiredHeight = 0, bottomRequiredHeight = 0;
+        private double leftRequiredWidth = 0, centerRequiredWidth = 0, rightRequiredWidth = 0;
+        private double topRequiredHeight = 0, middleRequiredHeight = 0, bottomRequiredHeight = 0;
 
-        double leftRegionWidth = 0, centerRegionWidth = 0, rightRegionWidth = 0;
-        double topRegionHeight = 0, middleRegionHeight = 0, bottomRegionHeight = 0;
+        private double leftRegionWidth = 0, centerRegionWidth = 0, rightRegionWidth = 0;
+        private double topRegionHeight = 0, middleRegionHeight = 0, bottomRegionHeight = 0;
 
         private double actualLeftWidth;
         private double actualCenterWidth;
@@ -210,7 +205,6 @@ namespace UtilityWpf.Demo.Panels
         private int actualMiddleOffset;
         private int actualTopOffset;
 
-
         protected override Size MeasureOverride(Size availableSize)
         {
             if (Children.Count > 0)
@@ -224,7 +218,6 @@ namespace UtilityWpf.Demo.Panels
                 actualMiddleHeight = aa.actualMiddleHeight;
                 actualTopHeight = aa.actualTopHeight;
 
-
                 actualRightOffset = aa.actualRightOffset;
                 actualBottomOffset = aa.actualBottomOffset;
                 actualMiddleOffset = aa.actualMiddleOffset;
@@ -233,10 +226,7 @@ namespace UtilityWpf.Demo.Panels
             }
 
             return availableSize;
-
         }
-
-
 
         protected override Size ArrangeOverride(Size finalSize)
         {
@@ -277,7 +267,6 @@ namespace UtilityWpf.Demo.Panels
 
                     var childPosition = GetChildPosition(center, sizeAdjustment, distance);
 
-
                     var combinedPoint = new Point(childPosition.X + last.X, childPosition.Y + last.Y);
                     list.Add((last, sizeAdjustment, child));
 
@@ -296,9 +285,6 @@ namespace UtilityWpf.Demo.Panels
             return finalSize;
         }
 
-
-
-
         public void AddLine()
         {
             var myLine = new Line();
@@ -314,10 +300,8 @@ namespace UtilityWpf.Demo.Panels
             /// myLine.Arrange(new Rect(new Point(1, 1), new Size(49, 49)));
         }
 
-
         protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
         {
-
             base.OnRenderSizeChanged(sizeInfo);
         }
 
@@ -334,14 +318,11 @@ namespace UtilityWpf.Demo.Panels
             return childPosition;
         }
 
-
-        static Vector GetSizeAdjustment(CircleRegion region, Size size)
+        private static Vector GetSizeAdjustment(CircleRegion region, Size size)
         {
-
             var width = -size.Width / 2;
             var height = -size.Height / 2;
             return new Vector(width, height);
-
         }
 
         public Vector GetIndividualSize(CircleRegion region, Sizing sizingHeight, Sizing sizingWidth)
@@ -395,7 +376,6 @@ namespace UtilityWpf.Demo.Panels
         //    var h = sizingHeight == Sizing.FromParent;
         //    var w = sizingWidth == Sizing.FromParent;
 
-
         //    return region switch
         //    {
         //        CircleRegion.TopLeft => new Vector(w ? leftRequiredWidth : actualLeftWidth, h ? topRequiredHeight : actualTopHeight),
@@ -415,15 +395,14 @@ namespace UtilityWpf.Demo.Panels
 
         //}
 
-        Vector GetSize(Vector adjustedSize, Size actualSize, Sizing sizingHeight, Sizing sizingWidth)
+        private Vector GetSize(Vector adjustedSize, Size actualSize, Sizing sizingHeight, Sizing sizingWidth)
         {
             return new Vector(sizingWidth == Sizing.Auto ? actualSize.Width : adjustedSize.X,
                 sizingHeight == Sizing.Auto ? actualSize.Height : adjustedSize.Y);
         }
 
-        Point GetDistance(CircleRegion CircleRegion, Vector size)
+        private Point GetDistance(CircleRegion CircleRegion, Vector size)
         {
-
             return CircleRegion switch
             {
                 CircleRegion.TopLeft => new Point(-size.X / 2, -size.Y / 2),
@@ -444,7 +423,6 @@ namespace UtilityWpf.Demo.Panels
 
         public int GetOffset(CircleRegion CircleRegion)
         {
-
             return CircleRegion switch
             {
                 CircleRegion.TopLeft => 0,
@@ -462,12 +440,12 @@ namespace UtilityWpf.Demo.Panels
             };
         }
 
-        double GetHypotonuse((double, double) value)
+        private double GetHypotonuse((double, double) value)
         {
             return Math.Sqrt(Math.Pow(value.Item1, 2) + (Math.Pow(value.Item2, 2)));
         }
 
-        double GetAngle(CircleRegion CircleRegion)
+        private double GetAngle(CircleRegion CircleRegion)
         {
             return CircleRegion switch
             {
@@ -504,9 +482,7 @@ namespace UtilityWpf.Demo.Panels
         //        _ => new Vector(0, 0),
         //    };
         //}
-
     }
-
 
     public abstract class AxisSizer : ISizer
     {
@@ -524,12 +500,10 @@ namespace UtilityWpf.Demo.Panels
 
         public abstract Point Append(Vector size);
 
-
         public Point Append(Size size)
         {
             return this.Append(new Vector(size.Width, size.Height));
         }
-
 
         public Size GetTotalSize()
         {
@@ -538,7 +512,6 @@ namespace UtilityWpf.Demo.Panels
 
         //public static Sizer Create(CircleRegion circleRegion = CircleRegion.TopLeft)
         //{
-
         //    switch (circleRegion)
         //    {
         //        case CircleRegion.Bottom:
@@ -559,17 +532,13 @@ namespace UtilityWpf.Demo.Panels
         public static int GetCount(int number)
         {
             return (int)Math.Sqrt(number - 1) + 1;
-
         }
     }
 
     public class YAxisSizer : AxisSizer
     {
-
-
         public YAxisSizer(Vector sizeAllowed, int offsetCount, int direction = 1) : base(sizeAllowed, offsetCount, direction)
         {
-
         }
 
         public override Point Append(Vector size)
@@ -589,7 +558,6 @@ namespace UtilityWpf.Demo.Panels
 
             var offSet = size.X * (-(offsetCount / 2d) + (vectors.Count - 1));
             return new Point(offSet, direction * height - size.Y / 2d);
-
         }
     }
 
@@ -616,7 +584,6 @@ namespace UtilityWpf.Demo.Panels
 
             var offSet = size.Y * (-(offsetCount / 2d) + (vectors.Count - 1));
             return new Point(direction * width - size.X / 2d, offSet);
-
         }
     }
 
@@ -624,31 +591,37 @@ namespace UtilityWpf.Demo.Panels
     {
         public static ISizer Create(Vector size = default, CircleRegion circleRegion = CircleRegion.TopLeft, int offSetCount = 1)
         {
-
             switch (circleRegion)
             {
                 case CircleRegion.Bottom:
                     return new YAxisSizer(size, offSetCount, -1);
+
                 case CircleRegion.Top:
                     return new YAxisSizer(size, offSetCount);
+
                 case CircleRegion.Right:
                     return new XAxisSizer(size, offSetCount, -1);
+
                 case CircleRegion.Left:
                     return new XAxisSizer(size, offSetCount);
+
                 case CircleRegion.TopRight:
                     return new SizerUtility(new XYOrganiser<Vector>(), -1, 1);
+
                 case CircleRegion.BottomRight:
                     return new SizerUtility(new XYOrganiser<Vector>(), -1, -1);
+
                 case CircleRegion.BottomLeft:
                     return new SizerUtility(new XYOrganiser<Vector>(), 1, -1);
+
                 case CircleRegion.TopLeft:
                     return new SizerUtility(new XYOrganiser<Vector>(), 1, 1);
 
                 case CircleRegion.Middle:
                     return new SizerUtility(new XYOrganiser<Vector>(), 0, 0);
+
                 default:
                     throw new ArgumentOutOfRangeException();
-
             }
         }
     }
@@ -656,7 +629,9 @@ namespace UtilityWpf.Demo.Panels
     public interface ISizer
     {
         Point Append(Size size);
+
         Point Append(Vector size);
+
         Size GetTotalSize();
     }
 
@@ -665,6 +640,7 @@ namespace UtilityWpf.Demo.Panels
         private readonly IOrganiser<Vector> organiser;
         private readonly int xFactor;
         private readonly int yFactor;
+
         public SizerUtility(IOrganiser<Vector> organiser, int xFactor, int yFactor)
         {
             this.organiser = organiser;
@@ -686,7 +662,6 @@ namespace UtilityWpf.Demo.Panels
             return this.Append(new Vector(size.Width, size.Height));
         }
 
-
         public Size GetTotalSize()
         {
             var xValue = organiser.Values.GroupBy(a => a.Key.Item1).Select(a => a.Max(c => c.Value.X)).Sum();
@@ -694,23 +669,18 @@ namespace UtilityWpf.Demo.Panels
             return new Size(xValue, yValue);
         }
 
-
-
         public static int GetCount(int number)
         {
             return (int)Math.Sqrt(number - 1) + 1;
-
         }
     }
-
 
     public class XYOrganiser<T> : IOrganiser<T> where T : struct
     {
         public Dictionary<(int?, int?), T> Values { get; } = new Dictionary<(int?, int?), T>();
 
-        int j = 0;
-        int x = 0, y = 0;
-
+        private int j = 0;
+        private int x = 0, y = 0;
 
         public ((int?, T)[], (int?, T)[]) Add(T value)
         {
@@ -768,7 +738,6 @@ namespace UtilityWpf.Demo.Panels
     //    int j = 0;
     //    int x = 0, y = 0;
 
-
     //    public ((int?, T)[], (int?, T)[]) Add(T value)
     //    {
     //        var xValue = Values.Where(a => a.Key.Item1 < x).Select(a => (a.Key.Item1, a.Value)).ToArray();
@@ -788,13 +757,10 @@ namespace UtilityWpf.Demo.Panels
 
         ((int?, T)[], (int?, T)[]) Add(T value);
     }
-
 }
-
 
 //switch (region)
 //{
-
 //    case CircleRegion.BottomLeft:
 //        {
 //            child.Arrange(new Rect(new Point(combinedSize.X, combinedSize.Y), size));
@@ -832,7 +798,6 @@ namespace UtilityWpf.Demo.Panels
 //        }
 //    case CircleRegion.Bottom:
 //        {
-
 //            child.Arrange(new Rect(new Point(childPosition.X, childPosition.Y), child.DesiredSize));
 //            break;
 //        }

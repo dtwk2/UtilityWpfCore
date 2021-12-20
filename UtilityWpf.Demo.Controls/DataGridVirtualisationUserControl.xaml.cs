@@ -18,7 +18,6 @@ namespace UtilityWpf.Demo.View
         {
             InitializeComponent();
 
-
             dataGridTest.ItemsSource = Enumerable.Range(0, 20).Select(a => new Stock { Key = "fds", Name = "sdf", Sector = "sdfvv" }).Cast<object>();
 
             var dc = new ProfileCollectionVirtualiseLimited(this.Behavior1.WhenAny(a => a.FirstIndex, b => (b.Sender.FirstIndex, b.Sender.LastIndex, b.Sender.Size))

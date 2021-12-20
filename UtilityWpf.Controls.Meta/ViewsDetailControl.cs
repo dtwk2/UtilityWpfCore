@@ -14,22 +14,21 @@ namespace UtilityWpf.Controls.Meta
 {
     using static UtilityWpf.DependencyPropertyFactory<ViewsDetailControl>;
 
-    class ViewTypeItem : ListBoxItem
+    internal class ViewTypeItem : ListBoxItem
     {
     }
 
-    class ViewTypeItemListBox : ListBox<ViewTypeItem>
+    internal class ViewTypeItemListBox : ListBox<ViewTypeItem>
     {
     }
 
     public class ViewsDetailControl : MasterDetail
     {
-        readonly Subject<Assembly> subject = new();
+        private readonly Subject<Assembly> subject = new();
         public static readonly DependencyProperty AssemblyProperty = Register(nameof(Assembly), a => a.subject, initialValue: Assembly.GetEntryAssembly());
 
         public ViewsDetailControl()
         {
-
             var listBox = new ViewTypeItemListBox();
             Selector = listBox;
             UseDataContext = true;
@@ -44,11 +43,9 @@ namespace UtilityWpf.Controls.Meta
               {
                   listBox.ItemsSource = pairs;
                   listBox.SelectedIndex = 0;
-
               });
 
             Content = CreateContent();
-
 
             static Grid CreateContent()
             {
@@ -71,15 +68,12 @@ namespace UtilityWpf.Controls.Meta
                 binding = new Binding
                 {
                     Path = new PropertyPath(nameof(ViewType.View)),
-
                 };
                 contentControl.SetBinding(ContentProperty, binding);
                 grid.Children.Add(contentControl);
                 return grid;
             }
         }
-
-
 
         public Assembly Assembly
         {
@@ -88,5 +82,3 @@ namespace UtilityWpf.Controls.Meta
         }
     }
 }
-
-

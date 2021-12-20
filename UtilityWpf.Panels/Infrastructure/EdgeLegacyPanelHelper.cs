@@ -6,9 +6,8 @@ using System.Windows.Controls;
 
 namespace UtilityWpf.Demo.Panels
 {
-    class EdgeLegacyPanelHelper
+    internal class EdgeLegacyPanelHelper
     {
-
         public static dsf MeasureTwo(IEnumerable<UIElement> children, Size availableSize)
         {
             return Measure(children, availableSize,
@@ -16,10 +15,8 @@ namespace UtilityWpf.Demo.Panels
                (child, heightSizing) => child.DesiredSize.Height == 0 || heightSizing == Sizing.FromParent);
         }
 
-
         public static dsf Measure(IEnumerable<UIElement> children, Size availableSize, Func<UIElement, Sizing, bool> includeWidth, Func<UIElement, Sizing, bool> includeHeight)
         {
-
             List<UIElement> leftWidth = new List<UIElement>(), centerWidth = new List<UIElement>(), rightWidth = new List<UIElement>();
             List<UIElement> topHeight = new List<UIElement>(), middleHeight = new List<UIElement>(), bottomHeight = new List<UIElement>();
 
@@ -30,7 +27,6 @@ namespace UtilityWpf.Demo.Panels
             int topCount = 0, middleCount = 0, bottomCount = 0;
 
             int center2Count = 0, middle2Count = 0;
-
 
             double bottomleftWidth = 0, bottomrightWidth = 0;
             double topleftWidth = 0, toprightWidth = 0;
@@ -59,7 +55,6 @@ namespace UtilityWpf.Demo.Panels
                 int heightCount = includeHeight(child, widthSizing) ? 1 : 0;
                 double desiredHeight = includeHeight(child, heightSizing) ? 0 : child.DesiredSize.Height;
 
-
                 switch (region)
                 {
                     case CircleRegion.TopLeft:
@@ -68,18 +63,21 @@ namespace UtilityWpf.Demo.Panels
                         topleftHeightCount += heightCount;
                         topleftHeight += desiredHeight;
                         break;
+
                     case CircleRegion.BottomLeft:
                         bottomleftWidth += desiredWidth;
                         bottomleftWidthCount += widthCount;
                         bottomleftHeightCount += heightCount;
                         bottomleftHeight += desiredHeight;
                         break;
+
                     case CircleRegion.BottomRight:
                         bottomrightWidth += desiredWidth;
                         bottomrightWidthCount += widthCount;
                         bottomrightHeightCount += heightCount;
                         bottomrightHeight += desiredHeight;
                         break;
+
                     case CircleRegion.TopRight:
                         toprightWidth += desiredWidth;
                         toprightWidthCount += widthCount;
@@ -121,7 +119,6 @@ namespace UtilityWpf.Demo.Panels
                         if (desiredHeight > 0) middleHeight.Add(child);
                         middleCount += heightCount;
                         break;
-
                 };
             }
 
@@ -129,21 +126,17 @@ namespace UtilityWpf.Demo.Panels
             topCount = Math.Max(topCount, Math.Max(SizerUtility.GetCount(topleftHeightCount), SizerUtility.GetCount(toprightHeightCount)));
             middleCount = Math.Max(middle2Count, middleCount);
 
-
             leftCount = Math.Max(leftCount, Math.Max(SizerUtility.GetCount(bottomleftWidthCount), SizerUtility.GetCount(bottomrightWidthCount)));
             rightCount = Math.Max(rightCount, Math.Max(SizerUtility.GetCount(bottomleftHeightCount), SizerUtility.GetCount(bottomrightHeightCount)));
             centerCount = Math.Max(center2Count, centerCount);
-
 
             bottomHeight = Enumerable.Range(0, bottomCount).Select(a => (UIElement)new Control { Height = availableSize.Height / (bottomCount + topCount + middleCount) }).ToList();
             topHeight = Enumerable.Range(0, topCount).Select(a => (UIElement)new Control { Height = availableSize.Height / (bottomCount + topCount + middleCount) }).ToList();
             middleHeight = Enumerable.Range(0, middleCount).Select(a => (UIElement)new Control { Height = availableSize.Height / (bottomCount + topCount + middleCount) }).ToList();
 
-
             leftWidth = Enumerable.Range(0, leftCount).Select(a => (UIElement)new Control { Height = availableSize.Width / (leftCount + rightCount + centerCount) }).ToList();
             rightWidth = Enumerable.Range(0, rightCount).Select(a => (UIElement)new Control { Height = availableSize.Width / (leftCount + rightCount + centerCount) }).ToList();
             centerWidth = Enumerable.Range(0, centerCount).Select(a => (UIElement)new Control { Height = availableSize.Width / (leftCount + rightCount + centerCount) }).ToList();
-
 
             var (w, h) = Helper.GetLowestRatio((int)availableSize.Width, (int)availableSize.Height);
 
@@ -163,8 +156,6 @@ namespace UtilityWpf.Demo.Panels
 
             var offsetCount = grouped.Select(a => a.Count(c => c.c.Any())).ToOptionalArray();
 
-
-
             var newMethod2 = NewMethod(availableSize.Width, GetWidth, new[] { leftWidth, centerWidth, rightWidth }).ToArray();
 
             var wrappedWidth2 = newMethod2
@@ -181,8 +172,6 @@ namespace UtilityWpf.Demo.Panels
 
             var offsetCount2 = grouped2.Select(a => a.Count(c => c.c.Any())).ToOptionalArray();
 
-
-
             var newMethod3 = NewMethod(availableSize.Height, GetHeight, new[] {
                       bottom2Height.OrderByDescending(GetHeight).Take(1).ToArray() ,
                     middle2Height.OrderByDescending(GetHeight).Take(1).ToArray() ,
@@ -197,13 +186,10 @@ namespace UtilityWpf.Demo.Panels
                            .SelectMany(a => a.Select((c, i) => (c, i)))
                            .GroupBy(a => a.i).ToArray();
 
-
             var wrappedWidth3 = grouped3
                            .Select(a => a.Where(a => a.c.Any()).Sum(c => c.c.Max(GetWidth))).ToArray();
 
             var offsetCount3 = grouped3.Select(a => a.Count(c => c.c.Any())).ToOptionalArray();
-
-
 
             var newMethod4 = NewMethod(availableSize.Width, GetWidth, new[] {
                     left2Width.OrderByDescending(GetWidth).Take(1).ToArray(),
@@ -242,8 +228,6 @@ namespace UtilityWpf.Demo.Panels
                 actualBottomHeight = Common.Max(wrappedHeight3[0], wrappedHeight[0]).GetValueOrDefault(0),
                 actualMiddleHeight = Common.Max(wrappedHeight3[1], wrappedHeight[1]).GetValueOrDefault(0),
                 actualTopHeight = Common.Max(wrappedHeight3[2], wrappedHeight[2]).GetValueOrDefault(0),
-
-
             };
             se.RemainingSize = new Size(
              availableSize.Width - se.actualLeftWidth - se.actualCenterWidth - se.actualRightWidth,
@@ -270,7 +254,6 @@ namespace UtilityWpf.Demo.Panels
 
             double individualWidth = 0;//= remainingWidth / ((leftCount > 0 ? 1 : 0) + (rightCount > 0 ? 1 : 0) + (center2Count > 0 ? 1 : 0));
             double individualHeight = 0;//= remainingHeight / ((topCount > 0 ? 1 : 0) + (bottomCount > 0 ? 1 : 0) + (middle2Count > 0 ? 1 : 0));
-
 
             //if (leftCount > 0)
             //{
@@ -309,8 +292,6 @@ namespace UtilityWpf.Demo.Panels
             //    middleRegionHeight = individualHeight;
             //}
 
-
-
             //double finalWidth;
             //if (individualWidth != double.PositiveInfinity)
             //    finalWidth = availableSize.Width;
@@ -322,7 +303,6 @@ namespace UtilityWpf.Demo.Panels
             //    finalHeight = availableSize.Height;
             //else
             //    finalHeight = availableSize.Height - se.RemainingSize.Height;
-
 
             //return new Size(finalWidth, finalHeight);
         }
@@ -356,8 +336,8 @@ namespace UtilityWpf.Demo.Panels
         }
 
         public static double GetWidth(UIElement element) => element.DesiredSize.Width;
-        public static double GetHeight(UIElement element) => element.DesiredSize.Height;
 
+        public static double GetHeight(UIElement element) => element.DesiredSize.Height;
 
         public static IEnumerable<IList<IList<T>>> NewMethod<T>(double size, Func<T, double> func, IList<IList<T>> values)
         {
@@ -397,13 +377,10 @@ namespace UtilityWpf.Demo.Panels
                 foreach (var m in NewMethod(size, func, nextLevelWidths.ToArray()))
                     yield return m;
             }
-
-
         }
 
         public static Size Measure2(IEnumerable<UIElement> children, Size availableSize, Func<UIElement, Sizing, bool> includeWidth, Func<UIElement, Sizing, bool> includeHeight)
         {
-
             List<UIElement> leftWidth = new List<UIElement>(), centerWidth = new List<UIElement>(), rightWidth = new List<UIElement>();
             List<UIElement> topHeight = new List<UIElement>(), middleHeight = new List<UIElement>(), bottomHeight = new List<UIElement>();
 
@@ -414,7 +391,6 @@ namespace UtilityWpf.Demo.Panels
             double topCount = 0, middleCount = 0, bottomCount = 0;
 
             double center2Count = 0, middle2Count = 0;
-
 
             int bottomleftWidthCount = 0, bottomrightWidthCount = 0;
             int topleftWidthCount = 0, toprightWidthCount = 0;
@@ -435,7 +411,6 @@ namespace UtilityWpf.Demo.Panels
                 int widthCount = includeWidth(child, widthSizing) ? 1 : 0;
                 int heightCount = includeHeight(child, widthSizing) ? 1 : 0;
 
-
                 switch (region)
                 {
                     case CircleRegion.TopLeft:
@@ -444,18 +419,21 @@ namespace UtilityWpf.Demo.Panels
                         topleftHeightCount += heightCount;
 
                         break;
+
                     case CircleRegion.BottomLeft:
 
                         bottomleftWidthCount += widthCount;
                         bottomleftHeightCount += heightCount;
 
                         break;
+
                     case CircleRegion.BottomRight:
 
                         bottomrightWidthCount += widthCount;
                         bottomrightHeightCount += heightCount;
 
                         break;
+
                     case CircleRegion.TopRight:
 
                         toprightWidthCount += widthCount;
@@ -477,7 +455,6 @@ namespace UtilityWpf.Demo.Panels
                         middle2Count = Math.Max(1, heightCount);
                         break;
 
-
                     case CircleRegion.Top:
                         center2Count = Math.Max(1, widthCount);
 
@@ -489,12 +466,10 @@ namespace UtilityWpf.Demo.Panels
                         bottomCount += heightCount;
                         break;
 
-
                     case CircleRegion.Middle:
                         centerCount += widthCount;
                         middleCount += heightCount;
                         break;
-
                 };
             }
 
@@ -505,9 +480,6 @@ namespace UtilityWpf.Demo.Panels
 
             //var remainingWidth = availableSize.Width - leftWidth.Sum() - centerWidth.Sum() - rightWidth.Sum();
             //var remainingHeight = availableSize.Height - topHeight.Sum() - middleHeight.Sum() - bottomHeight.Sum();
-
-
-
 
             var newMethod1 = NewMethod(availableSize.Height, GetHeight, new[] { bottomHeight, middleHeight, topHeight }).ToArray();
 
@@ -525,8 +497,6 @@ namespace UtilityWpf.Demo.Panels
 
             var offsetCount = grouped.Select(a => a.Count(c => c.c.Any())).ToOptionalArray();
 
-
-
             var newMethod2 = NewMethod(availableSize.Width, GetWidth, new[] { leftWidth, centerWidth, rightWidth }).ToArray();
 
             var wrappedWidth2 = newMethod2
@@ -543,8 +513,6 @@ namespace UtilityWpf.Demo.Panels
 
             var offsetCount2 = grouped2.Select(a => a.Count(c => c.c.Any())).ToOptionalArray();
 
-
-
             var newMethod3 = NewMethod(availableSize.Height, GetHeight, new[] {
                       bottom2Height.OrderByDescending(GetHeight).Take(1).ToArray() ,
                     middle2Height.OrderByDescending(GetHeight).Take(1).ToArray() ,
@@ -559,14 +527,10 @@ namespace UtilityWpf.Demo.Panels
                            .SelectMany(a => a.Select((c, i) => (c, i)))
                            .GroupBy(a => a.i).ToArray();
 
-
             var wrappedWidth3 = grouped3
                            .Select(a => a.Where(a => a.c.Any()).Sum(c => c.c.Max(GetWidth))).ToArray();
 
             var offsetCount3 = grouped3.Select(a => a.Count(c => c.c.Any())).ToOptionalArray();
-
-
-
 
             var newMethod4 = NewMethod(availableSize.Width, GetWidth, new[] {
                     left2Width.OrderByDescending(GetWidth).Take(1).ToArray(),
@@ -588,7 +552,6 @@ namespace UtilityWpf.Demo.Panels
 
             var offsetCount4 = grouped4.Select(a => a.Count(c => c.c.Any())).ToOptionalArray();
 
-
             //actualLeftOffset = Common.Max(offsetCount4[0], offsetCount2[0]).GetValueOrDefault(0);
             //actualCenterOffset = Common.Max(offsetCount4[1], offsetCount2[1]).GetValueOrDefault(0);
             //actualRightOffset = Common.Max(offsetCount4[2], offsetCount2[2]).GetValueOrDefault(0);
@@ -607,7 +570,6 @@ namespace UtilityWpf.Demo.Panels
 
             var remainingWidth = 0;//= availableSize.Width - actualLeftWidth - actualCenterWidth - actualRightWidth;
             var remainingHeight = 0;//= availableSize.Height - actualBottomHeight - actualMiddleHeight - actualTopHeight;
-
 
             //if (middleCount > 0)
             //{
@@ -629,7 +591,6 @@ namespace UtilityWpf.Demo.Panels
 
             double individualWidth = 0;//= remainingWidth / ((leftCount > 0 ? 1 : 0) + (rightCount > 0 ? 1 : 0) + (center2Count > 0 ? 1 : 0));
             double individualHeight = 0;//= remainingHeight / ((topCount > 0 ? 1 : 0) + (bottomCount > 0 ? 1 : 0) + (middle2Count > 0 ? 1 : 0));
-
 
             //if (leftCount > 0)
             //{
@@ -668,8 +629,6 @@ namespace UtilityWpf.Demo.Panels
             //    middleRegionHeight = individualHeight;
             //}
 
-
-
             double finalWidth;
             if (individualWidth != double.PositiveInfinity)
                 finalWidth = availableSize.Width;
@@ -682,20 +641,10 @@ namespace UtilityWpf.Demo.Panels
             else
                 finalHeight = availableSize.Height - remainingHeight;
 
-
             return new Size(finalWidth, finalHeight);
         }
-
-
-
-
-
     }
 }
-
-
-
-
 
 //List<UIElement> leftWidth = new List<UIElement>(), centerWidth = new List<UIElement>(), rightWidth = new List<UIElement>();
 //List<UIElement> topHeight = new List<UIElement>(), middleHeight = new List<UIElement>(), bottomHeight = new List<UIElement>();
@@ -707,7 +656,6 @@ namespace UtilityWpf.Demo.Panels
 //double topCount = 0, middleCount = 0, bottomCount = 0;
 
 //double center2Count = 0, middle2Count = 0;
-
 
 //double bottomleftWidth = 0, bottomrightWidth = 0;
 //double topleftWidth = 0, toprightWidth = 0;
@@ -735,7 +683,6 @@ namespace UtilityWpf.Demo.Panels
 //    double desiredWidth = child.DesiredSize.Width == 0 || widthSizing == Sizing.FromParent ? 0 : child.DesiredSize.Width;
 //    int heightCount = child.DesiredSize.Height == 0 || heightSizing == Sizing.FromParent ? 1 : 0;
 //    double desiredHeight = child.DesiredSize.Height == 0 || heightSizing == Sizing.FromParent ? 0 : child.DesiredSize.Height;
-
 
 //    switch (region)
 //    {
@@ -778,7 +725,6 @@ namespace UtilityWpf.Demo.Panels
 //            middle2Count = Math.Max(1, heightCount);
 //            break;
 
-
 //        case CircleRegion.Top:
 //            center2Count = Math.Max(1, widthCount);
 //            if (desiredWidth > 0) center2Width.Add(child);
@@ -792,7 +738,6 @@ namespace UtilityWpf.Demo.Panels
 //            bottomCount += heightCount;
 //            if (desiredHeight > 0) bottomHeight.Add(child);
 //            break;
-
 
 //        case CircleRegion.Middle:
 //            if (desiredWidth > 0) centerWidth.Add(child);
@@ -812,7 +757,6 @@ namespace UtilityWpf.Demo.Panels
 ////var remainingWidth = availableSize.Width - leftWidth.Sum() - centerWidth.Sum() - rightWidth.Sum();
 ////var remainingHeight = availableSize.Height - topHeight.Sum() - middleHeight.Sum() - bottomHeight.Sum();
 
-
 //var newMethod1 = NewMethod(availableSize.Height, GetHeight, new[] { bottomHeight, middleHeight, topHeight }).ToArray();
 
 //var wrappedHeight = newMethod1
@@ -828,8 +772,6 @@ namespace UtilityWpf.Demo.Panels
 //               .Select(a => a.Where(a => a.c.Any()).Sum(c => c.c.Max(GetWidth))).ToArray();
 
 //var offsetCount = grouped.Select(a => a.Count(c => c.c.Any())).ToOptionalArray();
-
-
 
 //var newMethod2 = NewMethod(availableSize.Width, GetWidth, new[] { leftWidth, centerWidth, rightWidth }).ToArray();
 
@@ -847,8 +789,6 @@ namespace UtilityWpf.Demo.Panels
 
 //var offsetCount2 = grouped2.Select(a => a.Count(c => c.c.Any())).ToOptionalArray();
 
-
-
 //var newMethod3 = NewMethod(availableSize.Height, GetHeight, new[] {
 //                      bottom2Height.OrderByDescending(GetHeight).Take(1).ToArray() ,
 //                    middle2Height.OrderByDescending(GetHeight).Take(1).ToArray() ,
@@ -863,13 +803,10 @@ namespace UtilityWpf.Demo.Panels
 //               .SelectMany(a => a.Select((c, i) => (c, i)))
 //               .GroupBy(a => a.i).ToArray();
 
-
 //var wrappedWidth3 = grouped3
 //               .Select(a => a.Where(a => a.c.Any()).Sum(c => c.c.Max(GetWidth))).ToArray();
 
 //var offsetCount3 = grouped3.Select(a => a.Count(c => c.c.Any())).ToOptionalArray();
-
-
 
 //var newMethod4 = NewMethod(availableSize.Width, GetWidth, new[] {
 //                    left2Width.OrderByDescending(GetWidth).Take(1).ToArray(),
@@ -891,7 +828,6 @@ namespace UtilityWpf.Demo.Panels
 
 //var offsetCount4 = grouped4.Select(a => a.Count(c => c.c.Any())).ToOptionalArray();
 
-
 ////actualLeftOffset = Common.Max(offsetCount4[0], offsetCount2[0]).GetValueOrDefault(0);
 ////actualCenterOffset = Common.Max(offsetCount4[1], offsetCount2[1]).GetValueOrDefault(0);
 ////actualRightOffset = Common.Max(offsetCount4[2], offsetCount2[2]).GetValueOrDefault(0);
@@ -910,7 +846,6 @@ namespace UtilityWpf.Demo.Panels
 
 //var remainingWidth = 0;//= availableSize.Width - actualLeftWidth - actualCenterWidth - actualRightWidth;
 //var remainingHeight = 0;//= availableSize.Height - actualBottomHeight - actualMiddleHeight - actualTopHeight;
-
 
 ////if (middleCount > 0)
 ////{
@@ -932,7 +867,6 @@ namespace UtilityWpf.Demo.Panels
 
 //double individualWidth = 0;//= remainingWidth / ((leftCount > 0 ? 1 : 0) + (rightCount > 0 ? 1 : 0) + (center2Count > 0 ? 1 : 0));
 //double individualHeight = 0;//= remainingHeight / ((topCount > 0 ? 1 : 0) + (bottomCount > 0 ? 1 : 0) + (middle2Count > 0 ? 1 : 0));
-
 
 //if (leftCount > 0)
 //{
@@ -971,8 +905,6 @@ namespace UtilityWpf.Demo.Panels
 //    middleRegionHeight = individualHeight;
 //}
 
-
-
 //double finalWidth;
 //if (individualWidth != double.PositiveInfinity)
 //    finalWidth = availableSize.Width;
@@ -984,7 +916,6 @@ namespace UtilityWpf.Demo.Panels
 //    finalHeight = availableSize.Height;
 //else
 //    finalHeight = availableSize.Height - remainingHeight;
-
 
 //return new Size(finalWidth, finalHeight);
 
@@ -1001,7 +932,6 @@ namespace UtilityWpf.Demo.Panels
 
 //        double GetWidth(UIElement element) => element.DesiredSize.Width;
 //double GetHeight(UIElement element) => element.DesiredSize.Height;
-
 
 //private static IEnumerable<IList<IList<T>>> NewMethod<T>(double size, Func<T, double> func, IList<IList<T>> values)
 //{
@@ -1042,8 +972,4 @@ namespace UtilityWpf.Demo.Panels
 //            yield return m;
 //    }
 
-
 //}
-
-
-

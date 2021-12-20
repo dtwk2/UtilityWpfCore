@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections;
 using System.Linq;
 using System.Reactive.Linq;
@@ -24,7 +23,6 @@ namespace UtilityWpf.Controls.Master
             this.Observable<IEnumerable>(nameof(ControlsCollection))
                 .Subscribe(a =>
             {
-
             });
 
             this.Observable<IEnumerable>(nameof(ControlsCollection))
@@ -49,4 +47,3 @@ namespace UtilityWpf.Controls.Master
         }
     }
 }
-

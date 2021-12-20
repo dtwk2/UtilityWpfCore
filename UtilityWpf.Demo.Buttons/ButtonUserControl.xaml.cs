@@ -7,13 +7,9 @@ namespace UtilityWpf.Demo.Buttons
     /// </summary>
     public partial class ButtonUserControl : UserControl
     {
-
         public ButtonUserControl()
         {
             InitializeComponent();
-
         }
-
     }
-
 }

@@ -24,6 +24,5 @@ namespace UtilityWpf.Demo.Controls
                 Content = new UserControls()
             }.Show();
         }
-
     }
 }

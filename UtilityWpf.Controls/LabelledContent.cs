@@ -8,7 +8,6 @@ using System.Windows.Media.Animation;
 
 namespace UtilityWpf.Controls
 {
-
     public class LabelledTextBox : LabelledContent
     {
         static LabelledTextBox()
@@ -34,6 +33,7 @@ namespace UtilityWpf.Controls
 
         //public static readonly DependencyProperty LabelTextProperty = DependencyProperty.Register("LabelText", typeof(string), typeof(LabelledContent));
         public static readonly DependencyProperty HintProperty = DependencyProperty.Register("Hint", typeof(string), typeof(LabelledContent));
+
         public static readonly DependencyProperty HintColorProperty = DependencyProperty.Register("HintColor", typeof(Color), typeof(LabelledContent), new PropertyMetadata(Colors.Gray));
 
         static LabelledContent()

@@ -10,9 +10,6 @@ namespace UtilityWpf.Demo.Progress
         public GaugeUserControl()
         {
             InitializeComponent();
-
-
         }
     }
-
 }

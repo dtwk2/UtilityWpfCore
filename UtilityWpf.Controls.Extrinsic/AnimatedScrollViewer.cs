@@ -7,20 +7,19 @@ using System.Windows.Media.Animation;
 
 namespace AnimatedScrollViewer
 {
-
     /// <summary>
     /// <a href="http://matthiasshapiro.com/DisneyShorts/how-to-create-an-animated-scrollviewer-or-listbox-in-wpf"></a>
     /// </summary>
     [TemplatePart(Name = "PART_AniVerticalScrollBar", Type = typeof(ScrollBar))]
     [TemplatePart(Name = "PART_AniHorizontalScrollBar", Type = typeof(ScrollBar))]
-
     public class AnimatedScrollViewer : ScrollViewer
     {
         #region PART items
-        ScrollBar _aniVerticalScrollBar;
-        ScrollBar _aniHorizontalScrollBar;
 
-        #endregion
+        private ScrollBar _aniVerticalScrollBar;
+        private ScrollBar _aniHorizontalScrollBar;
+
+        #endregion PART items
 
         static AnimatedScrollViewer()
         {
@@ -28,6 +27,7 @@ namespace AnimatedScrollViewer
         }
 
         #region ScrollViewer Override Methods
+
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -50,9 +50,8 @@ namespace AnimatedScrollViewer
             this.PreviewKeyDown += new KeyEventHandler(AnimatedScrollViewer_PreviewKeyDown);
         }
 
-        void AnimatedScrollViewer_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void AnimatedScrollViewer_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-
             AnimatedScrollViewer thisScroller = (AnimatedScrollViewer)sender;
 
             if (thisScroller.CanKeyboardScroll)
@@ -109,7 +108,6 @@ namespace AnimatedScrollViewer
 
                 e.Handled = isKeyHandled;
             }
-
         }
 
         private double NormalizeScrollPos(AnimatedScrollViewer thisScroll, double scrollChange, Orientation o)
@@ -133,12 +131,11 @@ namespace AnimatedScrollViewer
             return returnValue;
         }
 
-
-        #endregion
+        #endregion ScrollViewer Override Methods
 
         #region Custom Event Handlers
 
-        void CustomPreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        private void CustomPreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             double mouseWheelChange = (double)e.Delta;
 
@@ -159,7 +156,7 @@ namespace AnimatedScrollViewer
             e.Handled = true;
         }
 
-        void VScrollBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void VScrollBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             AnimatedScrollViewer thisScroller = this;
             double oldTargetVOffset = (double)e.OldValue;
@@ -172,7 +169,6 @@ namespace AnimatedScrollViewer
                 if (deltaVOffset == 1)
                 {
                     thisScroller.TargetVerticalOffset = oldTargetVOffset + thisScroller.ViewportHeight;
-
                 }
                 else if (deltaVOffset == -1)
                 {
@@ -193,7 +189,7 @@ namespace AnimatedScrollViewer
             }
         }
 
-        void HScrollBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void HScrollBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             AnimatedScrollViewer thisScroller = this;
 
@@ -202,13 +198,11 @@ namespace AnimatedScrollViewer
 
             if (newTargetHOffset != thisScroller.TargetHorizontalOffset)
             {
-
                 double deltaVOffset = Math.Round((newTargetHOffset - oldTargetHOffset), 3);
 
                 if (deltaVOffset == 1)
                 {
                     thisScroller.TargetHorizontalOffset = oldTargetHOffset + thisScroller.ViewportWidth;
-
                 }
                 else if (deltaVOffset == -1)
                 {
@@ -229,7 +223,7 @@ namespace AnimatedScrollViewer
             }
         }
 
-        #endregion
+        #endregion Custom Event Handlers
 
         #region Custom Dependency Properties
 
@@ -243,6 +237,7 @@ namespace AnimatedScrollViewer
             get { return (double)GetValue(TargetVerticalOffsetProperty); }
             set { SetValue(TargetVerticalOffsetProperty, value); }
         }
+
         public static readonly DependencyProperty TargetVerticalOffsetProperty =
             DependencyProperty.Register("TargetVerticalOffset", typeof(double), typeof(AnimatedScrollViewer),
             new PropertyMetadata(0.0, new PropertyChangedCallback(OnTargetVerticalOffsetChanged)));
@@ -259,7 +254,7 @@ namespace AnimatedScrollViewer
             thisScroller.animateScroller(thisScroller);
         }
 
-        #endregion
+        #endregion TargetVerticalOffset (DependencyProperty)(double)
 
         #region TargetHorizontalOffset (DependencyProperty) (double)
 
@@ -271,6 +266,7 @@ namespace AnimatedScrollViewer
             get { return (double)GetValue(TargetHorizontalOffsetProperty); }
             set { SetValue(TargetHorizontalOffsetProperty, value); }
         }
+
         public static readonly DependencyProperty TargetHorizontalOffsetProperty =
             DependencyProperty.Register("TargetHorizontalOffset", typeof(double), typeof(AnimatedScrollViewer),
             new PropertyMetadata(0.0, new PropertyChangedCallback(OnTargetHorizontalOffsetChanged)));
@@ -287,7 +283,7 @@ namespace AnimatedScrollViewer
             thisScroller.animateScroller(thisScroller);
         }
 
-        #endregion
+        #endregion TargetHorizontalOffset (DependencyProperty) (double)
 
         #region HorizontalScrollOffset (DependencyProperty) (double)
 
@@ -299,6 +295,7 @@ namespace AnimatedScrollViewer
             get { return (double)GetValue(HorizontalScrollOffsetProperty); }
             set { SetValue(HorizontalScrollOffsetProperty, value); }
         }
+
         public static readonly DependencyProperty HorizontalScrollOffsetProperty =
             DependencyProperty.Register("HorizontalScrollOffset", typeof(double), typeof(AnimatedScrollViewer),
             new PropertyMetadata(0.0, new PropertyChangedCallback(OnHorizontalScrollOffsetChanged)));
@@ -309,7 +306,7 @@ namespace AnimatedScrollViewer
             thisSViewer.ScrollToHorizontalOffset((double)e.NewValue);
         }
 
-        #endregion
+        #endregion HorizontalScrollOffset (DependencyProperty) (double)
 
         #region VerticalScrollOffset (DependencyProperty) (double)
 
@@ -321,6 +318,7 @@ namespace AnimatedScrollViewer
             get { return (double)GetValue(VerticalScrollOffsetProperty); }
             set { SetValue(VerticalScrollOffsetProperty, value); }
         }
+
         public static readonly DependencyProperty VerticalScrollOffsetProperty =
             DependencyProperty.Register("VerticalScrollOffset", typeof(double), typeof(AnimatedScrollViewer),
             new PropertyMetadata(0.0, new PropertyChangedCallback(OnVerticalScrollOffsetChanged)));
@@ -331,24 +329,25 @@ namespace AnimatedScrollViewer
             thisSViewer.ScrollToVerticalOffset((double)e.NewValue);
         }
 
-        #endregion
+        #endregion VerticalScrollOffset (DependencyProperty) (double)
 
         #region AnimationTime (DependencyProperty) (TimeSpan)
 
         /// <summary>
-        /// A property for changing the time it takes to scroll to a new 
-        ///     position. 
+        /// A property for changing the time it takes to scroll to a new
+        ///     position.
         /// </summary>
         public TimeSpan ScrollingTime
         {
             get { return (TimeSpan)GetValue(ScrollingTimeProperty); }
             set { SetValue(ScrollingTimeProperty, value); }
         }
+
         public static readonly DependencyProperty ScrollingTimeProperty =
             DependencyProperty.Register("ScrollingTime", typeof(TimeSpan), typeof(AnimatedScrollViewer),
               new PropertyMetadata(new TimeSpan(0, 0, 0, 0, 500)));
 
-        #endregion
+        #endregion AnimationTime (DependencyProperty) (TimeSpan)
 
         #region ScrollingSpline (DependencyProperty)
 
@@ -361,11 +360,12 @@ namespace AnimatedScrollViewer
             get { return (KeySpline)GetValue(ScrollingSplineProperty); }
             set { SetValue(ScrollingSplineProperty, value); }
         }
+
         public static readonly DependencyProperty ScrollingSplineProperty =
             DependencyProperty.Register("ScrollingSpline", typeof(KeySpline), typeof(AnimatedScrollViewer),
               new PropertyMetadata(new KeySpline(0.024, 0.914, 0.717, 1)));
 
-        #endregion
+        #endregion ScrollingSpline (DependencyProperty)
 
         #region CanKeyboardScroll (Dependency Property)
 
@@ -379,13 +379,12 @@ namespace AnimatedScrollViewer
             set { SetValue(CanKeyboardScrollProperty, value); }
         }
 
-        #endregion
+        #endregion CanKeyboardScroll (Dependency Property)
 
-
-
-        #endregion
+        #endregion Custom Dependency Properties
 
         #region animateScroller method (Creates and runs animation)
+
         private void animateScroller(object objectToScroll)
         {
             AnimatedScrollViewer thisScrollViewer = objectToScroll as AnimatedScrollViewer;
@@ -407,8 +406,8 @@ namespace AnimatedScrollViewer
 
             CommandBindingCollection testCollection = thisScrollViewer.CommandBindings;
             int blah = testCollection.Count;
-
         }
-        #endregion
+
+        #endregion animateScroller method (Creates and runs animation)
     }
 }

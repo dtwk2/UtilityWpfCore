@@ -5,7 +5,7 @@ using System.Windows;
 
 namespace UtilityWpf.Demo.Panels
 {
-    class RegionPanelHelper
+    internal class RegionPanelHelper
     {
         public static IEnumerable<KeyValuePair<Region, IOrderedEnumerable<List<Coordinate>>>>
            SelectPotentialCoordinatesForRegions(ElementsBag bag, IEnumerable<Coordinate> existingCoordinates, int x, int y)
@@ -64,7 +64,6 @@ namespace UtilityWpf.Demo.Panels
                 if (sidesRemaining.Count(a => a.side) == 1)
                 {
                     var ae = new[] {
-
                         new List<Coordinate> { coord, sidesRemaining.Single(ac => ac.side).coord },
                         new List<Coordinate> { coord }
                     }.OrderByDescending(a => a.Count);
@@ -80,7 +79,6 @@ namespace UtilityWpf.Demo.Panels
                 }
 
                 return AlternateMethod();
-
 
                 static KeyValuePair<Region, IOrderedEnumerable<List<Coordinate>>>? NewMethod1(Region region, Coordinate coord, (bool side, bool touching, Coordinate coord)[] sidesRemaining)
                 {
@@ -182,8 +180,7 @@ namespace UtilityWpf.Demo.Panels
             }
         }
 
-
-        static List<MinMax<Coordinate>> GetCoordinateCombinations(int x, int y)
+        private static List<MinMax<Coordinate>> GetCoordinateCombinations(int x, int y)
         {
             var cs = CombinationHelper.SelectSetCombinations(new[] { Enumerable.Range(0, x).ToList(), Enumerable.Range(0, y).ToList() })
                 .Select(a => a.ToArray())
@@ -194,14 +191,14 @@ namespace UtilityWpf.Demo.Panels
             var cbs = CombinationHelper.SelectCombinations(cs);
 
             var minMaxes = cbs
-                // Remove items where 
+                // Remove items where
                 .Where(a => !(a.Item1.CompareTo(a.Item2) == 0 && !a.Item1.Equals(a.Item2)))
                 .Select(a => new[] { a.Item1, a.Item2 }.OrderBy(a => a).ToArray()).Select(a => new MinMax<Coordinate>(a[0], a[1])).ToList();
 
             return minMaxes;
         }
 
-        static IEnumerable<List<Coordinate>> SelectCoordinates(List<Coordinate> coordinates)
+        private static IEnumerable<List<Coordinate>> SelectCoordinates(List<Coordinate> coordinates)
         {
             var initial = SelectCoordinateBoxes(coordinates).ToList();
             var sede = initial.ToList();
@@ -270,7 +267,6 @@ namespace UtilityWpf.Demo.Panels
             };
         }
 
-
         public static IEnumerable<(Rect, FrameworkElement)> SelectInnerElementRects(Region region, ICollection<FrameworkElement> elements, Rect rect, bool useDesiredSize)
         {
             var max = Math.Max(rect.Width, rect.Height);
@@ -338,7 +334,6 @@ namespace UtilityWpf.Demo.Panels
                 {
                     lastPoint = region switch
                     {
-
                         Region.Right => new Point(rect.X - childRect.Width, isWiderThanTall ? rect.Y : lastPoint.Y),
                         Region.BottomRight => new Point(rect.Width + rect.X - childRect.Width, isWiderThanTall ? rect.Y : lastPoint.Y),
                         Region.TopRight => new Point(rect.Width + rect.X - childRect.Width, isWiderThanTall ? rect.Y : lastPoint.Y),
@@ -360,12 +355,9 @@ namespace UtilityWpf.Demo.Panels
             }
         }
 
-
-
         public static Rect ConvertToRect(Region region, List<Coordinate> innerCoordsSet, Size finalSize, int x, int y, double widthRatio = 1, double heightRatio = 1)
         {
             var ((startX, diffX), (startY, diffY)) =
-
 
                 region switch
                 {
@@ -409,7 +401,6 @@ namespace UtilityWpf.Demo.Panels
 
             static (double start, double end) MiddleY(List<Coordinate> innerCoordsSet, Size finalSize, int y, double heightRatio = 1)
             {
-
                 var startY = (innerCoordsSet.Min(a => a.Y) * finalSize.Height / y);
                 startY *= UnderFactor(heightRatio, y);
                 var diffY = OverFactor(heightRatio, y) * (((innerCoordsSet.Max(a => a.Y) + 1) * finalSize.Height / y)) - startY;

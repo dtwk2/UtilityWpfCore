@@ -9,6 +9,5 @@ namespace UtilityWpf.Controls.Clocks
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SwitchClock), new FrameworkPropertyMetadata(typeof(SwitchClock)));
         }
-
     }
 }

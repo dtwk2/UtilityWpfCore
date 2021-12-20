@@ -14,7 +14,6 @@ namespace UtilityWpf.Demo.Master.Infrastructure
 {
     public class MasterDetailViewModel : ReactiveObject
     {
-
         private IEnumerator<Fields> build;
 
         private readonly CollectionService service = new();
@@ -38,18 +37,22 @@ namespace UtilityWpf.Demo.Master.Infrastructure
                     if (NewItem.MoveNext())
                         service.Items.Add(NewItem.Current);
                     break;
+
                 case { EventType: EventType.Remove, Item: { } item }:
                     service.Items.Remove(item);
                     break;
+
                 case { EventType: EventType.Remove }:
                     service.Items.RemoveAt(service.Items.Count - 1);
                     break;
+
                 case MovementEventArgs eventArgs:
                     foreach (var item in eventArgs.Changes)
                     {
                         //Data.Move(item.OldIndex, item.Index);
                     }
                     break;
+
                 default:
                     break;
             }
@@ -59,14 +62,12 @@ namespace UtilityWpf.Demo.Master.Infrastructure
 
         public IEnumerator NewItem => build ??= Factory().Build();
 
-
         public ReactiveCommand<CollectionEventArgs, Unit> ChangeCommand { get; }
         public ReactiveCommand<object, Unit> ChangeRepositoryCommand { get; }
         public ReactiveCommand<object, Unit> CollectionChangedCommand { get; }
 
         private FieldsFactory Factory() => new();
 
-        IRepository DatabaseService() => new LiteDbRepository(new LiteDbRepository.ConnectionSettings(typeof(Fields), new System.IO.FileInfo("../../../Data/Data.litedb"), nameof(Fields.Id)));
-
+        private IRepository DatabaseService() => new LiteDbRepository(new LiteDbRepository.ConnectionSettings(typeof(Fields), new System.IO.FileInfo("../../../Data/Data.litedb"), nameof(Fields.Id)));
     }
 }

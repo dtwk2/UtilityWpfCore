@@ -7,8 +7,8 @@ namespace UtilityWpf.Controls
 {
     public class TypeControl : HeaderedContentControl
     {
-
         public delegate void ChangedEventHandler(object sender, ChangedEventArgs e);
+
         public class ChangedEventArgs : RoutedEventArgs
         {
             public ChangedEventArgs(Type type, string property, string? value)
@@ -102,7 +102,6 @@ namespace UtilityWpf.Controls
             //buttonFilter.Click += ButtonFilter_Click;
             buttonClear.Click += ButtonClear_Click;
             comboBox.ItemsSource = Type.GetProperties().Select(a => a.Name);
-
         }
 
         private void ButtonClear_Click(object sender, RoutedEventArgs e)

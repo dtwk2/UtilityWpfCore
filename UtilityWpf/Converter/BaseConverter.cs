@@ -44,6 +44,4 @@ namespace UtilityWpf.Converter
 
         protected override object Convert(object value) => value;
     }
-
-
 }

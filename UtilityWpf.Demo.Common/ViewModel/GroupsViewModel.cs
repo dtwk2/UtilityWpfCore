@@ -24,9 +24,9 @@ namespace UtilityWpf.Demo.Common.ViewModel
             //    return Unit.Default;
             //});
         }
+
         public ObservableCollection<object> Data { get; }
 
         public ICommand ChangeCommand { get; }
-
     }
 }

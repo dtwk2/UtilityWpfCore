@@ -96,7 +96,6 @@ namespace UtilityWpf.Controls.Objects
                     var (b, textBlock, border) = c;
                     textBlock.Foreground = b ? Brushes.White : AccentBrush;
                     border.Background = b ? AccentBrush : Brushes.Transparent;
-
                 });
 
             descriptionConverterChanges
@@ -140,6 +139,7 @@ namespace UtilityWpf.Controls.Objects
         }
 
         #region properties
+
         public object Object
         {
             get => GetValue(ObjectProperty);
@@ -181,6 +181,7 @@ namespace UtilityWpf.Controls.Objects
             get => (bool)GetValue(IsTitleColoursInvertedProperty);
             set => SetValue(IsTitleColoursInvertedProperty, value);
         }
+
         #endregion properties
 
         private static void ConverterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -212,6 +213,7 @@ namespace UtilityWpf.Controls.Objects
             if (d is ObjectControl control && e.NewValue is IValueConverter converter)
                 control.filterChanges.OnNext(converter);
         }
+
         private static void IsTitleColoursInvertedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is ObjectControl control && e.NewValue is bool b)
@@ -293,14 +295,10 @@ namespace UtilityWpf.Controls.Objects
         public static ObjectControlDataTemplateSelector Instance => new ObjectControlDataTemplateSelector();
     }
 
-
     namespace Utility
     {
-
-
         public static class TypeHelper
         {
-
             public static bool IsDerivedFrom<T>(this Type type)
             {
                 return typeof(T).IsAssignableFrom(type);
@@ -348,13 +346,11 @@ namespace UtilityWpf.Controls.Objects
                 return sameType;
             }
 
-
             public static bool OfClassType(this IEnumerable enumerable) =>
                 enumerable
                     .Cast<object>()
                     .Select(a => a.GetType())
                     .All(a => a.IsClass);
-
 
             public static bool NotOfClassType(this IEnumerable enumerable) =>
                 enumerable
@@ -482,6 +478,7 @@ namespace UtilityWpf.Controls.Objects
             }
         }
     }
+
     public static class DictionaryConverter
     {
         private const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.Instance;
@@ -538,6 +535,7 @@ namespace UtilityWpf.Controls.Objects
                 members;
         }
     }
+
     public static class LinqExtension
     {
         public static IEnumerable<(T, T)> LeftOuterJoin<T, R>(this IEnumerable<T> firsts, IEnumerable<T> seconds, Func<T, R> equality)
@@ -628,7 +626,6 @@ namespace UtilityWpf.Controls.Objects
                    on keySelectorFirst(n) equals n2 into temp
                    where temp.Count() == 0
                    select n;
-
 
         public static bool IsEmpty<T>(this IEnumerable<T> enumerable) => enumerable.Any() == false;
 

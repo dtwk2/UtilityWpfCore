@@ -1,15 +1,14 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:UtilityWpf.Controls.Dragablz"
-                    xmlns:conv="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"                    
                     xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
-                    xmlns:dragablz1="clr-namespace:UtilityWpf.Controls.Dragablz" 
-                    xmlns:att="http://schemas.utility.com/utilitywpf">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:att="http://schemas.utility.com/utilitywpf"
+                    xmlns:local="clr-namespace:UtilityWpf.Controls.Dragablz"
+                    xmlns:dragablz1="clr-namespace:UtilityWpf.Controls.Dragablz"
+                    xmlns:conv="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf">
 
     <ResourceDictionary.MergedDictionaries>
-        <att:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/GeometryResources.xaml"/>
+        <att:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/GeometryResources.xaml" />
     </ResourceDictionary.MergedDictionaries>
-
 
     <Style x:Key="DragablzNotes2Style" TargetType="dragablz:DragablzItem">
         <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
@@ -28,28 +27,27 @@
                 <ControlTemplate TargetType="{x:Type dragablz:DragablzItem}">
                     <Grid>
                         <local:ItemContainerBorder
-                            IsDragging="{Binding IsDragging, RelativeSource={RelativeSource TemplatedParent}}" 
+                            IsDragging="{Binding IsDragging, RelativeSource={RelativeSource TemplatedParent}}"
                             IsSelected="{Binding IsSelected, RelativeSource={RelativeSource TemplatedParent}}"
-                            IsSelectable="{Binding IsMouseOver, ElementName=Main_ViewBox}"
-                           />
+                            IsSelectable="{Binding IsMouseOver, ElementName=Main_ViewBox}" />
 
                         <Viewbox x:Name="Main_ViewBox" HorizontalAlignment="Stretch" RenderTransformOrigin=".5, .5" Margin="0.5">
 
                             <Viewbox.RenderTransform>
                                 <ScaleTransform x:Name="ScaleTransform" ScaleX="1" ScaleY="1" />
                             </Viewbox.RenderTransform>
-                            <Grid >
+                            <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBox Margin="2,1,17,2"  Width="200"  
+                                <TextBox Margin="2,1,17,2"  Width="200"
                                          x:Name="PART_TextBox"
-                                         HorizontalAlignment="Stretch" FontSize="5"    
+                                         HorizontalAlignment="Stretch" FontSize="5"
                                          TextWrapping="Wrap"
-                                         AcceptsReturn="True"           
-                                         MinLines="2"  
+                                         AcceptsReturn="True"
+                                         MinLines="2"
                                          Grid.Column="1">
                                     <TextBox.Style>
                                         <Style TargetType="TextBox">
@@ -58,12 +56,12 @@
                                         </Style>
                                     </TextBox.Style>
                                 </TextBox>
-                                <dragablz1:GeometryThumb VerticalAlignment="Center" 
+                                <dragablz1:GeometryThumb VerticalAlignment="Center"
                                                          Margin="0.5"
-                                   HorizontalAlignment="Left" 
+                                   HorizontalAlignment="Left"
                                    dragablz:DragablzItem.IsCustomThumb="True"
                                    Height="15"
-                                   Width="15" 
+                                   Width="15"
                                    Geometry="{StaticResource DotGeometry}">
                                 </dragablz1:GeometryThumb>
                             </Grid>
@@ -74,14 +72,12 @@
         </Setter>
     </Style>
 
-    <Style 
-           TargetType="{x:Type local:NotesControl}" 
+    <Style
+           TargetType="{x:Type local:NotesControl}"
            BasedOn="{StaticResource {x:Type dragablz:DragablzItemsControl}}">
         <Style.Setters>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="ItemContainerStyle" Value="{StaticResource DragablzNotes2Style}"/>
-
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="ItemContainerStyle" Value="{StaticResource DragablzNotes2Style}" />
         </Style.Setters>
     </Style>
-    
 </ResourceDictionary>

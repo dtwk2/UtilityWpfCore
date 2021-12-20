@@ -33,8 +33,6 @@ namespace UtilityWpf.Panels
             DependencyProperty.Register("RowSpacing", typeof(double), typeof(TwoColumnGrid),
             new FrameworkPropertyMetadata(0.0d, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
 
-
-
         /// <summary>
         /// Gets or sets the amount of spacing (in device independent pixels) between the rows.
         /// </summary>
@@ -52,7 +50,6 @@ namespace UtilityWpf.Panels
             get { return (double)GetValue(ColumnSpacingProperty); }
             set { SetValue(ColumnSpacingProperty, value); }
         }
-
 
         /// <summary>
         /// Measures the size required for all the child elements in this panel.

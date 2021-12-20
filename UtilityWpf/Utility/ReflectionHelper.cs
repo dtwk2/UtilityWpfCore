@@ -9,8 +9,6 @@ namespace UtilityWpf.Property
 {
     public static class ReflectionHelper
     {
-
-
         public static IEnumerable<DependencyProperty> SelectDependencyProperties(this Type type) =>
              type
             .GetFields(BindingFlags.Static | BindingFlags.FlattenHierarchy | BindingFlags.Public)

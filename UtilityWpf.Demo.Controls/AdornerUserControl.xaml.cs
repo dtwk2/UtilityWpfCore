@@ -26,8 +26,6 @@ namespace UtilityWpf.Demo.View
                 TextBlock1.Text = TextBlock1.Text.Remove(TextBlock1.Text.Length - 9);
         }
 
-
-
         private void Add_Click(object sender, RoutedEventArgs e)
         {
             var layer = AdornerLayer.GetAdornerLayer(canvas);
@@ -57,7 +55,6 @@ namespace UtilityWpf.Demo.View
                 layer.Add(new ListAdorner(ui));
         }
     }
-
 
     public class ListAdorner : Adorner
     {

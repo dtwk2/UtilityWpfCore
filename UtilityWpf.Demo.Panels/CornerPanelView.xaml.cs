@@ -22,7 +22,6 @@ namespace UtilityWpf.Demo.Panels
         private void AddToCollection(object sender, RoutedEventArgs e)
         {
             DemoViewModel.Instance.Collection.Add("c");
-
         }
     }
 }

@@ -13,7 +13,7 @@
     <UserControl.Resources>
 
         <Style TargetType="ScrollViewer">
-            <Setter Property="scroll:ScrollSynchronizer.ScrollGroup" Value="Group1" />        
+            <Setter Property="scroll:ScrollSynchronizer.ScrollGroup" Value="Group1" />
             <Setter Property="scroll:ScrollSynchronizer.ScrollGroup" Value="Group2" />
         </Style>
     </UserControl.Resources>
@@ -28,28 +28,27 @@
 
         <ScrollViewer    Grid.Column="0"           scroll:ScrollSynchronizer.ScrollGroup="Group1">
             <ListView
-             
-      
+
                 ItemsSource="{Binding Source={StaticResource Characters}}"
                 ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn
                             Width="140"
-                        
+
                             Header="Age">
                             <GridViewColumn.HeaderTemplate>
                                 <DataTemplate>
                                     <TextBlock
                                         Width="60"
                                         Height="30"
-                                        FontSize="6"                                     
+                                        FontSize="6"
                                         TextWrapping="Wrap" />
                                 </DataTemplate>
                             </GridViewColumn.HeaderTemplate>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock FontSize="50" Text="{Binding Age}"/>
+                                    <TextBlock FontSize="50" Text="{Binding Age}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -59,28 +58,27 @@
         </ScrollViewer>
         <ScrollViewer       Grid.Column="1"  scroll:ScrollSynchronizer.ScrollGroup="Group1">
             <ListView
-          
-               
+
                 ItemsSource="{Binding Source={StaticResource Characters}}"
                 ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn
                             Width="140"
-                 
+
                             Header="Age">
                             <GridViewColumn.HeaderTemplate>
                                 <DataTemplate>
                                     <TextBlock
                                         Width="60"
                                         Height="30"
-                                        FontSize="6"                                     
+                                        FontSize="6"
                                         TextWrapping="Wrap" />
                                 </DataTemplate>
                             </GridViewColumn.HeaderTemplate>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock FontSize="50" Text="{Binding Age}"/>
+                                    <TextBlock FontSize="50" Text="{Binding Age}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -88,29 +86,28 @@
                 </ListView.View>
             </ListView>
         </ScrollViewer>
-        <ScrollViewer     Grid.Column="2"   scroll:ScrollSynchronizer.ScrollGroup="Group2"> 
+        <ScrollViewer     Grid.Column="2"   scroll:ScrollSynchronizer.ScrollGroup="Group2">
             <ListView
-            
-              
+
                 ItemsSource="{Binding Source={StaticResource Characters}}"
                 ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn
-                            Width="140"                 
+                            Width="140"
                             Header="Age">
                             <GridViewColumn.HeaderTemplate>
                                 <DataTemplate>
                                     <TextBlock
                                         Width="60"
                                         Height="30"
-                                        FontSize="6"                                     
+                                        FontSize="6"
                                         TextWrapping="Wrap" />
                                 </DataTemplate>
                             </GridViewColumn.HeaderTemplate>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock FontSize="50" Text="{Binding Age}"/>
+                                    <TextBlock FontSize="50" Text="{Binding Age}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -121,18 +118,17 @@
 
         <ScrollViewer     Grid.Column="3"   scroll:ScrollSynchronizer.ScrollGroup="Group2">
             <ListView
-            
-              
+
                 ItemsSource="{Binding Source={StaticResource Characters}}"
                 ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn
-                            Width="240"                            
-                            Header="First">                      
+                            Width="240"
+                            Header="First">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock FontSize="50" Text="{Binding First}"/>
+                                    <TextBlock FontSize="50" Text="{Binding First}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -141,5 +137,4 @@
             </ListView>
         </ScrollViewer>
     </Grid>
-
 </UserControl>

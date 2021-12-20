@@ -37,7 +37,7 @@ namespace Utility.Common
             return Store.LoadedSolutionAssemblies(a => a.Name?.StartsWith(Meta.Constants.GeneralAssemblyName) ?? false);
         }
 
-        class Store
+        private class Store
         {
             public List<Assembly> assemblies = new List<Assembly>();
             public HashSet<string> assemblyNames = new HashSet<string>();
@@ -47,7 +47,6 @@ namespace Utility.Common
                 var x = new Store();
                 foreach (var assembly in UtilityHelper.ReflectionHelper.GetAssemblies(predicate))
                 {
-
                     Recursive(assembly, predicate, ref x);
                 }
                 return x.assemblies;

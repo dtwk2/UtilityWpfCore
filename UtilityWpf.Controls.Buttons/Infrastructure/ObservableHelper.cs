@@ -14,7 +14,6 @@ namespace UtilityWpf.Controls.Buttons.Infrastructure
                 .Select(a => (a.EventArgs.IsChecked, a.EventArgs.Key));
         }
 
-
         //public static IObservable<(Access access, Dock dock)> SelectOpenClosingChanges(this DrawerHost drawerHost)
         //{
         //    return ClosingEvents(drawerHost).Merge(OpenEvents(drawerHost));
@@ -35,6 +34,5 @@ namespace UtilityWpf.Controls.Buttons.Infrastructure
         //            .Select(a => (Access.Open, a.EventArgs.Dock));
         //    }
         //}
-
     }
 }

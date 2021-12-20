@@ -10,6 +10,7 @@ namespace UtilityWpf.Demo.Panels
     public class RegionTwoPanel : Panel
     {
         #region static properties
+
         public static readonly DependencyProperty WidthRatioProperty = DependencyProperty.Register("WidthRatio", typeof(double), typeof(RegionTwoPanel),
             new FrameworkPropertyMetadata(1d, FrameworkPropertyMetadataOptions.AffectsArrange));
 
@@ -24,13 +25,13 @@ namespace UtilityWpf.Demo.Panels
 
         public static readonly DependencyProperty RegionProperty = DependencyProperty.RegisterAttached("Region", typeof(Region), typeof(RegionTwoPanel),
                 new PropertyMetadata(Region.Top, new PropertyChangedCallback(OnRegionChanged)), new ValidateValueCallback(IsValidRegion));
+
         private KeyValuePair<Region, (Rect, FrameworkElement)[]>[] arrangeMent;
 
         private static bool IsValidRegion(object value)
         {
             return true;
         }
-
 
         /// <summary>
         /// Reads the attached property Dock from the given element.
@@ -65,9 +66,7 @@ namespace UtilityWpf.Demo.Panels
             }
         }
 
-
-        #endregion
-
+        #endregion static properties
 
         public RegionTwoPanel()
         {
@@ -85,13 +84,11 @@ namespace UtilityWpf.Demo.Panels
             set { SetValue(HeightRatioProperty, value); }
         }
 
-
         public bool UseDesiredSize
         {
             get { return (bool)GetValue(UseDesiredSizeProperty); }
             set { SetValue(UseDesiredSizeProperty, value); }
         }
-
 
         public bool UseAnimation
         {
@@ -112,7 +109,6 @@ namespace UtilityWpf.Demo.Panels
             //double aheight = availableSize.Height == double.PositiveInfinity ? arr.DefaultIfEmpty().Max(a => a?.DesiredSize.Height ?? 0) : availableSize.Height;
             //if (height != aheight)
             //{
-
             //}
             //return new System.Windows.Size(width, height);
 
@@ -142,7 +138,6 @@ namespace UtilityWpf.Demo.Panels
             //height = !double.IsNaN(availableSize.Height) && !double.IsInfinity(availableSize.Height) && height != 0 ? height : double.IsNaN(availableSize.Height) || double.IsInfinity(availableSize.Height) ? arr.Length > 0 ? arr.Sum(a => a.DesiredSize.Height) : 0 : availableSize.Height;
             if (double.IsInfinity(width) || double.IsInfinity(height) || double.IsNaN(width) || double.IsNaN(height))
             {
-
             }
             return new Size(width, height);
         }
@@ -165,8 +160,6 @@ namespace UtilityWpf.Demo.Panels
                     }
                 }
             }
-
-
 
             //static Point GetPoint(Size finalSize, Size childSize, Region region, Point lastPoint)
             //{
@@ -203,13 +196,11 @@ namespace UtilityWpf.Demo.Panels
             //    return arrange;
             return finalSize;
         }
-
     }
 
-    static class SizerHelper
+    internal static class SizerHelper
 
     {
-
         public static KeyValuePair<Region, (Rect, FrameworkElement)[]>[] Arrange(FrameworkElement parent, FrameworkElement[] children, Size finalSize, double widthRatio, double heightRatio, bool useDesiredSize)
         {
             //List<List<Coordinate>> coordinates = new List<List<Coordinate>>();
@@ -231,7 +222,6 @@ namespace UtilityWpf.Demo.Panels
             return size;
             //return new Size(size.Sum(s => s.Height), size.Sum(a => a.Width));
 
-
             static IEnumerable<KeyValuePair<Region, (Rect, FrameworkElement)[]>> FinalArrange(FrameworkElement parent, ElementsBag elementsBag, Size finalSize, int x, int y,
                 (Region Key, List<Coordinate> ac)[][] combinations,
                 double widthRatio = 1, double heightRatio = 1, bool useDesiredSize = false)
@@ -241,7 +231,6 @@ namespace UtilityWpf.Demo.Panels
                         if (RegionPanelHelper.ConvertToRect(Key, ac, finalSize, x, y, widthRatio, heightRatio) is { } ar)
                         {
                             yield return KeyValuePair.Create(Key, RegionPanelHelper.SelectInnerElementRects(Key, elementsBag.SelectElements(Key), ar, useDesiredSize).ToArray());
-
 
                             //yield return new Size(es.Sum(a => a.Item1.Size.Height), es.Sum(a => a.Item1.Size.Width));
                         }
@@ -266,10 +255,8 @@ namespace UtilityWpf.Demo.Panels
                                          .Select(a => a.a)
                                          .ToArray();
                 return combinations;
-
             }
             // }
-
 
             static List<Coordinate> SelectExistingCoordinates(UIElement[] elems, int x, int y)
             {
@@ -282,7 +269,5 @@ namespace UtilityWpf.Demo.Panels
                 return existingCoordinates;
             }
         }
-
     }
-
 }

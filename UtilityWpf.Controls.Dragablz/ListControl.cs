@@ -47,7 +47,6 @@ namespace UtilityWpf.Controls.Dragablz
                 return;
             _ = control.ApplyTemplate();
 
-
             CreateAndSetTextBinding();
             CreateAndSetCommandBinding();
             CreateAndSetIsCheckedBinding();
@@ -89,7 +88,7 @@ namespace UtilityWpf.Controls.Dragablz
                 Binding CreateBinding()
                 {
                     var prop = item.GetType().GetProperty(IsCheckedPath);
-                    var isReadOnly = prop.IsReadOnly() || prop.IsInitOnly() || prop.GetSetMethod()==null;
+                    var isReadOnly = prop.IsReadOnly() || prop.IsInitOnly() || prop.GetSetMethod() == null;
                     Binding binding = new Binding
                     {
                         Source = item,
@@ -112,7 +111,7 @@ namespace UtilityWpf.Controls.Dragablz
                         Mode = BindingMode.OneWay,
                         UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
                     };
-                                    
+
                     return binding;
                 }
             }
@@ -145,7 +144,6 @@ namespace UtilityWpf.Controls.Dragablz
 
                 BindingOperations.SetBinding(dependencyObjec, ButtonBase.CommandProperty, CreateCommandBinding(item));
 
-
                 Binding? CreateCommandBinding(object item)
                 {
                     if (string.IsNullOrEmpty(CommandPath))
@@ -175,8 +173,7 @@ namespace UtilityWpf.Controls.Dragablz
         }
     }
 
-
-    class ValueConverter : IValueConverter
+    internal class ValueConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -195,7 +192,6 @@ namespace UtilityWpf.Controls.Dragablz
             }
 
             throw new ArgumentOutOfRangeException("Expected boolean type.sdfsdf");
-
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

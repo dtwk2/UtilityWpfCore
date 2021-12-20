@@ -92,7 +92,6 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Trigger.Setters>
                                 <Setter TargetName="PART_ChevronPath" Property="Fill" Value="Black" />
-
                             </Trigger.Setters>
                         </Trigger>
                     </ControlTemplate.Triggers>

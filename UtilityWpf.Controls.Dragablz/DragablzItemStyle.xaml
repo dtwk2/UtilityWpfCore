@@ -1,17 +1,17 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
-    xmlns:conv="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
-    xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
-    xmlns:dragablz1="clr-namespace:UtilityWpf.Controls.Dragablz" 
-    xmlns:utl="http://schemas.utility.com/utilitywpf">
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:utl="http://schemas.utility.com/utilitywpf"
+    xmlns:dragablz1="clr-namespace:UtilityWpf.Controls.Dragablz"
+    xmlns:conv="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf">
 
     <ResourceDictionary.MergedDictionaries>
-        <utl:SharedResourceDictionary  Source="/UtilityWpf.Controls.Dragablz;component/GeometryResources.xaml"/>
+        <utl:SharedResourceDictionary  Source="/UtilityWpf.Controls.Dragablz;component/GeometryResources.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    
+
     <SineEase x:Key="Ease" EasingMode="EaseInOut" />
     <Storyboard x:Key="Enter">
         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ScaleTransform" Storyboard.TargetProperty="ScaleX">
@@ -53,15 +53,13 @@
         </ObjectAnimationUsingKeyFrames>
     </Storyboard>
 
-
-
     <Style x:Key="DragablzItemStyle" TargetType="dragablz:DragablzItem">
 
         <!--<Setter Property="Padding" Value="0 4 0 4" />-->
         <!--<Setter Property="Margin" Value="8,0,8,0" />-->
         <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
         <!--<Setter Property="Width" Value="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=ActualWidth, Converter={x:Static conv:DefaultConverter.Instance}}"></Setter>-->
-        <Setter Property="Width"                 >
+        <Setter Property="Width">
             <Setter.Value>
                 <MultiBinding Converter="{x:Static conv:ActualWidthConverter.Instance}">
                     <Binding RelativeSource="{RelativeSource AncestorType=ItemsControl}" Path="ActualWidth" ></Binding>
@@ -84,23 +82,22 @@
 
                         <Grid>
 
-                            <dragablz1:ItemContainerBorder 
-                            IsDragging="{Binding IsDragging, RelativeSource={RelativeSource TemplatedParent}}" 
+                            <dragablz1:ItemContainerBorder
+                            IsDragging="{Binding IsDragging, RelativeSource={RelativeSource TemplatedParent}}"
                             IsSelected="{Binding IsSelected, RelativeSource={RelativeSource TemplatedParent}}"
-                            IsSelectable="{Binding IsMouseOver, ElementName=Main_ViewBox}"/>
-               
-                            
+                            IsSelectable="{Binding IsMouseOver, ElementName=Main_ViewBox}" />
+
                             <materialDesign:Card x:Name="PART_Card" Margin="10" HorizontalAlignment="Stretch">
                                 <Button>
                                     <Button.Style>
-                                        <Style TargetType="{x:Type Button}" >
+                                        <Style TargetType="{x:Type Button}">
                                             <Style.Setters>
                                                 <Setter Property="Background" Value="Transparent"></Setter>
                                                 <Setter Property="Template">
                                                     <Setter.Value>
                                                         <ControlTemplate TargetType="{x:Type Button}">
-                                                            <Border Background="{TemplateBinding Background}" >
-                                                                <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                                            <Border Background="{TemplateBinding Background}">
+                                                                <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                                                             </Border>
                                                         </ControlTemplate>
                                                     </Setter.Value>
@@ -108,35 +105,35 @@
                                             </Style.Setters>
                                             <Style.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" >
+                                                    <Setter Property="Background">
                                                         <Setter.Value>
                                                             <SolidColorBrush>
                                                                 <SolidColorBrush.Color>
-                                                                    <Color A="20" R="40" G="40" B="10"/>
-                                                                </SolidColorBrush.Color>                                                         
-                                                            </SolidColorBrush>                                                         
+                                                                    <Color A="20" R="40" G="40" B="10" />
+                                                                </SolidColorBrush.Color>
+                                                            </SolidColorBrush>
                                                         </Setter.Value>
                                                     </Setter>
                                                 </Trigger>
                                             </Style.Triggers>
                                         </Style>
-                                    </Button.Style>                           
+                                    </Button.Style>
                                     <i:Interaction.Triggers>
-                                        <i:EventTrigger  EventName="Click" >
+                                        <i:EventTrigger  EventName="Click">
                                             <i:ChangePropertyAction TargetObject="{Binding RelativeSource={RelativeSource AncestorType=dragablz:DragablzItem}}" PropertyName="IsSelected" Value="true"></i:ChangePropertyAction>
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
-                                    <ContentPresenter  Margin="10" HorizontalAlignment="Stretch"/>
+                                    <ContentPresenter  Margin="10" HorizontalAlignment="Stretch" />
                                 </Button>
                             </materialDesign:Card>
 
-                            <Thumb VerticalAlignment="Bottom" HorizontalAlignment="Left"  Margin="0,0,2,0" dragablz:DragablzItem.IsCustomThumb="True" Height="40" Width="50" Grid.Column="1" >
+                            <Thumb VerticalAlignment="Bottom" HorizontalAlignment="Left"  Margin="0,0,2,0" dragablz:DragablzItem.IsCustomThumb="True" Height="40" Width="50" Grid.Column="1">
                                 <Thumb.Template>
                                     <ControlTemplate>
 
-                                        <Border  Name="OutBox" >
+                                        <Border  Name="OutBox">
 
-                                            <Grid >
+                                            <Grid>
                                                 <Path   Margin="0,1,0,0"
                                         x:Name="PathLeft"
                                         Width="20"
@@ -174,12 +171,11 @@
                                                         </TransformGroup>
                                                     </Path.RenderTransform>
                                                 </Path>
-
                                             </Grid>
                                             <Border.Style>
                                                 <Style TargetType="Border">
                                                     <Style.Setters>
-                                                        <Setter Property="Background" >
+                                                        <Setter Property="Background">
                                                             <Setter.Value>
                                                                 <SolidColorBrush Color="Gold" Opacity="0.1"></SolidColorBrush>
                                                             </Setter.Value>
@@ -199,9 +195,7 @@
                                              Storyboard.TargetProperty="Background.Opacity"
                                              From="0.1"
                                              To="0.5"
-                                             Duration="0:0:0.2"
-                                             
-                                             />
+                                             Duration="0:0:0.2" />
                                                                 </Storyboard>
                                                             </BeginStoryboard>
                                                         </EventTrigger>
@@ -213,9 +207,7 @@
                                              Storyboard.TargetProperty="Background.Opacity"
                                              From="0.5"
                                              To="0.1"
-                                             Duration="0:0:0.2"
-                                             
-                                             />
+                                             Duration="0:0:0.2" />
                                                                 </Storyboard>
                                                             </BeginStoryboard>
                                                         </EventTrigger>
@@ -227,13 +219,11 @@
                                 </Thumb.Template>
                             </Thumb>
                         </Grid>
-                    </Viewbox>                 
+                    </Viewbox>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
-
 
     <Style x:Key="DragablzItemStyle2" TargetType="dragablz:DragablzItem">
 
@@ -251,7 +241,7 @@
                             <ScaleTransform x:Name="ScaleTransform" ScaleX="1" ScaleY="1" />
                         </Grid.RenderTransform>
                         <Grid.Background>
-                            <VisualBrush TileMode="Tile" Viewport="0,0,10,10" 
+                            <VisualBrush TileMode="Tile" Viewport="0,0,10,10"
                                          ViewportUnits="Absolute" Viewbox="0,0,10,10"
                                          ViewboxUnits="Absolute">
                                 <VisualBrush.Visual>
@@ -262,13 +252,11 @@
                                 </VisualBrush.Visual>
                             </VisualBrush>
                         </Grid.Background>
-                        <dragablz1:ItemContainerBorder 
-                            IsDragging="{Binding IsDragging, RelativeSource={RelativeSource TemplatedParent}}" 
-                            IsSelected="{Binding IsSelected, RelativeSource={RelativeSource TemplatedParent}}"
-                          
-                            />
+                        <dragablz1:ItemContainerBorder
+                            IsDragging="{Binding IsDragging, RelativeSource={RelativeSource TemplatedParent}}"
+                            IsSelected="{Binding IsSelected, RelativeSource={RelativeSource TemplatedParent}}" />
                         <materialDesign:Card x:Name="PART_Card" Margin="10" HorizontalAlignment="Stretch">
-                            <ContentPresenter  Margin="10" HorizontalAlignment="Stretch"/>
+                            <ContentPresenter  Margin="10" HorizontalAlignment="Stretch" />
                         </materialDesign:Card>
                         <Thumb VerticalAlignment="Bottom" HorizontalAlignment="Left" dragablz:DragablzItem.IsCustomThumb="True" Height="30" Width="30" Background="Yellow">
                         </Thumb>
@@ -287,5 +275,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-
 </ResourceDictionary>

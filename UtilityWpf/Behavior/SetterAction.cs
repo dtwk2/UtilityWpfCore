@@ -14,8 +14,6 @@
     /// </summary>
     public class SetterAction : TargetedTriggerAction<FrameworkElement>
     {
-
-
         /// <summary>
         /// Property that is being set by this setter.
         /// </summary>
@@ -29,8 +27,6 @@
             DependencyProperty.Register("PropertyName", typeof(string), typeof(SetterAction),
             new PropertyMetadata(String.Empty));
 
-
-
         /// <summary>
         /// Property value that is being set by this setter.
         /// </summary>
@@ -43,8 +39,6 @@
         public static readonly DependencyProperty ValueProperty =
             DependencyProperty.Register("Value", typeof(object), typeof(SetterAction),
             new PropertyMetadata(null));
-
-
 
         protected override void Invoke(object parameter)
         {
@@ -85,6 +79,5 @@
 
             property.SetValue(target, convertedValue);
         }
-
     }
 }

@@ -7,12 +7,10 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
-using System.Windows.Media;
-using UtilityWpf.Abstract;
-using UtilityWpf.Controls;
-using UtilityHelperEx;
 using System.Windows.Data;
-
+using System.Windows.Media;
+using UtilityHelperEx;
+using UtilityWpf.Abstract;
 
 namespace UtilityWpf.Controls.Chart
 {
@@ -120,7 +118,6 @@ namespace UtilityWpf.Controls.Chart
                             //return ids;
                         }
 
-
                         data
                             .MakeObservable()
                             .Select(a => new KeyValuePair<string, (DateTime dt, double d)>(id, (a.DateTime, a.Value))).Buffer(TimeSpan.FromSeconds(0.5))
@@ -136,11 +133,6 @@ namespace UtilityWpf.Controls.Chart
             }
         }
 
-
-
-
-
-
         public IEnumerable ItemsSource
         {
             get { return (IEnumerable)GetValue(ItemsSourceProperty); }
@@ -152,6 +144,7 @@ namespace UtilityWpf.Controls.Chart
             get { return (string)GetValue(DataKeyProperty); }
             set { SetValue(DataKeyProperty, value); }
         }
+
         public IValueConverter DataConverter
         {
             get { return (IValueConverter)GetValue(DataConverterProperty); }

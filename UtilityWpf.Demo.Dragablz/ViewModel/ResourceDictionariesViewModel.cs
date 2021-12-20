@@ -25,13 +25,8 @@ namespace UtilityWpf.Demo.Dragablz.ViewModel
             {
                 service.OnNext(item as TickViewModel);
             }
-
         }
 
-
         public override IEnumerable Collection => collection;
-
-
-
     }
 }

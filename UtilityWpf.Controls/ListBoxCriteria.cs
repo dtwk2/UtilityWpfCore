@@ -19,12 +19,12 @@ namespace UtilityWpf.Controls
         }
 
         #region properties
+
         public string PropertyName
         {
             get { return (string)GetValue(PropertyNameProperty); }
             set { SetValue(PropertyNameProperty, value); }
         }
-
 
         private static void PropertyNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -35,6 +35,7 @@ namespace UtilityWpf.Controls
             get { return (bool)GetValue(IsCriteriaMetProperty); }
             set { SetValue(IsCriteriaMetProperty, value); }
         }
+
         private static void MetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
         }
@@ -47,7 +48,6 @@ namespace UtilityWpf.Controls
 
         #endregion properties
 
-
         protected override CriteriaItem InitialiseItem(CriteriaItem criteriaItem, object viewmodel)
         {
             Binding myBinding = new Binding(PropertyName)
@@ -59,7 +59,6 @@ namespace UtilityWpf.Controls
             CriteriaItem_CriteriaChanged(this, default);
             return criteriaItem;
         }
-
 
         private void CriteriaItem_CriteriaChanged(object sender, RoutedEventArgs? e)
         {
@@ -97,8 +96,6 @@ namespace UtilityWpf.Controls
             }
         }
 
-
-
         public class CriteriaMetEventArgs : RoutedEventArgs
         {
             public int[] Indices { get; }
@@ -133,7 +130,9 @@ namespace UtilityWpf.Controls
         //private void CriteriaItem_Loaded(object sender, RoutedEventArgs e)
         //{
         //}
+
         #region properties
+
         public bool MeetsCriteria
         {
             get { return (bool)GetValue(MeetsCriteriaProperty); }
@@ -145,6 +144,7 @@ namespace UtilityWpf.Controls
             add { AddHandler(CriteriaChangedEvent, value); }
             remove { RemoveHandler(CriteriaChangedEvent, value); }
         }
+
         #endregion properties
 
         private static void MeetsCriteriaChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

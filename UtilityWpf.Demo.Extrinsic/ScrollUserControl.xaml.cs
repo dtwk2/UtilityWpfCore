@@ -54,7 +54,6 @@ namespace UtilityWpf.Demo.Extrinsic
                     if (IsItemVisible(item, scrollViewer))
                         yield return (item);
 
-
                 bool IsItemVisible(FrameworkElement child, FrameworkElement parent)
                 {
                     var childTransform = child.TransformToAncestor(scrollViewer);

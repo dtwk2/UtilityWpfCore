@@ -31,10 +31,7 @@ namespace UtilityWpf.Demo.Objects
             }
         }
 
-
-
         public static Empty Empty => new Empty();
-
 
         public static PropertyNamesWithDifferentLengths CustomClass
         {
@@ -87,7 +84,6 @@ namespace UtilityWpf.Demo.Objects
             public string OldMacdonaldhadafarmEIEIO { get; set; }
 
             public string Phrase { get; set; }
-
         }
 
         public class ClassWithInnerArray
@@ -98,7 +94,6 @@ namespace UtilityWpf.Demo.Objects
 
             public PropertyNamesWithDifferentLengths[] Objects { get; set; }
         }
-
 
         public class DateAndDuration
         {
@@ -140,6 +135,5 @@ namespace UtilityWpf.Demo.Objects
 
     public class Empty
     {
-
     }
 }

@@ -6,11 +6,9 @@ namespace UtilityWpf.Meta
     {
         public Profile() : base(nameof(UtilityWpf.Meta))
         {
-
             CreateMap<Abstract.CollectionEventArgs, CollectionEventArgs>();
             CreateMap<Abstract.MovementEventArgs, MovementEventArgs>();
             CreateMap<Abstract.CollectionChangedEventArgs, CollectionChangedEventArgs>();
         }
     }
-
 }

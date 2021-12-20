@@ -11,8 +11,8 @@ using System.Windows.Threading;
 
 namespace ComputerCastleControls
 {
-
     public delegate void DirectionRoutedEventHandler(object sender, DirectionEventArgs e);
+
     public delegate void FilterRoutedEventHandler(object sender, FilterEventArgs e);
 
     public enum DirectionEnum
@@ -29,7 +29,6 @@ namespace ComputerCastleControls
     [TemplatePart(Name = PART_Header, Type = typeof(TextBlock))]
     public class FilterControl : Control
     {
-
         public static readonly DependencyProperty TargetControlProperty = DependencyProperty.Register("TargetControl", typeof(ItemsControl), typeof(FilterControl), new UIPropertyMetadata(null));
         public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register("Header", typeof(string), typeof(FilterControl), new UIPropertyMetadata(string.Empty));
         public static readonly DependencyProperty FilterOnEnterProperty = DependencyProperty.Register("FilterOnEnter", typeof(bool), typeof(FilterControl), new UIPropertyMetadata(false));
@@ -173,7 +172,6 @@ namespace ComputerCastleControls
             }
 
             collectionView.Filter = (m => (GetDataValue(m, this.FilterTextBindingPath).Any(a => a.IndexOf(this.FilterText, StringComparison.InvariantCultureIgnoreCase) > -1)));
-
         }
 
         private void ClearFilterOnTarget()
@@ -296,7 +294,6 @@ namespace ComputerCastleControls
             filterBox.Text = string.Empty;
             Keyboard.Focus(filterBox);
 
-
             RoutedEventArgs args = new RoutedEventArgs(ClearFilterEvent, this);
             RaiseEvent(args);
 
@@ -304,7 +301,6 @@ namespace ComputerCastleControls
             {
                 ClearFilterOnTarget();
             }
-
         }
 
         private void OnFilterBoxTextChanged(object sender, TextChangedEventArgs e)
@@ -359,9 +355,6 @@ namespace ComputerCastleControls
 
             tickCount++;
         }
-
-
-
     }
 
     public class FilterEventArgs : RoutedEventArgs
@@ -422,8 +415,6 @@ namespace ComputerCastleControls
             Direction = direction;
         }
     }
-
-
 
     //public class Helper
     //{

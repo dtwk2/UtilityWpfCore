@@ -9,7 +9,7 @@
     xmlns:util="http://schemas.utility.com"
     d:DesignHeight="300"
     d:DesignWidth="300"
- 
+
     mc:Ignorable="d">
     <UserControl.Resources>
         <Specialized:ListDictionary xmlns:Specialized="clr-namespace:System.Collections.Specialized;assembly=System" x:Key="MasterSlidesFileNames">
@@ -28,5 +28,4 @@
     <Grid DataContext="{StaticResource MyDictionary}">
         <util:DictionaryControl ItemsSource="{Binding}" />
     </Grid>
-
 </UserControl>

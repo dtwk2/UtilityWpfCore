@@ -19,8 +19,5 @@ namespace UtilityWpf.Demo.Extrinsic
             view = CollectionViewSource.GetDefaultView(characters);
             listBox.ItemsSource = view;
         }
-
-
-
     }
 }

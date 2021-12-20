@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:dw="clr-namespace:DrWPF.Windows.Controls">
-    
+
     <Style TargetType="{x:Type dw:LoopingListBox}" BasedOn="{StaticResource {x:Type ListBox}}">
         <Setter Property="Padding" Value="2" />
         <Setter Property="Orientation" Value="Horizontal" />
@@ -9,15 +9,15 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type dw:LoopingListBox}">
-                    <Border 
-      Background="{TemplateBinding Background}" 
-      BorderBrush="{TemplateBinding BorderBrush}" 
+                    <Border
+      Background="{TemplateBinding Background}"
+      BorderBrush="{TemplateBinding BorderBrush}"
       BorderThickness="{TemplateBinding BorderThickness}">
-                        <ScrollViewer x:Name="sv" Padding="{TemplateBinding Padding}" 
+                        <ScrollViewer x:Name="sv" Padding="{TemplateBinding Padding}"
         HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                             <dw:LoopPanel x:Name="lp" IsItemsHost="True" BringChildrenIntoView="True"
-          Offset="{Binding Offset, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" 
-          Orientation="{TemplateBinding Orientation}" 
+          Offset="{Binding Offset, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+          Orientation="{TemplateBinding Orientation}"
           RelativeOffset="{TemplateBinding RelativeOffset}" />
                         </ScrollViewer>
                     </Border>
@@ -31,5 +31,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
 </ResourceDictionary>

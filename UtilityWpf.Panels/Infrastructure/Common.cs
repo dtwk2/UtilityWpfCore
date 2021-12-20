@@ -29,7 +29,6 @@ namespace UtilityWpf.Demo.Panels
                     return a.HasValue && b.HasValue ? a.Value.CompareTo(b.Value) : a.HasValue ? 1 : b.HasValue ? -1 : 0;
                 }, other);
 
-
         public static T Max<T>(T first, Func<T, T, int> compare, params T[] other)
         {
             var max = first;
@@ -40,9 +39,6 @@ namespace UtilityWpf.Demo.Panels
             }
             return max;
         }
-
-
-
     }
 
     public class OptionalArray<T> where T : struct

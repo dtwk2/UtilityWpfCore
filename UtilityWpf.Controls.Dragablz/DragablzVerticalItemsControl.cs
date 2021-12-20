@@ -32,7 +32,6 @@ namespace UtilityWpf.Controls.Dragablz
             var customOrganiser = new CustomOrganiser();
             customOrganiser.DragCompleted += CustomOrganiser_DragCompleted;
             ItemsOrganiser = customOrganiser;
-
         }
 
         private void CustomOrganiser_DragCompleted()
@@ -79,15 +78,12 @@ namespace UtilityWpf.Controls.Dragablz
         private void DragablzVerticalItemsControl_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             // throw new NotImplementedException();
-
         }
 
-
-        class DeleteAdorner : Adorner
+        private class DeleteAdorner : Adorner
         {
             public DeleteAdorner(ItemsControl adornerElement) : base(adornerElement)
             {
-
             }
 
             protected override void OnRender(DrawingContext drawingContext)
@@ -106,7 +102,6 @@ namespace UtilityWpf.Controls.Dragablz
                     .OfType<FrameworkElement>()
                     .Sum(a => a.ActualWidth);
 
-
                 drawingContext.DrawRectangle(Brushes.Red, new Pen(Brushes.White, 1),
                 new Rect(new Point(width + 150, 0), new Size(DesiredSize.Height, DesiredSize.Height)));
                 //new Rect(new Point(10, DesiredSize.Height - 40), new Size(DesiredSize.Width - 20, 50)));
@@ -114,7 +109,7 @@ namespace UtilityWpf.Controls.Dragablz
             }
         }
 
-        class CustomOrganiser : VerticalOrganiser
+        private class CustomOrganiser : VerticalOrganiser
         {
             public event Action DragCompleted;
 

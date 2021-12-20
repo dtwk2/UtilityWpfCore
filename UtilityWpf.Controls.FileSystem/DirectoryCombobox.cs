@@ -10,7 +10,6 @@ namespace UtilityWpf.Controls.FileSystem
 {
     public class DirectoryComboBox : ComboBox
     {
-
         public static readonly DependencyProperty ConnectionDirectoryProperty = DependencyProperty.Register("ConnectionDirectory", typeof(string), typeof(DirectoryComboBox), new PropertyMetadata(null));
         public static readonly DependencyProperty FileFilterProperty = DependencyProperty.Register("FileFilter", typeof(string), typeof(DirectoryComboBox), new PropertyMetadata("*"));
         public static readonly DependencyProperty OutputProperty = DependencyProperty.Register("Output", typeof(FileInfo), typeof(DirectoryComboBox), new PropertyMetadata(null));
@@ -19,7 +18,6 @@ namespace UtilityWpf.Controls.FileSystem
         //static DirectoryComboBox() {
         //    DefaultStyleKeyProperty.OverrideMetadata(typeof(DirectoryComboBox), new FrameworkPropertyMetadata(typeof(DirectoryComboBox)));
         //}
-
 
         public DirectoryComboBox()
         {
@@ -84,7 +82,6 @@ namespace UtilityWpf.Controls.FileSystem
 
         // public DirectoryInfo Output
 
-
         public FileInfo Output
         {
             get => (FileInfo)GetValue(OutputProperty);
@@ -97,7 +94,6 @@ namespace UtilityWpf.Controls.FileSystem
             remove => RemoveHandler(FileChangeEvent, value);
         }
 
-
         public delegate void FileChangeEventHandler(object sender, FileChangeEventArgs args);
 
         public class FileChangeEventArgs : RoutedEventArgs
@@ -106,6 +102,7 @@ namespace UtilityWpf.Controls.FileSystem
             {
                 FileInfo = fileInfo;
             }
+
             public FileInfo FileInfo { get; }
         }
     }

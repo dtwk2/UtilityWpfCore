@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib" 
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:pnls="http://schemas.utility.com/panels"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -61,7 +61,6 @@
                             Height="20"
                             pnls:CornerPanel.Corner="TopLeft"
                             Fill="Orange" />
-
                     </pnls:CornerPanel>
                 </Border>
                 <Border Background="BlanchedAlmond" BorderThickness="1">
@@ -91,7 +90,6 @@
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             Fill="SkyBlue" />
-
                     </pnls:CornerPanel>
                 </Border>
                 <Border Background="BlanchedAlmond" BorderThickness="1">
@@ -120,7 +118,6 @@
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             Fill="SaddleBrown" />
-
                     </pnls:CornerPanel>
                 </Border>
                 <Border Background="Tan" BorderThickness="1">
@@ -146,7 +143,6 @@
                                 Height="20"
                                 pnls:TwoColumnPanel.SecondColumn="True"
                                 Fill="Fuchsia" />
-
                         </pnls:TwoColumnPanel>
                         <Rectangle
                             HorizontalAlignment="Center"
@@ -156,7 +152,6 @@
                 </Border>
             </UniformGrid>
         </TabItem>
-
 
         <TabItem Header="Circle">
             <DockPanel>
@@ -196,7 +191,6 @@
                         Fill="Fuchsia" />
                 </ListBox>
             </DockPanel>
-
         </TabItem>
 
         <TabItem Header="Animated WrapPanel">
@@ -213,10 +207,8 @@
                     <Button Margin="5" Content="Close" />
                     <Button Margin="5" Content="Save" />
                     <Button Margin="5" Content="Export" />
-
                 </ItemsControl>
             </DockPanel>
-
         </TabItem>
         <TabItem Header="Transition">
             <DockPanel>
@@ -286,7 +278,6 @@
             </pnls:UniformStackPanel>
         </TabItem>
 
-      
         <TabItem Header="B">
             <UniformGrid Rows="1">
                 <pnls:CornerPanel IsLastChildFilled="False">
@@ -332,7 +323,6 @@
                     Maximum="50"
                     Minimum="0"
                     Value="5" />
-
                 </ToolBar>
 
                 <Border
@@ -360,7 +350,7 @@
             <ItemsControl>
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <pnls:VirtualizingTilePanel/>
+                        <pnls:VirtualizingTilePanel />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
 
@@ -368,7 +358,6 @@
                 <Button Margin="5" Content="Close" />
                 <Button Margin="5" Content="Save" />
                 <Button Margin="5" Content="Export" />
-
             </ItemsControl>
         </TabItem>
     </TabControl>

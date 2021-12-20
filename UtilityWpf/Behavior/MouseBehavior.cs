@@ -33,7 +33,6 @@ namespace UtilityWpf.Behavior
             AssociatedObject.MouseEnter += AssociatedObject_MouseEnter;
         }
 
-
         protected override void OnDetaching()
         {
             AssociatedObject.PreviewMouseDown -= Element_PreviewMouseDown;
@@ -59,17 +58,18 @@ namespace UtilityWpf.Behavior
             AsElement(sender).SetValue(Ex.IsPressedProperty, false);
         }
 
-        void element_MouseLeave(object sender, MouseEventArgs e)
+        private void element_MouseLeave(object sender, MouseEventArgs e)
         {
             AsElement(sender).SetValue(Ex.IsPressedProperty, false);
             AsElement(sender).SetValue(Ex.IsMouseOverProperty, false);
         }
 
-        void element_MouseUp(object sender, MouseButtonEventArgs e)
+        private void element_MouseUp(object sender, MouseButtonEventArgs e)
         {
             AsElement(sender).SetValue(Ex.IsPressedProperty, false);
         }
-        void element_MouseDown(object sender, MouseButtonEventArgs e)
+
+        private void element_MouseDown(object sender, MouseButtonEventArgs e)
         {
             AsElement(sender).SetValue(Ex.IsPressedProperty, true);
         }

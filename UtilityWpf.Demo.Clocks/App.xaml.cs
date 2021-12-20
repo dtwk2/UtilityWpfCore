@@ -10,7 +10,6 @@ namespace UtilityWpf.Demo.Clocks
     /// </summary>
     public partial class App : Application
     {
-
         public App()
         {
             var builder = new ContainerBuilder();
@@ -18,6 +17,5 @@ namespace UtilityWpf.Demo.Clocks
             builder.AutoRegister();
             builder.UseAutofacDependencyResolver();
         }
-
     }
 }

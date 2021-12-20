@@ -9,7 +9,6 @@ namespace UtilityWpf.Animation
 {
     public class TimedProgressBar : ProgressBar
     {
-
         public static readonly DependencyProperty DurationProperty =
             DependencyProperty.Register("Duration", typeof(Duration), typeof(TimedProgressBar), new PropertyMetadata(new Duration(TimeSpan.FromSeconds(1)), Changed));
 
@@ -21,7 +20,6 @@ namespace UtilityWpf.Animation
 
         public static readonly DependencyProperty RepeatProperty =
            DependencyProperty.Register("Repeat", typeof(bool), typeof(TimedProgressBar), new PropertyMetadata(true, RepeatChanged));
-
 
         static TimedProgressBar()
         {
@@ -52,7 +50,6 @@ namespace UtilityWpf.Animation
             set => SetValue(DurationProperty, value);
         }
 
-
         private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             Duration newDuration, oldDuration;
@@ -75,24 +72,20 @@ namespace UtilityWpf.Animation
 
             flashView.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
             {
-
-
                 var anim = new DoubleAnimation(0, 100, newDuration.TimeSpan) { RepeatBehavior = RepeatBehavior.Forever };
                 flashView.BeginAnimation(ProgressBar.ValueProperty, anim, HandoffBehavior.Compose);
             }));
         }
+
         private static void RepeatChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-
         }
 
         public TimedProgressBar()
         {
-
             Flash = ReactiveUI.ReactiveCommand.Create(() =>
             {
                 Repeat = false;
-
             });
         }
     }

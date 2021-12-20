@@ -114,15 +114,15 @@ namespace UtilityWpf.Demo.Controls
         }
 
         public static DataTemplateSelector DataTemplateSelector1 => LambdaConverters.TemplateSelector.Create<object>(e =>
-        {
-            return e.Item switch
             {
-                Stock _ => ((FrameworkElement)e.Container)?.FindResource("StockTemplate"),
-                GroupViewModel2 _ => ((FrameworkElement)e.Container)?.FindResource("Group2Template"),
-                GroupViewModel<Stock, string, string> _ => ((FrameworkElement)e.Container)?.FindResource("GroupTemplate"),
-                _ => throw new NotImplementedException(),
-            } as DataTemplate;
-        });
+                return e.Item switch
+                {
+                    Stock _ => ((FrameworkElement)e.Container)?.FindResource("StockTemplate"),
+                    GroupViewModel2 _ => ((FrameworkElement)e.Container)?.FindResource("Group2Template"),
+                    GroupViewModel<Stock, string, string> _ => ((FrameworkElement)e.Container)?.FindResource("GroupTemplate"),
+                    _ => throw new NotImplementedException(),
+                } as DataTemplate;
+            });
     }
 
     public class GroupMasterViewModel2 : GroupMasterViewModel<Stock, string, string>

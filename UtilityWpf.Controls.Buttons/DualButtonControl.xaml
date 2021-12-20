@@ -30,7 +30,6 @@
         </Setter>
     </Style>
 
-
     <converter:BooleanToDoubleConverter
         x:Key="Standard"
         ValueFalse="0.5"

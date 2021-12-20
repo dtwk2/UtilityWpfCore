@@ -7,7 +7,6 @@ namespace UtilityWpf.Controls.Clocks
 {
     public class AnalogClock : Clock
     {
-
         public static readonly DependencyProperty AngleSecondProperty = DependencyProperty.Register("AngleSecond", typeof(double), typeof(AnalogClock), new UIPropertyMetadata(default(double)));
         public static readonly DependencyProperty AngleMinuteProperty = DependencyProperty.Register("AngleMinute", typeof(double), typeof(AnalogClock), new UIPropertyMetadata(default(double)));
         public static readonly DependencyProperty AngleHourProperty = DependencyProperty.Register("AngleHour", typeof(double), typeof(AnalogClock), new UIPropertyMetadata(default(double)));
@@ -30,8 +29,7 @@ namespace UtilityWpf.Controls.Clocks
             set { SetValue(AngleHourProperty, value); }
         }
 
-
-        DateTime lastTime;
+        private DateTime lastTime;
         private Grid ClocksGrid;
         private Line LineSecond;
         private Line LineMinute;
@@ -66,6 +64,7 @@ namespace UtilityWpf.Controls.Clocks
 
             return base.ArrangeOverride(arrangeBounds);
         }
+
         public override void OnApplyTemplate()
         {
             ClocksGrid = GetTemplateChild("ClocksGrid") as Grid;

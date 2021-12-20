@@ -14,8 +14,8 @@ namespace UtilityWpf.Demo.Data.Model
     {
         private static ICachedEnumerable<Sector> sectors = SelectSectors().Cached();
 
-        const string StockTablePath = "/stocknet-dataset-master/StockTable.csv";
-        const string StockPricePath = "/stocknet-dataset-master/price/HL/ABB.csv";
+        private const string StockTablePath = "/stocknet-dataset-master/StockTable.csv";
+        private const string StockPricePath = "/stocknet-dataset-master/price/HL/ABB.csv";
 
         private static IEnumerable<Sector> SelectSectors()
         {

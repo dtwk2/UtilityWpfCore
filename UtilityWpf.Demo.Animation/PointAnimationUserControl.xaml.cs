@@ -11,8 +11,8 @@ namespace UtilityWpf.Demo.Animation
     /// </summary>
     public partial class PointAnimationUserControl : UserControl
     {
-        Random r = new Random();
-        Path myPath = null; EllipseGeometry myEllipseGeometry = null; Geometry myEllipseGeometry2 = null;
+        private Random r = new Random();
+        private Path myPath = null; private EllipseGeometry myEllipseGeometry = null; private Geometry myEllipseGeometry2 = null;
 
         public PointAnimationUserControl()
         {
@@ -74,14 +74,9 @@ namespace UtilityWpf.Demo.Animation
             TravellerControl2.Point = point;
         }
 
-
-
-        static Func<T> RandomNext<T>(Random random, params Func<T>[] actions)
+        private static Func<T> RandomNext<T>(Random random, params Func<T>[] actions)
         {
             return actions[random.Next(0, actions.Length)];
         }
-
-
     }
-
 }

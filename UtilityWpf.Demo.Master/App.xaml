@@ -3,11 +3,10 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=PresentationFramework"
-    xmlns:utilitywpf="clr-namespace:UtilityWpf;assembly=UtilityWpf"
     StartupUri="MainWindow.xaml">
-    
+
     <Application.Resources>
-        <ResourceDictionary >
+        <ResourceDictionary>
             <Style TargetType="Control">
                 <Style.Triggers>
                     <Trigger Property="componentModel:DesignerProperties.IsInDesignMode" Value="True">
@@ -15,14 +14,13 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
-            
+
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/UtilityWpf.Demo.Common;component/View/Templates.xaml"/> 
+                <ResourceDictionary Source="/UtilityWpf.Demo.Common;component/View/Templates.xaml" />
                 <ResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/Themes/Generic.xaml" />
                 <ResourceDictionary Source="/UtilityWpf.Demo.Data;component/Themes/Generic.xaml" />
                 <ResourceDictionary Source="/UtilityWpf.Demo.Master;component/Templates.xaml" />
-
-            </ResourceDictionary.MergedDictionaries>            
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

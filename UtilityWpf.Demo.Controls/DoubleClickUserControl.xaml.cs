@@ -22,10 +22,7 @@ namespace UtilityWpf.Demo.Controls
 
         public DoubleClickViewModel()
         {
-
             MyCommand = ReactiveCommand.Create(() => MessageBox.Show("double click!"));
         }
     }
-
-
 }

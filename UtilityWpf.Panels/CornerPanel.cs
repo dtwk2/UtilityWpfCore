@@ -56,7 +56,7 @@ namespace UtilityWpf.Panels
         BottomRight,
     }
 
-    #endregion
+    #endregion Dock enum type
 
     /// <summary>
     /// DockPanel is used to size and position children inward from the edges of available space.
@@ -87,12 +87,8 @@ namespace UtilityWpf.Panels
         public static readonly DependencyProperty CornerProperty =
             DependencyProperty.RegisterAttached("Corner", typeof(Corner), typeof(CornerPanel), new FrameworkPropertyMetadata(Corner.TopLeft, new PropertyChangedCallback(OnCornerChanged)), new ValidateValueCallback(IsValidCorner));
 
-
-
         public static readonly DependencyProperty StartCornerProperty = DependencyProperty.Register("StartCorner", typeof(Corner?), typeof(CornerPanel),
                 new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnCornerChanged)), new ValidateValueCallback(IsValidCorner));
-
-
 
         public CornerPanel() : base()
         {
@@ -109,7 +105,7 @@ namespace UtilityWpf.Panels
         }
 
         /// <summary>
-        /// This property controls whether the last child in the DockPanel should be stretched to fill any 
+        /// This property controls whether the last child in the DockPanel should be stretched to fill any
         /// remaining available space.
         /// </summary>
         public bool IsLastChildFilled
@@ -119,7 +115,7 @@ namespace UtilityWpf.Panels
         }
 
         ///// <summary>
-        ///// true the space for items based on the available space 
+        ///// true the space for items based on the available space
         ///// false the indvidual items dimensions determine their space
         ///// </summary>
         //public bool IsContentStretched
@@ -128,16 +124,11 @@ namespace UtilityWpf.Panels
         //    set { SetValue(IsContentStretchedProperty, value); }
         //}
 
-
-
-
         public Corner? StartCorner
         {
             get { return (Corner?)GetValue(StartCornerProperty); }
             set { SetValue(StartCornerProperty, value); }
         }
-
-
 
         /// <summary>
         /// Reads the attached property Dock from the given element.
@@ -173,12 +164,11 @@ namespace UtilityWpf.Panels
             }
         }
 
-
         /// <summary>
         /// Updates DesiredSize of the DockPanel.  Called by parent UIElement.  This is the first pass of layout.
         /// </summary>
         /// <remarks>
-        /// Children are measured based on their sizing properties and <see cref="Corner" />.  
+        /// Children are measured based on their sizing properties and <see cref="Corner" />.
         /// Each child is allowed to consume all of the space on the side on which it is docked; Left/Right docked
         /// children are granted all vertical space for their entire width, and Top/Bottom docked children are
         /// granted all horizontal space for their entire height.
@@ -203,10 +193,6 @@ namespace UtilityWpf.Panels
             //    Size childDesiredSize;            // Contains the return size from child measure.
 
             //    if (child == null) { continue; }
-
-
-
-
 
             //    // Now, we adjust:
             //    // 1. Size consumed by children (accumulatedSize).  This will be used when computing subsequent
@@ -263,7 +249,6 @@ namespace UtilityWpf.Panels
             //            break;
             //    }
 
-
             //}
 
             //// Make sure the final accumulated size is reflected in parentSize.
@@ -271,7 +256,6 @@ namespace UtilityWpf.Panels
             //parentHeight = Math.Max(parentHeight, Math.Max( accumulatedLeftHeight, accumulatedRightHeight));
 
             //return (new Size(parentWidth, parentHeight));
-
 
             foreach (UIElement elem in InternalChildren)
                 elem.Measure(constraint);
@@ -316,7 +300,6 @@ namespace UtilityWpf.Panels
 
                 if (i == nonFillChildrenCount)
                 {
-
                     rcChild = IsFilledFromTop ? new Rect(
                         Math.Max(maxLeft, accumulatedTopLeft),
                         0,
@@ -361,12 +344,10 @@ namespace UtilityWpf.Panels
                             break;
                     }
 
-
                 child.Arrange(rcChild);
             }
 
             return arrangeSize;
-
 
             Corner GetCorner_(UIElement element)
             {
@@ -383,7 +364,6 @@ namespace UtilityWpf.Panels
             }
         }
 
-
         internal static bool IsValidCorner(object o)
         {
             return o == null ||
@@ -394,5 +374,3 @@ namespace UtilityWpf.Panels
         }
     }
 }
-
-

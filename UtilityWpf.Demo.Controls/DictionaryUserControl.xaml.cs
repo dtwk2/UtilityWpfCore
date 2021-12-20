@@ -14,5 +14,6 @@ namespace UtilityWpf.Demo.Controls
         }
     }
 
-    public class MyDictionary : Dictionary<string, int> { }
+    public class MyDictionary : Dictionary<string, int>
+    { }
 }

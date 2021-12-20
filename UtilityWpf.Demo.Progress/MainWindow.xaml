@@ -8,10 +8,10 @@
         Title="MainWindow" Height="450" Width="800">
     <TabControl>
         <TabItem Header="Circle Progress">
-            <local:CircleProgressUserControl/>
-        </TabItem>     
+            <local:CircleProgressUserControl />
+        </TabItem>
         <TabItem Header="Gauge">
-            <local:GaugeUserControl/>
+            <local:GaugeUserControl />
         </TabItem>
     </TabControl>
 </Window>

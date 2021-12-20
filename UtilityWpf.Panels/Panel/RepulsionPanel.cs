@@ -1,9 +1,7 @@
-﻿
-using System;
+﻿using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-
 
 namespace UtilityWpf.Demo.Panels
 {
@@ -12,9 +10,6 @@ namespace UtilityWpf.Demo.Panels
     /// </summary>
     public class RepulsionPanel : Panel
     {
-
-
-
         public Orientation Orientation
         {
             get { return (Orientation)GetValue(OrientationProperty); }
@@ -23,8 +18,6 @@ namespace UtilityWpf.Demo.Panels
 
         public static readonly DependencyProperty OrientationProperty =
             DependencyProperty.Register("Orientation", typeof(Orientation), typeof(RepulsionPanel), new PropertyMetadata(Orientation.Horizontal));
-
-
 
         protected override Size MeasureOverride(Size constraint)
         {
@@ -80,11 +73,8 @@ namespace UtilityWpf.Demo.Panels
                     sumHeight += child.DesiredSize.Height;
                     i++;
                 }
-
             }
             return arrangeSize;
         }
-
     }
 }
-

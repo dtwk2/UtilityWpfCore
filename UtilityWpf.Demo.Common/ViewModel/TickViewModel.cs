@@ -19,7 +19,7 @@ namespace UtilityWpf.Demo.Common.ViewModel
 
     public class TickViewModel : ReactiveObject, IObservable<TickChange>, IEquatable<TickViewModel>
     {
-        readonly ReplaySubject<TickChange> tickChanges = new();
+        private readonly ReplaySubject<TickChange> tickChanges = new();
         private bool isChecked;
         private ICommand command;
 

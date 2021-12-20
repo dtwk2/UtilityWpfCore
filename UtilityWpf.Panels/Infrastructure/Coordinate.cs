@@ -5,13 +5,12 @@ using System.Linq;
 
 namespace UtilityWpf.Demo.Panels
 {
-    struct Coordinate : IComparable<Coordinate>
+    internal struct Coordinate : IComparable<Coordinate>
     {
         public Coordinate(int X, int Y)
         {
             this.X = X;
             this.Y = Y;
-
         }
 
         public int X { get; }
@@ -46,6 +45,7 @@ namespace UtilityWpf.Demo.Panels
         {
             return Math.Abs(coordinate.X - this.X) == 1 && Math.Abs(coordinate.Y - this.Y) == 1;
         }
+
         public bool IsSide(Coordinate coordinate)
         {
             return (Math.Abs(coordinate.X - this.X) == 0 && Math.Abs(coordinate.Y - this.Y) == 1

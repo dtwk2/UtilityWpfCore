@@ -13,6 +13,7 @@ namespace UtilityWpf.Demo.Buttons
         {
             Value = value;
         }
+
         public int Value { get; }
     }
 
@@ -35,7 +36,5 @@ namespace UtilityWpf.Demo.Buttons
         public ObservableCollection<Number> Numbers { get; } = new();
 
         public ICommand Command { get; }
-
     }
-
 }

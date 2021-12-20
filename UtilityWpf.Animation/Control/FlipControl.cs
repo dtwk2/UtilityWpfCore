@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Windows;
@@ -7,11 +6,8 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media.Animation;
 
-
 namespace UtilityWpf.Animation
 {
-
-
     /// <summary>
     /// The flip control from ElysiumExtra
     /// <a href="https://github.com/RehanSaeed/Elysium-Extra"></a>
@@ -66,7 +62,7 @@ namespace UtilityWpf.Animation
             typeof(FlipControl),
             new PropertyMetadata(0, OnSelectedIndexProxyChanged));
 
-        #endregion
+        #endregion Dependency Properties
 
         #region Fields
 
@@ -76,7 +72,7 @@ namespace UtilityWpf.Animation
         private ContentControl previousContent;
         private Storyboard storyboard;
 
-        #endregion
+        #endregion Fields
 
         #region Constructors
 
@@ -102,7 +98,7 @@ namespace UtilityWpf.Animation
             this.Loaded += this.OnLoaded;
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Public Properties
 
@@ -169,7 +165,7 @@ namespace UtilityWpf.Animation
             set { this.SetValue(SelectedIndexProxyProperty, value); }
         }
 
-        #endregion
+        #endregion Public Properties
 
         #region Public Methods
 
@@ -185,7 +181,7 @@ namespace UtilityWpf.Animation
             this.previousContent.Visibility = Visibility.Collapsed;
         }
 
-        #endregion
+        #endregion Public Methods
 
         #region Protected Methods
 
@@ -284,7 +280,7 @@ namespace UtilityWpf.Animation
             this.Animate();
         }
 
-        #endregion
+        #endregion Protected Methods
 
         #region Private Static Methods
 
@@ -457,7 +453,7 @@ namespace UtilityWpf.Animation
             return storyboard;
         }
 
-        #endregion
+        #endregion Private Static Methods
 
         #region Private Methods
 
@@ -546,6 +542,6 @@ namespace UtilityWpf.Animation
             }
         }
 
-        #endregion
+        #endregion Private Methods
     }
 }

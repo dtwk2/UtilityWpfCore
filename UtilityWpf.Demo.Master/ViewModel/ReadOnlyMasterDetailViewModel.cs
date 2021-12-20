@@ -11,7 +11,6 @@ using UtilityWpf.Demo.Common.ViewModel;
 using UtilityWpf.Demo.Data.Model;
 using UtilityWpf.Service;
 
-
 namespace UtilityWpf.Demo.Master.Infrastructure
 {
     public class ReadOnlyMasterDetailViewModel : ReactiveObject
@@ -34,18 +33,22 @@ namespace UtilityWpf.Demo.Master.Infrastructure
                         if (NewItem.MoveNext())
                             service.Items.Add(NewItem.Current);
                         break;
+
                     case { EventType: EventType.Remove, Item: { } item }:
                         service.Items.Remove(item);
                         break;
+
                     case { EventType: EventType.Remove }:
                         service.Items.RemoveAt(service.Items.Count - 1);
                         break;
+
                     case MovementEventArgs eventArgs:
                         foreach (var item in eventArgs.Changes)
                         {
                             //Data.Move(item.OldIndex, item.Index);
                         }
                         break;
+
                     default:
                         break;
                 }
@@ -61,13 +64,11 @@ namespace UtilityWpf.Demo.Master.Infrastructure
                 else
                     DatabaseService = new LiteDbRepository(new LiteDbRepository.ConnectionSettings(typeof(ReactiveFields), new System.IO.FileInfo("../../../Data/Data.litedb"), nameof(ReactiveFields.Id)));
 
-
                 return Unit.Default;
             });
         }
 
         public IEnumerable Data => service.Items;
-
 
         public IEnumerator NewItem
         {
@@ -84,5 +85,4 @@ namespace UtilityWpf.Demo.Master.Infrastructure
 
         public IRepository DatabaseService { get => dbS; private set => this.RaiseAndSetIfChanged(ref dbS, value); }
     }
-
 }

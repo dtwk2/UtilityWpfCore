@@ -22,7 +22,7 @@
                     <!--<Grid Background="Transparent">-->
                     <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Grid
-                  
+
                             Background="Transparent">
                             <!--  The background of the button, as an ellipse.  -->
                             <Ellipse
@@ -32,7 +32,7 @@
                                 Width="160"
                                 Height="160" />
                             <Path
-                                    x:Name="ButtonPath"   
+                                    x:Name="ButtonPath"
                                     Width="80"
                                     Height="80"
                                     HorizontalAlignment="Center"
@@ -45,7 +45,6 @@
                                     StrokeStartLineCap="Square"
                                     StrokeThickness="12">
                             </Path>
-                           
                         </Grid>
                     </Viewbox>
                     <!--</Grid>-->

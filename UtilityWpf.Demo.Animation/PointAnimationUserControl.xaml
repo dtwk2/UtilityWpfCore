@@ -11,7 +11,7 @@
     <StackPanel>
         <Button FontSize="20" Height="40" Click="Button_Click">Animate</Button>
         <Grid
-        
+
             Background="Gray">
             <Canvas Margin="10" Background="GhostWhite" x:Name="Canvas1"     Width="600"
                     Height="300">
@@ -21,10 +21,8 @@
                     </animation:PointControl.Point>
                 </animation:PointControl>
                 <animation:TravellerControl x:Name="TravellerControl1">
-                  
-                </animation:TravellerControl>              
+                </animation:TravellerControl>
                 <animation:TravellerControl x:Name="TravellerControl2">
-                  
                 </animation:TravellerControl>
             </Canvas>
         </Grid>

@@ -1,6 +1,5 @@
 ﻿using System.Windows.Controls;
 
-
 namespace UtilityWpf.Demo.Hybrid
 {
     /// <summary>
@@ -13,10 +12,8 @@ namespace UtilityWpf.Demo.Hybrid
             InitializeComponent();
         }
 
-
         private void MasterNotesControl_Change(object sender, System.Windows.RoutedEventArgs e)
         {
-
         }
     }
 }

@@ -6,11 +6,11 @@
  *
  *   * Redistributions of source code must retain the above copyright
  *     notice, this list of conditions and the following disclaimer.
- * 
+ *
  *   * Redistributions in binary form must reproduce the above copyright
  *     notice, this list of conditions and the following disclaimer in the
  *     documentation and/or other materials provided with the distribution.
- * 
+ *
  *   * The name Dr. WPF may not be used to endorse or promote products
  *     derived from this software without specific prior written permission.
  *
@@ -44,7 +44,7 @@ namespace DrWPF.Windows.Controls
             EventManager.RegisterClassHandler(typeof(LoopPanel), FrameworkElement.RequestBringIntoViewEvent, new RequestBringIntoViewEventHandler(OnRequestBringIntoView));
         }
 
-        #endregion
+        #endregion static
 
         #region public
 
@@ -53,9 +53,9 @@ namespace DrWPF.Windows.Controls
             PivotalChildIndex = -1;
         }
 
-        #endregion
+        #endregion public
 
-        #endregion
+        #endregion constructors
 
         #region dependency properties
 
@@ -69,8 +69,8 @@ namespace DrWPF.Windows.Controls
                 new FrameworkPropertyMetadata((bool)false));
 
         /// <summary>
-        /// Gets or sets the BringChildrenIntoView property.  This dependency property 
-        /// indicates whether the panel should automatically adjust its Offset property to bring 
+        /// Gets or sets the BringChildrenIntoView property.  This dependency property
+        /// indicates whether the panel should automatically adjust its Offset property to bring
         /// its direct children into view when they raise the RequestBringIntoView event.
         /// </summary>
         public bool BringChildrenIntoView
@@ -79,7 +79,7 @@ namespace DrWPF.Windows.Controls
             set { SetValue(BringChildrenIntoViewProperty, value); }
         }
 
-        #endregion
+        #endregion BringChildrenIntoView
 
         #region Offset
 
@@ -92,25 +92,25 @@ namespace DrWPF.Windows.Controls
                     FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         /// <summary>
-        /// Gets or sets the Offset property.  This dependency property indicates the logical 
-        /// offset of children (in the orientation direction) within the LoopPanel. 
-        /// 
+        /// Gets or sets the Offset property.  This dependency property indicates the logical
+        /// offset of children (in the orientation direction) within the LoopPanel.
+        ///
         /// The Offset property provides for logical units in the direction of the
         /// panel's orientation.  This allows the panel to support per-item scrolling.
-        /// Each logical unit represents a single child.  Since children can have 
+        /// Each logical unit represents a single child.  Since children can have
         /// varying sizes, this means a fraction of a unit (such as 0.1) will represent
         /// different lengths for different children.  All placement of children occurs
-        /// around the current pivotal child.  The pivotal child's index is determined 
+        /// around the current pivotal child.  The pivotal child's index is determined
         /// by truncating the Offset value and applying a modulo using the child count.
-        /// 
+        ///
         /// Another way to think about this property is that its non-fractional portion
-        /// represents the index of the pivotal child (the child around which other 
-        /// children are arranged). If the value is between 0 (inclusive) 
+        /// represents the index of the pivotal child (the child around which other
+        /// children are arranged). If the value is between 0 (inclusive)
         /// and 1 (exclusive), the first child is the pivotal child.  The fractional
-        /// portion represents an offset for the pivotal child. 
-        /// 
-        /// The default value of 0.5 means that the first child is the pivotal child and 
-        /// it is centered along its extent (the child's width for a horizontal 
+        /// portion represents an offset for the pivotal child.
+        ///
+        /// The default value of 0.5 means that the first child is the pivotal child and
+        /// it is centered along its extent (the child's width for a horizontal
         /// orientation or height for a vertical orientation).
         /// </summary>
         public double Offset
@@ -119,7 +119,7 @@ namespace DrWPF.Windows.Controls
             set { SetValue(OffsetProperty, value); }
         }
 
-        #endregion
+        #endregion Offset
 
         #region Orientation
 
@@ -132,7 +132,7 @@ namespace DrWPF.Windows.Controls
                     FrameworkPropertyMetadataOptions.AffectsArrange));
 
         /// <summary>
-        /// Gets or sets the Orientation property.  This dependency property 
+        /// Gets or sets the Orientation property.  This dependency property
         /// indicates the layout orientation of the looping children.
         /// </summary>
         public Orientation Orientation
@@ -141,7 +141,7 @@ namespace DrWPF.Windows.Controls
             set { SetValue(OrientationProperty, value); }
         }
 
-        #endregion
+        #endregion Orientation
 
         #region RelativeOffset
 
@@ -154,8 +154,8 @@ namespace DrWPF.Windows.Controls
                     new ValidateValueCallback(IsRelativeOffsetValid));
 
         /// <summary>
-        /// Gets or sets the RelativeOffset property.  This dependency property 
-        /// indicates where the pivotal child is positioned within the panel. 
+        /// Gets or sets the RelativeOffset property.  This dependency property
+        /// indicates where the pivotal child is positioned within the panel.
         /// The default value of 0.5 means that the pivotal child is positioned
         /// with its edge at the center of the panel.
         /// </summary>
@@ -174,9 +174,9 @@ namespace DrWPF.Windows.Controls
                 && v >= 0.0d && v <= 1.0d);
         }
 
-        #endregion
+        #endregion RelativeOffset
 
-        #endregion
+        #endregion dependency properties
 
         #region properties
 
@@ -184,9 +184,9 @@ namespace DrWPF.Windows.Controls
 
         internal int PivotalChildIndex { get; private set; }
 
-        #endregion
+        #endregion internal
 
-        #endregion
+        #endregion properties
 
         #region methods
 
@@ -196,7 +196,7 @@ namespace DrWPF.Windows.Controls
         /// Provides a helper method for scrolling the panel by viewport units rather than
         /// adjusting the Offset property (which uses logical units)
         /// </summary>
-        /// <param name="viewportUnits">The number of device independent pixels to scroll.  A positive value 
+        /// <param name="viewportUnits">The number of device independent pixels to scroll.  A positive value
         /// scrolls the Offset forward and a negative value scrolls it backward</param>
         public void Scroll(double viewportUnits)
         {
@@ -243,7 +243,7 @@ namespace DrWPF.Windows.Controls
             Offset = newOffset;
         }
 
-        #endregion
+        #endregion public
 
         #region protected
 
@@ -401,8 +401,8 @@ namespace DrWPF.Windows.Controls
                     }
                 }
 
-                // if there was no room for the child, arrange it to a rect with no width or height 
-                // as a render optimization; preserve layout placement to ensure that keyboard 
+                // if there was no room for the child, arrange it to a rect with no width or height
+                // as a render optimization; preserve layout placement to ensure that keyboard
                 // navigation works as expected
                 if (!childArranged)
                 {
@@ -504,7 +504,7 @@ namespace DrWPF.Windows.Controls
 
         protected override void OnVisualChildrenChanged(DependencyObject visualAdded, DependencyObject visualRemoved)
         {
-            // changes to the children collection require an update to the Offset 
+            // changes to the children collection require an update to the Offset
             // so that the children don't shift when the collection changes
 
             // we do not want to process changes that occur as part of container generation
@@ -535,7 +535,7 @@ namespace DrWPF.Windows.Controls
             base.OnVisualChildrenChanged(visualAdded, visualRemoved);
         }
 
-        #endregion
+        #endregion protected
 
         #region private
 
@@ -568,7 +568,7 @@ namespace DrWPF.Windows.Controls
                     Rect childRect = childTransform.TransformBounds(new Rect(new Point(0, 0), child.RenderSize));
                     Rect intersection = Rect.Intersect(new Rect(new Point(0, 0), lp.RenderSize), childRect);
 
-                    // if the intersection is different than the child rect, it is either not visible 
+                    // if the intersection is different than the child rect, it is either not visible
                     // or only partially visible, so adjust the Offset to bring it into view
                     if (!DoubleHelper.AreVirtuallyEqual(childRect, intersection))
                     {
@@ -591,16 +591,16 @@ namespace DrWPF.Windows.Controls
             }
         }
 
-        #endregion
+        #endregion private
 
-        #endregion
+        #endregion methods
 
         #region fields
 
         private bool _isMeasured = false;
         private bool _inMeasure = false;
 
-        #endregion
+        #endregion fields
     }
 
     internal class DoubleHelper

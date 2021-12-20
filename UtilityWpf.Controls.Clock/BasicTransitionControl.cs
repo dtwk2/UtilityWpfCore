@@ -5,7 +5,6 @@ namespace UtilityWpf.Controls.Clocks
 {
     public class BasicTransitionControl : Control
     {
-
         public static readonly DependencyProperty UnCheckedContentProperty =
             DependencyProperty.Register("UnCheckedContent", typeof(object), typeof(BasicTransitionControl), new PropertyMetadata(null));
 
@@ -16,7 +15,6 @@ namespace UtilityWpf.Controls.Clocks
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BasicTransitionControl), new FrameworkPropertyMetadata(typeof(BasicTransitionControl)));
         }
-
 
         public object CheckedContent
         {

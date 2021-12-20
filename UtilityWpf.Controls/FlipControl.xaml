@@ -3,38 +3,37 @@
                     xmlns:local="clr-namespace:UtilityWpf.Controls">
 
     <Style x:Key="FlipControl" TargetType="{x:Type local:FlipControl}">
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Focusable" Value="False"/>
-        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-        <Setter Property="FontSize" Value="30"/>
-        <Setter Property="Padding" Value="0"/>
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="FontSize" Value="30" />
+        <Setter Property="Padding" Value="0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:FlipControl}">
 
                     <Grid>
-                        <ContentControl x:Name="PART_PreviousContent" 
+                        <ContentControl x:Name="PART_PreviousContent"
                                             Content="{TemplateBinding PreviousSelectedItem}"
                                             ContentTemplate="{TemplateBinding ItemTemplate}"
                                             ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
                                             Focusable="False"
                                             FontSize="{TemplateBinding FontSize}">
                             <ContentControl.RenderTransform>
-                                <TranslateTransform/>
+                                <TranslateTransform />
                             </ContentControl.RenderTransform>
                         </ContentControl>
-                        <ContentControl x:Name="PART_Content" 
+                        <ContentControl x:Name="PART_Content"
                                             Content="{TemplateBinding SelectedItem}"
                                             ContentTemplate="{TemplateBinding ItemTemplate}"
                                             ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
                                             Focusable="False"
                                             FontSize="{TemplateBinding FontSize}">
                             <ContentControl.RenderTransform>
-                                <TranslateTransform/>
+                                <TranslateTransform />
                             </ContentControl.RenderTransform>
                         </ContentControl>
                     </Grid>
-
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -46,26 +45,25 @@
                                  BeginTime="00:00:00.5"
                                  Duration="00:00:01"
                                  From="1"
-                                 To="0"/>
+                                 To="0" />
             </Storyboard>
         </Style.Resources>
-        <Setter Property="Opacity" Value="0"/>
+        <Setter Property="Opacity" Value="0" />
         <Style.Triggers>
             <Trigger Property="IsFlipping" Value="True">
-                <Setter Property="Opacity" Value="1"/>
+                <Setter Property="Opacity" Value="1" />
             </Trigger>
             <Trigger Property="IsFlipping" Value="False">
                 <Trigger.EnterActions>
-                    <BeginStoryboard x:Name="FadeBeginStoryboard" 
-                                     Storyboard="{StaticResource FadeStoryboard}"/>
+                    <BeginStoryboard x:Name="FadeBeginStoryboard"
+                                     Storyboard="{StaticResource FadeStoryboard}" />
                 </Trigger.EnterActions>
                 <Trigger.ExitActions>
-                    <StopStoryboard BeginStoryboardName="FadeBeginStoryboard"/>
+                    <StopStoryboard BeginStoryboardName="FadeBeginStoryboard" />
                 </Trigger.ExitActions>
             </Trigger>
         </Style.Triggers>
     </Style>
 
     <Style TargetType="{x:Type local:FlipControl}" BasedOn="{StaticResource FlipControl}"></Style>
-    
 </ResourceDictionary>

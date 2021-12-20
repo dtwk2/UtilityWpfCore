@@ -4,6 +4,6 @@
                              xmlns:local="clr-namespace:UtilityWpf.Controls.Master"
                              Type="{x:Type local:MasterControl}">
     <!--<ResourceDictionary.MergedDictionaries>
-        <utl:SharedResourceDictionary Source="/UtilityWpf.Controls.Master;component/Themes/ViewTypeDataTemplate.xaml"/>
+        <utl:SharedResourceDictionary Source="/UtilityWpf.Controls.Master;component/Themes/ViewTypeDataTemplate.xaml" />
     </ResourceDictionary.MergedDictionaries>-->
 </utl:AutoResourceDictionary>

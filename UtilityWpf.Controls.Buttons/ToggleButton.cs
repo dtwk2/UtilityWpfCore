@@ -4,7 +4,6 @@ using UtilityWpf.Behavior;
 
 namespace UtilityWpf.Controls.Buttons
 {
-
     public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton
     {
         public static readonly DependencyProperty UnCheckedContentProperty = DependencyProperty.Register("UnCheckedContent", typeof(object), typeof(ToggleButton), new FrameworkPropertyMetadata(null));
@@ -21,7 +20,6 @@ namespace UtilityWpf.Controls.Buttons
             set { SetValue(UnCheckedContentProperty, value); }
         }
     }
-
 
     public class RadioButton : System.Windows.Controls.RadioButton
     {

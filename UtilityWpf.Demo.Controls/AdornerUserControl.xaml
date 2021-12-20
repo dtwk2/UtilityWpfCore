@@ -10,17 +10,16 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
 
-    <TabControl >
+    <TabControl>
         <TabItem Header="Drag">
             <StackPanel>
-                <Button Height="40" Click="Add_Click" Content="Add Adorners"/>
-                <Button Height="40" Click="Remove_Click"  Content="Remove Adorners"/>
+                <Button Height="40" Click="Add_Click" Content="Add Adorners" />
+                <Button Height="40" Click="Remove_Click"  Content="Remove Adorners" />
                 <Canvas Name="canvas" Height="540" Margin="0,14,25,15">
 
                     <Border BorderBrush="Blue" BorderThickness="2" CornerRadius="45" Width="570" Height="274" Background="White"  Canvas.Left="50" Canvas.Top="50">
                     </Border>
-                    <Ellipse Canvas.Left="200" Canvas.Top="200" Height="110" Stroke="Green" StrokeThickness="2" Fill="Transparent" Width="110"/>
-
+                    <Ellipse Canvas.Left="200" Canvas.Top="200" Height="110" Stroke="Green" StrokeThickness="2" Fill="Transparent" Width="110" />
                 </Canvas>
             </StackPanel>
         </TabItem>

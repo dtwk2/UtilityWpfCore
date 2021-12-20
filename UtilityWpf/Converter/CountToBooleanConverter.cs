@@ -16,11 +16,11 @@ namespace UtilityWpf
     {
         #region IValueConverter Members
 
-        Lazy<Evaluator> lazy = new(() =>
-        {
-            var evaluator = new Evaluator(new EvaluationContext());
-            return evaluator;
-        });
+        private Lazy<Evaluator> lazy = new(() =>
+         {
+             var evaluator = new Evaluator(new EvaluationContext());
+             return evaluator;
+         });
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
@@ -35,7 +35,6 @@ namespace UtilityWpf
             if (ExpressionCharacters(parameter.ToString() ?? string.Empty).Any())
                 if (GetInt(value) is int i2)
                     return (int.Parse(evaluator.Evaluate($"{i2}{parameter}").Value) == 1) != Invert;
-
 
             return DependencyProperty.UnsetValue;
 
@@ -61,8 +60,6 @@ namespace UtilityWpf
                 return null;
             }
 
-
-
             static IEnumerable<char> ExpressionCharacters(string value)
             {
                 return (from chr in value.ToCharArray()
@@ -72,7 +69,7 @@ namespace UtilityWpf
             }
         }
 
-        static char[] expressionCharacters = new char[] {
+        private static char[] expressionCharacters = new char[] {
                     '+', //addition,
                     '-', //subtraction / negative,
                     '*', //multiplication,

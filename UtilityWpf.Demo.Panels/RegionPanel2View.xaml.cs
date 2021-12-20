@@ -10,7 +10,7 @@ namespace UtilityWpf.Demo.Panels
     public partial class RegionPanel2View : UserControl
     {
         private readonly Array array;
-        int i;
+        private int i;
 
         public RegionPanel2View()
         {
@@ -21,12 +21,7 @@ namespace UtilityWpf.Demo.Panels
                 CirclePanel1.Children.Add(item as UIElement);
                 i++;
             }
-
         }
-
-
-
-
 
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
@@ -35,6 +30,7 @@ namespace UtilityWpf.Demo.Panels
                 CirclePanel1.Children.Add(array.GetValue(i++) as UIElement);
             }
         }
+
         private void Button2_Click(object sender, RoutedEventArgs e)
         {
             CirclePanel1.Children.Remove(array.GetValue(--i) as UIElement);

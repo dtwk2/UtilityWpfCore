@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,15 +13,14 @@ namespace UtilityWpf.Panels
     // Formerly CornerPanel
     public class EdgePanel : Panel
     {
-        const string MyRectangleName = "MyRectangle";
-        Size availableSize;
+        private const string MyRectangleName = "MyRectangle";
+        private Size availableSize;
         private Size totalSize;
-        Size finalSize;
+        private Size finalSize;
         private UIElement[] children;
 
         public static readonly DependencyProperty RegionProperty =
     DependencyProperty.Register("Region", typeof(CircleRegion), typeof(EdgePanel), new PropertyMetadata(CircleRegion.TopLeft));
-
 
         #region properties
 
@@ -67,7 +65,6 @@ namespace UtilityWpf.Panels
             return totalSize;
         }
 
-
         /// <summary>
         /// Arrange the children
         /// </summary>
@@ -108,7 +105,7 @@ namespace UtilityWpf.Panels
             return finalSize;
         }
 
-        static IEnumerable<(double?, double?, UIElement element)> SelectSizes(IEnumerable<UIElement> elements)
+        private static IEnumerable<(double?, double?, UIElement element)> SelectSizes(IEnumerable<UIElement> elements)
         {
             return elements.Select(child =>
             {
@@ -121,7 +118,7 @@ namespace UtilityWpf.Panels
             });
         }
 
-        static Point GetDistance(CircleRegion CircleRegion, Vector size)
+        private static Point GetDistance(CircleRegion CircleRegion, Vector size)
         {
             return CircleRegion switch
             {
@@ -140,7 +137,6 @@ namespace UtilityWpf.Panels
                 _ => throw new NotImplementedException(),
             };
         }
-
 
         public void ShowLine()
         {

@@ -16,12 +16,10 @@ namespace UtilityWpf.Demo.FileSystem
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void FolderBrowser1_OnTextChange(object sender, TextChangedRoutedEventArgs e)
         {
-
         }
     }
 }

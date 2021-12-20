@@ -16,7 +16,5 @@ namespace UtilityWpf.Demo.Buttons
         }
 
         public ObservableCollection<ButtonViewModel> Data { get; }
-
     }
-
 }

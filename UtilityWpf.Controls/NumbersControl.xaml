@@ -1,8 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:UtilityWpf.Controls" 
-                    >
-
+                    xmlns:local="clr-namespace:UtilityWpf.Controls">
 
     <Style x:Key="NumberItemStyle" TargetType="{x:Type local:NumberItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
         <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
@@ -36,7 +34,6 @@
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="ItemContainerStyle" Value="{StaticResource NumberItemStyle}"/>
+        <Setter Property="ItemContainerStyle" Value="{StaticResource NumberItemStyle}" />
     </Style>
-    
 </ResourceDictionary>

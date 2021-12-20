@@ -1,15 +1,13 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converter="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"
-    xmlns:local="clr-namespace:UtilityWpf.Controls">
+    xmlns:local="clr-namespace:UtilityWpf.Controls"
+    xmlns:converter="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/UtilityWpf.Controls;component/SliderWithTickLabels.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <converter:MinMaxDivideConverter x:Key="MinMaxDivideConverter" Factor="10" />
-
-
 
     <Style TargetType="{x:Type local:SliderItemsControl}">
 

@@ -98,5 +98,4 @@ namespace UtilityWpf.Demo.Master.Infrastructure
             throw new NotImplementedException();
         }
     }
-
 }

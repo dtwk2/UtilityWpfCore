@@ -39,17 +39,18 @@ namespace UtilityWpf.Controls.FileSystem
             .SelectMany(output => output.path.ToObservable())
             .WhereNotNull();
             return new Func<IObservable<string>>(() => obs);
-
         }
 
         public string Filter
         {
             get => filter; set { filter = value; filterChanges.OnNext(value); }
         }
+
         public string Extension
         {
             get => extension; set { extension = value; extensionChanges.OnNext(value); }
         }
+
         public bool IsMultiSelect
         {
             get => multiSelect; set { multiSelect = value; multiSelectChanges.OnNext(value); }
@@ -70,7 +71,6 @@ namespace UtilityWpf.Controls.FileSystem
             return result == true ? (result, dlg.FileNames) : (result, null);
         }
 
-
         public static (string filter, string extension) GetImageFilterAndExtension()
         {
             StringBuilder filter = new();
@@ -88,7 +88,7 @@ namespace UtilityWpf.Controls.FileSystem
             filter.Append($"{sep}{"All Files"} ({"*.*"})|{"*.*"}");
 
             var combined = "Image Files|" + allfilter.ToString() + "|" + filter.ToString();
-            return (combined, ".png"); // Default file extension 
+            return (combined, ".png"); // Default file extension
 
             static IEnumerable<(string fileNameExtension, string codecName)> GetCaption(ImageCodecInfo[] codecs)
             {
@@ -97,7 +97,5 @@ namespace UtilityWpf.Controls.FileSystem
                        select (codec.FilenameExtension, codecName);
             }
         }
-
-
     }
 }

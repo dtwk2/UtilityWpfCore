@@ -5,7 +5,7 @@
 
     <Style TargetType="{x:Type local:HeaderedListBox}">
         <Style.Resources>
-            <ListBox x:Key="a" ItemsSource="{Binding }"/>
+            <ListBox x:Key="a" ItemsSource="{Binding }" />
         </Style.Resources>
         <Setter Property="Template">
             <Setter.Value>

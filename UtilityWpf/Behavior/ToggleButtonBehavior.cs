@@ -8,10 +8,8 @@ namespace UtilityWpf.Behavior
 {
     public class ToggleButtonContentBehavior : Behavior<ToggleButton>
     {
-
         public static readonly DependencyProperty UnCheckedContentProperty =
             DependencyProperty.Register(nameof(UnCheckedContent), typeof(object), typeof(ToggleButtonContentBehavior), new FrameworkPropertyMetadata(null));
-
 
         protected override void OnAttached()
         {

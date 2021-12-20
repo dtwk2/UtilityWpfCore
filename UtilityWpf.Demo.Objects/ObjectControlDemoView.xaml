@@ -33,10 +33,9 @@
             <CheckBox x:Name="InverteTitleColoursCheckBox" Width="30" Height="30"></CheckBox>
         </ToolBar>
 
-
         <UniformGrid Rows="1">
             <ContentControl FontSize="{Binding ElementName=UpDown, Path=Value}">
-                <StackPanel >
+                <StackPanel>
                     <controls:ObjectControl AccentBrush="DarkBlue" Object="{x:Static local:ObjectControlDemoView.CustomArrayClass}" />
                     <controls:ObjectControl AccentBrush="Olive" Height="100" Object="{Binding Source={StaticResource ExceptionDataProvider}}" />
                     <controls:ObjectControl AccentBrush="MediumPurple" Object="{x:Static local:ObjectControlDemoView.DateAndDurationClass}" />
@@ -48,21 +47,21 @@
 
             <ContentControl FontSize="10">
                 <UniformGrid Columns="1">
-                    <controls:ObjectControl FontSize="5" Object="{x:Static  local:ObjectControlDemoView.Person}" 
-                                            IsTitleColoursInverted="{Binding ElementName=InverteTitleColoursCheckBox, Path=IsChecked}"/>
+                    <controls:ObjectControl FontSize="5" Object="{x:Static  local:ObjectControlDemoView.Person}"
+                                            IsTitleColoursInverted="{Binding ElementName=InverteTitleColoursCheckBox, Path=IsChecked}" />
 
-                    <controls:ObjectControl   Object="{Binding Source={StaticResource ExceptionDataProvider}}"  
-                                              IsTitleColoursInverted="{Binding ElementName=InverteTitleColoursCheckBox, Path=IsChecked}"/>
+                    <controls:ObjectControl   Object="{Binding Source={StaticResource ExceptionDataProvider}}"
+                                              IsTitleColoursInverted="{Binding ElementName=InverteTitleColoursCheckBox, Path=IsChecked}" />
 
-                    <controls:ObjectControl  Object="{x:Static local:ObjectControlDemoView.CustomClass}"  
-                                             IsTitleColoursInverted="False"/>
+                    <controls:ObjectControl  Object="{x:Static local:ObjectControlDemoView.CustomClass}"
+                                             IsTitleColoursInverted="False" />
 
                     <StackPanel>
                         <TextBlock Margin="10" FontWeight="DemiBold">Custom Description Converter</TextBlock>
-                        <controls:ObjectControl 
+                        <controls:ObjectControl
                             IsTitleColoursInverted="True"
-                            Object="{x:Static local:ObjectControlDemoView.DateAndDurationClass}" 
-                            DescriptionConverter="{x:Static local:CustomDescriptionConverter.Instance}"/>
+                            Object="{x:Static local:ObjectControlDemoView.DateAndDurationClass}"
+                            DescriptionConverter="{x:Static local:CustomDescriptionConverter.Instance}" />
                     </StackPanel>
                 </UniformGrid>
             </ContentControl>

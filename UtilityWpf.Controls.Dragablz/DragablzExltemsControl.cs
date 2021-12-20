@@ -14,7 +14,6 @@ using UtilityWpf.Events;
 
 namespace UtilityWpf.Controls.Dragablz
 {
-
     public class DragablzExItemsControl : DragablzItemsControl, ISelector, ICheckedSelector
     {
         public static readonly DependencyProperty SelectedItemProperty = DependencyHelper.Register<object>();
@@ -66,7 +65,7 @@ namespace UtilityWpf.Controls.Dragablz
             remove { RemoveHandler(CheckedChangedEvent, value); }
         }
 
-        #endregion
+        #endregion properties
 
         protected override DependencyObject GetContainerForItemOverride()
         {
@@ -122,7 +121,6 @@ namespace UtilityWpf.Controls.Dragablz
                     SelectedItem = selected.Cast<DragablzItem>().Select(a => a.Content).SingleOrDefault();
                     SelectedIndex = index;
                     RaiseEvent(new SelectionChangedEventArgs(SelectionChangedEvent, selected, new[] { a.Sender.Content }));
-
                 });
 
             Ex.Observable<bool>(a => a == item, a => a.Name == nameof(Ex.IsChecked))
@@ -131,16 +129,14 @@ namespace UtilityWpf.Controls.Dragablz
                   .SubscribeOnDispatcher()
                   .Subscribe(a =>
                   {
-
                       var items = Items.OfType<object>().Select(a => ItemContainerGenerator.ContainerFromItem(a)).Cast<DragablzItem>().ToArray();
                       var @checked = items.Where(a => Ex.GetIsChecked(a)).Select(a => a.Content).ToArray();
-                      var @unchecked = items.Where(a => Ex.GetIsChecked(a)==false).Select(a => a.Content).ToArray();
+                      var @unchecked = items.Where(a => Ex.GetIsChecked(a) == false).Select(a => a.Content).ToArray();
 
                       RaiseEvent(new CheckedChangedEventArgs(CheckedChangedEvent, this, @checked, @unchecked));
                   });
 
             return item;
-
         }
 
         private void DragablzExItemsControl_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)

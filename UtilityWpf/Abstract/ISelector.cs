@@ -11,5 +11,5 @@ namespace UtilityWpf.Abstract
         event SelectionChangedEventHandler SelectionChanged;
 
         IEnumerable ItemsSource { get; }
-    }   
+    }
 }

@@ -39,5 +39,4 @@ namespace UtilityWpf.Behavior
             SetBinding(toggleButton, toggleButton.DataContext);
         }
     }
-
 }

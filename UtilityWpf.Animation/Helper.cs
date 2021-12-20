@@ -13,7 +13,6 @@ namespace UtilityWpf.Animation
     {
         public static IEnumerable<Point> ToPoints(this PathGeometry geometry)
         {
-
             var points = geometry
                .Figures
                .SelectMany(figure =>
@@ -79,5 +78,4 @@ namespace UtilityWpf.Animation
             return replaySubject;
         }
     }
-
 }

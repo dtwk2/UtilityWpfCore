@@ -12,10 +12,8 @@ namespace UtilityWpf.Demo.Dragablz
             InitializeComponent();
         }
 
-
         private void MasterNotesControl_Change(object sender, System.Windows.RoutedEventArgs e)
         {
-
         }
     }
 }

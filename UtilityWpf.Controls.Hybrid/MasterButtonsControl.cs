@@ -23,11 +23,13 @@ namespace UtilityWpf.Controls.Hybrid
         }
 
         #region properties
+
         public string CommandPath
         {
             get { return (string)GetValue(CommandPathProperty); }
             set { SetValue(CommandPathProperty, value); }
         }
+
         #endregion properties
 
         public override void OnApplyTemplate()
@@ -62,7 +64,6 @@ namespace UtilityWpf.Controls.Hybrid
                         //oLabelAngleAnimation.Duration                    = new Duration(new TimeSpan(0, 0, 0, 0, 500));
                         //oLabelAngleAnimation.RepeatBehavior = new RepeatBehavior(4);
                         //this.BeginAnimation(MasterBindableControl.HeightProperty,                    oLabelAngleAnimation);
-
                     }, System.Windows.Threading.DispatcherPriority.Background);
                 });
 

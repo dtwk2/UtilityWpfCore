@@ -23,6 +23,7 @@ namespace UtilityWpf.Controls.Buttons
         }
 
         #region properties
+
         public Geometry Data
         {
             get => (Geometry)GetValue(DataProperty);
@@ -34,6 +35,7 @@ namespace UtilityWpf.Controls.Buttons
             get => (Brush)GetValue(HoverBackgroundProperty);
             set => SetValue(HoverBackgroundProperty, value);
         }
+
         #endregion properties
     }
 }

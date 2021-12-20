@@ -10,7 +10,7 @@
 
                     <Grid
                         Width="200">
-                        <TextBlock FontWeight="DemiBold" VerticalAlignment="Center" >
+                        <TextBlock FontWeight="DemiBold" VerticalAlignment="Center">
                             <!--<TextBlock.Style>
                                 <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock">
                                     <Setter Property="Text" Value="{Binding RelativeSource={RelativeSource AncestorType=controls:SwitchControl}, Path=Alternate}" />

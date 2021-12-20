@@ -35,10 +35,8 @@ namespace UtilityWpf.Controls.FileSystem
     {
         public FolderBrowser()
         {
-
         }
 
         protected override BrowserCommand Command { get; } = new FolderBrowserCommand();
-
     }
 }

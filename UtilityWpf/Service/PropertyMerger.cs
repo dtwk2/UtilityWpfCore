@@ -95,7 +95,6 @@
 //                    }
 //        }
 
-
 //        public static PropertyMerger<TChange> Instance { get; } = new PropertyMerger<TChange>();
 //    }
 
@@ -187,7 +186,6 @@
 //                    (currentValue as ReactiveObject)?.RaisePropertyChanged(difference.PropertyName);
 //                }
 //        }
-
 
 //        public static PropertyMerger Instance { get; } = new PropertyMerger();
 //    }

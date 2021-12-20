@@ -10,6 +10,7 @@ namespace UtilityWpf.Demo.Panels
     public class RegionPanel : Panel
     {
         #region static properties
+
         public static readonly DependencyProperty WidthRatioProperty = DependencyProperty.Register("WidthRatio", typeof(double), typeof(RegionPanel),
             new FrameworkPropertyMetadata(1d, FrameworkPropertyMetadataOptions.AffectsArrange));
 
@@ -29,7 +30,6 @@ namespace UtilityWpf.Demo.Panels
         {
             return true;
         }
-
 
         /// <summary>
         /// Reads the attached property Dock from the given element.
@@ -64,9 +64,7 @@ namespace UtilityWpf.Demo.Panels
             }
         }
 
-
-        #endregion
-
+        #endregion static properties
 
         public RegionPanel()
         {
@@ -84,13 +82,11 @@ namespace UtilityWpf.Demo.Panels
             set { SetValue(HeightRatioProperty, value); }
         }
 
-
         public bool UseDesiredSize
         {
             get { return (bool)GetValue(UseDesiredSizeProperty); }
             set { SetValue(UseDesiredSizeProperty, value); }
         }
-
 
         public bool UseAnimation
         {
@@ -132,7 +128,6 @@ namespace UtilityWpf.Demo.Panels
 
                 return new Size(size.Sum(s => s.Height), size.Sum(a => a.Width));
 
-
                 static IEnumerable<Size> FinalArrange(FrameworkElement parent, ElementsBag elementsBag, Size finalSize, int x, int y,
                     (Region Key, List<Coordinate> ac)[][] combinations, bool useAnimation,
                     double widthRatio = 1, double heightRatio = 1, bool useDesiredSize = false)
@@ -146,7 +141,6 @@ namespace UtilityWpf.Demo.Panels
                                 {
                                     if (useAnimation)
                                     {
-
                                         if (!(child.RenderTransform is TranslateTransform translateTransform))
                                         {
                                             child.RenderTransform = translateTransform = new TranslateTransform();
@@ -157,13 +151,11 @@ namespace UtilityWpf.Demo.Panels
                                         child.Arrange(new Rect(new Point(translationPoint.X, translationPoint.Y), rect.Size));
 
                                         AnimationHelper.Animate(translateTransform, translationPoint, rect.Location);
-
                                     }
                                     else
                                     {
                                         child.Arrange(rect);
                                     }
-
                                 }
 
                                 yield return new Size(es.Sum(a => a.Item1.Size.Height), es.Sum(a => a.Item1.Size.Width));
@@ -189,10 +181,8 @@ namespace UtilityWpf.Demo.Panels
                                              .Select(a => a.a)
                                              .ToArray();
                     return combinations;
-
                 }
             }
-
 
             static List<Coordinate> SelectExistingCoordinates(UIElement[] elems, int x, int y)
             {
@@ -204,7 +194,6 @@ namespace UtilityWpf.Demo.Panels
                 }
                 return existingCoordinates;
             }
-
 
             //static Point GetPoint(Size finalSize, Size childSize, Region region, Point lastPoint)
             //{
@@ -241,22 +230,20 @@ namespace UtilityWpf.Demo.Panels
                 return arrange;
             return finalSize;
         }
-
     }
 
-
-    class ElementsBag
+    internal class ElementsBag
     {
-        int totalCount = 0;
-        int leftCount = 0, centerCount = 0, rightCount = 0,
+        private int totalCount = 0;
+
+        private int leftCount = 0, centerCount = 0, rightCount = 0,
          topCount = 0, middleCount = 0, bottomCount = 0,
          center2Count = 0, middle2Count = 0;
 
-        int bottomleftWidthCount = 0, bottomrightWidthCount = 0, topleftWidthCount = 0, toprightWidthCount = 0;
+        private int bottomleftWidthCount = 0, bottomrightWidthCount = 0, topleftWidthCount = 0, toprightWidthCount = 0;
 
-        int bottomleftHeightCount = 0, bottomrightHeightCount = 0,
+        private int bottomleftHeightCount = 0, bottomrightHeightCount = 0,
         topleftHeightCount = 0, toprightHeightCount = 0;
-
 
         public readonly List<FrameworkElement>
       bottomleft = new List<FrameworkElement>(),
@@ -303,16 +290,19 @@ namespace UtilityWpf.Demo.Panels
                         topleftWidthCount += widthCount;
                         topleftHeightCount += heightCount;
                         break;
+
                     case Region.BottomLeft:
                         bottomleft.Add(child);
                         bottomleftWidthCount += widthCount;
                         bottomleftHeightCount += heightCount;
                         break;
+
                     case Region.BottomRight:
                         bottomright.Add(child);
                         bottomrightWidthCount += widthCount;
                         bottomrightHeightCount += heightCount;
                         break;
+
                     case Region.TopRight:
                         topright.Add(child);
                         toprightWidthCount += widthCount;
@@ -348,7 +338,6 @@ namespace UtilityWpf.Demo.Panels
                         centerCount += widthCount;
                         middleCount += heightCount;
                         break;
-
                 };
             }
         }
@@ -373,7 +362,5 @@ namespace UtilityWpf.Demo.Panels
                 };
             }
         }
-
-
     }
 }

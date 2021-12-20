@@ -6,11 +6,10 @@ using System.Windows.Media.Animation;
 namespace UtilityWpf.Panels
 {
     /// <example>
-    /// 
+    ///
     /// </summary>
     public class AnimationHelper
     {
-
         public static void Animate(UIElement parent, UIElement child, Rect rect)
         {
             if (child.RenderTransform is not TranslateTransform translateTransform)
@@ -23,7 +22,6 @@ namespace UtilityWpf.Panels
             child.Arrange(new Rect(new Point(translationPoint.X, translationPoint.Y), rect.Size));
 
             Animate(translateTransform, translationPoint, rect.Location);
-
         }
 
         public static void Animate(TranslateTransform trans, Point translationPoint, Point combinedPoint)

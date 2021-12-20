@@ -6,7 +6,6 @@ using System.Windows.Shapes;
 
 namespace UtilityWpf.Controls.Progress
 {
-
     /// <summary>
     /// <a href="https://wpf.2000things.com/tag/circular-progress/"></a>
     /// </summary>

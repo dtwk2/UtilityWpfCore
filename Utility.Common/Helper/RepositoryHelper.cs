@@ -20,7 +20,6 @@ namespace Utility.Common.Helper
 
     public static class RepositoryHelper
     {
-
         public static IEnumerable FindAll(this IRepository repository)
         {
             return repository.FindManyBy(new AllQuery());

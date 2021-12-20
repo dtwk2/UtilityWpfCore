@@ -19,12 +19,10 @@ namespace UtilityWpf.Demo.View
             InitializeComponent();
 
             arr = Enum.GetValues(typeof(PackIconKind)).Cast<PackIconKind>().GetEnumerator();
-
         }
 
         private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-
             if (arr.MoveNext())
             {
                 TransitionControl.UnCheckedContent = new PackIcon

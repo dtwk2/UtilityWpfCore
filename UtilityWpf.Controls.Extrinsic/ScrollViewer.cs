@@ -105,7 +105,6 @@ namespace Viamo
             set { SetValue(CanContentScrollLeftProperty, value); }
         }
 
-
         private void OnScroll(Vector absoluteMove, Vector relativeMove, bool isFirst)
         {
             if (isFirst)
@@ -123,7 +122,6 @@ namespace Viamo
 
         protected override void OnScrollChanged(ScrollChangedEventArgs e)
         {
-
             CanContentScrollUp = e.VerticalOffset > 0;
             CanContentScrollDown = e.VerticalOffset < ScrollableHeight;
             CanContentScrollLeft = e.HorizontalOffset > 0;

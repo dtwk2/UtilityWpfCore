@@ -6,5 +6,4 @@ namespace UtilityWpf.Mixins
     {
         protected Type Type { get; }
     }
-
 }

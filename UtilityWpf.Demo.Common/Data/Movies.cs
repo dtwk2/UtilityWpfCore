@@ -2,7 +2,7 @@
 {
     //    class Actor
     //    {
-    //        public 
+    //        public
     //    }
 
     //    class MoviesRepository
@@ -28,12 +28,10 @@
 
     //        public void Create()
     //        {
-
     //        }
 
     //        public IEnumerable<Actor> SelectAll()
     //        {
-
     //        }
     //    }
 }

@@ -1,9 +1,7 @@
 ﻿using System;
 
-
 namespace UtilityWpf.Demo.Common.ViewModel
 {
-
     public class Fields : IEquatable<Fields>
     {
         private string? name;

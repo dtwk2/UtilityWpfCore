@@ -17,8 +17,6 @@
     mc:Ignorable="d">
 
     <UserControl.Resources>
-    
- 
 
         <DataTemplate x:Key="DTOne">
             <materialDesign:TransitioningContent
@@ -76,8 +74,6 @@
             </Setter>-->
             <Setter Property="ItemTemplate" Value="{StaticResource DTOne}" />
         </Style>
-      
-
     </UserControl.Resources>
 
     <DockPanel>

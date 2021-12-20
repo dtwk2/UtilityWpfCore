@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-
 namespace UtilityWpf.Panels
 {
     /// <summary>
@@ -10,7 +9,6 @@ namespace UtilityWpf.Panels
     public class UniformRow : Panel
     {
         private int _columns;
-
 
         protected override Size MeasureOverride(Size constraint)
         {
@@ -63,7 +61,5 @@ namespace UtilityWpf.Panels
 
             return arrangeSize;
         }
-
     }
 }
-

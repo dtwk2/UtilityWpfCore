@@ -5,7 +5,6 @@ namespace UtilityWpf.Animation
 {
     public sealed class BorderFix : ContentControl
     {
-
         /// <summary>
         /// Initialises a new instance of the <see cref="BorderFix"/> class.
         /// </summary>

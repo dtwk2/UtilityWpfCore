@@ -9,22 +9,22 @@
 
     <TabControl>
         <TabItem Header="Buttons">
-            <local:ButtonsUserControl/>
+            <local:ButtonsUserControl />
         </TabItem>
         <TabItem Header="Button">
-            <local:ButtonUserControl/>
+            <local:ButtonUserControl />
         </TabItem>
         <TabItem Header="Morph">
-            <local:MorphUserControl/>
+            <local:MorphUserControl />
         </TabItem>
         <TabItem Header="Switch">
-            <local:SwitchControlAndTransitionControlDemoView/>
+            <local:SwitchControlAndTransitionControlDemoView />
         </TabItem>
         <TabItem Header="Toggle">
-            <local:ToggleUserControl/>
+            <local:ToggleUserControl />
         </TabItem>
         <TabItem Header="Image">
-            <local:ImageUserControl/>
+            <local:ImageUserControl />
         </TabItem>
     </TabControl>
 </Window>

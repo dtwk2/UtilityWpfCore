@@ -6,13 +6,12 @@ using System.Windows.Media;
 
 namespace UtilityWpf.Demo.Panels
 {
-    static class Helper
+    internal static class Helper
     {
         public static bool AllDistinct<T>(this ICollection<T> collection)
         {
             return collection.Count == collection.Distinct().Count();
         }
-
 
         public static T FindVisualChild<T>(DependencyObject obj) where T : DependencyObject
         {

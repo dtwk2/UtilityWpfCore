@@ -12,8 +12,9 @@ namespace UtilityWpf.Demo.Panels
          * Height = S x SQRT(3)
          * Column C starts at C x (0.75 x Width)
          * Row R starts at R x Height
-         * A row's uneven columns have an vertical offset of 0.5 x Height 
+         * A row's uneven columns have an vertical offset of 0.5 x Height
          **/
+
         #region HexagonSideLength
 
         /// <summary>
@@ -25,7 +26,7 @@ namespace UtilityWpf.Demo.Panels
                     FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         /// <summary>
-        /// Gets or sets the HexagonSideLength property. This dependency property 
+        /// Gets or sets the HexagonSideLength property. This dependency property
         /// represents the length of 1 side of the hexagon.
         /// </summary>
         public double HexagonSideLength
@@ -34,7 +35,7 @@ namespace UtilityWpf.Demo.Panels
             set { SetValue(HexagonSideLengthProperty, value); }
         }
 
-        #endregion
+        #endregion HexagonSideLength
 
         #region Rows
 
@@ -55,7 +56,7 @@ namespace UtilityWpf.Demo.Panels
             set { SetValue(RowsProperty, value); }
         }
 
-        #endregion
+        #endregion Rows
 
         #region Columns
 
@@ -76,7 +77,7 @@ namespace UtilityWpf.Demo.Panels
             set { SetValue(ColumnsProperty, value); }
         }
 
-        #endregion
+        #endregion Columns
 
         protected override Size MeasureOverride(Size constraint)
         {

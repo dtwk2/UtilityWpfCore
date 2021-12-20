@@ -1,4 +1,5 @@
 ﻿#nullable enable
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,7 +11,6 @@ using System.Threading;
 
 namespace UtilityWpf
 {
-
     /// <summary>
     /// https://github.com/sorteper/ConcurrentObservableCollection/blob/master/ConcurrentObservableCollection.cs
     /// </summary>
@@ -48,7 +48,6 @@ namespace UtilityWpf
 
         public SynchronizationContext Context { get; }
 
-
         protected virtual bool CheckAccess()
         {
             return true;
@@ -57,10 +56,7 @@ namespace UtilityWpf
             //return Scheduler != null;
         }
 
-
-
         public object SyncRoot { get; }
-
 
         #region IList<T>
 
@@ -99,7 +95,6 @@ namespace UtilityWpf
         {
             get { return false; }
         }
-
 
         public void Add(T item)
         {

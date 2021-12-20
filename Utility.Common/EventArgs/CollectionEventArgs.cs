@@ -51,9 +51,9 @@ namespace Utility.Common.EventArgs
             Index = index;
             OldIndex = oldIndex;
         }
+
         public int Index { get; set; }
         public int OldIndex { get; }
         public object Object { get; }
     }
-
 }

@@ -29,7 +29,6 @@
 //            set { SetValue(RepositoryProperty, value); }
 //        }
 
-
 //        public ICommand CollectionChangeCommand
 //        {
 //            get { return (ICommand)GetValue(CollectionChangeCommandProperty); }
@@ -43,7 +42,7 @@
 
 //            repositoryChanges.Select(a => new RepositoryMessage(a)).Subscribe(persistService);
 //            disposable = persistService.Select(a => a).Subscribe(a =>
-//            { 
+//            {
 //                 CollectionChangeCommand?.Execute(a.Objects);
 //            });
 //            AssociatedObject.ItemsSource = persistService.Items;
@@ -70,6 +69,5 @@
 //        //    this.RaiseEvent(new TextRoutedEventArgs(CollectionChangedEvent, text));
 //        //}
 //    }
-
 
 //}

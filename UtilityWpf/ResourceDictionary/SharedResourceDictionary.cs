@@ -18,7 +18,6 @@ namespace UtilityWpf
         private static readonly ResourceDictionaryCollection SharedResources = new();
         private Uri? source;
 
-
         /// <summary>
         /// Gets or sets the source.
         /// </summary>
@@ -51,7 +50,7 @@ namespace UtilityWpf
             }
         }
 
-        class ResourceDictionaryEqualityComparer : IEqualityComparer<ResourceDictionary>
+        private class ResourceDictionaryEqualityComparer : IEqualityComparer<ResourceDictionary>
         {
             public bool Equals(ResourceDictionary? x, ResourceDictionary? y)
             {
@@ -67,7 +66,6 @@ namespace UtilityWpf
 
                 if (bb)
                 {
-
                 }
                 return bb;
             }
@@ -78,7 +76,6 @@ namespace UtilityWpf
             }
         }
 
-
         /// <summary>
         /// The is in application scope.
         /// </summary>
@@ -88,7 +85,7 @@ namespace UtilityWpf
             {
                 return false;
             }
-            // Try and find the resource dictionary in the application scope 
+            // Try and find the resource dictionary in the application scope
             return Application.Current != null && Application.Current.Resources.ContainsDictionary(resource.Source);
         }
 
@@ -98,9 +95,7 @@ namespace UtilityWpf
         }
     }
 
-
-
-    class ResourceDictionaryCollection : DictionaryCollection<ResourceDictionary>
+    internal class ResourceDictionaryCollection : DictionaryCollection<ResourceDictionary>
     {
         public ResourceDictionaryCollection() : base(
            source => new ResourceDictionary { Source = source },
@@ -144,7 +139,7 @@ namespace UtilityWpf
         //}
     }
 
-    class DictionaryCollection<T>
+    internal class DictionaryCollection<T>
     {
         private readonly Func<Uri, T> createFunc;
         private readonly Func<Uri, IEnumerable<T>, T?> find;
@@ -155,7 +150,6 @@ namespace UtilityWpf
             this.createFunc = createFunc;
             this.find = find;
         }
-
 
         /// <summary>
         /// Return all resource dictionaries that are in memory.

@@ -31,7 +31,6 @@ namespace UtilityWpf.Demo.Animation
             {
                 MainFadeControl.FadeCommand.Execute(default);
             });
-
         }
     }
 }

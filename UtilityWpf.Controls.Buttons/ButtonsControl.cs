@@ -5,7 +5,6 @@ using System.Windows.Data;
 
 namespace UtilityWpf.Controls.Buttons
 {
-
     public class ButtonTextControl : Control
     {
         static ButtonTextControl()
@@ -31,11 +30,13 @@ namespace UtilityWpf.Controls.Buttons
         }
 
         #region properties
+
         public string CommandPath
         {
             get { return (string)GetValue(CommandPathProperty); }
             set { SetValue(CommandPathProperty, value); }
         }
+
         public object Output
         {
             get { return GetValue(OutputProperty); }
@@ -47,6 +48,7 @@ namespace UtilityWpf.Controls.Buttons
             get { return (Orientation)GetValue(OrientationProperty); }
             set { SetValue(OrientationProperty, value); }
         }
+
         #endregion properties
 
         public override void OnApplyTemplate()
@@ -73,7 +75,6 @@ namespace UtilityWpf.Controls.Buttons
 
                     if (string.IsNullOrEmpty(DisplayMemberPath) == false)
                     {
-
                         if (button.Content is TextBlock textBlock)
                             BindingOperations.SetBinding(textBlock, TextBlock.TextProperty, CreateBinding(DisplayMemberPath));
                     }

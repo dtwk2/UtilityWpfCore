@@ -5,7 +5,6 @@ using System.Windows.Media;
 
 namespace UtilityWpf.Demo.Animation
 {
-
     /// <summary>
     /// <a href="http://www.java2s.com/Tutorial/CSharp/0470__Windows-Presentation-Foundation/DottedPath.htm">Link</a>
     /// </summary>
@@ -21,44 +20,50 @@ namespace UtilityWpf.Demo.Animation
     {
         public class TextGeometry
         {
-            string txt = "";
-            FontFamily fntfam = new FontFamily();
-            FontStyle fntstyle = FontStyles.Normal;
-            FontWeight fntwt = FontWeights.Normal;
-            FontStretch fntstr = FontStretches.Normal;
-            double emsize = 24;
-            Point ptOrigin = new Point(0, 0);
+            private string txt = "";
+            private FontFamily fntfam = new FontFamily();
+            private FontStyle fntstyle = FontStyles.Normal;
+            private FontWeight fntwt = FontWeights.Normal;
+            private FontStretch fntstr = FontStretches.Normal;
+            private double emsize = 24;
+            private Point ptOrigin = new Point(0, 0);
 
             public string Text
             {
                 set { txt = value; }
                 get { return txt; }
             }
+
             public FontFamily FontFamily
             {
                 set { fntfam = value; }
                 get { return fntfam; }
             }
+
             public FontStyle FontStyle
             {
                 set { fntstyle = value; }
                 get { return fntstyle; }
             }
+
             public FontWeight FontWeight
             {
                 set { fntwt = value; }
                 get { return fntwt; }
             }
+
             public FontStretch FontStretch
             {
                 set { fntstr = value; }
                 get { return fntstr; }
             }
+
             public double FontSize
             {
                 set { emsize = value; }
                 get { return emsize; }
             }
+
             public Point Origin
             {
                 set { ptOrigin = value; }
@@ -85,7 +90,6 @@ namespace UtilityWpf.Demo.Animation
                     return PathGeometry.CreateFromGeometry(Geometry);
                 }
             }
-
         }
     }
 }

@@ -19,7 +19,6 @@ namespace UtilityWpf.Demo.Hybrid
         public IEnumerable Collection { get; } = new[] { new MeasurementViewModel { Header = "Height" }, new MeasurementViewModel { Header = "Width" } };
     }
 
-
     public class MeasurementViewModel
     {
         public string Header { get; init; }

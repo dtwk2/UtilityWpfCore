@@ -9,7 +9,6 @@ using Utility.Common.EventArgs;
 
 namespace UtilityWpf.Demo.Common.ViewModel
 {
-
     public class RowViewModel
     {
         private bool isReadOnly;
@@ -41,6 +40,7 @@ namespace UtilityWpf.Demo.Common.ViewModel
                             Data.Move(item.OldIndex, item.Index);
                         }
                         break;
+
                     default:
                         break;
                 }
@@ -54,11 +54,9 @@ namespace UtilityWpf.Demo.Common.ViewModel
 
         public IEnumerator NewItem => newItem ??= Get().Repeat().GetEnumerator();
 
-        ElementViewModel Get()
+        private ElementViewModel Get()
         {
             return new(Data.LastOrDefault()?.Value ?? 0 + 1);
         }
     }
 }
-
-

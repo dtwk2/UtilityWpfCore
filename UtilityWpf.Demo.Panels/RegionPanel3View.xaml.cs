@@ -86,6 +86,7 @@ namespace UtilityWpf.Demo.Panels
                 return (T)clone;
             }
         }
+
         public static T DeepClone2<T>(T from)
         {
             string gridXaml = XamlWriter.Save(from);
@@ -96,6 +97,5 @@ namespace UtilityWpf.Demo.Panels
             T newGrid = (T)XamlReader.Load(xmlReader);
             return newGrid;
         }
-
     }
 }

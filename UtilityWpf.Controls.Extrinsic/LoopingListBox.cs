@@ -6,11 +6,11 @@
  *
  *   * Redistributions of source code must retain the above copyright
  *     notice, this list of conditions and the following disclaimer.
- * 
+ *
  *   * Redistributions in binary form must reproduce the above copyright
  *     notice, this list of conditions and the following disclaimer in the
  *     documentation and/or other materials provided with the distribution.
- * 
+ *
  *   * The name Dr. WPF may not be used to endorse or promote products
  *     derived from this software without specific prior written permission.
  *
@@ -37,6 +37,7 @@ namespace DrWPF.Windows.Controls
 #if SURFACE
     public class LoopingListBox : Microsoft.Surface.Presentation.Controls.SurfaceListBox
 #else
+
     public class LoopingListBox : System.Windows.Controls.ListBox
 #endif
     {
@@ -50,9 +51,9 @@ namespace DrWPF.Windows.Controls
             EventManager.RegisterClassHandler(typeof(LoopingListBox), LoopingListBox.BeginDragEvent, new BeginDragEventHandler(OnBeginDrag));
         }
 
-        #endregion
+        #endregion static
 
-        #endregion
+        #endregion constructors
 
         #region static members
 
@@ -142,9 +143,9 @@ namespace DrWPF.Windows.Controls
             }
         }
 
-        #endregion
+        #endregion private methods
 
-        #endregion
+        #endregion static members
 
         #region dependency properties
 
@@ -158,7 +159,7 @@ namespace DrWPF.Windows.Controls
                 new FrameworkPropertyMetadata(new Point()));
 
         /// <summary>
-        /// Gets the DragOrigin property.  This dependency property 
+        /// Gets the DragOrigin property.  This dependency property
         /// indicates the point where the drag operation began in the coordinate space of the element acting as the drag handle.
         /// </summary>
         protected static Point GetDragOrigin(DependencyObject d)
@@ -167,7 +168,7 @@ namespace DrWPF.Windows.Controls
         }
 
         /// <summary>
-        /// Provides a secure method for setting the DragOrigin property.  
+        /// Provides a secure method for setting the DragOrigin property.
         /// This dependency property indicates the point where the drag operation began in the coordinate space of the element acting as the drag handle.
         /// </summary>
         protected static void SetDragOrigin(DependencyObject d, Point value)
@@ -175,7 +176,7 @@ namespace DrWPF.Windows.Controls
             d.SetValue(DragOriginProperty, value);
         }
 
-        #endregion
+        #endregion DragOrigin
 
         #region IsDragging
 
@@ -187,7 +188,7 @@ namespace DrWPF.Windows.Controls
                 new FrameworkPropertyMetadata((bool)false));
 
         /// <summary>
-        /// Gets the IsDragging property.  This dependency property 
+        /// Gets the IsDragging property.  This dependency property
         /// indicates whether the target drag handle is currently being dragged.
         /// </summary>
         protected static bool GetIsDragging(DependencyObject d)
@@ -196,7 +197,7 @@ namespace DrWPF.Windows.Controls
         }
 
         /// <summary>
-        /// Provides a secure method for setting the IsDragging property.  
+        /// Provides a secure method for setting the IsDragging property.
         /// This dependency property indicates whether the target drag handle is currently being dragged.
         /// </summary>
         protected static void SetIsDragging(DependencyObject d, bool value)
@@ -204,7 +205,7 @@ namespace DrWPF.Windows.Controls
             d.SetValue(IsDraggingProperty, value);
         }
 
-        #endregion
+        #endregion IsDragging
 
         #region IsDragHandle
 
@@ -217,7 +218,7 @@ namespace DrWPF.Windows.Controls
                     new PropertyChangedCallback(OnIsDragHandleChanged)));
 
         /// <summary>
-        /// Gets the IsDragHandle property.  This dependency property 
+        /// Gets the IsDragHandle property.  This dependency property
         /// indicates that the element is a drag handle for an ancestor LoopingListBox.
         /// </summary>
         public static bool GetIsDragHandle(DependencyObject d)
@@ -226,7 +227,7 @@ namespace DrWPF.Windows.Controls
         }
 
         /// <summary>
-        /// Sets the IsDragHandle property.  This dependency property 
+        /// Sets the IsDragHandle property.  This dependency property
         /// indicates that the element is a drag handle for an ancestor LoopingListBox.
         /// </summary>
         public static void SetIsDragHandle(DependencyObject d, bool value)
@@ -260,7 +261,7 @@ namespace DrWPF.Windows.Controls
             }
         }
 
-        #endregion
+        #endregion IsDragHandle
 
         #region Offset
 
@@ -271,7 +272,7 @@ namespace DrWPF.Windows.Controls
             LoopPanel.OffsetProperty.AddOwner(typeof(LoopingListBox));
 
         /// <summary>
-        /// Gets or sets the Offset property.  This dependency property 
+        /// Gets or sets the Offset property.  This dependency property
         /// indicates the offset to be used by the items panel (the LoopPanel).
         /// </summary>
         public double Offset
@@ -280,7 +281,7 @@ namespace DrWPF.Windows.Controls
             set { SetValue(OffsetProperty, value); }
         }
 
-        #endregion
+        #endregion Offset
 
         #region Orientation
 
@@ -291,7 +292,7 @@ namespace DrWPF.Windows.Controls
             LoopPanel.OrientationProperty.AddOwner(typeof(LoopingListBox));
 
         /// <summary>
-        /// Gets or sets the Orientation property.  This dependency property 
+        /// Gets or sets the Orientation property.  This dependency property
         /// indicates the orientation to be used by the items panel (the LoopPanel).
         /// </summary>
         public Orientation Orientation
@@ -300,7 +301,7 @@ namespace DrWPF.Windows.Controls
             set { SetValue(OrientationProperty, value); }
         }
 
-        #endregion
+        #endregion Orientation
 
         #region RelativeOffset
 
@@ -311,7 +312,7 @@ namespace DrWPF.Windows.Controls
             LoopPanel.RelativeOffsetProperty.AddOwner(typeof(LoopingListBox));
 
         /// <summary>
-        /// Gets or sets the RelativeOffset property.  This dependency property 
+        /// Gets or sets the RelativeOffset property.  This dependency property
         /// indicates the relative offset to be used by the items panel (the LoopPanel).
         /// </summary>
         public double RelativeOffset
@@ -320,9 +321,9 @@ namespace DrWPF.Windows.Controls
             set { SetValue(RelativeOffsetProperty, value); }
         }
 
-        #endregion
+        #endregion RelativeOffset
 
-        #endregion
+        #endregion dependency properties
 
         #region properties
 
@@ -332,9 +333,9 @@ namespace DrWPF.Windows.Controls
 
         protected LoopPanel LoopPanel { get; private set; }
 
-        #endregion
+        #endregion protected
 
-        #endregion
+        #endregion properties
 
         #region methods
 
@@ -354,14 +355,14 @@ namespace DrWPF.Windows.Controls
             }
         }
 
-        #endregion
+        #endregion public
 
         #region protected
 
         protected virtual bool BeginDragOperation(InputDevice deviceToCapture, Point initialDragPosition)
         {
-            // This is a helper method that provides for easy dragging of the 
-            // LoopPanel's Offset using the Mouse. It can be overridden to provide 
+            // This is a helper method that provides for easy dragging of the
+            // LoopPanel's Offset using the Mouse. It can be overridden to provide
             // support for other input devices like a Surface Contact.
             bool result = false;
             if (CapturedDevice == null)
@@ -373,7 +374,7 @@ namespace DrWPF.Windows.Controls
 
                     if (md.Captured != null) md.Captured.ReleaseMouseCapture();
 
-                    // By default, we support dragging via the left mouse button.  
+                    // By default, we support dragging via the left mouse button.
                     // If another button is required for dragging, this method should be overridden.
                     if (md.Captured == null && md.LeftButton == MouseButtonState.Pressed)
                     {
@@ -442,9 +443,9 @@ namespace DrWPF.Windows.Controls
             _lastDragPosition = currentDragPosition;
         }
 
-        #endregion
+        #endregion protected
 
-        #endregion
+        #endregion methods
 
         #region events
 
@@ -495,17 +496,17 @@ namespace DrWPF.Windows.Controls
             return args;
         }
 
-        #endregion
+        #endregion BeginDrag
 
-        #endregion
+        #endregion public
 
-        #endregion
+        #endregion events
 
         #region fields
 
         private Point _lastDragPosition;
 
-        #endregion
+        #endregion fields
     }
 
     public delegate void BeginDragEventHandler(object sender, BeginDragEventArgs e);
@@ -546,7 +547,7 @@ namespace DrWPF.Windows.Controls
         }
 
         /// <summary>
-        /// A static helper method that adds a handler for a routed event 
+        /// A static helper method that adds a handler for a routed event
         /// to a target UIElement or ContentElement.
         /// </summary>
         /// <param name="element">UIElement or ContentElement that listens to the event</param>
@@ -570,7 +571,7 @@ namespace DrWPF.Windows.Controls
         }
 
         /// <summary>
-        /// A static helper method that removes a handler for a routed event 
+        /// A static helper method that removes a handler for a routed event
         /// from a target UIElement or ContentElement.
         /// </summary>
         /// <param name="element">UIElement or ContentElement that listens to the event</param>
@@ -593,6 +594,6 @@ namespace DrWPF.Windows.Controls
             }
         }
 
-        #endregion
+        #endregion RoutedEvent Helper Methods
     }
 }

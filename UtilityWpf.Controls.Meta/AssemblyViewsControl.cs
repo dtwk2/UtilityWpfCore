@@ -37,7 +37,6 @@ namespace UtilityWpf.Controls.Meta
             dockPanel.Children.Add(viewsDetailControl);
 
             return dockPanel;
-
         }
 
         //      <DockPanel>
@@ -52,9 +51,7 @@ namespace UtilityWpf.Controls.Meta
         //</DockPanel>
     }
 
-
-
-    class AssemblyComboBox : ComboBox
+    internal class AssemblyComboBox : ComboBox
     {
         public AssemblyComboBox()
         {
@@ -70,5 +67,3 @@ namespace UtilityWpf.Controls.Meta
         }
     }
 }
-
-

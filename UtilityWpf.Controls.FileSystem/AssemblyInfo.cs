@@ -1,7 +1,6 @@
 using System.Windows;
 using System.Windows.Markup;
 
-
 [assembly: ThemeInfo(
     ResourceDictionaryLocation.None, //where theme specific resource dictionaries are located
                                      //(used if a resource is not found in the page,
@@ -10,7 +9,5 @@ using System.Windows.Markup;
                                               //(used if a resource is not found in the page,
                                               // app, or any theme specific resource dictionaries)
 )]
-
-
 [assembly: XmlnsPrefix("http://schemas.utility.com/filesystem", "ufs")]
-[assembly: XmlnsDefinition("http://schemas.utility.com/filesystem", "UtilityWpf.Controls.FileSystem")]
+[assembly: XmlnsDefinition("http://schemas.utility.com/filesystem", "UtilityWpf.Controls.FileSystem")] 

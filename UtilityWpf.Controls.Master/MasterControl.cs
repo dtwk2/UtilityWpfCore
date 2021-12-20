@@ -23,7 +23,6 @@ namespace UtilityWpf.Controls.Master
         Last = 2,
     }
 
-
     public class MasterControl : ItemsContentControl, IChange
     {
         [Flags]
@@ -32,12 +31,13 @@ namespace UtilityWpf.Controls.Master
             None = 0, Add = 1, Remove = 2, MoveUp = 4, MoveDown = 8, All = Add | Remove | MoveUp | MoveDown
         }
 
-
         public static readonly DependencyProperty CommandParameterProperty = DependencyHelper.Register<IEnumerator>();
+
         /// <summary>
         /// Warning!!! Setting this property can mean items get removed via the view.
         /// </summary>
         public static readonly DependencyProperty RemoveOrderProperty = DependencyHelper.Register<RemoveOrder>(new PropertyMetadata(RemoveOrder.Selected));
+
         public static readonly DependencyProperty ButtonTypesProperty = DependencyHelper.Register<ButtonType>(new PropertyMetadata(ButtonType.All));
         public static readonly RoutedEvent ChangeEvent = EventManager.RegisterRoutedEvent(nameof(Change), RoutingStrategy.Bubble, typeof(CollectionChangedEventHandler), typeof(MasterControl));
 
@@ -50,7 +50,7 @@ namespace UtilityWpf.Controls.Master
         {
         }
 
-        #region properties  
+        #region properties
 
         public IEnumerator CommandParameter
         {
@@ -85,7 +85,6 @@ namespace UtilityWpf.Controls.Master
             var buttonMoveUp = this.GetTemplateChild("ButtonMoveUp") as Button;
             var buttonMoveDown = this.GetTemplateChild("ButtonMoveDown") as Button;
 
-
             this.Observable<ButtonType>().Subscribe(buttonType =>
            {
                buttonAdd.Visibility = buttonType.HasFlag(ButtonType.Add) ? Visibility.Visible : Visibility.Collapsed;
@@ -110,16 +109,13 @@ namespace UtilityWpf.Controls.Master
             //        {
             //            itemsControl.AddToSource(CommandParameter.Current, AddLocationHint.Last);
 
-
             //        }
             //        catch (Exception ex)
             //        {
-
             //        }
             //}
             //else
             //{
-
             //}
             RaiseEvent(new CollectionEventArgs(EventType.Add, SelectedItem, SelectedIndex, ChangeEvent));
         }
@@ -150,7 +146,6 @@ namespace UtilityWpf.Controls.Master
             else
             {
             }
-
         }
 
         protected virtual void ExecuteMoveUp()
@@ -196,10 +191,9 @@ namespace UtilityWpf.Controls.Master
         }
     }
 
-
     public class DisableBehavior : Behavior<MasterControl>
     {
-        readonly IDisposable? compositeDisposable;
+        private readonly IDisposable? compositeDisposable;
 
         protected override void OnAttached()
         {
@@ -244,9 +238,7 @@ namespace UtilityWpf.Controls.Master
                 myStoryboard.Children.Add(opacityAnimation);
                 return myStoryboard;
             }
-
         }
-
 
         protected override void OnDetaching()
         {

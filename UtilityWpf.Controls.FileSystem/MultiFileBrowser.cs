@@ -5,13 +5,11 @@ namespace UtilityWpf.Controls.FileSystem
 {
     public class MultiFileBrowser : FileBrowser<ListBox>
     {
-
         public MultiFileBrowser()
         {
             this.TextBoxContent = new ListBox();
             fileBrowserCommand.IsMultiSelect = true;
         }
-
 
         protected override void OnTextChange(string path, ListBox sender)
         {

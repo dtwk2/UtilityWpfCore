@@ -7,13 +7,11 @@ using System.Windows.Media;
 
 namespace UtilityWpf
 {
-
     /// <summary>
     /// https://github.com/Rudnicky/VisualTreeHelper/blob/master/VisualTreeTraversionPoC/Utils/VisualTreeTraverseHelper.cs
     /// </summary>
     public static class VisualTreeExHelper
     {
-
         //https://stackoverflow.com/questions/974598/find-all-controls-in-wpf-window-by-type/978352#978352
         //answered Jun 10 '09 at 21:53
         //Bryce Kahle

@@ -23,10 +23,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-
 namespace UtilityWpf.Demo.Panels
 {
-
     /// <summary>
     /// DockPanel is used to size and position children inward from the edges of available space.
     ///
@@ -37,7 +35,6 @@ namespace UtilityWpf.Demo.Panels
     /// </summary>
     public class TransitionTwoPanel : Panel
     {
-
         /// <summary>
         /// DependencyProperty for Dock property.
         /// </summary>
@@ -48,10 +45,8 @@ namespace UtilityWpf.Demo.Panels
             DependencyProperty.RegisterAttached("Value", typeof(object), typeof(TransitionTwoPanel),
                 new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnValueChanged)), new ValidateValueCallback(IsValidCorner));
 
-
         public static readonly DependencyProperty CurrentValueProperty = DependencyProperty.Register("CurrentValue", typeof(object), typeof(TransitionTwoPanel),
          new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsArrange));
-
 
         public object CurrentValue
         {
@@ -59,13 +54,9 @@ namespace UtilityWpf.Demo.Panels
             set { SetValue(CurrentValueProperty, value); }
         }
 
-
-
         public TransitionTwoPanel() : base()
         {
         }
-
-
 
         /// <summary>
         /// Reads the attached property Dock from the given element.
@@ -94,8 +85,6 @@ namespace UtilityWpf.Demo.Panels
 
         private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-
-
             //it may be anyting, like FlowDocument... bug 1237275
             if (d is UIElement uie && VisualTreeHelper.GetParent(uie) is TransitionTwoPanel p)
             {
@@ -103,12 +92,11 @@ namespace UtilityWpf.Demo.Panels
             }
         }
 
-
         /// <summary>
         /// Updates DesiredSize of the DockPanel.  Called by parent UIElement.  This is the first pass of layout.
         /// </summary>
         /// <remarks>
-        /// Children are measured based on their sizing properties and <see cref="Corner" />.  
+        /// Children are measured based on their sizing properties and <see cref="Corner" />.
         /// Each child is allowed to consume all of the space on the side on which it is docked; Left/Right docked
         /// children are granted all vertical space for their entire width, and Top/Bottom docked children are
         /// granted all horizontal space for their entire height.
@@ -184,7 +172,6 @@ namespace UtilityWpf.Demo.Panels
             return arrangeSize;
         }
 
-
         internal static bool IsValidCorner(object o)
         {
             return true;
@@ -195,5 +182,3 @@ namespace UtilityWpf.Demo.Panels
         }
     }
 }
-
-

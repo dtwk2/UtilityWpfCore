@@ -4,7 +4,6 @@ namespace UtilityWpf.Demo.Buttons.Infrastructure
 {
     public class ButtonViewModel
     {
-
         public ButtonViewModel(string header, ICommand command)
         {
             Header = header;
@@ -15,11 +14,8 @@ namespace UtilityWpf.Demo.Buttons.Infrastructure
         {
         }
 
-
         public ICommand Command { get; init; }
 
         public string Header { get; init; }
-
     }
-
 }

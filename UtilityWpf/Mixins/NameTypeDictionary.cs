@@ -8,7 +8,8 @@ using UtilityWpf.Property;
 
 namespace UtilityWpf.Mixins
 {
-    public interface INameTypeDictionary { }
+    public interface INameTypeDictionary
+    { }
 
     public class NameTypeDictionary<TValue> : INameTypeDictionary, IEnumerable<KeyValuePair<string, TValue>> where TValue : new()
     {
@@ -86,7 +87,6 @@ namespace UtilityWpf.Mixins
         {
             return subjects.GetEnumerator();
         }
-
 
         //public KeyValuePair<string, TValue> Current => Enumerator.Current;
 

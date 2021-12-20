@@ -102,10 +102,7 @@ namespace UtilityWpf.Controls.Buttons
             set => SetValue(ButtonWidthProperty, value);
         }
 
-
-
         public ICommand SetValueCommand => setValueCommand;
-
 
         public class ToggleEventArgs : RoutedEventArgs
         {

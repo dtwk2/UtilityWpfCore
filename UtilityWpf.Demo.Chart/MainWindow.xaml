@@ -2,7 +2,7 @@
     x:Class="UtilityWpf.Chart.Demo.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:chart1="clr-namespace:UtilityWpf.Chart.Demo"
     Title="MainWindow"
@@ -13,9 +13,8 @@
     <TabControl>
         <TabItem>
             <chart1:MasterChartDetailView></chart1:MasterChartDetailView>
-        </TabItem>     
+        </TabItem>
         <TabItem>
-            
         </TabItem>
     </TabControl>
 </Window>

@@ -9,8 +9,6 @@ using System.Windows.Markup;
                                               //(used if a resource is not found in the page,
                                               // app, or any theme specific resource dictionaries)
 )]
-
-
 [assembly: XmlnsPrefix("http://schemas.utility.com/extrinsic", "ext")]
 [assembly: XmlnsDefinition("http://schemas.utility.com/extrinsic", "UtilityWpf.Controls.Handy")]
 [assembly: XmlnsDefinition("http://schemas.utility.com/extrinsic", "UtilityWpf.Controls.Extrinsic")]
@@ -18,5 +16,4 @@ using System.Windows.Markup;
 [assembly: XmlnsDefinition("http://schemas.utility.com/extrinsic", "ComputerCastleControls")]
 [assembly: XmlnsDefinition("http://schemas.utility.com/extrinsic", "Link.WPF.Toolkit")]
 [assembly: XmlnsDefinition("http://schemas.utility.com/extrinsic", "DrWPF.Windows.Controls")]
-[assembly: XmlnsDefinition("http://schemas.utility.com/extrinsic", "Viamo")]
-
+[assembly: XmlnsDefinition("http://schemas.utility.com/extrinsic", "Viamo")] 

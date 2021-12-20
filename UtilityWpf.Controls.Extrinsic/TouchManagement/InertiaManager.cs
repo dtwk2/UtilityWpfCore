@@ -14,10 +14,13 @@ namespace UappUI.AppCode.Touch
         private Timer _timer;
 
         public event InertiaEventHandler Inertia;
+
         public event Func<double?> GetSliding;
+
         public event Func<double?> GetMinSpeed;
 
-        public bool IsRun { get { return _timer != null; } }
+        public bool IsRun
+        { get { return _timer != null; } }
 
         public void StartScrollInertia(Vector absoluteMove, Vector relativeMove)
         {
@@ -43,7 +46,6 @@ namespace UappUI.AppCode.Touch
                     if (timer.Enabled)
                         RaiseInertia(absoluteMove, relativeMove);
                 }), null);
-
             };
             lock (this)
             {

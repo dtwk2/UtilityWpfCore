@@ -42,6 +42,7 @@ namespace UappUI.AppCode.Touch
         protected ScrollDirections AllScrollDirections;
 
         public event Func<bool> GetIsHandle;
+
         public event Func<double?> GetHandleRange;
 
         // Constructor

@@ -20,7 +20,6 @@ using System.Windows.Navigation;
 
 namespace UtilityWpf.Controls.Objects
 {
-
     /// <summary>
     /// Interaction logic for ObjectControl.xaml
     /// <a href="http://www.codeproject.com/Tips/469452/WPF-ObjectControl">Adapted from </a>
@@ -60,7 +59,6 @@ namespace UtilityWpf.Controls.Objects
 
         public static readonly DependencyProperty InnerPropertyProperty = DependencyProperty.Register("InnerProperty", typeof(string), typeof(ObjectFlowControl), new PropertyMetadata(null));
 
-
         static ObjectFlowControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ObjectFlowControl), new FrameworkPropertyMetadata(typeof(ObjectFlowControl)));
@@ -82,10 +80,8 @@ namespace UtilityWpf.Controls.Objects
 
             //Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, new Action(() =>
             //{
-
             //}));
         }
-
 
         public override void OnApplyTemplate()
         {
@@ -105,8 +101,7 @@ namespace UtilityWpf.Controls.Objects
             Initialize(headerMessage, @object ?? this.Object);
         }
 
-
-        void Initialize(string? headerMessage, object? e)
+        private void Initialize(string? headerMessage, object? e)
         {
             if (!_initialized)
             {
@@ -140,7 +135,6 @@ namespace UtilityWpf.Controls.Objects
 
         private void MainGrid_SizeChanged1(object sender, SizeChangedEventArgs e)
         {
-
             if (Math.Abs(e.PreviousSize.Height - e.NewSize.Height) < 10)
             {
                 isCompleted = true;
@@ -168,7 +162,6 @@ namespace UtilityWpf.Controls.Objects
             innerGrid.BeginAnimation(HeightProperty, animation);
         }
 
-
         private void Animation_Completed(object? sender, EventArgs e)
         {
             isCompleted = null;
@@ -181,7 +174,6 @@ namespace UtilityWpf.Controls.Objects
             add => AddHandler(ObjectChangedEvent, value);
             remove => RemoveHandler(ObjectChangedEvent, value);
         }
-
 
         /// <summary>
         /// The default title to use for the ObjectControl window.  Automatically initialized
@@ -206,6 +198,7 @@ namespace UtilityWpf.Controls.Objects
             get => (string)GetValue(InnerPropertyProperty);
             set => SetValue(InnerPropertyProperty, value);
         }
+
         public Brush ControlsBorderBrush
         {
             get => (Brush)GetValue(ControlsBorderBrushProperty);
@@ -631,8 +624,6 @@ namespace UtilityWpf.Controls.Objects
             // window's width changes, which I don't like.
 
             // mainGrid.MaxWidth = ActualWidth - _chromeWidth;
-
-
 
             treeCol.MaxWidth = mainGrid.MaxWidth - textCol.MinWidth;
         }

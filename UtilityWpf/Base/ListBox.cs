@@ -37,7 +37,6 @@ namespace UtilityWpf.Controls
             base.PrepareContainerForItemOverride(element, item);
         }
 
-
         protected override bool IsItemItsOwnContainerOverride(object item) => item is T;
 
         protected virtual T InitialiseItem(T item, object viewmModel) => item;
@@ -56,7 +55,6 @@ namespace UtilityWpf.Controls
             InitialiseItem(element as T, item);
             base.PrepareContainerForItemOverride(element, item);
         }
-
 
         protected override bool IsItemItsOwnContainerOverride(object item) => item is T;
 

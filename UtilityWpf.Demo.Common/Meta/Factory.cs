@@ -14,7 +14,7 @@ namespace UtilityWpf.Demo.Common.Meta
         public record FactoryLog(DateTime Date, string Key, string Type);
 
         // readonly Kaos.Collections.RankedSet<FactoryLog> logs = new Kaos.Collections.RankedSet<FactoryLog>(Comparer<FactoryLog>.Create(new Comparison<FactoryLog>((a, b) => (int)(a.Date - b.Date).Ticks)));
-        readonly ObservableCollection<FactoryLog> logs = new ObservableCollection<FactoryLog>();
+        private readonly ObservableCollection<FactoryLog> logs = new ObservableCollection<FactoryLog>();
 
         public void Add(DateTime Date, string Key, string Type)
         {
@@ -24,10 +24,9 @@ namespace UtilityWpf.Demo.Common.Meta
         public IReadOnlyCollection<FactoryLog> Logs => logs;
     }
 
-
     public class Factory
     {
-        FactoryLogger logger = Locator.Current.GetService<FactoryLogger>() ?? throw new Exception("mm,,ffjr");
+        private FactoryLogger logger = Locator.Current.GetService<FactoryLogger>() ?? throw new Exception("mm,,ffjr");
 
         public T Create<T>() where T : class
         {
@@ -55,13 +54,13 @@ namespace UtilityWpf.Demo.Common.Meta
 
         public IEnumerable<T> Create<T>(int count) where T : class => EnumerableHelper.Create(count, Create<T>);
 
-
-        class Shelf
+        private class Shelf
         {
-            static KeyStore Store = Locator.Current.GetService<KeyStore>() ?? throw new Exception("m6776m,,ffjr");
+            private static KeyStore Store = Locator.Current.GetService<KeyStore>() ?? throw new Exception("m6776m,,ffjr");
 
             public static TickViewModel TickViewModel => new TickViewModel(Guid.NewGuid(), Store.CreateNewKey()) { IsChecked = Statics.Random.NextBoolean() };
             public static ButtonViewModel ButtonViewModel => new ButtonViewModel(Store.CreateNewKey(), ReactiveCommand.Create(() => { })) { IsRefreshable = Statics.Random.NextBoolean() };
+
             public static Fields Fields => new Fields
             {
                 Age = Statics.Random.Next(0, 100),

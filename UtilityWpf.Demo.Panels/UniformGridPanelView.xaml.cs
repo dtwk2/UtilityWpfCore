@@ -11,7 +11,7 @@ namespace UtilityWpf.Demo.Panels
     /// </summary>
     public partial class UniformGridPanelView : UserControl
     {
-        Random random = new Random();
+        private Random random = new Random();
 
         public UniformGridPanelView()
         {
@@ -27,7 +27,6 @@ namespace UtilityWpf.Demo.Panels
 
         private void Remove_Click(object sender, RoutedEventArgs e)
         {
-
         }
     }
 }

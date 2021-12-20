@@ -24,7 +24,6 @@ namespace UtilityWpf.Controls.FileSystem
                 .WhereNotNull().Subscribe(obs);
                 });
             return new Func<IObservable<string>>(() => obs);
-
         }
 
         //#region properties

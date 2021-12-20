@@ -2,7 +2,6 @@
 using Splat.Autofac;
 using System.Windows;
 using Utility.Common;
-using UtilityWpf.Meta;
 
 namespace UtilityWpf.Demo.Dragablz
 {
@@ -18,6 +17,5 @@ namespace UtilityWpf.Demo.Dragablz
             builder.AutoRegister();
             builder.UseAutofacDependencyResolver();
         }
-
     }
 }

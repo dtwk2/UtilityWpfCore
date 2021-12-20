@@ -14,7 +14,6 @@ namespace UtilityWpf.Controls.Progress
 {
     public class FlashThumb : Thumb
     {
-
         private Storyboard storyBoard;
         private Grid grid;
 
@@ -29,7 +28,6 @@ namespace UtilityWpf.Controls.Progress
 
         public static readonly DependencyProperty RepeatProperty =
            DependencyProperty.Register("Repeat", typeof(bool), typeof(FlashThumb), new PropertyMetadata(true, RepeatChanged));
-
 
         static FlashThumb()
         {
@@ -60,7 +58,6 @@ namespace UtilityWpf.Controls.Progress
             set { SetValue(DurationProperty, value); }
         }
 
-
         private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             Duration duration;
@@ -82,15 +79,14 @@ namespace UtilityWpf.Controls.Progress
                 clone.Duration = duration;
                 foreach (var child in clone.Children)
                 {
-
                     child.Duration = flashView.Duration;
                 }
                 clone.Begin(flashView.grid);
             }));
         }
+
         private static void RepeatChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-
             if (!(d is FlashThumb flashView && e.NewValue is bool newValue))
                 return;
 
@@ -105,13 +101,10 @@ namespace UtilityWpf.Controls.Progress
 
         public FlashThumb()
         {
-
             Flash = new ActionCommand(a =>
             {
                 Repeat = false;
-
             });
-
 
             Loaded += FlashView_Loaded;
         }
@@ -129,8 +122,6 @@ namespace UtilityWpf.Controls.Progress
         {
             storyBoard.Begin(grid);
         }
-
-
     }
 
     internal class BooleanAllConverter : IMultiValueConverter

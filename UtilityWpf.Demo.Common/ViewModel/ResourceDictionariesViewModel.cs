@@ -17,7 +17,6 @@ namespace UtilityWpf.Demo.Common.ViewModel
 
         private readonly ActionCommand changeCommand;
 
-
         public ResourceDictionariesViewModel()
         {
             changeCommand = new ActionCommand(Change);
@@ -35,7 +34,6 @@ namespace UtilityWpf.Demo.Common.ViewModel
 
         private void Change()
         {
-
         }
     }
 
@@ -44,7 +42,6 @@ namespace UtilityWpf.Demo.Common.ViewModel
         //public ThemesViewModelFactory()
         //{
         //    var coll = Source.ThemeDictionary;
-
 
         //    Collection = CreateViewModels(coll.MergedDictionaries).ToArray();
         //}
@@ -75,12 +72,13 @@ namespace UtilityWpf.Demo.Common.ViewModel
                         .SingleOrDefault(d => d.Source.ToString().EndsWith("Themes.xaml"));
     }
 
-    static class Converter
+    internal static class Converter
     {
         public static string Convert(string uri)
         {
             return uri.Remove(".xaml");
         }
+
         public static string ConvertBack(string value)
         {
             return value + ".xaml";
@@ -90,7 +88,7 @@ namespace UtilityWpf.Demo.Common.ViewModel
     public class ResourceDictionaryService : IObserver<TickViewModel>
     {
         private readonly Dictionary<ResourceDictionary, bool> dictionary;
-        ReplaySubject<TickViewModel> tickViewModel = new();
+        private ReplaySubject<TickViewModel> tickViewModel = new();
 
         public ResourceDictionaryService(IReadOnlyCollection<ResourceDictionary> resourceDictionaries)
         {
@@ -123,14 +121,10 @@ namespace UtilityWpf.Demo.Common.ViewModel
                 });
         }
 
-
-
-        ResourceDictionary MatchDictionary(string name)
+        private ResourceDictionary MatchDictionary(string name)
         {
             return dictionary.Keys.Single(a => a.Source.ToString().EndsWith(Converter.ConvertBack(name)));
         }
-
-
 
         public void OnCompleted()
         {
@@ -141,7 +135,6 @@ namespace UtilityWpf.Demo.Common.ViewModel
         {
             throw new NotImplementedException();
         }
-
 
         public void OnNext(TickViewModel value)
         {

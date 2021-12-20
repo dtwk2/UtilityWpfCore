@@ -20,7 +20,6 @@ namespace UtilityWpf.Controls.Chart
         public static readonly DependencyProperty DataKeyProperty = DependencyHelper.Register();
         //public static readonly DependencyProperty DataProperty = DependencyHelper.Register();
 
-
         public MasterChartDetail()
         {
             var content = new OxyChart();
@@ -38,9 +37,8 @@ namespace UtilityWpf.Controls.Chart
                 {
                     //selector.Key = a;
                     content.IdKey = a;
-
                 });
-      
+
             Content = content;
         }
 

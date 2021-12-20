@@ -91,4 +91,3 @@ namespace UtilityWpf.Demo.Animation
         }
     }
 }
-

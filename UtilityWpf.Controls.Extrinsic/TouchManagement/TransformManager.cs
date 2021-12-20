@@ -9,8 +9,8 @@ namespace UappUI.AppCode.Touch
 {
     public class TransformManager
     {
-        const double MIN_SCALE = 0.2;
-        const double MAX_SCALE = Math.PI - 0.2;
+        private const double MIN_SCALE = 0.2;
+        private const double MAX_SCALE = Math.PI - 0.2;
 
         public void ScaleContainerElements(ScrollViewer listView)
         {
@@ -46,6 +46,7 @@ namespace UappUI.AppCode.Touch
         }
 
         #region protected methods
+
         protected Point GetElementPosition(FrameworkElement childElement, FrameworkElement absoluteElement)
         {
             return childElement.TransformToAncestor(absoluteElement).Transform(new Point(0, 0));
@@ -69,9 +70,11 @@ namespace UappUI.AppCode.Touch
 
             return visibleItemList;
         }
-        #endregion
+
+        #endregion protected methods
 
         #region private methods
+
         private bool IsVisible(object child, FrameworkElement scrollViewer)
         {
             // Refactor;
@@ -84,6 +87,7 @@ namespace UappUI.AppCode.Touch
             var ownerRectangle = new Rect(new Point(0, 0), scrollViewer.RenderSize);
             return ownerRectangle.IntersectsWith(childRectangle);
         }
-        #endregion
+
+        #endregion private methods
     }
 }

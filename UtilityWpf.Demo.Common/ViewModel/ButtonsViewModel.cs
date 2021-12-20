@@ -9,11 +9,10 @@ namespace UtilityWpf.Demo.Common.ViewModel
 {
     public class ViewModel
     {
-
     }
+
     public class ButtonViewModel : ViewModel
     {
-
         public ButtonViewModel(string header, ICommand command)
         {
             Header = header;
@@ -35,6 +34,5 @@ namespace UtilityWpf.Demo.Common.ViewModel
         }
 
         public ObservableCollection<ButtonViewModel> Data { get; }
-
     }
 }

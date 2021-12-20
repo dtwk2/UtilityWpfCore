@@ -10,7 +10,6 @@ namespace UtilityWpf.Demo.View
         public MasterListUserControl()
         {
             InitializeComponent();
-
         }
     }
 }

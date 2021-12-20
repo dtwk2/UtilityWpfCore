@@ -12,7 +12,6 @@ using static UtilityWpf.Service.LiteDbRepository;
 
 namespace UtilityWpf.Service
 {
-
     public class LiteDbRepository : IRepository, IIdRepository
     {
         public record ConnectionSettings(Type Type, FileInfo FileInfo, string IdProperty, bool IgnoreBsonDocumentProperties = true);
@@ -21,12 +20,11 @@ namespace UtilityWpf.Service
 
         private BsonMapper _mapper = new BsonMapper();
 
-        IDisposable GetCollection(out ILiteCollection<BsonDocument> collection)
+        private IDisposable GetCollection(out ILiteCollection<BsonDocument> collection)
         {
             collection = LiteDbHelper.GetCollection(Settings, out var _disposable);
             collection.EnsureIndex(a => a[_key]);
             return _disposable;
-
         }
 
         public LiteDbRepository(ConnectionSettings settings)
@@ -107,8 +105,10 @@ namespace UtilityWpf.Service
                 {
                     case CountQuery:
                         return collection.Count();
+
                     case FirstQuery:
                         return Convert(collection.Query().First());
+
                     default:
                         throw new ArgumentOutOfRangeException("789uu7fssd");
                 }
@@ -179,6 +179,7 @@ namespace UtilityWpf.Service
             //var doc = _mapper.ToD(obj.GetType(), objs);
             return objs.Cast<object>().Select(obj => Convert(obj));
         }
+
         protected virtual IEnumerable<object> ConvertBack(IEnumerable<BsonDocument> objs)
         {
             //var doc = _mapper.ToD(obj.GetType(), objs);
@@ -221,11 +222,11 @@ namespace UtilityWpf.Service
         {
             using (GetCollection(out var collection))
             {
-
                 switch (query)
                 {
                     case AllQuery:
                         return ConvertBack(collection.FindAll()).ToArray();
+
                     default:
                         throw new ArgumentOutOfRangeException("777fssd");
                 }

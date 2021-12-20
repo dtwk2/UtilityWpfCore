@@ -99,7 +99,6 @@ namespace Utility.Persist
                            .Subscribe(x =>
                            {
                                observer.AddOrUpdate(x.source);
-
                            });
                        }
                        observer.Edit(a =>
@@ -109,14 +108,11 @@ namespace Utility.Persist
                            {
                                a.AddOrUpdate(change);
                            }
-                       });                    
+                       });
 
                        Items.ReplaceWithRange(objects);
                    });
-
-
             }, a => a.ToString());
-
 
             var dis2 = changeSet
                 .OnItemUpdated((a, sd) =>
@@ -128,7 +124,6 @@ namespace Utility.Persist
                 })
                 .Subscribe(a =>
                 {
-
                 });
 
             //   changeSet.Bind(out ReadOnlyObservableCollection<object>? aa);
@@ -167,7 +162,6 @@ namespace Utility.Persist
 
         public IDisposable Subscribe(IObserver<CollectionChangeMessage> observer)
         {
-
             observer.OnNext(new(new(NotifyCollectionChangedAction.Add, Items)));
             return collectionChangeMessages.Subscribe(observer);
         }

@@ -15,7 +15,7 @@ namespace UtilityWpf.Controls.FileSystem
             });
         }
 
-        static Action GetAction(Func<IObservable<string>> func, out ReplaySubject<string> replaySubject)
+        private static Action GetAction(Func<IObservable<string>> func, out ReplaySubject<string> replaySubject)
         {
             replaySubject = new(1);
             ReplaySubject<string> rSubject1 = new(1);

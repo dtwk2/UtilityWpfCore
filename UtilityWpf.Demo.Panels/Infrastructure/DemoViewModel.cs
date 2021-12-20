@@ -7,7 +7,6 @@ namespace UtilityWpf.Demo.Panels
     {
         public DemoViewModel()
         {
-
         }
 
         public ObservableCollection<string> Collection { get; } = new ObservableCollection<string>(Enumerable.Range(0, 10).Select(a => a.ToString()));

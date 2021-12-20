@@ -9,11 +9,10 @@
     <TabControl>
 
         <TabItem Header="Confirmation">
-            <local:ConfirmationDialogUserControl/>
+            <local:ConfirmationDialogUserControl />
         </TabItem>
         <TabItem Header="Exception">
-            <local:ExceptionDialogUserControl/>
+            <local:ExceptionDialogUserControl />
         </TabItem>
-
     </TabControl>
 </Window>

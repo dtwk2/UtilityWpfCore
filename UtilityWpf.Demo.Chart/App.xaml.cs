@@ -1,10 +1,4 @@
-﻿using Autofac;
-using ReactiveUI;
-using Splat;
-using Splat.Autofac;
-using System.Windows;
-using Utility.Common;
-using UtilityWpf.Model;
+﻿using System.Windows;
 
 namespace UtilityWpf.Chart.Demo
 {
@@ -12,7 +6,7 @@ namespace UtilityWpf.Chart.Demo
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
-    {        
+    {
         public App()
         {
         }

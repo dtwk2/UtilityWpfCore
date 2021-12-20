@@ -10,13 +10,13 @@
 
     <UniformGrid Rows="1">
         <StackPanel>
-            <controls:LabelledTextBox Header="Has Error" Hint="Invalid" HintColor="Red" Content="TextBox"/>
+            <controls:LabelledTextBox Header="Has Error" Hint="Invalid" HintColor="Red" Content="TextBox" />
 
             <controls:LabelledContent Header="Name">
                 <TextBox Height="30" Width="200" BorderBrush="Black" BorderThickness="2" Background="Aqua">UserName</TextBox>
             </controls:LabelledContent>
 
-            <controls:LabelledTextBlock Header="Redundant" Content="Text Block Content"  Hint="Unnecessary"/>
+            <controls:LabelledTextBlock Header="Redundant" Content="Text Block Content"  Hint="Unnecessary" />
         </StackPanel>
 
         <UniformGrid Columns="1">
@@ -27,23 +27,21 @@
             <controls:LabelledContent Header="Name">
                 <StackPanel>
                     <TextBox Height="30" Width="200" BorderBrush="Black" BorderThickness="2" Background="Aqua">Password</TextBox>
-                    <TextBlock Height="40" Width="150" >
-                        <Run Text="First Line" FontSize="8"/>
-                        <LineBreak/>
-                        <Run Text="Second Line" FontSize="8"/>
+                    <TextBlock Height="40" Width="150">
+                        <Run Text="First Line" FontSize="8" />
+                        <LineBreak />
+                        <Run Text="Second Line" FontSize="8" />
                     </TextBlock>
                 </StackPanel>
             </controls:LabelledContent>
 
             <controls:LabelledContent Header="Redundant" Hint="Unnecessary">
                 <Viewbox Width="200">
-                    <TextBox Height="40" Width="100" Text="Some Text..."/>
+                    <TextBox Height="40" Width="100" Text="Some Text..." />
                 </Viewbox>
             </controls:LabelledContent>
 
-            <controls:LabelledContent Header="Redundant" Hint="Unnecessary" Content="          content              "/>
-
+            <controls:LabelledContent Header="Redundant" Hint="Unnecessary" Content="          content              " />
         </UniformGrid>
     </UniformGrid>
-
 </UserControl>

@@ -57,13 +57,11 @@ namespace UtilityWpf.Demo.Hybrid.ViewModel
             }
         }
 
-
         public override IEnumerable Collection => collectionService.Items;
 
-        IRepository Repository() => new LiteDbRepository(
+        private IRepository Repository() => new LiteDbRepository(
             new LiteDbRepository.ConnectionSettings(typeof(TickViewModel),
                 new System.IO.FileInfo("../../../Data/Data.litedb"),
                 nameof(TickViewModel.Id)));
-
     }
 }

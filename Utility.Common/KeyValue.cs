@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 
-
 namespace UtilityWpf.Property
 {
     public class KeyValue
@@ -30,7 +29,10 @@ namespace UtilityWpf.Property
 
         public int TickFrequency => (int)((Max - Min) / 10);
         public string Key { get; set; }
-        public double Value { get { return value; } set { this.value = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Value))); } }
+
+        public double Value
+        { get { return value; } set { this.value = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Value))); } }
+
         public double Min { get; set; }
         public double Max { get; set; }
 

@@ -15,7 +15,6 @@ namespace UtilityWpf.Demo.Animation
         {
             InitializeComponent();
         }
-
     }
 
     public class BeatViewModel : ReactiveObject

@@ -1,9 +1,9 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:UtilityWpf.Controls" 
-    xmlns:infra="clr-namespace:UtilityWpf.Controls.Panels" 
-     xmlns:converter="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf" xmlns:infra1="http://schemas.utility.com/panels">
+    xmlns:infra1="http://schemas.utility.com/panels"
+    xmlns:local="clr-namespace:UtilityWpf.Controls"
+    xmlns:converter="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf">
 
     <ResourceDictionary.MergedDictionaries />
     <converter:ThicknessConverter x:Key="ThicknessConverter"></converter:ThicknessConverter>
@@ -19,9 +19,9 @@
                 <ControlTemplate TargetType="Thumb">
 
                     <Border  Name="OutBox"  Height="{TemplateBinding Height}">
-                        
-                        <Grid Width="30" >
-                            <Border Width="2" Background="Red"  Height="50"/>
+
+                        <Grid Width="30">
+                            <Border Width="2" Background="Red"  Height="50" />
 
                             <Path   Margin="0,0,0,2"
                                         x:Name="PathLeft"
@@ -60,7 +60,6 @@
                                     </TransformGroup>
                                 </Path.RenderTransform>
                             </Path>
-
                         </Grid>
                     </Border>
 
@@ -93,7 +92,7 @@
                     <Border
                         Name="OutBox"
                         Width="8"
-                        Height="{TemplateBinding Height}"                 
+                        Height="{TemplateBinding Height}"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}" />
@@ -132,7 +131,7 @@
 
                     <ItemsControl
                         x:Name="TopTickLabel"
-                        Grid.Row="0"                        
+                        Grid.Row="0"
                         VerticalAlignment="Center"
                         Visibility="Visible">
                         <ItemsControl.ItemsPanel>
@@ -298,10 +297,9 @@
             <Setter.Value>
                 <DataTemplate>
 
-                    <Label    
-                           
-                            Content="{Binding Converter={x:Static converter:LambdaConverter.DaysToDateTimeConverter}}" />
+                    <Label
 
+                            Content="{Binding Converter={x:Static converter:LambdaConverter.DaysToDateTimeConverter}}" />
                 </DataTemplate>
             </Setter.Value>
         </Setter>

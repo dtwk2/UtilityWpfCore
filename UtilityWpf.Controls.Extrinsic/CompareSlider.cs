@@ -12,6 +12,7 @@ namespace UtilityWpf.Controls.Handy
     public class CompareSlider : Slider
     {
         private readonly ISubject<double> subject = new Subject<double>();
+
         public static readonly DependencyProperty TargetContentProperty = DependencyProperty.Register(
             "TargetContent", typeof(object), typeof(CompareSlider), new PropertyMetadata(default(object)));
 
@@ -29,7 +30,6 @@ namespace UtilityWpf.Controls.Handy
         public CompareSlider()
         {
         }
-
 
         public object TargetContent
         {

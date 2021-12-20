@@ -24,7 +24,6 @@ namespace UtilityWpf.Controls
             return Math.Max((int)baseValue, 1);
         }
 
-
         static SizeControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SizeControl), new FrameworkPropertyMetadata(typeof(SizeControl)));

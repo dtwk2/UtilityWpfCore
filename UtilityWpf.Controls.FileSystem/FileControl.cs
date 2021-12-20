@@ -4,8 +4,6 @@ namespace UtilityWpf.Controls.FileSystem
 {
     public class FileControl : PathControl
     {
-
-
         static FileControl()
         {
             //DefaultStyleKeyProperty.OverrideMetadata(typeof(FileControl), new FrameworkPropertyMetadata(typeof(FileControl)));
@@ -15,6 +13,5 @@ namespace UtilityWpf.Controls.FileSystem
         {
             Icon = PackIconKind.File;
         }
-
     }
 }

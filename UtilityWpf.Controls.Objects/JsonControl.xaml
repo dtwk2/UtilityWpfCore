@@ -2,8 +2,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:controls="clr-namespace:UtilityWpf.Controls.Objects"
-    xmlns:jlinq="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json">
+    xmlns:jlinq="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json"
+    xmlns:controls="clr-namespace:UtilityWpf.Controls.Objects">
 
     <ObjectDataProvider
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
@@ -40,12 +40,11 @@
         </ItemsControl.ItemsPanel>
     </ItemsControl>
 
-
     <Style x:Key="JsonTreeViewItem" TargetType="{x:Type TreeViewItem}">
         <Setter Property="IsExpanded" Value="False" />
     </Style>
 
-    <Style TargetType="{x:Type controls:JsonControl}" BasedOn="{StaticResource {x:Type TreeView}}">     
+    <Style TargetType="{x:Type controls:JsonControl}" BasedOn="{StaticResource {x:Type TreeView}}">
         <Setter Property="IsTextSearchEnabled" Value="True" />
         <Setter Property="ItemTemplateSelector" Value="{x:Static controls:TemplateSelector.JPropertyDataTemplateSelector}" />
         <Setter Property="ItemContainerStyle" Value="{StaticResource JsonTreeViewItem}" />
@@ -82,7 +81,6 @@
                 </StackPanel>
             </HierarchicalDataTemplate>
 
-            
             <HierarchicalDataTemplate
                 x:Key="ObjectPropertyTemplate"
                 DataType="{x:Type jlinq:JObject}"
@@ -150,11 +148,8 @@
                 </b:Interaction.Triggers>
                     </TextBlock>
                 </Grid>
-
             </DataTemplate>
-
         </Style.Resources>
-
     </Style>
 
     <!--<TreeView
@@ -171,5 +166,4 @@
             </Style>
         </TreeView.ItemContainerStyle>
     </TreeView>-->
-
 </ResourceDictionary>

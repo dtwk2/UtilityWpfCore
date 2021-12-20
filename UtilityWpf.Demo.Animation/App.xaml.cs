@@ -11,7 +11,6 @@ namespace UtilityWpf.Demo.Animation
     /// </summary>
     public partial class App : Application
     {
-
         public App()
         {
             var builder = new ContainerBuilder();

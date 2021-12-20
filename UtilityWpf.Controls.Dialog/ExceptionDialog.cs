@@ -13,7 +13,6 @@ namespace UtilityWpf.Controls.Dialog
             Exception = exception;
         }
 
-
         public Exception Exception
         {
             get => exception; set

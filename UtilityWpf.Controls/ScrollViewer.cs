@@ -2,11 +2,8 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-
 namespace UtilityWpf.Controls
 {
-
-
     public enum WheelOrientation
     {
         None = 0,
@@ -14,7 +11,6 @@ namespace UtilityWpf.Controls
         Horizontal = 2,
         Vertical = 3,
     }
-
 
     public class ScrollViewer : System.Windows.Controls.ScrollViewer
     {
@@ -24,10 +20,6 @@ namespace UtilityWpf.Controls
         public static readonly DependencyProperty CanContentScrollLeftProperty = DependencyProperty.Register("CanContentScrollLeft", typeof(bool), typeof(ScrollViewer), new PropertyMetadata(false));
         public static readonly DependencyProperty WheelOrientationProperty = DependencyProperty.Register("WheelOrientation", typeof(WheelOrientation), typeof(ScrollViewer), new PropertyMetadata(WheelOrientation.Vertical));
         public static readonly DependencyProperty SpeedProperty = DependencyProperty.Register("Speed", typeof(double), typeof(ScrollViewer), new PropertyMetadata(1d));
-
-
-
-
 
         private MouseWheelEventArgs _lastMouseWheelEventArgs;
 
@@ -76,7 +68,6 @@ namespace UtilityWpf.Controls
 
         protected override void OnScrollChanged(ScrollChangedEventArgs e)
         {
-
             CanContentScrollUp = e.VerticalOffset > 0;
             CanContentScrollDown = e.VerticalOffset < ScrollableHeight;
             CanContentScrollLeft = e.HorizontalOffset > 0;
@@ -116,5 +107,3 @@ namespace UtilityWpf.Controls
         }
     }
 }
-
-

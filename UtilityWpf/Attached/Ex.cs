@@ -63,7 +63,6 @@ namespace UtilityWpf.Attached
             d.SetValue(IsReadOnlyProperty, (bool)value);
         }
 
-
         public static readonly DependencyProperty StateProperty = DependencyProperty.RegisterAttached("State", typeof(State), typeof(Ex), new PropertyMetadata(State.None, PropertyChanged));
 
         public static State GetState(DependencyObject d)
@@ -88,9 +87,7 @@ namespace UtilityWpf.Attached
             d.SetValue(IsPressedProperty, (bool)value);
         }
 
-
         public static readonly DependencyProperty IsMouseOverProperty = DependencyProperty.RegisterAttached("IsMouseOver", typeof(bool), typeof(Ex), new PropertyMetadata(false, PropertyChanged));
-
 
         public static bool GetIsMouseOver(DependencyObject d)
         {
@@ -101,7 +98,6 @@ namespace UtilityWpf.Attached
         {
             d.SetValue(IsMouseOverProperty, (bool)value);
         }
-
 
         public static readonly DependencyProperty CommandProperty = DependencyProperty.RegisterAttached("Command", typeof(ICommand), typeof(Ex), new PropertyMetadata(null, PropertyChanged));
 

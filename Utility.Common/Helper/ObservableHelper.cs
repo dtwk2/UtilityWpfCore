@@ -6,7 +6,6 @@ namespace Utility.Common.Helper
 {
     public static class ObservableHelper
     {
-
         public static IObservable<(T, R)> Combine<T, R>(this IObservable<T> observable, R observed)
         {
             return observable

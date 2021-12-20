@@ -9,6 +9,7 @@ using System.Windows.Controls;
 namespace UtilityWpf.Controls
 {
     using Mixins;
+
     //https://github.com/kentcb/YouIandReactiveUI
     //    [Sample(
     //        "Logging",

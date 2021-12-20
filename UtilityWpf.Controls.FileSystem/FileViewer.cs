@@ -22,6 +22,7 @@ namespace UtilityWpf.Controls.FileSystem
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(FileViewer), new FrameworkPropertyMetadata(typeof(FileViewer)));
         }
+
         public FileViewer()
         {
         }
@@ -48,6 +49,7 @@ namespace UtilityWpf.Controls.FileSystem
         }
 
         #region properties
+
         public string Directory
         {
             get => (string)GetValue(DirectoryProperty);
@@ -59,6 +61,7 @@ namespace UtilityWpf.Controls.FileSystem
             get => (ICommand)GetValue(RefreshProperty);
             set => SetValue(RefreshProperty, value);
         }
+
         #endregion properties
 
         protected virtual void OpenFileControl_FileSelected(object sender, RoutedEventArgs e)

@@ -8,7 +8,6 @@ using UtilityEnum;
 using UtilityWpf.Controls.Infrastructure;
 using UtilityWpf.Utility;
 
-
 namespace UtilityWpf.Controls
 {
     using Mixins;

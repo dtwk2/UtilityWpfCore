@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 
-
 namespace UtilityWpf.Common
 {
     /// <summary>
@@ -15,9 +14,12 @@ namespace UtilityWpf.Common
     {
         private bool suppressNotification;
 
-        public ObservableRangeCollection() { }
+        public ObservableRangeCollection()
+        { }
 
-        public ObservableRangeCollection(IEnumerable<T> items) : base(items) { }
+        public ObservableRangeCollection(IEnumerable<T> items) : base(items)
+        {
+        }
 
         public override event NotifyCollectionChangedEventHandler CollectionChanged;
 

@@ -99,7 +99,6 @@
                 VerticalAlignment="Center"
                 FontSize="20"
                 Text="{Binding Profiles.Count, Converter={x:Static test:Profile.ProfilesTitle}}" />
-       
         </Grid>
     </UniformGrid>
 </UserControl>

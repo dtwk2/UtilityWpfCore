@@ -15,7 +15,6 @@ namespace UtilityWpf.Controls.Dragablz
         //public static readonly DependencyProperty HoverColorProperty = DependencyProperty.Register("HoverColor", typeof(Color), typeof(ClickableBorder), new PropertyMetadata(Colors.LightBlue));
         //public static readonly DependencyProperty IsPressedProperty = DependencyProperty.Register("IsPressed", typeof(bool), typeof(ClickableBorder), new PropertyMetadata(false));
 
-
         static ClickableBorder()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ClickableBorder), new FrameworkPropertyMetadata(typeof(ClickableBorder)));
@@ -24,7 +23,6 @@ namespace UtilityWpf.Controls.Dragablz
 
         public ClickableBorder()
         {
-
         }
 
         //public Color PressedColor

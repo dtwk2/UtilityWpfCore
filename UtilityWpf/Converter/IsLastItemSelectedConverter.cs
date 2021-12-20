@@ -7,7 +7,6 @@ namespace UtilityWpf
 {
     public class IsLastItemSelectedConverter : IMultiValueConverter
     {
-
         public object Convert(object[] value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             if (value[1] is null || value[1] == DependencyProperty.UnsetValue)
@@ -28,6 +27,5 @@ namespace UtilityWpf
         }
 
         public bool Invert { get; set; }
-
     }
 }

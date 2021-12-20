@@ -17,12 +17,10 @@ namespace UtilityWpf.Demo.Master.Infrastructure
 
         private void DragablzItemsControl_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
         }
 
         private void dfsdsf(object sender, RoutedEventArgs e)
         {
-
         }
     }
 }

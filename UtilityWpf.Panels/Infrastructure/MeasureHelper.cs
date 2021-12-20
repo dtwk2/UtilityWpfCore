@@ -16,7 +16,6 @@ namespace UtilityWpf.Demo.Panels
 
             var widthAbsoluteCount = widthWeights.Where(a => a.HasValue);
 
-
             var absoluteWidth = widthWeights.Where(a => a.HasValue).Sum(a => a.Value);
             var absoluteHeight = heightWeights.Where(a => a.HasValue).Sum(a => a.Value);
 
@@ -30,9 +29,7 @@ namespace UtilityWpf.Demo.Panels
             widthWeights.Select(a => a.HasValue ? a.Value : remainingWidthDivision).Zip(
             heightWeights.Select(a => a.HasValue ? a.Value : remainingHeightDivision), (a, b) => (a, b))
             .Zip(weights, (a, b) => (new Size(a.a, a.b), b.Item3)).ToArray();
-
         }
-
 
         public static (int rows, int columns) GetRowsColumns(Size availableSize, int count)
         {

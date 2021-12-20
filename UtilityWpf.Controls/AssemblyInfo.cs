@@ -9,9 +9,6 @@ using System.Windows.Markup;
                                               //(used if a resource is not found in the page,
                                               // app, or any theme specific resource dictionaries)
 )]
-
-
 [assembly: XmlnsPrefix("http://schemas.utility.com/", "util")]
 [assembly: XmlnsDefinition("http://schemas.utility.com", "UtilityWpf.Controls")]
-[assembly: XmlnsDefinition("http://schemas.utility.com", "UtilityWpf.Controls.Infrastructure")]
-
+[assembly: XmlnsDefinition("http://schemas.utility.com", "UtilityWpf.Controls.Infrastructure")] 

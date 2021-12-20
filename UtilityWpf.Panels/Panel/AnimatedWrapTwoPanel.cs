@@ -8,7 +8,6 @@ namespace UtilityWpf.Demo.Panels
 {
     public class AnimatedWrapTwoPanel : Panel
     {
-
         protected override Size MeasureOverride(Size availableSize)
         {
             Size infiniteSize = new Size(double.PositiveInfinity, double.PositiveInfinity);
@@ -35,7 +34,6 @@ namespace UtilityWpf.Demo.Panels
                 // Record the maximum Height the current row will require
                 if (child.DesiredSize.Height > curLineHeight)
                     curLineHeight = child.DesiredSize.Height;
-
             }
 
             // The final height the Panel will require
@@ -47,7 +45,6 @@ namespace UtilityWpf.Demo.Panels
                 Width = double.IsPositiveInfinity(availableSize.Width) ? curX : availableSize.Width,
                 Height = double.IsPositiveInfinity(availableSize.Height) ? curY : availableSize.Height
             };
-
         }
 
         protected override Size ArrangeOverride(Size finalSize)
@@ -94,6 +91,5 @@ namespace UtilityWpf.Demo.Panels
 
             return finalSize;
         }
-
     }
 }

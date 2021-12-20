@@ -33,6 +33,4 @@ namespace UtilityWpf.Controls
             base.OnPropertyChanged(e);
         }
     }
-
-
 }

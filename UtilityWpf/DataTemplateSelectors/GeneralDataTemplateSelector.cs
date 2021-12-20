@@ -23,7 +23,6 @@ namespace UtilityWpf.DataTemplateSelectors
 
             //DataTemplate myDataTemplate = ((System.Windows.Controls.ContentPresenter)container).ContentTemplate;
 
-
             if (new DataTemplateKey(type) is { } key &&
                 (container as FrameworkElement)?.TryFindResource(key) is DataTemplate dt)
                 return dt;
@@ -53,5 +52,4 @@ namespace UtilityWpf.DataTemplateSelectors
 
         public static GeneralDataTemplateSelector Instance => new GeneralDataTemplateSelector();
     }
-
 }

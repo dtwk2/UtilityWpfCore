@@ -3,7 +3,6 @@ using System.Windows;
 
 namespace UtilityWpf.Events
 {
-
     public delegate void CheckedChangedEventHandler(object sender, CheckedChangedEventArgs e);
 
     public class CheckedChangedEventArgs : RoutedEventArgs
@@ -19,5 +18,4 @@ namespace UtilityWpf.Events
         public IReadOnlyCollection<object> Checked { get; }
         public IReadOnlyCollection<object> UnChecked { get; }
     }
-
 }

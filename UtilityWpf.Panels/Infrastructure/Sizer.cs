@@ -8,7 +8,9 @@ namespace UtilityWpf.Demo.Panels.Infrastructure
     public interface ISizer
     {
         Point Add(Size size);
+
         Point Add(Vector size);
+
         Size GetTotalSize();
     }
 
@@ -17,6 +19,7 @@ namespace UtilityWpf.Demo.Panels.Infrastructure
         private readonly IOrganiser<Vector> organiser;
         private readonly int xFactor;
         private readonly int yFactor;
+
         public Sizer(IOrganiser<Vector> organiser, int xFactor, int yFactor)
         {
             this.organiser = organiser;
@@ -37,7 +40,6 @@ namespace UtilityWpf.Demo.Panels.Infrastructure
             return this.Add(new Vector(size.Width, size.Height));
         }
 
-
         public Size GetTotalSize()
         {
             var xValue = organiser.Values.GroupBy(a => a.Key.Item1).Select(a => a.Max(c => c.Value.X)).Sum();
@@ -45,23 +47,18 @@ namespace UtilityWpf.Demo.Panels.Infrastructure
             return new Size(xValue, yValue);
         }
 
-
-
         public static int GetCount(int number)
         {
             return (int)Math.Sqrt(number - 1) + 1;
-
         }
     }
-
 
     public class XYOrganiser<T> : IOrganiser<T> where T : struct
     {
         public Dictionary<(int?, int?), T> Values { get; } = new Dictionary<(int?, int?), T>();
 
-        int j = 0;
-        int x = 0, y = 0;
-
+        private int j = 0;
+        private int x = 0, y = 0;
 
         public ((int?, T)[], (int?, T)[]) Add(T value)
         {

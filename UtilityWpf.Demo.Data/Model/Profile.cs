@@ -2,7 +2,6 @@
 using System.Windows.Data;
 using System.Windows.Media;
 
-
 namespace UtilityWpf.Demo.Data.Model
 {
     public class Profile //: IEquatable<Profile>
@@ -26,7 +25,6 @@ namespace UtilityWpf.Demo.Data.Model
         public static IValueConverter ProfilesTitle =
             LambdaConverters.ValueConverter.Create<int, string>(
                 e => $"Profiles ({e.Value})");
-
 
         public Profile()
         { }
@@ -77,7 +75,6 @@ namespace UtilityWpf.Demo.Data.Model
         public int HiddenAbilitiesCount { get; }
 
         public ImageSource Picture { get; }
-
 
         //public override bool Equals(object obj)
         //{

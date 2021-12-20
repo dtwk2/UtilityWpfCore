@@ -8,6 +8,7 @@ namespace UtilityWpf.Attached
     public class POCOWrangler
     {
         #region POCOWrangler.BindPropertyToText Attached Property
+
         public static String GetBindPropertyToText(TextBox obj)
         {
             return (String)obj.GetValue(BindPropertyToTextProperty);
@@ -28,11 +29,11 @@ namespace UtilityWpf.Attached
             {
                 var binding = new Binding(str);
 
-                //  The POCO object we're editing must be the DataContext of the TextBox, 
-                //  which is what you've got already -- but don't set Source explicitly 
-                //  here. Leave it alone and Binding.Source will be updated as 
-                //  TextBox.DataContext changes. If you set it explicitly here, it's 
-                //  carved in stone. That's especially a problem if this attached 
+                //  The POCO object we're editing must be the DataContext of the TextBox,
+                //  which is what you've got already -- but don't set Source explicitly
+                //  here. Leave it alone and Binding.Source will be updated as
+                //  TextBox.DataContext changes. If you set it explicitly here, it's
+                //  carved in stone. That's especially a problem if this attached
                 //  property gets initialized before DataContext.
                 //binding.Source = textBox.DataContext;
 
@@ -41,6 +42,7 @@ namespace UtilityWpf.Attached
                 BindingOperations.SetBinding(textBox, TextBox.TextProperty, binding);
             }
         }
+
         #endregion POCOWrangler.BindPropertyToText Attached Property
     }
 }

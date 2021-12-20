@@ -7,7 +7,6 @@ using UtilityWpf.Utility;
 
 namespace UtilityWpf.Demo.Data.Model
 {
-
     /// <summary>
     /// https://github.com/Yeah69/BFF.DataVirtualizingCollection
     /// </summary>
@@ -162,7 +161,7 @@ namespace UtilityWpf.Demo.Data.Model
                          GetImage("11_Jogory"))
                     });
 
-        static BitmapImage ToBitmapImage(System.Drawing.Bitmap bitmap)
+        private static BitmapImage ToBitmapImage(System.Drawing.Bitmap bitmap)
         {
             using (MemoryStream memory = new MemoryStream())
             {
@@ -177,7 +176,4 @@ namespace UtilityWpf.Demo.Data.Model
             }
         }
     }
-
-
-
 }

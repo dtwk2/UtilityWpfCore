@@ -24,6 +24,5 @@ namespace UtilityWpf.Demo.Extrinsic
                 Content = new UserControls()
             }.Show();
         }
-
     }
 }

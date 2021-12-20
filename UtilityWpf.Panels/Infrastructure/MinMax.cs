@@ -1,6 +1,6 @@
 ﻿namespace UtilityWpf.Demo.Panels
 {
-    struct MinMax<T>
+    internal struct MinMax<T>
     {
         public MinMax(T min, T max)
         {

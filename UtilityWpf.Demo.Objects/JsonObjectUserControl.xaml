@@ -28,8 +28,7 @@
             <UniformGrid>
                 <view:JsonControl Object="{StaticResource Characters}" />
                 <view:JsonControl Object="{StaticResource exception}" />
-              
-                
+
                 <Grid>
                     <Grid.Resources>
                         <!--  DataTemplate for Published Date column defined in Grid.Resources.  PublishDate is a property on the ItemsSource of type DateTime  -->

@@ -19,6 +19,7 @@ namespace UtilityWpf.Controls
     using Mixins;
 
     using static DependencyPropertyFactory<SliderItemsControl>;
+
     public class SliderItemsControl : Controlx
     {
         private ItemsControl ItemsControl;
@@ -84,6 +85,7 @@ namespace UtilityWpf.Controls
         public ObservableCollection<KeyRange> KeyRangeCollection { get; } = new ObservableCollection<KeyRange>();
 
         #region properties
+
         public bool ShowKeyValuePanel
         {
             get { return (bool)GetValue(ShowKeyValuePanelProperty); }
@@ -139,6 +141,7 @@ namespace UtilityWpf.Controls
         }
 
         #endregion properties
+
         public override void OnApplyTemplate()
         {
             ItemsControl = this.GetTemplateChild("ItemsControl") as ItemsControl;
@@ -161,22 +164,22 @@ namespace UtilityWpf.Controls
         }
 
         private Task<IEnumerable<KeyRange>> GetItems(IEnumerable data, string key, string value, string min, string max) => Task.Run(() =>
-          {
-              var type = data.First().GetType().GetProperties().ToDictionary(a => a.Name, a => a);
-              var keys = UtilityHelper.PropertyHelper.GetPropertyValues<string>(data, type[key]);
-              var values = data.Cast<object>().Select(_ =>
-              type[value].GetValue(_)).ToList().Select(_ => Convert.ToDouble(_));
-              var mins = min != null ? (type.TryGetValue(min, out PropertyInfo outmin) ?
-             data.Cast<object>().Select(_ =>
-              type[min].GetValue(_)).ToList().Select(_ => Convert.ToDouble(_)) : null) : null;
-              var maxs = max != null ? (type.TryGetValue(min, out PropertyInfo outmax)) ?
-                data.Cast<object>().Select(_ =>
-              type[max].GetValue(_)).ToList().Select(_ => Convert.ToDouble(_)) : null : null;
+           {
+               var type = data.First().GetType().GetProperties().ToDictionary(a => a.Name, a => a);
+               var keys = UtilityHelper.PropertyHelper.GetPropertyValues<string>(data, type[key]);
+               var values = data.Cast<object>().Select(_ =>
+               type[value].GetValue(_)).ToList().Select(_ => Convert.ToDouble(_));
+               var mins = min != null ? (type.TryGetValue(min, out PropertyInfo outmin) ?
+              data.Cast<object>().Select(_ =>
+               type[min].GetValue(_)).ToList().Select(_ => Convert.ToDouble(_)) : null) : null;
+               var maxs = max != null ? (type.TryGetValue(min, out PropertyInfo outmax)) ?
+                 data.Cast<object>().Select(_ =>
+               type[max].GetValue(_)).ToList().Select(_ => Convert.ToDouble(_)) : null : null;
 
-              var xxx = Factory.Create(keys, values, mins, maxs);
+               var xxx = Factory.Create(keys, values, mins, maxs);
 
-              return xxx;
-          });
+               return xxx;
+           });
 
         private void Xx_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {

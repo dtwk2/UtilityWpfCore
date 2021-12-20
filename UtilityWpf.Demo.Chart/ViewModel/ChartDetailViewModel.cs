@@ -22,8 +22,8 @@ namespace UtilityWpf.Chart.Demo.ViewModel
             Id = id;
             Color = color;
             Data = data;
-            Command = ReactiveUI.ReactiveCommand.Create<object, object>(a => {
-
+            Command = ReactiveUI.ReactiveCommand.Create<object, object>(a =>
+            {
                 IsChecked = !IsChecked;
                 this.RaisePropertyChanged(nameof(IsChecked));
                 return a;

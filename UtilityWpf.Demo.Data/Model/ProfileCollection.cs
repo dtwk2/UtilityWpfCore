@@ -9,7 +9,6 @@ using System.Reactive.Linq;
 
 namespace UtilityWpf.Demo.Data.Model
 {
-
     public class ProfileCollectionTimed
     {
         private const int _speed = 3;
@@ -56,6 +55,4 @@ namespace UtilityWpf.Demo.Data.Model
         {
         }
     }
-
-
 }

@@ -8,13 +8,13 @@
         Title="MainWindow" Height="450" Width="800">
     <TabControl>
         <TabItem Header="Json">
-            <local:JsonObjectUserControl/>
+            <local:JsonObjectUserControl />
         </TabItem>
         <TabItem Header="Object">
-            <local:ObjectControlDemoView/>
+            <local:ObjectControlDemoView />
         </TabItem>
         <TabItem Header="Flow">
-            <local:ObjectFlowUserControl/>
+            <local:ObjectFlowUserControl />
         </TabItem>
     </TabControl>
 </Window>

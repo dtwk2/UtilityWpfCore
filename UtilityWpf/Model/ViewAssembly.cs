@@ -2,7 +2,6 @@
 
 namespace UtilityWpf.Model
 {
-
     public class ViewAssembly
     {
         public ViewAssembly(Assembly assembly)

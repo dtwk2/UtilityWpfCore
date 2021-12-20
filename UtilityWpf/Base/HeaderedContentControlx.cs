@@ -12,6 +12,7 @@ namespace UtilityWpf.Controls
 
         //public NameTypeDictionary<Subject<object>> dict { get; }
         Type IDependencyObjectListener.Type { get; } = typeof(ContentControlx);
+
         //public INameTypeDictionary NameTypeDictionary { get; }
         NameTypeDictionary<SingleReplaySubject<object>> IPropertyListener.dict => nameTypeDictionary;
 

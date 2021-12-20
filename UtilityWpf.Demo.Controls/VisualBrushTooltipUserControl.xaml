@@ -10,9 +10,8 @@
     mc:Ignorable="d">
 
     <!--  https://github.com/fberasategui/WPFSamples/blob/master/src/WPFSamples/Samples/VisualBrushTooltip.xaml  -->
-    <Grid Width="600" Height="200" Background="Cyan" >
+    <Grid Width="600" Height="200" Background="Cyan">
         <TextBlock Text="hover the mouse over me to see my tooltip" FontSize="40" TextWrapping="Wrap" />
-    
     </Grid>
     <UserControl.ToolTip>
         <ToolTip DataContext="{Binding PlacementTarget, RelativeSource={RelativeSource Self}}">

@@ -20,9 +20,7 @@ namespace UtilityWpf.Demo.FileSystem
                             a.Source.ToString().Contains("MaterialDesignExtensions") == false))
             {
                 Application.Current.Resources.MergedDictionaries.Remove(dic);
-
             }
-
         }
     }
 }

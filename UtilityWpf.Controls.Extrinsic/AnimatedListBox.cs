@@ -8,12 +8,13 @@ namespace AnimatedScrollViewer
     /// <a href="http://matthiasshapiro.com/DisneyShorts/how-to-create-an-animated-scrollviewer-or-listbox-in-wpf"></a>
     /// </summary>
     [TemplatePart(Name = "PART_AnimatedScrollViewer", Type = typeof(AnimatedScrollViewer))]
-
     public class AnimatedListBox : ListBox
     {
         #region PART holders
-        AnimatedScrollViewer _scrollViewer;
-        #endregion
+
+        private AnimatedScrollViewer _scrollViewer;
+
+        #endregion PART holders
 
         static AnimatedListBox()
         {
@@ -35,17 +36,17 @@ namespace AnimatedScrollViewer
             this.LayoutUpdated += new EventHandler(AnimatedListBox_LayoutUpdated);
         }
 
-        void AnimatedListBox_LayoutUpdated(object sender, EventArgs e)
+        private void AnimatedListBox_LayoutUpdated(object sender, EventArgs e)
         {
             updateScrollPosition(sender);
         }
 
-        void AnimatedListBox_Loaded(object sender, RoutedEventArgs e)
+        private void AnimatedListBox_Loaded(object sender, RoutedEventArgs e)
         {
             updateScrollPosition(sender);
         }
 
-        void AnimatedListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void AnimatedListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             updateScrollPosition(sender);
         }
@@ -74,8 +75,6 @@ namespace AnimatedScrollViewer
             }
         }
 
-
-
         #region ScrollToSelectedItem (DependencyProperty)
 
         /// <summary>
@@ -86,10 +85,12 @@ namespace AnimatedScrollViewer
             get { return (bool)GetValue(ScrollToSelectedItemProperty); }
             set { SetValue(ScrollToSelectedItemProperty, value); }
         }
+
         public static readonly DependencyProperty ScrollToSelectedItemProperty =
             DependencyProperty.Register("ScrollToSelectedItem", typeof(bool), typeof(AnimatedListBox),
             new PropertyMetadata(false));
-        #endregion
+
+        #endregion ScrollToSelectedItem (DependencyProperty)
 
         #region SelectedIndexOffset (DependencyProperty)
 
@@ -101,10 +102,11 @@ namespace AnimatedScrollViewer
             get { return (int)GetValue(SelectedIndexOffsetProperty); }
             set { SetValue(SelectedIndexOffsetProperty, value); }
         }
+
         public static readonly DependencyProperty SelectedIndexOffsetProperty =
             DependencyProperty.Register("SelectedIndexOffset", typeof(int), typeof(AnimatedListBox),
               new PropertyMetadata(0));
 
-        #endregion
+        #endregion SelectedIndexOffset (DependencyProperty)
     }
 }

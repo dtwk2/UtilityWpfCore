@@ -38,6 +38,7 @@ namespace UtilityWpf.Controls.Hybrid
         }
 
         #region properties
+
         public string DisplayKeyPath
         {
             get { return (string)GetValue(DisplayKeyPathProperty); }
@@ -60,14 +61,12 @@ namespace UtilityWpf.Controls.Hybrid
         {
             get { return (IEnumerable)GetValue(EnumFilterCollectionProperty); }
             set { SetValue(EnumFilterCollectionProperty, value); }
-
         }
 
         public Enum SelectedUnit
         {
             get { return (Enum)GetValue(SelectedUnitProperty); }
             set { SetValue(SelectedUnitProperty, value); }
-
         }
 
         #endregion properties

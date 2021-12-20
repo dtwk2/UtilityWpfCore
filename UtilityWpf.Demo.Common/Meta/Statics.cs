@@ -11,6 +11,4 @@ namespace UtilityWpf.Demo.Common.Meta
 
         //public static FactoryLogger FactoryLogger { get; } = new FactoryLogger();
     }
-
-
 }

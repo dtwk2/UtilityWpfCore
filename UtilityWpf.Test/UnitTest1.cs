@@ -19,7 +19,7 @@ namespace UtilityWpf.Test
             Assert.Pass();
         }
 
-        static IEnumerable<IEnumerable<T>> SelectCombinations<T>(IEnumerable<IList<T>> setOfSets)
+        private static IEnumerable<IEnumerable<T>> SelectCombinations<T>(IEnumerable<IList<T>> setOfSets)
         {
             using var enumr = setOfSets.GetEnumerator();
             enumr.MoveNext();

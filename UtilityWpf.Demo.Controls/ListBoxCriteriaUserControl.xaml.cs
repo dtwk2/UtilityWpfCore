@@ -16,8 +16,9 @@ namespace UtilityWpf.Demo.Controls
     public partial class ListBoxCriteriaUserControl : UserControl
     {
         private ReadOnlyObservableCollection<PassFail> a;
+
         // private ReadOnlyObservableCollection<PassFail> b;
-        Random random = new Random();
+        private Random random = new Random();
 
         public ListBoxCriteriaUserControl()
         {
@@ -88,6 +89,5 @@ namespace UtilityWpf.Demo.Controls
 
     //public class DiagnosticList : InteractiveList
     //{
-
     //}
 }

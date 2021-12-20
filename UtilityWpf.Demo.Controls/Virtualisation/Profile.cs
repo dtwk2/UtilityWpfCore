@@ -11,7 +11,6 @@ using UtilityWpf.Demo.Data.Model;
 
 namespace UtilityWpf.Demo.Controls
 {
-
     public class ProfileCollectionVirtualise1 : ReactiveObject
     {
         private int val = 1;

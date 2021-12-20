@@ -1,11 +1,11 @@
 ﻿<UserControl x:Class="UtilityWpf.Demo.Buttons.ToggleUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:view="http://schemas.utility.com/buttons"
              xmlns:uc="clr-namespace:Utility.Common.Enum;assembly=Utility.Common"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <FrameworkElement.Resources>
         <PathGeometry x:Key="XGeometry">
@@ -18,7 +18,6 @@
                 </PathFigure>
             </PathGeometry.Figures>
         </PathGeometry>
-
     </FrameworkElement.Resources>
 
     <UniformGrid Rows="1">
@@ -71,6 +70,5 @@
 
             <view:XGeometryButton />
         </UniformGrid>
-
     </UniformGrid>
 </UserControl>

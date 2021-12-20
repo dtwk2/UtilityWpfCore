@@ -97,7 +97,6 @@ namespace UtilityWpf.Controls.Buttons
             return baseValue;
         }
 
-
         // Raise the routed event "selected"
         public class EnumEventArgs : RoutedEventArgs
         {

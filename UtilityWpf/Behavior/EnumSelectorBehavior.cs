@@ -1,4 +1,5 @@
 ﻿#nullable enable
+
 using Evan.Wpf;
 using Microsoft.Xaml.Behaviors;
 using ReactiveUI;
@@ -21,11 +22,12 @@ namespace UtilityWpf.Behavior
 {
     public class EnumSelectorBehavior : Behavior<Selector>
     {
-        CompositeDisposable? disposable = null;
-        ReplaySubject<IEnumerable> itemsSourceSubject = new(1);
+        private CompositeDisposable? disposable = null;
+        private ReplaySubject<IEnumerable> itemsSourceSubject = new(1);
 
         public static readonly DependencyProperty EnumTypeProperty = DependencyProperty.Register("EnumType", typeof(Type), typeof(EnumSelectorBehavior), new PropertyMetadata(EnumTypeChanged));
         public static readonly DependencyProperty EnumFilterCollectionProperty = DependencyHelper.Register<IEnumerable>();
+
         public static readonly DependencyProperty SelectedEnumProperty =
             DependencyProperty.Register("SelectedEnum", typeof(Enum), typeof(EnumSelectorBehavior), new FrameworkPropertyMetadata
             {
@@ -83,7 +85,6 @@ namespace UtilityWpf.Behavior
                 .DisposeWith(disposable);
 
             base.OnAttached();
-
         }
 
         protected override void OnDetaching()
@@ -111,6 +112,7 @@ namespace UtilityWpf.Behavior
             get => (Enum)GetValue(SelectedEnumProperty);
             set => SetValue(SelectedEnumProperty, value);
         }
+
         #endregion properties
 
         private static void EnumTypeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -145,9 +147,8 @@ namespace UtilityWpf.Behavior
             public string Value { get; }
         }
 
-        static void FormatAssociatedObject(Selector associatedObject)
+        private static void FormatAssociatedObject(Selector associatedObject)
         {
-
             if (associatedObject is ComboBox box)
             {
                 box.IsEditable = false;
@@ -161,7 +162,6 @@ namespace UtilityWpf.Behavior
                 nameof(EnumMember.Description) :
                 associatedObject.DisplayMemberPath;
 
-
             associatedObject.SelectedValuePath = string.IsNullOrEmpty(associatedObject.DisplayMemberPath) ?
                 nameof(EnumMember.Value) :
                 associatedObject.SelectedValuePath;
@@ -171,7 +171,6 @@ namespace UtilityWpf.Behavior
             associatedObject.VerticalAlignment = VerticalAlignment.Center;
             associatedObject.HorizontalContentAlignment = HorizontalAlignment.Center;
             associatedObject.VerticalContentAlignment = VerticalAlignment.Center;
-
         }
     }
 
@@ -206,10 +205,9 @@ namespace UtilityWpf.Behavior
                 yield return enumMember;
             }
         }
-
     }
 
-    static class EnumHelper
+    internal static class EnumHelper
     {
         public static IEnumerable<Enum> Filter(IEnumerable input)
         {

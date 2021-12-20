@@ -66,9 +66,6 @@ namespace UtilityWpf.Mixins
         //            return dict[type];
         //        }
 
-
-
-
         /// <summary>
         /// Whatches for any changes to dependency properties
         /// </summary>

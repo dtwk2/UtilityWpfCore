@@ -47,12 +47,12 @@ namespace UtilityWpf.Controls
         /// </summary>
         private static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent("ValueChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<decimal>), typeof(SpinnerControl));
 
-
         static SpinnerControl()
         {
             InitializeCommands();
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SpinnerControl), new FrameworkPropertyMetadata(typeof(SpinnerControl)));
         }
+
         public SpinnerControl()
         {
         }
@@ -64,7 +64,6 @@ namespace UtilityWpf.Controls
             get { return (string)GetValue(StringFormatProperty); }
             set { SetValue(StringFormatProperty, value); }
         }
-
 
         public decimal Value
         {
@@ -103,7 +102,6 @@ namespace UtilityWpf.Controls
         }
 
         #endregion properties
-
 
         protected static void OnIncreaseCommand(object sender, ExecutedRoutedEventArgs e)
         {
@@ -226,7 +224,6 @@ namespace UtilityWpf.Controls
                 RoutedPropertyChangedEventHandler<decimal>,
                 RoutedPropertyChangedEventArgs<double>>(a => spinnerControl.ValueChanged += a, a => spinnerControl.ValueChanged += a)
                 .Select(a => a.EventArgs.NewValue);
-
         }
     }
 }

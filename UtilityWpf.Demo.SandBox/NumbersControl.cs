@@ -19,7 +19,6 @@ namespace UtilityWpf.Demo.SandBox
             base.PrepareContainerForItemOverride(element, item);
         }
 
-
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
             return item is T;
@@ -39,9 +38,8 @@ namespace UtilityWpf.Demo.SandBox
         }
     }
 
-    class NumbersControl : ListBox<NumberItem>
+    internal class NumbersControl : ListBox<NumberItem>
     {
-
         public static readonly DependencyProperty DisplayKeyPathProperty = DependencyProperty.Register("DisplayKeyPath", typeof(string), typeof(NumbersControl), new PropertyMetadata(null));
 
         static NumbersControl()
@@ -98,7 +96,6 @@ namespace UtilityWpf.Demo.SandBox
 
             BindingOperations.SetBinding(numberBox, NumberBox.ValueProperty, CreateBinding(viewModel));
 
-
             Binding CreateBinding(object item)
             {
                 return new Binding
@@ -109,8 +106,6 @@ namespace UtilityWpf.Demo.SandBox
                     UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
                 };
             }
-
         }
-
     }
 }

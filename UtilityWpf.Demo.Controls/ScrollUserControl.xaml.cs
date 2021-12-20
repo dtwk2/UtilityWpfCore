@@ -14,22 +14,15 @@ namespace UtilityWpf.Demo.Controls
     public partial class ScrollUserControl : UserControl
     {
         private Random random = new();
+
         public ScrollUserControl()
         {
             InitializeComponent();
-
-
         }
-
-
-
 
         private void ButtonBase_OnClick1(object sender, RoutedEventArgs e)
         {
-
             ListView1.SelectedIndex = random.Next(0, ListView1.ItemsSource.Count() - 1);
         }
-
-
     }
 }

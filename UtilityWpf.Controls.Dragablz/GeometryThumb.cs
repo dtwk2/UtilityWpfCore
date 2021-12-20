@@ -19,6 +19,7 @@ namespace UtilityWpf.Controls.Dragablz
         public static readonly DependencyProperty CommandProperty;
         public static readonly DependencyProperty CommandParameterProperty;
         public static readonly DependencyProperty CommandTargetProperty;
+
         static GeometryThumb()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(GeometryThumb), new FrameworkPropertyMetadata(typeof(GeometryThumb)));
@@ -26,7 +27,6 @@ namespace UtilityWpf.Controls.Dragablz
             CommandProperty = ButtonBase.CommandProperty.AddOwner(typeof(GeometryThumb));
             CommandParameterProperty = ButtonBase.CommandParameterProperty.AddOwner(typeof(GeometryThumb));
             CommandTargetProperty = ButtonBase.CommandTargetProperty.AddOwner(typeof(GeometryThumb));
-
         }
 
         public GeometryThumb()
@@ -51,13 +51,11 @@ namespace UtilityWpf.Controls.Dragablz
             set { SetValue(PressedBrushProperty, value); }
         }
 
-
         public ICommand Command
         {
             get { return (ICommand)GetValue(CommandProperty); }
             set { SetValue(CommandProperty, value); }
         }
-
 
         /// <summary>
         /// Reflects the parameter to pass to the CommandProperty upon execution.

@@ -5,7 +5,6 @@ namespace UtilityWpf.Controls.Dialog
 {
     public class ConfirmationDialog : ContentControl
     {
-
         static ConfirmationDialog()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ConfirmationDialog), new FrameworkPropertyMetadata(typeof(ConfirmationDialog)));

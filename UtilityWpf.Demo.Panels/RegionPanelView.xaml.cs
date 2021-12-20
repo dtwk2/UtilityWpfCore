@@ -12,11 +12,13 @@ namespace UtilityWpf.Demo.Panels
     /// </summary>
     public partial class RegionPanelView : UserControl
     {
-        readonly Random random = new Random();
-        readonly CircleRegion[] cr = Enum.GetValues(typeof(CircleRegion)).Cast<CircleRegion>().ToArray();
-        readonly Brush[] brushes = new[] { Brushes.Teal, Brushes.Red, Brushes.RoyalBlue, Brushes.GreenYellow, Brushes.Gray, Brushes.BurlyWood,
+        private readonly Random random = new Random();
+        private readonly CircleRegion[] cr = Enum.GetValues(typeof(CircleRegion)).Cast<CircleRegion>().ToArray();
+
+        private readonly Brush[] brushes = new[] { Brushes.Teal, Brushes.Red, Brushes.RoyalBlue, Brushes.GreenYellow, Brushes.Gray, Brushes.BurlyWood,
             Brushes.Tomato , Brushes.Coral};
-        readonly ObservableCollection<CircleRegion> collection = new ObservableCollection<CircleRegion>();
+
+        private readonly ObservableCollection<CircleRegion> collection = new ObservableCollection<CircleRegion>();
 
         public RegionPanelView()
         {
@@ -30,8 +32,6 @@ namespace UtilityWpf.Demo.Panels
             //        collection.Add(region);
             //}
         }
-
-
 
         private void AddToCollection(object sender, RoutedEventArgs e)
         {

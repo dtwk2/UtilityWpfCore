@@ -1,6 +1,7 @@
 ﻿using OxyPlot;
 using OxyPlot.Wpf;
 using RandomColorGenerator;
+using Splat;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,6 @@ using System.Windows.Media;
 using System.Windows.Threading;
 using UtilityHelper;
 using UtilityHelperEx;
-using Splat;
 
 namespace UtilityWpf.Controls.Chart.ViewModel
 {
@@ -299,7 +299,6 @@ namespace UtilityWpf.Controls.Chart.ViewModel
         //     class notifies the chart to update every time a property changes
         public class DateTimePoint
         {
-
             //
             // Summary:
             //     Initializes a new instance of DateTimePoint class, giving date time and value
@@ -318,11 +317,11 @@ namespace UtilityWpf.Controls.Chart.ViewModel
             // Summary:
             //     DateTime Property
             public DateTime DateTime { get; }
+
             //
             // Summary:
             //     The Value property
             public double Value { get; }
-
         }
     }
 }

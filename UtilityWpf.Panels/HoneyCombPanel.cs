@@ -60,6 +60,7 @@ namespace UtilityWpf.Panels
          *             (4)     (3)
          *
          */
+
         protected override Size MeasureOverride(Size availableSize)
         {
             var maxSize = new Size();

@@ -15,6 +15,7 @@ namespace UtilityWpf.Controls.Buttons
         public static readonly DependencyProperty ImageProperty =
             DependencyProperty.Register("Image", typeof(Uri), typeof(ImageButton),
             new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender, ImageChanged));
+
         public static readonly DependencyProperty HoverImageProperty =
             DependencyProperty.Register("HoverImage", typeof(Uri), typeof(ImageButton),
             new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender, ImageSourceChanged));
@@ -44,7 +45,6 @@ namespace UtilityWpf.Controls.Buttons
             set { SetValue(ImageSizeProperty, value); }
         }
 
-
         public Uri Image
         {
             get { return (Uri)GetValue(ImageProperty); }
@@ -65,7 +65,6 @@ namespace UtilityWpf.Controls.Buttons
             get { return (Uri)GetValue(HoverImageProperty); }
             set { SetValue(HoverImageProperty, value); }
         }
-
 
         public Uri PressedImage
         {

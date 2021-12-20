@@ -1,9 +1,7 @@
-﻿
-using System;
+﻿using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-
 
 namespace UtilityWpf.Panels
 {
@@ -15,14 +13,11 @@ namespace UtilityWpf.Panels
         public static readonly DependencyProperty OrientationProperty =
        DependencyProperty.Register("Orientation", typeof(Orientation), typeof(RepulsionPanel), new PropertyMetadata(Orientation.Horizontal));
 
-
-
         public Orientation Orientation
         {
             get { return (Orientation)GetValue(OrientationProperty); }
             set { SetValue(OrientationProperty, value); }
         }
-
 
         protected override Size MeasureOverride(Size constraint)
         {
@@ -78,11 +73,8 @@ namespace UtilityWpf.Panels
                     sumHeight += child.DesiredSize.Height;
                     i++;
                 }
-
             }
             return arrangeSize;
         }
-
     }
 }
-

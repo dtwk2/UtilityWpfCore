@@ -19,7 +19,7 @@
                         <Button Grid.Column="1" MaxHeight="44">
                             <TextBlock
                                          x:Name="PART_TextBox"
-                                         HorizontalAlignment="Center" >
+                                         HorizontalAlignment="Center">
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="Background" Value="Transparent"></Setter>
@@ -35,31 +35,29 @@
 
     <Style TargetType="{x:Type local:ButtonsControl}" BasedOn="{StaticResource {x:Type ListBox}}">
         <Style.Setters>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="ItemContainerStyle" Value="{StaticResource ButtonStyle}"/>
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="ItemContainerStyle" Value="{StaticResource ButtonStyle}" />
             <Setter Property="ItemsPanel">
                 <Setter.Value>
                     <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Vertical"/>
+                        <WrapPanel Orientation="Vertical" />
                     </ItemsPanelTemplate>
                 </Setter.Value>
             </Setter>
-        </Style.Setters>      
+        </Style.Setters>
         <Style.Triggers>
             <Trigger Property="Orientation" Value="Horizontal">
                 <Setter Property="ItemsPanel">
                     <Setter.Value>
                         <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal"/>
+                            <WrapPanel Orientation="Horizontal" />
                         </ItemsPanelTemplate>
                     </Setter.Value>
                 </Setter>
             </Trigger>
         </Style.Triggers>
     </Style>
-
-
 </ResourceDictionary>

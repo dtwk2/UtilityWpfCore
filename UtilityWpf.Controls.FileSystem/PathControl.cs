@@ -25,6 +25,5 @@ namespace UtilityWpf.Controls.FileSystem
             get { return (string)GetValue(PathNameProperty); }
             set { SetValue(PathNameProperty, value); }
         }
-
     }
 }

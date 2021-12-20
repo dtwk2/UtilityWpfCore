@@ -54,7 +54,6 @@ namespace UtilityWpf.Controls
             set { SetValue(IsReadOnlyProperty, value); }
         }
 
-
         public Type Enum
         {
             get { return (Type)GetValue(EnumProperty); }
@@ -86,6 +85,7 @@ namespace UtilityWpf.Controls
                 Command = command;
                 IsReadOnly = isReadOnly;
             }
+
             public Enum Enum { get; }
 
             public ReactiveCommand<Unit, Enum> Command { get; }

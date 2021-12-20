@@ -1,12 +1,11 @@
 ﻿<UserControl x:Class="UtilityWpf.Demo.Extrinsic.ScrollUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:via="http://schemas.utility.com/extrinsic"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-  
 
         <Grid Width="200" Height="500">
             <DockPanel x:Name="Panel">
@@ -14,22 +13,22 @@
                                       Command="{x:Static ScrollBar.LineUpCommand}"
                                       CommandTarget="{Binding ElementName=scrollViewer}"
                                   IsEnabled="{Binding ElementName=scrollViewer, Path=CanContentScrollUp}"
-                                      ClickMode="Hover" >
+                                      ClickMode="Hover">
 
                     <Path Data="M 0 4 L 8 4 L 4 0 Z" Fill="Black"></Path>
                 </RepeatButton>
-                <RepeatButton x:Name="LineDownButton" DockPanel.Dock="Bottom" Height="20"                                  
+                <RepeatButton x:Name="LineDownButton" DockPanel.Dock="Bottom" Height="20"
                                IsEnabled="{Binding ElementName=scrollViewer, Path=CanContentScrollDown}"
                                       Command="{x:Static ScrollBar.LineDownCommand}"
                                       CommandTarget="{Binding ElementName=scrollViewer}"
-                                      ClickMode="Hover" >
+                                      ClickMode="Hover">
                     <Path Data="M 0 0 L 4 4 L 8 0 Z" Fill="Black"></Path>
                 </RepeatButton>
 
             <via:ScrollViewer x:Name="scrollViewer"
                         HorizontalScrollBarVisibility="Disabled"
                         VerticalScrollBarVisibility="Hidden"
-                              
+
                         ScrollByContent="True"
                         IsInertia="True"
                         IsTabStop="False"
@@ -37,24 +36,23 @@
                         WheelOrientation="Vertical"
                         ScrollChanged="ScrollViewer_ScrollChanged">
                 <via:ScrollViewer.Resources>
-                    <Image Source="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Cancel.png" x:Key="Cancel"/>
-                    <Image Source="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Settings.png" x:Key="Settings"/>
-                    <Image Source="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Settings.png" x:Key="Settings2"/>
-                    <Image Source="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Settings.png" x:Key="Settings3"/>
-                    <Image Source="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Play.png" x:Key="Play"/>
-                    <Image Source="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Play.png" x:Key="Play2"/>
-                    <Image Source="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Play.png" x:Key="Play3"/>   
-                    <Image Source="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Cancel.png" x:Key="Cancel2"/>
-                    <Image Source="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Settings.png" x:Key="Settings21"/>
-                    <Image Source="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Settings.png" x:Key="Settings22"/>
-                    <Image Source="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Settings.png" x:Key="Settings32"/>
-                    <Image Source="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Play.png" x:Key="Play21"/>
-                    <Image Source="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Play.png" x:Key="Play22"/>
-                    <Image Source="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Play.png" x:Key="Play32"/>
+                    <Image Source="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Cancel.png" x:Key="Cancel" />
+                    <Image Source="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Settings.png" x:Key="Settings" />
+                    <Image Source="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Settings.png" x:Key="Settings2" />
+                    <Image Source="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Settings.png" x:Key="Settings3" />
+                    <Image Source="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Play.png" x:Key="Play" />
+                    <Image Source="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Play.png" x:Key="Play2" />
+                    <Image Source="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Play.png" x:Key="Play3" />
+                    <Image Source="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Cancel.png" x:Key="Cancel2" />
+                    <Image Source="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Settings.png" x:Key="Settings21" />
+                    <Image Source="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Settings.png" x:Key="Settings22" />
+                    <Image Source="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Settings.png" x:Key="Settings32" />
+                    <Image Source="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Play.png" x:Key="Play21" />
+                    <Image Source="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Play.png" x:Key="Play22" />
+                    <Image Source="pack://application:,,,/UtilityWpf.Demo.Data;component/Images/Play.png" x:Key="Play32" />
                         <Style TargetType="Image">
                             <Setter Property="Height" Value="300"></Setter>
                         </Style>
-
                     </via:ScrollViewer.Resources>
 
                     <StackPanel x:Name="stackPanel" Orientation="Vertical">
@@ -73,6 +71,5 @@
                     </StackPanel>
                 </via:ScrollViewer>
             </DockPanel>
-        </Grid> 
-
+        </Grid>
 </UserControl>

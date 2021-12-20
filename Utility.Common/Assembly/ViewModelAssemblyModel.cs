@@ -10,7 +10,6 @@ namespace UtilityWpf.Model
     {
         private readonly AsyncLazy<TypeObject[]> typeObjects;
 
-
         public ViewModelAssemblyModel(TypeModel typeModel, TypeObjectsService typeObjectsService)
         {
             typeObjects = new AsyncLazy<TypeObject[]>(() =>
@@ -24,6 +23,5 @@ namespace UtilityWpf.Model
         }
 
         public Task<TypeObject[]> Collection => typeObjects.Task;
-
     }
 }

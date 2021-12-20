@@ -12,10 +12,8 @@ namespace UtilityWpf
 {
     public static class ResourceDictionaryExtensions
     {
-
         public static IEnumerable<ResourceDictionary> SelectResourceDictionaries(this Assembly assembly, Predicate<DictionaryEntry>? predicate = null)
         {
-
             // Only interested in main resource file
             return GetResourceNames().SelectMany(GetDictionaries);
 
@@ -60,25 +58,20 @@ namespace UtilityWpf
                 return entries;
             }
 
-
             IEnumerable<string> GetResourceNames()
             {
                 IEnumerable<string> allNames = assembly.GetManifestResourceNames();
                 string[] resourceNames = assembly.GetManifestResourceNames().Where(a => a.EndsWith("g.resources")).ToArray();
                 foreach (string resourceName in resourceNames)
                 {
-
                     ManifestResourceInfo? info = assembly.GetManifestResourceInfo(resourceName);
                     if (info?.ResourceLocation != ResourceLocation.ContainedInAnotherAssembly)
                     {
-
                         yield return resourceName;
-
                     }
                 }
             }
         }
-
 
         public static ResourceDictionary? FirstMatch(this IEnumerable<ResourceDictionary> dictionaries, Uri source)
         {
@@ -167,7 +160,7 @@ namespace UtilityWpf
         }
 
         /// <summary>
-        /// Determines if the specified resource dictionary (source) exists anywhere in the 
+        /// Determines if the specified resource dictionary (source) exists anywhere in the
         /// resource dictionary recursively.
         /// </summary>
         public static bool ContainsDictionary(this ResourceDictionary resourceDictionary, Uri source)
@@ -213,6 +206,6 @@ namespace UtilityWpf
         //    return resourceDictionary.Source.ToString();
         //}
 
-        #endregion
+        #endregion Private Methods
     }
 }

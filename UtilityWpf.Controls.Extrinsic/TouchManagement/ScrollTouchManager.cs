@@ -23,6 +23,7 @@ namespace UappUI.AppCode.Touch
         private const int MOUSE_MOVE_MAX_PERIOD = 100;
 
         public delegate void ScrollEventHandler(Vector absoluteMove, Vector relativeMove, bool isFirst);
+
         public delegate void ScrollStoppedEventHandler(Vector absoluteMove, Vector relativeMove, bool isMove);
 
         private bool _isContentCaptured;
@@ -37,8 +38,11 @@ namespace UappUI.AppCode.Touch
         private Vector _absoluteMove;
 
         public event Func<bool> GetScrollByContent;
+
         public event Func<ScrollDirections> GetScrollDirections;
+
         public event ScrollEventHandler Scroll;
+
         public event ScrollStoppedEventHandler ScrollStopped;
 
         internal ScrollDirections ScrollDirections { get; private set; }

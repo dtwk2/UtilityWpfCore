@@ -14,7 +14,6 @@ namespace UtilityWpf.Demo.Hybrid
 
         private void MasterNotesControl_Change(object sender, Abstract.CollectionEventArgs e)
         {
-
         }
     }
 }

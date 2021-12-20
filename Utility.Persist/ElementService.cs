@@ -6,8 +6,6 @@ using UtilityHelper.NonGeneric;
 
 namespace Utility.Persist
 {
-
-
     public class ElementService<T> : IObserver<RepositoryMessage> where T : IEquatable<T>
     {
         private readonly ReplaySubject<RepositoryMessage> subject = new(1);
@@ -58,7 +56,6 @@ namespace Utility.Persist
             subject.OnNext(value);
         }
     }
-
 
     //public class ElementService : IObserver<RepositoryMessage>
     //{

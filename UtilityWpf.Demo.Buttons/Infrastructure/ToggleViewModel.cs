@@ -12,5 +12,4 @@ namespace UtilityWpf.Demo.Buttons
             set => this.RaiseAndSetIfChanged(ref isChecked, value);
         }
     }
-
 }

@@ -4,9 +4,8 @@
                              xmlns:local="clr-namespace:UtilityWpf.Controls.Meta"
                              Type="{x:Type local:ViewsDetailControl}">
 
-    
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/UtilityWpf.Controls.Meta;component/Themes/ViewTypeDataTemplate.xaml"/>
-        <utl:SharedResourceDictionary Source="/UtilityWpf.Controls.Meta;component/Themes/ViewAssemblyDataTemplate.xaml"/>
+        <ResourceDictionary Source="/UtilityWpf.Controls.Meta;component/Themes/ViewTypeDataTemplate.xaml" />
+        <utl:SharedResourceDictionary Source="/UtilityWpf.Controls.Meta;component/Themes/ViewAssemblyDataTemplate.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </utl:AutoResourceDictionary>

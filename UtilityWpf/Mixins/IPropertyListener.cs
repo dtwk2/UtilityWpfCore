@@ -98,18 +98,15 @@ namespace UtilityWpf.Mixins
 
         public void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
-
             dict[e.Property.Name].OnNext(e.NewValue);
 
             //  base.OnPropertyChanged(e);
         }
-
-
     }
 
-    class Observer<T> : IObserver<T>
+    internal class Observer<T> : IObserver<T>
     {
-        readonly ISubject<object> subject;
+        private readonly ISubject<object> subject;
 
         public Observer(ISubject<object> subject)
         {
@@ -132,9 +129,9 @@ namespace UtilityWpf.Mixins
         }
     }
 
-    class Observable<T> : IObservable<T>
+    internal class Observable<T> : IObservable<T>
     {
-        readonly ISubject<object> subject;
+        private readonly ISubject<object> subject;
 
         public Observable(ISubject<object> subject)
         {
@@ -176,6 +173,4 @@ namespace UtilityWpf.Mixins
             return subject.Subscribe(observer);
         }
     }
-
-
 }

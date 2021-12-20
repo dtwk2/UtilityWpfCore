@@ -52,7 +52,6 @@ namespace UtilityWpf.Mixins
                          .ObserveOnDispatcher()
                          .SubscribeOnDispatcher()
                          .ToReplaySubject(1);
-
                 }
             }
             return Observable

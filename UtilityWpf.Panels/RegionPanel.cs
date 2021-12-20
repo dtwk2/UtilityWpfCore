@@ -13,7 +13,6 @@
 //    {
 //        private KeyValuePair<Region, (Rect, FrameworkElement)[]>[]? arrangement = null;
 
-
 //        #region static properties
 //        public static readonly DependencyProperty WidthRatioProperty = DependencyProperty.Register("WidthRatio", typeof(double), typeof(RegionPanel),
 //            new FrameworkPropertyMetadata(1d, FrameworkPropertyMetadataOptions.AffectsArrange));
@@ -30,12 +29,10 @@
 //        public static readonly DependencyProperty RegionProperty = DependencyProperty.RegisterAttached("Region", typeof(Region), typeof(RegionPanel),
 //                new PropertyMetadata(Region.Top, new PropertyChangedCallback(OnRegionChanged)), new ValidateValueCallback(IsValidRegion));
 
-
 //        private static bool IsValidRegion(object value)
 //        {
 //            return true;
 //        }
-
 
 //        /// <summary>
 //        /// Reads the attached property Dock from the given element.
@@ -70,9 +67,7 @@
 //            }
 //        }
 
-
 //        #endregion
-
 
 //        public RegionPanel()
 //        {
@@ -90,13 +85,11 @@
 //            set { SetValue(HeightRatioProperty, value); }
 //        }
 
-
 //        public bool UseDesiredSize
 //        {
 //            get { return (bool)GetValue(UseDesiredSizeProperty); }
 //            set { SetValue(UseDesiredSizeProperty, value); }
 //        }
-
 
 //        public bool UseAnimation
 //        {
@@ -117,7 +110,6 @@
 //            //double aheight = availableSize.Height == double.PositiveInfinity ? arr.DefaultIfEmpty().Max(a => a?.DesiredSize.Height ?? 0) : availableSize.Height;
 //            //if (height != aheight)
 //            //{
-
 //            //}
 //            //return new System.Windows.Size(width, height);
 
@@ -147,7 +139,6 @@
 //            height = !double.IsNaN(availableSize.Height) && !double.IsInfinity(availableSize.Height) && height != 0 ? height : double.IsNaN(availableSize.Height) || double.IsInfinity(availableSize.Height) ? arr.Length > 0 ? arr.Sum(a => a.DesiredSize.Height) : 0 : availableSize.Height;
 //            if (double.IsInfinity(width) || double.IsInfinity(height) || double.IsNaN(width) || double.IsNaN(height))
 //            {
-
 //            }
 //            return new Size(width, height);
 //        }
@@ -170,8 +161,6 @@
 //                    }
 //                }
 //            }
-
-
 
 //            //static Point GetPoint(Size finalSize, Size childSize, Region region, Point lastPoint)
 //            //{
@@ -214,7 +203,6 @@
 //    static class Sizer
 
 //    {
-
 //        public static KeyValuePair<Region, (Rect, FrameworkElement)[]>[] Arrange(FrameworkElement parent, FrameworkElement[] children, Size finalSize, double widthRatio, double heightRatio, bool useDesiredSize)
 //        {
 //            //List<List<Coordinate>> coordinates = new List<List<Coordinate>>();
@@ -236,7 +224,6 @@
 //            return size;
 //            //return new Size(size.Sum(s => s.Height), size.Sum(a => a.Width));
 
-
 //            static IEnumerable<KeyValuePair<Region, (Rect, FrameworkElement)[]>> FinalArrange(FrameworkElement parent, ElementsBag elementsBag, Size finalSize, int x, int y,
 //                (Region Key, List<Coordinate> ac)[][] combinations,
 //                double widthRatio = 1, double heightRatio = 1, bool useDesiredSize = false)
@@ -246,7 +233,6 @@
 //                        if (RegionPanelHelper.ConvertToRect(Key, ac, finalSize, x, y, widthRatio, heightRatio) is { } ar)
 //                        {
 //                            yield return KeyValuePair.Create(Key, RegionPanelHelper.SelectInnerElementRects(Key, elementsBag.SelectElements(Key), ar, useDesiredSize).ToArray());
-
 
 //                            //yield return new Size(es.Sum(a => a.Item1.Size.Height), es.Sum(a => a.Item1.Size.Width));
 //                        }
@@ -275,7 +261,6 @@
 //            }
 //            // }
 
-
 //            static List<Coordinate> SelectExistingCoordinates(UIElement[] elems, int x, int y)
 //            {
 //                List<Coordinate> existingCoordinates = new List<Coordinate>();
@@ -300,7 +285,6 @@
 
 //    //    int bottomleftHeightCount = 0, bottomrightHeightCount = 0,
 //    //    topleftHeightCount = 0, toprightHeightCount = 0;
-
 
 //    //    public readonly List<FrameworkElement>
 //    //  bottomleft = new List<FrameworkElement>(),
@@ -418,9 +402,7 @@
 //    //        }
 //    //    }
 
-
 //    //}
-
 
 //    using System;
 //using System.Collections.Generic;
@@ -490,7 +472,6 @@
 //                    if (sidesRemaining.Count(a => a.side) == 1)
 //                    {
 //                        var ae = new[] {
-
 //                        new List<Coordinate> { coord, sidesRemaining.Single(ac => ac.side).coord },
 //                        new List<Coordinate> { coord }
 //                    }.OrderByDescending(a => a.Count);
@@ -506,7 +487,6 @@
 //                    }
 
 //                    return AlternateMethod();
-
 
 //                    static KeyValuePair<Region, IOrderedEnumerable<List<Coordinate>>>? NewMethod1(Region region, Coordinate coord, (bool side, bool touching, Coordinate coord)[] sidesRemaining)
 //                    {
@@ -609,7 +589,6 @@
 //                }
 //            }
 
-
 //            static List<MinMax<Coordinate>> GetCoordinateCombinations(int x, int y)
 //            {
 //                var cs = CombinationHelper.SelectSetCombinations(new[] { Enumerable.Range(0, x).ToList(), Enumerable.Range(0, y).ToList() })
@@ -621,7 +600,7 @@
 //                var cbs = CombinationHelper.SelectCombinations(cs);
 
 //                var minMaxes = cbs
-//                    // Remove items where 
+//                    // Remove items where
 //                    .Where(a => !(a.Item1.CompareTo(a.Item2) == 0 && !a.Item1.Equals(a.Item2)))
 //                    .Select(a => new[] { a.Item1, a.Item2 }.OrderBy(a => a).ToArray()).Select(a => new MinMax<Coordinate>(a[0], a[1])).ToList();
 
@@ -698,7 +677,6 @@
 //                };
 //            }
 
-
 //            public static IEnumerable<(Rect, FrameworkElement)> SelectInnerElementRects(Region region, ICollection<FrameworkElement> elements, Rect rect, bool useDesiredSize)
 //            {
 //                var max = Math.Max(rect.Width, rect.Height);
@@ -766,7 +744,6 @@
 //                    {
 //                        lastPoint = region switch
 //                        {
-
 //                            Region.Right => new Point(rect.X - childRect.Width, isWiderThanTall ? rect.Y : lastPoint.Y),
 //                            Region.BottomRight => new Point(rect.Width + rect.X - childRect.Width, isWiderThanTall ? rect.Y : lastPoint.Y),
 //                            Region.TopRight => new Point(rect.Width + rect.X - childRect.Width, isWiderThanTall ? rect.Y : lastPoint.Y),
@@ -788,12 +765,9 @@
 //                }
 //            }
 
-
-
 //            public static Rect ConvertToRect(Region region, List<Coordinate> innerCoordsSet, System.Windows.Size finalSize, int x, int y, double widthRatio = 1, double heightRatio = 1)
 //            {
 //                var ((startX, diffX), (startY, diffY)) =
-
 
 //                    region switch
 //                    {
@@ -837,7 +811,6 @@
 
 //                static (double start, double end) MiddleY(List<Coordinate> innerCoordsSet, System.Windows.Size finalSize, int y, double heightRatio = 1)
 //                {
-
 //                    var startY = (innerCoordsSet.Min(a => a.Y) * finalSize.Height / y);
 //                    startY *= UnderFactor(heightRatio, y);
 //                    var diffY = OverFactor(heightRatio, y) * (((innerCoordsSet.Max(a => a.Y) + 1) * finalSize.Height / y)) - startY;
@@ -954,7 +927,6 @@
 
 //            int bottomleftHeightCount = 0, bottomrightHeightCount = 0,
 //            topleftHeightCount = 0, toprightHeightCount = 0;
-
 
 //            public readonly List<FrameworkElement>
 //          bottomleft = new List<FrameworkElement>(),
@@ -1088,4 +1060,3 @@
 //    }
 
 //}
-

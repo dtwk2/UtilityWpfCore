@@ -1,5 +1,4 @@
-﻿
-using Evan.Wpf;
+﻿using Evan.Wpf;
 using NetFabric.Hyperlinq;
 using ReactiveUI;
 using System;
@@ -62,6 +61,7 @@ namespace UtilityWpf.Controls.Master
             get { return (ItemsControl)GetValue(ItemsControlProperty); }
             private set { SetValue(ItemsControlProperty, value); }
         }
+
         public virtual object? SelectedItem
         {
             get
@@ -92,7 +92,6 @@ namespace UtilityWpf.Controls.Master
 
         public override void OnApplyTemplate()
         {
-
             ItemsControl = (this.Content as ItemsControl) ?? (this.Content as DependencyObject)?.FindVisualChildren<ItemsControl>().SingleOrDefault()!;
             if (ItemsControl != null)
             {
@@ -171,4 +170,3 @@ namespace UtilityWpf.Controls.Master
         }
     }
 }
-

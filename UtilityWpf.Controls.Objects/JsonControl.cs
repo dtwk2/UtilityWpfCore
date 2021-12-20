@@ -81,6 +81,7 @@ namespace UtilityWpf.Controls.Objects
             {
             }
         }
+
         public string Json
         {
             get => (string)GetValue(JsonProperty);
@@ -181,8 +182,6 @@ namespace UtilityWpf.Controls.Objects
                 }
             }
         }
-
-
     }
 
     public class ComplexPropertyMethodValueConverter : IValueConverter
@@ -203,46 +202,46 @@ namespace UtilityWpf.Controls.Objects
     internal static class Converters
     {
         private static readonly Lazy<Dictionary<int, Color>> NiceColors = new Lazy<Dictionary<int, Color>>(() =>
-            ColorStore.Collection
-            .Select((a, i) => Tuple.Create(i, (Color)ColorConverter.ConvertFromString(a.Value)))
-            .ToDictionary(a => a.Item1, a => a.Item2));
+                  ColorStore.Collection
+                  .Select((a, i) => Tuple.Create(i, (Color)ColorConverter.ConvertFromString(a.Value)))
+                  .ToDictionary(a => a.Item1, a => a.Item2));
 
         public static IValueConverter JTokenTypeToColorConverter => Create<JTokenType, Color>(a => NiceColors.Value[(byte)a.Value]);
 
         public static IValueConverter MethodToValueConverter => Create<object, JEnumerable<JToken>?, string>(a =>
-        {
-            if (a.Parameter != null && a.Value?.GetType().GetMethod(a.Parameter, Array.Empty<Type>()) is MethodInfo methodInfo)
-                return (JEnumerable<JToken>?)methodInfo.Invoke(a.Value, Array.Empty<object>());
-            return new JEnumerable<JToken>();
-        });
+            {
+                if (a.Parameter != null && a.Value?.GetType().GetMethod(a.Parameter, Array.Empty<Type>()) is MethodInfo methodInfo)
+                    return (JEnumerable<JToken>?)methodInfo.Invoke(a.Value, Array.Empty<object>());
+                return new JEnumerable<JToken>();
+            });
 
         //public static IValueConverter ComplexPropertyMethodToValueConverter => Create<object, JEnumerable<JToken>?, string>(args =>
         //(JEnumerable<JToken>)MethodToValueConverter.Convert(args.Value, null, args.Parameter, args.Culture));
 
         public static IValueConverter JArrayLengthConverter => Create<object, string>(jToken =>
-        {
-            if (jToken.Value is JToken { Type: JTokenType type } jtoken)
-                return type switch
-                {
-                    JTokenType.Array => $"[{jtoken.Children().Count()}]",
-                    JTokenType.Property => $"[ { jtoken.Children().FirstOrDefault()?.Children().Count()} ]",
-                    _ => throw new ArgumentOutOfRangeException("Type should be JProperty or JArray"),
-                };
-            throw new Exception("fsdfdfsd");
-        }
+            {
+                if (jToken.Value is JToken { Type: JTokenType type } jtoken)
+                    return type switch
+                    {
+                        JTokenType.Array => $"[{jtoken.Children().Count()}]",
+                        JTokenType.Property => $"[ { jtoken.Children().FirstOrDefault()?.Children().Count()} ]",
+                        _ => throw new ArgumentOutOfRangeException("Type should be JProperty or JArray"),
+                    };
+                throw new Exception("fsdfdfsd");
+            }
         , errorStrategy: LambdaConverters.ConverterErrorStrategy.DoNothing);
 
         public static IValueConverter JTokenConverter => Create<object, string>(jval => jval.Value switch
-        {
-            JValue value when value.Type == JTokenType.Null => "null",
-            JValue value => value?.Value?.ToString() ?? string.Empty,
-            _ => jval.Value.ToString() ?? string.Empty
-        });
+            {
+                JValue value when value.Type == JTokenType.Null => "null",
+                JValue value => value?.Value?.ToString() ?? string.Empty,
+                _ => jval.Value.ToString() ?? string.Empty
+            });
     }
 
     internal static class TemplateSelector
     {
-        static readonly Dictionary<string, object> resource = new();
+        private static readonly Dictionary<string, object> resource = new();
 
         public static DataTemplateSelector JPropertyDataTemplateSelector =
             Create<object>(

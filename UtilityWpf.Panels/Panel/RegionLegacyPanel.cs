@@ -25,10 +25,6 @@
     using System.Windows.Controls;
     using System.Windows.Media;
 
-    #region Dock enum type
-
-    #endregion
-
     /// <summary>
     /// DockPanel is used to size and position children inward from the edges of available space.
     ///
@@ -58,7 +54,6 @@
         public static readonly DependencyProperty RegionProperty =
             DependencyProperty.RegisterAttached("Region", typeof(Region), typeof(RegionLegacyPanel), new FrameworkPropertyMetadata(Region.TopLeft, new PropertyChangedCallback(OnRegionChanged)), new ValidateValueCallback(IsValidRegion));
 
-
         public static readonly DependencyProperty StartRegionProperty = DependencyProperty.Register("StartRegion", typeof(Region?), typeof(RegionLegacyPanel),
                 new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnRegionChanged)), new ValidateValueCallback(IsValidRegion));
 
@@ -79,7 +74,7 @@
         }
 
         /// <summary>
-        /// This property controls whether the last child in the DockPanel should be stretched to fill any 
+        /// This property controls whether the last child in the DockPanel should be stretched to fill any
         /// remaining available space.
         /// </summary>
         public bool IsLastChildFilled
@@ -89,7 +84,7 @@
         }
 
         ///// <summary>
-        ///// true the space for items based on the available space 
+        ///// true the space for items based on the available space
         ///// false the indvidual items dimensions determine their space
         ///// </summary>
         //public bool IsContentStretched
@@ -98,16 +93,11 @@
         //    set { SetValue(IsContentStretchedProperty, value); }
         //}
 
-
-
-
         public Region? StartRegion
         {
             get { return (Region?)GetValue(StartRegionProperty); }
             set { SetValue(StartRegionProperty, value); }
         }
-
-
 
         /// <summary>
         /// Reads the attached property Dock from the given element.
@@ -143,12 +133,11 @@
             }
         }
 
-
         /// <summary>
         /// Updates DesiredSize of the DockPanel.  Called by parent UIElement.  This is the first pass of layout.
         /// </summary>
         /// <remarks>
-        /// Children are measured based on their sizing properties and <see cref="Region" />.  
+        /// Children are measured based on their sizing properties and <see cref="Region" />.
         /// Each child is allowed to consume all of the space on the side on which it is docked; Left/Right docked
         /// children are granted all vertical space for their entire width, and Top/Bottom docked children are
         /// granted all horizontal space for their entire height.
@@ -173,10 +162,6 @@
             //    Size childDesiredSize;            // Contains the return size from child measure.
 
             //    if (child == null) { continue; }
-
-
-
-
 
             //    // Now, we adjust:
             //    // 1. Size consumed by children (accumulatedSize).  This will be used when computing subsequent
@@ -233,7 +218,6 @@
             //            break;
             //    }
 
-
             //}
 
             //// Make sure the final accumulated size is reflected in parentSize.
@@ -241,7 +225,6 @@
             //parentHeight = Math.Max(parentHeight, Math.Max( accumulatedLeftHeight, accumulatedRightHeight));
 
             //return (new Size(parentWidth, parentHeight));
-
 
             foreach (UIElement elem in InternalChildren)
                 elem.Measure(constraint);
@@ -288,7 +271,6 @@
 
                 if (i == nonFillChildrenCount)
                 {
-
                     rcChild = IsFilledFromTop ? new Rect(
                         Math.Max(maxLeft, accumulatedTopLeft),
                         0,
@@ -333,12 +315,10 @@
                             break;
                     }
 
-
                 child.Arrange(rcChild);
             }
 
             return arrangeSize;
-
 
             Region GetRegion_(UIElement element)
             {
@@ -365,4 +345,3 @@
         }
     }
 }
-

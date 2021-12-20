@@ -1,5 +1,4 @@
-﻿
-using Evan.Wpf;
+﻿using Evan.Wpf;
 using PropertyTools.Wpf;
 using ReactiveUI;
 using System;
@@ -14,7 +13,6 @@ namespace UtilityWpf.Controls.Master
 {
     public class DoubleContentControl : ContentControlx
     {
-
         public static readonly DependencyProperty PositionProperty = DependencyHelper.Register<Dock>(new PropertyMetadata(Dock.Bottom));
         protected readonly ReplaySubject<WrapPanel> wrapPanelSubject = new(1);
         protected readonly ReplaySubject<DockPanelSplitter> dockPanelSplitterSubject = new(1);
@@ -67,7 +65,6 @@ namespace UtilityWpf.Controls.Master
 
         #region properties
 
-
         public Dock Position
         {
             get { return (Dock)GetValue(PositionProperty); }
@@ -96,9 +93,7 @@ namespace UtilityWpf.Controls.Master
             wrapPanelSubject.OnNext(wrapPanel);
             dockPanelSplitterSubject.OnNext(dockPanelSplitter);
 
-
             base.OnApplyTemplate();
         }
     }
 }
-

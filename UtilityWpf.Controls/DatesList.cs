@@ -6,7 +6,6 @@ namespace UtilityWpf.Controls
 {
     public class DatesList : ListBox
     {
-
         static DatesList()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DatesList), new FrameworkPropertyMetadata(typeof(DatesList)));
@@ -14,13 +13,8 @@ namespace UtilityWpf.Controls
 
         public DatesList()
         {
-
         }
-
-
     }
-
-
 
     public class DateTemplateSelector : DataTemplateSelector
     {

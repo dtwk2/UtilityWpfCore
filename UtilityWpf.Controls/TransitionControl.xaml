@@ -1,7 +1,9 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:UtilityWpf.Controls" xmlns:utl="http://schemas.utility.com/utilitywpf" xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:utl="http://schemas.utility.com/utilitywpf"
+    xmlns:local="clr-namespace:UtilityWpf.Controls">
 
     <Storyboard
         x:Key="MyAwesomeAnimation"
@@ -83,6 +85,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-
 </ResourceDictionary>

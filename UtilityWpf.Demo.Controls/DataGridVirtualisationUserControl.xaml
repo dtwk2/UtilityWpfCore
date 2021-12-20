@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
 
-  
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DataContext="{d:DesignInstance local1:ProfileCollectionVirtualiseLimited,
                                      d:IsDesignTimeCreatable=False}"
@@ -27,7 +26,7 @@
 
     <UniformGrid Columns="3">
         <DataGrid
-                x:Name="dataGridTest"     
+                x:Name="dataGridTest"
                 ItemsSource="{Binding Profiles}"
                 VerticalScrollBarVisibility="Hidden">
         </DataGrid>

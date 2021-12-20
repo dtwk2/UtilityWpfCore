@@ -5,7 +5,6 @@ using UtilityInterface.NonGeneric;
 
 namespace UtilityWpf.Service
 {
-
     public class TypeObjectsService //: ITypeObjectsService
     {
         public virtual TypeObject[] SelectTypeObjects(Type[] types)

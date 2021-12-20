@@ -10,7 +10,7 @@ namespace UtilityWpf.Demo.Controls
     /// </summary>
     public partial class TypeFilterUserControl : UserControl
     {
-        CollectionView view => (CollectionView)CollectionViewSource.GetDefaultView(listBox.ItemsSource);
+        private CollectionView view => (CollectionView)CollectionViewSource.GetDefaultView(listBox.ItemsSource);
 
         public TypeFilterUserControl()
         {

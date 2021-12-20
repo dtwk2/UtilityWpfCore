@@ -15,12 +15,13 @@ using UtilityWpf.Model;
 namespace UtilityWpf.Meta
 {
     using static UtilityWpf.DependencyPropertyFactory<UserControls>;
+
     /// <summary>
     /// Master-Detail control for <see cref="UserControls"/> in <seet cref="UserControls.Assembly"></set>
     /// </summary>
     public class UserControls : Grid
     {
-        readonly Subject<Assembly> subject = new();
+        private readonly Subject<Assembly> subject = new();
         public static readonly DependencyProperty AssemblyProperty = Register(nameof(Assembly), a => a.subject, initialValue: Assembly.GetEntryAssembly());
 
         public UserControls(Assembly? assembly = null)
@@ -49,7 +50,7 @@ namespace UtilityWpf.Meta
         }
     }
 
-    class ViewListBox : ListBox
+    internal class ViewListBox : ListBox
     {
         protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
         {
@@ -66,7 +67,7 @@ namespace UtilityWpf.Meta
         }
     }
 
-    static class ControlFactory
+    internal static class ControlFactory
     {
         public static Grid CreateMainGrid(ListBox listBox)
         {
@@ -132,5 +133,4 @@ namespace UtilityWpf.Meta
            .SelectMany(grp => grp.Index().ToDictionary(kvp => kvp.Key > 0 ? grp.Key + kvp.Key : grp.Key, c => c.Value))
           .ToDictionary(a => a.Key, a => a.Value);
     }
-
 }

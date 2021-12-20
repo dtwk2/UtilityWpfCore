@@ -8,6 +8,4 @@
     <DataTemplate x:Key="Blue" DataType="{x:Type infra:ButtonViewModel}">
         <Ellipse Fill="Blue" Height="40" Width="40"></Ellipse>
     </DataTemplate>
-
-  
 </ResourceDictionary>

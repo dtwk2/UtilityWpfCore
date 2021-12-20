@@ -1,9 +1,8 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="clr-namespace:UtilityWpf.Controls"
-    xmlns:dataTemplateSelector="clr-namespace:Utility.UI.WPF.DataTemplateSelector">
-    
+    xmlns:controls="clr-namespace:UtilityWpf.Controls">
+
     <DataTemplate x:Key="WrapTemplate">
         <TextBlock Text="{Binding}">
             <TextBlock.Style>

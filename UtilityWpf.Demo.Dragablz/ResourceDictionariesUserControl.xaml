@@ -4,8 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:mk="clr-namespace:UtilityWpf.Markup;assembly=UtilityWpf" 
-    xmlns:view1="http://schemas.utility.com/dragablz" 
+    xmlns:mk="clr-namespace:UtilityWpf.Markup;assembly=UtilityWpf"
+    xmlns:view1="http://schemas.utility.com/dragablz"
     xmlns:vm="clr-namespace:UtilityWpf.Demo.Common.ViewModel;assembly=UtilityWpf.Demo.Common"
     xmlns:local="clr-namespace:UtilityWpf.Demo.Dragablz.ViewModel"
     xmlns:utl="http://schemas.utility.com/utilitywpf"
@@ -13,13 +13,13 @@
     d:Background="White"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    
+
     <UniformGrid Columns="1">
         <UniformGrid Rows="1">
             <FrameworkElement.DataContext>
-                <local:ResourceDictionariesViewModel/>
-            </FrameworkElement.DataContext>    
-            
+                <local:ResourceDictionariesViewModel />
+            </FrameworkElement.DataContext>
+
             <view1:ListControl
                 DisplayMemberPath="{mk:NameOf Type={x:Type vm:TickViewModel}, Member=Text}"
                 CommandPath="{mk:NameOf Type={x:Type vm:TickViewModel}, Member=Command}"

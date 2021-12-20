@@ -9,6 +9,7 @@ namespace UtilityWpf.Converter
     {
         public Type? ToType { get; init; }
         public Type? FromType { get; init; }
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var mapped = AutoMapperSingleton.Instance.Map(value, value.GetType(), ToType ?? parameter as Type);

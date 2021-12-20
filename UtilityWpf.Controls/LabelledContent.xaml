@@ -4,8 +4,6 @@
     xmlns:controls="clr-namespace:UtilityWpf.Controls"
     xmlns:converter="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf">
 
-
-
     <Style TargetType="{x:Type controls:LabelledContent}">
         <Setter Property="FontSize" Value="16" />
         <Setter Property="Template">
@@ -21,7 +19,7 @@
                             <ColumnDefinition Width="2*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <!--<Label x:Name="PART_Label"/>-->
+                        <!--<Label x:Name="PART_Label" />-->
                         <ContentPresenter ContentSource="Header"
                                           x:Name="PART_HeaderPresenter"
                                           Grid.Column="0"
@@ -42,7 +40,7 @@
                             x:Name="PART_ContentPresenter"
                             Grid.Column="1"
                             Margin="4,0"
-                            VerticalAlignment="Center" >
+                            VerticalAlignment="Center">
                         </ContentPresenter>
 
                         <TextBlock

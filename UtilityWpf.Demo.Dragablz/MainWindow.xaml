@@ -6,23 +6,22 @@
         xmlns:local="clr-namespace:UtilityWpf.Demo.Dragablz"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    
+
     <TabControl>
         <TabItem Header="ResourceDictionaries">
-            <local:ResourceDictionariesUserControl/>
+            <local:ResourceDictionariesUserControl />
         </TabItem>
         <TabItem Header="Buttons">
-            <local:ButtonsUserControl/>
+            <local:ButtonsUserControl />
         </TabItem>
         <TabItem Header="Notes">
-            <local:NotesUserControl/>
-        </TabItem> 
+            <local:NotesUserControl />
+        </TabItem>
         <TabItem Header="Ticks">
-            <local:ListUserControl/>
-        </TabItem>    
+            <local:ListUserControl />
+        </TabItem>
         <TabItem Header="Groups">
-            <local:GroupsUserControl/>
+            <local:GroupsUserControl />
         </TabItem>
     </TabControl>
-    
 </Window>

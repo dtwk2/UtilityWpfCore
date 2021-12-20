@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 
-
 namespace UtilityWpf.Demo.Master
 {
     /// <summary>

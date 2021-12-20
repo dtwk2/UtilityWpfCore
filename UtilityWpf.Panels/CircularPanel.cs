@@ -13,7 +13,6 @@ namespace UtilityWpf.Panels
             typeof(CircularPanel),
             new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsArrange));
 
-
         public double? Radius
         {
             get { return (double?)GetValue(RadiusProperty); }

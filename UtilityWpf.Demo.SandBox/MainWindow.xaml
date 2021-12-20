@@ -14,12 +14,11 @@
         <local:ViewModel></local:ViewModel>
     </FrameworkElement.DataContext>
     <UniformGrid Rows="1">
-        <!--<local:NumbersControl ItemsSource="{Binding Collection}" DisplayMemberPath="Value" DisplayKeyPath="Header"/>-->
+        <!--<local:NumbersControl ItemsSource="{Binding Collection}" DisplayMemberPath="Value" DisplayKeyPath="Header" />-->
 
         <!--<local:MeasurementsControl
             DisplayMemberPath="Value" DisplayKeyPath="Header"
-            ItemsSource="{Binding Collection}" 
+            ItemsSource="{Binding Collection}"
             Unit="{x:Static un:LengthUnit.AstronomicalUnit}"></local:MeasurementsControl>-->
-
     </UniformGrid>
 </Window>

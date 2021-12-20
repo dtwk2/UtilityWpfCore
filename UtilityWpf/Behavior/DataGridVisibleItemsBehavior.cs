@@ -9,7 +9,7 @@ using System.Windows.Controls.Primitives;
 namespace UtilityWpf.Behavior
 {
     /// <summary>
-    /// Returns the indices of rows in the DataGrid that are visible to the user 
+    /// Returns the indices of rows in the DataGrid that are visible to the user
     /// </summary>
     public class DataGridVisibleItemsBehavior : Behavior<DataGrid>
     {
@@ -26,13 +26,11 @@ namespace UtilityWpf.Behavior
             set { SetValue(FirstIndexProperty, value); }
         }
 
-
         public int LastIndex
         {
             get { return (int)GetValue(LastIndexProperty); }
             set { SetValue(LastIndexProperty, value); }
         }
-
 
         public int Size
         {
@@ -40,13 +38,11 @@ namespace UtilityWpf.Behavior
             set { SetValue(SizeProperty, value); }
         }
 
-
         public int MouseFactor
         {
             get { return (int)GetValue(MouseFactorProperty); }
             set { SetValue(MouseFactorProperty, value); }
         }
-
 
         protected override void OnAttached()
         {
@@ -110,7 +106,6 @@ namespace UtilityWpf.Behavior
                     return ((int)firstVisible, (int)lastVisible);
                 }
                 return null;
-
             }
         }
     }

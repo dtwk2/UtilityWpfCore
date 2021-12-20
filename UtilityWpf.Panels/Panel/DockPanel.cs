@@ -1,6 +1,4 @@
-﻿
-
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -8,7 +6,6 @@
 // Description: Contains the DockPanel class.
 //              Spec at DockPanel.xml
 //
-
 
 //namespace System.Windows.Controls
 //{
@@ -138,7 +135,7 @@
 //        #region Public Properties
 
 //        /// <summary>
-//        /// This property controls whether the last child in the DockPanel should be stretched to fill any 
+//        /// This property controls whether the last child in the DockPanel should be stretched to fill any
 //        /// remaining available space.
 //        /// </summary>
 //        public bool LastChildFill
@@ -146,7 +143,6 @@
 //            get { return (bool)GetValue(LastChildFillProperty); }
 //            set { SetValue(LastChildFillProperty, value); }
 //        }
-
 
 //        /// <summary>
 //        /// DependencyProperty for <see cref="LastChildFill" /> property.
@@ -158,7 +154,6 @@
 //                        typeof(bool),
 //                        typeof(DockPanel),
 //                        new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.AffectsArrange));
-
 
 //        /// <summary>
 //        /// DependencyProperty for Dock property.
@@ -190,7 +185,7 @@
 //        /// Updates DesiredSize of the DockPanel.  Called by parent UIElement.  This is the first pass of layout.
 //        /// </summary>
 //        /// <remarks>
-//        /// Children are measured based on their sizing properties and <see cref="System.Windows.Controls.Dock" />.  
+//        /// Children are measured based on their sizing properties and <see cref="System.Windows.Controls.Dock" />.
 //        /// Each child is allowed to consume all of the space on the side on which it is docked; Left/Right docked
 //        /// children are granted all vertical space for their entire width, and Top/Bottom docked children are
 //        /// granted all horizontal space for their entire height.
@@ -337,10 +332,6 @@
 //                    || dock == Dock.Bottom);
 //        }
 
-
 //        #endregion Private Methods
 //    }
 //}
-
-
-

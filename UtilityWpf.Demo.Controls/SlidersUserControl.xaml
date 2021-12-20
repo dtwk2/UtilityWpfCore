@@ -156,7 +156,7 @@
                     </view:SliderWithTickLabels>
 
                     <view:SliderWithTickLabels
-                       
+
                         Width="300"
                         Height="200"
                         HorizontalAlignment="Center"

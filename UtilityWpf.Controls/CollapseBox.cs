@@ -9,7 +9,6 @@ namespace UtilityWpf.Controls
     [TemplatePart(Name = "PART_PathTransform", Type = typeof(RotateTransform))]
     public class CollapseBox : System.Windows.Controls.Primitives.ToggleButton
     {
-
         private RotateTransform _pathTransform;
         private ContentControl _collapsedContent;
         private ContentControl _expandedContent;
@@ -44,8 +43,6 @@ namespace UtilityWpf.Controls
         public static readonly DependencyProperty ExpandOverContentProperty =
             DependencyProperty.Register(nameof(ExpandOverContent), typeof(bool), typeof(CollapseBox), new PropertyMetadata(false));
 
-
-
         static CollapseBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(CollapseBox), new FrameworkPropertyMetadata(typeof(CollapseBox)));
@@ -55,7 +52,6 @@ namespace UtilityWpf.Controls
         {
             ShowContents();
         }
-
 
         public object CollapsedContent
         {
@@ -134,10 +130,10 @@ namespace UtilityWpf.Controls
                 case CollapseBox collapseBox when e.Property == ExpandedHeightProperty:
                     collapseBox.ExpandedHeightChanged(e);
                     break;
+
                 case CollapseBox collapseBox when e.Property == CollapsedHeightProperty:
                     collapseBox.CollapsedHeightChanged(e);
                     break;
-
             }
         }
 

@@ -5,13 +5,11 @@
     using System.Windows;
     using System.Windows.Controls;
 
-
     public class UniformPanel : Panel
     {
         private int rows;
         private int columns;
-        bool columnsChanged, rowsChanged;
-
+        private bool columnsChanged, rowsChanged;
 
         public static readonly DependencyProperty ColumnsProperty = DependencyProperty.Register("Columns", typeof(int), typeof(UniformPanel),
             new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
@@ -30,7 +28,6 @@
 
         public static readonly DependencyProperty OrientationProperty = DependencyProperty.RegisterAttached("Orientation", typeof(Orientation), typeof(UniformPanel),
             new FrameworkPropertyMetadata(Orientation.Vertical, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
-
 
         /// <summary>
         /// Get/Set the amount of columns this grid should have
@@ -58,8 +55,6 @@
             get { return (Orientation)this.GetValue(OrientationProperty); }
             set { this.SetValue(OrientationProperty, value); }
         }
-
-
 
         /// <summary>
         /// Measure the children
@@ -121,7 +116,6 @@
 
                 int currentPage;
 
-
                 if (orientation == Orientation.Horizontal)
                 {
                     currentPage = (int)Math.Floor((double)index / (columns * rows));
@@ -137,7 +131,6 @@
 
                 return new Rect(xPosition, yPosition, childSize.Width, childSize.Height);
             }
-
         }
 
         /// <summary>

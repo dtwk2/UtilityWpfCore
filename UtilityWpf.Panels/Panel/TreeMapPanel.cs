@@ -18,7 +18,6 @@
 ////using PixelLab.Contracts;
 //#endif
 
-
 //namespace PixelLab.Wpf
 //{
 //    public class TreeMapPanel : AnimatingPanel
@@ -204,7 +203,6 @@
 //        private const double c_tolerance = 1e-2;
 //    }
 //}
-
 
 //namespace PixelLab.Wpf
 //{
@@ -423,7 +421,6 @@
 //            public readonly TranslateTransform Transform = new TranslateTransform();
 //        }
 //    }
-
 
 //    public static class GeoHelper
 //    {
@@ -707,8 +704,6 @@
 //    }
 //}
 
-
-
 //namespace PixelLab.Contracts
 //{
 //    public static class Contract
@@ -770,7 +765,6 @@
 
 //    public class ContractInvariantMethodAttribute : Attribute { }
 //}
-
 
 //using System;
 //using System.Linq;

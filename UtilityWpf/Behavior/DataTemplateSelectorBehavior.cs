@@ -1,4 +1,5 @@
 ﻿#nullable enable
+
 using Evan.Wpf;
 using Microsoft.Xaml.Behaviors;
 using ReactiveUI;
@@ -18,13 +19,15 @@ namespace UtilityWpf.Behavior
 {
     public class DataTemplateSelectorBehavior : Behavior<Selector>
     {
-        CompositeDisposable? disposable = null;
-        readonly ReplaySubject<IEnumerable> itemsSourceSubject = new(1);
+        private CompositeDisposable? disposable = null;
+        private readonly ReplaySubject<IEnumerable> itemsSourceSubject = new(1);
 
         public static readonly DependencyProperty TypeProperty = DependencyProperty.Register("Type", typeof(Type), typeof(DataTemplateSelectorBehavior));
         public static readonly DependencyProperty ObjectProperty = DependencyProperty.Register("Object", typeof(object), typeof(DataTemplateSelectorBehavior));
+
         //public static readonly DependencyProperty ResourceDictionaryProperty = DependencyProperty.Register("ResourceDictionary", typeof(ResourceDictionary), typeof(DataTemplateSelectorBehavior), new PropertyMetadata(ResourceDictionaryChanged));
         public static readonly DependencyProperty DataTemplateFilterCollectionProperty = DependencyHelper.Register<IEnumerable>();
+
         public static readonly DependencyProperty SelectedDataTemplateProperty =
             DependencyProperty.Register("SelectedDataTemplate", typeof(DataTemplate), typeof(DataTemplateSelectorBehavior), new FrameworkPropertyMetadata
             {
@@ -150,6 +153,7 @@ namespace UtilityWpf.Behavior
             var dt = (DataTemplate)Application.Current.Resources[dataTemplateKey];
             yield return new DictionaryEntry("Default", dt);
         }
+
         private static IEnumerable<DictionaryEntry> DataTemplateEnumerable(ResourceDictionary res, Type type)
         {
             foreach (var entry in res.Cast<DictionaryEntry>())
@@ -162,7 +166,6 @@ namespace UtilityWpf.Behavior
                         yield return entry;
                     }
                 }
-
             }
         }
     }
