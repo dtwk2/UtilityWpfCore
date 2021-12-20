@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xaml.Behaviors.Core;
 using ReactiveUI;
 using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Input;
 using UtilityWpf.Demo.Buttons.Infrastructure;
 
 namespace UtilityWpf.Demo.Buttons
@@ -24,11 +26,15 @@ namespace UtilityWpf.Demo.Buttons
                 new("2", ReactiveCommand.Create(()=>{ Numbers.Add(new Number(2)); })),
                 new("3", ReactiveCommand.Create(()=>{ Numbers.Add(new Number(3)); })),
             };
+
+            Command = new ActionCommand(() => { MessageBox.Show("Event To Command"); });
         }
 
         public ObservableCollection<ButtonViewModel> Data { get; }
 
         public ObservableCollection<Number> Numbers { get; } = new();
+
+        public ICommand Command { get; }
 
     }
 

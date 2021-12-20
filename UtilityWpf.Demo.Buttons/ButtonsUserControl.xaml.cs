@@ -11,5 +11,9 @@ namespace UtilityWpf.Demo.Buttons
         {
             InitializeComponent();
         }
+
+        private void ListBox_Unselected(object sender, System.Windows.RoutedEventArgs e)
+        {
+        }
     }
 }

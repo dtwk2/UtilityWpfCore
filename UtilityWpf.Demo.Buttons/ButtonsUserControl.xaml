@@ -15,15 +15,14 @@
 
     <FrameworkElement.Resources>
         <utl:BooleanToOrientationConverter x:Key="BooleanToOrientationConverter" />
-
     </FrameworkElement.Resources>
 
-    <UniformGrid >
+    <UniformGrid>
         <GroupBox>
 
             <ContentControl>
                 <ContentControl.DataContext>
-                    <demoApp:ButtonsViewModel/>
+                    <demoApp:ButtonsViewModel />
                 </ContentControl.DataContext>
                 <DockPanel>
                     <view:ButtonsControl ItemsSource="{Binding Data}"
@@ -31,10 +30,10 @@
                              DisplayMemberPath="Header">
                     </view:ButtonsControl>
 
-                    <ListBox ItemsSource="{Binding Numbers, Mode=OneTime}">
+                    <ListBox ItemsSource="{Binding Numbers, Mode=OneTime}" SelectionChanged="{utl:Command Command }">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Value, Mode=OneTime}" FontSize="24"/>
+                                <TextBlock Text="{Binding Value, Mode=OneTime}" FontSize="24" />
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -44,16 +43,15 @@
         <GroupBox>
             <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <!--<FrameworkElement.Resources>
-                <utl:SharedResourceDictionary Source="/UtilityWpf.Demo.Common;component/Themes/Material.xaml"/>
+                <utl:SharedResourceDictionary Source="/UtilityWpf.Demo.Common;component/Themes/Material.xaml" />
             </FrameworkElement.Resources>-->
                 <view:ToggleButton x:Name="ToggleButton"
                                 Content="{x:Static Orientation.Horizontal}"
-                                UnCheckedContent="{x:Static Orientation.Vertical}"
-                                >
+                                UnCheckedContent="{x:Static Orientation.Vertical}">
                 </view:ToggleButton>
 
                 <view:ButtonsControl x:Name="ButtonsControl"
-                                  Orientation="{Binding ElementName=ToggleButton, Path=IsChecked, Converter={StaticResource BooleanToOrientationConverter}}" >
+                                  Orientation="{Binding ElementName=ToggleButton, Path=IsChecked, Converter={StaticResource BooleanToOrientationConverter}}">
                     <i:Interaction.Behaviors>
                         <utl:EnumSelectorBehavior EnumType="{x:Type Visibility}"></utl:EnumSelectorBehavior>
                     </i:Interaction.Behaviors>
@@ -66,7 +64,7 @@
         <GroupBox>
             <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <view:ButtonsControl x:Name="Buttons2Control"
-                                     Orientation="{Binding ElementName=ToggleButton, Path=IsChecked, Converter={StaticResource BooleanToOrientationConverter}}"   >
+                                     Orientation="{Binding ElementName=ToggleButton, Path=IsChecked, Converter={StaticResource BooleanToOrientationConverter}}">
 
                     <FrameworkElement.Resources>
                         <DataTemplate x:Key="Red"  DataType="{x:Type infra:ButtonViewModel}">
@@ -80,12 +78,12 @@
                         </DataTemplate>
                     </FrameworkElement.Resources>
                     <i:Interaction.Behaviors>
-                        <utl:DataTemplateSelectorBehavior Type="{x:Type infra:ButtonViewModel}"/>
+                        <utl:DataTemplateSelectorBehavior Type="{x:Type infra:ButtonViewModel}" />
                     </i:Interaction.Behaviors>
                 </view:ButtonsControl>
                 <ContentControl ContentTemplate="{Binding ElementName=Buttons2Control, Path=Output}">
                     <ContentControl.Content>
-                        <infra:ButtonViewModel/>
+                        <infra:ButtonViewModel />
                     </ContentControl.Content>
                 </ContentControl>
             </DockPanel>
@@ -93,15 +91,13 @@
 
         <GroupBox>
             <FrameworkElement.DataContext>
-                <demoApp:MethodsViewModel/>
+                <demoApp:MethodsViewModel />
             </FrameworkElement.DataContext>
             <view:ButtonsControl
                 ItemsSource="{Binding Data}"
                 CommandPath="Command"
                 DisplayMemberPath="Header">
-
             </view:ButtonsControl>
         </GroupBox>
     </UniformGrid>
-
 </UserControl>
