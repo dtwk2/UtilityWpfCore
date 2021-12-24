@@ -7,7 +7,7 @@ using System.Reactive.Linq;
 using System.Threading;
 using UtilityHelperEx;
 
-namespace Utility.Common.Helper
+namespace Utility.ViewModel.Helper
 {
     public static class VirtualisationHelper
     {

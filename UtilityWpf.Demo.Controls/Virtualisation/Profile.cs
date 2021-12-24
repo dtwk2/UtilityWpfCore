@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
 using UtilityWpf.Demo.Data.Model;
+using VirtualisationHelper = Utility.Common.Helper.VirtualisationHelper;
 
 namespace UtilityWpf.Demo.Controls
 {

@@ -21,10 +21,9 @@
                 <ResourceDictionary Source="/UtilityWpf.Demo.Master;component/Templates.xaml" />
                 <ResourceDictionary Source="/UtilityWpf.Demo.Hybrid;component/View/Templates.xaml" />
                 <ResourceDictionary Source="/UtilityWpf.Demo.Data;component/Themes/Generic.xaml" />
-                <ResourceDictionary Source="/UtilityWpf.Demo.Controls;component/Themes/Generic.xaml" />
+                <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/Generic.xaml" />
                 <ResourceDictionary Source="/UtilityWpf.Demo.Common;component/View/Templates.xaml" />
                 <ResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/Themes/Generic.xaml" />
-                <!--<ResourceDictionary Source="/Themes/Themes.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
