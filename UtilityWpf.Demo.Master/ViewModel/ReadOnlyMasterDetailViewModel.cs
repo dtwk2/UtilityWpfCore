@@ -6,10 +6,10 @@ using System.Reactive;
 using Utility.Common.Enum;
 using Utility.Common.EventArgs;
 using Utility.Persist;
+using Utility.Service;
 using UtilityInterface.NonGeneric.Data;
 using UtilityWpf.Demo.Common.ViewModel;
 using UtilityWpf.Demo.Data.Model;
-using UtilityWpf.Service;
 
 namespace UtilityWpf.Demo.Master.Infrastructure
 {

@@ -8,9 +8,9 @@ using System.Linq;
 using Utility.Common;
 using UtilityHelper;
 using UtilityInterface.NonGeneric.Data;
-using static UtilityWpf.Service.LiteDbRepository;
+using static Utility.Persist.LiteDbRepository;
 
-namespace UtilityWpf.Service
+namespace Utility.Persist
 {
     public class LiteDbRepository : IRepository, IIdRepository
     {

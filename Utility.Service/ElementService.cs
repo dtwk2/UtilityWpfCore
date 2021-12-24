@@ -1,10 +1,9 @@
-﻿using System;
-using System.Reactive.Linq;
+﻿using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using Utility.Common.Helper;
 using UtilityHelper.NonGeneric;
 
-namespace Utility.Persist
+namespace Utility.Service
 {
     public class ElementService<T> : IObserver<RepositoryMessage> where T : IEquatable<T>
     {

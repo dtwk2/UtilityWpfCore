@@ -3,9 +3,9 @@ using System.Collections;
 using System.Linq;
 using System.Reactive.Linq;
 using Utility.Persist;
+using Utility.Service;
 using UtilityInterface.NonGeneric.Data;
 using UtilityWpf.Demo.Common.ViewModel;
-using UtilityWpf.Service;
 
 namespace UtilityWpf.Demo.Hybrid.ViewModel
 {

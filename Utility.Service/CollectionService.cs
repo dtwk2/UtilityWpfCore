@@ -1,9 +1,6 @@
 ﻿using DynamicData;
-using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
@@ -14,7 +11,7 @@ using UtilityInterface.NonGeneric.Data;
 using UtilityWpf;
 using UtilityWpf.Common;
 
-namespace Utility.Persist
+namespace Utility.Service
 {
     public record CollectionChangeMessage(CollectionChange change);
     public record RepositoryMessage(IRepository Service);
@@ -35,7 +32,7 @@ namespace Utility.Persist
 
         protected void Init()
         {
-            var dis1 = NewItems().Merge(OldItems())
+            var dis1 = AllItems()
               .Scan(default((CollectionChange, CollectionChange)), (a, b) => (a.Item2, b))
               .WithLatestFrom(repositoryMessages.Select(a => a.Service).WhereNotDefault())
               .Subscribe(cc =>
@@ -131,18 +128,23 @@ namespace Utility.Persist
             disposable = new CompositeDisposable(dis1, dis2);
         }
 
-        private IObservable<CollectionChange> OldItems()
+        private IObservable<CollectionChange> AllItems()
         {
-            return Items
-                .SelectChanges()
-                .Select(a => new CollectionChange(a.Action, a.OldItems?.Cast<object>()?.ToArray() ?? Array.Empty<object>()));
-        }
+            return NewItems().Merge(OldItems());
 
-        private IObservable<CollectionChange> NewItems()
-        {
-            return Items
-                .SelectChanges()
-                .Select(a => new CollectionChange(a.Action, a.NewItems?.Cast<object>()?.ToArray() ?? Array.Empty<object>()));
+            IObservable<CollectionChange> OldItems()
+            {
+                return Items
+                    .SelectChanges()
+                    .Select(a => new CollectionChange(a.Action, a.OldItems?.Cast<object>()?.ToArray() ?? Array.Empty<object>()));
+            }
+
+            IObservable<CollectionChange> NewItems()
+            {
+                return Items
+                    .SelectChanges()
+                    .Select(a => new CollectionChange(a.Action, a.NewItems?.Cast<object>()?.ToArray() ?? Array.Empty<object>()));
+            }
         }
 
         public void Dispose()

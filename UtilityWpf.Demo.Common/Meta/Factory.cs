@@ -1,4 +1,4 @@
-﻿using ReactiveUI;
+﻿using Microsoft.Xaml.Behaviors.Core;
 using Splat;
 using System;
 using System.Collections.Generic;
@@ -58,8 +58,8 @@ namespace UtilityWpf.Demo.Common.Meta
         {
             private static KeyStore Store = Locator.Current.GetService<KeyStore>() ?? throw new Exception("m6776m,,ffjr");
 
-            public static TickViewModel TickViewModel => new TickViewModel(Guid.NewGuid(), Store.CreateNewKey()) { IsChecked = Statics.Random.NextBoolean() };
-            public static ButtonViewModel ButtonViewModel => new ButtonViewModel(Store.CreateNewKey(), ReactiveCommand.Create(() => { })) { IsRefreshable = Statics.Random.NextBoolean() };
+            public static TickViewModel TickViewModel => new(Guid.NewGuid(), Store.CreateNewKey()) { IsChecked = Statics.Random.NextBoolean() };
+            public static ButtonViewModel ButtonViewModel => new(Store.CreateNewKey(), new ActionCommand(() => { })) { IsRefreshable = Statics.Random.NextBoolean() };
 
             public static Fields Fields => new Fields
             {
