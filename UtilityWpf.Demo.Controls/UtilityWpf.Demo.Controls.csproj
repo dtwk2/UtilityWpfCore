@@ -2,7 +2,7 @@
 
   <PropertyGroup>
 	    <OutputType>WinExe</OutputType>	  
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
@@ -11,14 +11,13 @@
     <Page Remove="Themes\StyleChange\Green.xaml" />
   </ItemGroup>
 
-
   <ItemGroup>
-    <PackageReference Include="BFF.DataVirtualizingCollection" Version="3.0.8" />
+    <PackageReference Include="BFF.DataVirtualizingCollection" Version="3.3.5" />
     <PackageReference Include="Dragablz.NetCore" Version="0.3.3" />
     <PackageReference Include="LambdaConverters" Version="4.0.0" />
     <PackageReference Include="LiveCharts.Wpf.NetCore3" Version="0.9.7" />
     <PackageReference Include="PropertyTools.Wpf" Version="3.1.0" />
-    <PackageReference Include="VirtualizingWrapPanel" Version="1.5.3" />
+    <PackageReference Include="VirtualizingWrapPanel" Version="1.5.7" />
   </ItemGroup>
 
   <ItemGroup>

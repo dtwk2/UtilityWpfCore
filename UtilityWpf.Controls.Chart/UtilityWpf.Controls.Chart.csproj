@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="OxyPlot.Wpf" Version="2.1.0-Preview1" />
-    <PackageReference Include="Splat.Drawing" Version="13.1.22" />
+    <PackageReference Include="OxyPlot.Wpf" Version="2.1.0" />
+    <PackageReference Include="Splat.Drawing" Version="14.1.17" />
   </ItemGroup>
 
   <ItemGroup>
