@@ -43,5 +43,8 @@
         <!-- The below use AncestorType-RelativeSource bindings, so can't be auto-loaded -->
         <ResourceDictionary Source="/UtilityWpf.Controls;component/RangeSlider.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/SliderItemsControl.xaml" />
+
+        <!--Styles-->
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/ToggleButton.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </utl:AutoResourceDictionary>

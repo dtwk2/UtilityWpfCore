@@ -7,9 +7,6 @@
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:o="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
-    xmlns:view="http://schemas.utility.com/buttons"
-    xmlns:demoApp="clr-namespace:UtilityWpf.Demo.Common.ViewModel;assembly=UtilityWpf.Demo.Common"
-    xmlns:demoApp1="clr-namespace:UtilityWpf.Demo.Buttons"
     d:DesignHeight="300"
     d:DesignWidth="300"
     mc:Ignorable="d">
@@ -32,70 +29,6 @@
     </FrameworkElement.Resources>
 
     <UniformGrid>
-
-        <GroupBox Header="Animation">
-            <Grid Width="100">
-                <Button x:Name="BackButton">
-                    Back
-                    <Button.Triggers>
-                        <EventTrigger RoutedEvent="Button.Click">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimation
-                                        Storyboard.TargetName="BackButton"
-                                        Storyboard.TargetProperty="Opacity"
-                                        From="1.0"
-                                        To="0.5"
-                                        Duration="0:0:0.5" />
-                                    <DoubleAnimation
-                                        Storyboard.TargetName="OptionsButton"
-                                        Storyboard.TargetProperty="Opacity"
-                                        From="0.0"
-                                        To="1.0"
-                                        Duration="0:0:1" />
-                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackButton" Storyboard.TargetProperty="Visibility">
-                                        <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Collapsed}" />
-                                    </ObjectAnimationUsingKeyFrames>
-                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OptionsButton" Storyboard.TargetProperty="Visibility">
-                                        <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Visible}" />
-                                    </ObjectAnimationUsingKeyFrames>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                    </Button.Triggers>
-                </Button>
-
-                <Button x:Name="OptionsButton">
-                    Option
-                    <Button.Triggers>
-                        <EventTrigger RoutedEvent="Button.Click">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimation
-                                        Storyboard.TargetName="OptionsButton"
-                                        Storyboard.TargetProperty="Opacity"
-                                        From="1.0"
-                                        To="0.5"
-                                        Duration="0:0:0.5" />
-                                    <DoubleAnimation
-                                        Storyboard.TargetName="BackButton"
-                                        Storyboard.TargetProperty="Opacity"
-                                        From="0.0"
-                                        To="1.0"
-                                        Duration="0:0:1" />
-                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OptionsButton" Storyboard.TargetProperty="Visibility">
-                                        <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Collapsed}" />
-                                    </ObjectAnimationUsingKeyFrames>
-                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackButton" Storyboard.TargetProperty="Visibility">
-                                        <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Visible}" />
-                                    </ObjectAnimationUsingKeyFrames>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                    </Button.Triggers>
-                </Button>
-            </Grid>
-        </GroupBox>
 
         <GroupBox Header="Interactivity">
             <Grid Width="100" Height="60">
@@ -127,7 +60,7 @@
             </Grid>
         </GroupBox>
 
-        <GroupBox>
+        <GroupBox Header="Transition">
             <FrameworkElement.Resources>
 
                 <Storyboard
