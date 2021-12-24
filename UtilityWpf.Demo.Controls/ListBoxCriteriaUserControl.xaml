@@ -80,7 +80,6 @@
 
         <UniformGrid DockPanel.Dock="Left" Rows="1">
             <UniformGrid.Resources>
-                <conv:DefaultConverter x:Key="Converter" />
                 <DataTemplate x:Key="PassFail">
                     <StackPanel Width="200" Orientation="Horizontal">
                         <TextBlock
@@ -108,7 +107,7 @@
                     PropertyName="Expired">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="CriteriaMet">
-                            <i:InvokeCommandAction Command="{Binding ElementName=oc, Path=.}" EventArgsConverter="{StaticResource Converter}" />
+                            <i:InvokeCommandAction Command="{Binding ElementName=oc, Path=.}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </view:ListBoxCriteria>

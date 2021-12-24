@@ -29,7 +29,7 @@ namespace UtilityWpf.Behavior
 
         private static void SetSenderDataGrid(DependencyObject element, DataGrid value) => element.SetValue(SenderDataGridProperty, value);
 
-        private static System.Windows.Controls.DataGrid GetSenderDataGrid(DependencyObject element) => (DataGrid)element.GetValue(SenderDataGridProperty);
+        private static DataGrid GetSenderDataGrid(DependencyObject element) => (DataGrid)element.GetValue(SenderDataGridProperty);
 
         public static void SetVisibleItems(DependencyObject element, object[] value) => element.SetValue(VisibleItemsProperty, value);
 
@@ -38,7 +38,10 @@ namespace UtilityWpf.Behavior
         private static void OnObserveVisiblePersonsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is DataGrid dataGrid)
-                dataGrid.Loaded += (sender, _) => DataGridLoaded(sender as DataGrid);
+            {
+                dataGrid.Loaded += (_, _) => DataGridLoaded(dataGrid);
+                dataGrid.Unloaded -= (_, _) => DataGridLoaded(dataGrid);
+            }
         }
 
         private static void DataGridLoaded(DataGrid dataGrid)

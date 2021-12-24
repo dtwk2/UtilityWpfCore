@@ -1,14 +1,14 @@
-﻿using System.Reactive;
+﻿using Microsoft.Xaml.Behaviors.Core;
 using Utility.Common.Enum;
 using Utility.Common.EventArgs;
 
 namespace UtilityWpf.Demo.Master.ViewModel
 {
-    public class RowViewModel : UtilityWpf.Demo.Common.ViewModel.RowViewModel
+    public class RowViewModel : UtilityWpf.Demo.Common.ViewModel.RowBaseViewModel
     {
         public RowViewModel()
         {
-            ChangeCommand = ReactiveUI.ReactiveCommand.Create<CollectionEventArgs, Unit>((a) =>
+            ChangeCommand = new ActionCommand((a) =>
             {
                 switch (a)
                 {
@@ -27,7 +27,6 @@ namespace UtilityWpf.Demo.Master.ViewModel
                     default:
                         break;
                 }
-                return Unit.Default;
             });
         }
     }

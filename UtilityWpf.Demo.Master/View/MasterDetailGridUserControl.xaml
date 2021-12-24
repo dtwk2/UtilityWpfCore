@@ -82,7 +82,7 @@
                         <view2:ReadOnlyMasterDetail.Selector>
                             <DataGrid
                                 IsReadOnly="True"
-                                ItemsSource="{Binding Converter={x:Static util:DefaultConverter.Instance}}" ></DataGrid>
+                                ItemsSource="{Binding}" ></DataGrid>
                         </view2:ReadOnlyMasterDetail.Selector>
                     </view2:ReadOnlyMasterDetail>
                 </view2:ReadOnlyMasterDetail>
@@ -143,7 +143,7 @@
             </TabItem>
             <!--<TabItem Header="Without Detail">
                 <view2:MasterControl ItemsSource="{Binding Data, Mode=OneTime}"
-                                     Change="{util:EventBinding ChangeCommand}"
+                                     Change="{util:Command ChangeCommand}"
                                      CommandParameter="{Binding NewItem}"
                                      ButtonTypes="Add,Remove">
                     <StaticResource ResourceKey="DragablzItemsControl2"></StaticResource>

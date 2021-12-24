@@ -12,7 +12,7 @@
         <mk:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzItemStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <DataTemplate DataType="{x:Type vm:RowViewModel}">
+    <DataTemplate DataType="{x:Type vm:RowBaseViewModel}">
         <view1:MasterControl
                              CommandParameter="{Binding NewItem}"
                              Position="Right" RemoveOrder="Last"

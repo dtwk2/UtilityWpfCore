@@ -16,7 +16,7 @@
         </view:DragablzVerticalItemsControl>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type vm:RowViewModel}">
+    <DataTemplate DataType="{x:Type vm:RowBaseViewModel}">
 
         <view:DragablzHorizontalItemsControl
                                                        ItemsSource="{Binding Data}"

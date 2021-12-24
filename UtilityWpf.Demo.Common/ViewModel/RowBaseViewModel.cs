@@ -1,36 +1,37 @@
 ﻿using Endless;
+using Microsoft.Xaml.Behaviors.Core;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reactive;
 using System.Windows.Input;
 using Utility.Common.EventArgs;
 
 namespace UtilityWpf.Demo.Common.ViewModel
 {
-    public class RowViewModel
+    public class RowBaseViewModel
     {
         private bool isReadOnly;
-        private IEnumerator<ElementViewModel> newItem;
+        private IEnumerator<ElementViewModel>? newItem;
 
         public bool IsReadOnly
         {
             get => isReadOnly; set => isReadOnly = value;
         }
 
-        public string Header { get; } = "RowViewModel";
+        public string Header { get; } = nameof(RowBaseViewModel);
 
-        public RowViewModel()
+        public RowBaseViewModel()
         {
             Data = new ObservableCollection<ElementViewModel>
-            {
-                new(1),
-                new(2),
-                new(3)
-            };
 
-            ChangeCommand = ReactiveUI.ReactiveCommand.Create<CollectionEventArgs, Unit>((a) =>
+                {
+                    new(1),
+                    new(2),
+                    new(3)
+                };
+
+            ChangeCommand = new ActionCommand((a) =>
             {
                 switch (a)
                 {
@@ -44,7 +45,6 @@ namespace UtilityWpf.Demo.Common.ViewModel
                     default:
                         break;
                 }
-                return Unit.Default;
             });
         }
 

@@ -19,7 +19,7 @@
         <Border  BorderBrush="Gray" Margin="5"  BorderThickness="2">
             <DockPanel>
                 <TextBlock Background="Pink" Height="30" Width="100"
-                           Text="{Binding ElementName=MeasurementsControl,Path=SelectedUnit, Converter={x:Static conv:DefaultConverter.Instance}, UpdateSourceTrigger=PropertyChanged}">
+                           Text="{Binding ElementName=MeasurementsControl,Path=SelectedUnit, UpdateSourceTrigger=PropertyChanged}">
                 </TextBlock>
         <local1:MeasurementsControl
             x:Name="MeasurementsControl"

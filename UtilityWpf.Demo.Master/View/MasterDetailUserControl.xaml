@@ -30,7 +30,7 @@
             </view1:DragablzVerticalItemsControl>
 
             <ResourceDictionary.MergedDictionaries>
-                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzItemStyle.xaml"></utilitywpf:SharedResourceDictionary>
+                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzItemStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -41,7 +41,7 @@
                 <view2:MasterDetail Converter="{StaticResource AutoValueConverter}" Orientation="Vertical">
                     <view2:MasterDetail.Selector>
                         <view2:MasterControl ItemsSource="{Binding Data, Mode=OneTime}"
-                                             Change="{util:EventBinding ChangeCommand}"
+                                             Change="{util:Command ChangeCommand}"
                                              CommandParameter="{Binding NewItem}"
                                              ButtonTypes="Add,Remove"
                                              Orientation="Horizontal"
@@ -53,7 +53,7 @@
             </TabItem>
             <TabItem Header="Without Detail">
                 <view2:MasterControl ItemsSource="{Binding Data, Mode=OneTime}"
-                                     Change="{util:EventBinding ChangeCommand}"
+                                     Change="{util:Command ChangeCommand}"
                                      CommandParameter="{Binding NewItem}"
                                      ButtonTypes="Add,Remove">
                     <StaticResource ResourceKey="DragablzItemsControl2"></StaticResource>
