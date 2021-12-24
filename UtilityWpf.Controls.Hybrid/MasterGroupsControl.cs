@@ -39,7 +39,7 @@ namespace UtilityWpf.Controls.Hybrid
                 IsReadOnlyPath = IsReadOnlyPath
             };
 
-            this.WhenAnyValue(a => a.ItemsSource)
+            itemsSourceSubject
                 .Skip(1)
                 .CombineLatest(this.WhenAnyValue(a => a.DisplayMemberPath), this.WhenAnyValue(a => a.IsReadOnlyPath))
                      .Subscribe(a =>

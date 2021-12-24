@@ -25,7 +25,7 @@ namespace UtilityWpf.Controls.Hybrid
             Position = Dock.Bottom;
             RemoveOrder = RemoveOrder.Selected;
             ButtonTypes = ButtonType.Add | ButtonType.Remove;
-            this.WhenAnyValue(a => a.ItemsSource)
+            itemsSourceSubject
            .CombineLatest(
            this.WhenAnyValue(a => a.DisplayMemberPath),
            this.WhenAnyValue(a => a.IsCheckedPath),

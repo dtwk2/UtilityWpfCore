@@ -21,7 +21,7 @@ DependencyProperty.Register("CommandPath", typeof(string), typeof(ResourceDictio
         public ResourceDictionariesControl()
         {
             ButtonTypes = ButtonType.None;
-            this.WhenAnyValue(a => a.ItemsSource)
+            itemsSourceSubject
            .CombineLatest(this.WhenAnyValue(a => a.DisplayMemberPath), this.WhenAnyValue(a => a.IsCheckedPath), this.WhenAnyValue(a => a.CommandPath))
            .Subscribe(a =>
            {

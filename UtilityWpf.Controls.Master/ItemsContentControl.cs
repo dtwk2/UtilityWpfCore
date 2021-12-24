@@ -22,11 +22,13 @@ namespace UtilityWpf.Controls.Master
     {
         private Selector Selector => ItemsControl is Selector selector ? selector : throw new Exception($@"The ItemsControl used must be of type {nameof(Selector)} for operation.");
 
-        public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(ItemsContentControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(ItemsContentControl), new PropertyMetadata(null, Changed));
+
         private static readonly DependencyProperty ItemsControlProperty = DependencyProperty.Register("ItemsControl", typeof(ItemsControl), typeof(ItemsContentControl), new PropertyMetadata(null));
         public static readonly DependencyProperty CountProperty = DependencyHelper.Register<int>();
         public static readonly RoutedEvent SelectionChangedEvent = EventManager.RegisterRoutedEvent(nameof(SelectionChanged), RoutingStrategy.Bubble, typeof(SelectionChangedEventHandler), typeof(ItemsContentControl));
-        protected readonly ReplaySubject<WrapPanel> wrapPanelSubject = new(1);
+        //protected readonly ReplaySubject<WrapPanel> wrapPanelSubject = new(1);
+        protected ReplaySubject<IEnumerable> itemsSourceSubject = new(1);
 
         static ItemsContentControl()
         {
@@ -34,6 +36,12 @@ namespace UtilityWpf.Controls.Master
 
         public ItemsContentControl()
         {
+        }
+
+        private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (e.NewValue is IEnumerable enmerable)
+                d.Dispatcher.InvokeAsync(() => (d as ItemsContentControl).itemsSourceSubject.OnNext(enmerable));
         }
 
         #region properties
@@ -158,8 +166,7 @@ namespace UtilityWpf.Controls.Master
             }
             Count = ItemsSource?.Count() ?? 0;
 
-            this.WhenAnyValue(a => a.ItemsSource)
-
+            itemsSourceSubject
                 .Subscribe(a =>
                 {
                     if (a != null)

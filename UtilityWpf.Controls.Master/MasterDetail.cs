@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections;
-using System.Linq;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using UtilityHelperEx;
 using UtilityWpf.Abstract;
 
 namespace UtilityWpf.Controls.Master
 {
-    using Mixins;
+    using Evan.Wpf;
     using ReactiveUI;
-    using System.Data;
+    using System.Reactive.Subjects;
     using System.Windows.Controls.Primitives;
-    using UtilityWpf.Service;
+    using UtilityWpf.Mixins;
     using fac = DependencyPropertyFactory<ReadOnlyMasterDetail>;
 
     /// <summary>
@@ -26,29 +24,34 @@ namespace UtilityWpf.Controls.Master
         public static readonly DependencyProperty ConverterParameterProperty = fac.Register<object>();
         public static readonly DependencyProperty PropertyKeyProperty = fac.Register<string>(nameof(PropertyKey));
         public static readonly DependencyProperty UseDataContextProperty = fac.Register<bool>();
-        public static readonly DependencyProperty SelectorProperty = fac.Register<Control>();
-        public static readonly DependencyProperty OrientationProperty = fac.Register(initialValue: Orientation.Horizontal);
+        public static readonly DependencyProperty SelectorProperty = DependencyHelper.Register(new PropertyMetadata(null, Changed));
+        public static readonly DependencyProperty OrientationProperty = DependencyHelper.Register(new PropertyMetadata(Orientation.Horizontal, Changed));
+
+        private ReplaySubject<Control> controlSubject = new(1);
+        private ReplaySubject<object> dataContextSubject = new(1);
+        private ReplaySubject<Orientation> orientationSubject = new(1);
 
         static ReadOnlyMasterDetail()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ReadOnlyMasterDetail), new FrameworkPropertyMetadata(typeof(ReadOnlyMasterDetail)));
+            DataContextProperty.OverrideMetadata(typeof(ReadOnlyMasterDetail), new FrameworkPropertyMetadata(null, Changed));
         }
 
         public ReadOnlyMasterDetail()
         {
-            _ = this.WhenAnyValue(a => a.Selector)
-                .WhereNotNull()
-                .CombineLatest(this.WhenAnyValue(a => a.DataContext).WhereNotNull())
-                .Subscribe(a =>
-                {
-                    a.First.DataContext = a.Second;
-                });
+            _ = controlSubject
+                 .WhereNotNull()
+                 .CombineLatest(dataContextSubject.WhereNotNull())
+                 .Subscribe(a =>
+                 {
+                     a.First.DataContext = a.Second;
+                 });
 
-            TransformObservable = Transform(
-                this.WhenAnyValue(a => a.Selector).WhereNotNull().Select(SelectFromMaster).Switch(),
+            TransformObservable = UtilityHelperEx.ObservableHelper.ToReplaySubject(Transform(
+                controlSubject.ObserveOnDispatcher().WhereNotNull().Select(SelectFromMaster).Switch(),
                 this.Observable<IValueConverter>(nameof(Converter)),
                 this.Observable<object>(nameof(ConverterParameter)),
-                this.Observable<string>(nameof(PropertyKey))).ToReplaySubject(0);
+                this.Observable<string>(nameof(PropertyKey))));
 
             _ = TransformObservable
                 .Select(a => a.New)
@@ -58,8 +61,8 @@ namespace UtilityWpf.Controls.Master
                     SetDetail(Content, content);
                 });
 
-            _ = this.WhenAnyValue(a => a.Orientation)
-                .CombineLatest(this.WhenAnyValue(a => a.Selector))
+            _ = orientationSubject
+                .CombineLatest(controlSubject)
                 .Subscribe(combined =>
                 {
                     if (combined.Second is IOrientation iori)
@@ -183,6 +186,20 @@ namespace UtilityWpf.Controls.Master
                     _ => throw new ApplicationException($"Unexpected type,{Selector.GetType().Name} for {nameof(Selector)} "),
                 };
             }
+        }
+
+        // Seemingly necessary to avoid use of WhenAnyValue for certain properties to avoid threading issues
+        private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is not ReadOnlyMasterDetail readOnly)
+                return;
+
+            if (e.NewValue is Control control)
+                d.Dispatcher.InvokeAsync(() => readOnly.controlSubject.OnNext(control));
+            else if (e.NewValue is object obj)
+                d.Dispatcher.InvokeAsync(() => readOnly.dataContextSubject.OnNext(obj));
+            else if (e.NewValue is Orientation orientation)
+                d.Dispatcher.InvokeAsync(() => readOnly.orientationSubject.OnNext(orientation));
         }
 
         /// <summary>
@@ -316,31 +333,31 @@ namespace UtilityWpf.Controls.Master
 
         protected static void Transform(IObservable<TransformProduct?> transforms)
         {
-            transforms
-                 .WhereNotNull()
-                 .Scan((default(TransformProduct), default(TransformProduct)), (a, b) => (a.Item2, b))
-                 .Select(a => a.Item1)
-                 .WhereNotNull()
-                 .Where(a => a.Old != null)
-                 .Subscribe(tp =>
-                 {
-                     object? replacement = null;
+            //transforms
+            //     .WhereNotNull()
+            //     .Scan((default(TransformProduct), default(TransformProduct)), (a, b) => (a.Item2, b))
+            //     .Select(a => a.Item1)
+            //     .WhereNotNull()
+            //     .Where(a => a.Old != null)
+            //     .Subscribe(tp =>
+            //     {
+            //         object? replacement = null;
 
-                     replacement = (tp.New, tp.Converter, tp.DataKey) switch
-                     {
-                         (null, _, _) => null,
-                         (object o, IValueConverter conv, _) => conv.ConvertBack(o, default, tp.ConverterParameter, default),
-                         (object o, _, string key) => PropertyConverter.ConvertBack(tp.Old!, key, o),
-                         (object o, null, null) => o
-                     };
+            //         replacement = (tp.New, tp.Converter, tp.DataKey) switch
+            //         {
+            //             (null, _, _) => null,
+            //             (object o, IValueConverter conv, _) => conv.ConvertBack(o, default, tp.ConverterParameter, default),
+            //             (object o, _, string key) => PropertyConverter.ConvertBack(tp.Old!, key, o),
+            //             (object o, null, null) => o
+            //         };
 
-                     if (replacement == null)
-                         throw new Exception("7788dfdfgf");
-                     //if (tp.Old != null && tp.Old == replacement && tp.Old != null)
-                     //    throw new ApplicationException("selectedOld and ee can't be the same object in order to compare them after conversion.");
+            //         if (replacement == null)
+            //             throw new Exception("7788dfdfgf");
+            //         //if (tp.Old != null && tp.Old == replacement && tp.Old != null)
+            //         //    throw new ApplicationException("selectedOld and ee can't be the same object in order to compare them after conversion.");
 
-                     PropertyMerger.Instance.Set(tp.Old!, replacement);
-                 });
+            //         PropertyMerger.Instance.Set(tp.Old!, replacement);
+            //     });
         }
     }
 }

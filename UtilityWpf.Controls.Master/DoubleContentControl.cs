@@ -1,6 +1,5 @@
 ﻿using Evan.Wpf;
 using PropertyTools.Wpf;
-using ReactiveUI;
 using System;
 using System.Linq;
 using System.Reactive.Linq;
@@ -13,7 +12,15 @@ namespace UtilityWpf.Controls.Master
 {
     public class DoubleContentControl : ContentControlx
     {
-        public static readonly DependencyProperty PositionProperty = DependencyHelper.Register<Dock>(new PropertyMetadata(Dock.Bottom));
+        public static readonly DependencyProperty PositionProperty = DependencyHelper.Register<Dock>(new PropertyMetadata(Dock.Bottom, Changed));
+        private ReplaySubject<Dock> dockSubject = new(1);
+
+        private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (e.NewValue is Dock dock)
+                d.Dispatcher.InvokeAsync(() => (d as DoubleContentControl).dockSubject.OnNext(dock));
+        }
+
         protected readonly ReplaySubject<WrapPanel> wrapPanelSubject = new(1);
         protected readonly ReplaySubject<DockPanelSplitter> dockPanelSplitterSubject = new(1);
         public static readonly DependencyProperty OrientationProperty = DependencyHelper.Register<Orientation>();
@@ -33,7 +40,7 @@ namespace UtilityWpf.Controls.Master
                 a.First.Orientation = a.Second;
             });
 
-            this.WhenAnyValue(a => a.Position)
+            dockSubject
                 .CombineLatest(wrapPanelSubject, dockPanelSplitterSubject)
                 .Where(a => a.Second != null /*&& a.Third != null*/)
                 .Subscribe(c =>
