@@ -14,8 +14,6 @@ namespace UtilityWpf
     [ValueConversion(typeof(object), typeof(bool))]
     public class CountToBooleanConverter : IValueConverter
     {
-        #region IValueConverter Members
-
         private Lazy<Evaluator> lazy = new(() =>
          {
              var evaluator = new Evaluator(new EvaluationContext());
@@ -97,7 +95,5 @@ namespace UtilityWpf
         }
 
         public bool Invert { get; set; }
-
-        #endregion IValueConverter Members
     }
 }

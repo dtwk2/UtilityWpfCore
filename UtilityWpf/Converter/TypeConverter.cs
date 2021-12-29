@@ -24,6 +24,6 @@ namespace UtilityWpf.Converter
             throw new NotImplementedException();
         }
 
-        public static EnumConverter Instance { get; } = new EnumConverter();
+        public static TypeConverter Instance { get; } = new TypeConverter();
     }
 }

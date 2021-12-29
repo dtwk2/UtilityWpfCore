@@ -9,8 +9,6 @@ namespace UtilityWpf.Converter
 
     public class AlternationEqualityConverter : IMultiValueConverter
     {
-        #region Implementation of IMultiValueConverter
-
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             if (values != null && values.Length == 2 &&
@@ -26,7 +24,5 @@ namespace UtilityWpf.Converter
         {
             throw new NotSupportedException();
         }
-
-        #endregion Implementation of IMultiValueConverter
     }
 }

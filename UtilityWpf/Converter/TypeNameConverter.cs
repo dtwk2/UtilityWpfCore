@@ -5,17 +5,13 @@ using System.Windows.Data;
 
 namespace UtilityWpf.Converter
 {
-    public class EnumConverter : IValueConverter
+    public class TypeNameConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             try
             {
-                if (targetType.FullName == "System.Type")
-                {
-                    return Enum.Parse(value.GetType(), value?.ToString() ?? throw new NullReferenceException("value is null"));
-                }
-                return Enum.Parse(targetType, value?.ToString() ?? throw new NullReferenceException("value is null"));
+                return value.GetType().Name;
             }
             catch
             {
@@ -28,6 +24,6 @@ namespace UtilityWpf.Converter
             throw new NotImplementedException();
         }
 
-        public static EnumConverter Instance { get; } = new EnumConverter();
+        public static TypeNameConverter Instance { get; } = new TypeNameConverter();
     }
 }
