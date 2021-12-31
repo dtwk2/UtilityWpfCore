@@ -6,6 +6,9 @@
              xmlns:util="http://schemas.utility.com/utilitywpf"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
+    <FrameworkElement.Resources>
+        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/ToggleButton.xaml" />
+    </FrameworkElement.Resources>
     <UniformGrid>
         <ToggleButton IsChecked="False" Content="Off" util:ToggleButtonAttached.OnContent="On"></ToggleButton>
         <ToggleButton IsChecked="False" Content="Off" ></ToggleButton>

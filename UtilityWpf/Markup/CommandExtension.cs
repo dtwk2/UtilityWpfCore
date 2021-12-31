@@ -117,7 +117,7 @@ namespace UtilityWpf.Markup
                             {
                                 var conversion = ConversionType switch
                                 {
-                                    ConversionType.None => args,
+                                    ConversionType.None => NoConversion(args, command),
                                     ConversionType.Default => Conversion(args, command),
                                     ConversionType.SingleAdds => SingleSelectorConversion(args, frameworkElement),
                                     _ => throw new NotImplementedException(),
@@ -142,6 +142,20 @@ namespace UtilityWpf.Markup
                     return selectionArgs.AddedItems.Cast<object>().FirstOrDefault();
                 }
             return null;
+        }
+
+        protected virtual object? NoConversion(EventArgs args, ICommand cmd)
+        {
+            switch (cmd)
+            {
+                case ICommand when cmd.GetType().BaseType?.Name == typeof(ReactiveCommandBase<,>).Name:
+                    {
+                        var type = cmd.GetType().GenericTypeArguments.First();
+                        return Activator.CreateInstance(type);
+                    }
+                default:
+                    throw new Exception("s33333dfsdsd");
+            }
         }
 
         protected virtual object? Conversion(EventArgs args, ICommand cmd)

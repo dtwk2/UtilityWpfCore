@@ -65,7 +65,7 @@
                 ItemsSource="{Binding Profiles}"
                 VerticalScrollBarVisibility="Hidden">
                 <i:Interaction.Behaviors>
-                    <behavior:DataGridVisibleItemsBehavior x:Name="Behavior1" MouseFactor="{Binding ElementName=Slider1, Path=Value}" />
+                    <behavior:ItemsControlVisibleItemsBehavior x:Name="Behavior1" MouseFactor="{Binding ElementName=Slider1, Path=Value}" />
                 </i:Interaction.Behaviors>
             </DataGrid>
         </Grid>
@@ -93,7 +93,7 @@
                 Grid.Row="2"
                 ItemsSource="{Binding Profiles}">
                 <i:Interaction.Behaviors>
-                    <behavior:DataGridVisibleItemsBehavior x:Name="Behavior2" MouseFactor="1" />
+                    <behavior:ItemsControlVisibleItemsBehavior x:Name="Behavior2" MouseFactor="1" />
                 </i:Interaction.Behaviors>
             </DataGrid>
         </Grid>

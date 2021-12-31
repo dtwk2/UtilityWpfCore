@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace GraphX.WPF.Controls.Ex.Converter
+namespace UtilityWpf.Converter
 {
     [ValueConversion(typeof(System.Drawing.Color), typeof(Color))]
     public class RegexConverter : IValueConverter

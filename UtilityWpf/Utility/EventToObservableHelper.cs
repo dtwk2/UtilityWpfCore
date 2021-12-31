@@ -32,6 +32,7 @@ namespace UtilityWpf
             .FromEventPattern<SelectionChangedEventHandler, SelectionChangedEventArgs>
             (a => selector.SelectionChanged += a, a => selector.SelectionChanged -= a)
             .Select(a => a.EventArgs.AddedItems)
+            .StartWith(selector.SelectedItem != null ? new[] { selector.SelectedItem } : Array.Empty<object>() as IList)
             .Where(a => a.Count > 0);
 
         public static IObservable<object> SelectSingleSelectionChanges(this Selector selector) =>
@@ -39,6 +40,7 @@ namespace UtilityWpf
             .FromEventPattern<SelectionChangedEventHandler, SelectionChangedEventArgs>
             (a => selector.SelectionChanged += a, a => selector.SelectionChanged -= a)
             .Select(a => a.EventArgs.AddedItems)
+            .StartWith(selector.SelectedItem != null ? new[] { selector.SelectedItem } : Array.Empty<object>() as IList)
             .Where(a => a.Count == 1)
             .Select(a => a.Cast<object>().Single());
 
@@ -53,6 +55,7 @@ namespace UtilityWpf
             .FromEventPattern<SelectionChangedEventHandler, SelectionChangedEventArgs>
             (a => selector.SelectionChanged += a, a => selector.SelectionChanged -= a)
             .Select(a => a.EventArgs.AddedItems)
+            .StartWith(selector.SelectedItem != null ? new[] { selector.SelectedItem } : Array.Empty<object>() as IList)
             .Where(a => a.Count == 1)
             .Select(a => a.Cast<object>().Single());
 

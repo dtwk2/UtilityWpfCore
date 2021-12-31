@@ -20,9 +20,11 @@
                         <ContentControl
                             Grid.Row="0"
                             Content="{TemplateBinding Header}"
+                            ContentTemplate="{TemplateBinding HeaderTemplate}"
+                            ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                             FontSize="16"
                             FontWeight="DemiBold" />
-                        <ContentControl Grid.Row="1" Content="{TemplateBinding Content}" />
+                        <ContentPresenter  Grid.Row="1" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -45,6 +47,6 @@
         <ResourceDictionary Source="/UtilityWpf.Controls;component/SliderItemsControl.xaml" />
 
         <!--Styles-->
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/ToggleButton.xaml" />
+        <!--<ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/ToggleButton.xaml" />-->
     </ResourceDictionary.MergedDictionaries>
 </utl:AutoResourceDictionary>

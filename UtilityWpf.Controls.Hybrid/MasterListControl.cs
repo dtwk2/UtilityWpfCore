@@ -1,5 +1,6 @@
 ﻿using ReactiveUI;
 using System;
+using System.Collections;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,8 +9,7 @@ using UtilityWpf.Controls.Master;
 
 namespace UtilityWpf.Controls.Hybrid
 {
-    public class MasterListControl
-        : MasterBindableControl
+    public class MasterListControl : MasterBindableControl
     {
         public static readonly DependencyProperty CommandPathProperty = DependencyProperty.Register("CommandPath", typeof(string), typeof(MasterListControl), new PropertyMetadata(null));
         public static readonly DependencyProperty IsCheckedPathProperty = DependencyProperty.Register("IsCheckedPath", typeof(string), typeof(MasterListControl), new PropertyMetadata(null));
@@ -25,7 +25,9 @@ namespace UtilityWpf.Controls.Hybrid
             Position = Dock.Bottom;
             RemoveOrder = RemoveOrder.Selected;
             ButtonTypes = ButtonType.Add | ButtonType.Remove;
+
             itemsSourceSubject
+                .StartWith(default(IEnumerable))
            .CombineLatest(
            this.WhenAnyValue(a => a.DisplayMemberPath),
            this.WhenAnyValue(a => a.IsCheckedPath),

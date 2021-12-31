@@ -58,6 +58,8 @@ namespace UtilityWpf.Controls.Buttons
 
         protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
         {
+            //base.PrepareContainerForItemOverride(element, item);
+            //return;
             if (element is ButtonTextControl buttonText)
             {
                 _ = buttonText.ApplyTemplate();

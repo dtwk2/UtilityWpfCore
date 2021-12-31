@@ -17,9 +17,6 @@ namespace UtilityWpf.Demo.Controls
     {
         private ReadOnlyObservableCollection<PassFail> a;
 
-        // private ReadOnlyObservableCollection<PassFail> b;
-        private Random random = new Random();
-
         public ListBoxCriteriaUserControl()
         {
             InitializeComponent();
@@ -30,7 +27,7 @@ namespace UtilityWpf.Demo.Controls
                 .GenerateLazy(10000)
                 .ToObservable().Zip(Observable.Interval(TimeSpan.FromSeconds(3)), (a, b) => a)
                 .ToObservableChangeSet(a => a.Key)
-                .Sort(new DefaultComparer<PassFail, string>(new Func<PassFail, string>(a => a.Key)))
+                .Sort(Comparer.Create<PassFail, string>(a => a.Key))
                 .Top(10)
                 .ObserveOnDispatcher()
                 .Bind(out a)

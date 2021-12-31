@@ -125,7 +125,7 @@ namespace UtilityWpf.Animation
 
         private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (!(d is TravellerControl control))
+            if (d is not TravellerControl control)
                 return;
             if (e.NewValue == null)
                 return;

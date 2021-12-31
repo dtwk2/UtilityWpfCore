@@ -10,6 +10,14 @@
 
     <UniformGrid Rows="1">
         <StackPanel>
+            <controls:LabelledTextBox Header="Has Error" Content="Te;lkkkkk;jkh   jhkjhkh  jkjhltBox" />
+            <controls:LabelledTextBlock Header="Redundant" Content="Text Block Content" />
+            <controls:LabelledTextBlock Header="Red66undant" Content="Text Block Content" />
+            <controls:LabelledTextBlock Header="fdgdf" Content="dfg gdfgdfgr rtrtgf gfgfgft retrt" />
+            <controls:LabelledTextBlock Header="Redu767ndant" Content="Text Block Cnt" />
+            <controls:LabelledTextBlock Header="Redu6767ndant" Content="Text Block Content" />
+        </StackPanel>
+        <StackPanel>
             <controls:LabelledTextBox Header="Has Error" Hint="Invalid" HintColor="Red" Content="TextBox" />
 
             <controls:LabelledContent Header="Name">

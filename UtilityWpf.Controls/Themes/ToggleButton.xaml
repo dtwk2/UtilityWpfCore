@@ -16,17 +16,18 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
                     <Grid>
-
                         <Button x:Name="OptionsButton">
-
                             <Viewbox>
-                                <ContentControl Content="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <ContentPresenter
+                                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                                            Content="{TemplateBinding Content}" />
                             </Viewbox>
-
                             <Button.Triggers>
                                 <EventTrigger RoutedEvent="Button.Click">
+
                                     <BeginStoryboard x:Name="myBeginStoryboard">
                                         <Storyboard x:Name="myStoryboard">
+
                                             <BooleanAnimationUsingKeyFrames Storyboard.Target="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}}"
                                                             Storyboard.TargetProperty="IsChecked">
                                                 <DiscreteBooleanKeyFrame KeyTime="00:00:0.5"
@@ -61,13 +62,14 @@
                             </Button.Triggers>
                         </Button>
                         <Button x:Name="Chrome" Foreground="Gray"  BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="true">
-
                             <Viewbox Margin="10">
-                                <ContentControl  Content="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <ContentPresenter
+                                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                                            Content="{TemplateBinding Content}" />
                             </Viewbox>
-
                             <Button.Triggers>
                                 <EventTrigger RoutedEvent="Button.Click">
+
                                     <BeginStoryboard>
                                         <Storyboard>
                                             <BooleanAnimationUsingKeyFrames Storyboard.Target="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}}"
@@ -105,12 +107,22 @@
                         </Button>
                     </Grid>
                     <ControlTemplate.Triggers>
+
                         <!--<Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="toggleContent" Property="TextBlock.Foreground" Value="LightGray" />
                         </Trigger>-->
-                        <!--<Trigger Property="IsChecked" Value="True">
+                        <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="Chrome" Property="Button.Foreground" Value="Red" />
-                        </Trigger>-->
+                        </Trigger>
+
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="BorderBrush" Value="#007ACC" />
+                            <Setter Property="BorderThickness" Value="1" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter Property="BorderBrush" Value="Transparent" />
+                            <Setter Property="BorderThickness" Value="0" />
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

@@ -61,7 +61,7 @@
                 <view:ReadOnlyMasterDetail>
                     <view:ReadOnlyMasterDetail.Selector>
                         <view:MasterControl
-                            Change="{util:Command ChangeCommand}"
+                            Change="{util:Command ChangeCommand, ConversionType=Default}"
                             ItemsSource="{Binding Data, Mode=OneTime}"
                             CommandParameter="{Binding NewItem}"
                             RemoveOrder="Last"
@@ -92,7 +92,7 @@
 
             <TabItem Header="Without Detail">
                 <view:MasterControl
-                    Change="{util:Command ChangeCommand}"
+                    Change="{util:Command ChangeCommand, ConversionType=Default}"
                     ItemsSource="{Binding Data, Mode=OneTime}"
                     CommandParameter="{Binding NewItem}"
                     RemoveOrder="Last"

@@ -11,14 +11,14 @@ namespace UtilityWpf.Behavior
     /// <summary>
     /// Returns the indices of rows in the DataGrid that are visible to the user
     /// </summary>
-    public class DataGridVisibleItemsBehavior : Behavior<DataGrid>
+    public class ItemsControlVisibleItemsBehavior : Behavior<ItemsControl>
     {
         private double scrollPosition;
 
-        public static readonly DependencyProperty FirstIndexProperty = DependencyProperty.Register("FirstIndex", typeof(int), typeof(DataGridVisibleItemsBehavior), new PropertyMetadata(0));
-        public static readonly DependencyProperty LastIndexProperty = DependencyProperty.Register("LastIndex", typeof(int), typeof(DataGridVisibleItemsBehavior), new PropertyMetadata(0));
-        public static readonly DependencyProperty SizeProperty = DependencyProperty.Register("Size", typeof(int), typeof(DataGridVisibleItemsBehavior), new PropertyMetadata(0));
-        public static readonly DependencyProperty MouseFactorProperty = DependencyProperty.Register("MouseFactor", typeof(int), typeof(DataGridVisibleItemsBehavior), new PropertyMetadata(3));
+        public static readonly DependencyProperty FirstIndexProperty = DependencyProperty.Register("FirstIndex", typeof(int), typeof(ItemsControlVisibleItemsBehavior), new PropertyMetadata(0));
+        public static readonly DependencyProperty LastIndexProperty = DependencyProperty.Register("LastIndex", typeof(int), typeof(ItemsControlVisibleItemsBehavior), new PropertyMetadata(0));
+        public static readonly DependencyProperty SizeProperty = DependencyProperty.Register("Size", typeof(int), typeof(ItemsControlVisibleItemsBehavior), new PropertyMetadata(0));
+        public static readonly DependencyProperty MouseFactorProperty = DependencyProperty.Register("MouseFactor", typeof(int), typeof(ItemsControlVisibleItemsBehavior), new PropertyMetadata(3));
 
         public int FirstIndex
         {
@@ -93,7 +93,7 @@ namespace UtilityWpf.Behavior
                     scrollViewer.ScrollToVerticalOffset(scrollPosition);
             }
 
-            static (int, int)? ScrollViewerOnScrollChanged(ScrollViewer scrollViewer, DataGrid dataGrid, ScrollChangedEventArgs a)
+            static (int, int)? ScrollViewerOnScrollChanged(ScrollViewer scrollViewer, ItemsControl dataGrid, ScrollChangedEventArgs a)
             {
                 //AssociatedObject_ScrollChanged();
 

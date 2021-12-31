@@ -36,7 +36,7 @@ namespace UtilityWpf.Converter
     /// <param name="startDate"></param>
     /// <param name="endDate"></param>
     /// <returns></returns>
-    internal static class Helper
+    internal static class TenseHelper
     {
         public static IEnumerable<DateTime> GetRange(this DateTime startDate, DateTime endDate)
         {

@@ -27,19 +27,19 @@ namespace UtilityWpf.Demo.Controls
 
             var changeSet = GenerateChangeSet();
 
-            Combobox1.SelectSelectionAddChanges().StartWith(new[] { Combobox1.SelectedItem } as IList).Subscribe(a =>
-            {
-                var @switch = a.Cast<ComboBoxItem>().First().Content.ToString() switch
+            _ = Combobox1
+                .SelectSelectionAddChanges()
+                .Subscribe(a =>
                 {
-                    "A" => new GroupMasterViewModel<Stock, string, string>(changeSet, g => g.Sector).Collection,
-                    "B" => new GroupMasterViewModel2(changeSet.Group(g => g.Name.Length.ToString())).Collection,
-                    _ => (IEnumerable)CollectStocks(changeSet)
-                };
+                    var @switch = a.Cast<ComboBoxItem>().First().Content.ToString() switch
+                    {
+                        "A" => new GroupMasterViewModel<Stock, string, string>(changeSet, g => g.Sector).Collection,
+                        "B" => new GroupMasterViewModel2(changeSet.Group(g => g.Name.Length.ToString())).Collection,
+                        _ => (IEnumerable)CollectStocks(changeSet)
+                    };
 
-                ListBox1.ItemsSource = @switch;
-            });
-
-            //var stocks = Finance.Stocks.Select(a => new StockPropertyChanged { Sector = a.Sector, Name = a.Name, Key = a.Key });
+                    ListBox1.ItemsSource = @switch;
+                });
 
             var sad = GenerateChangeSet2().RefCount();
 
@@ -114,15 +114,15 @@ namespace UtilityWpf.Demo.Controls
         }
 
         public static DataTemplateSelector DataTemplateSelector1 => LambdaConverters.TemplateSelector.Create<object>(e =>
-            {
-                return e.Item switch
-                {
-                    Stock _ => ((FrameworkElement)e.Container)?.FindResource("StockTemplate"),
-                    GroupViewModel2 _ => ((FrameworkElement)e.Container)?.FindResource("Group2Template"),
-                    GroupViewModel<Stock, string, string> _ => ((FrameworkElement)e.Container)?.FindResource("GroupTemplate"),
-                    _ => throw new NotImplementedException(),
-                } as DataTemplate;
-            });
+                        {
+                            return e.Item switch
+                            {
+                                Stock _ => ((FrameworkElement)e.Container)?.FindResource("StockTemplate"),
+                                GroupViewModel2 _ => ((FrameworkElement)e.Container)?.FindResource("Group2Template"),
+                                GroupViewModel<Stock, string, string> _ => ((FrameworkElement)e.Container)?.FindResource("GroupTemplate"),
+                                _ => throw new NotImplementedException(),
+                            } as DataTemplate;
+                        });
     }
 
     public class GroupMasterViewModel2 : GroupMasterViewModel<Stock, string, string>

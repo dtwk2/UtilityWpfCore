@@ -12,9 +12,9 @@
              xmlns:view2="http://schemas.utility.com/master"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.DataContext>
+    <FrameworkElement.DataContext>
         <local11:MasterDetailViewModel />
-    </UserControl.DataContext>
+    </FrameworkElement.DataContext>
     <UserControl.Resources>
         <ResourceDictionary>
             <Style x:Key="VerticalItemStyle" TargetType="{x:Type drag:DragablzItem}" BasedOn="{StaticResource DragablzItemStyle}">
@@ -41,7 +41,7 @@
                 <view2:MasterDetail Converter="{StaticResource AutoValueConverter}" Orientation="Vertical">
                     <view2:MasterDetail.Selector>
                         <view2:MasterControl ItemsSource="{Binding Data, Mode=OneTime}"
-                                             Change="{util:Command ChangeCommand}"
+                                             Change="{util:Command ChangeCommand, ConversionType=Default}"
                                              CommandParameter="{Binding NewItem}"
                                              ButtonTypes="Add,Remove"
                                              Orientation="Horizontal"
@@ -53,7 +53,7 @@
             </TabItem>
             <TabItem Header="Without Detail">
                 <view2:MasterControl ItemsSource="{Binding Data, Mode=OneTime}"
-                                     Change="{util:Command ChangeCommand}"
+                                     Change="{util:Command ChangeCommand, ConversionType=Default}"
                                      CommandParameter="{Binding NewItem}"
                                      ButtonTypes="Add,Remove">
                     <StaticResource ResourceKey="DragablzItemsControl2"></StaticResource>
