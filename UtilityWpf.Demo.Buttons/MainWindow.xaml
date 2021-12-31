@@ -8,6 +8,10 @@
         Title="MainWindow" Height="450" Width="800">
 
     <TabControl>
+
+        <TabItem Header="Check Boxes">
+            <local:CheckBoxesUserControl />
+        </TabItem>
         <TabItem Header="Buttons">
             <local:ButtonsUserControl />
         </TabItem>

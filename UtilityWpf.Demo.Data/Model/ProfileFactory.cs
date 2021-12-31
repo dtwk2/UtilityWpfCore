@@ -23,7 +23,7 @@ namespace UtilityWpf.Demo.Data.Model
         private static BitmapImage GetImage(string path) =>
             new BitmapImage(PathHelper.FindUri(typeof(ProfileFactory).Assembly.GetName().Name, "ProfilePics", path + ".png"));
 
-        public static IReadOnlyList<Profile> BuildPool() =>
+        public static ReadOnlyCollection<Profile> BuildPool() =>
                 new ReadOnlyCollection<Profile>(
                     new List<Profile>
                     {

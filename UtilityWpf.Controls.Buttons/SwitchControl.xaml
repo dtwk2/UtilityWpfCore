@@ -7,7 +7,6 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:SwitchControl}">
-
                     <Grid
                         Width="200">
                         <TextBlock FontWeight="DemiBold" VerticalAlignment="Center">

@@ -56,34 +56,25 @@ namespace UtilityWpf.Controls.Buttons
             base.OnApplyTemplate();
         }
 
-        protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
+        protected override void PrepareContainerForItemOverride(ButtonTextControl element, object item)
         {
-            //base.PrepareContainerForItemOverride(element, item);
-            //return;
-            if (element is ButtonTextControl buttonText)
+            if (element.ChildOfType<Button>() is not Button button)
+                throw new System.Exception("fdfds ffe33733");
+
+            if (string.IsNullOrEmpty(CommandPath) == false)
+                button.Command = (System.Windows.Input.ICommand)item.TryGetValue(CommandPath);
+
+            if (string.IsNullOrEmpty(SelectedValuePath) == false)
             {
-                _ = buttonText.ApplyTemplate();
-
-                if (buttonText.ChildOfType<Button>() is Button button)
-                {
-                    if (string.IsNullOrEmpty(CommandPath) == false)
-                        button.Command = (System.Windows.Input.ICommand)item.TryGetValue(CommandPath);
-
-                    if (string.IsNullOrEmpty(SelectedValuePath) == false)
-                    {
-                        BindingOperations.SetBinding(button, FrameworkElement.TagProperty, CreateBinding(SelectedValuePath));
-                        button.Click += Button_Click;
-                    }
-
-                    if (string.IsNullOrEmpty(DisplayMemberPath) == false)
-                    {
-                        if (button.Content is TextBlock textBlock)
-                            BindingOperations.SetBinding(textBlock, TextBlock.TextProperty, CreateBinding(DisplayMemberPath));
-                    }
-                }
+                BindingOperations.SetBinding(button, FrameworkElement.TagProperty, CreateBinding(SelectedValuePath));
+                button.Click += Button_Click;
             }
 
-            base.PrepareContainerForItemOverride(element, item);
+            if (string.IsNullOrEmpty(DisplayMemberPath) == false)
+            {
+                if (button.Content is TextBlock textBlock)
+                    BindingOperations.SetBinding(textBlock, TextBlock.TextProperty, CreateBinding(DisplayMemberPath));
+            }
 
             Binding CreateBinding(string path)
             {

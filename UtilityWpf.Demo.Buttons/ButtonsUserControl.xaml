@@ -19,11 +19,10 @@
 
     <UniformGrid>
         <GroupBox>
-
-            <ContentControl>
-                <ContentControl.DataContext>
+            <ContentControl d:DataContext="{d:DesignInstance demoApp:ButtonsViewModel}">
+                <FrameworkElement.DataContext>
                     <demoApp:ButtonsViewModel />
-                </ContentControl.DataContext>
+                </FrameworkElement.DataContext>
                 <DockPanel>
                     <view:ButtonsControl ItemsSource="{Binding Data}"
                              CommandPath="Command"
@@ -89,7 +88,7 @@
             </DockPanel>
         </GroupBox>
 
-        <GroupBox>
+        <GroupBox d:DataContext="{d:DesignInstance demoApp:ButtonsViewModel}">
             <FrameworkElement.DataContext>
                 <demoApp:MethodsViewModel />
             </FrameworkElement.DataContext>

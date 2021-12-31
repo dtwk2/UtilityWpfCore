@@ -11,7 +11,7 @@ namespace UtilityWpf.Demo.Buttons
         public MethodsViewModel()
         {
             Data = new ObservableCollection<ButtonViewModel>(
-                UtilityHelper.ReflectionHelper.GetMethods(new UtilityWpf.Demo.Buttons.Infrastructure.Model())
+                UtilityHelper.ReflectionHelper.GetMethods(new Infrastructure.Model())
                 .Select(a => new ButtonViewModel(a.Item1, ReactiveCommand.Create(() => { _ = a.Item2(); }))));
         }
 

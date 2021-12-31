@@ -39,20 +39,27 @@ namespace UtilityWpf.Behavior
         {
             disposable = new CompositeDisposable();
 
+            itemsSourceSubject
+                .Subscribe(a =>
+                {
+                    AssociatedObject.ItemsSource = a;
+                }).DisposeWith(disposable);
+
             FormatAssociatedObject(AssociatedObject);
 
-            this.WhenAnyValue(a => a.SelectedEnum)
+            this
+                .WhenAnyValue(a => a.SelectedEnum)
                 .DistinctUntilChanged()
                 .WhereNotNull()
                 .CombineLatest(AssociatedObject.WhenAnyValue(a => a.ItemsSource).WhereNotNull())
-                .Select(c =>
-                {
-                    var (@enum, enumerable) = c;
-                    var arr = enumerable.Cast<EnumMember>().ToArray();
-                    var def = arr.SingleOrDefault(a => a.StringValue == @enum.ToString());
-                    return Array.IndexOf(arr, def);
-                })
-                .Subscribe(index => AssociatedObject.SetValue(Selector.SelectedIndexProperty, index))
+                .Subscribe(c => AssociatedObject.SetValue(Selector.SelectedIndexProperty, Index(c.First, c.Second)))
+                .DisposeWith(disposable);
+
+            this
+                .WhenAnyValue(a => a.EnumFilterCollection)
+                .WhereNotNull()
+                .Select(ToEnumMembers)
+                .Subscribe(itemsSourceSubject.OnNext)
                 .DisposeWith(disposable);
 
             AssociatedObject
@@ -64,27 +71,24 @@ namespace UtilityWpf.Behavior
                     SetValue(SelectedEnumProperty, (Enum?)c);
                 }).DisposeWith(disposable);
 
-            itemsSourceSubject
-                .Subscribe(a =>
-                {
-                    AssociatedObject.ItemsSource = a;
-                }).DisposeWith(disposable);
-
-            this.WhenAnyValue(a => a.EnumFilterCollection)
-                .WhereNotNull()
-                .Select(enumerable =>
-                {
-                    var flags = EnumHelper.Filter(enumerable).ToArray();
-                    var members = EnumMember.EnumerateEnumMembers(enumerable.GetType().GetElementType());
-                    var aa = from flag in flags
-                             join mem in members on flag equals mem.Value
-                             select mem;
-                    return aa.ToArray();
-                })
-                .Subscribe(itemsSourceSubject.OnNext)
-                .DisposeWith(disposable);
-
             base.OnAttached();
+
+            static int Index(Enum? @enum, IEnumerable? enumerable)
+            {
+                var arr = enumerable.Cast<EnumMember>().ToArray();
+                var def = arr.SingleOrDefault(a => a.StringValue == @enum.ToString());
+                return Array.IndexOf(arr, def);
+            }
+
+            static EnumMember[] ToEnumMembers(IEnumerable enumerable)
+            {
+                var flags = EnumHelper.Filter(enumerable).ToArray();
+                var members = EnumMember.EnumerateEnumMembers(enumerable.GetType().GetElementType());
+                var joins = from flag in flags
+                            join mem in members on flag equals mem.Value
+                            select mem;
+                return joins.ToArray();
+            }
         }
 
         protected override void OnDetaching()
@@ -162,7 +166,7 @@ namespace UtilityWpf.Behavior
                 nameof(EnumMember.Description) :
                 associatedObject.DisplayMemberPath;
 
-            associatedObject.SelectedValuePath = string.IsNullOrEmpty(associatedObject.DisplayMemberPath) ?
+            associatedObject.SelectedValuePath = string.IsNullOrEmpty(associatedObject.SelectedValuePath) ?
                 nameof(EnumMember.Value) :
                 associatedObject.SelectedValuePath;
             associatedObject.SelectedValuePath = "Value";
@@ -181,6 +185,8 @@ namespace UtilityWpf.Behavior
         public string Description { get; init; } = null!;
 
         public string StringValue { get; init; } = null!;
+
+        public bool IsChecked { get; set; }
 
         /// <exception cref="ArgumentException">T must be of type enumeration.</exception>
         public static IEnumerable<EnumMember> EnumerateEnumMembers(Type type)
