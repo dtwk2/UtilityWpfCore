@@ -51,7 +51,7 @@ namespace UtilityWpf.Markup
 
         public Type? ConverterType { get; init; }
 
-        public ConversionType ConversionType { get; init; }
+        public ConversionType ConversionType { get; init; } = ConversionType.Default;
 
         /// <summary>
         /// Retrieves the context in which the markup extension is used, and (if used in the
@@ -118,7 +118,7 @@ namespace UtilityWpf.Markup
                                 var conversion = ConversionType switch
                                 {
                                     ConversionType.None => NoConversion(args, command),
-                                    ConversionType.Default => Conversion(args, command),
+                                    ConversionType.Default => Conversion(args, command, frameworkElement),
                                     ConversionType.SingleAdds => SingleSelectorConversion(args, frameworkElement),
                                     _ => throw new NotImplementedException(),
                                 };
@@ -148,18 +148,34 @@ namespace UtilityWpf.Markup
         {
             switch (cmd)
             {
-                case ICommand when cmd.GetType().BaseType?.Name == typeof(ReactiveCommandBase<,>).Name:
+                case ICommand when cmd.GetType().BaseType?.Name == typeof(ReactiveCommandBase<,>).Name &&
+                                    cmd.GetType().GenericTypeArguments.First().GetConstructors().Any(c => c.GetParameters().Length == 0):
                     {
                         var type = cmd.GetType().GenericTypeArguments.First();
                         return Activator.CreateInstance(type);
+                    }
+                case ICommand when cmd.GetType().BaseType?.Name == typeof(ReactiveCommandBase<,>).Name &&
+                cmd.GetType().GenericTypeArguments.First().IsValueType:
+                    {
+                        return default;
                     }
                 default:
                     throw new Exception("s33333dfsdsd");
             }
         }
 
-        protected virtual object? Conversion(EventArgs args, ICommand cmd)
+        protected virtual object? Conversion(EventArgs args, ICommand cmd, FrameworkElement element)
         {
+            if (args is SelectionChangedEventArgs selectionArgs)
+                if (element.GetValue(ListBox.SelectionModeProperty) is SelectionMode.Single)
+                {
+                    if ((selectionArgs.AddedItems.Cast<object>().FirstOrDefault() ??
+                        selectionArgs.RemovedItems.Cast<object>().FirstOrDefault()) is { } output)
+                    {
+                        return output;
+                    }
+                }
+
             switch (cmd)
             {
                 case ICommand when cmd.GetType().BaseType?.Name == typeof(ReactiveCommandBase<,>).Name:
@@ -167,7 +183,7 @@ namespace UtilityWpf.Markup
                     {
                         return Converter?.Convert(args, null, ConverterParameter, CultureInfo.CurrentCulture);
                     }
-                    else if (cmd.GetType().GetGenericArguments().First() is Type type)
+                    else if (cmd.GetType().GetGenericArguments().FirstOrDefault() is Type type)
                     {
                         if (type != typeof(object) && AutoMapperSingleton.Instance.ConfigurationProvider.ResolveTypeMap(args.GetType(), type) is { } map)
                         {
@@ -179,6 +195,11 @@ namespace UtilityWpf.Markup
                         }
 
                         //throw new Exception($"The generic-argument, object, of the type of ReactiveCommand used, is too broad to map.");
+                    }
+                    else if (cmd.GetType().GenericTypeArguments.First() is { } aType &&
+                        aType.GetConstructors().Any(c => c.GetParameters().Length == 0))
+                    {
+                        return Activator.CreateInstance(aType);
                     }
                     else
                     {

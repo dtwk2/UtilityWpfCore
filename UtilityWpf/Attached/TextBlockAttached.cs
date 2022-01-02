@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using UtilityWpf.Service;
@@ -38,7 +39,7 @@ namespace UtilityWpf.Attached
             }
             else if (e.NewValue is string str)
             {
-                if (DateTime.TryParse(str, out var date))
+                if (DateTime.TryParse(str, new CultureInfo("en-US"), DateTimeStyles.None, out var date))
                 {
                     Timer(date, textBlock);
                     return;
