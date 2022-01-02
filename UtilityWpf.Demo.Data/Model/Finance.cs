@@ -1,11 +1,9 @@
 ﻿using Endless;
-using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Windows.Input;
 using UtilityWpf.Utility;
 
 namespace UtilityWpf.Demo.Data.Model
@@ -68,29 +66,29 @@ namespace UtilityWpf.Demo.Data.Model
         public string Key { get; set; }
     }
 
-    public class StockPropertyChanged : ReactiveObject
-    {
-        private bool flag;
+    //public class StockPropertyChanged : ReactiveObject
+    //{
+    //    private bool flag;
 
-        public StockPropertyChanged()
-        {
-            ChangeGroupProperty = ReactiveCommand.Create(() => { flag = !flag; this.RaisePropertyChanged(nameof(GroupProperty)); });
-        }
+    //    public StockPropertyChanged()
+    //    {
+    //        ChangeGroupProperty = ReactiveCommand.Create(() => { flag = !flag; this.RaisePropertyChanged(nameof(GroupProperty)); });
+    //    }
 
-        public StockPropertyChanged(IObservable<bool> observable)
-        {
-            var a = observable;
-            a.Subscribe(a => { flag = !flag; this.RaisePropertyChanged(nameof(GroupProperty)); });
-        }
+    //    public StockPropertyChanged(IObservable<bool> observable)
+    //    {
+    //        observable.
+    //         Subscribe(a => { flag = !flag; this.RaisePropertyChanged(nameof(GroupProperty)); });
+    //    }
 
-        public string Sector { get; set; }
-        public string Name { get; set; }
-        public string Key { get; set; }
+    //    public string Sector { get; set; }
+    //    public string Name { get; set; }
+    //    public string Key { get; set; }
 
-        public ICommand ChangeGroupProperty { get; }
+    //    public ICommand ChangeGroupProperty { get; }
 
-        public string GroupProperty => flag ? Sector : Name;
-    }
+    //    public string GroupProperty => flag ? Sector : Name;
+    //}
 
     public class Price
     {

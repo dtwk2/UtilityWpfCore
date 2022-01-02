@@ -8,9 +8,11 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
+using Utility.Common;
+using Utility.ViewModel;
+using UtilityHelper.NonGeneric;
 using UtilityHelperEx;
 using UtilityWpf.Demo.Data.Model;
-using UtilityWpf.Model;
 
 namespace UtilityWpf.Demo.Controls
 {
@@ -19,137 +21,166 @@ namespace UtilityWpf.Demo.Controls
     /// </summary>
     public partial class GroupUserControl : UserControl
     {
-        private readonly Subject<bool> subject = new Subject<bool>();
+        private readonly Subject<ClassProperty> subject = new Subject<ClassProperty>();
 
         public GroupUserControl()
         {
             InitializeComponent();
 
-            var changeSet = GenerateChangeSet();
+            var groupUserControlViewModel = new GroupUserControlViewModel();
+
+            Combobox1.ItemsSource = groupUserControlViewModel.Types;
 
             _ = Combobox1
                 .SelectSelectionAddChanges()
+                .Select(a => a.First().ToString())
                 .Subscribe(a =>
                 {
-                    var @switch = a.Cast<ComboBoxItem>().First().Content.ToString() switch
-                    {
-                        "A" => new GroupMasterViewModel<Stock, string, string>(changeSet, g => g.Sector).Collection,
-                        "B" => new GroupMasterViewModel2(changeSet.Group(g => g.Name.Length.ToString())).Collection,
-                        _ => (IEnumerable)CollectStocks(changeSet)
-                    };
-
-                    ListBox1.ItemsSource = @switch;
+                    groupUserControlViewModel.OnNext(a);
                 });
 
-            var sad = GenerateChangeSet2().RefCount();
+            _ = ComboBox
+                 .SelectSelectionAddChanges()
+                 .Select(a => a.Cast<ClassProperty>().First())
+                 .Subscribe(a =>
+                 {
+                     subject.OnNext(a);
+                 });
 
-            _ = sad.Subscribe(a => { }, () =>
-              {
-                  this.Dispatcher.Invoke(() => CompletedLabel.Content = "Observer OnCompleted method called - unable to modify grouping list hence");
-              });
+            groupUserControlViewModel.WhenAnyValue(a => a.Collection)
+                .BindTo(this, a => a.ListBox1.ItemsSource);
 
-            ListBox2.ItemsSource = new GroupMasterPropertyChangedViewModel<StockPropertyChanged, string, string>(sad, g => g.GroupProperty).Collection;
+            var group2UserControlViewModel = new Group2UserControlViewModel(subject);
 
-            ListBox3.ItemsSource = new GroupMasterPropertyChangedViewModel<StockPropertyChanged, string, string>(GenerateChangeSet4(), g => g.GroupProperty).Collection;
+            group2UserControlViewModel.WhenAnyValue(a => a.ErrorMessage)
+                .ObserveOnDispatcher()
+                .Subscribe(a => CompletedLabel.Content = a);
 
-            Emoticon_ToggleButton.Checked += (a, b) => subject.OnNext(Emoticon_ToggleButton.IsChecked.Value);
-            Emoticon_ToggleButton.Unchecked += (a, b) => subject.OnNext(Emoticon_ToggleButton.IsChecked.Value);
+            ListBox2.ItemsSource = group2UserControlViewModel.Collection;
 
-            static ReadOnlyObservableCollection<Stock> CollectStocks(IObservable<IChangeSet<Stock, string>> changeSet)
+            var group3UserControlViewModel = StockObservableFactory.GenerateUnlimitedGroupableChangeSet(subject).ToGroupOnViewModel();
+
+            ListBox3.ItemsSource = group3UserControlViewModel.Collection;
+            ComboBox.ItemsSource = group3UserControlViewModel.Properties;
+        }
+
+        public class Group2UserControlViewModel : ReactiveObject
+        {
+            private IObservable<IChangeSet<Groupable<Stock>, string>> changeSet;
+            private GroupCollectionViewModel viewmodel;
+
+            public Group2UserControlViewModel(IObservable<ClassProperty> subject)
             {
-                changeSet
-                    .ObserveOnDispatcher()
-                    .Bind(out var data)
-                    .Subscribe(v => { });
+                changeSet = StockObservableFactory.GenerateLimitedGroupableChangeSet(subject).RefCount();
 
-                return data;
+                _ = changeSet
+                    .Subscribe(a => { }, () =>
+                    {
+                        ErrorMessage = "Observer OnCompleted method called - unable to modify grouping list - hereafter";
+                        this.RaisePropertyChanged(nameof(ErrorMessage));
+                    });
+                viewmodel = changeSet.ToGroupOnViewModel();
+            }
+
+            public string ErrorMessage { get; private set; }
+            public ICollection Collection => viewmodel.Collection;
+            public IEnumerable Properties => viewmodel.Properties;
+        }
+
+        public class GroupUserControlViewModel : ReactiveObject, IObserver<string>
+        {
+            private readonly Subject<string> subject = new();
+            private readonly ReplaySubject<IChangeSet<Stock, string>> changeSet = new();
+            private readonly ObservableAsPropertyHelper<ICollection> collection;
+
+            public GroupUserControlViewModel()
+            {
+                StockObservableFactory
+                    .GenerateChangeSet()
+                    .Subscribe(a =>
+                    {
+                        changeSet.OnNext(a);
+                    });
+                collection = subject.Select(ChangeCollection).ToProperty(this, a => a.Collection);
+            }
+
+            private ICollection ChangeCollection(string str)
+            {
+                return str switch
+                {
+                    "Sector" => changeSet.ToGroupViewModel(g => g.Sector).Collection,
+                    "Arbitrary" => new CustomGroupCollectionViewModel(changeSet.Group(g => g.Name.Length.ToString())).Collection,
+                    _ => CollectStocks(changeSet)
+                };
+
+                static ReadOnlyObservableCollection<Stock> CollectStocks(IObservable<IChangeSet<Stock, string>> changeSet)
+                {
+                    changeSet
+                        .ObserveOnDispatcher()
+                        .Bind(out var data)
+                        .Subscribe();
+
+                    return data;
+                }
+            }
+
+            public ICollection Types => new[] { "Sector", "Arbitrary", "None" };
+
+            public ICollection Collection => collection.Value;
+
+            public void OnCompleted()
+            {
+                throw new NotImplementedException();
+            }
+
+            public void OnError(Exception error)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void OnNext(string value)
+            {
+                subject.OnNext(value);
             }
         }
 
-        private IObservable<IChangeSet<Stock, string>> GenerateChangeSet()
+        public static DataTemplateSelector DataTemplateSelector => LambdaConverters.TemplateSelector.Create<object>(e =>
+                                {
+                                    return e.Item switch
+                                    {
+                                        Stock _ => ((FrameworkElement)e.Container)?.FindResource(new DataTemplateKey(typeof(Stock))),
+                                        CustomGroupViewModel _ => ((FrameworkElement)e.Container)?.FindResource("Group2Template"),
+                                        GroupViewModel<Stock, string, string> _ => ((FrameworkElement)e.Container)?.FindResource("GroupTemplate"),
+                                        _ => throw new NotImplementedException(),
+                                    } as DataTemplate;
+                                });
+
+        public class CustomGroupCollectionViewModel : GroupCollectionViewModel<Stock, string, string>
         {
-            return Finance.Stocks
-                .ToObservable()
-                 .Buffer(5)
-            .Select(a => a.OrderBy(c => new Guid()).First())
-            .Pace(TimeSpan.FromSeconds(2))
-            .ToObservableChangeSet(c => c.Key);
+            public CustomGroupCollectionViewModel(IObservable<IGroupChangeSet<Stock, string, string>> groups) : base(groups)
+            {
+            }
+
+            public override CustomGroupViewModel Create(IGroup<Stock, string, string> group)
+            {
+                return new CustomGroupViewModel(group);
+            }
         }
 
-        private IObservable<IChangeSet<Stock, string>> GenerateChangeSet1()
+        public class CustomGroupViewModel : GroupViewModel<Stock, string, string>
         {
-            var innerSubject = new Subject<Stock>();
-            var stocks = Finance.Stocks.ToObservable().Subscribe(innerSubject.OnNext);
+            private readonly ObservableAsPropertyHelper<int> maxLength;
 
-            return innerSubject
-                 .Buffer(5)
-            .Select(a => a.OrderBy(c => new Guid()).First())
-            .Pace(TimeSpan.FromSeconds(2))
-            .ToObservableChangeSet(c => c.Key);
+            public CustomGroupViewModel(IGroup<Stock, string, string> group) : base(group)
+            {
+                maxLength = group.Cache
+                    .Connect()
+                    .ToCollection()
+                    .Select(a => a.Select(a => a.Sector.Length).Max())
+                    .ToProperty(this, a => a.MaxLength);
+            }
+
+            public int MaxLength => maxLength.Value;
         }
-
-        private IObservable<IChangeSet<StockPropertyChanged, string>> GenerateChangeSet2() =>
-            Finance.Stocks
-            .Select(a => new StockPropertyChanged(subject) { Sector = a.Sector, Name = a.Name, Key = a.Key })
-            .ToObservable()
-            //.Repeat(1000)
-            .Buffer(5)
-            .Select(a => a.OrderBy(c => new Guid()).First())
-            .Pace(TimeSpan.FromSeconds(2))
-            .ToObservableChangeSet(c => c.Key);
-
-        private IObservable<IChangeSet<StockPropertyChanged, string>> GenerateChangeSet4()
-        {
-            var innerSubject = new ReplaySubject<Stock>();
-
-            foreach (var x in Finance.Stocks)
-                innerSubject.OnNext(x);
-
-            return innerSubject
-     .Select(a => new StockPropertyChanged(subject) { Sector = a.Sector, Name = a.Name, Key = a.Key })
-     .Buffer(5)
- .Select(a => a.OrderBy(c => new Guid()).First())
- .Pace(TimeSpan.FromSeconds(2))
- .ToObservableChangeSet(c => c.Key);
-        }
-
-        public static DataTemplateSelector DataTemplateSelector1 => LambdaConverters.TemplateSelector.Create<object>(e =>
-                        {
-                            return e.Item switch
-                            {
-                                Stock _ => ((FrameworkElement)e.Container)?.FindResource("StockTemplate"),
-                                GroupViewModel2 _ => ((FrameworkElement)e.Container)?.FindResource("Group2Template"),
-                                GroupViewModel<Stock, string, string> _ => ((FrameworkElement)e.Container)?.FindResource("GroupTemplate"),
-                                _ => throw new NotImplementedException(),
-                            } as DataTemplate;
-                        });
-    }
-
-    public class GroupMasterViewModel2 : GroupMasterViewModel<Stock, string, string>
-    {
-        public GroupMasterViewModel2(IObservable<IGroupChangeSet<Stock, string, string>> groups) : base(groups)
-        {
-        }
-
-        public override GroupViewModel<Stock, string, string> CreateViewModel(IGroup<Stock, string, string> group)
-        {
-            return new GroupViewModel2(group);
-        }
-    }
-
-    public class GroupViewModel2 : GroupViewModel<Stock, string, string>
-    {
-        private readonly ObservableAsPropertyHelper<int> maxLength;
-
-        public GroupViewModel2(IGroup<Stock, string, string> group) : base(group)
-        {
-            maxLength = group.Cache
-                .Connect()
-                .ToCollection()
-                .Select(a => a.Select(a => a.Sector.Length).Max())
-                .ToProperty(this, a => a.MaxLength);
-        }
-
-        public int MaxLength => maxLength.Value;
     }
 }
