@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using System.Windows;
 using System.Windows.Data;
 
 namespace UtilityWpf.Converter;
@@ -11,11 +12,14 @@ public class AbbreviationConverter : IValueConverter
 
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
+        if (value?.ToString() is not string val)
+            return DependencyProperty.UnsetValue;
+
         var length = parameter is int param ? param : AbbreviationMaxLength;
-        var arr = value.ToString().ToCharArray();
+        var arr = val.ToCharArray();
         if (arr.Length > length)
             return new string(arr.Take(3).ToArray()) + "...";
-        return value.ToString();
+        return val;
     }
 
     public object ConvertBack(object value, Type targetTypes, object parameter, CultureInfo culture)

@@ -8,7 +8,9 @@
 	<ItemGroup>
 		<PackageReference Include="Chronic-netstandard" Version="0.3.2.4" />
 		<PackageReference Include="Jellyfish" Version="1.0.42" />
+		<PackageReference Include="LanguageExt.Core" Version="4.0.3" />
 		<PackageReference Include="MintPlayer.ObservableCollection" Version="1.5.0" />
+		<PackageReference Include="Optional" Version="5.0.0-alpha" />
 		<PackageReference Include="randomColorSharped.NetStandard" Version="1.0.2" />
 		<PackageReference Include="ReactiveUI" Version="17.1.9" />
 		<PackageReference Include="Splat.Autofac" Version="9.5.2" />
