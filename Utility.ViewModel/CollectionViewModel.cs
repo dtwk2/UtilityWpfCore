@@ -8,13 +8,24 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using System.Windows.Input;
 using Utility.Common;
 
 namespace Utility.ViewModel;
 
 public class CollectionViewModel : ReactiveObject
 {
+    public CollectionViewModel()
+    {
+        SelectionChanged = ReactiveCommand.Create<object, object>(a =>
+        {
+            return a;
+        });
+    }
+
     public virtual ICollection Collection { get; }
+
+    public virtual ICommand SelectionChanged { get; }
 }
 
 public class CollectionViewModel<T> : CollectionViewModel

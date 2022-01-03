@@ -10,11 +10,17 @@
     <TabControl>
         <TabItem Header="CollapseBox">
             <UniformGrid>
-                <controls:CollapseBox Height="20" Width="200"  CollapsedContent="3gdsd" ExpandedContent="sdff" />
-                <controls:CollapseBox Height="70" Width="500"  CollapsedContent="3gdsd" ExpandedContent="sdff" />
+                <controls:CollapseBox CollapsedContent="DataGrid" ExpandOverContent="True">
+                    <DataGrid ItemsSource="{StaticResource Characters}"></DataGrid>
+                </controls:CollapseBox>
+                <controls:CollapseBox CollapsedContent="DataGrid" ExpandedHeight="100">
+                    <controls:CollapseBox.ExpandedContent>
+                        <DataGrid ItemsSource="{StaticResource Characters}"></DataGrid>
+                    </controls:CollapseBox.ExpandedContent>
+                </controls:CollapseBox>
 
-                <controls:CollapseBox Height="50" Width="100"  CollapsedContent="3gdsd" ExpandedContent="sdff" />
-                <controls:CollapseBox Height="100" Width="300"  CollapsedContent="3gdsd" ExpandedContent="sdff" />
+                <controls:CollapseBox Height="50" Width="100" ExpandTime="0:0:2" CollapsedContent="Collapsed" ExpandedContent="Expanded" />
+                <controls:CollapseBox Height="100" Width="300" ExpandOverContent="True" CollapsedContent="Collapsed" ExpandedContent="Expanded" />
             </UniformGrid>
         </TabItem>
     </TabControl>

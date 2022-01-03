@@ -41,6 +41,7 @@ namespace UtilityWpf.Controls
     public class HeaderedDataGrid : HeaderedItemsControl
     {
         public static readonly DependencyProperty ShowCountInHeaderProperty = HeaderedItemsControlEx.ShowCountInHeaderProperty.AddOwner(typeof(HeaderedDataGrid), new PropertyMetadata(true));
+        public static readonly DependencyProperty IsExpandedProperty = Expander.IsExpandedProperty.AddOwner(typeof(HeaderedDataGrid), new PropertyMetadata(false));
 
         static HeaderedDataGrid()
         {
@@ -62,6 +63,12 @@ namespace UtilityWpf.Controls
         {
             get { return (bool)GetValue(ShowCountInHeaderProperty); }
             set { SetValue(ShowCountInHeaderProperty, value); }
+        }
+
+        public bool IsExpanded
+        {
+            get { return (bool)GetValue(IsExpandedProperty); }
+            set { SetValue(IsExpandedProperty, value); }
         }
     }
 }

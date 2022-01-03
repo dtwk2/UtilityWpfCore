@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ReactiveUI;
+using System;
+using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -20,13 +22,13 @@ namespace UtilityWpf.Controls
             DependencyProperty.Register(nameof(ExpandedContent), typeof(object), typeof(CollapseBox), new FrameworkPropertyMetadata(null));
 
         public static readonly DependencyProperty ExpandTimeProperty =
-            DependencyProperty.Register(nameof(ExpandTime), typeof(TimeSpan), typeof(CollapseBox), new PropertyMetadata(new TimeSpan(TimeSpan.TicksPerMillisecond * 200)));
+            DependencyProperty.Register(nameof(ExpandTime), typeof(TimeSpan), typeof(CollapseBox), new PropertyMetadata(TimeSpan.FromMilliseconds(200)));
 
         public static readonly DependencyProperty TickThicknessProperty =
             DependencyProperty.Register(nameof(TickThickness), typeof(double), typeof(CollapseBox), new PropertyMetadata(1d));
 
         public static readonly DependencyProperty CollapsedHeightProperty =
-            DependencyProperty.Register(nameof(CollapsedHeight), typeof(double), typeof(CollapseBox), new PropertyMetadata(20d, PropertyChanged));
+            DependencyProperty.Register(nameof(CollapsedHeight), typeof(double), typeof(CollapseBox), new PropertyMetadata(25d, PropertyChanged));
 
         public static readonly DependencyProperty TickSizeProperty =
             DependencyProperty.Register(nameof(TickSize), typeof(double), typeof(CollapseBox), new PropertyMetadata(12d, PropertyChanged));
@@ -38,7 +40,7 @@ namespace UtilityWpf.Controls
             DependencyProperty.Register(nameof(TickVerticalAlignment), typeof(VerticalAlignment), typeof(CollapseBox), new PropertyMetadata(VerticalAlignment.Bottom));
 
         public static readonly DependencyProperty ExpandedHeightProperty =
-            DependencyProperty.Register(nameof(ExpandedHeight), typeof(double), typeof(CollapseBox), new PropertyMetadata(100d, PropertyChanged));
+            DependencyProperty.Register(nameof(ExpandedHeight), typeof(double), typeof(CollapseBox), new PropertyMetadata(default(double), PropertyChanged));
 
         public static readonly DependencyProperty ExpandOverContentProperty =
             DependencyProperty.Register(nameof(ExpandOverContent), typeof(bool), typeof(CollapseBox), new PropertyMetadata(false));
@@ -50,6 +52,16 @@ namespace UtilityWpf.Controls
 
         public CollapseBox() : base()
         {
+            this.WhenAnyValue(a => a.Content)
+                .WithLatestFrom(this.WhenAnyValue(a => a.ExpandedContent))
+                .Subscribe(a =>
+            {
+                if (a.Second == null && a.First != null)
+                {
+                    ExpandedContent = a.First;
+                    Content = DependencyProperty.UnsetValue;
+                }
+            });
             ShowContents();
         }
 
@@ -117,6 +129,10 @@ namespace UtilityWpf.Controls
             }
         }
 
+        /// <summary>
+        /// Expands the ExpandedContent such that it occupies all of the space of CollapsedContent
+        /// i.e only the ExpandedContent is visible when in the IsExpanded state.
+        /// </summary>
         public bool ExpandOverContent
         {
             get => (bool)GetValue(ExpandOverContentProperty);
@@ -198,7 +214,7 @@ namespace UtilityWpf.Controls
             if (_pathTransform != null)
                 _pathTransform.Angle = (expand ? -90 : 90) * (RevertTick ? -1 : 1);
             if (_collapsedContent != null)
-                _collapsedContent.Visibility = expand ? Visibility.Collapsed : Visibility.Visible;
+                _collapsedContent.Visibility = expand && ExpandOverContent == true ? Visibility.Collapsed : Visibility.Visible;
             if (_expandedContent != null)
                 _expandedContent.Visibility = expand ? Visibility.Visible : Visibility.Collapsed;
             Height = expand ? GetActualExpandedHeight() : CollapsedHeight;
@@ -206,7 +222,23 @@ namespace UtilityWpf.Controls
 
         private double GetActualExpandedHeight()
         {
-            return ExpandOverContent ? ExpandedHeight : (ExpandedHeight + CollapsedHeight);
+            return PreliminaryExpandedHeight() + (ExpandOverContent ? 0 : CollapsedHeight);
+
+            double PreliminaryExpandedHeight()
+            {
+                if (ExpandedHeight == default)
+                {
+                    var element = this.ExpandedContent switch
+                    {
+                        FrameworkElement elem => elem,
+                        _ => new ContentControl { Content = ExpandedContent }
+                    };
+                    element.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                    return element.DesiredSize.Height;
+                }
+                else
+                    return ExpandedHeight;
+            }
         }
     }
 }

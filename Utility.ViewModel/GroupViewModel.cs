@@ -11,10 +11,17 @@ namespace Utility.ViewModel;
 
 public class GroupViewModel : BaseReactiveDisposable
 {
+    private bool isSelected = false;
 
     public virtual int Count { get; }
 
     public virtual IEnumerable Collection { get; }
+
+    public bool IsSelected
+    {
+        get => isSelected;
+        set => this.RaiseAndSetIfChanged(ref isSelected, value);
+    }
 }
 
 public class GroupViewModel<T, TKey, TGroupKey> : GroupViewModel
@@ -30,14 +37,12 @@ public class GroupViewModel<T, TKey, TGroupKey> : GroupViewModel
              .Cache
              .Connect()
              .ToCollection()
-            .Subscribe(a =>
-            {
-                this.RaiseAndSetIfChanged(ref count, a.Count, nameof(Count));
-                this.RaiseAndSetIfChanged(ref collection, a, nameof(Collection));
-            },
-            e =>
-            {
-            })
+             .Subscribe(a =>
+             {
+                 this.RaiseAndSetIfChanged(ref count, a.Count, nameof(Count));
+                 this.RaiseAndSetIfChanged(ref collection, a, nameof(Collection));
+             },
+             e => { })
             .DisposeWith(CompositeDisposable);
     }
 

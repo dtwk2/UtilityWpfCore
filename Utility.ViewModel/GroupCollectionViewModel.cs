@@ -1,4 +1,5 @@
 ﻿using DynamicData;
+using ReactiveUI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -78,7 +79,17 @@ public class GroupCollectionViewModel<TGroupable, T, TKey, TGroupKey> : GroupCol
 
     public GroupCollectionViewModel(IObservable<IGroupChangeSet<TGroupable, TKey, TGroupKey>> changeSet)
     {
-        collection = GroupHelper.Convert<TGroupable, T, TKey, TGroupKey>(changeSet).ToCollection(out var disposable);
+        collection = GroupHelper.Convert<TGroupable, T, TKey, TGroupKey>(changeSet)
+            .OnItemAdded(addItem => addItem.WhenAnyValue(a => a.IsSelected)
+            .Where(a => a)
+            .Subscribe(a =>
+            {
+                foreach (var item in collection.ToArray())
+                {
+                    item.IsSelected = item == addItem;
+                }
+            }))
+            .ToCollection(out var disposable);
         CompositeDisposable.Add(disposable);
     }
 
