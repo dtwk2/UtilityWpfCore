@@ -8,9 +8,9 @@
              xmlns:view2="http://schemas.utility.com/master"          
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.DataContext>
-        <local11:PersistList2ViewModel />
-    </UserControl.DataContext>
+    <!--<UserControl.DataContext>
+       <local11:PersistList2ViewModel />
+    </UserControl.DataContext>-->
     <UserControl.Resources>
         <ResourceDictionary>
             <!--<Style x:Key="VerticalItemStyle" TargetType="{x:Type drag:DragablzItem}" BasedOn="{StaticResource DragablzItemStyle}">

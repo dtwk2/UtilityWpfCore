@@ -8,7 +8,7 @@
              xmlns:gu="http://gu.se/NumericInput"
              xmlns:pu="http://schemas.popup.com"
              xmlns:service1="clr-namespace:Suggest.FileSystem.Service;assembly=Suggest.FileSystem"
-             xmlns:infra="clr-namespace:Suggest.Infrastructure.ViewModel;assembly=Suggest.Infrastructure"
+             xmlns:infra="clr-namespace:Suggest.Infrastructure.ViewModel;assembly=Suggest.Infrastructure" xmlns:demo="clr-namespace:Utility.FileSystem.Transfer.Demo"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -25,21 +25,8 @@
                     </HeaderedContentControl.Header>
                     <HeaderedContentControl.Content>
                         <StackPanel>
-                            <sb:SuggestBox x:Name="SourceDirectoryPicker"
-                                          Grid.Row="1"
-                                      HorizontalAlignment="Stretch"
-                                      VerticalAlignment="Top"
-                                       SuggestSource="{Binding}"
-                                      Style="{StaticResource SuggestBoxStyle}"
-                                      ItemContainerStyle="{StaticResource ItemContainerStyle}"
-                                      Text="{Binding Path=Text, UpdateSourceTrigger=PropertyChanged}">
-                                <FrameworkElement.DataContext>
-                                    <service1:DirectoryAsyncSuggest/>
-                                </FrameworkElement.DataContext>
-                                <sb:SuggestBox.SelectedValuePath>
-                                    <pu:NameOf Type='{x:Type infra:BaseItem}' Member='Value' />
-                                </sb:SuggestBox.SelectedValuePath>
-                            </sb:SuggestBox>
+
+                            <demo:FileSelectorUserControl  Width="600"></demo:FileSelectorUserControl>
                             <gu:SpinnerDecorator  Width="50" VerticalAlignment="Bottom" HorizontalAlignment="Center">
                                 <gu:IntBox VerticalAlignment="Center"
                                            x:Name="NumberPicker"
@@ -62,23 +49,9 @@
                         <TextBlock>Destination</TextBlock>
                     </HeaderedContentControl.Header>
                     <HeaderedContentControl.Content>
-                        <Grid>
-                            <sb:SuggestBox x:Name="DestinationDirectoryPicker"
-                                                      Grid.Row="1"
-                                                      HorizontalAlignment="Stretch"
-                                                      VerticalAlignment="Top"
-                                                      SuggestSource="{Binding}"
-                                                      Style="{StaticResource SuggestBoxStyle}"
-                                                      ItemContainerStyle="{StaticResource ItemContainerStyle}"
-                                                      Text="{Binding Path=Text, UpdateSourceTrigger=PropertyChanged}">
-                                <FrameworkElement.DataContext>
-                                    <service1:DirectoryAsyncSuggest/>
-                                </FrameworkElement.DataContext>
-                                <sb:SuggestBox.SelectedValuePath>
-                                    <pu:NameOf Type='{x:Type infra:BaseItem}' Member='Value' />
-                                </sb:SuggestBox.SelectedValuePath>
-                            </sb:SuggestBox>
-                        </Grid>
+                   
+                            <demo:FileSelectorUserControl  Width="600"></demo:FileSelectorUserControl>
+                      
                     </HeaderedContentControl.Content>
                 </HeaderedContentControl>
             </UniformGrid>
