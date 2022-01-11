@@ -11,6 +11,21 @@ namespace UtilityWpf.Animation
 {
     public static class Helper
     {
+        public static IEnumerable<Point> ToPoints(this PathGeometry geometry)
+        {
+            var points = geometry
+               .Figures
+               .SelectMany(figure =>
+               new[] { figure.StartPoint }
+               .Concat(figure.Segments.OfType<LineSegment>().Select(segment => segment.Point))
+               .Concat(figure.Segments.OfType<PolyLineSegment>().SelectMany(segment => segment.Points))
+               )
+               .Distinct()
+               .ToArray();
+
+            return points;
+        }
+
         public static PathGeometry ToPathGeometry(this Point[] points)
         {
             return new PathGeometry
@@ -63,5 +78,4 @@ namespace UtilityWpf.Animation
             return replaySubject;
         }
     }
-
 }

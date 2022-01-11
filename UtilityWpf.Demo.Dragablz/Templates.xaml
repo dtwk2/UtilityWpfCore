@@ -1,30 +1,28 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:vm="clr-namespace:UtilityWpf.Demo.Common.ViewModel;assembly=UtilityWpf.Demo.Common" 
-                    xmlns:view="http://schemas.utility.com/dragablz" xmlns:utl="http://schemas.utility.com/utilitywpf">
+                    xmlns:view="http://schemas.utility.com/dragablz"
+                    xmlns:utl="http://schemas.utility.com/utilitywpf"
+                    xmlns:vm="clr-namespace:UtilityWpf.Demo.Common.ViewModel;assembly=UtilityWpf.Demo.Common">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/UtilityWpf.Demo.Common;component/View/Templates.xaml"/>
-        <utl:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzNoteStyle.xaml"/>
-        <utl:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzItemStyle.xaml"/>
+        <ResourceDictionary Source="/UtilityWpf.Demo.Common;component/View/Templates.xaml" />
+        <utl:SharedResourceDictionary Source="/UtilityWpf.Demo.Common;component/View/DragablzNoteStyle.xaml" />
+        <utl:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzItemStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    <DataTemplate DataType="{x:Type vm:NotesViewModel}">    
-        <view:DragablzVerticalItemsControl 
-                                                       ItemsSource="{Binding Collection}"                                                       
-                                                       VerticalAlignment="Center"                                                 
+    <DataTemplate DataType="{x:Type vm:NotesViewModel}">
+        <view:DragablzVerticalItemsControl
+                                                       ItemsSource="{Binding Collection}"
+                                                       VerticalAlignment="Center"
                                                        ItemContainerStyle="{StaticResource DragablzNoteStyle}">
         </view:DragablzVerticalItemsControl>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:RowBaseViewModel}">
 
-    <DataTemplate DataType="{x:Type vm:RowViewModel}">
-
-        <view:DragablzHorizontalItemsControl 
-                                                       ItemsSource="{Binding Data}"                                                       
-                                                       VerticalAlignment="Center"                                                 
+        <view:DragablzHorizontalItemsControl
+                                                       ItemsSource="{Binding Data}"
+                                                       VerticalAlignment="Center"
                                                        ItemContainerStyle="{StaticResource DragablzItemStyle2}"
                                                        ItemTemplate="{StaticResource Int32Template}">
         </view:DragablzHorizontalItemsControl>
-
     </DataTemplate>
-
 </ResourceDictionary>

@@ -13,7 +13,7 @@
                             <UniformGrid Rows="1">
                                 <controls:OpenFileControl x:Name="OpenFileControl1" />
                                 <Grid>
-                                    <ContentControl x:Name="ContentControl1"/>
+                                    <ContentControl x:Name="ContentControl1" />
                                 </Grid>
                             </UniformGrid>
                         </DockPanel>

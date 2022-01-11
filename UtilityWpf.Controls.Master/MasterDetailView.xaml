@@ -42,16 +42,16 @@
                             <CollectionViewSource x:Key="GroupedItems" Source="{Binding Items, RelativeSource={RelativeSource TemplatedParent}}" />
                             <utility:NullToBooleanConverter x:Key="ntobconverter" />
                         </FrameworkElement.Resources>
-                   
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="5" />
-                                <ColumnDefinition Width="5*" />
-                            </Grid.ColumnDefinitions>         
-                        
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="5*" />
+                        </Grid.ColumnDefinitions>
+
                         <ListBox
-                            DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}"                          
-                            ItemsSource="{Binding Source={StaticResource GroupedItems}}"                           
+                            DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                            ItemsSource="{Binding Source={StaticResource GroupedItems}}"
                             SelectedItem="{Binding Output, Mode=TwoWay}">
                             <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -80,16 +80,15 @@
                         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
                         <TextBlock
                             Grid.Column="2"
-                            x:Name="TextBlock1"                  
-                            FontSize="20"                               
+                            x:Name="TextBlock1"
+                            FontSize="20"
                             FontWeight="Bold"
                             Visibility="Collapsed"
-                            Style="{StaticResource FadeInOutTextBlock}"/>
-                        <ContentPresenter Grid.Column="2"/>
+                            Style="{StaticResource FadeInOutTextBlock}" />
+                        <ContentPresenter Grid.Column="2" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
 </ResourceDictionary>

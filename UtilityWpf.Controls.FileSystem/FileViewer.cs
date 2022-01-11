@@ -1,12 +1,12 @@
-﻿using System;
+﻿using MaterialDesignExtensions.Controls;
+using Microsoft.Xaml.Behaviors.Core;
+using ReactiveUI;
+using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using MaterialDesignExtensions.Controls;
-using Microsoft.Xaml.Behaviors.Core;
-using ReactiveUI;
 
 namespace UtilityWpf.Controls.FileSystem
 {
@@ -22,6 +22,7 @@ namespace UtilityWpf.Controls.FileSystem
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(FileViewer), new FrameworkPropertyMetadata(typeof(FileViewer)));
         }
+
         public FileViewer()
         {
         }
@@ -48,6 +49,7 @@ namespace UtilityWpf.Controls.FileSystem
         }
 
         #region properties
+
         public string Directory
         {
             get => (string)GetValue(DirectoryProperty);
@@ -59,6 +61,7 @@ namespace UtilityWpf.Controls.FileSystem
             get => (ICommand)GetValue(RefreshProperty);
             set => SetValue(RefreshProperty, value);
         }
+
         #endregion properties
 
         protected virtual void OpenFileControl_FileSelected(object sender, RoutedEventArgs e)

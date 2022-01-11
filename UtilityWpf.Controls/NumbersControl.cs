@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
-using UtilityWpf.Controls.Extrinsic;
 
 namespace UtilityWpf.Controls
 {
-
     public class NumberItem : ListBoxItem
     {
         static NumberItem()
@@ -22,7 +15,6 @@ namespace UtilityWpf.Controls
 
     public class NumbersControl : ListBox<NumberItem>
     {
-
         public static readonly DependencyProperty DisplayKeyPathProperty = DependencyProperty.Register("DisplayKeyPath", typeof(string), typeof(NumbersControl), new PropertyMetadata(null));
 
         static NumbersControl()
@@ -79,7 +71,6 @@ namespace UtilityWpf.Controls
 
             BindingOperations.SetBinding(numberBox, SpinnerControl.ValueProperty, CreateBinding(viewModel));
 
-
             Binding CreateBinding(object item)
             {
                 return new Binding
@@ -90,8 +81,6 @@ namespace UtilityWpf.Controls
                     UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
                 };
             }
-
         }
-
     }
 }

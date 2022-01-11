@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DynamicData.Binding;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,7 +8,6 @@ using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using DynamicData.Binding;
 using UtilityHelper;
 using UtilityHelper.NonGeneric;
 using UtilityHelperEx;

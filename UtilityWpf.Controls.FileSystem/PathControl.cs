@@ -1,6 +1,6 @@
-﻿using System.Windows;
+﻿using MaterialDesignThemes.Wpf;
+using System.Windows;
 using System.Windows.Controls;
-using MaterialDesignThemes.Wpf;
 
 namespace UtilityWpf.Controls.FileSystem
 {
@@ -25,6 +25,5 @@ namespace UtilityWpf.Controls.FileSystem
             get { return (string)GetValue(PathNameProperty); }
             set { SetValue(PathNameProperty, value); }
         }
-
     }
 }

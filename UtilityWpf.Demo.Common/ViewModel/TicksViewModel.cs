@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Endless;
+﻿using Endless;
 using Microsoft.Xaml.Behaviors.Core;
-using System.Windows.Input;
 using System.Collections.ObjectModel;
-using UtilityWpf.Demo.Common.Meta;
+using System.Linq;
+using System.Windows.Input;
 using UtilityHelperEx;
+using UtilityWpf.Demo.Common.Meta;
 
 namespace UtilityWpf.Demo.Common.ViewModel
 {
@@ -16,7 +12,7 @@ namespace UtilityWpf.Demo.Common.ViewModel
     {
         private ICommand changeCommand;
 
-        public string Header { get; } = "NotesViewModel";
+        public string Header { get; } = "Ticks_ViewModel";
 
         public ObservableCollection<TickViewModel> Collection { get; } = new ObservableCollection<TickViewModel>(Statics.Service<Factory>().Create<TickViewModel>(3).ToObservableCollection());
 

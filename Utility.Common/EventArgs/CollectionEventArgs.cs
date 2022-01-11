@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Utility.Common.Enum;
 
@@ -52,9 +51,9 @@ namespace Utility.Common.EventArgs
             Index = index;
             OldIndex = oldIndex;
         }
+
         public int Index { get; set; }
         public int OldIndex { get; }
         public object Object { get; }
     }
-
 }

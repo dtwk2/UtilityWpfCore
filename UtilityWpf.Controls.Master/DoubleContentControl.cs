@@ -1,23 +1,29 @@
-﻿
+﻿using Evan.Wpf;
+using PropertyTools.Wpf;
 using System;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
-using Evan.Wpf;
-using ReactiveUI;
 using UtilityWpf.Mixins;
-using System.Reactive.Subjects;
-using PropertyTools.Wpf;
 
 namespace UtilityWpf.Controls.Master
 {
     public class DoubleContentControl : ContentControlx
     {
+        public static readonly DependencyProperty PositionProperty = DependencyHelper.Register<Dock>(new PropertyMetadata(Dock.Bottom, Changed));
+        private ReplaySubject<Dock> dockSubject = new(1);
 
-        public static readonly DependencyProperty PositionProperty = DependencyHelper.Register<Dock>(new PropertyMetadata(Dock.Bottom));
+        private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (e.NewValue is Dock dock)
+                d.Dispatcher.InvokeAsync(() => (d as DoubleContentControl).dockSubject.OnNext(dock));
+        }
+
         protected readonly ReplaySubject<WrapPanel> wrapPanelSubject = new(1);
         protected readonly ReplaySubject<DockPanelSplitter> dockPanelSplitterSubject = new(1);
+        public static readonly DependencyProperty OrientationProperty = DependencyHelper.Register<Orientation>();
 
         static DoubleContentControl()
         {
@@ -28,12 +34,13 @@ namespace UtilityWpf.Controls.Master
         {
             this.Control<WrapPanel>().Subscribe(wrapPanelSubject);
 
-            wrapPanelSubject.Subscribe(a =>
+            wrapPanelSubject.Take(1).CombineLatest(this.Observable<Orientation>().DistinctUntilChanged())
+                .Subscribe(a =>
             {
-
+                a.First.Orientation = a.Second;
             });
 
-            this.WhenAnyValue(a => a.Position)
+            dockSubject
                 .CombineLatest(wrapPanelSubject, dockPanelSplitterSubject)
                 .Where(a => a.Second != null /*&& a.Third != null*/)
                 .Subscribe(c =>
@@ -65,13 +72,17 @@ namespace UtilityWpf.Controls.Master
 
         #region properties
 
-
         public Dock Position
         {
             get { return (Dock)GetValue(PositionProperty); }
             set { SetValue(PositionProperty, value); }
         }
 
+        public Orientation Orientation
+        {
+            get { return (Orientation)GetValue(OrientationProperty); }
+            set { SetValue(OrientationProperty, value); }
+        }
 
         #endregion properties
 
@@ -89,9 +100,7 @@ namespace UtilityWpf.Controls.Master
             wrapPanelSubject.OnNext(wrapPanel);
             dockPanelSplitterSubject.OnNext(dockPanelSplitter);
 
-
             base.OnApplyTemplate();
         }
     }
 }
-

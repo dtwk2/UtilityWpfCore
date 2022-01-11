@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Dragablz;
+using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
-using Dragablz;
 using Utility.Common;
 using UtilityHelper;
 using UtilityWpf.Attached;
@@ -47,7 +47,6 @@ namespace UtilityWpf.Controls.Dragablz
                 return;
             _ = control.ApplyTemplate();
 
-
             CreateAndSetTextBinding();
             CreateAndSetCommandBinding();
             CreateAndSetIsCheckedBinding();
@@ -81,19 +80,38 @@ namespace UtilityWpf.Controls.Dragablz
             void CreateAndSetIsCheckedBinding()
             {
                 if (string.IsNullOrEmpty(IsCheckedPath) == false)
+                {
                     BindingOperations.SetBinding(element, Attached.Ex.StateProperty, CreateBinding());
+                    BindingOperations.SetBinding(element, Attached.Ex.IsCheckedProperty, CreateBinding2());
+                }
 
                 Binding CreateBinding()
-                {     
+                {
+                    var prop = item.GetType().GetProperty(IsCheckedPath);
+                    var isReadOnly = prop.IsReadOnly() || prop.IsInitOnly() || prop.GetSetMethod() == null;
+                    Binding binding = new Binding
+                    {
+                        Source = item,
+                        Path = new PropertyPath(IsCheckedPath),
+                        Mode = isReadOnly ? BindingMode.OneWay : BindingMode.TwoWay,
+                        Converter = new ValueConverter(),
+                        ConverterParameter = IsCheckedPathProperty,
+                        UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+                    };
+                    return binding;
+                }
+
+                Binding CreateBinding2()
+                {
+                    var prop = item.GetType().GetProperty(IsCheckedPath);
                     Binding binding = new Binding
                     {
                         Source = item,
                         Path = new PropertyPath(IsCheckedPath),
                         Mode = BindingMode.OneWay,
-                        Converter = new ValueConverter(),
-                        ConverterParameter = IsCheckedPathProperty,
                         UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
                     };
+
                     return binding;
                 }
             }
@@ -102,7 +120,7 @@ namespace UtilityWpf.Controls.Dragablz
             void CreateAndSetRefreshableBinding()
             {
                 if (string.IsNullOrEmpty(IsRefreshablePath) == false)
-                    BindingOperations.SetBinding(element, Attached.Ex.StateProperty, CreateBinding());
+                    BindingOperations.SetBinding(element, Ex.StateProperty, CreateBinding());
 
                 Binding CreateBinding()
                 {
@@ -121,12 +139,10 @@ namespace UtilityWpf.Controls.Dragablz
 
             void CreateAndSetCommandBinding()
             {
-                if (element.ChildOfInterface<ICommandSource>() is not DependencyObject button || string.IsNullOrEmpty(CommandPath))
+                if (element.ChildOfInterface<ICommandSource>() is not DependencyObject dependencyObjec || string.IsNullOrEmpty(CommandPath))
                     return;
 
-                //if (element.ChildOfType<Button>() is not DependencyObject button || string.IsNullOrEmpty(CommandPath))
-                //    return;
-                BindingOperations.SetBinding(button, ButtonBase.CommandProperty, CreateCommandBinding(item));
+                BindingOperations.SetBinding(dependencyObjec, ButtonBase.CommandProperty, CreateCommandBinding(item));
 
                 Binding? CreateCommandBinding(object item)
                 {
@@ -157,8 +173,7 @@ namespace UtilityWpf.Controls.Dragablz
         }
     }
 
-
-    class ValueConverter : IValueConverter
+    internal class ValueConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -177,7 +192,6 @@ namespace UtilityWpf.Controls.Dragablz
             }
 
             throw new ArgumentOutOfRangeException("Expected boolean type.sdfsdf");
-
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

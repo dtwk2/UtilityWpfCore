@@ -11,7 +11,6 @@ namespace UtilityWpf.Converter
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-
             if (Enum == null)
             {
                 throw new NullReferenceException(nameof(StringToEnumConverter));
@@ -27,7 +26,6 @@ namespace UtilityWpf.Converter
             }
             catch
             {
-
             }
             var xx = output != null ? System.Enum.Parse(Enum, output) : DependencyProperty.UnsetValue;
 

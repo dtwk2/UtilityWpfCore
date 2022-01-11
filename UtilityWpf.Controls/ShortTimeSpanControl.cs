@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Evan.Wpf;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using Evan.Wpf;
 
 namespace UtilityWpf.Controls
 {
@@ -52,10 +52,10 @@ namespace UtilityWpf.Controls
             set { SetValue(ValueProperty, value); }
         }
 
-
         #endregion properties
 
         #region events
+
         public event RoutedPropertyChangedEventHandler<TimeSpan> ValueChanged
         {
             add { AddHandler(ValueChangedEvent, value); }
@@ -79,12 +79,12 @@ namespace UtilityWpf.Controls
             add { AddHandler(SecondsChangedEvent, value); }
             remove { RemoveHandler(SecondsChangedEvent, value); }
         }
+
         #endregion events
 
         private static void OnHoursChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
         {
             TimeComponentChanged(d, args, (control, newValue) => new TimeSpan(newValue, control.Value.Minutes, control.Value.Seconds), HoursChangedEvent);
-
         }
 
         private static void OnMinutesChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
@@ -112,7 +112,6 @@ namespace UtilityWpf.Controls
 
             control.RaiseEvent(new RoutedPropertyChangedEventArgs<int>(oldValue, newValue, routedEvent));
         }
-
 
         private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
         {

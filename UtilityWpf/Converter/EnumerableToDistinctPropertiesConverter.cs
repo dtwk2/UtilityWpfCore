@@ -11,8 +11,6 @@ namespace UtilityWpf.Converter
     [ValueConversion(typeof(IEnumerable), typeof(IEnumerable))]
     public class EnumerableToDistinctPropertiesConverter : IValueConverter
     {
-        #region IValueConverter Members
-
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             if (value != null)
@@ -31,7 +29,5 @@ namespace UtilityWpf.Converter
         {
             throw new NotSupportedException();
         }
-
-        #endregion IValueConverter Members
     }
 }

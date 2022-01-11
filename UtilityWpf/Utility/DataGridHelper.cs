@@ -10,8 +10,6 @@ namespace UtilityWpf.Utility
     {
         public static System.Drawing.Point? GetTableIndices(System.Windows.DependencyObject dep)
         {
-
-
             while (dep != null && !(dep is DataGridCell) && !(dep is DataGridColumnHeader))
             {
                 dep = VisualTreeHelper.GetParent(dep);
@@ -52,7 +50,6 @@ namespace UtilityWpf.Utility
             }
 
             return null;
-
         }
 
         /// <summary>

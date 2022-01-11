@@ -7,8 +7,8 @@ namespace UtilityWpf.Controls
 {
     public class TypeControl : HeaderedContentControl
     {
-
         public delegate void ChangedEventHandler(object sender, ChangedEventArgs e);
+
         public class ChangedEventArgs : RoutedEventArgs
         {
             public ChangedEventArgs(Type type, string property, string? value)
@@ -38,7 +38,6 @@ namespace UtilityWpf.Controls
         }
 
         private ComboBox comboBox;
-        private Button buttonFilter;
         private Button buttonClear;
         private TextBox? textBox;
         public static readonly DependencyProperty ShowValueProperty = DependencyProperty.Register("ShowValue", typeof(bool), typeof(TypeControl), new PropertyMetadata(true));
@@ -99,11 +98,10 @@ namespace UtilityWpf.Controls
             if (ShowValue == false)
                 textBox.Visibility = Visibility.Collapsed;
             textBox.SelectionChanged += (a, e) => { Value = textBox.Text; RaiseChangedEvent(); };
-            comboBox.SelectionChanged += (a, e) => Property = e.AddedItems.Cast<string>().First();
+            comboBox.SelectionChanged += (a, e) => { Property = e.AddedItems.Cast<string>().First(); RaiseChangedEvent(); };
             //buttonFilter.Click += ButtonFilter_Click;
             buttonClear.Click += ButtonClear_Click;
             comboBox.ItemsSource = Type.GetProperties().Select(a => a.Name);
-
         }
 
         private void ButtonClear_Click(object sender, RoutedEventArgs e)

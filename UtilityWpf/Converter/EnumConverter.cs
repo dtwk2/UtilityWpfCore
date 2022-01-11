@@ -5,15 +5,13 @@ using System.Windows.Data;
 
 namespace UtilityWpf.Converter
 {
-    //[ValueConversion(typeof(System.Drawing.Color), typeof(Color))]
     public class EnumConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-           
             try
             {
-                if(targetType.FullName=="System.Type")
+                if (targetType.FullName == "System.Type")
                 {
                     return Enum.Parse(value.GetType(), value?.ToString() ?? throw new NullReferenceException("value is null"));
                 }
@@ -24,6 +22,7 @@ namespace UtilityWpf.Converter
                 return DependencyProperty.UnsetValue;
             }
         }
+
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();

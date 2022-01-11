@@ -7,10 +7,8 @@ using UtilityWpf.Mixins;
 
 namespace UtilityWpf
 {
-
     public class DependencyPropertyFactory<TControl> where TControl : DependencyObject
     {
-
         public static DependencyProperty Register<TProperty>(string? name = null, TProperty? initialValue = default, CoerceValueCallback? callBack = null)
         {
             return DependencyProperty.Register(name ??= GetName(typeof(TProperty), name), typeof(TProperty), typeof(TControl), GetPropertyMetadata(name, initialValue, callBack));
@@ -22,6 +20,7 @@ namespace UtilityWpf
                       new PropertyMetadata(initialValue, (a, b) => { }, coerceValueCallback: callBack);
             }
         }
+
         public static DependencyProperty Register(string name, CoerceValueCallback? callBack = null)
         {
             return DependencyProperty.Register(name, GetProperty(name).PropertyType, typeof(TControl), GetPropertyMetadata(name, callBack));
@@ -46,12 +45,12 @@ namespace UtilityWpf
             }
         }
 
-        static string GetName(Type propertyType, string? name = null)
+        private static string GetName(Type propertyType, string? name = null)
         {
             return name ?? GetProperty(propertyType).Name;
         }
 
-        static PropertyInfo GetProperty(Type propertyType)
+        private static PropertyInfo GetProperty(Type propertyType)
         {
             var props = typeof(TControl).GetProperties(BindingFlags.Instance | BindingFlags.Public)
                                                  .Where(a => a != null)
@@ -69,7 +68,7 @@ namespace UtilityWpf
             return props.Single();
         }
 
-        static PropertyInfo GetProperty(string name)
+        private static PropertyInfo GetProperty(string name)
         {
             var props = typeof(TControl).GetProperties(BindingFlags.Instance | BindingFlags.Public)
                                         .Where(a => a != null)
@@ -91,7 +90,7 @@ namespace UtilityWpf
             DependencyProperty.Register(name, typeof(TProperty), typeof(TControl), MetaDataFactory<TControl>.Create(observer, initialValue));
     }
 
-    class MetaDataFactory<TControl> where TControl : DependencyObject
+    internal class MetaDataFactory<TControl> where TControl : DependencyObject
     {
         public static PropertyMetadata Create<TProperty>(string? name = null, TProperty? initialValue = default, CoerceValueCallback? callBack = null) =>
          typeof(TControl).IsCastableTo(typeof(IPropertyListener)) ?
@@ -101,15 +100,14 @@ namespace UtilityWpf
         public static PropertyMetadata Create<TProperty>(Func<TControl, IObserver<TProperty>> observer, TProperty? value = default, CoerceValueCallback? callBack = null) =>
             new(value, PropertyChangedCallbackFactory.Create(observer!, value), callBack);
 
-        class PropertyChangedCallbackFactory
+        private class PropertyChangedCallbackFactory
         {
             public static PropertyChangedCallback Create<T>(Func<TControl, IObserver<T>> observer, T initialValue) =>
 new((d, e) => new DependencyPropertyChangedObserver<TControl, T>(observer, initialValue).OnNext(d, e));
         }
     }
 
-
-    class DependencyPropertyChangedObserver<TControl, T> where TControl : DependencyObject
+    internal class DependencyPropertyChangedObserver<TControl, T> where TControl : DependencyObject
     {
         private readonly Func<TControl, IObserver<T>> observer;
 
@@ -120,8 +118,6 @@ new((d, e) => new DependencyPropertyChangedObserver<TControl, T>(observer, initi
 
         public void OnNext(DependencyObject d, DependencyPropertyChangedEventArgs e) => observer(d as TControl).OnNext((T)e.NewValue);
     }
-
-
 
     public static class DependencyObjectHelper
     {

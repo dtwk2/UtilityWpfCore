@@ -7,12 +7,10 @@ using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
 
-
 namespace UtilityWpf.Animation
 {
     public class FlashThumb : Thumb
     {
-
         private Storyboard storyBoard;
         private Grid grid;
 
@@ -27,7 +25,6 @@ namespace UtilityWpf.Animation
 
         public static readonly DependencyProperty RepeatProperty =
            DependencyProperty.Register("Repeat", typeof(bool), typeof(FlashThumb), new PropertyMetadata(true, RepeatChanged));
-
 
         static FlashThumb()
         {
@@ -58,7 +55,6 @@ namespace UtilityWpf.Animation
             set { SetValue(DurationProperty, value); }
         }
 
-
         private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             Duration duration;
@@ -80,15 +76,14 @@ namespace UtilityWpf.Animation
                 clone.Duration = duration;
                 foreach (var child in clone.Children)
                 {
-
                     child.Duration = flashView.Duration;
                 }
                 clone.Begin(flashView.grid);
             }));
         }
+
         private static void RepeatChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-
             if (!(d is FlashThumb flashView && e.NewValue is bool newValue))
                 return;
 
@@ -103,12 +98,10 @@ namespace UtilityWpf.Animation
 
         public FlashThumb()
         {
-
             Flash = ReactiveCommand.Create(() =>
             {
                 Repeat = false;
             });
-
 
             Loaded += FlashView_Loaded;
         }
@@ -126,7 +119,5 @@ namespace UtilityWpf.Animation
         {
             storyBoard.Begin(grid);
         }
-
-
     }
 }

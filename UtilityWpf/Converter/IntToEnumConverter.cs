@@ -26,7 +26,6 @@ namespace UtilityWpf.Converter
             }
             catch
             {
-
             }
             var xx = output.HasValue ?
                 System.Enum.ToObject(Enum, output.Value) :

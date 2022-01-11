@@ -7,7 +7,7 @@ namespace UtilityWpf.Converter
 {
     public class ActualWidthConverter : IMultiValueConverter
     {
-        const int ScrollBarWidth = 25;
+        private const int ScrollBarWidth = 25;
 
         public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

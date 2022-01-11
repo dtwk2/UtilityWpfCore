@@ -1,29 +1,24 @@
-﻿using System;
-using System.Collections;
+﻿using NetFabric.Hyperlinq;
+using Soukoku.ExpressionParser;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using CsvHelper;
-using NetFabric.Hyperlinq;
-using Soukoku.ExpressionParser;
 using UtilityHelper;
 using UtilityHelper.NonGeneric;
-using UtilityWpf.Abstract;
 
 namespace UtilityWpf
 {
     [ValueConversion(typeof(object), typeof(bool))]
     public class CountToBooleanConverter : IValueConverter
     {
-        #region IValueConverter Members
-
-        Lazy<Evaluator> lazy = new(() =>
-        {
-            var evaluator = new Evaluator(new EvaluationContext());
-            return evaluator;
-        });
+        private Lazy<Evaluator> lazy = new(() =>
+         {
+             var evaluator = new Evaluator(new EvaluationContext());
+             return evaluator;
+         });
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
@@ -35,10 +30,9 @@ namespace UtilityWpf
                     return (i >= param) != Invert;
             }
 
-            if (ExpressionCharacters(parameter.ToString()?? string.Empty).Any())
+            if (ExpressionCharacters(parameter.ToString() ?? string.Empty).Any())
                 if (GetInt(value) is int i2)
                     return (int.Parse(evaluator.Evaluate($"{i2}{parameter}").Value) == 1) != Invert;
-
 
             return DependencyProperty.UnsetValue;
 
@@ -54,7 +48,7 @@ namespace UtilityWpf
                     {
                         return ic.ItemsSource?.Count();
                     }
-                    var itemsControl = VisualTreeHelperEx.ChildOfType<ItemsControl>(ui);
+                    var itemsControl = VisualTreeExHelper.ChildOfType<ItemsControl>(ui);
                     return itemsControl?.ItemsSource?.Count();
                 }
                 if (value.ToString() is string str)
@@ -63,8 +57,6 @@ namespace UtilityWpf
 
                 return null;
             }
-
-
 
             static IEnumerable<char> ExpressionCharacters(string value)
             {
@@ -75,7 +67,7 @@ namespace UtilityWpf
             }
         }
 
-        static char[] expressionCharacters = new char[] {
+        private static char[] expressionCharacters = new char[] {
                     '+', //addition,
                     '-', //subtraction / negative,
                     '*', //multiplication,
@@ -103,7 +95,5 @@ namespace UtilityWpf
         }
 
         public bool Invert { get; set; }
-
-        #endregion IValueConverter Members
     }
 }

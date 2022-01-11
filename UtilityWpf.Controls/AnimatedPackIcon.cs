@@ -1,20 +1,20 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
-using MaterialDesignThemes.Wpf;
 
 namespace UtilityWpf.Controls
 {
     public class AnimatedPackIcon : ContentControl
     {
-        bool flag = false;
+        private bool flag = false;
         private readonly Storyboard storyboardOld = new();
         private readonly Storyboard storyboardNew = new();
-        readonly ReplaySubject<Unit> completions = new();
+        private readonly ReplaySubject<Unit> completions = new();
 
         public static readonly DependencyProperty AnimationTimeProperty = DependencyProperty.Register("AnimationTime", typeof(int), typeof(AnimatedPackIcon), new PropertyMetadata(3000));
         public static readonly DependencyProperty KindProperty = DependencyProperty.Register("Kind", typeof(PackIconKind), typeof(AnimatedPackIcon), new PropertyMetadata(PackIconKind.None, Changed));
@@ -48,7 +48,6 @@ namespace UtilityWpf.Controls
                             Kind = Kind,
                         };
                         StartStory(this.Content as UIElement, storyboardNew, true, (int)(AnimationTime / 2d));
-
                     }
                     flag = false;
                 });
@@ -57,7 +56,6 @@ namespace UtilityWpf.Controls
                 .SelectCompletions()
                 .Select(a => Unit.Default)
                 .Subscribe(completions.OnNext);
-
         }
 
         public int AnimationTime
@@ -76,7 +74,6 @@ namespace UtilityWpf.Controls
         {
             base.OnApplyTemplate();
         }
-
 
         public void StartStories(PackIconKind oldElement, PackIconKind newElement)
         {

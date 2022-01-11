@@ -1,12 +1,12 @@
 ﻿namespace UtilityWpf.Behavior
 {
+    using Microsoft.Xaml.Behaviors;
     using System;
     using System.Collections.Specialized;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;
     using System.Windows.Media.Animation;
-    using Microsoft.Xaml.Behaviors;
 
     /// <summary>
     /// Uses ItemsControl's internal scrollviewer to move last item into view when items collection modified.

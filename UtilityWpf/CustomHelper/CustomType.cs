@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace CustomHelper
 {
-    partial class CustomTypeHelper<T>
+    public partial class CustomTypeHelper<T>
     {
         internal class CustomType : Type
         {

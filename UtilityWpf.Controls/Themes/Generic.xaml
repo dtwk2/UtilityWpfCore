@@ -2,8 +2,8 @@
                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                              xmlns:local="clr-namespace:UtilityWpf.Controls"
-                             xmlns:converter="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"                      
-                             Type="{x:Type local:ObjectControl}">
+                             xmlns:converter="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"
+                             Type="{x:Type local:CollapseBox}">
 
     <converter:DescriptionConverter x:Key="DescriptionConverter" />
     <converter:DefaultConverter x:Key="DefaultConverter" />
@@ -20,9 +20,11 @@
                         <ContentControl
                             Grid.Row="0"
                             Content="{TemplateBinding Header}"
+                            ContentTemplate="{TemplateBinding HeaderTemplate}"
+                            ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                             FontSize="16"
                             FontWeight="DemiBold" />
-                        <ContentControl Grid.Row="1" Content="{TemplateBinding Content}" />
+                        <ContentPresenter  Grid.Row="1" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -41,8 +43,10 @@
 
     <ResourceDictionary.MergedDictionaries>
         <!-- The below use AncestorType-RelativeSource bindings, so can't be auto-loaded -->
-        <ResourceDictionary Source="/UtilityWpf.Controls;component/Object/ObjectControl.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/RangeSlider.xaml" />
         <ResourceDictionary Source="/UtilityWpf.Controls;component/SliderItemsControl.xaml" />
+
+        <!--Styles-->
+        <!--<ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/ToggleButton.xaml" />-->
     </ResourceDictionary.MergedDictionaries>
 </utl:AutoResourceDictionary>

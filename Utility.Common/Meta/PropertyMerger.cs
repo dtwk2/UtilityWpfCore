@@ -1,18 +1,16 @@
 ﻿using AutoMapper;
-using Splat;
-using System.Collections.Generic;
-using System;
 using Fasterflect;
-using System.Linq;
-using Microsoft.VisualBasic.CompilerServices;
 using KellermanSoftware.CompareNetObjects;
-using System.ComponentModel;
+using Splat;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace UtilityWpf.Service
 {
     public class PropertyMerger<TChange> : IEnableLogger
     {
-        class AutoMapperFactory
+        private class AutoMapperFactory
         {
             public static IMapper Create()
             {
@@ -22,6 +20,7 @@ namespace UtilityWpf.Service
                 }).CreateMapper();
             }
         }
+
         private readonly Dictionary<string, Dictionary<string, (Type type, MemberSetter setter)>> properties = new();
         private readonly ObjectsComparer.Comparer<TChange> comparer = new();
         private readonly Lazy<IMapper> mapper = new(() => AutoMapperFactory.Create());
@@ -95,13 +94,12 @@ namespace UtilityWpf.Service
                     }
         }
 
-
         public static PropertyMerger<TChange> Instance { get; } = new PropertyMerger<TChange>();
     }
 
     public class PropertyMerger : IEnableLogger
     {
-        class AutoMapperFactory
+        private class AutoMapperFactory
         {
             public static IMapper Create()
             {
@@ -111,6 +109,7 @@ namespace UtilityWpf.Service
                 }).CreateMapper();
             }
         }
+
         private readonly Dictionary<string, Dictionary<string, (Type type, MemberSetter setter)>> properties = new();
         private readonly CompareLogic comparer = new();
         private readonly Lazy<IMapper> mapper = new(() => AutoMapperFactory.Create());
@@ -187,7 +186,6 @@ namespace UtilityWpf.Service
                     //(currentValue as ReactiveObject)?.RaisePropertyChanged(difference.PropertyName);
                 }
         }
-
 
         public static PropertyMerger Instance { get; } = new PropertyMerger();
     }

@@ -6,7 +6,6 @@ using System.Windows.Media;
 
 namespace UtilityWpf.Converter
 {
-
     [ValueConversion(typeof(System.Drawing.Color), typeof(Color))]
     public class ColorConverter : IValueConverter
     {
@@ -17,8 +16,9 @@ namespace UtilityWpf.Converter
                  parameter is System.Windows.Media.Color defaultColour ?
                  defaultColour :
                  DependencyProperty.UnsetValue;
-            return val;
+            return targetType == typeof(Brush) && val is Color col ? new SolidColorBrush(col) : val;
         }
+
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();

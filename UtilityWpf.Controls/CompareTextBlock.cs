@@ -17,7 +17,7 @@ namespace UtilityWpf.Controls
         {
             HighlightForeground = Brushes.Black;
             HighlightBackground = Brushes.Transparent;
-          
+
             HighlightBackground3 = Brushes.Yellow;
         }
 
@@ -47,7 +47,6 @@ namespace UtilityWpf.Controls
         private static readonly DependencyPropertyKey Other2CountPropertyKey = DependencyProperty.RegisterReadOnly("Other2Count", typeof(int), typeof(CompareTextBlock), new PropertyMetadata(0));
         public static readonly DependencyProperty Other2CountProperty = Other2CountPropertyKey.DependencyProperty;
 
-
         public static readonly DependencyProperty CompareTextProperty = DependencyProperty.Register("CompareText", typeof(string), typeof(CompareTextBlock), new PropertyMetadata(string.Empty, OnCompareTextPropertyChanged));
         public static readonly DependencyProperty TextProperty = TextBlock.TextProperty.AddOwner(typeof(CompareTextBlock), new PropertyMetadata(string.Empty, OnTextPropertyChanged));
         public static readonly DependencyProperty TextWrappingProperty = TextBlock.TextWrappingProperty.AddOwner(typeof(CompareTextBlock), new PropertyMetadata(TextWrapping.NoWrap));
@@ -71,6 +70,7 @@ namespace UtilityWpf.Controls
         }
 
         #region properties
+
         public int AdditionsCount
         {
             get => (int)GetValue(AdditionsCountProperty);
@@ -162,7 +162,9 @@ namespace UtilityWpf.Controls
             var textblock = (CompareTextBlock)d;
             textblock.ProcessTextChanged(e.NewValue as string, textblock.CompareText);
         }
-        CancellationTokenSource tokenSource = new();
+
+        private CancellationTokenSource tokenSource = new();
+
         private async void ProcessTextChanged(string mainText, string compareText)
         {
             int count = 0;
@@ -173,7 +175,6 @@ namespace UtilityWpf.Controls
                 tokenSource.Cancel(false);
             else
             {
-
             }
             tokenSource = new();
             Task<IReadOnlyCollection<TextGroup>> task = Task.Run(async () =>
@@ -194,7 +195,6 @@ namespace UtilityWpf.Controls
             }
             SetValue(AdditionsCountPropertyKey, count);
         }
-
 
         private (Brush foreground, Brush background) GetGrounds(short diff)
         {
@@ -221,7 +221,6 @@ namespace UtilityWpf.Controls
             SetValue(AdditionsCountPropertyKey, 0);
         }
 
-
         public override void OnApplyTemplate()
         {
             compareTextBlock = GetTemplateChild(CompareTextblockName) as TextBlock;
@@ -229,7 +228,6 @@ namespace UtilityWpf.Controls
                 return;
             ProcessTextChanged(Text, CompareText);
         }
-
 
         protected virtual IReadOnlyCollection<TextGroup> Compare(string mainText, string compareText)
         {
@@ -251,9 +249,7 @@ namespace UtilityWpf.Controls
         public short Difference { get; }
     }
 
-
-
-    class DiffComparer
+    internal class DiffComparer
     {
         public static IEnumerable<TextGroup> CompareText(string mainText, string CompareText)
         {
@@ -280,9 +276,7 @@ namespace UtilityWpf.Controls
         }
     }
 
-
-
-    class LookUpComparer
+    internal class LookUpComparer
     {
         public static IEnumerable<TextGroup> CompareText(string mainText, string CompareText)
         {
@@ -302,7 +296,7 @@ namespace UtilityWpf.Controls
             }
         }
 
-        static TextGroup GetTextGroup(string mainText, ref int find, int searchTextLength, int oldFind)
+        private static TextGroup GetTextGroup(string mainText, ref int find, int searchTextLength, int oldFind)
         {
             if (find == -1)
             {

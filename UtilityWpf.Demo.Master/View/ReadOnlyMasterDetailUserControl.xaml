@@ -1,78 +1,77 @@
 ﻿<UserControl x:Class="UtilityWpf.Demo.Master.Infrastructure.ReadOnlyMasterDetailUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:drag="http://dragablz.net/winfx/xaml/dragablz"
              xmlns:util="http://schemas.utility.com/utilitywpf"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:view="http://schemas.utility.com/master"
              xmlns:local11="clr-namespace:UtilityWpf.Demo.Master.Infrastructure"
              xmlns:view1="http://schemas.utility.com/dragablz"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
         <local11:ReadOnlyMasterDetailViewModel />
     </UserControl.DataContext>
     <UserControl.Resources>
-        
+
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!--<ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DualButtonControl.xaml"/>-->
+                <!--<ResourceDictionary Source="/UtilityWpf.Controls;component/Themes/DualButtonControl.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
-            
+
             <Style x:Key="VerticalItemStyle" TargetType="{x:Type drag:DragablzItem}" BasedOn="{StaticResource DragablzItemStyle}">
                 <Setter Property="Margin" Value="10"></Setter>
                 <Setter Property="Padding" Value="5"></Setter>
             </Style>
             <!--<x:Type Type="{x:Type service:LiteDbRepository}" x:Key="LiteDbRepo"></x:Type>
-            <x:Type Type="{x:Type local11:DatabaseService}" x:Key="DatabaseService"></x:Type>-->
-     
+                 <x:Type Type="{x:Type local11:DatabaseService}" x:Key="DatabaseService"></x:Type>-->
         </ResourceDictionary>
     </UserControl.Resources>
     <DockPanel>
-        <!--<view:DualButtonControl Main="{Binding Path=Name, Source={StaticResource DatabaseService}}" 
-                                Alternate="{Binding Path=Name, Source={StaticResource LiteDbRepo}}" 
-                                Style="{StaticResource OutlinedDualButtonControl}" 
-                                ButtonWidth="130">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="ButtonToggle" >
-                    <i:InvokeCommandAction Command="{Binding ChangeRepositoryCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </view:DualButtonControl>-->
+        <!--<view:DualButtonControl Main="{Binding Path=Name, Source={StaticResource DatabaseService}}"
+             Alternate="{Binding Path=Name, Source={StaticResource LiteDbRepo}}"
+             Style="{StaticResource OutlinedDualButtonControl}"
+             ButtonWidth="130">
+             <i:Interaction.Triggers>
+             <i:EventTrigger EventName="ButtonToggle">
+             <i:InvokeCommandAction Command="{Binding ChangeRepositoryCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
+             </i:EventTrigger>
+             </i:Interaction.Triggers>
+             </view:DualButtonControl>-->
 
         <ToggleButton x:Name="ToggleButton" Style="{DynamicResource MaterialDesignActionLightToggleButton}" Width="200"  DockPanel.Dock="Top" Content="Repository Service">
             <i:Interaction.Triggers>
-                <i:EventTrigger EventName="Checked" >
-                    <i:InvokeCommandAction Command="{Binding ChangeRepositoryCommand}" 
-                                           PassEventArgsToCommand="True" 
+                <i:EventTrigger EventName="Checked">
+                    <i:InvokeCommandAction Command="{Binding ChangeRepositoryCommand}"
+                                           PassEventArgsToCommand="True"
                                            CommandParameter="{Binding ElementName=ToggleButton, Path=IsChecked}" ></i:InvokeCommandAction>
                 </i:EventTrigger>
-                <i:EventTrigger EventName="Unchecked" >
-                    <i:InvokeCommandAction Command="{Binding ChangeRepositoryCommand}" 
-                                           PassEventArgsToCommand="True" 
+                <i:EventTrigger EventName="Unchecked">
+                    <i:InvokeCommandAction Command="{Binding ChangeRepositoryCommand}"
+                                           PassEventArgsToCommand="True"
                                            CommandParameter="{Binding ElementName=ToggleButton, Path=IsChecked}" ></i:InvokeCommandAction>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ToggleButton>
-        
+
         <TabControl>
             <TabItem Header="With Detail">
                 <view:ReadOnlyMasterDetail>
                     <view:ReadOnlyMasterDetail.Selector>
                         <view:MasterControl
-                            Change="{util:EventBinding ChangeCommand}"  
-                            ItemsSource="{Binding Data, Mode=OneTime}" 
+                            Change="{util:Command ChangeCommand, ConversionType=Default}"
+                            ItemsSource="{Binding Data, Mode=OneTime}"
                             CommandParameter="{Binding NewItem}"
                             RemoveOrder="Last"
-                            ButtonTypes="Add,Remove" 
+                            ButtonTypes="Add,Remove"
                             Position="Top">
                             <view:MasterControl.Background>
-                                <VisualBrush   
-                                                TileMode="Tile" Viewport="0,0,10,10" 
-                                                ViewportUnits="Absolute" Viewbox="0,0,10,10"    
-                                                ViewboxUnits="Absolute">
+                                <VisualBrush
+                                    TileMode="Tile" Viewport="0,0,10,10"
+                                    ViewportUnits="Absolute" Viewbox="0,0,10,10"
+                                    ViewboxUnits="Absolute">
                                     <VisualBrush.Visual>
                                         <Canvas>
                                             <Rectangle  Width="10" Height="10" />
@@ -80,30 +79,29 @@
                                         </Canvas>
                                     </VisualBrush.Visual>
                                 </VisualBrush>
-                            </view:MasterControl.Background>                         
-                            <view1:DragablzVerticalItemsControl x:Name="DragablzItemsControl"                                                 
-                                                       VerticalAlignment="Center"                                                
-                                                       ItemContainerStyle="{StaticResource VerticalItemStyle}"                                                                                             
-                                                       MouseDown="DragablzItemsControl_MouseDown">
+                            </view:MasterControl.Background>
+                            <view1:DragablzVerticalItemsControl x:Name="DragablzItemsControl"
+                                                                VerticalAlignment="Center"
+                                                                ItemContainerStyle="{StaticResource VerticalItemStyle}"
+                                                                MouseDown="DragablzItemsControl_MouseDown">
                             </view1:DragablzVerticalItemsControl>
                         </view:MasterControl>
                     </view:ReadOnlyMasterDetail.Selector>
                 </view:ReadOnlyMasterDetail>
             </TabItem>
 
-
             <TabItem Header="Without Detail">
-                <view:MasterControl 
-                                    Change="{util:EventBinding ChangeCommand}"  
-                                    ItemsSource="{Binding Data, Mode=OneTime}" 
-                                    CommandParameter="{Binding NewItem}" 
-                                    RemoveOrder="Last" 
-                                    ButtonTypes="Add,Remove"  >                
-                    <view1:DragablzVerticalItemsControl x:Name="DragablzItemsControl2"                                                 
-                                                       VerticalAlignment="Center"                                                
-                                                       ItemContainerStyle="{StaticResource VerticalItemStyle}"                                                                                             
-                                                       MouseDown="DragablzItemsControl_MouseDown">
-                               </view1:DragablzVerticalItemsControl>
+                <view:MasterControl
+                    Change="{util:Command ChangeCommand, ConversionType=Default}"
+                    ItemsSource="{Binding Data, Mode=OneTime}"
+                    CommandParameter="{Binding NewItem}"
+                    RemoveOrder="Last"
+                    ButtonTypes="Add,Remove">
+                    <view1:DragablzVerticalItemsControl x:Name="DragablzItemsControl2"
+                                                        VerticalAlignment="Center"
+                                                        ItemContainerStyle="{StaticResource VerticalItemStyle}"
+                                                        MouseDown="DragablzItemsControl_MouseDown">
+                    </view1:DragablzVerticalItemsControl>
                 </view:MasterControl>
             </TabItem>
         </TabControl>

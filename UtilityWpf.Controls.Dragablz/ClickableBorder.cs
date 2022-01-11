@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows;
 using System.Windows.Controls.Primitives;
-using System.Windows.Media;
-using ReactiveUI;
+using System.Windows.Input;
 
 namespace UtilityWpf.Controls.Dragablz
 {
@@ -22,16 +15,14 @@ namespace UtilityWpf.Controls.Dragablz
         //public static readonly DependencyProperty HoverColorProperty = DependencyProperty.Register("HoverColor", typeof(Color), typeof(ClickableBorder), new PropertyMetadata(Colors.LightBlue));
         //public static readonly DependencyProperty IsPressedProperty = DependencyProperty.Register("IsPressed", typeof(bool), typeof(ClickableBorder), new PropertyMetadata(false));
 
-
         static ClickableBorder()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ClickableBorder), new FrameworkPropertyMetadata(typeof(ClickableBorder)));
-            ClickEvent = ButtonBase.ClickEvent.AddOwner(typeof(ClickableBorder));           
+            ClickEvent = ButtonBase.ClickEvent.AddOwner(typeof(ClickableBorder));
         }
 
         public ClickableBorder()
         {
-
         }
 
         //public Color PressedColor

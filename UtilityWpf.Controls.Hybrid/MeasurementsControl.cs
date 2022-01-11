@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Evan.Wpf;
+using ReactiveUI;
+using System;
 using System.Collections;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Evan.Wpf;
-using ReactiveUI;
 using UtilityWpf.Behavior;
 using UtilityWpf.Controls.Master;
 
@@ -38,6 +38,7 @@ namespace UtilityWpf.Controls.Hybrid
         }
 
         #region properties
+
         public string DisplayKeyPath
         {
             get { return (string)GetValue(DisplayKeyPathProperty); }
@@ -60,14 +61,12 @@ namespace UtilityWpf.Controls.Hybrid
         {
             get { return (IEnumerable)GetValue(EnumFilterCollectionProperty); }
             set { SetValue(EnumFilterCollectionProperty, value); }
-
         }
 
         public Enum SelectedUnit
         {
             get { return (Enum)GetValue(SelectedUnitProperty); }
             set { SetValue(SelectedUnitProperty, value); }
-
         }
 
         #endregion properties

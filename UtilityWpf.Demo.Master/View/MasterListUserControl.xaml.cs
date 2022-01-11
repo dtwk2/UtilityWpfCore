@@ -1,8 +1,4 @@
-﻿using Dragablz;
-using System.Linq;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Documents;
+﻿using System.Windows.Controls;
 
 namespace UtilityWpf.Demo.View
 {
@@ -14,7 +10,6 @@ namespace UtilityWpf.Demo.View
         public MasterListUserControl()
         {
             InitializeComponent();
-           
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReactiveUI;
+using System;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
@@ -6,7 +7,6 @@ using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using ReactiveUI;
 
 namespace UtilityWpf.Controls
 {

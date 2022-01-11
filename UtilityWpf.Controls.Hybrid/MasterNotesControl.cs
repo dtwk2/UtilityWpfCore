@@ -1,10 +1,9 @@
-﻿using System;
+﻿using ReactiveUI;
+using System;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using ReactiveUI;
 using UtilityWpf.Controls.Dragablz;
-using UtilityWpf.Controls.Master;
 
 namespace UtilityWpf.Controls.Hybrid
 {
@@ -28,12 +27,11 @@ namespace UtilityWpf.Controls.Hybrid
                 ItemsSource = ItemsSource
             };
 
-            this.WhenAnyValue(a => a.ItemsSource)
+            itemsSourceSubject
                 .WhereNotNull()
                 .CombineLatest(this.WhenAnyValue(a => a.DisplayMemberPath))
                 .Subscribe(a =>
                 {
-
                     Dispatcher.InvokeAsync(() =>
                     {
                         if (Content == null)
@@ -61,7 +59,6 @@ namespace UtilityWpf.Controls.Hybrid
                         //oLabelAngleAnimation.Duration                    = new Duration(new TimeSpan(0, 0, 0, 0, 500));
                         //oLabelAngleAnimation.RepeatBehavior = new RepeatBehavior(4);
                         //this.BeginAnimation(MasterBindableControl.HeightProperty,                    oLabelAngleAnimation);
-
                     }, System.Windows.Threading.DispatcherPriority.Background);
                 });
 

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 using UtilityHelper.NonGeneric;
 using UtilityWpf.Property;
 
@@ -19,6 +20,7 @@ namespace UtilityWpf.Controls
     using Mixins;
 
     using static DependencyPropertyFactory<SliderItemsControl>;
+
     public class SliderItemsControl : Controlx
     {
         private ItemsControl ItemsControl;
@@ -43,8 +45,6 @@ namespace UtilityWpf.Controls
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SliderItemsControl), new FrameworkPropertyMetadata(typeof(SliderItemsControl)));
         }
-
-
 
         public SliderItemsControl()
         {
@@ -71,21 +71,23 @@ namespace UtilityWpf.Controls
                        KeyRangeCollection.Add(xx);
                    }
                });
-           }, System.Windows.Threading.DispatcherPriority.Background, default)));
+           }, DispatcherPriority.Background, default)));
         });
 
-            this.Observable(nameof(ShowKeyValuePanel)).Subscribe(_ =>
-            {
-                this.Dispatcher.Invoke(() =>
+            this.Observable(nameof(ShowKeyValuePanel))
+                .Subscribe(b =>
                 {
-                    KeyValuePanel.Visibility = ((bool)_) ? Visibility.Visible : Visibility.Collapsed;
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        KeyValuePanel.Visibility = ((bool)b) ? Visibility.Visible : Visibility.Collapsed;
+                    });
                 });
-            });
         }
 
         public ObservableCollection<KeyRange> KeyRangeCollection { get; } = new ObservableCollection<KeyRange>();
 
         #region properties
+
         public bool ShowKeyValuePanel
         {
             get { return (bool)GetValue(ShowKeyValuePanelProperty); }
@@ -141,6 +143,7 @@ namespace UtilityWpf.Controls
         }
 
         #endregion properties
+
         public override void OnApplyTemplate()
         {
             ItemsControl = this.GetTemplateChild("ItemsControl") as ItemsControl;
@@ -163,22 +166,22 @@ namespace UtilityWpf.Controls
         }
 
         private Task<IEnumerable<KeyRange>> GetItems(IEnumerable data, string key, string value, string min, string max) => Task.Run(() =>
-          {
-              var type = data.First().GetType().GetProperties().ToDictionary(a => a.Name, a => a);
-              var keys = UtilityHelper.PropertyHelper.GetPropertyValues<string>(data, type[key]);
-              var values = data.Cast<object>().Select(_ =>
-              type[value].GetValue(_)).ToList().Select(_ => Convert.ToDouble(_));
-              var mins = min != null ? (type.TryGetValue(min, out PropertyInfo outmin) ?
-             data.Cast<object>().Select(_ =>
-              type[min].GetValue(_)).ToList().Select(_ => Convert.ToDouble(_)) : null) : null;
-              var maxs = max != null ? (type.TryGetValue(min, out PropertyInfo outmax)) ?
-                data.Cast<object>().Select(_ =>
-              type[max].GetValue(_)).ToList().Select(_ => Convert.ToDouble(_)) : null : null;
+            {
+                var type = data.First().GetType().GetProperties().ToDictionary(a => a.Name, a => a);
+                var keys = UtilityHelper.PropertyHelper.GetPropertyValues<string>(data, type[key]);
+                var values = data.Cast<object>().Select(_ =>
+                type[value].GetValue(_)).ToList().Select(_ => Convert.ToDouble(_));
+                var mins = min != null ? (type.TryGetValue(min, out PropertyInfo outmin) ?
+               data.Cast<object>().Select(_ =>
+                type[min].GetValue(_)).ToList().Select(_ => Convert.ToDouble(_)) : null) : null;
+                var maxs = max != null ? (type.TryGetValue(min, out PropertyInfo outmax)) ?
+                  data.Cast<object>().Select(_ =>
+                type[max].GetValue(_)).ToList().Select(_ => Convert.ToDouble(_)) : null : null;
 
-              var xxx = Factory.Create(keys, values, mins, maxs);
+                var xxx = Factory.Create(keys, values, mins, maxs);
 
-              return xxx;
-          });
+                return xxx;
+            });
 
         private void Xx_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -188,7 +191,7 @@ namespace UtilityWpf.Controls
                 KeyValuePair = keyValuePair;
                 Dictionary = ItemsControl.ItemsSource.OfType<KeyRange>().ToDictionary(a => a.Key, a => a.Value);
                 RaiseValueChangedEvent(keyValuePair);
-            }, System.Windows.Threading.DispatcherPriority.Background);
+            }, DispatcherPriority.Background);
         }
 
         protected void RaiseValueChangedEvent(KeyValuePair<string, double> KeyValuePair)
@@ -235,6 +238,10 @@ namespace UtilityWpf.Controls
 
         public void Execute(object parameter)
         {
+            if (parameter == null)
+            {
+                return;
+            }
             var kvp = (parameter as SliderItemsControl.KeyValuePairRoutedEventArgs).KeyValuePair;
 
             Event.Invoke(kvp);

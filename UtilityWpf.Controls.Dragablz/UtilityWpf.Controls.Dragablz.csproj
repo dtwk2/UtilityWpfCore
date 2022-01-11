@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFramework>net5.0-windows</TargetFramework>
+	<TargetFramework>net6.0-windows</TargetFramework>
 	<UseWPF>true</UseWPF>
   </PropertyGroup>
 
@@ -12,7 +12,6 @@
   <ItemGroup>
 	<PackageReference Include="Dragablz" Version="0.0.3.223" />
   </ItemGroup>
-
 
   <ItemGroup>
 	<Compile Update="ItemContainerBorder.cs">
@@ -32,15 +31,14 @@
 	</Compile>	
   <Compile Update="ClickableBorder.cs">
 	  <DependentUpon>ClickableBorder.xaml</DependentUpon>
+	</Compile> 
+	  <Compile Update="ButtonsControl.cs">
+	  <DependentUpon>ButtonsControl.xaml</DependentUpon>
 	</Compile>
   </ItemGroup>
 	
   <ItemGroup>
 	<Page Update="DragablzItemStyle.xaml">
-	  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-	  <SubType>Designer</SubType>
-	</Page>
-	<Page Update="DragablzNoteStyle.xaml">
 	  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 	  <SubType>Designer</SubType>
 	</Page>

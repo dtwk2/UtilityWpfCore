@@ -1,12 +1,9 @@
 ﻿using ReactiveUI;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using UtilityWpf.Controls.Dragablz;
 
 namespace UtilityWpf.Controls.Hybrid
 {
@@ -26,11 +23,13 @@ namespace UtilityWpf.Controls.Hybrid
         }
 
         #region properties
+
         public string CommandPath
         {
             get { return (string)GetValue(CommandPathProperty); }
             set { SetValue(CommandPathProperty, value); }
         }
+
         #endregion properties
 
         public override void OnApplyTemplate()
@@ -42,7 +41,7 @@ namespace UtilityWpf.Controls.Hybrid
                 ItemsSource = ItemsSource
             };
 
-            this.WhenAnyValue(a => a.ItemsSource)
+            itemsSourceSubject
                 .WhereNotNull()
                 .CombineLatest(this.WhenAnyValue(a => a.DisplayMemberPath), this.WhenAnyValue(a => a.CommandPath))
                 .Subscribe(tuple =>
@@ -50,34 +49,21 @@ namespace UtilityWpf.Controls.Hybrid
                     var (i, d, c) = tuple;
                     Dispatcher.InvokeAsync(() =>
                     {
-                        if (Content == null)
-                            Content = new ButtonsControl
-                            {
-                                CommandPath = c,
-                                DisplayMemberPath = d,
-                                ItemsSource = i
-                            };
-                        else
+                        var msn = Content switch
                         {
-                            if (Content is ButtonsControl msn)
-                            {
-                                msn.CommandPath = c;
-                                msn.ItemsSource = i;
-                                msn.DisplayMemberPath = d;
-                            }
-                            else
-                            {
-                                throw new ApplicationException("Expected Content to be MasterNotesItemsControl");
-                            }
-                        }
-
+                            null => new ButtonsControl(),
+                            ButtonsControl a => a,
+                            _ => throw new ApplicationException("Expected Content to be MasterNotesItemsControl")
+                        };
+                        msn.CommandPath = c;
+                        msn.ItemsSource = i;
+                        msn.DisplayMemberPath = d;
                         //DoubleAnimation oLabelAngleAnimation    = new DoubleAnimation();
                         //oLabelAngleAnimation.From = 0;
                         //oLabelAngleAnimation.To = this?.ActualHeight??0;
                         //oLabelAngleAnimation.Duration                    = new Duration(new TimeSpan(0, 0, 0, 0, 500));
                         //oLabelAngleAnimation.RepeatBehavior = new RepeatBehavior(4);
                         //this.BeginAnimation(MasterBindableControl.HeightProperty,                    oLabelAngleAnimation);
-
                     }, System.Windows.Threading.DispatcherPriority.Background);
                 });
 

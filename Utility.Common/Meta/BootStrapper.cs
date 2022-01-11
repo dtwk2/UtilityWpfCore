@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -14,12 +13,14 @@ namespace Utility.Common
 
     public static class BootStrapHelper
     {
-        public static void AutoRegister(this ContainerBuilder builder, IEnumerable<Assembly>? assembliesToScan = null)
+        public static ContainerBuilder AutoRegister(this ContainerBuilder builder, IEnumerable<Assembly>? assembliesToScan = null)
         {
             foreach (IBootStrapper? bootStrapper in BootStrappers())
             {
                 bootStrapper?.Register(builder);
             }
+
+            return builder;
 
             IEnumerable<IBootStrapper?> BootStrappers()
             {

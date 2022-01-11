@@ -1,16 +1,12 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:UtilityWpf.Controls.Dragablz"
-                    xmlns:conv="http://schemas.utility.com/utilitywpf"
                     xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
-                    xmlns:att="http://schemas.utility.com/utilitywpf">
-
-
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:conv="http://schemas.utility.com/utilitywpf"
+                    xmlns:local="clr-namespace:UtilityWpf.Controls.Dragablz">
 
     <ResourceDictionary.MergedDictionaries>
-        <att:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/GeometryResources.xaml"/>
+        <conv:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/GeometryResources.xaml" />
     </ResourceDictionary.MergedDictionaries>
-
 
     <Style x:Key="ButtonStyle" TargetType="dragablz:DragablzItem">
         <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
@@ -29,25 +25,25 @@
                 <ControlTemplate TargetType="{x:Type dragablz:DragablzItem}">
                     <Grid>
                         <local:ItemContainerBorder
-                            IsDragging="{Binding IsDragging, RelativeSource={RelativeSource TemplatedParent}}" 
+                            IsDragging="{Binding IsDragging, RelativeSource={RelativeSource TemplatedParent}}"
                             IsSelected="{Binding IsSelected, RelativeSource={RelativeSource TemplatedParent}}"
-                            IsSelectable="{Binding IsMouseOver, ElementName=Main_ViewBox}"/>
+                            IsSelectable="{Binding IsMouseOver, ElementName=Main_ViewBox}" />
 
                         <Viewbox x:Name="Main_ViewBox" HorizontalAlignment="Stretch" RenderTransformOrigin=".5, .5" Margin="0.5">
 
                             <Viewbox.RenderTransform>
                                 <ScaleTransform x:Name="ScaleTransform" ScaleX="1" ScaleY="1" />
                             </Viewbox.RenderTransform>
-                            <Grid >
+                            <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
-                                <Button Margin="2,1,17,2"  Width="200"     Grid.Column="1" >
+                                <Button Margin="2,1,17,2"  Width="200"     Grid.Column="1">
                                     <TextBlock
                                          x:Name="PART_TextBox"
-                                         HorizontalAlignment="Center" FontSize="5" >
+                                         HorizontalAlignment="Center" FontSize="5">
                                         <TextBlock.Style>
                                             <Style TargetType="TextBlock">
                                                 <Setter Property="Background" Value="Transparent"></Setter>
@@ -55,12 +51,12 @@
                                         </TextBlock.Style>
                                     </TextBlock>
                                 </Button>
-                                <local:GeometryThumb VerticalAlignment="Center" 
+                                <local:GeometryThumb VerticalAlignment="Center"
                                                          Margin="0.5"
-                                   HorizontalAlignment="Left" 
+                                   HorizontalAlignment="Left"
                                    dragablz:DragablzItem.IsCustomThumb="True"
                                    Height="15"
-                                   Width="15" 
+                                   Width="15"
                                    Geometry="{StaticResource DotGeometry}">
                                 </local:GeometryThumb>
                             </Grid>
@@ -71,15 +67,12 @@
         </Setter>
     </Style>
 
-    <Style 
-           TargetType="{x:Type local:ButtonsControl}" 
+    <Style
+           TargetType="{x:Type local:ButtonsControl}"
            BasedOn="{StaticResource {x:Type dragablz:DragablzItemsControl}}">
         <Style.Setters>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="ItemContainerStyle" Value="{StaticResource ButtonStyle}"/>
-
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="ItemContainerStyle" Value="{StaticResource ButtonStyle}" />
         </Style.Setters>
     </Style>
-
-
 </ResourceDictionary>

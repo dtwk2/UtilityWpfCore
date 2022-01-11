@@ -6,13 +6,11 @@ namespace UtilityWpf.Controls.FileSystem
 {
     using System;
     using System.Reactive.Subjects;
-    using UtilityWpf.Property;
 
     public class FolderOpenControl : Control
     {
         public static readonly DependencyProperty PathProperty = DependencyProperty.Register("Path", typeof(string), typeof(FolderOpenControl), new PropertyMetadata(null, PathChanged));
         public static readonly DependencyProperty FolderOpenCommandProperty = DependencyProperty.Register("FolderOpenCommand", typeof(ICommand), typeof(FolderOpenControl));
-
 
         private static void PathChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -30,7 +28,6 @@ namespace UtilityWpf.Controls.FileSystem
 
             foc.Subscribe(directory =>
             {
-
                 Dispatcher.InvokeAsync(() => Path = directory);
             });
         }
@@ -41,10 +38,11 @@ namespace UtilityWpf.Controls.FileSystem
             set { SetValue(PathProperty, value); }
         }
 
-        class FolderOpenCommand : /*NPC,*/ ICommand, IObservable<string>
+        private class FolderOpenCommand : /*NPC,*/ ICommand, IObservable<string>
         {
             private string directory;
-            ReplaySubject<string> directoryChanges = new(1);
+            private ReplaySubject<string> directoryChanges = new(1);
+
             public event EventHandler CanExecuteChanged;
 
             public bool CanExecute(object parameter)

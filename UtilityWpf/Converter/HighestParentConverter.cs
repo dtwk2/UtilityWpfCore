@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Microsoft.Xaml.Behaviors;
+using System;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
-using Microsoft.Xaml.Behaviors;
 
 namespace UtilityWpf.Converter
 {

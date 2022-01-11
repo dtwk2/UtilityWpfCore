@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Reactive.Linq;
 using System.Windows;
-using UtilityWpf.Controls.Extrinsic;
 using static UtilityWpf.Controls.DateTimeControl;
 
 namespace UtilityWpf.Controls.Infrastructure

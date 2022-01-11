@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Reactive;
 using System.Windows.Input;
 
 namespace UtilityWpf.Demo.Common.ViewModel
@@ -8,7 +7,7 @@ namespace UtilityWpf.Demo.Common.ViewModel
     {
         public GroupsViewModel()
         {
-            Data = new ObservableCollection<object> { new RowViewModel(), new RowViewModel(), new NotesViewModel(), };
+            Data = new ObservableCollection<object> { new RowBaseViewModel(), new RowBaseViewModel(), new NotesViewModel(), };
             //ChangeCommand = ReactiveUI.ReactiveCommand.Create<object, Unit>((a) =>
             //{
             //    switch (a)
@@ -25,9 +24,9 @@ namespace UtilityWpf.Demo.Common.ViewModel
             //    return Unit.Default;
             //});
         }
+
         public ObservableCollection<object> Data { get; }
 
         public ICommand ChangeCommand { get; }
-
     }
 }

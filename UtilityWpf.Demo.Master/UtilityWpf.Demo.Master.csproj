@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <OutputType>WinExe</OutputType>
     <AssemblyVersion>1.0.1.0</AssemblyVersion>
@@ -21,14 +21,15 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Utility.Persist\Utility.Persist.csproj" />
+    <ProjectReference Include="..\Utility.Service\Utility.Service.csproj" />
     <ProjectReference Include="..\UtilityWpf.Controls.Dragablz\UtilityWpf.Controls.Dragablz.csproj" />
     <ProjectReference Include="..\UtilityWpf.Controls.Master\UtilityWpf.Controls.Master.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.Common\UtilityWpf.Demo.Common.csproj" />
-    <ProjectReference Include="..\UtilityWpf.TestData\UtilityWpf.Demo.Data.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Demo.Data\UtilityWpf.Demo.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="View\MasterDetailGridUserControl .xaml.cs">
+    <Compile Update="View\MasterDetailGridUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\MasterListUserControl.xaml.cs">
@@ -44,7 +45,7 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Update="View\MasterDetailGridUserControl .xaml">
+    <Page Update="View\MasterDetailGridUserControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

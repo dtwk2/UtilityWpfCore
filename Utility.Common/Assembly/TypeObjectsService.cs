@@ -2,11 +2,9 @@
 using System.Linq;
 using Utility.Common;
 using UtilityInterface.NonGeneric;
-using UtilityWpf.Abstract;
 
 namespace UtilityWpf.Service
 {
-
     public class TypeObjectsService //: ITypeObjectsService
     {
         public virtual TypeObject[] SelectTypeObjects(Type[] types)

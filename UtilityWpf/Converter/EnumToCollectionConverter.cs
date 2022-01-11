@@ -13,6 +13,7 @@ namespace UtilityWpf.Converter
         {
             return GetAllValuesAndDescriptions(value.GetType());
         }
+
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();

@@ -1,35 +1,45 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="DynamicData" Version="7.3.1" />
+		<PackageReference Include="Chronic-netstandard" Version="0.3.2.4" />
+		<PackageReference Include="Jellyfish" Version="1.0.42" />
+		<PackageReference Include="LanguageExt.Core" Version="4.0.3" />
 		<PackageReference Include="MintPlayer.ObservableCollection" Version="1.5.0" />
+		<PackageReference Include="Optional" Version="5.0.0-alpha" />
+		<PackageReference Include="randomColorSharped.NetStandard" Version="1.0.2" />
+		<PackageReference Include="ReactiveUI" Version="17.1.9" />
 		<PackageReference Include="Splat.Autofac" Version="9.5.2" />
 		<PackageReference Include="fasterflect" Version="3.0.0" />
 		<PackageReference Include="Netsoft.Diff" Version="2.0.0" />
-		<PackageReference Include="UnitsNet" Version="4.101.0" />
+		<PackageReference Include="TreeCollections" Version="1.0.4" />
+		<PackageReference Include="UnitsNet" Version="5.0.0-alpha003" />
 		<PackageReference Include="Soukoku.ExpressionParser" Version="3.1.0" />
 		<PackageReference Include="ObjectsComparer" Version="1.4.1" />
 		<PackageReference Include="morelinq" Version="3.3.2" />
-		<PackageReference Include="Nito.AsyncEx" Version="5.1.0" />
-		<PackageReference Include="NuGet.Build.Tasks.Pack" Version="5.10.0">
+		<PackageReference Include="Nito.AsyncEx" Version="5.1.2" />
+		<PackageReference Include="NuGet.Build.Tasks.Pack" Version="6.0.0">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="akavache" Version="7.3.1" />
-		<PackageReference Include="CompareNETObjects" Version="4.73.0" />
+		<PackageReference Include="akavache" Version="8.1.1" />
+		<PackageReference Include="CompareNETObjects" Version="4.74.0" />
 		<PackageReference Include="deniszykov.TypeConversion" Version="3.0.2" />
-		<PackageReference Include="Endless" Version="0.7.0-alpha1" />		
+		<PackageReference Include="Endless" Version="0.7.0-alpha1" />
 		<PackageReference Include="Soukoku.ExpressionParser" Version="3.1.0" />
 		<PackageReference Include="UtilityEnum" Version="2.3.0" />
 		<PackageReference Include="UtilityHelperEx" Version="0.0.2-alpha-02" />
-		<PackageReference Include="UtilityInterface" Version="5.0.1" />
-		<PackageReference Include="UtilityStruct" Version="1.0.9-alpha" />
-		<PackageReference Include="YetAnotherStringMatcher" Version="1.0.2" />
+		<PackageReference Include="UtilityInterface" Version="5.1.0" />
+		<PackageReference Include="YetAnotherStringMatcher" Version="1.0.3" />
+		<PackageReference Include="Moq.AutoMock" Version="3.2.0-ci0207" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\UtilityStruct\UtilityStruct\UtilityStruct.csproj" />
 	</ItemGroup>
 
 </Project>

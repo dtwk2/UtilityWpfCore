@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OxyPlot.Wpf" Version="2.1.0" />
+    <PackageReference Include="Splat.Drawing" Version="14.1.17" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UtilityWpf.Controls.Master\UtilityWpf.Controls.Master.csproj" />
+    <ProjectReference Include="..\UtilityWpf\UtilityWpf.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Themes\OxyChart.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

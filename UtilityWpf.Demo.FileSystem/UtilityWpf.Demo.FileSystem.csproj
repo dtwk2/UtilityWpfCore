@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
@@ -11,6 +11,10 @@
     <EmbeddedResource Remove="ViewModel\**" />
     <None Remove="ViewModel\**" />
     <Page Remove="ViewModel\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PropertyTools.Wpf" Version="3.1.0" />
   </ItemGroup>
 
   <ItemGroup>

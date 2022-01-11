@@ -15,8 +15,6 @@
         public static InverseBooleanConverter Instance => new InverseBooleanConverter();
     }
 
-
-
     public class NullToInverseBooleanConverter : BooleanConverter
     {
         protected override bool Check(object value) => value != null;

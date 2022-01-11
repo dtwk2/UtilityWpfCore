@@ -1,8 +1,7 @@
-﻿using System.Threading.Tasks;
-using Autofac;
+﻿using Autofac;
 using Nito.AsyncEx;
+using System.Threading.Tasks;
 using Utility.Common;
-using UtilityWpf.Abstract;
 using UtilityWpf.Service;
 
 namespace UtilityWpf.Model
@@ -11,10 +10,9 @@ namespace UtilityWpf.Model
     {
         private readonly AsyncLazy<TypeObject[]> typeObjects;
 
-
         public ViewModelAssemblyModel(TypeModel typeModel, TypeObjectsService typeObjectsService)
         {
-            typeObjects = new AsyncLazy<TypeObject[]>(() => 
+            typeObjects = new AsyncLazy<TypeObject[]>(() =>
             Task.Run(async () => typeObjectsService.SelectTypeObjects(await typeModel.Collection)));
         }
 
@@ -25,6 +23,5 @@ namespace UtilityWpf.Model
         }
 
         public Task<TypeObject[]> Collection => typeObjects.Task;
-
     }
 }

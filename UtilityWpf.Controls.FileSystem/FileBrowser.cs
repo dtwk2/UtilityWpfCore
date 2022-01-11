@@ -1,16 +1,13 @@
-﻿using System;
-using System.Reactive;
+﻿using ReactiveUI;
+using System;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using ReactiveUI;
 using UtilityWpf.Utility;
 
 namespace UtilityWpf.Controls.FileSystem
 {
-
     public class FileBrowser : FileBrowser<TextBox>
     {
         public FileBrowser()
@@ -18,7 +15,7 @@ namespace UtilityWpf.Controls.FileSystem
             textBoxContentChanges
             .OfType<TextBox>()
             .SelectMany(EventToObservableHelper.ToThrottledObservable)
-            .Subscribe(textChanges.OnNext);      
+            .Subscribe(textChanges.OnNext);
         }
 
         public override void OnApplyTemplate()
@@ -46,6 +43,7 @@ namespace UtilityWpf.Controls.FileSystem
 
         public static readonly DependencyProperty ExtensionProperty =
             DependencyProperty.Register("Extension", typeof(string), typeof(FileBrowser<T>), new PropertyMetadata(null, ExtensionChanged));
+
         protected readonly FileBrowserCommand fileBrowserCommand = new();
 
         public FileBrowser()
@@ -67,6 +65,7 @@ namespace UtilityWpf.Controls.FileSystem
             get => (string)GetValue(ExtensionProperty);
             set => SetValue(ExtensionProperty, value);
         }
+
         protected override BrowserCommand Command => fileBrowserCommand;
 
         private static void FilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

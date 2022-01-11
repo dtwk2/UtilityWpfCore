@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 
 /// <summary>
@@ -16,7 +13,6 @@ namespace Utility.Common
             ExceptionCatcher exceptionCatcher = new ExceptionCatcher();
             exceptionCatcher.Catch(codeBlock);
             return exceptionCatcher;
-
         }
 
         public static bool Failed(SendOrPostCallback codeBlock)
@@ -32,14 +28,12 @@ namespace Utility.Common
             bool result = exceptionCatcher.Succeeded(codeBlock);
             return result;
         }
-
     }
 
     public class ExceptionCatcher
     {
         public Exception? Exception { get; private set; }
         public bool Success { get; private set; }
-
 
         public object? Catch(SendOrPostCallback codeBlock)
         {
@@ -91,5 +85,3 @@ namespace Utility.Common
         }
     }
 }
-
-

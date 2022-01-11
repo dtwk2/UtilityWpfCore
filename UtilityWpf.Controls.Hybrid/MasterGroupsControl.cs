@@ -1,8 +1,8 @@
-﻿using System;
+﻿using ReactiveUI;
+using System;
 using System.Linq;
-using System.Windows;
-using ReactiveUI;
 using System.Reactive.Linq;
+using System.Windows;
 using System.Windows.Media.Animation;
 using UtilityWpf.Controls.Dragablz;
 using UtilityWpf.Controls.Master;
@@ -23,6 +23,7 @@ namespace UtilityWpf.Controls.Hybrid
             ButtonTypes = ButtonType.Add | ButtonType.Remove;
             RemoveOrder = RemoveOrder.Selected;
         }
+
         public string IsReadOnlyPath
         {
             get => (string)GetValue(IsReadOnlyPathProperty);
@@ -38,8 +39,7 @@ namespace UtilityWpf.Controls.Hybrid
                 IsReadOnlyPath = IsReadOnlyPath
             };
 
-
-            this.WhenAnyValue(a => a.ItemsSource)
+            itemsSourceSubject
                 .Skip(1)
                 .CombineLatest(this.WhenAnyValue(a => a.DisplayMemberPath), this.WhenAnyValue(a => a.IsReadOnlyPath))
                      .Subscribe(a =>
@@ -59,16 +59,13 @@ namespace UtilityWpf.Controls.Hybrid
                                  throw new ApplicationException("Expected Content to be MasterGroupsControl");
                              }
 
-
                              DoubleAnimation oLabelAngleAnimation = new DoubleAnimation();
                              oLabelAngleAnimation.From = 0;
                              oLabelAngleAnimation.To = this?.ActualHeight ?? 0;
                              oLabelAngleAnimation.Duration = new Duration(new TimeSpan(0, 0, 0, 0, 500));
                              BeginAnimation(HeightProperty, oLabelAngleAnimation);
                              Visibility = Visibility.Visible;
-
                          }, System.Windows.Threading.DispatcherPriority.Background);
-
                      });
 
             base.OnApplyTemplate();
@@ -80,7 +77,6 @@ namespace UtilityWpf.Controls.Hybrid
             base.ExecuteAdd();
         }
 
-
         protected override void ExecuteRemove()
         {
             ExecuteAddRemove(true);
@@ -91,7 +87,6 @@ namespace UtilityWpf.Controls.Hybrid
         {
             if (SelectedItem is UIElement elem)
             {
-
                 elem.SetValue(Attached.Ex.IsReadOnlyProperty, isAdd);
             }
             else if (SelectedItem is { })

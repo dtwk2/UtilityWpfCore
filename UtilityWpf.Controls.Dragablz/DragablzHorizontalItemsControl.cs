@@ -1,18 +1,18 @@
-﻿using System;
+﻿using Dragablz;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
-using Dragablz;
 
 namespace UtilityWpf.Controls.Dragablz
 {
     public class DragablzHorizontalItemsControl : DragablzExItemsControl
     {
-        object number;
-        double start = 0;
+        private object number;
+        private double start = 0;
         private DeleteAdorner adorner;
         private AdornerLayer layer;
 
@@ -31,7 +31,6 @@ namespace UtilityWpf.Controls.Dragablz
 
         private void CustomOrganiser_DragCompleted()
         {
-
             UIElement uiElement = (UIElement)ItemContainerGenerator.ContainerFromItem(lastItem);
 
             if (adorner == null)
@@ -71,8 +70,8 @@ namespace UtilityWpf.Controls.Dragablz
         }
 
         private object lastItem;
-        double lastX;
-        const int arbitraryOffset = 100;
+        private double lastX;
+        private const int arbitraryOffset = 100;
 
         private void HorizontalPositionMonitor_LocationChanged(object sender, LocationChangedEventArgs e)
         {
@@ -105,7 +104,6 @@ namespace UtilityWpf.Controls.Dragablz
                 {
                     layer.Remove(a);
                 }
-
         }
 
         private void HorizontalPositionMonitor_OrderChanged(object sender, OrderChangedEventArgs e)
@@ -116,14 +114,12 @@ namespace UtilityWpf.Controls.Dragablz
         private void DragablzHorizontalItemsControl_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             // throw new NotImplementedException();
-
         }
 
-        class DeleteAdorner : Adorner
+        private class DeleteAdorner : Adorner
         {
             public DeleteAdorner(ItemsControl adornerElement) : base(adornerElement)
             {
-
             }
 
             protected override void OnRender(DrawingContext drawingContext)
@@ -157,7 +153,7 @@ namespace UtilityWpf.Controls.Dragablz
             }
         }
 
-        class CustomOrganiser : HorizontalOrganiser
+        private class CustomOrganiser : HorizontalOrganiser
         {
             public event Action DragCompleted;
 

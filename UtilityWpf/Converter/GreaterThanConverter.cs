@@ -6,8 +6,6 @@ namespace UtilityWpf.Converter
     [ValueConversion(typeof(int), typeof(bool))]
     public class GreaterThanConverter : IValueConverter
     {
-        #region IValueConverter Members
-
         public bool Invert { get; set; }
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
@@ -24,6 +22,5 @@ namespace UtilityWpf.Converter
             throw new NotSupportedException();
         }
 
-        #endregion IValueConverter Members
     }
 }

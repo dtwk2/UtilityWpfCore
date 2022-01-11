@@ -1,23 +1,21 @@
 ﻿using Microsoft.Xaml.Behaviors.Core;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reactive.Subjects;
-using System.Windows.Input;
-using System.Windows;
-using System.Collections.ObjectModel;
-using System.Collections;
-using UtilityHelper;
 using System.Reactive.Linq;
+using System.Reactive.Subjects;
+using System.Windows;
+using System.Windows.Input;
+using UtilityHelper;
 
 namespace UtilityWpf.Demo.Common.ViewModel
 {
-    public class ResourceDictionariesViewModel
+    public abstract class ResourceDictionariesViewModel
     {
         //private bool isReadOnly;
 
         private readonly ActionCommand changeCommand;
-        private readonly IReadOnlyCollection<TickViewModel> collection = new TickViewModelFactory().Collection;
 
         public ResourceDictionariesViewModel()
         {
@@ -30,31 +28,27 @@ namespace UtilityWpf.Demo.Common.ViewModel
         //}
         public string Header { get; } = "Resource-Dictionaries ViewModel";
 
-        public virtual IEnumerable Collection => collection;
+        public abstract IEnumerable Collection { get; }
 
         public ICommand ChangeCommand => changeCommand;
 
         private void Change()
         {
-
         }
     }
 
-    public class TickViewModelFactory
+    public class ThemesViewModelFactory
     {
-        public TickViewModelFactory()
-        {
-            var coll = Source.ThemeDictionary;
+        //public ThemesViewModelFactory()
+        //{
+        //    var coll = Source.ThemeDictionary;
 
-            if (coll == null)
-                throw new Exception("No Themes ResourceDictionary");
+        //    Collection = CreateViewModels(coll.MergedDictionaries).ToArray();
+        //}
 
-            Collection = CreateViewModels(coll.MergedDictionaries).ToArray();
-        }
+        //public IReadOnlyCollection<TickViewModel> Collection { get; }
 
-        public IReadOnlyCollection<TickViewModel> Collection { get; }
-
-        private IEnumerable<TickViewModel> CreateViewModels(Collection<ResourceDictionary> coll)
+        public static IEnumerable<TickViewModel> CreateViewModels(IReadOnlyCollection<ResourceDictionary> coll)
         {
             foreach (var dic in coll)
             {
@@ -71,19 +65,20 @@ namespace UtilityWpf.Demo.Common.ViewModel
         }
     }
 
-    class Source
+    public class Source
     {
         public static ResourceDictionary? ThemeDictionary { get; } = Application.Current.Resources
                         .MergedDictionaries
                         .SingleOrDefault(d => d.Source.ToString().EndsWith("Themes.xaml"));
     }
 
-    static class Converter
+    internal static class Converter
     {
         public static string Convert(string uri)
         {
             return uri.Remove(".xaml");
         }
+
         public static string ConvertBack(string value)
         {
             return value + ".xaml";
@@ -92,11 +87,12 @@ namespace UtilityWpf.Demo.Common.ViewModel
 
     public class ResourceDictionaryService : IObserver<TickViewModel>
     {
-        private readonly Dictionary<ResourceDictionary, bool> dictionary = Source.ThemeDictionary.MergedDictionaries.ToDictionary(a => a, a => false);
-        ReplaySubject<TickViewModel> tickViewModel = new();
+        private readonly Dictionary<ResourceDictionary, bool> dictionary;
+        private ReplaySubject<TickViewModel> tickViewModel = new();
 
-        public ResourceDictionaryService()
+        public ResourceDictionaryService(IReadOnlyCollection<ResourceDictionary> resourceDictionaries)
         {
+            dictionary = resourceDictionaries.ToDictionary(a => a, a => false);
             ReplaySubject<(ResourceDictionary, bool)> rSubject = new(1);
 
             UpdateMergedDictionaries(rSubject);
@@ -109,7 +105,7 @@ namespace UtilityWpf.Demo.Common.ViewModel
 
                 rSubject.OnNext((MatchDictionary(tick.Text), tick.IsChecked));
             });
-            rSubject.OnNext((Source.ThemeDictionary, false));
+            //rSubject.OnNext((Source.ThemeDictionary, false));
         }
 
         private void UpdateMergedDictionaries(ReplaySubject<(ResourceDictionary, bool)> rSubject)
@@ -125,14 +121,10 @@ namespace UtilityWpf.Demo.Common.ViewModel
                 });
         }
 
-
-
-        ResourceDictionary MatchDictionary(string name)
+        private ResourceDictionary MatchDictionary(string name)
         {
             return dictionary.Keys.Single(a => a.Source.ToString().EndsWith(Converter.ConvertBack(name)));
         }
-
-
 
         public void OnCompleted()
         {
@@ -143,7 +135,6 @@ namespace UtilityWpf.Demo.Common.ViewModel
         {
             throw new NotImplementedException();
         }
-
 
         public void OnNext(TickViewModel value)
         {

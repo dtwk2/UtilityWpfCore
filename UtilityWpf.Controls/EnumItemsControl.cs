@@ -1,6 +1,5 @@
 ﻿using ReactiveUI;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
@@ -19,7 +18,7 @@ namespace UtilityWpf.Controls
         public static readonly DependencyProperty EnumProperty = DependencyProperty.Register("Enum", typeof(Type), typeof(EnumItemsControl), new PropertyMetadata(typeof(Switch)));
         public static readonly DependencyProperty IsReadOnlyProperty = DependencyProperty.Register("IsReadOnly", typeof(bool), typeof(EnumItemsControl), new PropertyMetadata(false));
         public static readonly DependencyProperty OutputProperty = OutputPropertyKey.DependencyProperty;
-        public static readonly DependencyProperty OrientationProperty =  DependencyProperty.Register("Orientation", typeof(System.Windows.Controls.Orientation), typeof(EnumItemsControl), new PropertyMetadata(System.Windows.Controls.Orientation.Vertical));
+        public static readonly DependencyProperty OrientationProperty = DependencyProperty.Register("Orientation", typeof(System.Windows.Controls.Orientation), typeof(EnumItemsControl), new PropertyMetadata(System.Windows.Controls.Orientation.Vertical));
 
         static EnumItemsControl()
         {
@@ -34,6 +33,7 @@ namespace UtilityWpf.Controls
                 .Select(a => BuildFromEnum(a.First, a.Second).ToArray())
                 .Subscribe(enums =>
                 {
+                    Output = enums.First().Enum;
                     disposable?.Dispose();
                     disposable = new();
                     //Enums = enums;
@@ -53,7 +53,6 @@ namespace UtilityWpf.Controls
             get { return (bool)GetValue(IsReadOnlyProperty); }
             set { SetValue(IsReadOnlyProperty, value); }
         }
-
 
         public Type Enum
         {
@@ -86,6 +85,7 @@ namespace UtilityWpf.Controls
                 Command = command;
                 IsReadOnly = isReadOnly;
             }
+
             public Enum Enum { get; }
 
             public ReactiveCommand<Unit, Enum> Command { get; }

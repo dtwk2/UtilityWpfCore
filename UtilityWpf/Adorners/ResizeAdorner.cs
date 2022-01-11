@@ -9,35 +9,32 @@ using System.Windows.Shapes;
 
 namespace UtilityWpf.Adorners
 {
-
-
     public class ResizeAdorner : Adorner
     {
-        const double THUMB_SIZE = 10;
-        const double MINIMAL_SIZE = 20;
-        const double MOVE_OFFSET = 20;
-
+        private const double THUMB_SIZE = 10;
+        private const double MINIMAL_SIZE = 20;
+        private const double MOVE_OFFSET = 20;
 
         //9 thumbs
         /*                        moveAndRotateThumb
          *                              *
          *                              *
-         * topLeftThumb*************topMiddleThumb**************topRightThumb        
+         * topLeftThumb*************topMiddleThumb**************topRightThumb
          *      *                                                    *
          *      *                                                    *
          *      *                                                    *
          * middleLeftThumb                                     middleRightThumb
          *      *                                                    *
          *      *                                                    *
-         *      *                                                    * 
+         *      *                                                    *
          * bottomLeftThumb*********bottomMiddleThumb**************bottomRightThumb
-         * 
+         *
          * */
-        Thumb moveAndRotateThumb, topLeftThumb, middleLeftThumb, bottomLeftThumb, topMiddleThumb, topRightThumb, middleRightThumb, bottomRightThumb, bottomMiddleThumb;
+        private Thumb moveAndRotateThumb, topLeftThumb, middleLeftThumb, bottomLeftThumb, topMiddleThumb, topRightThumb, middleRightThumb, bottomRightThumb, bottomMiddleThumb;
 
-        Rectangle thumbRectangle;
+        private Rectangle thumbRectangle;
 
-        VisualCollection visualCollection;
+        private VisualCollection visualCollection;
 
         public ResizeAdorner(UIElement adorned) : base(adorned)
         {
@@ -58,7 +55,6 @@ namespace UtilityWpf.Adorners
 
                 (moveAndRotateThumb = GetMoveAndRotateThumb(adorned))
             };
-
 
             static Thumb GetMoveAndRotateThumb(UIElement adornedElement)
             {
@@ -99,10 +95,7 @@ namespace UtilityWpf.Adorners
                 Stroke = Brushes.Green,
                 StrokeThickness = 1
             };
-
         }
-
-
 
         private Thumb GetResizeThumb(Cursor cur, HorizontalAlignment horizontal, VerticalAlignment vertical)
         {
@@ -157,7 +150,6 @@ namespace UtilityWpf.Adorners
 
             static Thumb GetThumb(Cursor cur, HorizontalAlignment horizontal, VerticalAlignment vertical) => new Thumb
             {
-
                 //Background = Brushes.Red,
                 Width = THUMB_SIZE,
                 Height = THUMB_SIZE,
@@ -179,12 +171,9 @@ namespace UtilityWpf.Adorners
             }
 
             // get Thumb Temple
-
-
         }
 
-
-        static FrameworkElementFactory GetThumbTemplate(Brush back)
+        private static FrameworkElementFactory GetThumbTemplate(Brush back)
         {
             back.Opacity = 1;
             var fef = new FrameworkElementFactory(typeof(Ellipse));
@@ -220,6 +209,5 @@ namespace UtilityWpf.Adorners
         protected override Visual GetVisualChild(int index) => visualCollection[index];
 
         protected override int VisualChildrenCount => visualCollection.Count;
-
     }
 }

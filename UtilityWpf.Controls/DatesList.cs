@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace UtilityWpf.Controls
 {
     public class DatesList : ListBox
     {
-        public static readonly DependencyProperty DatesChangeCommandProperty = DependencyProperty.Register("DatesChangeCommand", typeof(object), typeof(DatesList), new PropertyMetadata(null));
-
         static DatesList()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DatesList), new FrameworkPropertyMetadata(typeof(DatesList)));
@@ -17,32 +13,6 @@ namespace UtilityWpf.Controls
 
         public DatesList()
         {
-            DatesChangeCommand = new DatesChangeCommand(this);
-        }
-
-        public object DatesChangeCommand
-        {
-            get { return (object)GetValue(DatesChangeCommandProperty); }
-            set { SetValue(DatesChangeCommandProperty, value); }
-        }
-    }
-
-    public class DatesChangeCommand : ICommand
-    {
-        private readonly DatesList datesList;
-
-        public event EventHandler CanExecuteChanged;
-
-        public bool CanExecute(object parameter) => true;
-
-        public DatesChangeCommand(DatesList datesList)
-        {
-            this.datesList = datesList;
-        }
-
-        public void Execute(object parameter)
-        {
-            datesList.ItemsSource = parameter as IEnumerable;
         }
     }
 

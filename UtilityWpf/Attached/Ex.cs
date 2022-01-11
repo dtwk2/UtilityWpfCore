@@ -1,26 +1,32 @@
 ﻿using System;
+
+using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Input;
+using UtilityWpf.Mixins;
 
 namespace UtilityWpf.Attached
 {
-
     public enum State
     {
         None,
-        Ticked, 
+        Ticked,
         Crossed,
-        Refreshable
-
+        Refreshable,
+        Point
     }
 
-    public partial class Ex : DependencyObject
+    public record AttachedPropertyChange(DependencyObject d, DependencyPropertyChangedEventArgs e);
+
+    public partial class Ex : DependencyObject, IObservable<AttachedPropertyChange>
     {
+        private static SingleReplaySubject<AttachedPropertyChange> singleReplaySubject = new();
+
         public static readonly DependencyProperty SecurityIdProperty = DependencyProperty.RegisterAttached("SecurityId", typeof(object), typeof(Ex), new PropertyMetadata(null, PropertyChanged));
 
         private static void PropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            //SetSecurityId(d, e.NewValue);
+            singleReplaySubject.OnNext(new(d, e));
         }
 
         public static string GetSecurityId(DependencyObject d)
@@ -57,7 +63,6 @@ namespace UtilityWpf.Attached
             d.SetValue(IsReadOnlyProperty, (bool)value);
         }
 
-
         public static readonly DependencyProperty StateProperty = DependencyProperty.RegisterAttached("State", typeof(State), typeof(Ex), new PropertyMetadata(State.None, PropertyChanged));
 
         public static State GetState(DependencyObject d)
@@ -69,14 +74,8 @@ namespace UtilityWpf.Attached
         {
             d.SetValue(StateProperty, (State)value);
         }
-            
-        
-        public static readonly DependencyProperty IsPressedProperty = DependencyProperty.RegisterAttached("IsPressed", typeof(bool), typeof(Ex), new PropertyMetadata(false, Property3Changed));
 
-        private static void Property3Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            
-        }
+        public static readonly DependencyProperty IsPressedProperty = DependencyProperty.RegisterAttached("IsPressed", typeof(bool), typeof(Ex), new PropertyMetadata(false, PropertyChanged));
 
         public static bool GetIsPressed(DependencyObject d)
         {
@@ -88,10 +87,8 @@ namespace UtilityWpf.Attached
             d.SetValue(IsPressedProperty, (bool)value);
         }
 
+        public static readonly DependencyProperty IsMouseOverProperty = DependencyProperty.RegisterAttached("IsMouseOver", typeof(bool), typeof(Ex), new PropertyMetadata(false, PropertyChanged));
 
-        public static readonly DependencyProperty IsMouseOverProperty = DependencyProperty.RegisterAttached("IsMouseOver", typeof(bool), typeof(Ex), new PropertyMetadata(false, Property3Changed));
-
-   
         public static bool GetIsMouseOver(DependencyObject d)
         {
             return (bool)d.GetValue(IsMouseOverProperty);
@@ -101,7 +98,6 @@ namespace UtilityWpf.Attached
         {
             d.SetValue(IsMouseOverProperty, (bool)value);
         }
-
 
         public static readonly DependencyProperty CommandProperty = DependencyProperty.RegisterAttached("Command", typeof(ICommand), typeof(Ex), new PropertyMetadata(null, PropertyChanged));
 
@@ -115,8 +111,8 @@ namespace UtilityWpf.Attached
             d.SetValue(CommandProperty, (ICommand)value);
         }
 
-
-        public static readonly DependencyProperty IsCheckedProperty = DependencyProperty.RegisterAttached("IsChecked", typeof(bool), typeof(Ex), new PropertyMetadata(false, PropertyChanged));
+        public const string IsChecked = "IsChecked";
+        public static readonly DependencyProperty IsCheckedProperty = DependencyProperty.RegisterAttached(IsChecked, typeof(bool), typeof(Ex), new PropertyMetadata(false, PropertyChanged));
 
         public static bool GetIsChecked(DependencyObject d)
         {
@@ -127,5 +123,22 @@ namespace UtilityWpf.Attached
         {
             d.SetValue(IsCheckedProperty, (bool)value);
         }
+
+        public IDisposable Subscribe(IObserver<AttachedPropertyChange> observer)
+        {
+            return singleReplaySubject.Subscribe(observer);
+        }
+
+        public static IObservable<T> Observable<T>(Predicate<DependencyObject> predicateObject, Predicate<DependencyProperty> predicateProperty)
+        {
+            return (from a in singleReplaySubject
+                    where predicateObject(a.d)
+                    where predicateProperty(a.e.Property)
+                    select a.e.NewValue)
+                .Cast<T>();
+        }
+
+        public static IObservable<bool> Checked(Predicate<DependencyObject> predicateObject) =>
+            Observable<bool>(predicateObject, a => a == IsCheckedProperty);
     }
 }

@@ -7,8 +7,6 @@ namespace UtilityWpf.Converter
     [ValueConversion(typeof(UtilityEnum.ProcessState), typeof(bool))]
     public class FirstEnumToBooleanConverter : IValueConverter
     {
-        #region IValueConverter Members
-
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             return value == ((System.Collections.IEnumerable)parameter).Cast<object>().ToArray()[0];
@@ -20,7 +18,5 @@ namespace UtilityWpf.Converter
             var a = ((System.Collections.IEnumerable)parameter).Cast<object>().ToArray();
             return ((bool)value) ? a[0] : a[1];
         }
-
-        #endregion IValueConverter Members
     }
 }

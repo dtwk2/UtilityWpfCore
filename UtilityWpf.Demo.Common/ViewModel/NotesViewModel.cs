@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Endless;
+﻿using Endless;
 using Microsoft.Xaml.Behaviors.Core;
-using System.Windows.Input;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Input;
 
 namespace UtilityWpf.Demo.Common.ViewModel
 {
@@ -13,10 +11,12 @@ namespace UtilityWpf.Demo.Common.ViewModel
         private ICommand changeCommand;
 
         private bool isReadOnly;
+
         public bool IsReadOnly
         {
             get => isReadOnly; set => isReadOnly = value;
         }
+
         public string Header { get; } = "NotesViewModel";
 
         public virtual ObservableCollection<NoteViewModel> Collection { get; } = new ObservableCollection<NoteViewModel> { };

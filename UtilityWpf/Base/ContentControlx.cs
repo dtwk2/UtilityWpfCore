@@ -6,14 +6,13 @@ using UtilityWpf.Mixins;
 
 namespace UtilityWpf.Controls
 {
-
-
     public abstract class ContentControlx : ContentControl, IPropertyListener, IControlListener
     {
         private readonly NameTypeDictionary<SingleReplaySubject<object>> nameTypeDictionary;
 
         //public NameTypeDictionary<Subject<object>> dict { get; }
         Type IDependencyObjectListener.Type { get; } = typeof(ContentControlx);
+
         //public INameTypeDictionary NameTypeDictionary { get; }
         NameTypeDictionary<SingleReplaySubject<object>> IPropertyListener.dict => nameTypeDictionary;
 

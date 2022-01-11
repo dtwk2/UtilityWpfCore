@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using ReactiveUI;
+using System;
+using System.Collections.Generic;
 using System.Drawing.Imaging;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Text;
-using Microsoft.Win32;
-using ReactiveUI;
-using System.Linq;
-using System.Collections.Generic;
 
 namespace UtilityWpf.Controls.FileSystem
 {
@@ -39,17 +39,18 @@ namespace UtilityWpf.Controls.FileSystem
             .SelectMany(output => output.path.ToObservable())
             .WhereNotNull();
             return new Func<IObservable<string>>(() => obs);
-
         }
 
         public string Filter
         {
             get => filter; set { filter = value; filterChanges.OnNext(value); }
         }
+
         public string Extension
         {
             get => extension; set { extension = value; extensionChanges.OnNext(value); }
         }
+
         public bool IsMultiSelect
         {
             get => multiSelect; set { multiSelect = value; multiSelectChanges.OnNext(value); }
@@ -70,7 +71,6 @@ namespace UtilityWpf.Controls.FileSystem
             return result == true ? (result, dlg.FileNames) : (result, null);
         }
 
-
         public static (string filter, string extension) GetImageFilterAndExtension()
         {
             StringBuilder filter = new();
@@ -81,14 +81,14 @@ namespace UtilityWpf.Controls.FileSystem
             foreach (var (filenameExtension, codecName) in GetCaption(codecs))
             {
                 filter.Append($"{sep}{codecName} ({filenameExtension})|{filenameExtension}");
-                allfilter.Append(filenameExtension+";");
+                allfilter.Append(filenameExtension + ";");
                 sep = "|";
             }
 
             filter.Append($"{sep}{"All Files"} ({"*.*"})|{"*.*"}");
 
             var combined = "Image Files|" + allfilter.ToString() + "|" + filter.ToString();
-            return (combined, ".png"); // Default file extension 
+            return (combined, ".png"); // Default file extension
 
             static IEnumerable<(string fileNameExtension, string codecName)> GetCaption(ImageCodecInfo[] codecs)
             {
@@ -97,7 +97,5 @@ namespace UtilityWpf.Controls.FileSystem
                        select (codec.FilenameExtension, codecName);
             }
         }
-
-
     }
 }

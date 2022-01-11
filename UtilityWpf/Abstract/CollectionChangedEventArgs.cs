@@ -52,11 +52,11 @@ namespace UtilityWpf.Abstract
             Index = index;
             OldIndex = oldIndex;
         }
+
         public int Index { get; set; }
         public int OldIndex { get; }
         public object Object { get; }
     }
 
     public delegate void CollectionChangedEventHandler(object sender, CollectionEventArgs e);
-
 }

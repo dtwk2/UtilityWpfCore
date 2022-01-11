@@ -1,91 +1,110 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq.Expressions;
-using System.Reactive.Linq;
-using DynamicData;
+﻿using DynamicData;
 using ReactiveUI;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Reactive.Disposables;
+using System.Reactive.Linq;
+using Utility.Common.Model;
 
-namespace UtilityWpf.Model
+namespace Utility.ViewModel;
+
+public class GroupViewModel : BaseReactiveDisposable
 {
-    public class GroupMasterPropertyChangedViewModel<T, R, S> where T : INotifyPropertyChanged
+    private bool isSelected = false;
+
+    public virtual int Count { get; }
+
+    public virtual IEnumerable Collection { get; }
+
+    public bool IsSelected
     {
-        public GroupMasterPropertyChangedViewModel(IObservable<IChangeSet<T, R>> changeSet, Expression<Func<T, S>> func)
-        {
-            Collection = GroupHelper.Convert(changeSet.GroupOnProperty(func), CreateViewModel);
-        }
+        get => isSelected;
+        set => this.RaiseAndSetIfChanged(ref isSelected, value);
+    }
+}
 
-        public ReadOnlyObservableCollection<GroupViewModel<T, R, S>> Collection { get; }
+public class GroupViewModel<T, TKey, TGroupKey> : GroupViewModel
+{
+    private int count;
+    private IReadOnlyCollection<T> collection;
 
-        public virtual GroupViewModel<T, R, S> CreateViewModel(IGroup<T, R, S> group)
-        {
-            return new GroupViewModel<T, R, S>(group);
-        }
+    public GroupViewModel(IGroup<T, TKey, TGroupKey> group)
+    {
+        Key = group.Key;
+
+        group
+             .Cache
+             .Connect()
+             .ToCollection()
+             .Subscribe(a =>
+             {
+                 this.RaiseAndSetIfChanged(ref count, a.Count, nameof(Count));
+                 this.RaiseAndSetIfChanged(ref collection, a, nameof(Collection));
+             },
+             e => { })
+            .DisposeWith(CompositeDisposable);
     }
 
-    public class GroupMasterViewModel<T, R, S>
+    public TGroupKey Key { get; private set; }
+
+    public override int Count => count;
+
+    public override IReadOnlyCollection<T> Collection => collection;
+}
+
+public class GroupViewModel<T, TGroupKey> : GroupViewModel
+{
+    private int count;
+    private IReadOnlyCollection<T> collection;
+
+    public GroupViewModel(IGroup<T, TGroupKey> group)
     {
-        public GroupMasterViewModel(IObservable<IGroupChangeSet<T, R, S>> groups)
-        {
-            Collection = GroupHelper.Convert(groups, CreateViewModel);
-        }
+        Key = group.GroupKey;
 
-        public GroupMasterViewModel(IObservable<IChangeSet<T, R>> changeSet, Func<T, S> func)
-        {
-            Collection = GroupHelper.Convert(changeSet.Group(func), CreateViewModel);
-        }
-
-        public ReadOnlyObservableCollection<GroupViewModel<T, R, S>> Collection { get; }
-
-        public virtual GroupViewModel<T, R, S> CreateViewModel(IGroup<T, R, S> group)
-        {
-            return new GroupViewModel<T, R, S>(group);
-        }
+        group
+             .List
+             .Connect()
+             .ToCollection()
+            .Subscribe(a =>
+            {
+                this.RaiseAndSetIfChanged(ref count, a.Count, nameof(Count));
+                this.RaiseAndSetIfChanged(ref collection, a, nameof(Collection));
+            },
+            e =>
+            {
+            })
+            .DisposeWith(CompositeDisposable);
     }
 
-    public class GroupViewModel<T, R, S> : ReactiveObject
+    public TGroupKey Key { get; private set; }
+
+    public override int Count => count;
+
+    public override IReadOnlyCollection<T> Collection => collection;
+}
+
+public class Group<T, TKey, TGroupKey> : IGroup<T, TKey, TGroupKey>
+{
+    public Group(TGroupKey key, IObservable<IChangeSet<T, TKey>> observable)
     {
-        private int count;
-        private IReadOnlyCollection<T> collection;
-
-        public S Key { get; private set; }
-
-        public int Count => count;
-
-        public IReadOnlyCollection<T> Collection => collection;
-
-        public GroupViewModel(IGroup<T, R, S> group)
-        {
-            Key = group.Key;
-
-            group.Cache.Connect().ToCollection()
-
-               .Subscribe(a =>
-               {
-                   this.RaiseAndSetIfChanged(ref count, a.Count, nameof(Count));
-                   this.RaiseAndSetIfChanged(ref collection, a, nameof(Collection));
-               },
-               e =>
-               {
-               });
-        }
+        Cache = observable.AsObservableCache();
+        Key = key;
     }
 
-    internal static class GroupHelper
-    {
-        public static ReadOnlyObservableCollection<GroupViewModel<T, R, S>> Convert<T, R, S>(IObservable<IGroupChangeSet<T, R, S>> groups, Func<IGroup<T, R, S>, GroupViewModel<T, R, S>> createFunc)
-        {
-            groups
-      .Transform(createFunc)
-      .ObserveOn(RxApp.MainThreadScheduler)
-      .Bind(out var data)
-      //.DisposeMany()
-      .Subscribe(v =>
-      {
-      });
+    public IObservableCache<T, TKey> Cache { get; }
 
-            return data;
-        }
+    public TGroupKey Key { get; }
+}
+
+public class Group<T, TGroupKey> : IGroup<T, TGroupKey>
+{
+    public Group(TGroupKey key, IEnumerable<T> observable)
+    {
+        List = observable.AsObservableChangeSet().AsObservableList();
+        GroupKey = key;
     }
+
+    public TGroupKey GroupKey { get; }
+    public IObservableList<T> List { get; }
 }

@@ -8,9 +8,11 @@ namespace UtilityWpf.Model
     {
         private Func<string, string> map;
 
-        public string FilePath { get { return FullPath; } }
+        public string FilePath
+        { get { return FullPath; } }
 
-        public string Directory { get { return Path.GetDirectoryName(FilePath); } }
+        public string Directory
+        { get { return Path.GetDirectoryName(FilePath); } }
 
         public override string Name
         {

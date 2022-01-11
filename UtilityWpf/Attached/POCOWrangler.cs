@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Data;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace UtilityWpf.Attached
 {
     public class POCOWrangler
     {
         #region POCOWrangler.BindPropertyToText Attached Property
+
         public static String GetBindPropertyToText(TextBox obj)
         {
             return (String)obj.GetValue(BindPropertyToTextProperty);
@@ -29,14 +26,14 @@ namespace UtilityWpf.Attached
         private static void BindPropertyToText_PropertyChanged(DependencyObject dObject, DependencyPropertyChangedEventArgs e)
         {
             if (e.NewValue is string str && dObject is TextBox textBox)
-            {  
+            {
                 var binding = new Binding(str);
 
-                //  The POCO object we're editing must be the DataContext of the TextBox, 
-                //  which is what you've got already -- but don't set Source explicitly 
-                //  here. Leave it alone and Binding.Source will be updated as 
-                //  TextBox.DataContext changes. If you set it explicitly here, it's 
-                //  carved in stone. That's especially a problem if this attached 
+                //  The POCO object we're editing must be the DataContext of the TextBox,
+                //  which is what you've got already -- but don't set Source explicitly
+                //  here. Leave it alone and Binding.Source will be updated as
+                //  TextBox.DataContext changes. If you set it explicitly here, it's
+                //  carved in stone. That's especially a problem if this attached
                 //  property gets initialized before DataContext.
                 //binding.Source = textBox.DataContext;
 
@@ -45,6 +42,7 @@ namespace UtilityWpf.Attached
                 BindingOperations.SetBinding(textBox, TextBox.TextProperty, binding);
             }
         }
+
         #endregion POCOWrangler.BindPropertyToText Attached Property
     }
 }

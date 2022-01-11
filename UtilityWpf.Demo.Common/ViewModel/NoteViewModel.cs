@@ -2,7 +2,6 @@
 
 namespace UtilityWpf.Demo.Common.ViewModel
 {
-
     public class NoteViewModel : ReactiveObject
     {
         private string text;

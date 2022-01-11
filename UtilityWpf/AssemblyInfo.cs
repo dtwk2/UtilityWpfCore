@@ -9,8 +9,6 @@ using System.Windows.Markup;
                                               //(used if a resource is not found in the page,
                                               // app, or any theme specific resource dictionaries)
 )]
-
-
 [assembly: XmlnsPrefix("http://schemas.utility.com/utilitywpf", "utl")]
 [assembly: XmlnsDefinition("http://schemas.utility.com/utilitywpf", "UtilityWpf")]
 [assembly: XmlnsDefinition("http://schemas.utility.com/utilitywpf", "UtilityWpf.Behavior")]
@@ -20,4 +18,4 @@ using System.Windows.Markup;
 [assembly: XmlnsDefinition("http://schemas.utility.com/utilitywpf", "UtilityWpf.DataTemplateSelectors")]
 [assembly: XmlnsDefinition("http://schemas.utility.com/utilitywpf", "UtilityWpf.Markup")]
 [assembly: XmlnsDefinition("http://schemas.utility.com/utilitywpf", "UtilityWpf.Meta")]
-
+[assembly: XmlnsDefinition("http://schemas.utility.com/utilitywpf", "UtilityWpf.Model")] 

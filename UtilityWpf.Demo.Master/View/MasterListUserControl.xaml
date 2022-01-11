@@ -6,10 +6,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:common="clr-namespace:Utility.Common.EventArgs;assembly=Utility.Common"
     xmlns:util="http://schemas.utility.com/utilitywpf"
-    xmlns:view="http://schemas.utility.com/master" 
+    xmlns:view="http://schemas.utility.com/master"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:local1="clr-namespace:UtilityWpf.Demo.Master.Controls" 
-    xmlns:view1="http://schemas.utility.com/dragablz" 
+    xmlns:local1="clr-namespace:UtilityWpf.Demo.Master.Controls"
+    xmlns:view1="http://schemas.utility.com/dragablz"
     xmlns:local2="clr-namespace:UtilityWpf.Demo.Master.ViewModel"
     d:DesignHeight="450"
     d:Background="White"
@@ -22,7 +22,7 @@
     <local1:AddRowControl CommandParameter="{Binding {x:Null}}" Position="Bottom" RemoveOrder="Selected" VerticalContentAlignment="Center"
                          ButtonTypes="Remove,MoveDown,MoveUp">
         <i:Interaction.Triggers>
-            <i:EventTrigger  EventName="Change" >
+            <i:EventTrigger  EventName="Change">
                 <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>
             </i:EventTrigger>
         </i:Interaction.Triggers>
@@ -30,18 +30,18 @@
         <ListBox x:Name="MainListBox" ItemsSource="{Binding Rows}" SelectedIndex="0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <view:MasterControl CommandParameter="{Binding NewItem}" Position="Right" RemoveOrder="Last" ButtonTypes="Add,Remove"  >
+                    <view:MasterControl CommandParameter="{Binding NewItem}" Position="Right" RemoveOrder="Last" ButtonTypes="Add,Remove">
                         <i:Interaction.Triggers>
-                            <i:EventTrigger  EventName="Change" >
-                                <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True" 
+                            <i:EventTrigger  EventName="Change">
+                                <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"
                                                        EventArgsConverter="{x:Static util:AutoMapperConverter.Instance}"
                                                        EventArgsConverterParameter="{x:Type common:CollectionEventArgs}"
                                                        ></i:InvokeCommandAction>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
-                        <view1:DragablzHorizontalItemsControl x:Name="DragablzItemsControl" 
-                                                       ItemsSource="{Binding Data}"                                                       
-                                                       VerticalAlignment="Center"                                                 
+                        <view1:DragablzHorizontalItemsControl x:Name="DragablzItemsControl"
+                                                       ItemsSource="{Binding Data}"
+                                                       VerticalAlignment="Center"
                                                        ItemContainerStyle="{StaticResource DragablzItemStyle2}"
                                                        ItemTemplate="{StaticResource Int32Template}">
                         </view1:DragablzHorizontalItemsControl>

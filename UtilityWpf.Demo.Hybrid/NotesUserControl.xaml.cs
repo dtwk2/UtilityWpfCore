@@ -1,8 +1,4 @@
-﻿
-using System;
-using System.Linq;
-using System.Windows.Controls;
-
+﻿using System.Windows.Controls;
 
 namespace UtilityWpf.Demo.Hybrid
 {
@@ -16,10 +12,8 @@ namespace UtilityWpf.Demo.Hybrid
             InitializeComponent();
         }
 
-
         private void MasterNotesControl_Change(object sender, System.Windows.RoutedEventArgs e)
         {
-
         }
     }
 }

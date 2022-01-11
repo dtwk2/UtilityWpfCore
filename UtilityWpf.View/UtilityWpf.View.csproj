@@ -1,12 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\UtilityWpf.Controls.Objects\UtilityWpf.Controls.Objects.csproj" />
     <ProjectReference Include="..\UtilityWpf.Controls\UtilityWpf.Controls.csproj" />
   </ItemGroup>
 

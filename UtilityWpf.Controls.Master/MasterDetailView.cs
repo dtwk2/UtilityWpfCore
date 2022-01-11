@@ -10,7 +10,6 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using UtilityHelperEx;
 
-
 namespace UtilityWpf.Controls.Master
 {
     using Mixins;

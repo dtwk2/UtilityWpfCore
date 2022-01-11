@@ -26,7 +26,6 @@
                 <local:DirectoryComboBoxView />
             </TabItem>
 
-            
             <TabItem Header="Folder">
                 <local:PathView />
             </TabItem>
@@ -38,7 +37,6 @@
             <TabItem Header="Folder">
                 <local:FolderBrowserView />
             </TabItem>
-
 
             <TabItem Header="FileViewer">
                 <controls1:FileViewer Directory="../../../Resources" />

@@ -4,9 +4,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:mk="clr-namespace:UtilityWpf.Markup;assembly=UtilityWpf" 
-    xmlns:utilitywpf="clr-namespace:UtilityWpf;assembly=UtilityWpf" 
-    xmlns:vm1="clr-namespace:UtilityWpf.Demo.Common.ViewModel;assembly=UtilityWpf.Demo.Common" 
+    xmlns:mk="clr-namespace:UtilityWpf.Markup;assembly=UtilityWpf"
+    xmlns:utilitywpf="clr-namespace:UtilityWpf;assembly=UtilityWpf"
+    xmlns:vm1="clr-namespace:UtilityWpf.Demo.Common.ViewModel;assembly=UtilityWpf.Demo.Common"
     xmlns:view="http://schemas.utility.com/hybrid"
     d:DesignHeight="450"
     d:Background="White"
@@ -15,7 +15,6 @@
     <FrameworkElement.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzNoteStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </FrameworkElement.Resources>
@@ -25,26 +24,25 @@
             <vm1:TicksViewModel />
         </FrameworkElement.DataContext>
 
-        <ItemsControl  
+        <ItemsControl
                 ItemsSource="{Binding Collection}"
                 ItemTemplate="{StaticResource NoteViewModel}" />
 
-        <view:MasterListControl 
-                IsCheckedPath="{mk:NameOf Type={x:Type vm1:TickViewModel}, Member=IsChecked}"                
+        <view:MasterListControl
+                IsCheckedPath="{mk:NameOf Type={x:Type vm1:TickViewModel}, Member=IsChecked}"
                 CommandParameter="{Binding NewItem}"
-                ItemsSource="{Binding Collection}" 
+                ItemsSource="{Binding Collection}"
                 DisplayMemberPath="{mk:NameOf Type={x:Type vm1:TickViewModel}, Member=Text}">
-        </view:MasterListControl>      
-        
-        <view:MasterListControl 
-                IsRefreshablePath="{mk:NameOf Type={x:Type vm1:ButtonViewModel}, Member=IsRefreshable}"   
-                CommandPath="{mk:NameOf Type={x:Type vm1:ButtonViewModel}, Member=Command}" 
-                ItemsSource="{Binding Data}" 
+        </view:MasterListControl>
+
+        <view:MasterListControl
+                IsRefreshablePath="{mk:NameOf Type={x:Type vm1:ButtonViewModel}, Member=IsRefreshable}"
+                CommandPath="{mk:NameOf Type={x:Type vm1:ButtonViewModel}, Member=Command}"
+                ItemsSource="{Binding Data}"
                 DisplayMemberPath="{mk:NameOf Type={x:Type vm1:ButtonViewModel}, Member=Header}">
             <FrameworkElement.DataContext>
                 <vm1:ButtonsViewModel />
             </FrameworkElement.DataContext>
         </view:MasterListControl>
     </UniformGrid>
-
 </UserControl>

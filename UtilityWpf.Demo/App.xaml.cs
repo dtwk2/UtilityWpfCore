@@ -1,16 +1,12 @@
 ﻿using Autofac;
 using Splat.Autofac;
-using System.Reflection;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using Utility.Common;
-using UtilityWpf.Controls.Master;
-using UtilityWpf.Demo.FileSystem;
-using UtilityWpf.Demo.Hybrid;
-using UtilityWpf.Demo.View.Animation;
-using UtilityWpf.Demo.View.Panels;
-using UtilityWpf.Demo.View;
+using UtilityWpf.Controls.Meta;
 
-namespace UtilityWpf.DemoApp
+namespace UtilityWpf.Demo
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -18,24 +14,29 @@ namespace UtilityWpf.DemoApp
     public partial class App : Application
     {
         public App()
-        {         
-            var builder = new ContainerBuilder();
-            builder.AutoRegister();
-            builder.UseAutofacDependencyResolver();
+        {
+            // type has an assembly for which it is desirable to AutoRegister
+            // (a better way should be found)
 
-            var a = typeof(BarUserControl);
-            var b = typeof(CornerPanelView);
-            var c = typeof(AdornerUserControl);
-            var d = typeof(FileBrowserView);
-            var e = typeof(MasterListUserControl);
-            var f = typeof(MeasurementsUserControl);
-            var g = typeof(UtilityWpf.Demo.Dragablz.NotesUserControl);
+            var assemblies = AssemblySingleton.Instance.Assemblies
+                .Where(a => a.GetName().Name.Contains("Demo"))
+                .Where(a => a.DefinedTypes.Any(a => a.IsAssignableTo(typeof(UserControl))))
+                .ToArray();
+
+            InitialiseContainerBuilder()
+            .AutoRegister()
+            .UseAutofacDependencyResolver();
 
             new Window
             {
                 WindowState = WindowState.Maximized,
-                Content = new ViewsExDetailControl(new[] { c, a, b, d, e, f, g })
+                Content = new AssemblyViewsControl(assemblies)
             }.Show();
+        }
+
+        private static ContainerBuilder InitialiseContainerBuilder()
+        {
+            return new ContainerBuilder();
         }
     }
 }

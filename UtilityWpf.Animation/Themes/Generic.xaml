@@ -7,7 +7,7 @@
         <ResourceDictionary Source="/UtilityWpf.Animation;component/Themes/BorderFix.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.Animation;component/Themes/FlipControl.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
-    
+
     <Style TargetType="{x:Type local:BlinkControl}">
         <Setter Property="Template">
             <Setter.Value>
@@ -22,7 +22,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
 
     <Style TargetType="{x:Type local:BarControl}">
         <Setter Property="Template">
@@ -65,7 +64,6 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:PointControl}">
 
-        
                     <Path x:Name="PART_MovingObject" Fill="IndianRed">
                         <Path.Margin>
                             <Thickness

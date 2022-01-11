@@ -10,7 +10,6 @@ namespace animTextBox
     /// </summary>
     public partial class AnimatedTextBox : Grid
     {
-
         private HeightAnimation anim;
         private double _animationDuration;
 
@@ -85,7 +84,7 @@ namespace animTextBox
         private void TxtHidden_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             /* If the property IsAnimated is set to true :
-             * 
+             *
              *     - If the property AnimateOnLoaded is set to true,
              *       And the Height property has changed,
              *     - Or the property AnimateOnLoaded is set to false,
@@ -103,7 +102,7 @@ namespace animTextBox
         /// </summary>
         private void OnHeightChanged(double previousHeight, double newHeight)
         {
-            /* Set the type of the Height change : 
+            /* Set the type of the Height change :
              *     - if (newHeight > previousHeight) then Height has increased, else the Height has decreased */
             anim.ChangeType = (newHeight > previousHeight) ? HeightAnimation.ChangeTypes.Increased : HeightAnimation.ChangeTypes.Decreased;
 
@@ -120,7 +119,6 @@ namespace animTextBox
         /// </summary>
         private class HeightAnimation
         {
-
             private Storyboard sb;
             private DoubleAnimation anim;
             private double _from;
@@ -147,12 +145,13 @@ namespace animTextBox
                 _fe = fe;
 
                 // Initialize the Storyboard
-                sb = new Storyboard {AutoReverse = false};
+                sb = new Storyboard { AutoReverse = false };
 
                 // Initialize the animation
                 anim = new DoubleAnimation
                 {
-                    Name = "anim", EasingFunction = new CubicEase() {EasingMode = EasingMode.EaseInOut}
+                    Name = "anim",
+                    EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseInOut }
                 };
 
                 // Set the EasingFunction on a new instance of CubicEase whose EasingMode is EaseInOut

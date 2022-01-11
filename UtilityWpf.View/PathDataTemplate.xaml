@@ -1,9 +1,5 @@
 ﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:UtilityWpf.Controls"
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    >
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 
     <!--<DataTemplate DataType="{x:Type viewmodel:PathViewModel}">
         <Grid>
@@ -47,7 +43,9 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            --><!--<Image Grid.Column="0" Source="/folder.png" Margin="0 0 4 0" />--><!--
+            -->
+    <!--<Image Grid.Column="0" Source="/folder.png" Margin="0 0 4 0" />-->
+    <!--
             <materialDesign:PackIcon
                 Width="24"
                 Height="24"
@@ -55,6 +53,4 @@
             <TextBlock Grid.Column="1" Text="{Binding Name}" />
         </Grid>
     </DataTemplate>-->
-
-  
 </ResourceDictionary>

@@ -14,11 +14,11 @@ namespace UtilityWpf.Controls
         public static readonly DependencyProperty EndAngleProperty = DependencyProperty.Register("EndAngle", typeof(double), typeof(Arc), new UIPropertyMetadata(90.0, new PropertyChangedCallback(UpdateArc)));
         public static readonly DependencyProperty DirectionProperty = DependencyProperty.Register("Direction", typeof(SweepDirection), typeof(Arc), new UIPropertyMetadata(SweepDirection.Clockwise));
 
-
         public static readonly DependencyProperty OriginRotationDegreesProperty = DependencyProperty.Register("OriginRotationDegrees", typeof(double), typeof(Arc),
                 new UIPropertyMetadata(270.0, new PropertyChangedCallback(UpdateArc)));
 
         #region properties
+
         public double StartAngle
         {
             get { return (double)GetValue(StartAngleProperty); }
@@ -45,6 +45,7 @@ namespace UtilityWpf.Controls
             get { return (double)GetValue(OriginRotationDegreesProperty); }
             set { SetValue(OriginRotationDegreesProperty, value); }
         }
+
         #endregion properties
 
         protected static void UpdateArc(DependencyObject d, DependencyPropertyChangedEventArgs e)

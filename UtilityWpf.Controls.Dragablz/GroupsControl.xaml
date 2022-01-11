@@ -1,12 +1,12 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                     xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:att="http://schemas.utility.com/utilitywpf"
                     xmlns:local="clr-namespace:UtilityWpf.Controls.Dragablz"
-                    xmlns:conv="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf"
-                    xmlns:att="http://schemas.utility.com/utilitywpf">
+                    xmlns:conv="clr-namespace:UtilityWpf.Converter;assembly=UtilityWpf">
     <ResourceDictionary.MergedDictionaries>
-        <att:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/GeometryResources.xaml"/>
+        <att:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/GeometryResources.xaml" />
     </ResourceDictionary.MergedDictionaries>
     <Style x:Key="DragablzGroupStyle" TargetType="dragablz:DragablzItem">
         <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
@@ -25,22 +25,20 @@
 
                     <Grid>
                         <local:ItemContainerBorder x:Name="ItemContainerBorder"
-                            IsDragging="{Binding IsDragging, RelativeSource={RelativeSource TemplatedParent}}" 
+                            IsDragging="{Binding IsDragging, RelativeSource={RelativeSource TemplatedParent}}"
                             IsSelected="{Binding IsSelected, RelativeSource={RelativeSource TemplatedParent}}"
-                            IsSelectable="{Binding IsMouseOver, RelativeSource={RelativeSource TemplatedParent}}"
-                           />
+                            IsSelectable="{Binding IsMouseOver, RelativeSource={RelativeSource TemplatedParent}}" />
 
                         <Grid Margin="2">
                             <Grid.OpacityMask>
                                 <VisualBrush>
                                     <VisualBrush.Visual>
-                                        <Border 
+                                        <Border
                                             Background="Black"
                                             SnapsToDevicePixels="True"
                                             CornerRadius="{Binding CornerRadius, ElementName=ItemContainerBorder}"
                                             Width="{Binding ActualWidth, ElementName=ItemContainerBorder}"
-                                            Height="{Binding ActualHeight, ElementName=ItemContainerBorder}"
-                                            />
+                                            Height="{Binding ActualHeight, ElementName=ItemContainerBorder}" />
                                     </VisualBrush.Visual>
                                 </VisualBrush>
                             </Grid.OpacityMask>
@@ -50,14 +48,14 @@
                             </Grid.RowDefinitions>
 
                             <Grid>
-                                <Thumb VerticalAlignment="Center"  dragablz:DragablzItem.IsCustomThumb="True" Height="15" Width="15" >
+                                <Thumb VerticalAlignment="Center"  dragablz:DragablzItem.IsCustomThumb="True" Height="15" Width="15">
                                     <Thumb.Template>
                                         <ControlTemplate>
-                                            <Border  Name="OutBox" >
+                                            <Border  Name="OutBox">
                                                 <Border.Style>
                                                     <Style TargetType="Border">
                                                         <Style.Setters>
-                                                            <Setter Property="Background" >
+                                                            <Setter Property="Background">
                                                                 <Setter.Value>
                                                                     <SolidColorBrush Color="Gold" Opacity="0.0"></SolidColorBrush>
                                                                 </Setter.Value>
@@ -76,7 +74,7 @@
                                                                             Storyboard.TargetProperty="Background.Opacity"
                                                                             From="0"
                                                                             To="0.5"
-                                                                            Duration="0:0:0.2"/>
+                                                                            Duration="0:0:0.2" />
                                                                     </Storyboard>
                                                                 </BeginStoryboard>
                                                             </EventTrigger>
@@ -88,7 +86,7 @@
                                                                             Storyboard.TargetProperty="Background.Opacity"
                                                                             From="0.5"
                                                                             To="0"
-                                                                            Duration="0:0:0.2"  />
+                                                                            Duration="0:0:0.2" />
                                                                     </Storyboard>
                                                                 </BeginStoryboard>
                                                             </EventTrigger>
@@ -100,7 +98,7 @@
                                     </Thumb.Template>
                                 </Thumb>
                                 <Grid Background="WhiteSmoke" HorizontalAlignment="Stretch" ClipToBounds="True">
-                                    <TextBlock Margin="2,2,2,2"  MinWidth="20"  
+                                    <TextBlock Margin="2,2,2,2"  MinWidth="20"
                                          x:Name="PART_TextBlock"
                                          HorizontalAlignment="Center" FontSize="15">
                                         <TextBlock.Style>
@@ -111,15 +109,14 @@
                                     </TextBlock>
                                 </Grid>
                             </Grid>
-                            <Grid Grid.Row="1" >
+                            <Grid Grid.Row="1">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <materialDesign:Card x:Name="PART_Card" Height="0" Width="0" Visibility="Collapsed"></materialDesign:Card>
 
-                                <ContentControl Content="{Binding}" Grid.Column="1" Margin="10" HorizontalAlignment="Stretch"/>
-
+                                <ContentControl Content="{Binding}" Grid.Column="1" Margin="10" HorizontalAlignment="Stretch" />
                             </Grid>
                         </Grid>
                     </Grid>
@@ -128,11 +125,10 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type local:GroupsControl}" BasedOn="{StaticResource {x:Type dragablz:DragablzItemsControl}}" >
+    <Style TargetType="{x:Type local:GroupsControl}" BasedOn="{StaticResource {x:Type dragablz:DragablzItemsControl}}">
         <Style.Setters>
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
-            <!--<Setter Property="ItemContainerStyle" Value="{StaticResource DragablzGroupStyle}"/>-->
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <!--<Setter Property="ItemContainerStyle" Value="{StaticResource DragablzGroupStyle}" />-->
         </Style.Setters>
     </Style>
-
 </ResourceDictionary>

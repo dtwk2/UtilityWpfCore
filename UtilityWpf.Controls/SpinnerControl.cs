@@ -19,7 +19,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace UtilityWpf.Controls.Extrinsic
+namespace UtilityWpf.Controls
 {
     /// <summary>
     /// Interaction logic for SpinnerControl.xaml
@@ -33,7 +33,7 @@ namespace UtilityWpf.Controls.Extrinsic
         private static readonly DependencyProperty MaximumValueProperty = DependencyProperty.Register("Maximum", typeof(decimal), typeof(SpinnerControl), new PropertyMetadata(DefaultMaximumValue));
         private static readonly DependencyProperty DecimalPlacesProperty = DependencyProperty.Register("DecimalPlaces", typeof(int), typeof(SpinnerControl), new PropertyMetadata(DefaultDecimalPlaces));
         private static readonly DependencyProperty ChangeProperty = DependencyProperty.Register("Change", typeof(decimal), typeof(SpinnerControl), new PropertyMetadata(DefaultChange));
-        public static readonly DependencyProperty StringFormatProperty =    DependencyProperty.Register("StringFormat", typeof(string), typeof(SpinnerControl), new PropertyMetadata("f"));
+        public static readonly DependencyProperty StringFormatProperty = DependencyProperty.Register("StringFormat", typeof(string), typeof(SpinnerControl), new PropertyMetadata("f"));
 
         public static RoutedCommand IncreaseCommand { get; set; } = new RoutedCommand("IncreaseCommand", typeof(SpinnerControl));
         public static RoutedCommand DecreaseCommand { get; set; } = new RoutedCommand("DecreaseCommand", typeof(SpinnerControl));
@@ -47,12 +47,12 @@ namespace UtilityWpf.Controls.Extrinsic
         /// </summary>
         private static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent("ValueChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<decimal>), typeof(SpinnerControl));
 
-
         static SpinnerControl()
         {
             InitializeCommands();
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SpinnerControl), new FrameworkPropertyMetadata(typeof(SpinnerControl)));
         }
+
         public SpinnerControl()
         {
         }
@@ -64,7 +64,6 @@ namespace UtilityWpf.Controls.Extrinsic
             get { return (string)GetValue(StringFormatProperty); }
             set { SetValue(StringFormatProperty, value); }
         }
-
 
         public decimal Value
         {
@@ -103,7 +102,6 @@ namespace UtilityWpf.Controls.Extrinsic
         }
 
         #endregion properties
-
 
         protected static void OnIncreaseCommand(object sender, ExecutedRoutedEventArgs e)
         {
@@ -226,7 +224,6 @@ namespace UtilityWpf.Controls.Extrinsic
                 RoutedPropertyChangedEventHandler<decimal>,
                 RoutedPropertyChangedEventArgs<double>>(a => spinnerControl.ValueChanged += a, a => spinnerControl.ValueChanged += a)
                 .Select(a => a.EventArgs.NewValue);
-
         }
     }
 }

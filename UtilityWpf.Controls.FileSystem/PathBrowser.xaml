@@ -10,7 +10,7 @@
                 <ControlTemplate TargetType="{x:Type browser:PathBrowser}">
 
                     <Grid x:Name="GridOne" Margin="2,2">
-                        
+
                         <FrameworkElement.Resources>
                             <ResourceDictionary>
                                 <TextBox
@@ -24,13 +24,13 @@
                                     FontSize="14" />
                             </ResourceDictionary>
                         </FrameworkElement.Resources>
-                        
+
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-         
+
                         <Label
                             x:Name="LabelOne"
                             Grid.Column="0"

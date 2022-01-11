@@ -34,7 +34,6 @@ namespace UtilityWpf.Converter
             return value is bool b
                 ? System.Convert.ToInt32(!b)
                 : throw new Exception($"Expected value to be of type boolean, actual type is {value?.GetType()}");
-
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

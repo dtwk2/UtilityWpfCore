@@ -1,14 +1,8 @@
-﻿using System;
+﻿using Fasterflect;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Fasterflect;
-using Utility.Common;
-
 
 namespace UtilityWpf.Common
 {
@@ -20,9 +14,12 @@ namespace UtilityWpf.Common
     {
         private bool suppressNotification;
 
-        public ObservableRangeCollection() { }
+        public ObservableRangeCollection()
+        { }
 
-        public ObservableRangeCollection(IEnumerable<T> items) : base(items) { }
+        public ObservableRangeCollection(IEnumerable<T> items) : base(items)
+        {
+        }
 
         public override event NotifyCollectionChangedEventHandler CollectionChanged;
 

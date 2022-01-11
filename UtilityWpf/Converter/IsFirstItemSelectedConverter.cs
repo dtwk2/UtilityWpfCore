@@ -7,8 +7,6 @@ namespace UtilityWpf
 {
     public class IsFirstItemSelectedConverter : IMultiValueConverter
     {
-
-
         public object Convert(object[] value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             if (value[1] is null || value[1] == DependencyProperty.UnsetValue)
@@ -27,8 +25,6 @@ namespace UtilityWpf
             throw new NotSupportedException();
         }
 
-
         public bool Invert { get; set; }
-
     }
 }

@@ -1,11 +1,11 @@
-﻿using System;
+﻿using ReactiveUI;
+using System;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using ReactiveUI;
 using UtilityWpf.Controls.FileSystem.Infrastructure;
 using Button = System.Windows.Controls.Button;
 using Control = System.Windows.Controls.Control;
@@ -89,15 +89,13 @@ namespace UtilityWpf.Controls.FileSystem
         {
             (d as PathBrowser<T> ?? throw new NullReferenceException("PathBrowser is null")).textBoxContentChanges.OnNext((T)e.NewValue);
         }
+    }
 
-    } 
-    
     /// <summary>
     /// Interaction logic for PathBrowser.xaml
     /// </summary>
-    public abstract class PathBrowser : Control 
+    public abstract class PathBrowser : Control
     {
-       
         protected readonly ReplaySubject<string> textChanges = new(1);
         protected readonly ReplaySubject<Unit> applyTemplateSubject = new(1);
 
@@ -106,10 +104,11 @@ namespace UtilityWpf.Controls.FileSystem
         protected Label LabelOne;
         protected TextBox TextBoxOne;
 
-
         public static readonly DependencyProperty SetPathProperty =
             DependencyProperty.Register("SetPath", typeof(ICommand), typeof(PathBrowser), new PropertyMetadata(null));
+
         public static readonly RoutedEvent TextChangeEvent = EventManager.RegisterRoutedEvent("TextChange", RoutingStrategy.Bubble, typeof(TextChangedRoutedEventHandler), typeof(PathBrowser));
+
         public static readonly DependencyProperty LabelProperty =
             DependencyProperty.Register("Label", typeof(string), typeof(PathBrowser), new PropertyMetadata(null));
 
@@ -120,7 +119,6 @@ namespace UtilityWpf.Controls.FileSystem
 
         public PathBrowser()
         {
-          
             SetPath = ReactiveCommand.Create<string>(textChanges.OnNext);
 
             Command.TextChanged += Command_TextChanged;
@@ -143,6 +141,7 @@ namespace UtilityWpf.Controls.FileSystem
         }
 
         #region properties
+
         public string Label
         {
             get => (string)GetValue(LabelProperty);
@@ -160,6 +159,7 @@ namespace UtilityWpf.Controls.FileSystem
             add => AddHandler(TextChangeEvent, value);
             remove => RemoveHandler(TextChangeEvent, value);
         }
+
         #endregion properties
 
         protected abstract BrowserCommand Command { get; }
@@ -170,7 +170,7 @@ namespace UtilityWpf.Controls.FileSystem
         }
     }
 
-    static class Helper
+    internal static class Helper
     {
         public static void OnTextChange(string path, TextBox textBox)
         {

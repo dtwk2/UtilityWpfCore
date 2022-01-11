@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
@@ -10,7 +10,6 @@
     <ProjectReference Include="..\UtilityWpf.Controls.Hybrid\UtilityWpf.Controls.Hybrid.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.Common\UtilityWpf.Demo.Common.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.Master\UtilityWpf.Demo.Master.csproj" />
-    <ProjectReference Include="..\UtilityWpf.TestData\UtilityWpf.Demo.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,10 +44,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="ResourceDictionariesUserControl.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Themes.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

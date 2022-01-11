@@ -1,7 +1,7 @@
-﻿using System.Windows;
+﻿using Dragablz;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using Dragablz;
 
 namespace UtilityWpf.Controls.Dragablz
 {
@@ -44,7 +44,6 @@ namespace UtilityWpf.Controls.Dragablz
                 };
             }
         }
-
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {

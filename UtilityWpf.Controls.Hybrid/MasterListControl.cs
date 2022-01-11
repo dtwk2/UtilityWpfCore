@@ -1,20 +1,19 @@
-﻿using System;
+﻿using ReactiveUI;
+using System;
+using System.Collections;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using ReactiveUI;
 using UtilityWpf.Controls.Dragablz;
 using UtilityWpf.Controls.Master;
 
 namespace UtilityWpf.Controls.Hybrid
 {
-    public class MasterListControl
-        : MasterBindableControl
+    public class MasterListControl : MasterBindableControl
     {
         public static readonly DependencyProperty CommandPathProperty = DependencyProperty.Register("CommandPath", typeof(string), typeof(MasterListControl), new PropertyMetadata(null));
         public static readonly DependencyProperty IsCheckedPathProperty = DependencyProperty.Register("IsCheckedPath", typeof(string), typeof(MasterListControl), new PropertyMetadata(null));
         public static readonly DependencyProperty IsRefreshablePathProperty = DependencyProperty.Register("IsRefreshablePath", typeof(string), typeof(MasterListControl), new PropertyMetadata(null));
-
 
         static MasterListControl()
         {
@@ -26,9 +25,11 @@ namespace UtilityWpf.Controls.Hybrid
             Position = Dock.Bottom;
             RemoveOrder = RemoveOrder.Selected;
             ButtonTypes = ButtonType.Add | ButtonType.Remove;
-            this.WhenAnyValue(a => a.ItemsSource)
+
+            itemsSourceSubject
+                .StartWith(default(IEnumerable))
            .CombineLatest(
-           this.WhenAnyValue(a => a.DisplayMemberPath), 
+           this.WhenAnyValue(a => a.DisplayMemberPath),
            this.WhenAnyValue(a => a.IsCheckedPath),
            this.WhenAnyValue(a => a.CommandPath),
            this.WhenAnyValue(a => a.IsRefreshablePath)
@@ -54,7 +55,6 @@ namespace UtilityWpf.Controls.Hybrid
            });
         }
 
-
         public string IsCheckedPath
         {
             get => (string)GetValue(IsCheckedPathProperty);
@@ -72,6 +72,5 @@ namespace UtilityWpf.Controls.Hybrid
             get { return (string)GetValue(IsRefreshablePathProperty); }
             set { SetValue(IsRefreshablePathProperty, value); }
         }
-
     }
 }

@@ -1,4 +1,8 @@
 ﻿#nullable enable
+
+using Evan.Wpf;
+using Microsoft.Xaml.Behaviors;
+using ReactiveUI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,19 +16,18 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
-using System.Windows.Input;
-using Evan.Wpf;
-using Microsoft.Xaml.Behaviors;
-using ReactiveUI;
 using static UtilityWpf.Behavior.EnumSelectorBehavior;
 
 namespace UtilityWpf.Behavior
 {
     public class EnumSelectorBehavior : Behavior<Selector>
     {
-        CompositeDisposable? disposable = null;
+        private CompositeDisposable? disposable = null;
+        private ReplaySubject<IEnumerable> itemsSourceSubject = new(1);
+
         public static readonly DependencyProperty EnumTypeProperty = DependencyProperty.Register("EnumType", typeof(Type), typeof(EnumSelectorBehavior), new PropertyMetadata(EnumTypeChanged));
         public static readonly DependencyProperty EnumFilterCollectionProperty = DependencyHelper.Register<IEnumerable>();
+
         public static readonly DependencyProperty SelectedEnumProperty =
             DependencyProperty.Register("SelectedEnum", typeof(Enum), typeof(EnumSelectorBehavior), new FrameworkPropertyMetadata
             {
@@ -32,45 +35,35 @@ namespace UtilityWpf.Behavior
                 DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
             });
 
-
         protected override void OnAttached()
         {
             disposable = new CompositeDisposable();
-            if (AssociatedObject is ComboBox box)
-            {
-                box.IsEditable = false;
-                AssociatedObject.Width = 200;
-                AssociatedObject.Height = 40;
-            }
 
-            AssociatedObject.DisplayMemberPath = string.IsNullOrEmpty(AssociatedObject.DisplayMemberPath) ? 
-                "Description" : 
-                AssociatedObject.DisplayMemberPath;
-            AssociatedObject.SelectedValuePath = "Value";
-            AssociatedObject.SelectedIndex = 0;
-            AssociatedObject.HorizontalAlignment = HorizontalAlignment.Center;
-            AssociatedObject.VerticalAlignment = VerticalAlignment.Center;
-            AssociatedObject.HorizontalContentAlignment = HorizontalAlignment.Center;
-            AssociatedObject.VerticalContentAlignment = VerticalAlignment.Center;
+            itemsSourceSubject
+                .Subscribe(a =>
+                {
+                    AssociatedObject.ItemsSource = a;
+                }).DisposeWith(disposable);
 
+            FormatAssociatedObject(AssociatedObject);
 
-            this.WhenAnyValue(a => a.SelectedEnum)
-            .DistinctUntilChanged()
-            .WhereNotNull()
-            .CombineLatest(AssociatedObject.WhenAnyValue(a => a.ItemsSource)
-                               .WhereNotNull(), (a, b) => (a, b))
-            .Subscribe(c =>
-            {
-                var (@enum, enumerableNullable) = c;
-                if (!(enumerableNullable is { } enumerable))
-                    return;
-                var arr = enumerable.Cast<EnumMember>().ToArray();
-                var def = arr.SingleOrDefault(a => a.StringValue == @enum.ToString());
-                var index = Array.IndexOf(arr, def);
-                AssociatedObject.SetValue(Selector.SelectedIndexProperty, index);
-            }).DisposeWith(disposable);
+            this
+                .WhenAnyValue(a => a.SelectedEnum)
+                .DistinctUntilChanged()
+                .WhereNotNull()
+                .CombineLatest(AssociatedObject.WhenAnyValue(a => a.ItemsSource).WhereNotNull())
+                .Subscribe(c => AssociatedObject.SetValue(Selector.SelectedIndexProperty, Index(c.First, c.Second)))
+                .DisposeWith(disposable);
 
-            AssociatedObject.WhenAnyValue(a => a.SelectedValue)
+            this
+                .WhenAnyValue(a => a.EnumFilterCollection)
+                .WhereNotNull()
+                .Select(ToEnumMembers)
+                .Subscribe(itemsSourceSubject.OnNext)
+                .DisposeWith(disposable);
+
+            AssociatedObject
+                .WhenAnyValue(a => a.SelectedValue)
                 .WhereNotNull()
                 .DistinctUntilChanged()
                 .Subscribe(c =>
@@ -78,25 +71,24 @@ namespace UtilityWpf.Behavior
                     SetValue(SelectedEnumProperty, (Enum?)c);
                 }).DisposeWith(disposable);
 
-            itemsSourceSubject.Subscribe(a =>
-            {
-                AssociatedObject.ItemsSource = a;
-            }).DisposeWith(disposable);
-
-            this.WhenAnyValue(a => a.EnumFilterCollection)
-                .WhereNotNull()
-                .Subscribe(a =>
-            {
-                var flags = EnumHelper.Filter(a).ToArray();
-                var members = EnumMember.EnumerateEnumMembers(a.GetType().GetElementType());
-                var aa = from flag in flags
-                         join mem in members on flag equals mem.Value
-                         select mem;
-                var arr = aa.ToArray();
-                itemsSourceSubject.OnNext(arr);
-            });
-
             base.OnAttached();
+
+            static int Index(Enum? @enum, IEnumerable? enumerable)
+            {
+                var arr = enumerable.Cast<EnumMember>().ToArray();
+                var def = arr.SingleOrDefault(a => a.StringValue == @enum.ToString());
+                return Array.IndexOf(arr, def);
+            }
+
+            static EnumMember[] ToEnumMembers(IEnumerable enumerable)
+            {
+                var flags = EnumHelper.Filter(enumerable).ToArray();
+                var members = EnumMember.EnumerateEnumMembers(enumerable.GetType().GetElementType());
+                var joins = from flag in flags
+                            join mem in members on flag equals mem.Value
+                            select mem;
+                return joins.ToArray();
+            }
         }
 
         protected override void OnDetaching()
@@ -104,7 +96,6 @@ namespace UtilityWpf.Behavior
             disposable?.Dispose();
             base.OnDetaching();
         }
-
 
         #region properties
 
@@ -125,23 +116,8 @@ namespace UtilityWpf.Behavior
             get => (Enum)GetValue(SelectedEnumProperty);
             set => SetValue(SelectedEnumProperty, value);
         }
+
         #endregion properties
-
-        ReplaySubject<IEnumerable> itemsSourceSubject = new(1);
-
-        //private static void EnumTypeChanged<T>(DependencyObject d, DependencyPropertyChangedEventArgs e) where T : Enum
-        //{
-        //    if (!(d is EnumListBehavior { EnumType: { } type } behavior)) return;
-        //    Type generic = typeof(EnumMember<>).MakeGenericType(type);
-        //    object? instance = Activator.CreateInstance(generic);
-        //    MethodInfo? method = instance?.GetType().GetMethod(nameof(EnumMember<T>.EnumerateEnumMembers));
-        //    IEnumerable? itemsSource = (IEnumerable?)method?.Invoke(instance, null);
-        //    //behavior.AssociatedObject.ItemsSource = itemSource;
-        //    if (itemsSource != null)
-        //        behavior.itemsSourceSubject.OnNext(itemsSource);
-        //    else
-        //        throw new ApplicationException("F c44 SDfd");
-        //}    
 
         private static void EnumTypeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -160,8 +136,6 @@ namespace UtilityWpf.Behavior
             return itemsSource;
         }
 
-
-
         /// <summary>
         /// Simple attribute class for storing String Values
         /// </summary>
@@ -176,16 +150,43 @@ namespace UtilityWpf.Behavior
 
             public string Value { get; }
         }
+
+        private static void FormatAssociatedObject(Selector associatedObject)
+        {
+            if (associatedObject is ComboBox box)
+            {
+                box.IsEditable = false;
+                if (double.IsNaN(associatedObject.Width))
+                    associatedObject.Width = 200;
+                if (double.IsNaN(associatedObject.Height))
+                    associatedObject.Height = 40;
+            }
+
+            associatedObject.DisplayMemberPath = string.IsNullOrEmpty(associatedObject.DisplayMemberPath) ?
+                nameof(EnumMember.Description) :
+                associatedObject.DisplayMemberPath;
+
+            associatedObject.SelectedValuePath = string.IsNullOrEmpty(associatedObject.SelectedValuePath) ?
+                nameof(EnumMember.Value) :
+                associatedObject.SelectedValuePath;
+            associatedObject.SelectedValuePath = "Value";
+            associatedObject.SelectedIndex = 0;
+            associatedObject.HorizontalAlignment = HorizontalAlignment.Center;
+            associatedObject.VerticalAlignment = VerticalAlignment.Center;
+            associatedObject.HorizontalContentAlignment = HorizontalAlignment.Center;
+            associatedObject.VerticalContentAlignment = VerticalAlignment.Center;
+        }
     }
 
     public class EnumMember
     {
-
         public object Value { get; init; } = default!;
 
         public string Description { get; init; } = null!;
 
         public string StringValue { get; init; } = null!;
+
+        public bool IsChecked { get; set; }
 
         /// <exception cref="ArgumentException">T must be of type enumeration.</exception>
         public static IEnumerable<EnumMember> EnumerateEnumMembers(Type type)
@@ -210,10 +211,9 @@ namespace UtilityWpf.Behavior
                 yield return enumMember;
             }
         }
-
     }
 
-    static class EnumHelper
+    internal static class EnumHelper
     {
         public static IEnumerable<Enum> Filter(IEnumerable input)
         {

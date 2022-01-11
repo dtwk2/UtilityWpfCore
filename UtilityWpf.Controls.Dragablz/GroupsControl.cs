@@ -1,6 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows;
 
 namespace UtilityWpf.Controls.Dragablz
 {
@@ -8,9 +8,8 @@ namespace UtilityWpf.Controls.Dragablz
     {
         public static readonly DependencyProperty IsReadOnlyPathProperty = DependencyProperty.Register("IsReadOnlyPath", typeof(string), typeof(GroupsControl), new PropertyMetadata(null));
 
-
         static GroupsControl()
-        {            
+        {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(GroupsControl), new FrameworkPropertyMetadata(typeof(GroupsControl)));
         }
 
@@ -30,7 +29,6 @@ namespace UtilityWpf.Controls.Dragablz
             base.PrepareContainerForItemOverride(element, item);
         }
 
-
         private void SetBinding(Control element, object item)
         {
             if (string.IsNullOrEmpty(DisplayMemberPath))
@@ -47,7 +45,6 @@ namespace UtilityWpf.Controls.Dragablz
             };
             BindingOperations.SetBinding(textBlock, TextBlock.TextProperty, myBinding);
         }
-
 
         private void SetIsReadOnlyBinding(Control element, object item)
         {

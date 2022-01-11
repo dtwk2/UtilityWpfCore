@@ -1,22 +1,20 @@
 ﻿using System;
-using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 
 namespace UtilityWpf.Animation
 {
     public class FadeControl : ContentControl
     {
-        bool flag = false;
+        private bool flag = false;
         private readonly Storyboard storyboardOld = new Storyboard();
         private Storyboard storyboardNew = new Storyboard();
-        ReplaySubject<EventArgs> completions = new ReplaySubject<EventArgs>();
-        UIElement newElement = null;
+        private ReplaySubject<EventArgs> completions = new ReplaySubject<EventArgs>();
+        private UIElement newElement = null;
 
         public static readonly DependencyProperty FadeCommandProperty = DependencyProperty.Register(
             nameof(FadeCommand), typeof(ICommand), typeof(FadeControl), new PropertyMetadata(default(ICommand)));
@@ -40,11 +38,9 @@ namespace UtilityWpf.Animation
             (d as FadeControl).StartStories(e.OldValue as UIElement, e.NewValue as UIElement);
         }
 
-
         public FadeControl()
         {
             FadeCommand = new FadeCommand(this);
-
 
             //this.StartStories(null, this.Content as UIElement);
         }
@@ -57,17 +53,14 @@ namespace UtilityWpf.Animation
                 if (flag == true)
                 {
                     newElement.Opacity = 0;
-                  
+
                     StartStory(newElement, storyboardNew, true, (int)(AnimationTime / 2d));
                 }
                 flag = false;
-
             }, e => flag = false);
-
 
             base.OnApplyTemplate();
         }
-
 
         public ICommand FadeCommand
         {
@@ -75,10 +68,9 @@ namespace UtilityWpf.Animation
             set { SetValue(FadeCommandProperty, value); }
         }
 
-
         public void StartStories(UIElement oldElement, UIElement newElement)
         {
-            this.newElement = newElement?? oldElement;
+            this.newElement = newElement ?? oldElement;
             if (flag)
                 return;
 
@@ -100,7 +92,7 @@ namespace UtilityWpf.Animation
 
             storyboard.Children.Clear();
             TimeSpan duration = TimeSpan.FromMilliseconds(animationTime);
-            DoubleAnimation fadeOutAnimation = new DoubleAnimation(fromValue:addRemove ? 0 : 1, toValue : addRemove ? 1 : 0, duration : new Duration(duration))
+            DoubleAnimation fadeOutAnimation = new DoubleAnimation(fromValue: addRemove ? 0 : 1, toValue: addRemove ? 1 : 0, duration: new Duration(duration))
             { EasingFunction = new SineEase { } };
             Storyboard.SetTarget(fadeOutAnimation, element);
             Storyboard.SetTargetProperty(fadeOutAnimation, new PropertyPath("Opacity"));

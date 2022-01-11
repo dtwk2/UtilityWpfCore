@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
@@ -10,7 +10,6 @@
   <ItemGroup>
     <ProjectReference Include="..\UtilityWpf.Controls.Dragablz\UtilityWpf.Controls.Dragablz.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.Common\UtilityWpf.Demo.Common.csproj" />
-    <ProjectReference Include="..\UtilityWpf.TestData\UtilityWpf.Demo.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,7 +22,7 @@
     <Compile Update="ResourceDictionariesUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="TicksUserControl.xaml.cs">
+    <Compile Update="ListUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -45,7 +44,7 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="TicksUserControl.xaml">
+    <Page Update="ListUserControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

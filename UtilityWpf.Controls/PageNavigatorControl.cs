@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DynamicData;
+using DynamicData.Operators;
+using ReactiveUI;
+using System;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -6,9 +9,6 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
-using DynamicData;
-using DynamicData.Operators;
-using ReactiveUI;
 
 namespace UtilityWpf.Controls
 {
@@ -36,7 +36,6 @@ namespace UtilityWpf.Controls
             var obs2 = new Subject<PageRequest>();
 
             var obs = pageRequests.StartWith(new PageRequest(1, 20));
-
 
             var filteredPaginatedVM = new FilteredPaginatedModel<object>(ItemsSourceChanges.Select(a => a.Cast<object>().ToObservable()).Switch().ToObservableChangeSet(),
            obs,
@@ -123,7 +122,6 @@ namespace UtilityWpf.Controls
 
             public ReadOnlyObservableCollection<T> Items => pitems;
             public IPageResponse PageResponse { get => pageResponse; set => this.RaiseAndSetIfChanged(ref pageResponse, value); }
-
         }
     }
 }

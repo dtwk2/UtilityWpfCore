@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <AssemblyVersion>1.0.20.0</AssemblyVersion>
     <FileVersion>1.0.20.0</FileVersion>
@@ -14,14 +14,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\UtilityWpf.Controls.Meta\UtilityWpf.Controls.Meta.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Demo.Buttons\UtilityWpf.Demo.Buttons.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Demo.Clocks\UtilityWpf.Demo.Clocks.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Demo.Controls\UtilityWpf.Demo.Controls.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Demo.Data\UtilityWpf.Demo.Data.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Demo.Dialogs\UtilityWpf.Demo.Dialogs.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.Dragablz\UtilityWpf.Demo.Dragablz.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Demo.Extrinsic\UtilityWpf.Demo.Extrinsic.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.FileSystem\UtilityWpf.Demo.FileSystem.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.Hybrid\UtilityWpf.Demo.Hybrid.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.Master\UtilityWpf.Demo.Master.csproj" />
-    <ProjectReference Include="..\UtilityWpf.Demo.View.Animation\UtilityWpf.Demo.View.Animation.csproj" />
-    <ProjectReference Include="..\UtilityWpf.Demo.View.Panels\UtilityWpf.Demo.View.Panels.csproj" />
-    <ProjectReference Include="..\UtilityWpf.Demo.View\UtilityWpf.Demo.View.csproj" />
-    <ProjectReference Include="..\UtilityWpf.TestData\UtilityWpf.Demo.Data.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Demo.Objects\UtilityWpf.Demo.Objects.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Demo.Panels\UtilityWpf.Demo.Panels.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Demo.Progress\UtilityWpf.Demo.Progress.csproj" />
   </ItemGroup>
 
   <ItemGroup>

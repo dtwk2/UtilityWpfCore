@@ -1,18 +1,17 @@
-﻿using System;
+﻿using LiteDB;
+using NetFabric.Hyperlinq;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using LiteDB;
-using NetFabric.Hyperlinq;
 using Utility.Common;
 using UtilityHelper;
 using UtilityInterface.NonGeneric.Data;
-using static UtilityWpf.Service.LiteDbRepository;
+using static Utility.Persist.LiteDbRepository;
 
-namespace UtilityWpf.Service
+namespace Utility.Persist
 {
-
     public class LiteDbRepository : IRepository, IIdRepository
     {
         public record ConnectionSettings(Type Type, FileInfo FileInfo, string IdProperty, bool IgnoreBsonDocumentProperties = true);
@@ -21,24 +20,21 @@ namespace UtilityWpf.Service
 
         private BsonMapper _mapper = new BsonMapper();
 
-        IDisposable GetCollection(out ILiteCollection<BsonDocument> collection)
+        private IDisposable GetCollection(out ILiteCollection<BsonDocument> collection)
         {
             collection = LiteDbHelper.GetCollection(Settings, out var _disposable);
             collection.EnsureIndex(a => a[_key]);
             return _disposable;
-
         }
 
         public LiteDbRepository(ConnectionSettings settings)
         {
             var fileInfo = settings.FileInfo;
-            fileInfo.Directory.Create();     
+            fileInfo.Directory.Create();
             Settings = settings;
         }
 
-
         public ConnectionSettings Settings { get; }
-
 
         public object Find(object item)
         {
@@ -108,13 +104,15 @@ namespace UtilityWpf.Service
                 switch (query)
                 {
                     case CountQuery:
-                        return collection.Count();    
+                        return collection.Count();
+
                     case FirstQuery:
                         return Convert(collection.Query().First());
+
                     default:
                         throw new ArgumentOutOfRangeException("789uu7fssd");
                 }
-            } 
+            }
         }
 
         public object AddBy(IQuery query)
@@ -138,21 +136,6 @@ namespace UtilityWpf.Service
             {
                 var bulk = collection.InsertBulk(Convert(items));
                 return Enumerable.Range(0, bulk);
-            }
-        }
-
-        public IEnumerable FindMany(IQuery query)
-        {
-            using (GetCollection(out var collection))
-            {
-
-                switch (query)
-                {
-                    case AllQuery:
-                        return ConvertBack(collection.FindAll()).ToArray();   
-                    default:
-                        throw new ArgumentOutOfRangeException("777fssd");
-                }
             }
         }
 
@@ -196,6 +179,7 @@ namespace UtilityWpf.Service
             //var doc = _mapper.ToD(obj.GetType(), objs);
             return objs.Cast<object>().Select(obj => Convert(obj));
         }
+
         protected virtual IEnumerable<object> ConvertBack(IEnumerable<BsonDocument> objs)
         {
             //var doc = _mapper.ToD(obj.GetType(), objs);
@@ -234,6 +218,20 @@ namespace UtilityWpf.Service
             return doc;
         }
 
+        public IEnumerable FindManyBy(IQuery query)
+        {
+            using (GetCollection(out var collection))
+            {
+                switch (query)
+                {
+                    case AllQuery:
+                        return ConvertBack(collection.FindAll()).ToArray();
+
+                    default:
+                        throw new ArgumentOutOfRangeException("777fssd");
+                }
+            }
+        }
     }
 
     public static class LiteDbHelper
@@ -254,7 +252,6 @@ namespace UtilityWpf.Service
             if (db.CollectionExists(collectionName))
                 return db.GetCollection<T>(collectionName);
 
-
             var names = db.GetCollectionNames();
             throw new Exception($"Collection does not exist in collection, {string.Join(", ", names)}");
         }
@@ -270,7 +267,6 @@ namespace UtilityWpf.Service
             //return db.GetCollection("Default");
             //throw new Exception($"Collection does not exist in collection, {name}");
         }
-
 
         //public static ILiteCollection<object> GetCollection(string directory, string name, out IDisposable disposable)
         //{

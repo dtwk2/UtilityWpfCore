@@ -1,0 +1,73 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="ButtonsControl.cs">
+			<DependentUpon>ButtonsControl.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="CheckBoxesControl.cs">
+			<DependentUpon>CheckBoxesControl.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="GeometryButton.cs">
+			<DependentUpon>GeometryButton.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="ImageButton.cs">
+			<DependentUpon>ImageButton.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="DualButtonControl.cs">
+			<DependentUpon>DualButtonControl.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="SwitchControl.cs">
+			<DependentUpon>SwitchControl.xaml</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Page Update="CheckBoxesControl.xaml">
+			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="ButtonsControl.xaml">
+			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="DualButtonControl.xaml">
+			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="Geometry.xaml">
+			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="GeometryButton.xaml">
+			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="ImageButton.xaml">
+			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="SwitchControl.xaml">
+			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="Themes\Generic.xaml">
+			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+			<SubType>Designer</SubType>
+		</Page>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\UtilityWpf\UtilityWpf.csproj" />
+	</ItemGroup>
+
+</Project>
