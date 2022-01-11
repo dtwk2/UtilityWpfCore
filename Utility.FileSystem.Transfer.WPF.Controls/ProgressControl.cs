@@ -53,13 +53,14 @@ namespace Utility.FileSystem.Transfer.WPF.Controls
                 this.ConfigContentControl.Visibility = a ? Visibility.Collapsed : Visibility.Visible;
             }));
             this.DetailChanges.CombineLatest<string, Unit, string>((IObservable<Unit>)this.TemplateApplied, (Func<string, Unit, string>)((a, b) => a)).Subscribe<string>((Action<string>)(a => this.TitleTextBlock.ToolTip = (object)a));
-            this.TitleChanges.CombineLatest<string, RoutedEventArgs, string>(this.LoadedChanges(), (Func<string, RoutedEventArgs, string>)((a, b) => a)).Subscribe<string>((Action<string>)(a => this.TitleTextBlock.Text = a));
+            this.TitleChanges.CombineLatest(this.LoadedChanges()).Subscribe(a => this.TitleTextBlock.Text = a.First);
             this.ScheduleProgress();
-            this.LoadedChanges().Subscribe<RoutedEventArgs>((Action<RoutedEventArgs>)(a =>
+            this.LoadedChanges()
+            .Subscribe(a =>
             {
                 this.ReadOnlyChanges.OnNext(this.IsReadOnly);
                 this.ShowTransferChanges.OnNext(this.ShowTransfer);
-            }));
+            });
         }
 
         public string Title

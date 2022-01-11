@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
@@ -20,7 +20,7 @@
     <ProjectReference Include="..\Suggest.WPF.FileSystem\Suggest.WPF.FileSystem.csproj" />
     <ProjectReference Include="..\Suggest.WPF\Suggest.WPF.csproj" />
     <ProjectReference Include="..\Utility.FileSystem.Transfer.Service\Utility.FileSystem.Transfer.Service.csproj" />
-    <ProjectReference Include="..\Utility.FileSystem.Transfer.WPF.Contols\Utility.FileSystem.Transfer.WPF.Controls.csproj" />
+    <ProjectReference Include="..\Utility.FileSystem.Transfer.WPF.Controls\Utility.FileSystem.Transfer.WPF.Controls.csproj" />
   </ItemGroup>
 
   <ItemGroup>
