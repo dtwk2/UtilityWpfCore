@@ -14,9 +14,11 @@
   <ItemGroup>
     <PackageReference Include="BFF.DataVirtualizingCollection" Version="3.3.5" />
     <PackageReference Include="Dragablz.NetCore" Version="0.3.3" />
+    <PackageReference Include="HtmlSyntaxHighlighterDotNet" Version="19.12.1" />
     <PackageReference Include="LambdaConverters" Version="4.0.0" />
     <PackageReference Include="LiveCharts.Wpf.NetCore3" Version="0.9.7" />
     <PackageReference Include="PropertyTools.Wpf" Version="3.1.0" />
+    <PackageReference Include="SyntaxHighlighter" Version="3.0.83" />
     <PackageReference Include="VirtualizingWrapPanel" Version="1.5.7" />
   </ItemGroup>
 
