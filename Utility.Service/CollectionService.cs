@@ -1,34 +1,33 @@
 ﻿using DynamicData;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using Utility.Common.Contract;
 using Utility.Common.Helper;
 using UtilityHelper.NonGeneric;
 using UtilityHelperEx;
-using UtilityInterface.NonGeneric.Data;
 using UtilityWpf;
 using UtilityWpf.Common;
 
 namespace Utility.Service
 {
-    public record CollectionChangeMessage(CollectionChange change);
-    public record RepositoryMessage(IRepository Service);
-
-    public class CollectionService : IObserver<RepositoryMessage>, IObservable<CollectionChangeMessage>, IDisposable
+    public class CollectionService : ICollectionService, IDisposable
     {
-        private IDisposable disposable;
+        private IDisposable? disposable;
         private readonly ReplaySubject<RepositoryMessage> repositoryMessages = new(1);
         private readonly ReplaySubject<CollectionChangeMessage> collectionChangeMessages = new();
-
-        public ObservableRangeCollection<object> Items { get; } = new();
+        private readonly ObservableRangeCollection<object> items = new();
 
         public CollectionService(bool initialise = true)
         {
             if (initialise)
                 Init();
         }
+
+        public ObservableCollection<object> Items => items;
 
         protected void Init()
         {
@@ -83,32 +82,34 @@ namespace Utility.Service
 
             var changeSet = ObservableChangeSet.Create<object, string>(observer =>
             {
-                return repositoryMessages.Select(a => a.Service).WhereNotDefault()
-                   .Select(a => a.FindAll<object>())
-                   .Subscribe(objects =>
-                   {
-                       if (objects.Any() == false)
-                           return;
-                       foreach (var change in objects.OfType<INotifyPropertyChanged>())
-                       {
-                           change
-                           .Changes()
-                           .Subscribe(x =>
-                           {
-                               observer.AddOrUpdate(x.source);
-                           });
-                       }
-                       observer.Edit(a =>
-                       {
-                           a.Clear();
-                           foreach (var change in objects.OfType<INotifyPropertyChanged>())
-                           {
-                               a.AddOrUpdate(change);
-                           }
-                       });
+                return repositoryMessages
+                        .Select(a => a.Service)
+                        .WhereNotDefault()
+                        .Select(a => a.FindAll<object>())
+                        .Subscribe(objects =>
+                        {
+                            if (objects.Any() == false)
+                                return;
+                            foreach (var change in objects.OfType<INotifyPropertyChanged>())
+                            {
+                                change
+                                .Changes()
+                                .Subscribe(x =>
+                                {
+                                    observer.AddOrUpdate(x.source);
+                                });
+                            }
+                            observer.Edit(a =>
+                            {
+                                a.Clear();
+                                foreach (var change in objects.OfType<INotifyPropertyChanged>())
+                                {
+                                    a.AddOrUpdate(change);
+                                }
+                            });
 
-                       Items.ReplaceWithRange(objects);
-                   });
+                            items.ReplaceWithRange(objects);
+                        });
             }, a => a.ToString());
 
             var dis2 = changeSet
@@ -134,7 +135,7 @@ namespace Utility.Service
 
             IObservable<CollectionChange> OldItems()
             {
-                return Items
+                return items
                     .SelectChanges()
                     .Select(a => new CollectionChange(a.Action, a.OldItems?.Cast<object>()?.ToArray() ?? Array.Empty<object>()));
             }
@@ -181,34 +182,6 @@ namespace Utility.Service
         public void OnNext(RepositoryMessage value)
         {
             repositoryMessages.OnNext(value);
-        }
-    }
-
-    public record CollectionChange
-    {
-        public NotifyCollectionChangedAction Action { get; }
-        public IEnumerable<object> Items { get; }
-
-        public CollectionChange(NotifyCollectionChangedAction action, IEnumerable<object> item2)
-        {
-            Action = action;
-            Items = item2;
-        }
-
-        public void Deconstruct(out NotifyCollectionChangedAction action, out IEnumerable<object> item)
-        {
-            action = Action;
-            item = Items;
-        }
-
-        public static implicit operator (NotifyCollectionChangedAction Action, IEnumerable<object>)(CollectionChange value)
-        {
-            return (value.Action, value.Items);
-        }
-
-        public static implicit operator CollectionChange((NotifyCollectionChangedAction, IEnumerable<object>) value)
-        {
-            return new CollectionChange(value.Item1, value.Item2);
         }
     }
 }

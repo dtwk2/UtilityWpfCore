@@ -6,7 +6,6 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -22,13 +21,11 @@ namespace UtilityWpf.Controls.Master
     {
         private Selector Selector => ItemsControl is Selector selector ? selector : throw new Exception($@"The ItemsControl used must be of type {nameof(Selector)} for operation.");
 
-        public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(ItemsContentControl), new PropertyMetadata(null, Changed));
+        public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(ItemsContentControl), new PropertyMetadata(null));
 
         private static readonly DependencyProperty ItemsControlProperty = DependencyProperty.Register("ItemsControl", typeof(ItemsControl), typeof(ItemsContentControl), new PropertyMetadata(null));
         public static readonly DependencyProperty CountProperty = DependencyHelper.Register<int>();
         public static readonly RoutedEvent SelectionChangedEvent = EventManager.RegisterRoutedEvent(nameof(SelectionChanged), RoutingStrategy.Bubble, typeof(SelectionChangedEventHandler), typeof(ItemsContentControl));
-        //protected readonly ReplaySubject<WrapPanel> wrapPanelSubject = new(1);
-        protected ReplaySubject<IEnumerable> itemsSourceSubject = new(1);
 
         static ItemsContentControl()
         {
@@ -36,12 +33,6 @@ namespace UtilityWpf.Controls.Master
 
         public ItemsContentControl()
         {
-        }
-
-        private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (e.NewValue is IEnumerable enmerable)
-                d.Dispatcher.InvokeAsync(() => (d as ItemsContentControl).itemsSourceSubject.OnNext(enmerable));
         }
 
         #region properties
@@ -100,7 +91,7 @@ namespace UtilityWpf.Controls.Master
 
         public override void OnApplyTemplate()
         {
-            ItemsControl = (this.Content as ItemsControl) ?? (this.Content as DependencyObject)?.FindVisualChildren<ItemsControl>().SingleOrDefault()!;
+            ItemsControl = (this.Content as ItemsControl) ?? (this.Content as DependencyObject)?.FindVisualChildren<ItemsControl>().SingleOrDefault();
             if (ItemsControl != null)
             {
                 //this.SetValue(ItemsSourceProperty, itemsControl.ItemsSource);
@@ -166,7 +157,7 @@ namespace UtilityWpf.Controls.Master
             }
             Count = ItemsSource?.Count() ?? 0;
 
-            itemsSourceSubject
+            this.WhenAnyValue(a => a.ItemsSource)
                 .Subscribe(a =>
                 {
                     if (a != null)

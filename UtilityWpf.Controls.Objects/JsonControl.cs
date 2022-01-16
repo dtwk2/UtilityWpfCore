@@ -32,12 +32,21 @@ namespace UtilityWpf.Controls.Objects
     /// </summary>
     public partial class JsonControl : TreeView
     {
-        private ReplaySubject<TreeView> subject = new(1);
-        private ReplaySubject<bool> toggleItems = new(1);
+        private readonly ReplaySubject<TreeView> subject = new(1);
+        private readonly ReplaySubject<bool> toggleItems = new(1);
         private const GeneratorStatus Generated = GeneratorStatus.ContainersGenerated;
 
-        public static readonly DependencyProperty JsonProperty = DependencyProperty.Register(nameof(Json), typeof(string), typeof(JsonControl), new PropertyMetadata(null));
-        public static readonly DependencyProperty ObjectProperty = DependencyProperty.Register(nameof(Object), typeof(object), typeof(JsonControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty JsonProperty = DependencyProperty.Register(nameof(Json), typeof(string), typeof(JsonControl), new PropertyMetadata(null, Change2));
+
+        private static void Change2(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+        }
+
+        public static readonly DependencyProperty ObjectProperty = DependencyProperty.Register(nameof(Object), typeof(object), typeof(JsonControl), new PropertyMetadata(null, Change));
+
+        private static void Change(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+        }
 
         static JsonControl()
         {
@@ -56,6 +65,8 @@ namespace UtilityWpf.Controls.Objects
                 .Subscribe(a =>
                 {
                     this.Load(a.First, a.Second);
+                }, e =>
+                {
                 });
 
             toggleItems
@@ -202,41 +213,41 @@ namespace UtilityWpf.Controls.Objects
     internal static class Converters
     {
         private static readonly Lazy<Dictionary<int, Color>> NiceColors = new Lazy<Dictionary<int, Color>>(() =>
-                  ColorStore.Collection
-                  .Select((a, i) => Tuple.Create(i, (Color)ColorConverter.ConvertFromString(a.Value)))
-                  .ToDictionary(a => a.Item1, a => a.Item2));
+                                 ColorStore.Collection
+                                 .Select((a, i) => Tuple.Create(i, (Color)ColorConverter.ConvertFromString(a.Value)))
+                                 .ToDictionary(a => a.Item1, a => a.Item2));
 
         public static IValueConverter JTokenTypeToColorConverter => Create<JTokenType, Color>(a => NiceColors.Value[(byte)a.Value]);
 
         public static IValueConverter MethodToValueConverter => Create<object, JEnumerable<JToken>?, string>(a =>
-            {
-                if (a.Parameter != null && a.Value?.GetType().GetMethod(a.Parameter, Array.Empty<Type>()) is MethodInfo methodInfo)
-                    return (JEnumerable<JToken>?)methodInfo.Invoke(a.Value, Array.Empty<object>());
-                return new JEnumerable<JToken>();
-            });
+                      {
+                          if (a.Parameter != null && a.Value?.GetType().GetMethod(a.Parameter, Array.Empty<Type>()) is MethodInfo methodInfo)
+                              return (JEnumerable<JToken>?)methodInfo.Invoke(a.Value, Array.Empty<object>());
+                          return new JEnumerable<JToken>();
+                      });
 
         //public static IValueConverter ComplexPropertyMethodToValueConverter => Create<object, JEnumerable<JToken>?, string>(args =>
         //(JEnumerable<JToken>)MethodToValueConverter.Convert(args.Value, null, args.Parameter, args.Culture));
 
         public static IValueConverter JArrayLengthConverter => Create<object, string>(jToken =>
-            {
-                if (jToken.Value is JToken { Type: JTokenType type } jtoken)
-                    return type switch
-                    {
-                        JTokenType.Array => $"[{jtoken.Children().Count()}]",
-                        JTokenType.Property => $"[ { jtoken.Children().FirstOrDefault()?.Children().Count()} ]",
-                        _ => throw new ArgumentOutOfRangeException("Type should be JProperty or JArray"),
-                    };
-                throw new Exception("fsdfdfsd");
-            }
+                      {
+                          if (jToken.Value is JToken { Type: JTokenType type } jtoken)
+                              return type switch
+                              {
+                                  JTokenType.Array => $"[{jtoken.Children().Count()}]",
+                                  JTokenType.Property => $"[ { jtoken.Children().FirstOrDefault()?.Children().Count()} ]",
+                                  _ => throw new ArgumentOutOfRangeException("Type should be JProperty or JArray"),
+                              };
+                          throw new Exception("fsdfdfsd");
+                      }
         , errorStrategy: LambdaConverters.ConverterErrorStrategy.DoNothing);
 
         public static IValueConverter JTokenConverter => Create<object, string>(jval => jval.Value switch
-            {
-                JValue value when value.Type == JTokenType.Null => "null",
-                JValue value => value?.Value?.ToString() ?? string.Empty,
-                _ => jval.Value.ToString() ?? string.Empty
-            });
+                      {
+                          JValue value when value.Type == JTokenType.Null => "null",
+                          JValue value => value?.Value?.ToString() ?? string.Empty,
+                          _ => jval.Value.ToString() ?? string.Empty
+                      });
     }
 
     internal static class TemplateSelector

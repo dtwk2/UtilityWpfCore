@@ -4,11 +4,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:view="http://schemas.utility.com"
     xmlns:view1="clr-namespace:UtilityWpf.Demo.View"
     xmlns:view121="clr-namespace:UtilityWpf.Demo.Master.View"
     xmlns:view2="http://schemas.utility.com/master"
-    xmlns:view11="clr-namespace:UtilityWpf.Demo.Master.Infrastructure" xmlns:utl="http://schemas.utility.com/utilitywpf"
+    xmlns:view11="clr-namespace:UtilityWpf.Demo.Master.Infrastructure"
     Title="MainWindow"
     Width="825"
     Height="550"
@@ -19,8 +18,11 @@
     </FrameworkElement.Resources>-->
 
     <TabControl>
+        <TabItem Header="Master-Detail">
+            <view11:MasterDetailUserControl />
+        </TabItem>
 
-        <TabItem Header="Master-Detail-Grid">
+        <!--<TabItem Header="Master-Detail-Grid">
             <view11:MasterDetailGridUserControl />
         </TabItem>
 
@@ -34,10 +36,6 @@
 
         <TabItem Header="Read-Only-Master-Detail">
             <view11:ReadOnlyMasterDetailUserControl />
-        </TabItem>
-
-        <TabItem Header="Master-Detail">
-            <view11:MasterDetailUserControl />
         </TabItem>
 
         <TabItem Header="A      ">
@@ -100,7 +98,9 @@
                 <sys:String>Blue</sys:String>
                 <sys:String>Green</sys:String>
             </HeaderedItemsControl>
-            <!--<view:HeaderedListBox Header="!dffsdfs  £" />-->
+            -->
+        <!--<view:HeaderedListBox Header="!dffsdfs  £" />-->
+        <!--
         </TabItem>
 
         <TabItem Header="Master-Detail-Grid">
@@ -118,6 +118,6 @@
                     <Ellipse Fill="PaleGoldenrod" Height="10" Width="10"></Ellipse>
                 </view2:OrientationListBox>
             </StackPanel>
-        </TabItem>
+        </TabItem>-->
     </TabControl>
 </Window>

@@ -1,6 +1,6 @@
-﻿#nullable enable
-
-using Endless.Functional;
+﻿using Endless.Functional;
+using Humanizer;
+using MoreLinq;
 using Splat;
 using System;
 using System.Collections;
@@ -20,8 +20,6 @@ using System.Windows.Media;
 
 namespace UtilityWpf.Controls.Objects
 {
-    using Humanizer;
-    using MoreLinq;
     using Utility;
     using UtilityWpf.Converter;
 
@@ -471,7 +469,20 @@ namespace UtilityWpf.Controls.Objects
                 {
                     var val = elementSelector(element);
                     if (val != null)
-                        d.Add(keySelector(element), val);
+                    {
+                        if (d.Contains(keySelector(element)))
+                        {
+                            var key = keySelector(element);
+                            int i = 0;
+                            while (d.Contains(key))
+                            {
+                                key = keySelector(element) + i;
+                            }
+                            d.Add(key, val);
+                        }
+                        else
+                            d.Add(keySelector(element), val);
+                    }
                 }
 
                 return d;

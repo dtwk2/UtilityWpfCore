@@ -24,12 +24,10 @@ namespace UtilityWpf.Controls.Master
         public static readonly DependencyProperty ConverterParameterProperty = fac.Register<object>();
         public static readonly DependencyProperty PropertyKeyProperty = fac.Register<string>(nameof(PropertyKey));
         public static readonly DependencyProperty UseDataContextProperty = fac.Register<bool>();
-        public static readonly DependencyProperty SelectorProperty = DependencyHelper.Register(new PropertyMetadata(null, Changed));
-        public static readonly DependencyProperty OrientationProperty = DependencyHelper.Register(new PropertyMetadata(Orientation.Horizontal, Changed));
+        public static readonly DependencyProperty SelectorProperty = DependencyHelper.Register(new PropertyMetadata(null));
+        public static readonly DependencyProperty OrientationProperty = DependencyHelper.Register(new PropertyMetadata(Orientation.Horizontal));
 
-        private ReplaySubject<Control> controlSubject = new(1);
         private ReplaySubject<object> dataContextSubject = new(1);
-        private ReplaySubject<Orientation> orientationSubject = new(1);
 
         static ReadOnlyMasterDetail()
         {
@@ -39,16 +37,17 @@ namespace UtilityWpf.Controls.Master
 
         public ReadOnlyMasterDetail()
         {
-            _ = controlSubject
-                 .WhereNotNull()
-                 .CombineLatest(dataContextSubject.WhereNotNull())
-                 .Subscribe(a =>
-                 {
-                     a.First.DataContext = a.Second;
-                 });
+            _ = this
+                .WhenAnyValue(a => a.Selector)
+                .WhereNotNull()
+                .CombineLatest(dataContextSubject.WhereNotNull())
+                .Subscribe(c =>
+                {
+                    c.First.DataContext = c.Second;
+                });
 
             TransformObservable = UtilityHelperEx.ObservableHelper.ToReplaySubject(Transform(
-                controlSubject.ObserveOnDispatcher().WhereNotNull().Select(SelectFromMaster).Switch(),
+                this.WhenAnyValue(a => a.Selector).WhereNotNull().ObserveOnDispatcher().Select(SelectFromMaster).Switch(),
                 this.Observable<IValueConverter>(nameof(Converter)),
                 this.Observable<object>(nameof(ConverterParameter)),
                 this.Observable<string>(nameof(PropertyKey))));
@@ -61,8 +60,8 @@ namespace UtilityWpf.Controls.Master
                     SetDetail(Content, content);
                 });
 
-            _ = orientationSubject
-                .CombineLatest(controlSubject)
+            _ = this.WhenAnyValue(a => a.Orientation)
+                .CombineLatest(this.WhenAnyValue(a => a.Selector))
                 .Subscribe(combined =>
                 {
                     if (combined.Second is IOrientation iori)
@@ -188,18 +187,16 @@ namespace UtilityWpf.Controls.Master
             }
         }
 
-        // Seemingly necessary to avoid use of WhenAnyValue for certain properties to avoid threading issues
         private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is not ReadOnlyMasterDetail readOnly)
                 return;
 
-            if (e.NewValue is Control control)
-                d.Dispatcher.InvokeAsync(() => readOnly.controlSubject.OnNext(control));
-            else if (e.NewValue is object obj)
+            //if (e.NewValue is Control control)
+            //    d.Dispatcher.InvokeAsync(() => readOnly.controlSubject.OnNext(control));
+
+            if (e.NewValue is object obj)
                 d.Dispatcher.InvokeAsync(() => readOnly.dataContextSubject.OnNext(obj));
-            else if (e.NewValue is Orientation orientation)
-                d.Dispatcher.InvokeAsync(() => readOnly.orientationSubject.OnNext(orientation));
         }
 
         /// <summary>

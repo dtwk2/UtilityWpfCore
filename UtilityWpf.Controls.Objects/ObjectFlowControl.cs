@@ -431,10 +431,13 @@ namespace UtilityWpf.Controls.Objects
             {
                 type.Name,
                 inlines,
-                Properties = EnumerateProperties(await Task.Run(() => GetInformation(e).ToArray()), innerProperty, fontSizes.Medium).ToArray()
+                Properties = EnumerateProperties(await Task.Run(() => GetInformation(e).Where(a => a != default).ToArray()), innerProperty, fontSizes.Medium).ToArray()
             };
 
-            static IEnumerable<(PropertyInfo, object?)> GetInformation(object e) => e.GetType().GetProperties().Select(info => (info, info.GetValue(e, null)));
+            static IEnumerable<(PropertyInfo, object?)> GetInformation(object e) => e.GetType().GetProperties().Select(info =>
+            {
+                return (info, info.GetValue(e, null));
+            });
 
             static IEnumerable<(string name, Inline[] inlines)> EnumerateProperties((PropertyInfo, object?)[] props, string? innerProperty, double fontSize)
             {

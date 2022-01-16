@@ -1,6 +1,7 @@
 ﻿using DynamicData;
 using Evan.Wpf;
 using Microsoft.Xaml.Behaviors;
+using ReactiveUI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -44,10 +45,23 @@ namespace UtilityWpf.Controls.Master
         static MasterControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(MasterControl), new FrameworkPropertyMetadata(typeof(MasterControl)));
+            DataContextProperty.OverrideMetadata(typeof(MasterControl), new FrameworkPropertyMetadata(null, Changed));
+        }
+
+        private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
         }
 
         public MasterControl()
         {
+            this.WhenAnyValue(a => a.DataContext)
+                .Subscribe(a =>
+                {
+                });
+            this.WhenAnyValue(a => a.ItemsSource)
+                .Subscribe(a =>
+                {
+                });
         }
 
         #region properties

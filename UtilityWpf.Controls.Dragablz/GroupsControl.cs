@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 
 namespace UtilityWpf.Controls.Dragablz
@@ -29,31 +30,44 @@ namespace UtilityWpf.Controls.Dragablz
             base.PrepareContainerForItemOverride(element, item);
         }
 
-        private void SetBinding(Control element, object item)
+        protected virtual void SetBinding(Control element, object dataContext)
         {
             if (string.IsNullOrEmpty(DisplayMemberPath))
                 return;
             _ = element.ApplyTemplate();
             if (element.ChildOfType<TextBlock>() is not TextBlock textBlock)
-                return;
-
-            Binding myBinding = new Binding
             {
-                Source = item,
+                if (element.FindChild<Thumb>("PART_Thumb") is Thumb thumb)
+                {
+                    _ = thumb.ApplyTemplate();
+                    if (thumb.ChildOfType<TextBlock>() is not TextBlock textBlock2)
+                    {
+                        return;
+                    }
+                    textBlock = textBlock2;
+                }
+                else
+                    return;
+            }
+
+            this.GetTemplateChild("PART_Text");
+            Binding myBinding = new()
+            {
+                Source = dataContext,
                 Path = new PropertyPath(DisplayMemberPath),
                 Mode = BindingMode.OneWay
             };
             BindingOperations.SetBinding(textBlock, TextBlock.TextProperty, myBinding);
         }
 
-        private void SetIsReadOnlyBinding(Control element, object item)
+        private void SetIsReadOnlyBinding(Control element, object dataContext)
         {
             if (string.IsNullOrEmpty(IsReadOnlyPath))
                 return;
 
             Binding myBinding = new Binding
             {
-                Source = item,
+                Source = dataContext,
                 Path = new PropertyPath(IsReadOnlyPath),
                 Mode = BindingMode.TwoWay
             };

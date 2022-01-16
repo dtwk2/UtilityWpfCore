@@ -46,14 +46,14 @@
         </ToolBar>
 
         <TabControl>
-            <TabItem Header="First">
+            <!--<TabItem Header="First">
                 <view2:MasterDetail
                     Converter="{StaticResource AutoValueConverter}" Orientation="{Binding ElementName=OrientationToggleButton, Path=Content}">
                     <view2:MasterDetail.Selector>
                         <DataGrid ItemsSource="{Binding Data, Mode=OneTime}" IsReadOnly="True" />
                     </view2:MasterDetail.Selector>
                 </view2:MasterDetail>
-            </TabItem>
+            </TabItem>-->
             <TabItem Header="Second">
                 <view2:ReadOnlyMasterDetail Converter="{x:Static local11:CollectionConverter.Instance}"
                                             Orientation="{Binding ElementName=OrientationToggleButton, Path=Content}"
@@ -90,7 +90,7 @@
             <TabItem Header="Third">
                 <view2:ReadOnlyMasterDetail Orientation="{Binding ElementName=OrientationToggleButton, Path=Content}">
                     <view2:ReadOnlyMasterDetail.Selector>
-                        <ListBox SelectedIndex="0">
+                        <view2:OrientationListBox SelectedIndex="0">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Ellipse Height="50" Width="50" Fill="{Binding Children[0].Fill}"></Ellipse>
@@ -112,7 +112,7 @@
                                 <Rectangle Fill="Beige" Height="20"></Rectangle>
                                 <TextBlock Text="ghg565dfgdf"></TextBlock>
                             </Grid>
-                        </ListBox>
+                        </view2:OrientationListBox>
                     </view2:ReadOnlyMasterDetail.Selector>
                 </view2:ReadOnlyMasterDetail>
             </TabItem>
