@@ -31,4 +31,18 @@
             return $"{Header} {IsChecked}";
         }
     }
+
+    public class CheckContentViewModel : CheckViewModel
+    {
+        public CheckContentViewModel(object content, string header, bool isChecked) : base(header, isChecked)
+        {
+            Content = content;
+        }
+
+        public CheckContentViewModel()
+        {
+        }
+
+        public object Content { get; }
+    }
 }
