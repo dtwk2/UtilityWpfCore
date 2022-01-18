@@ -39,7 +39,7 @@ namespace UtilityWpf.Controls.Hybrid
                 IsReadOnlyPath = IsReadOnlyPath
             };
 
-            itemsSourceSubject
+            this.WhenAnyValue(a => a.ItemsSource)
                 .Skip(1)
                 .CombineLatest(this.WhenAnyValue(a => a.DisplayMemberPath), this.WhenAnyValue(a => a.IsReadOnlyPath))
                      .Subscribe(a =>
@@ -48,22 +48,24 @@ namespace UtilityWpf.Controls.Hybrid
 
                          Dispatcher.InvokeAsync(() =>
                          {
-                             if (Content is GroupsControl msn)
+                             if (Content is GroupsControl groupsControl)
                              {
-                                 msn.ItemsSource = itemsSource;
-                                 msn.DisplayMemberPath = memberPath;
-                                 msn.IsReadOnlyPath = readOnlyPath;
+                                 groupsControl.ItemsSource = itemsSource;
+                                 groupsControl.DisplayMemberPath = memberPath;
+                                 groupsControl.IsReadOnlyPath = readOnlyPath;
                              }
                              else
                              {
                                  throw new ApplicationException("Expected Content to be MasterGroupsControl");
                              }
 
-                             DoubleAnimation oLabelAngleAnimation = new DoubleAnimation();
-                             oLabelAngleAnimation.From = 0;
-                             oLabelAngleAnimation.To = this?.ActualHeight ?? 0;
-                             oLabelAngleAnimation.Duration = new Duration(new TimeSpan(0, 0, 0, 0, 500));
-                             BeginAnimation(HeightProperty, oLabelAngleAnimation);
+                             DoubleAnimation heightAnimation = new()
+                             {
+                                 From = 0,
+                                 To = this?.ActualHeight ?? 0,
+                                 Duration = new Duration(new TimeSpan(0, 0, 0, 0, 500))
+                             };
+                             BeginAnimation(HeightProperty, heightAnimation);
                              Visibility = Visibility.Visible;
                          }, System.Windows.Threading.DispatcherPriority.Background);
                      });

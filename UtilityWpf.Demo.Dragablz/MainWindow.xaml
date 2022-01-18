@@ -8,6 +8,9 @@
         Title="MainWindow" Height="450" Width="800">
 
     <TabControl>
+        <TabItem Header="Groups">
+            <local:GroupsUserControl />
+        </TabItem>
         <TabItem Header="ResourceDictionaries">
             <local:ResourceDictionariesUserControl />
         </TabItem>
@@ -19,9 +22,6 @@
         </TabItem>
         <TabItem Header="Ticks">
             <local:ListUserControl />
-        </TabItem>
-        <TabItem Header="Groups">
-            <local:GroupsUserControl />
         </TabItem>
     </TabControl>
 </Window>

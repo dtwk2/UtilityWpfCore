@@ -23,6 +23,11 @@
             </Style>
             <util:AutoMapperConverter x:Key="AutoValueConverter" ToType="{x:Type cmn:ReactiveFields}" FromType="{x:Type cmn:Fields}" />
 
+            <view1:DragablzVerticalItemsControl x:Key="DragablzItemsControl1"
+                                                       VerticalAlignment="Center"
+                                                       ItemContainerStyle="{StaticResource VerticalItemStyle}"
+                                                       MouseDown="DragablzItemsControl_MouseDown">
+            </view1:DragablzVerticalItemsControl>
             <view1:DragablzVerticalItemsControl x:Key="DragablzItemsControl2"
                                                        VerticalAlignment="Center"
                                                        ItemContainerStyle="{StaticResource VerticalItemStyle}"
@@ -30,7 +35,7 @@
             </view1:DragablzVerticalItemsControl>
 
             <ResourceDictionary.MergedDictionaries>
-                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzItemStyle.xaml"/>
+                <utilitywpf:SharedResourceDictionary Source="/UtilityWpf.Controls.Dragablz;component/DragablzItemStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -38,18 +43,16 @@
     <DockPanel>
         <TabControl>
             <TabItem Header="With Detail">
-                <view2:MasterDetail Converter="{StaticResource AutoValueConverter}" Orientation="Vertical">
-                    <view2:MasterDetail.Selector>
-                        <view2:MasterControl ItemsSource="{Binding Data, Mode=OneTime}"
+                <!--<view2:MasterDetail Converter="{StaticResource AutoValueConverter}" Orientation="Horizontal">
+                    <view2:MasterDetail.Selector>-->
+                <view2:MasterControl ItemsSource="{Binding Data, Mode=OneWay, Converter={x:Static util:DefaultConverter.Instance}}"
                                              Change="{util:Command ChangeCommand, ConversionType=Default}"
                                              CommandParameter="{Binding NewItem}"
-                                             ButtonTypes="Add,Remove"
-                                             Orientation="Horizontal"
-                                             Position="Bottom">
-                            <StaticResource ResourceKey="DragablzItemsControl2"></StaticResource>
-                        </view2:MasterControl>
-                    </view2:MasterDetail.Selector>
-                </view2:MasterDetail>
+                                             ButtonTypes="Add,Remove">
+                    <StaticResource ResourceKey="DragablzItemsControl1"></StaticResource>
+                </view2:MasterControl>
+                <!--</view2:MasterDetail.Selector>
+                </view2:MasterDetail>-->
             </TabItem>
             <TabItem Header="Without Detail">
                 <view2:MasterControl ItemsSource="{Binding Data, Mode=OneTime}"

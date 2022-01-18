@@ -22,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Utility.Persist\Utility.Persist.csproj" />
     <ProjectReference Include="..\Utility.Service\Utility.Service.csproj" />
+    <ProjectReference Include="..\Utility.ViewModel\Utility.ViewModel.csproj" />
     <ProjectReference Include="..\UtilityWpf.Controls.Dragablz\UtilityWpf.Controls.Dragablz.csproj" />
     <ProjectReference Include="..\UtilityWpf.Controls.Master\UtilityWpf.Controls.Master.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.Common\UtilityWpf.Demo.Common.csproj" />

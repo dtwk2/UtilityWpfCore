@@ -95,7 +95,7 @@ namespace UtilityWpf.Controls.Dragablz
                     {
                         return;
                     }
-                    var items = Items.OfType<object>().Select(a => ItemContainerGenerator.ContainerFromItem(a)).Cast<DragablzItem>().ToArray();
+                    var items = Items.OfType<object>().Select(a => ItemContainerGenerator.ContainerFromItem(a)).OfType<DragablzItem>().ToArray();
                     var selected = items.Where(a => a.IsSelected).Select(a => a.Content).ToArray();
                     if (selected.Any() == false)
                         return;

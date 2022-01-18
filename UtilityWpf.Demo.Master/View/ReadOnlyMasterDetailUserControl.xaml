@@ -7,12 +7,12 @@
              xmlns:util="http://schemas.utility.com/utilitywpf"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:view="http://schemas.utility.com/master"
-             xmlns:local11="clr-namespace:UtilityWpf.Demo.Master.Infrastructure"
+             xmlns:vm="clr-namespace:UtilityWpf.Demo.Master.ViewModel"
              xmlns:view1="http://schemas.utility.com/dragablz"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
-        <local11:ReadOnlyMasterDetailViewModel />
+        <vm:MasterDetailVariableRepositoryViewModel />
     </UserControl.DataContext>
     <UserControl.Resources>
 
@@ -57,12 +57,30 @@
         </ToggleButton>
 
         <TabControl>
+
+            <TabItem Header="Without Detail">
+                <view:MasterControl
+                    Change="{util:Command ChangeCommand, ConversionType=Default}"
+                    ItemsSource="{Binding Data, Mode=OneTime}"
+                    CommandParameter="{Binding NewItem}"
+                    RemoveOrder="Last"
+                    ButtonTypes="Add,Remove"
+                    Position="Top">
+                    <view1:DragablzVerticalItemsControl x:Name="DragablzItemsControl2"
+                                                        VerticalAlignment="Center"
+                                                        ItemContainerStyle="{StaticResource VerticalItemStyle}"
+                                                        MouseDown="DragablzItemsControl_MouseDown">
+                    </view1:DragablzVerticalItemsControl>
+                </view:MasterControl>
+            </TabItem>
+
             <TabItem Header="With Detail">
                 <view:ReadOnlyMasterDetail>
                     <view:ReadOnlyMasterDetail.Selector>
                         <view:MasterControl
+                            x:Name="MasterControlWithDetail"
                             Change="{util:Command ChangeCommand, ConversionType=Default}"
-                            ItemsSource="{Binding Data, Mode=OneTime}"
+                            ItemsSource="{Binding Data, Mode=OneTime, Converter={x:Static util:DefaultConverter.Instance}}"
                             CommandParameter="{Binding NewItem}"
                             RemoveOrder="Last"
                             ButtonTypes="Add,Remove"
@@ -88,21 +106,6 @@
                         </view:MasterControl>
                     </view:ReadOnlyMasterDetail.Selector>
                 </view:ReadOnlyMasterDetail>
-            </TabItem>
-
-            <TabItem Header="Without Detail">
-                <view:MasterControl
-                    Change="{util:Command ChangeCommand, ConversionType=Default}"
-                    ItemsSource="{Binding Data, Mode=OneTime}"
-                    CommandParameter="{Binding NewItem}"
-                    RemoveOrder="Last"
-                    ButtonTypes="Add,Remove">
-                    <view1:DragablzVerticalItemsControl x:Name="DragablzItemsControl2"
-                                                        VerticalAlignment="Center"
-                                                        ItemContainerStyle="{StaticResource VerticalItemStyle}"
-                                                        MouseDown="DragablzItemsControl_MouseDown">
-                    </view1:DragablzVerticalItemsControl>
-                </view:MasterControl>
             </TabItem>
         </TabControl>
     </DockPanel>

@@ -14,33 +14,37 @@ namespace Utility.Persist
 {
     public class LiteDbRepository : IRepository, IIdRepository
     {
-        public record ConnectionSettings(Type Type, FileInfo FileInfo, string IdProperty, bool IgnoreBsonDocumentProperties = true);
+        public record ConnectionSettings(Type Type, string IdProperty, FileInfo FileInfo, bool IgnoreBsonDocumentProperties = true)
+        {
+            public ConnectionSettings(Type Type, string IdProperty, bool IgnoreBsonDocumentProperties = true) : this(Type, IdProperty, new("../../../Data/Data.litedb"), IgnoreBsonDocumentProperties)
+            {
+            }
+        };
 
-        private string _key => Settings.IdProperty;
-
-        private BsonMapper _mapper = new BsonMapper();
+        private readonly BsonMapper _mapper = BsonMapper.Global;
+        private string key => Settings.IdProperty;
 
         private IDisposable GetCollection(out ILiteCollection<BsonDocument> collection)
         {
             collection = LiteDbHelper.GetCollection(Settings, out var _disposable);
-            collection.EnsureIndex(a => a[_key]);
+            collection.EnsureIndex(a => a[key]);
             return _disposable;
         }
 
         public LiteDbRepository(ConnectionSettings settings)
         {
             var fileInfo = settings.FileInfo;
-            fileInfo.Directory.Create();
+            fileInfo.Directory!.Create();
             Settings = settings;
         }
 
         public ConnectionSettings Settings { get; }
 
-        public object Find(object item)
+        public object? Find(object item)
         {
             using (GetCollection(out var collection))
             {
-                return collection.FindById(new BsonValue(item.GetPropertyRefValue<IConvertible>(_key, typeof(object))));
+                return collection.FindById(new BsonValue(item.GetPropertyRefValue<IConvertible>(key, typeof(object))));
             }
         }
 
@@ -58,6 +62,16 @@ namespace Utility.Persist
             using (GetCollection(out var collection))
             {
                 collection.Update(Convert(item));
+                return true;
+            }
+        }
+
+        public object Upsert(object item)
+        {
+            using (GetCollection(out var collection))
+            {
+                var conversion = Convert(item);
+                collection.Upsert(conversion["_id"], conversion);
                 return true;
             }
         }
@@ -97,21 +111,17 @@ namespace Utility.Persist
             throw new NotImplementedException();
         }
 
-        public object FindBy(IQuery query)
+        public object? FindBy(IQuery query)
         {
             using (GetCollection(out var collection))
             {
-                switch (query)
+                return query switch
                 {
-                    case CountQuery:
-                        return collection.Count();
-
-                    case FirstQuery:
-                        return Convert(collection.Query().First());
-
-                    default:
-                        throw new ArgumentOutOfRangeException("789uu7fssd");
-                }
+                    CountQuery => collection.Count(),
+                    FirstQuery => ConvertBack(collection.Query().First()),
+                    FirstOrDefaultQuery => collection.Query().FirstOrDefault() is { } bson ? ConvertBack(bson) : null,
+                    _ => throw new ArgumentOutOfRangeException("789uu7fssd"),
+                };
             }
         }
 
@@ -174,10 +184,17 @@ namespace Utility.Persist
             throw new NotImplementedException();
         }
 
-        protected virtual IEnumerable<BsonDocument> Convert(IEnumerable objs)
+        protected virtual BsonDocument[] Convert(IEnumerable objs)
         {
-            //var doc = _mapper.ToD(obj.GetType(), objs);
-            return objs.Cast<object>().Select(obj => Convert(obj));
+            //try
+            //{
+            var bsons = objs.Cast<object>().Select(obj => Convert(obj)).ToArray();
+            return bsons;
+            //}
+            //catch (Exception ex)
+            //{
+            //    return null;
+            //}
         }
 
         protected virtual IEnumerable<object> ConvertBack(IEnumerable<BsonDocument> objs)

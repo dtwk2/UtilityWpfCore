@@ -19,6 +19,7 @@
         </ObjectDataProvider>
         <local:NameDescendingComparer x:Key="AscendingComparer" />
     </UserControl.Resources>
+
     <DockPanel>
         <ToolBar DockPanel.Dock="Top">
             <Label Margin="2">Font Size</Label>
@@ -34,17 +35,18 @@
         </ToolBar>
 
         <UniformGrid Rows="1">
-            <ContentControl FontSize="{Binding ElementName=UpDown, Path=Value}">
-                <StackPanel>
-                    <controls:ObjectControl AccentBrush="DarkBlue" Object="{x:Static local:ObjectControlDemoView.CustomArrayClass}" />
-                    <controls:ObjectControl AccentBrush="Olive" Height="100" Object="{Binding Source={StaticResource ExceptionDataProvider}}" />
-                    <controls:ObjectControl AccentBrush="MediumPurple" Object="{x:Static local:ObjectControlDemoView.DateAndDurationClass}" />
-                    <controls:ObjectControl AccentBrush="Chocolate" Object="{x:Static local:ObjectControlDemoView.CustomClass}" />
-                    <!-- This shouldn't appear because there are no properties to display-->
-                    <controls:ObjectControl AccentBrush="Chocolate" Object="{x:Static local:ObjectControlDemoView.Empty}" />
-                </StackPanel>
-            </ContentControl>
-
+            <ScrollViewer>
+                <ContentControl FontSize="{Binding ElementName=UpDown, Path=Value}">
+                    <StackPanel>
+                        <controls:ObjectControl AccentBrush="DarkBlue" Object="{x:Static local:ObjectControlDemoView.CustomArrayClass}" />
+                        <controls:ObjectControl AccentBrush="Olive" Height="100" Object="{Binding Source={StaticResource ExceptionDataProvider}}" />
+                        <controls:ObjectControl AccentBrush="MediumPurple" Object="{x:Static local:ObjectControlDemoView.DateAndDurationClass}" />
+                        <controls:ObjectControl AccentBrush="Chocolate" Object="{x:Static local:ObjectControlDemoView.CustomClass}" />
+                        <!-- This shouldn't appear because there are no properties to display-->
+                        <controls:ObjectControl AccentBrush="Chocolate" Object="{x:Static local:ObjectControlDemoView.Empty}" />
+                    </StackPanel>
+                </ContentControl>
+            </ScrollViewer>
             <ContentControl FontSize="10">
                 <UniformGrid Columns="1">
                     <controls:ObjectControl FontSize="5" Object="{x:Static  local:ObjectControlDemoView.Person}"

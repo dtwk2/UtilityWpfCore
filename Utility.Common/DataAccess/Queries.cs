@@ -5,6 +5,9 @@ namespace Utility.Common
     public class FirstQuery : IQuery
     {
     }
+    public class FirstOrDefaultQuery : IQuery
+    {
+    }
 
     public class AllQuery : IQuery
     {

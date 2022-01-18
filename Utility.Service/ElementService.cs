@@ -1,5 +1,6 @@
 ﻿using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using Utility.Common.Contract;
 using Utility.Common.Helper;
 using UtilityHelper.NonGeneric;
 

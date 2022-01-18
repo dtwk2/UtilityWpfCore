@@ -11,7 +11,14 @@ namespace UtilityWpf.Panels
     /// </summary>
     public class AnimatedWrapPanel : Panel
     {
-        private readonly TimeSpan _animationLength = TimeSpan.FromMilliseconds(250);
+        private static readonly TimeSpan _animationLength = TimeSpan.FromMilliseconds(250);
+        public static readonly DependencyProperty AnimationTimeProperty = DependencyProperty.Register("AnimationTime", typeof(TimeSpan), typeof(AnimatedWrapPanel), new PropertyMetadata(_animationLength));
+
+        public TimeSpan AnimationTime
+        {
+            get { return (TimeSpan)GetValue(AnimationTimeProperty); }
+            set { SetValue(AnimationTimeProperty, value); }
+        }
 
         protected override Size MeasureOverride(Size availableSize)
         {
@@ -76,8 +83,8 @@ namespace UtilityWpf.Panels
                 child.Arrange(new Rect(0, 0, child.DesiredSize.Width,
                     child.DesiredSize.Height));
 
-                trans.BeginAnimation(TranslateTransform.XProperty, new DoubleAnimation(curX, _animationLength), HandoffBehavior.Compose);
-                trans.BeginAnimation(TranslateTransform.YProperty, new DoubleAnimation(curY, _animationLength), HandoffBehavior.Compose);
+                trans.BeginAnimation(TranslateTransform.XProperty, new DoubleAnimation(curX, AnimationTime), HandoffBehavior.Compose);
+                trans.BeginAnimation(TranslateTransform.YProperty, new DoubleAnimation(curY, AnimationTime), HandoffBehavior.Compose);
 
                 curX += child.DesiredSize.Width;
                 if (child.DesiredSize.Height > curLineHeight)

@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Splat.Autofac;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,30 +14,26 @@ namespace UtilityWpf.Demo
     /// </summary>
     public partial class App : Application
     {
+        const string DemoAppNameAppendage = "Demo";
         public App()
         {
-            // type has an assembly for which it is desirable to AutoRegister
-            // (a better way should be found)
-
-            var assemblies = AssemblySingleton.Instance.Assemblies
-                .Where(a => a.GetName().Name.Contains("Demo"))
-                .Where(a => a.DefinedTypes.Any(a => a.IsAssignableTo(typeof(UserControl))))
-                .ToArray();
-
-            InitialiseContainerBuilder()
+            new ContainerBuilder()
             .AutoRegister()
             .UseAutofacDependencyResolver();
 
             new Window
             {
                 WindowState = WindowState.Maximized,
-                Content = new AssemblyViewsControl(assemblies)
+                Content = new AssemblyViewsControl(FindDemoAppAssemblies().ToArray())
             }.Show();
         }
 
-        private static ContainerBuilder InitialiseContainerBuilder()
+        private static IEnumerable<System.Reflection.Assembly> FindDemoAppAssemblies()
         {
-            return new ContainerBuilder();
+            return from a in AssemblySingleton.Instance.Assemblies
+                   where a.GetName().Name.Contains(DemoAppNameAppendage)
+                   where a.DefinedTypes.Any(a => a.IsAssignableTo(typeof(UserControl)))
+                   select a;
         }
     }
 }

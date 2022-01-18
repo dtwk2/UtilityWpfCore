@@ -59,7 +59,7 @@
                 Foreground="WhiteSmoke"
                 Opacity="0.4"
                 Text="array" />
-                    <TextBlock Foreground="#a40000" Text="{Binding Converter={StaticResource JArrayLengthConverter}}" />
+                    <TextBlock Foreground="#a40000" Text="{Binding Converter={x:Static controls:Converters.JArrayLengthConverter}}" />
                 </StackPanel>
             </HierarchicalDataTemplate>
 

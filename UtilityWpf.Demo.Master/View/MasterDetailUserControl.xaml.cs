@@ -11,7 +11,6 @@ namespace UtilityWpf.Demo.Master.Infrastructure
         public MasterDetailUserControl()
         {
             InitializeComponent();
-            //(this.DataContext as PersistListViewModel).Data = PersistBehavior.Items;
         }
 
         private void DragablzItemsControl_MouseDown(object sender, MouseButtonEventArgs e)

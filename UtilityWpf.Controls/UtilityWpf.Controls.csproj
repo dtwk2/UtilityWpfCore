@@ -50,6 +50,7 @@
 	</Target>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Utility.WPF.Themes\Utility.WPF.Themes.csproj" />
 		<ProjectReference Include="..\UtilityWpf.Panels\UtilityWpf.Panels.csproj" />
 		<ProjectReference Include="..\UtilityWpf\UtilityWpf.csproj" />
 	</ItemGroup>
@@ -114,6 +115,9 @@
 		</Compile>
 		<Compile Update="RangeSlider.cs">
 			<DependentUpon>RangeSlider.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="ResourcePicker.cs">
+			<DependentUpon>ResourcePicker.xaml</DependentUpon>
 		</Compile>
 		<Compile Update="ShortTimeSpanControl.cs">
 			<DependentUpon>ShortTimeSpanControl.xaml</DependentUpon>
@@ -202,6 +206,7 @@
 		<Page Update="Themes\Generic.xaml">
 			<SubType>Designer</SubType>
 			<Generator>MSBuild:Compile</Generator>
+			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 		</Page>
 		<Page Update="HeaderedListBox.xaml">
 			<SubType>Designer</SubType>
@@ -218,8 +223,9 @@
 		<Page Update="PageNavigatorControl.xaml">
 			<SubType>Designer</SubType>
 		</Page>
-		<Page Update="Themes\ResourcePicker.xaml">
+		<Page Update="ResourcePicker.xaml">
 			<SubType>Designer</SubType>
+			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 		</Page>
 		<Page Update="SizeControl.xaml">
 			<SubType>Designer</SubType>

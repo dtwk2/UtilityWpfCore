@@ -31,7 +31,8 @@
                             IsSelected="{Binding IsSelected, RelativeSource={RelativeSource TemplatedParent}}"
                             IsSelectable="{Binding IsMouseOver, ElementName=Main_ViewBox}" />
 
-                        <Viewbox x:Name="Main_ViewBox" HorizontalAlignment="Stretch" RenderTransformOrigin=".5, .5" Margin="0.5">
+                        <Viewbox x:Name="Main_ViewBox" HorizontalAlignment="Stretch" RenderTransformOrigin=".5, .5" Margin="0.5"
+                                 Height="30" Width="200">
 
                             <Viewbox.RenderTransform>
                                 <ScaleTransform x:Name="ScaleTransform" ScaleX="1" ScaleY="1" />
@@ -42,7 +43,8 @@
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBox Margin="2,1,17,2"  Width="200"
+                                <TextBox Margin="2,1,17,2"
+                                         Width="200"
                                          x:Name="PART_TextBox"
                                          HorizontalAlignment="Stretch" FontSize="5"
                                          TextWrapping="Wrap"
