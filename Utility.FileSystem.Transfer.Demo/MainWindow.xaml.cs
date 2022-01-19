@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reactive.Subjects;
 using System.Windows;
+using System.Windows.Markup;
 using SevenZip;
 using Utility.FileSystem.Transfer.Abstract;
 using Utility.FileSystem.Transfer.Common;
@@ -19,8 +20,12 @@ namespace Utility.FileSystem.Transfer.Demo
 
         public MainWindow()
         {
+
             this.InitializeComponent();
-            this.FileProgressView1.Source = "../../../Data/Source/huge_dummy_file";
+
+
+
+         this.FileProgressView1.Source = "../../../Data/Source/huge_dummy_file";
             this.FileProgressView1.SourceType = PathType.File;
             this.FileProgressView1.DestinationType = PathType.File;
             this.FileProgressView1.Destination = "../../../Data/Destination/";

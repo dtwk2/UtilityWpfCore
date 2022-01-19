@@ -78,7 +78,28 @@
                     Orientation="{Binding ElementName=ToggleButton, Path=IsChecked, Converter={StaticResource BooleanToOrientationConverter}}">
                 </view:CheckBoxesControl>
 
-                <DataGrid ItemsSource="{Binding CollectionViewModel.Collection}"></DataGrid>
+                <DataGrid ItemsSource="{Binding CollectionViewModel.Collection}"/>
+            </DockPanel>
+        </GroupBox>
+
+        <GroupBox d:DataContext="{d:DesignInstance infra:FilteredCheckBoxes2ViewModel }">
+            <FrameworkElement.DataContext>
+                <infra:FilteredCheckBoxes2ViewModel />
+            </FrameworkElement.DataContext>
+            <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                <TextBlock Text="{Binding CountViewModel.Count}"></TextBlock>
+                <view:CheckBoxesControl
+                    DataContext="{Binding FilterCollectionViewModel}"
+                    DockPanel.Dock="Top"
+                    DisplayMemberPath="Header"
+                    OutputChange="{utl:Command Command, ConversionType=Default}"
+                    ItemsSource="{Binding FilterCollection}"
+                    IsCheckedPath="IsChecked"
+                    Orientation="{Binding ElementName=ToggleButton, Path=IsChecked, Converter={StaticResource BooleanToOrientationConverter}}">
+                </view:CheckBoxesControl>
+
+                <DataGrid ItemsSource="{Binding CollectionViewModel.Collection}"/>
             </DockPanel>
         </GroupBox>
     </UniformGrid>

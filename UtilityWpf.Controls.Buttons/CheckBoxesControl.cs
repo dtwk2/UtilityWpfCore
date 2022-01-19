@@ -125,18 +125,4 @@ namespace UtilityWpf.Controls.Buttons
                 .ConvertUsing(a => a.Dictionary);
         }
     }
-
-    //public class CheckBoxesDataTemplateSelector : DataTemplateSelector
-    //{
-    //    public override DataTemplate SelectTemplate(object item, DependencyObject container)
-    //    {
-    //        if (item is string str)
-    //        {
-    //            return TextDataTemplate ?? throw new System.Exception("df3 343d  3");
-    //        }
-    //        return base.SelectTemplate(item, container);
-    //    }
-
-    //    public DataTemplate? TextDataTemplate { get; set; }
-    //}
 }

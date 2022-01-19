@@ -10,6 +10,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows.Input;
 using Utility.Common;
+using Utility.Service;
 
 namespace Utility.ViewModel;
 
@@ -32,7 +33,7 @@ public class CollectionViewModel<T> : CollectionViewModel
 {
     private readonly ReadOnlyObservableCollection<T> collection;
 
-    public CollectionViewModel(IObservable<IChangeSet<T>> changeSet, Filter<T> filter)
+    public CollectionViewModel(IObservable<IChangeSet<T>> changeSet, IFilterService<T> filter)
     {
         changeSet
             .Filter(filter)
@@ -48,7 +49,7 @@ public class CollectionViewModel<T, TKey> : CollectionViewModel
 {
     private readonly ReadOnlyObservableCollection<T> collection;
 
-    public CollectionViewModel(IObservable<IChangeSet<T, TKey>> changeSet, Filter<T> filter)
+    public CollectionViewModel(IObservable<IChangeSet<T, TKey>> changeSet, FilterDictionaryService<T> filter)
     {
         changeSet
             .Filter(filter)
@@ -62,7 +63,7 @@ public class CollectionViewModel<T, TKey> : CollectionViewModel
 
 public class CollectionViewModel<T, TKey, TGroupKey> : CollectionViewModel
 {
-    public CollectionViewModel(IObservable<IChangeSet<T, TKey>> changeSet, Filter<T> filter, Func<T, TGroupKey> group)
+    public CollectionViewModel(IObservable<IChangeSet<T, TKey>> changeSet, FilterDictionaryService<T> filter, Func<T, TGroupKey> group)
     {
         Collection = changeSet
             .Filter(filter)
@@ -78,7 +79,7 @@ public class CollectionGroupViewModel<T, TKey> : CollectionViewModel, IObserver<
     private ReplaySubject<ClassProperty> subject = new(1);
     private readonly GroupCollectionViewModel<Groupable<T>, T, TKey, string> viewModel;
 
-    public CollectionGroupViewModel(IObservable<IChangeSet<T, TKey>> changeSet, Filter<T> filter, string propertyName)
+    public CollectionGroupViewModel(IObservable<IChangeSet<T, TKey>> changeSet, FilterDictionaryService<T> filter, string propertyName)
     {
         var type = typeof(T).Name;
 
@@ -120,7 +121,7 @@ public class CollectionGroupViewModel<T> : CollectionViewModel, IObserver<ClassP
     private ReplaySubject<ClassProperty> subject = new(1);
     private readonly GroupCollection2ViewModel<Groupable<T>, T, string> viewModel;
 
-    public CollectionGroupViewModel(IObservable<IChangeSet<T>> changeSet, Filter<T> filter, string propertyName)
+    public CollectionGroupViewModel(IObservable<IChangeSet<T>> changeSet, FilterDictionaryService<T> filter, string propertyName)
     {
         var type = typeof(T).Name;
 

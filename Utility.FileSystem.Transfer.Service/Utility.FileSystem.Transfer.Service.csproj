@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,8 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Utility.FileSystem.Abstract\Utility.FileSystem.Transfer.Abstract.csproj" />
     <ProjectReference Include="..\Utility.FileSystem.Helper\Utility.FileSystem.Helper.csproj" />
+    <ProjectReference Include="..\Utility.FileSystem.Transfer.Abstract\Utility.FileSystem.Transfer.Abstract.csproj" />
   </ItemGroup>
 
 </Project>

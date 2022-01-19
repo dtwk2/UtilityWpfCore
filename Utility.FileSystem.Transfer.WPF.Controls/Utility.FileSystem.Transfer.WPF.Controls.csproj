@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <RootNamespace>Utility.FileSystem.Transfer.WPF.Controls</RootNamespace>
 	<UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Utility.FileSystem.Abstract\Utility.FileSystem.Transfer.Abstract.csproj" />
+    <ProjectReference Include="..\Utility.FileSystem.Transfer.Abstract\Utility.FileSystem.Transfer.Abstract.csproj" />
     <ProjectReference Include="..\UtilityWpf.Controls.FileSystem\UtilityWpf.Controls.FileSystem.csproj" />
   </ItemGroup>
 

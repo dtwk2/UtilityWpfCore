@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
@@ -12,12 +12,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\HistoryControlLib\source\BrowseHistory\BrowseHistory.csproj" />
+    <ProjectReference Include="..\..\HistoryControlLib\source\NavigationHistory.Controls\BrowseHistory.Controls.csproj" />
+    <ProjectReference Include="..\..\SuggestBoxLib\source\Demos\CachedPathSuggest\Suggest.FileSystem.csproj" />
+    <ProjectReference Include="..\..\SuggestBoxLib\source\SuggestBoxLib\Popup.WPF.csproj" />
+    <ProjectReference Include="..\BreadCrumb\BreadCrumbLib\BreadcrumbLib.csproj" />
+    <ProjectReference Include="..\Suggest.WPF.FileSystem\Suggest.WPF.FileSystem.csproj" />
+    <ProjectReference Include="..\Suggest.WPF\Suggest.WPF.csproj" />
     <ProjectReference Include="..\Utility.FileSystem.Transfer.Service\Utility.FileSystem.Transfer.Service.csproj" />
-    <ProjectReference Include="..\Utility.FileSystem.Transfer.WPF.Contols\Utility.FileSystem.Transfer.WPF.Controls.csproj" />
+    <ProjectReference Include="..\Utility.FileSystem.Transfer.WPF.Controls\Utility.FileSystem.Transfer.WPF.Controls.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Data\Destination\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Gu.Wpf.NumericInput" Version="0.5.5" />
   </ItemGroup>
 
 </Project>
