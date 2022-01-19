@@ -26,7 +26,7 @@ namespace UtilityWpf.Controls.Hybrid
             RemoveOrder = RemoveOrder.Selected;
             ButtonTypes = ButtonType.Add | ButtonType.Remove;
 
-            itemsSourceSubject
+            this.WhenAnyValue(a => a.ItemsSource)
                 .StartWith(default(IEnumerable))
            .CombineLatest(
            this.WhenAnyValue(a => a.DisplayMemberPath),

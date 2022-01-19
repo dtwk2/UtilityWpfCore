@@ -27,7 +27,7 @@ namespace UtilityWpf.Controls.Hybrid
                 ItemsSource = ItemsSource
             };
 
-            itemsSourceSubject
+            this.WhenAnyValue(a => a.ItemsSource)
                 .WhereNotNull()
                 .CombineLatest(this.WhenAnyValue(a => a.DisplayMemberPath))
                 .Subscribe(a =>
