@@ -62,10 +62,6 @@ namespace UtilityWpf.Controls.Buttons
 
         #endregion properties
 
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-        }
 
         protected override void PrepareContainerForItemOverride(CheckBox element, object item)
         {
@@ -80,6 +76,10 @@ namespace UtilityWpf.Controls.Buttons
             {
                 BindingOperations.SetBinding(element, TagProperty, CreateBinding(DisplayMemberPath));
             }
+            else
+            {
+                throw new System.Exception($"Expected either {nameof(SelectedValuePath)} or {nameof(DisplayMemberPath)} not to be null.");
+            }
 
             element.Checked += Button_Click;
             element.Unchecked += Button_Click;
@@ -93,6 +93,7 @@ namespace UtilityWpf.Controls.Buttons
                     Mode = bindingMode,
                 };
             }
+
             Button_Click(null, null);
         }
 
@@ -102,7 +103,7 @@ namespace UtilityWpf.Controls.Buttons
                 string.IsNullOrEmpty(DisplayMemberPath) == false)
             {
                 var items = GetItems().ToArray();
-                var output = items.Where(a => a is CheckBox { Tag: { } tag }).ToDictionary(a => a.Tag, a => a.IsChecked);
+                var output = items.Where(a => a is { Tag: { } tag }).ToDictionary(a => a.Tag, a => a.IsChecked);
                 if (output.Any())
                 {
                     Output = output;
