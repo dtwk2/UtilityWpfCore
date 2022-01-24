@@ -32,6 +32,6 @@ namespace UtilityWpf.Converter
 
         #endregion IValueConverter Members
 
-        public static BooleanToVisibilityConverter Instance { get; } = new BooleanToVisibilityConverter();
+        public static BooleanToVisibilityConverter Instance { get; } = new();
     }
 }

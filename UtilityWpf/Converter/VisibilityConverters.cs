@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Globalization;
+using System.Windows;
+using System.Windows.Data;
 
 namespace UtilityWpf.Converter
 {
@@ -10,7 +13,7 @@ namespace UtilityWpf.Converter
 
         protected override bool Check(object value)
         {
-            return value is bool b && b;
+            return value is true;
         }
     }
 
@@ -65,7 +68,7 @@ namespace UtilityWpf.Converter
             return string.IsNullOrEmpty((string)value) == false;
         }
 
-        public static BooleanToVisibilityConverter Instance => new BooleanToVisibilityConverter();
+        public static BooleanToVisibilityConverter Instance => new();
     }
 
     public class NullToVisibilityConverter : BaseConverter<Visibility>
@@ -75,7 +78,7 @@ namespace UtilityWpf.Converter
 
         protected override bool Check(object value) => value == null;
 
-        public static NullToVisibilityConverter Instance => new NullToVisibilityConverter();
+        public static NullToVisibilityConverter Instance => new();
     }
 
     public class NullToInverseVisibilityConverter : BaseConverter<Visibility>
@@ -84,7 +87,21 @@ namespace UtilityWpf.Converter
         { }
 
         protected override bool Check(object value) => value != null;
+        public static NullToInverseVisibilityConverter Instance => new();
+    }
 
-        public static NullToInverseVisibilityConverter Instance => new NullToInverseVisibilityConverter();
+    public class HasDataTemplateToVisibilityConverter : IValueConverter
+    {
+        public static HasDataTemplateToVisibilityConverter Instance => new();
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var dataTemplate = Application.Current.Resources[value];
+            return dataTemplate is DataTemplate ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

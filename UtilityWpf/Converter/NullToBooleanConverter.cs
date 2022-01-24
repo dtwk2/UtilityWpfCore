@@ -37,7 +37,7 @@ namespace UtilityWpf.Converter
             return (bool)value ? new object() : null;
         }
 
-        public static InverseNullToBooleanConverter Instance { get; } = new InverseNullToBooleanConverter();
+        public static InverseNullToBooleanConverter Instance { get; } = new ();
 
     }
 }

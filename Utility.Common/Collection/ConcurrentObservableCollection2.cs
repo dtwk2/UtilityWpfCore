@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
-using UtilityWpf.Abstract;
+using Utility.Common.Contract;
 
-namespace UtilityWpf
+namespace Utility.Common.Collection
 {
     /// <summary>
     /// https://github.com/sorteper/ConcurrentObservableCollection/blob/master/ConcurrentObservableCollection.cs

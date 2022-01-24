@@ -9,10 +9,9 @@ namespace UtilityWpf.Converter
 
     public class AlternationEqualityConverter : IMultiValueConverter
     {
-        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object[]? values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values != null && values.Length == 2 &&
-                values[0] is int && values[1] is int)
+            if (values is { Length: 2 } && values[0] is int && values[1] is int)
             {
                 bool retval = Equals((int)values[0], (int)values[1] + 1);
                 return retval;

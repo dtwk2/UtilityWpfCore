@@ -4,7 +4,7 @@ using System;
 using System.Reactive.Concurrency;
 using System.Threading;
 
-namespace UtilityWpf
+namespace Utility.Common.Contract
 {
     public interface IMixedScheduler
     {

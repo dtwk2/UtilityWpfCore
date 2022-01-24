@@ -18,7 +18,7 @@
 
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <pnl:EdgePanel x:Name="CornerPanel1"  Region="TopRight" />
+                            <pnl:EdgePanel  Region="TopRight" />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
 

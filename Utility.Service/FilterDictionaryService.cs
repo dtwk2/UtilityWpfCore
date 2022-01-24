@@ -108,7 +108,7 @@ public class FilterPredicateService<T> : IObserver<IPredicate>, IFilterService<T
     {
         filterBaseService.OnNext(new Func<T, bool>(value =>
         {
-            if (predicate.Check(value) == false)
+            if (predicate.Invoke(value) == false)
             {
                 return true;
             }

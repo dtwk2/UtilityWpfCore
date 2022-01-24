@@ -8,8 +8,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Concurrency;
 using System.Threading;
+using Utility.Common.Contract;
 
-namespace UtilityWpf
+namespace Utility.Common.Collection
 {
     /// <summary>
     /// https://github.com/sorteper/ConcurrentObservableCollection/blob/master/ConcurrentObservableCollection.cs
@@ -66,7 +67,7 @@ namespace UtilityWpf
             {
                 if (!CheckAccess())
                 {
-                    T t = default;
+                    T? t = default;
                     lock (SyncRoot)
                         (this as IMixedScheduler).ScheduleAction(() => { t = list[index]; });
                     return t;
@@ -282,8 +283,7 @@ namespace UtilityWpf
 
         #region INotifyCollectionChanged
 
-        private List<NotifyCollectionChangedEventHandler> m_collectionChanged = new List<NotifyCollectionChangedEventHandler>();
-        private readonly SynchronizationContext synchonisationContext;
+        private readonly List<NotifyCollectionChangedEventHandler> m_collectionChanged = new ();
 
         public event NotifyCollectionChangedEventHandler CollectionChanged
         {
