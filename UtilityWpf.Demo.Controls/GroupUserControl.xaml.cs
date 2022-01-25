@@ -12,6 +12,7 @@ using Utility.Common;
 using Utility.ViewModel;
 using UtilityHelper.NonGeneric;
 using UtilityHelperEx;
+using UtilityWpf.Demo.Data.Factory;
 using UtilityWpf.Demo.Data.Model;
 
 namespace UtilityWpf.Demo.Controls

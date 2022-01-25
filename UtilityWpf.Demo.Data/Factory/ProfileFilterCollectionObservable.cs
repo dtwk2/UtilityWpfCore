@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Reactive.Subjects;
-using Endless;
-using LanguageExt;
 using ReactiveUI;
 using UtilityInterface.NonGeneric;
+using UtilityWpf.Demo.Data.Common;
 using UtilityWpf.Demo.Data.Model;
 
 namespace UtilityWpf.Demo.Data.Factory

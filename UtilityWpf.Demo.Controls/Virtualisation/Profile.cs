@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
+using UtilityWpf.Demo.Data.Factory;
 using UtilityWpf.Demo.Data.Model;
 using VirtualisationHelper = Utility.Common.Helper.VirtualisationHelper;
 

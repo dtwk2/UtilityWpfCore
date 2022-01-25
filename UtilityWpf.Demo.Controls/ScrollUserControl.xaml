@@ -5,9 +5,9 @@
     xmlns:behaviors="clr-namespace:UtilityWpf.Behavior;assembly=UtilityWpf"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:local="clr-namespace:UtilityWpf.Demo.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:view="http://schemas.utility.com" xmlns:local1="clr-namespace:UtilityWpf.Demo.Data.Model;assembly=UtilityWpf.Demo.Data"
+    xmlns:view="http://schemas.utility.com" 
+    xmlns:factory="clr-namespace:UtilityWpf.Demo.Data.Factory;assembly=UtilityWpf.Demo.Data"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
@@ -134,7 +134,7 @@
         <TabItem Header="Smooth Scroll">
             <Grid>
                 <Grid.Resources>
-                    <local1:ProfileCollectionSlow x:Key="ProfileCollectionSlow" />
+                    <factory:ProfileCollectionSlow x:Key="ProfileCollectionSlow" />
                 </Grid.Resources>
                 <Grid.RowDefinitions>
                     <RowDefinition  Height="*" />
@@ -165,7 +165,7 @@
         <TabItem Header="Scroll To End Behavior">
             <Grid>
                 <Grid.Resources>
-                    <local1:ProfileCollectionSlow x:Key="ProfileCollectionSlow" />
+                    <factory:ProfileCollectionSlow x:Key="ProfileCollectionSlow" />
                 </Grid.Resources>
                 <Grid.RowDefinitions>
                     <RowDefinition  Height="*" />

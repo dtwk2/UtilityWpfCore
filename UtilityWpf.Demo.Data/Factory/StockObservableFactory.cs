@@ -1,12 +1,13 @@
-﻿using DynamicData;
-using System;
+﻿using System;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using DynamicData;
 using Utility.Common;
 using UtilityHelperEx;
+using UtilityWpf.Demo.Data.Model;
 
-namespace UtilityWpf.Demo.Data.Model
+namespace UtilityWpf.Demo.Data.Factory
 {
     public class StockObservableFactory
     {

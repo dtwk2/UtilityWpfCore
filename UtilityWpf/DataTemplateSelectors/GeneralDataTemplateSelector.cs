@@ -52,8 +52,10 @@ namespace UtilityWpf.DataTemplateSelectors
             (
                 () => new TextBlock
                 {
-                    Text = "(None)",
-                    Margin = new Thickness(1)
+                    Text = "(x)",
+                    Margin = new Thickness(1),
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Opacity = 0.5
                 });
         }
 

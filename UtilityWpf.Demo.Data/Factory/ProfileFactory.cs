@@ -3,9 +3,10 @@ using System.Collections.ObjectModel;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Media.Imaging;
+using UtilityWpf.Demo.Data.Model;
 using UtilityWpf.Utility;
 
-namespace UtilityWpf.Demo.Data.Model
+namespace UtilityWpf.Demo.Data.Factory
 {
     /// <summary>
     /// https://github.com/Yeah69/BFF.DataVirtualizingCollection

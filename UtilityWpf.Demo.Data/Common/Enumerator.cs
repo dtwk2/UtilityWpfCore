@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace UtilityWpf.Demo.Data.Model;
+namespace UtilityWpf.Demo.Data.Common;
 
 public class Enumerator<T> : IEnumerator<T>
 {

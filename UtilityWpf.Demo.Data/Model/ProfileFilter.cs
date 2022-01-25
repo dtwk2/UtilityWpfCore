@@ -1,11 +1,11 @@
 ﻿using ReactiveUI;
 using UtilityInterface.NonGeneric;
 
-namespace UtilityWpf.Demo.Data.Factory;
+namespace UtilityWpf.Demo.Data.Model;
 
 public abstract class ProfileFilter : ReactiveObject, IPredicate, IKey
 {
-    public ProfileFilter(string header)
+    protected ProfileFilter(string header)
     {
         Header = header;
     }

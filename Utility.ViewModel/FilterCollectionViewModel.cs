@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows.Input;
 using Utility.Service;
@@ -52,12 +53,12 @@ public class FilterCollectionViewModel<T, TR> : ReactiveObject where TR : IPredi
 
     private readonly ReadOnlyObservableCollection<CheckContentViewModel> filterCollection;
     private readonly ReactiveCommand<Dictionary<object, bool?>, Func<T, bool>> command;
-    private Dictionary<object, bool?>? dictionary;
+    //private Dictionary<object, bool?>? dictionary;
 
-    public FilterCollectionViewModel(IObservable<IChangeSet<TR>> changeSet, FilterService<T> filter, Settings settings)
+    public FilterCollectionViewModel(IObservable<IChangeSet<TR>> changeSet, FilterService<T> filterService, Settings settings)
     {
         ReplaySubject<Unit> replaySubject = new();
-        
+
         changeSet
             .Transform(a =>
             {
@@ -66,14 +67,15 @@ public class FilterCollectionViewModel<T, TR> : ReactiveObject where TR : IPredi
                 {
                     replaySubject
                         .Subscribe(_ => refresh.Refresh());
-
-      
                 }
+
                 if (a is INotifyPropertyChanged changed)
                 {
-                    changed.Changes().Subscribe(a=>
+                    changed
+                        .Changes()
+                        .Subscribe(a =>
                     {
-                        command?.Execute(dictionary).Subscribe();
+                        command?.Execute().Subscribe();
                     });
                 }
                 return viewModel;
@@ -81,23 +83,20 @@ public class FilterCollectionViewModel<T, TR> : ReactiveObject where TR : IPredi
             .Bind(out filterCollection)
             .Subscribe();
 
-        command = ReactiveCommand.Create<Dictionary<object, bool?>?, Func<T, bool>>(dict =>
+        command = ReactiveCommand.Create<Dictionary<object, bool?>?, Func<T, bool>>(_ =>
         {
-            this.dictionary = dict;
-            if (dictionary == null)
-                throw new Exception("fdssdf ");
-            var output = from kvp in dictionary
-                         join item in filterCollection
-                         on kvp.Key.ToString() equals item.Header
-                         where kvp.Value == true
-                         select item;
 
-            replaySubject.OnNext(default);
+            //var output = from kvp in dictionary
+            //             join item in filterCollection
+            //             on kvp.Key.ToString() equals item.Header
+            //             where kvp.Value == true
+            //             select item;
 
-            return a => output.All(o => ((TR)o.Content).Invoke(a));
+            return a => filterCollection.All(o => !o.IsChecked || ((TR)o.Content).Invoke(a));
         });
 
-        command.Subscribe(filter);
+        command.Subscribe(filterService);
+        command.Select(a => Unit.Default).Subscribe(replaySubject);
     }
 
     public ICommand Command => command;
