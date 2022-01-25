@@ -78,7 +78,7 @@ namespace UtilityWpf.Adorners
                 static Brush GetMoveEllipseBack()
                 {
                     const string lan = "M841.142857 570.514286c0 168.228571-153.6 336.457143-329.142857 336.457143s-329.142857-153.6-329.142857-336.457143c0-182.857143 153.6-336.457143 329.142857-336.457143v117.028571l277.942857-168.228571L512 0v117.028571c-241.371429 0-438.857143 197.485714-438.857143 453.485715S270.628571 1024 512 1024s438.857143-168.228571 438.857143-453.485714h-109.714286z m0 0";
-                    var geometry = (Geometry)TypeDescriptor.GetConverter(typeof(Geometry)).ConvertFrom(lan);
+                    var geometry = (Geometry?)TypeDescriptor.GetConverter(typeof(Geometry)).ConvertFrom(lan);
                     TileBrush bsh = new DrawingBrush(new GeometryDrawing(Brushes.Transparent, new Pen(Brushes.Black, 2), geometry))
                     {
                         Stretch = Stretch.Fill

@@ -15,58 +15,45 @@ namespace UtilityWpf
         //https://stackoverflow.com/questions/974598/find-all-controls-in-wpf-window-by-type/978352#978352
         //answered Jun 10 '09 at 21:53
         //Bryce Kahle
-        public static IEnumerable<T> FindVisualChildren<T>(this DependencyObject depObj) where T : DependencyObject
+        public static IEnumerable<T> FindVisualChildren<T>(this DependencyObject? depObj) where T : DependencyObject
         {
-            if (depObj != null)
-            {
-                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
-                {
-                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
-                    if (child != null && child is T t)
-                    {
-                        yield return t;
-                    }
+            if (depObj == null) yield break;
 
-                    foreach (T childOfChild in FindVisualChildren<T>(child))
-                    {
-                        yield return childOfChild;
-                    }
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+            {
+                DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+                if (child is T t)
+                {
+                    yield return t;
+                }
+
+                foreach (T childOfChild in FindVisualChildren<T>(child))
+                {
+                    yield return childOfChild;
                 }
             }
         }
 
-        public static object FindItemsPanel(Visual visual)
-
+        public static object? FindItemsPanel(Visual visual)
         {
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(visual); i++)
-
             {
-                Visual child = VisualTreeHelper.GetChild(visual, i) as Visual;
 
-                if (child != null)
-
+                if (VisualTreeHelper.GetChild(visual, i) is Visual child)
                 {
-                    if (child is object && VisualTreeHelper.GetParent(child) is ItemsPresenter)
-
+                    if (child is { } temp && VisualTreeHelper.GetParent(child) is ItemsPresenter)
                     {
-                        object temp = child;
-
-                        return (object)temp;
+                        return temp;
                     }
 
-                    object panel = FindItemsPanel(child);
-
-                    if (panel != null)
-
+                    if (FindItemsPanel(child) is { } panel)
                     {
-                        object temp = panel;
-
-                        return (object)temp; // return the panel up the call stack
+                        return panel; // return the panel up the call stack
                     }
                 }
             }
 
-            return default(object);
+            return default;
         }
 
         /// <summary>
@@ -103,7 +90,7 @@ namespace UtilityWpf
         /// <param name="dependencyObject"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        public static DependencyObject? FindParent(this DependencyObject dependencyObject, string name)
+        public static DependencyObject? FindParent(this DependencyObject? dependencyObject, string name)
         {
             while (dependencyObject != null &&
                    VisualTreeHelper.GetParent(dependencyObject) is { } parentObj)
@@ -123,7 +110,7 @@ namespace UtilityWpf
         /// <param name="parent"></param>
         /// <param name="childName"></param>
         /// <returns></returns>
-        public static T? FindChild<T>(this DependencyObject parent, string? childName = null) where T : DependencyObject
+        public static T? FindChild<T>(this DependencyObject? parent, string? childName = null) where T : DependencyObject
         {
             // Confirm parent and childName are valid.
             if (parent == null) return null;
@@ -192,7 +179,7 @@ namespace UtilityWpf
         /// <typeparam name="T"></typeparam>
         /// <param name="depObj"></param>
         /// <returns></returns>
-        public static T? ChildOfType<T>(this DependencyObject depObj) where T : DependencyObject
+        public static T? ChildOfType<T>(this DependencyObject? depObj) where T : DependencyObject
         {
             if (depObj == null) return null;
 
@@ -212,7 +199,7 @@ namespace UtilityWpf
         /// <typeparam name="T"></typeparam>
         /// <param name="depObj"></param>
         /// <returns></returns>
-        public static DependencyObject? ChildOfInterface<T>(this DependencyObject depObj)
+        public static DependencyObject? ChildOfInterface<T>(this DependencyObject? depObj)
         {
             if (depObj == null) return default;
 

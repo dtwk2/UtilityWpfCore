@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
+using System.Windows;
 using System.Windows.Data;
 using UtilityHelper;
 using UtilityHelper.NonGeneric;
@@ -11,17 +12,16 @@ namespace UtilityWpf.Converter
     [ValueConversion(typeof(IEnumerable), typeof(IEnumerable))]
     public class EnumerableToDistinctPropertiesConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object? value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (value != null)
-                if ((value as IEnumerable).Count() > 0)
-                    return (value as IEnumerable).Cast<object>()
+            if (value is IEnumerable enumerable && enumerable.Count() > 0)
+                return enumerable.Cast<object>()
                         .GetPropertyRefValues<object>((string)parameter)
                         .Distinct()
                         .OrderBy(a => a)
                         .ToList();
 
-            return null;
+            return DependencyProperty.UnsetValue;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter,

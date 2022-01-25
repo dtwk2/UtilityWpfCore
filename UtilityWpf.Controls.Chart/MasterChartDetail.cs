@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using UtilityWpf.Abstract;
 using UtilityWpf.Controls.Master;
 using UtilityWpf.Mixins;
+using UtilityWpf.Utility;
 
 namespace UtilityWpf.Controls.Chart
 {

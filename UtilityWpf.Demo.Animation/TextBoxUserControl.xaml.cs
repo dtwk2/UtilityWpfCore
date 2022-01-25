@@ -48,13 +48,13 @@ namespace UtilityWpf.Demo.Animation
         private void btnWrite_Click(object sender, RoutedEventArgs e)
         {
             // Fill or empty the AnimatedTextBox
-            txtAnimated.Text = (txtAnimated.Text == "") ? lorem : "";
+            TxtAnimated.Text = (TxtAnimated.Text == "") ? lorem : "";
         }
 
         private void sliderDuration_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             // Set the animation duration (if the window is loaded)
-            if (this.IsLoaded) txtAnimated.AnimationDuration = sliderDuration.Value;
+            if (this.IsLoaded) TxtAnimated.AnimationDuration = sliderDuration.Value;
         }
 
         private void btnWriteTimer_Click(object sender, RoutedEventArgs e)
@@ -69,7 +69,7 @@ namespace UtilityWpf.Demo.Animation
             if (i < lorem.Length)
             {
                 i++;
-                txtAnimated.Text = lorem.Substring(0, i);
+                TxtAnimated.Text = lorem.Substring(0, i);
             }
             else
             {
@@ -81,13 +81,13 @@ namespace UtilityWpf.Demo.Animation
         private void btnToggleWrap_Click(object sender, RoutedEventArgs e)
         {
             // Toggle the AnimatedTextBox's TextWrapping property
-            txtAnimated.TextWrapping = (txtAnimated.TextWrapping == TextWrapping.Wrap) ? TextWrapping.NoWrap : TextWrapping.Wrap;
+            TxtAnimated.TextWrapping = (TxtAnimated.TextWrapping == TextWrapping.Wrap) ? TextWrapping.NoWrap : TextWrapping.Wrap;
         }
 
         private void boxIsAnimated_Click(object sender, RoutedEventArgs e)
         {
             // Toggle the AnimatedTextBox's IsAnimated property
-            txtAnimated.IsAnimated = boxIsAnimated.IsChecked.Value;
+            TxtAnimated.IsAnimated = boxIsAnimated.IsChecked.Value;
         }
     }
 }

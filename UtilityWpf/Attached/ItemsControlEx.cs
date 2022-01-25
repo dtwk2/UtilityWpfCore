@@ -10,7 +10,6 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using UtilityHelper;
 using UtilityHelper.NonGeneric;
-using UtilityHelperEx;
 
 namespace UtilityWpf.Attached
 {
@@ -68,7 +67,11 @@ namespace UtilityWpf.Attached
         private static void NewItemChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var collection = new ObservableCollection<object>(((d as ItemsControl)?.Items?.Cast<object>() ?? Array.Empty<object>()).Concat(new[] { e.NewValue }));
-            Application.Current.Dispatcher.InvokeAsync(() => (d as ItemsControl).ItemsSource = collection);
+            Application.Current.Dispatcher.InvokeAsync(() =>
+            {
+                if (d is ItemsControl { ItemsSource: { } } itemsControl)
+                    itemsControl.ItemsSource = collection;
+            });
         }
 
         #endregion NewItem
@@ -89,9 +92,9 @@ namespace UtilityWpf.Attached
 
         private static void VariableChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ItemsControl control = d as ItemsControl;
+            ItemsControl? control = d as ItemsControl;
             string arg = (string)e.NewValue;
-            if (control.ItemsSource != null)
+            if (control?.ItemsSource != null)
                 if (control.ItemsSource?.Count() > 0)
                     control.ItemsSource = control.ItemsSource.GetPropertyRefValues<object>(arg);
         }
@@ -114,11 +117,12 @@ namespace UtilityWpf.Attached
 
         private static void ItemsSourceExChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ItemsControl control = d as ItemsControl;
-            IEnumerable arg = (IEnumerable)e.NewValue;
-            if (arg.Count() > 0)
+            ItemsControl? control = d as ItemsControl;
+            IEnumerable? arg = (IEnumerable?)e.NewValue;
+            // ReSharper disable once PossibleMultipleEnumeration
+            if (arg?.Count() > 0)
                 Application.Current.Dispatcher.InvokeAsync(() =>
-                control.SetValue(ItemsSourceProperty, arg.GetPropertyRefValues<object>((string)control.GetValue(VariableProperty)).Cast<IEnumerable<object>>().SelectMany(_s => _s)),
+                (control ?? throw new Exception("sd3 443 ")).SetValue(ItemsSourceProperty, arg.GetPropertyRefValues<object>((string)control.GetValue(VariableProperty)).Cast<IEnumerable<object>>().SelectMany(_s => _s)),
                     System.Windows.Threading.DispatcherPriority.Background, default);
             ;
         }
@@ -141,14 +145,13 @@ namespace UtilityWpf.Attached
 
         private static void FilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ItemsControl control = d as ItemsControl;
-            if (control.ItemsSource != null)
+            if (d is ItemsControl { ItemsSource: { } source })
             {
-                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(control.ItemsSource);
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(source);
                 view.Filter = (obj) => obj.GetType().GetProperties()
                 .Where(a => a.PropertyType == e.NewValue.GetType() && a.GetMethod != null)
                 .Select(a => a.GetValue(obj))
-                .Any(a => a.ToString()?.Contains((string)e.NewValue) ?? false);
+                .Any(a => a?.ToString()?.Contains((string)e.NewValue) ?? false);
             }
         }
 

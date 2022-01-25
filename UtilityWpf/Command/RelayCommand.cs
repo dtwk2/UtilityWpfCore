@@ -5,16 +5,16 @@ namespace UtilityWpf.Command
 {
     public class RelayCommand : ICommand
     {
-        public event EventHandler CanExecuteChanged
+        public event EventHandler? CanExecuteChanged
         {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
         }
 
-        private Action methodToExecute;
-        private Func<bool> canExecuteEvaluator;
+        private readonly Action methodToExecute;
+        private readonly Func<bool>? canExecuteEvaluator;
 
-        public RelayCommand(Action methodToExecute, Func<bool> canExecuteEvaluator)
+        public RelayCommand(Action methodToExecute, Func<bool>? canExecuteEvaluator)
         {
             this.methodToExecute = methodToExecute;
             this.canExecuteEvaluator = canExecuteEvaluator;
@@ -25,7 +25,7 @@ namespace UtilityWpf.Command
         {
         }
 
-        public bool CanExecute(object parameter)
+        public bool CanExecute(object? parameter)
         {
             if (canExecuteEvaluator == null)
             {
@@ -38,7 +38,7 @@ namespace UtilityWpf.Command
             }
         }
 
-        public void Execute(object parameter)
+        public void Execute(object? parameter)
         {
             methodToExecute.Invoke();
         }
@@ -46,20 +46,17 @@ namespace UtilityWpf.Command
 
     public class RelayCommand<T> : ICommand
     {
-        #region Fields
 
-        private readonly Action<T> _execute = null;
-        private readonly Predicate<T> _canExecute = null;
+        private readonly Action<T?>? execute = null;
+        private readonly Predicate<T?>? canExecute = null;
 
-        #endregion Fields
 
-        #region Constructors
 
         /// <summary>
         /// Creates a new command that can always execute.
         /// </summary>
         /// <param name="execute">The UtilityEnum.Execution logic.</param>
-        public RelayCommand(Action<T> execute)
+        public RelayCommand(Action<T?> execute)
             : this(execute, null)
         {
         }
@@ -69,43 +66,35 @@ namespace UtilityWpf.Command
         /// </summary>
         /// <param name="execute">The UtilityEnum.Execution logic.</param>
         /// <param name="canExecute">The UtilityEnum.Execution status logic.</param>
-        public RelayCommand(Action<T> execute, Predicate<T> canExecute)
+        public RelayCommand(Action<T?>? execute, Predicate<T?>? canExecute)
         {
-            if (execute == null)
-                throw new ArgumentNullException("execute");
-
-            _execute = execute;
-            _canExecute = canExecute;
+            this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            this.canExecute = canExecute;
         }
 
-        #endregion Constructors
 
-        #region ICommand Members
-
-        public bool CanExecute(object parameter)
+        public bool CanExecute(object? parameter)
         {
-            return _canExecute == null ? true : _canExecute((T)parameter);
+            return canExecute?.Invoke((T?)parameter) ?? true;
         }
 
-        public event EventHandler CanExecuteChanged
+        public event EventHandler? CanExecuteChanged
         {
             add
             {
-                if (_canExecute != null)
+                if (canExecute != null)
                     CommandManager.RequerySuggested += value;
             }
             remove
             {
-                if (_canExecute != null)
+                if (canExecute != null)
                     CommandManager.RequerySuggested -= value;
             }
         }
 
-        public void Execute(object parameter)
+        public void Execute(object? parameter)
         {
-            _execute((T)parameter);
+            execute?.Invoke((T?)parameter);
         }
-
-        #endregion ICommand Members
     }
 }

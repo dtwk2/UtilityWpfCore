@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
+// ReSharper disable once CheckNamespace
 namespace SoftwareArchitects.Windows.Controls
 {
     public class ScrollSynchronizer : DependencyObject
@@ -110,7 +112,7 @@ namespace SoftwareArchitects.Windows.Controls
         }
 
         /// <summary>
-        /// Occurs, when the scroll offset of one scrollviewer has changed.
+        /// Occurs, when the scroll offset of one scroll-viewer has changed.
         /// </summary>
         /// <param name="sender">The sender of the event.</param>
         /// <param name="e">EventArgs of the event.</param>
@@ -118,15 +120,15 @@ namespace SoftwareArchitects.Windows.Controls
         {
             if (e.VerticalChange != 0 || e.HorizontalChange != 0)
             {
-                var changedScrollViewer = sender as ScrollViewer;
-                Scroll(changedScrollViewer);
+                if(sender is ScrollViewer scrollViewer)
+                Scroll(scrollViewer);
             }
         }
 
         /// <summary>
         /// Scrolls all scroll viewers of a group to the position of the selected scroll viewer.
         /// </summary>
-        /// <param name="changedScrollViewer">Sroll viewer, that specifies the current position of the group.</param>
+        /// <param name="changedScrollViewer">Scroll viewer, that specifies the current position of the group.</param>
         private static void Scroll(ScrollViewer changedScrollViewer)
         {
             var group = scrollViewers[changedScrollViewer];
@@ -135,12 +137,12 @@ namespace SoftwareArchitects.Windows.Controls
 
             foreach (var scrollViewer in scrollViewers.Where((s) => s.Value == group && s.Key != changedScrollViewer))
             {
-                if (scrollViewer.Key.VerticalOffset != changedScrollViewer.VerticalOffset)
+                if (Math.Abs(scrollViewer.Key.VerticalOffset - changedScrollViewer.VerticalOffset) > 0.001)
                 {
                     scrollViewer.Key.ScrollToVerticalOffset(changedScrollViewer.VerticalOffset);
                 }
 
-                if (scrollViewer.Key.HorizontalOffset != changedScrollViewer.HorizontalOffset)
+                if (Math.Abs(scrollViewer.Key.HorizontalOffset - changedScrollViewer.HorizontalOffset) > 0.001)
                 {
                     scrollViewer.Key.ScrollToHorizontalOffset(changedScrollViewer.HorizontalOffset);
                 }

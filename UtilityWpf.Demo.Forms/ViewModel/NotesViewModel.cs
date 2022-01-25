@@ -5,16 +5,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
-using System.Reactive.Linq;
 using System.Windows.Input;
-using UtilityHelperEx;
 using _ViewModel = Utility.ViewModel.ViewModel;
 
 namespace UtilityWpf.Demo.Forms.ViewModel
 {
     public class NotesViewModel : _ViewModel
     {
-        private ICommand changeCommand;
+        private ICommand? changeCommand;
 
         public NotesViewModel(string header, IReadOnlyCollection<string> enumerable) : this(header, enumerable.Select(a => new NoteViewModel(a)).ToArray())
         {
@@ -32,7 +30,7 @@ namespace UtilityWpf.Demo.Forms.ViewModel
 
         public override ObservableCollection<NoteViewModel> Collection { get; }
 
-        public System.Collections.IEnumerator NewItem { get => 0.Repeat().Select(a => new NoteViewModel(string.Empty)).GetEnumerator(); }
+        public System.Collections.IEnumerator NewItem => 0.Repeat().Select(_ => new NoteViewModel(string.Empty)).GetEnumerator();
 
         public ICommand ChangeCommand => changeCommand ??= ReactiveCommand.Create<object, Unit>(Change);
 

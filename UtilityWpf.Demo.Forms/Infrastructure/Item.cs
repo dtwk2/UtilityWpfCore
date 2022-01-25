@@ -86,12 +86,12 @@ namespace UtilityWpf.Demo.Forms.Infrastructure
             return new Length(length, UnitsNet.Units.LengthUnit.Centimeter).Centimeters;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return this.Equals(obj as Item);
         }
 
-        public bool Equals(Item other)
+        public bool Equals(Item? other)
         {
             return Id == other?.Id &&
                 Title == other.Title &&

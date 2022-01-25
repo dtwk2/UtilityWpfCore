@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using UtilityWpf.Mixins;
 
-namespace UtilityWpf.Controls
+namespace UtilityWpf.Base
 {
     public abstract class ContentControlx : ContentControl, IPropertyListener, IControlListener
     {
@@ -16,9 +16,9 @@ namespace UtilityWpf.Controls
         //public INameTypeDictionary NameTypeDictionary { get; }
         NameTypeDictionary<SingleReplaySubject<object>> IPropertyListener.dict => nameTypeDictionary;
 
-        IObservable<FrameworkElement> IControlListener.lazy { get; set; }
+        IObservable<FrameworkElement>? IControlListener.lazy { get; set; }
 
-        public ContentControlx()
+        protected ContentControlx()
         {
             nameTypeDictionary = new NameTypeDictionary<SingleReplaySubject<object>>(this);
             this.LoadedChanges()

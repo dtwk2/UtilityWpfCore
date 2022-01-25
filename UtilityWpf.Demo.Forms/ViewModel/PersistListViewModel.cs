@@ -68,9 +68,9 @@ namespace UtilityWpf.Demo.Forms.ViewModel
         //    }
         //}
 
-        public ReactiveCommand<CollectionEventArgs, Unit> ChangeCommand { get; }
-        public ReactiveCommand<bool, Unit> ChangeRepositoryCommand { get; }
-        public ReactiveCommand<object, Unit> CollectionChangedCommand { get; }
+        //public ReactiveCommand<CollectionEventArgs, Unit> ChangeCommand { get; }
+        //public ReactiveCommand<bool, Unit> ChangeRepositoryCommand { get; }
+        //public ReactiveCommand<object, Unit> CollectionChangedCommand { get; }
 
         //public IRepository DatabaseService { get => repository; private set => this.RaiseAndSetIfChanged(ref repository, value); }
     }

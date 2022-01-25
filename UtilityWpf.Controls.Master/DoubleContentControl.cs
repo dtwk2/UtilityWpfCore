@@ -6,6 +6,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
+using UtilityWpf.Base;
 using UtilityWpf.Mixins;
 
 namespace UtilityWpf.Controls.Master

@@ -7,29 +7,29 @@ namespace UtilityWpf.Command
 {
     public class OutputControl : ContentControl, ICommand
     {
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler? CanExecuteChanged;
 
-        public string PropertyName
+        public string? PropertyName
         {
-            get { return (string)GetValue(PropertyNameProperty); }
-            set { SetValue(PropertyNameProperty, value); }
+            get => (string)GetValue(PropertyNameProperty);
+            set => SetValue(PropertyNameProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for PropertyName.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PropertyNameProperty =
             DependencyProperty.Register("PropertyName", typeof(string), typeof(OutputControl), new PropertyMetadata(null));
 
-        public bool CanExecute(object parameter)
+        public bool CanExecute(object? parameter)
         {
             return true;
         }
 
-        public void Execute(object parameter)
+        public void Execute(object? parameter)
         {
             Dispatcher.Invoke(() =>
             Content = PropertyName == null ?
             parameter :
-            parameter.GetType().GetProperty(PropertyName).GetValue(parameter)
+            parameter?.GetType().GetProperty(PropertyName)?.GetValue(parameter)
             );
         }
     }
