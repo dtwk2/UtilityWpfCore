@@ -9,6 +9,9 @@ using System.Windows.Shapes;
 
 namespace UtilityWpf.Adorners
 {
+    /// <summary>
+    /// <a href="https://social.msdn.microsoft.com/Forums/vstudio/en-US/14a41db4-c08c-43e5-bd09-caf45fbeb038/textbox-adorner-similar-to-ms-paint-application-in-wpf-c?forum=wpf"></a>
+    /// </summary>
     public class ResizeAdorner : Adorner
     {
         private const double THUMB_SIZE = 10;

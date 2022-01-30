@@ -31,35 +31,31 @@ namespace UtilityWpf.Demo.View
             var layer = AdornerLayer.GetAdornerLayer(canvas);
             foreach (UIElement ui in canvas.Children)
                 layer.Add(new ResizeAdorner(ui));
+
+            layer.Add(new VerticalAxisAdorner(this.Grid));
         }
 
         private void Remove_Click(object sender, RoutedEventArgs e)
         {
             var layer = AdornerLayer.GetAdornerLayer(canvas);
+            Adorner[] toRemoveArray;
 
             foreach (UIElement ui in canvas.Children)
             {
-                Adorner[] toRemoveArray = layer.GetAdorners(ui);
+                toRemoveArray = layer.GetAdorners(ui);
                 if (toRemoveArray != null)
                     foreach (Adorner a in toRemoveArray)
                     {
                         layer.Remove(a);
                     }
             }
-        }
 
-        private void Add_2_Click(object sender, RoutedEventArgs e)
-        {
-            var layer = AdornerLayer.GetAdornerLayer(canvas);
-            foreach (UIElement ui in canvas.Children)
-                layer.Add(new ListAdorner(ui));
-        }
-    }
-
-    public class ListAdorner : Adorner
-    {
-        public ListAdorner(UIElement adornedElement) : base(adornedElement)
-        {
+            toRemoveArray = layer.GetAdorners(Grid);
+            if (toRemoveArray != null)
+                foreach (Adorner a in toRemoveArray)
+                {
+                    layer.Remove(a);
+                }
         }
     }
 }

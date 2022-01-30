@@ -6,50 +6,102 @@
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local1="clr-namespace:UtilityWpf.Behavior;assembly=UtilityWpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ab="http://schemas.utility.com/utilitywpf"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
 
     <TabControl>
+        <TabItem Header="Header">
+            <UniformGrid>
+                <TextBox Height="30" Width="200" ab:Header.Text="HEADER"></TextBox>
+                <Ellipse Fill="Red" Height="30" Width="200" ab:Header.Text="This is a header"></Ellipse>
+                <TextBox Height="30" Width="200"></TextBox>
+                <TextBox Height="30" Width="200" ab:Header.Text="This is a header"></TextBox>
+            </UniformGrid>
+        </TabItem>
         <TabItem Header="Drag">
-            <StackPanel>
-                <Button Height="40" Click="Add_Click" Content="Add Adorners" />
-                <Button Height="40" Click="Remove_Click"  Content="Remove Adorners" />
-                <Canvas Name="canvas" Height="540" Margin="0,14,25,15">
+            <DockPanel>
+                <ToolBar DockPanel.Dock="Top">
+                    <Button Height="40" Click="Add_Click" Content="Add Adorners" />
+                    <Button Height="40" Click="Remove_Click"  Content="Remove Adorners" />
+                </ToolBar>
+                <UniformGrid Rows="1">
+                    <Canvas Name="canvas" Background="Gainsboro">
+                        <Border BorderBrush="Blue" BorderThickness="2" CornerRadius="45" Width="570" Height="274"
+                            Background="White"  Canvas.Left="50" Canvas.Top="50">
+                        </Border>
+                        <Ellipse Canvas.Left="200" Canvas.Top="200" Height="110"
+                            Stroke="Green" StrokeThickness="2" Fill="Transparent" Width="110" />
+                    </Canvas>
+                    <Grid x:Name="Grid" Margin="40">
+                        <ab:HorizontalAxis></ab:HorizontalAxis>
+                    </Grid>
+                </UniformGrid>
+            </DockPanel>
+        </TabItem>
 
-                    <Border BorderBrush="Blue" BorderThickness="2" CornerRadius="45" Width="570" Height="274" Background="White"  Canvas.Left="50" Canvas.Top="50">
-                    </Border>
-                    <Ellipse Canvas.Left="200" Canvas.Top="200" Height="110" Stroke="Green" StrokeThickness="2" Fill="Transparent" Width="110" />
-                </Canvas>
+        <TabItem Header="Canvas">
+            <StackPanel>
+                <AdornerDecorator>
+                    <Canvas Background="Green" Opacity="0.1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="300" Width="300"
+                            Margin="100"
+                            ab:AdornerEx.IsEnabled="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}">
+                        <!--ab:AdornerEx.IsEnabled="True">-->
+                        <ab:AdornerEx.Adorners>
+                            <Ellipse Width="15"
+                            Height="15"
+                            HorizontalAlignment="Left"
+                            ab:AdornerEx.HorizontalPlacement="Inside"
+                            Stroke="Green" />
+                            <Ellipse Width="15"
+                            Height="15"
+                            HorizontalAlignment="Right"
+                            ab:AdornerEx.HorizontalPlacement="Across"
+                            Stroke="Red" />
+                            <Ellipse Width="15"
+                            Height="15"
+                            VerticalAlignment="Top"
+                            ab:AdornerEx.VerticalPlacement="Across"
+                            Stroke="Brown" />
+                            <TextBlock
+                            Text="Header"
+                            VerticalAlignment="Top"
+                            ab:AdornerEx.VerticalPlacement="Outside"
+                            ab:AdornerEx.OffsetY="-20"
+                            Background="Brown" />
+                        </ab:AdornerEx.Adorners>
+                    </Canvas>
+                </AdornerDecorator>
             </StackPanel>
         </TabItem>
+
         <TabItem Header="Hover">
-            <Grid
-        x:Name="Grid1"
-        Width="908"
-        Height="309">
+            <Grid x:Name="Grid1">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <TextBlock x:Name="TextBlock1" />
-                <StackPanel Grid.Row="1">
-                    <Button
+                <TextBlock x:Name="TextBlock1" Text="Nothing"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Bottom" Margin="10" />
+                <Button Grid.Row="1"
                 Name="button1"
-                Width="98"
+                Width="100"
                 Height="35"
-                Margin="0,4,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
                 Click="button1_Click"
                 Content="Button "
                 FontSize="18"
                 FontWeight="Bold"
-                Foreground="#FF7A0000">
-                        <i:Interaction.Behaviors>
-                            <local1:AdornerBehavior Command="{Binding TextCommand}" />
-                        </i:Interaction.Behaviors>
-                    </Button>
+                Foreground="Firebrick">
+                    <i:Interaction.Behaviors>
+                        <local1:AdornerBehavior Command="{Binding TextCommand}" />
+                    </i:Interaction.Behaviors>
+                </Button>
+                <Border Height="400" Width="400" Background="GhostWhite" Grid.Row="2">
                     <Canvas>
                         <Path
                     Canvas.Left="30"
@@ -57,7 +109,6 @@
                     Stroke="Black"
                     StrokeThickness="5">
                             <i:Interaction.Behaviors>
-
                                 <local1:AdornerBehavior />
                             </i:Interaction.Behaviors>
                             <Path.Data>
@@ -66,13 +117,15 @@
                                         <PathFigure IsClosed="False" StartPoint="100,50">
                                             <LineSegment Point="240,60" />
                                             <LineSegment Point="350,100" />
+                                            <LineSegment Point="50,200" />
+                                            <LineSegment Point="50,150" />
                                         </PathFigure>
                                     </PathGeometry.Figures>
                                 </PathGeometry>
                             </Path.Data>
                         </Path>
                     </Canvas>
-                </StackPanel>
+                </Border>
             </Grid>
         </TabItem>
     </TabControl>

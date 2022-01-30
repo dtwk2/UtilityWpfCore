@@ -4,13 +4,12 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Shapes;
+using UtilityWpf.Adorners;
 
 namespace UtilityWpf.Behavior
 {
-    public class AdornerBehavior : Behavior<UIElement>
+    public partial class AdornerBehavior : Behavior<UIElement>
     {
         public ICommand Command
         {
@@ -96,43 +95,6 @@ namespace UtilityWpf.Behavior
                     adorner.MouseLeave -= Ad_MouseLeave;
                     adLayer.Remove(adorner);
                 }
-            }
-        }
-
-        public class EllipseAdorner : Adorner
-        {
-            private ICommand command;
-
-            public EllipseAdorner(UIElement adornedElement, ICommand command = null) : base(adornedElement)
-            {
-                this.MouseDown += EllipseAdorner_MouseDown;
-                this.command = command;
-            }
-
-            private void EllipseAdorner_MouseDown(object sender, MouseButtonEventArgs e)
-            {
-                command?.Execute(this);
-            }
-
-            protected override void OnRender(System.Windows.Media.DrawingContext drawingContext)
-            {
-                SolidColorBrush renderBrush = new SolidColorBrush(Colors.LightCoral);
-
-                Pen renderPen = new Pen(new SolidColorBrush(Colors.DarkBlue), 1.0);
-
-                if (this.AdornedElement is Path path)
-                {
-                    double fraction = 0.5;  //the relative point of the curve
-                    Point pt;               //the absolute point of the curve
-                    Point tg;               //the tangent point of the curve
-                    (path.RenderedGeometry as PathGeometry).GetPointAtFractionLength(
-                        fraction,
-                        out pt,
-                        out tg);
-                    drawingContext.DrawEllipse(renderBrush, renderPen, new Point(pt.X, pt.Y), 20, 20);
-                }
-                else
-                    drawingContext.DrawEllipse(renderBrush, renderPen, new Point(10, 10), 20, 20);
             }
         }
     }

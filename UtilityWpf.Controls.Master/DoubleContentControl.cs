@@ -10,7 +10,7 @@ using UtilityWpf.Mixins;
 
 namespace UtilityWpf.Controls.Master
 {
-    public class DoubleContentControl : ContentControlx
+    public class DoubleContentControl : HeaderedContentControlx
     {
         public static readonly DependencyProperty PositionProperty = DependencyHelper.Register<Dock>(new PropertyMetadata(Dock.Bottom, Changed));
         private ReplaySubject<Dock> dockSubject = new(1);
@@ -34,11 +34,13 @@ namespace UtilityWpf.Controls.Master
         {
             this.Control<WrapPanel>().Subscribe(wrapPanelSubject);
 
-            wrapPanelSubject.Take(1).CombineLatest(this.Observable<Orientation>().DistinctUntilChanged())
+            wrapPanelSubject
+                .Take(1)
+                .CombineLatest(this.Observable<Orientation>().DistinctUntilChanged())
                 .Subscribe(a =>
-            {
-                a.First.Orientation = a.Second;
-            });
+                {
+                    a.First.Orientation = a.Second;
+                });
 
             dockSubject
                 .CombineLatest(wrapPanelSubject, dockPanelSplitterSubject)
@@ -88,16 +90,15 @@ namespace UtilityWpf.Controls.Master
 
         public override void OnApplyTemplate()
         {
-            var dockPanel = this.GetTemplateChild("PART_DockPanel") as DockPanel;
-            var wrapPanel = this.GetTemplateChild("PART_WrapPanel") as WrapPanel;
-            var dockPanelSplitter = this.GetTemplateChild("PART_DockPanelSplitter") as DockPanelSplitter;
-
-            if (dockPanel == null)
+            if (this.GetTemplateChild("PART_DockPanel") is not DockPanel dockPanel)
                 throw new ApplicationException();
-            if (wrapPanel == null)
+            if (this.GetTemplateChild("PART_WrapPanel") is not WrapPanel wrapPanel)
                 throw new ApplicationException();
 
             wrapPanelSubject.OnNext(wrapPanel);
+
+            if (this.GetTemplateChild("PART_DockPanelSplitter") is not DockPanelSplitter dockPanelSplitter)
+                throw new ApplicationException();
             dockPanelSplitterSubject.OnNext(dockPanelSplitter);
 
             base.OnApplyTemplate();
