@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using UtilityHelper;
 using UtilityHelper.NonGeneric;
+using UtilityWpf.Base;
 
 namespace UtilityWpf.Attached
 {
@@ -155,55 +156,22 @@ namespace UtilityWpf.Attached
             }
         }
 
-        #endregion Filter
+        #endregion Filter       
+        
+        #region Orientation
 
-        //private void txtFilter_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        //{
-        //    CollectionViewSource.GetDefaultView(lvUsers.ItemsSource).Refresh();
-        //}
+        public static Orientation GetOrientation(DependencyObject d)
+        {
+            return (Orientation)d.GetValue(OrientationProperty);
+        }
 
-        //      CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(lvUsers.ItemsSource);
-        //      view.Filter = UserFilter;
-        //}
+        public static void SetOrientation(DependencyObject d, object value)
+        {
+            d.SetValue(OrientationProperty, value);
+        }
 
-        //  private bool UserFilter(object item)
-        //  {
-        //      if (String.IsNullOrEmpty(txtFilter.Text))
-        //          return true;
-        //      else
-        //          return ((item as User).Name.IndexOf(txtFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0);
-        //  }
+        public static readonly DependencyProperty OrientationProperty = DependencyProperty.RegisterAttached("Orientation", typeof(Orientation), typeof(ItemsControlEx), new PropertyMetadata(Orientation.Vertical, LayOutHelper.Changed));
 
-        //  private void txtFilter_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        //  {
-        //      CollectionViewSource.GetDefaultView(lvUsers.ItemsSource).Refresh();
-        //  }
-
-        // public static EventHandler OnValueChanged { get; private set; }
-        //    var property = (string)e.NewValue;
-
-        //    ItemsControl i = (d as ItemsControl);
-        //    WeakReference wr = new WeakReference(i);
-        //    PropertyChangeNotifier notifier = new PropertyChangeNotifier(i, nameof(ItemsControl.ItemsSourceEx));
-        //    notifier.ValueChanged += new EventHandler(OnValueChanged);
-        //    i = null;
-        //    GC.Collect();
-        //    bool isAlive = wr.IsAlive;
-
-        //    //(d as PropertyListControl).PropertyChanges.OnNext((string)e.NewValue);
-        //    if ((d as ItemsControl).ItemsSourceEx.First().GetType().GetProperties().SingleOrDefault(a => a.Name == _).PropertyType.GetInterfaces().Contains(typeof(System.Collections.IEnumerable)))
-        //        ItemsSourceExSubject.OnNext(ItemsSourceEx.GetPropertyValues<IEnumerable<object>>(_).SelectMany(a => a));
-        //    else
-        //        ItemsSourceExSubject.OnNext(ItemsSourceEx.GetPropertyValues<object>(_));
-        //});
-        //}
-        //ISubject<string> PropertyChanges = new Subject<string>();
-        //public PropertyListControl()
-        //{
-        //    //Uri resourceLocater = new Uri("/UtilityWpf.ViewCore;component/Themes/PropertyControl.xaml", System.UriKind.Relative);
-        //    //ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
-        //    //Style = resourceDictionary["PropertyControlStyle"] as Style;
-
-        //}
+        #endregion Orientation
     }
 }

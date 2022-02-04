@@ -2,6 +2,8 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using UtilityWpf.Base;
+using UtilityWpf.Utility;
 
 namespace UtilityWpf.Controls.Buttons
 {
@@ -17,12 +19,6 @@ namespace UtilityWpf.Controls.Buttons
     {
         public static readonly DependencyProperty CommandPathProperty = DependencyProperty.Register("CommandPath", typeof(string), typeof(ButtonsControl), new PropertyMetadata(null));
         public static readonly DependencyProperty OutputProperty = DependencyProperty.Register("Output", typeof(object), typeof(ButtonsControl));
-        public static readonly DependencyProperty OrientationProperty = DependencyProperty.Register("Orientation", typeof(Orientation), typeof(ButtonsControl), new PropertyMetadata(Orientation.Vertical, Changed));
-
-        private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            //throw new NotImplementedException();
-        }
 
         static ButtonsControl()
         {
@@ -39,22 +35,11 @@ namespace UtilityWpf.Controls.Buttons
 
         public object Output
         {
-            get { return GetValue(OutputProperty); }
-            set { SetValue(OutputProperty, value); }
+            get => GetValue(OutputProperty);
+            set => SetValue(OutputProperty, value);
         }
-
-        public Orientation Orientation
-        {
-            get { return (Orientation)GetValue(OrientationProperty); }
-            set { SetValue(OrientationProperty, value); }
-        }
-
+        
         #endregion properties
-
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-        }
 
         protected override void PrepareContainerForItemOverride(ButtonTextControl element, object item)
         {
@@ -64,26 +49,17 @@ namespace UtilityWpf.Controls.Buttons
             if (string.IsNullOrEmpty(CommandPath) == false)
                 button.Command = (System.Windows.Input.ICommand)item.TryGetValue(CommandPath);
 
+            BindingFactory factory = new(element);
             if (string.IsNullOrEmpty(SelectedValuePath) == false)
             {
-                BindingOperations.SetBinding(button, FrameworkElement.TagProperty, CreateBinding(SelectedValuePath));
+                BindingOperations.SetBinding(button, FrameworkElement.TagProperty, factory.OneWay(SelectedValuePath));
                 button.Click += Button_Click;
             }
 
             if (string.IsNullOrEmpty(DisplayMemberPath) == false)
             {
                 if (button.Content is TextBlock textBlock)
-                    BindingOperations.SetBinding(textBlock, TextBlock.TextProperty, CreateBinding(DisplayMemberPath));
-            }
-
-            Binding CreateBinding(string path)
-            {
-                return new Binding
-                {
-                    Source = item,
-                    Path = new PropertyPath(path),
-                    Mode = BindingMode.OneWay,
-                };
+                    BindingOperations.SetBinding(textBlock, TextBlock.TextProperty, factory.OneWay(DisplayMemberPath));
             }
         }
 

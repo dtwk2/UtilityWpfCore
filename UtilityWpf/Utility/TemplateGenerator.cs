@@ -44,6 +44,28 @@ namespace UtilityWpf.Utility
         }
 
         /// <summary>
+        /// Creates a items-panel-template
+        /// </summary>
+        public static ItemsPanelTemplate CreateItemsPanelTemplate<TFrameworkElement>(Action<FrameworkElementFactory> action)
+            where TFrameworkElement : FrameworkElement
+        {
+            return CreateItemsPanelTemplate(action, typeof(TFrameworkElement));
+        }
+           
+        /// <summary>
+        /// Creates a items-panel-template
+        /// </summary>
+        public static ItemsPanelTemplate CreateItemsPanelTemplate(Action<FrameworkElementFactory> action, Type type)
+        {
+            var itemsPanelTemplate = new ItemsPanelTemplate
+            {
+                VisualTree = new FrameworkElementFactory(type)
+            };
+            action(itemsPanelTemplate.VisualTree);
+            return itemsPanelTemplate;
+        }
+
+        /// <summary>
         /// Creates a control-template that uses the given delegate to create new instances.
         /// </summary>
         public static ControlTemplate CreateControlTemplate(Type controlType, Func<object> factory)

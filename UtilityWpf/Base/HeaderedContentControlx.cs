@@ -2,12 +2,11 @@
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using UtilityWpf.Base;
 using UtilityWpf.Mixins;
 
-namespace UtilityWpf.Controls
+namespace UtilityWpf.Base
 {
-    public abstract class HeaderedContentControlx : ContentControl, IPropertyListener, IControlListener
+    public abstract class HeaderedContentControlx : HeaderedContentControl, IPropertyListener, IControlListener
     {
         private readonly NameTypeDictionary<SingleReplaySubject<object>> nameTypeDictionary;
 

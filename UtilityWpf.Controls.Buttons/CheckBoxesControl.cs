@@ -3,6 +3,8 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using UtilityWpf.Base;
+using UtilityWpf.Utility;
 
 namespace UtilityWpf.Controls.Buttons
 {
@@ -22,13 +24,8 @@ namespace UtilityWpf.Controls.Buttons
     {
         public static readonly DependencyProperty IsCheckedPathProperty = DependencyProperty.Register("IsCheckedPath", typeof(string), typeof(CheckBoxesControl), new PropertyMetadata(null));
         public static readonly DependencyProperty OutputProperty = DependencyProperty.Register("Output", typeof(object), typeof(CheckBoxesControl));
-        public static readonly DependencyProperty OrientationProperty = DependencyProperty.Register("Orientation", typeof(Orientation), typeof(CheckBoxesControl), new PropertyMetadata(Orientation.Vertical, Changed));
         public static readonly RoutedEvent OutputChangeEvent = EventManager.RegisterRoutedEvent("OutputChange", RoutingStrategy.Bubble, typeof(OutputChangedEventHandler), typeof(CheckBoxesControl));
-
-        private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-        }
-
+        
         static CheckBoxesControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(CheckBoxesControl), new FrameworkPropertyMetadata(typeof(CheckBoxesControl)));
@@ -38,26 +35,20 @@ namespace UtilityWpf.Controls.Buttons
 
         public event OutputChangedEventHandler OutputChange
         {
-            add { AddHandler(OutputChangeEvent, value); }
-            remove { RemoveHandler(OutputChangeEvent, value); }
+            add => AddHandler(OutputChangeEvent, value);
+            remove => RemoveHandler(OutputChangeEvent, value);
         }
 
         public string IsCheckedPath
         {
-            get { return (string)GetValue(IsCheckedPathProperty); }
-            set { SetValue(IsCheckedPathProperty, value); }
+            get => (string)GetValue(IsCheckedPathProperty);
+            set => SetValue(IsCheckedPathProperty, value);
         }
 
         public object Output
         {
-            get { return GetValue(OutputProperty); }
-            set { SetValue(OutputProperty, value); }
-        }
-
-        public Orientation Orientation
-        {
-            get { return (Orientation)GetValue(OrientationProperty); }
-            set { SetValue(OrientationProperty, value); }
+            get => GetValue(OutputProperty);
+            set => SetValue(OutputProperty, value);
         }
 
         #endregion properties
@@ -65,16 +56,17 @@ namespace UtilityWpf.Controls.Buttons
 
         protected override void PrepareContainerForItemOverride(CheckBox element, object item)
         {
+            BindingFactory factory = new (element);
             if (string.IsNullOrEmpty(IsCheckedPath) == false)
-                BindingOperations.SetBinding(element, CheckBox.IsCheckedProperty, CreateBinding(IsCheckedPath, BindingMode.TwoWay));
+                BindingOperations.SetBinding(element, System.Windows.Controls.Primitives.ToggleButton.IsCheckedProperty, factory.TwoWay(IsCheckedPath));
 
             if (string.IsNullOrEmpty(SelectedValuePath) == false)
             {
-                BindingOperations.SetBinding(element, TagProperty, CreateBinding(SelectedValuePath));
+                BindingOperations.SetBinding(element, TagProperty, factory.OneWay(SelectedValuePath));
             }
             else if (string.IsNullOrEmpty(DisplayMemberPath) == false)
             {
-                BindingOperations.SetBinding(element, TagProperty, CreateBinding(DisplayMemberPath));
+                BindingOperations.SetBinding(element, TagProperty, factory.OneWay(DisplayMemberPath));
             }
             else
             {
@@ -84,15 +76,6 @@ namespace UtilityWpf.Controls.Buttons
             element.Checked += Button_Click;
             element.Unchecked += Button_Click;
 
-            Binding CreateBinding(string path, BindingMode bindingMode = BindingMode.OneWay)
-            {
-                return new Binding
-                {
-                    Source = item,
-                    Path = new PropertyPath(path),
-                    Mode = bindingMode,
-                };
-            }
 
             Button_Click(null, null);
         }

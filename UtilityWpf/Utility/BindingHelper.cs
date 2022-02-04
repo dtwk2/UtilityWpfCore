@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Data;
@@ -8,11 +10,46 @@ using System.Xml;
 
 namespace UtilityWpf.Utility
 {
+    public class BindingFactory
+    {
+        private readonly object source;
+
+        public BindingFactory(object source)
+        {
+            this.source = source;
+        }
+        
+        public Binding OneWay(string path) => Bind(path, BindingMode.OneWay);
+
+        public Binding TwoWay(string path) => Bind(path, BindingMode.TwoWay);
+
+        private Binding Bind(string path, BindingMode bindingMode)
+        {
+            return new Binding
+            {
+                Source = source,
+                Path = new PropertyPath(path),
+                Mode = bindingMode,
+            };
+        }
+    }
+
+
     /// <summary>
     /// Extension methods for the WPF Binding class.
     /// </summary>
     public static class BindingHelper
     {
+        public static IEnumerable<Binding> CreateOneWayBinding(object source, params string[] paths)
+        {
+            return paths.Select(path => new Binding
+            {
+                Source = source,
+                Path = new PropertyPath(path),
+                Mode = BindingMode.OneWay,
+            });
+        }
+
         /// <summary>
         /// Clone via xaml-Serialization
         /// <a href="https://stackoverflow.com/questions/32541/how-can-you-clone-a-wpf-object"></a>
