@@ -1,13 +1,13 @@
 ﻿using Dragablz;
-using Evan.Wpf;
 using System;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace UtilityWpf.Controls.Hybrid
 {
     public class MasterBindableControl : UtilityWpf.Controls.Master.MasterControl
     {
-        public static readonly DependencyProperty DisplayMemberPathProperty = DependencyHelper.Register<string>();
+        public static readonly DependencyProperty DisplayMemberPathProperty = ItemsControl.DisplayMemberPathProperty.AddOwner(typeof(MasterBindableControl));
 
         static MasterBindableControl()
         {
@@ -19,8 +19,8 @@ namespace UtilityWpf.Controls.Hybrid
 
         public string DisplayMemberPath
         {
-            get { return (string)GetValue(DisplayMemberPathProperty); }
-            set { SetValue(DisplayMemberPathProperty, value); }
+            get => (string)GetValue(DisplayMemberPathProperty);
+            set => SetValue(DisplayMemberPathProperty, value);
         }
 
         protected override void ExecuteAdd()

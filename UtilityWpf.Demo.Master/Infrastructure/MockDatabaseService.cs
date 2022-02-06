@@ -55,7 +55,7 @@ namespace UtilityWpf.Demo.Master.Infrastructure
 
         public IEnumerable FindManyBy(IQuery query)
         {
-            return new[] { "d", "fdfs", "fsddfdd" };
+            return new[] { "One", "Two", "Three" };
         }
 
         public object Remove(object item)

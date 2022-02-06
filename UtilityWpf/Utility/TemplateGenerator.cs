@@ -57,7 +57,7 @@ namespace UtilityWpf.Utility
         /// </summary>
         public static ItemsPanelTemplate CreateItemsPanelTemplate(Action<FrameworkElementFactory> action, Type type)
         {
-            var itemsPanelTemplate = new ItemsPanelTemplate
+            ItemsPanelTemplate itemsPanelTemplate = new ()
             {
                 VisualTree = new FrameworkElementFactory(type)
             };
@@ -65,10 +65,19 @@ namespace UtilityWpf.Utility
             return itemsPanelTemplate;
         }
 
+
         /// <summary>
-        /// Creates a control-template that uses the given delegate to create new instances.
+        /// Creates a control-template
         /// </summary>
-        public static ControlTemplate CreateControlTemplate(Type controlType, Func<object> factory)
+        public static ControlTemplate CreateControlTemplate<TFrameworkElement>(Func<object> factory)
+            where TFrameworkElement : FrameworkElement {
+            return CreateControlTemplate(factory, typeof(TFrameworkElement));
+        }
+
+        /// <summary>
+        /// Creates a control-template
+        /// </summary>
+        public static ControlTemplate CreateControlTemplate(Func<object> factory, Type controlType)
         {
             if (controlType == null)
                 throw new ArgumentNullException(nameof(controlType));

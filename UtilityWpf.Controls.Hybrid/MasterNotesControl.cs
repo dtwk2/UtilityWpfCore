@@ -34,23 +34,21 @@ namespace UtilityWpf.Controls.Hybrid
                 {
                     Dispatcher.InvokeAsync(() =>
                     {
-                        if (Content == null)
-                            Content = new NotesControl
-                            {
-                                DisplayMemberPath = DisplayMemberPath,
-                                ItemsSource = ItemsSource
-                            };
-                        else
+                        switch (Content)
                         {
-                            if (Content is NotesControl msn)
-                            {
+                            case null:
+                                Content = new NotesControl
+                                {
+                                    DisplayMemberPath = DisplayMemberPath,
+                                    ItemsSource = ItemsSource
+                                };
+                                break;
+                            case NotesControl msn:
                                 msn.ItemsSource = ItemsSource;
                                 msn.DisplayMemberPath = DisplayMemberPath;
-                            }
-                            else
-                            {
+                                break;
+                            default:
                                 throw new ApplicationException("Expected Content to be MasterNotesItemsControl");
-                            }
                         }
 
                         //DoubleAnimation oLabelAngleAnimation    = new DoubleAnimation();
