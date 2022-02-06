@@ -43,20 +43,13 @@ public class FilterCollectionViewModel<T> : ReactiveObject
     public ICollection FilterCollection => filterCollection;
 }
 
-public class FilterCollectionViewModel<T, TR> : ReactiveObject where TR : IPredicate, IKey
+public class FilterCollectionCommandViewModel<T, TR> : FilterCollectionBaseViewModel<TR> where TR : IPredicate, IKey
 {
-    public record Settings(bool DefaultValue = true);
-
     private readonly ReadOnlyObservableCollection<CheckContentViewModel> filterCollection;
     private readonly ReactiveCommand<Dictionary<object, bool?>, Func<T, bool>> command;
 
-    public FilterCollectionViewModel(IObservable<IChangeSet<TR>> changeSet, FilterService<T> filter, Settings settings)
+    public FilterCollectionCommandViewModel(IObservable<IChangeSet<TR>> changeSet, FilterService<T> filter, Settings settings) : base(changeSet, settings)
     {
-        changeSet
-            .Transform(a => new CheckContentViewModel(a, a.Key, settings.DefaultValue))
-            .Bind(out filterCollection)
-            .Subscribe();
-
         command = ReactiveCommand.Create<Dictionary<object, bool?>, Func<T, bool>>(dictionary =>
         {
             var output = from kvp in dictionary
@@ -72,6 +65,29 @@ public class FilterCollectionViewModel<T, TR> : ReactiveObject where TR : IPredi
     }
 
     public ICommand Command => command;
+}
+
+public class FilterCollectionViewModel<T, TR> : FilterCollectionBaseViewModel<TR> where TR : IPredicate, IKey
+{
+    public FilterCollectionViewModel(IObservable<IChangeSet<TR>> changeSet, Func<T, bool> filter, FilterService<T> filterService, Settings settings) : base(changeSet, settings)
+    {
+        Observable.Return(filter).Subscribe(filterService);
+    }
+}
+
+public class FilterCollectionBaseViewModel<TR> : ReactiveObject where TR : IPredicate, IKey
+{
+    public record Settings(bool DefaultValue = true);
+
+    private readonly ReadOnlyObservableCollection<CheckContentViewModel> filterCollection;
+
+    public FilterCollectionBaseViewModel(IObservable<IChangeSet<TR>> changeSet, Settings settings)
+    {
+        changeSet
+            .Transform(a => new CheckContentViewModel(a, a.Key, settings.DefaultValue))
+            .Bind(out filterCollection)
+            .Subscribe();
+    }
 
     public ICollection FilterCollection => filterCollection;
 }

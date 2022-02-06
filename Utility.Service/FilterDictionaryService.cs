@@ -11,10 +11,10 @@ public interface IFilterService<T> : IObservable<Func<T, bool>>
 
 public class FilterService<T> : IObserver<Func<T, bool>>, IFilterService<T>
 {
-    private readonly Subject<Unit> subject = new();
+    protected readonly Subject<Unit> subject = new();
     private Func<T, bool>? value;
 
-    public bool Execute(T profile)
+    protected virtual bool Execute(T profile)
     {
         if (value == null || value.Invoke(profile))
         {
@@ -121,3 +121,26 @@ public class FilterPredicateService<T> : IObserver<IPredicate>, IFilterService<T
         return filterBaseService.Subscribe(observer);
     }
 }
+
+//public class FilterPredicateDefaultService<T> : FilterService<T>
+//{
+//    private Func<T, bool> func;
+
+//    //private readonly FilterService<T> filterBaseService;
+
+//    public FilterPredicateDefaultService(Func<T, bool> func)
+//        {
+//        this.func = func;
+//        this.subject.OnNext(func);
+//            //filterBaseService = new FilterService<T>();
+//        }
+
+//    public override bool Execute(T profile)
+//    {
+//        if (value == null || value.Invoke(profile))
+//        {
+//            return true;
+//        }
+//        return false;
+//    }
+//}
