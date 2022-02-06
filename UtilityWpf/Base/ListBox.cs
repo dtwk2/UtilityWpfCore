@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
-namespace UtilityWpf.Controls
+namespace UtilityWpf.Base
 {
     /// <summary>
     /// Generic Selector
@@ -27,11 +27,11 @@ namespace UtilityWpf.Controls
     /// Generic ListBox
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class ListBox<T> : ListBox where T : DependencyObject, new()
+    public class ListBox<T> : LayOutListBox where T : DependencyObject, new()
     {
         protected override DependencyObject GetContainerForItemOverride() => new T();
 
-        protected override sealed void PrepareContainerForItemOverride(DependencyObject element, object item)
+        protected sealed override void PrepareContainerForItemOverride(DependencyObject element, object item)
         {
             if (element is not T t)
                 throw new System.Exception("s fdsd  77ffs");

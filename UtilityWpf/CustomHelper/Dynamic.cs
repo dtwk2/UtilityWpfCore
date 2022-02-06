@@ -16,7 +16,7 @@ namespace CustomHelper
         /// <summary>
         /// Custom Type provider implementation - delegated through static methods.
         /// </summary>
-        private readonly CustomTypeHelper<Dynamic> _helper = new CustomTypeHelper<Dynamic>();
+        private readonly CustomTypeHelper<Dynamic>? _helper = new ();
 
         //// Existing known properties
         //private string _firstName;
@@ -75,7 +75,7 @@ namespace CustomHelper
             return _helper.GetCustomType();
         }
 
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        public event PropertyChangedEventHandler? PropertyChanged = delegate { };
 
         private void RaisePropertyChanged([CallerMemberName] string propertyName = "")
         {

@@ -62,6 +62,19 @@
     <ProjectReference Include="..\Utility.Common\Utility.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Base\DoubleContentControl.cs">
+      <DependentUpon>DoubleContentControl.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Base\DoubleContentControl.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
   <!-- Only packs project if Configuration set to Release-->
    <Target Name="CustomPack" AfterTargets="build" Condition="'$(Configuration)'=='Release'">
         <Message Text="Custom Pack command starts ..." Importance="high" />

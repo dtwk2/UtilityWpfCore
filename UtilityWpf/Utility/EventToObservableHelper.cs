@@ -1,6 +1,4 @@
-﻿using deniszykov.TypeConversion;
-using ReactiveUI;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +10,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media.Animation;
+using deniszykov.TypeConversion;
+using ReactiveUI;
 using UtilityWpf.Abstract;
 using UtilityWpf.Events;
 
-namespace UtilityWpf
+namespace UtilityWpf.Utility
 {
     public static class EventToObservableHelper
     {
@@ -48,7 +48,10 @@ namespace UtilityWpf
             Observable
             .FromEventPattern<SelectionChangedEventHandler, SelectionChangedEventArgs>
             (a => selector.SelectionChanged += a, a => selector.SelectionChanged -= a)
-            .Select(a => selector.Items.Cast<ListBoxItem>().Where(a => a.IsSelected).ToArray());
+            .Select(a => selector.Items
+                                                            .Cast<ListBoxItem>()
+                                                            .Where(a => a.IsSelected)
+                                                            .ToArray());
 
         public static IObservable<object> SelectSingleSelectionChanges(this ISelector selector) =>
             Observable

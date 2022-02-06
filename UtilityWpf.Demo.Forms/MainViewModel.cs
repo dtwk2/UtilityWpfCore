@@ -36,9 +36,9 @@ namespace UtilityWpf.Demo.Forms
         }
 
         public EditViewModel EditViewModel { get; } = new() { Id = Guid.NewGuid() };
-        public EditModel EditModel { get; set; }
+        public EditModel? EditModel { get; set; }
 
-        public string String { get; set; }
+        public string? String { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

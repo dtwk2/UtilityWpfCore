@@ -1,9 +1,9 @@
-﻿using AutoBogus;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using AutoBogus;
 using UtilityWpf.Demo.Common.ViewModel;
 
-namespace UtilityWpf.Demo.Data.Model
+namespace UtilityWpf.Demo.Data.Factory
 {
     public class FieldsFactory
     {

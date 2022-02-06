@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:chart1="clr-namespace:UtilityWpf.Chart.Demo"
+    xmlns:chart="clr-namespace:UtilityWpf.Demo.Chart"
     Title="MainWindow"
     Width="1000"
     Height="750"
@@ -12,9 +13,7 @@
 
     <TabControl>
         <TabItem>
-            <chart1:MasterChartDetailView></chart1:MasterChartDetailView>
-        </TabItem>
-        <TabItem>
+            <chart:MasterChartDetailView></chart:MasterChartDetailView>
         </TabItem>
     </TabControl>
 </Window>

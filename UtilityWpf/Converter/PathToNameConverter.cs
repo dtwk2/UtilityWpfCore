@@ -29,6 +29,6 @@ namespace UtilityWpf.Converter
             throw new NotImplementedException();
         }
 
-        public static PathToNameConverter Instance { get; } = new PathToNameConverter();
+        public static PathToNameConverter Instance { get; } = new ();
     }
 }

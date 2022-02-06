@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace UtilityWpf.Chart.Demo
+namespace UtilityWpf.Demo.Chart
 {
     /// <summary>
     /// Interaction logic for MasterDetailChartView.xaml

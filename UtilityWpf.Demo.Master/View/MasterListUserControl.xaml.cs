@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace UtilityWpf.Demo.View
+namespace UtilityWpf.Demo.Master.View
 {
     /// <summary>
     /// Interaction logic for DragUserControl.xaml

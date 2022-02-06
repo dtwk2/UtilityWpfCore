@@ -5,6 +5,7 @@ using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using UtilityEnum;
+using UtilityWpf.Base;
 using UtilityWpf.Controls.Infrastructure;
 using UtilityWpf.Utility;
 

@@ -11,10 +11,12 @@ namespace UtilityWpf.Behavior
 {
     public partial class AdornerBehavior : Behavior<UIElement>
     {
+        private EllipseAdorner? adorner;
+
         public ICommand Command
         {
-            get { return (ICommand)GetValue(CommandProperty); }
-            set { SetValue(CommandProperty, value); }
+            get => (ICommand)GetValue(CommandProperty);
+            set => SetValue(CommandProperty, value);
         }
 
         // Using a DependencyProperty as the backing store for Command.  This enables animation, styling, binding, etc...
@@ -42,58 +44,55 @@ namespace UtilityWpf.Behavior
 
         private void Element_MouseEnter(object sender, MouseEventArgs e)
         {
-            AdornerLayer adLayer = AdornerLayer.GetAdornerLayer(AssociatedObject);
+            AdornerLayer? adLayer = AdornerLayer.GetAdornerLayer(AssociatedObject);
 
             adorner = new EllipseAdorner(AssociatedObject, Command);
             adorner.MouseLeave += Ad_MouseLeave;
 
-            adLayer.Add(adorner);
+            adLayer?.Add(adorner);
         }
 
         private void Ad_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (AdornerLayer.GetAdornerLayer(AssociatedObject) is AdornerLayer adornerLayer)
+            if (AdornerLayer.GetAdornerLayer(AssociatedObject) is { } adornerLayer)
             {
-                foreach (var adorner in AdornerLayer.GetAdornerLayer(AssociatedObject)?.GetAdorners(AssociatedObject).OfType<EllipseAdorner>().ToArray())
+                foreach (var ellipseAdorner in adornerLayer.GetAdorners(AssociatedObject)?.OfType<EllipseAdorner>().ToArray()?? Array.Empty<EllipseAdorner>())
                 {
                     DoubleAnimation doubleAnimation = new DoubleAnimation(0.0, new Duration(TimeSpan.FromSeconds(3)));
-                    doubleAnimation.Completed += new EventHandler(fadeOutAnimation_Completed);
+                    doubleAnimation.Completed += fadeOutAnimation_Completed;
                     doubleAnimation.Freeze();
 
-                    adorner.BeginAnimation(FrameworkElement.OpacityProperty, doubleAnimation);
+                    ellipseAdorner.BeginAnimation(UIElement.OpacityProperty, doubleAnimation);
                 }
             }
         }
-
-        private EllipseAdorner adorner = null;
 
         private void Element_MouseLeave(object sender, MouseEventArgs e)
         {
             if (adorner != null && adorner?.IsMouseOver == false)
             {
-                if (AdornerLayer.GetAdornerLayer(AssociatedObject) is AdornerLayer adornerLayer && AdornerLayer.GetAdornerLayer(AssociatedObject).GetAdorners(AssociatedObject) != null)
+                if (AdornerLayer.GetAdornerLayer(AssociatedObject) is {} _ && AdornerLayer.GetAdornerLayer(AssociatedObject)?.GetAdorners(AssociatedObject) != null)
                 {
-                    foreach (var adorner in AdornerLayer.GetAdornerLayer(AssociatedObject).GetAdorners(AssociatedObject).OfType<EllipseAdorner>().ToArray())
+                    foreach (var ellipseAdorner in AdornerLayer.GetAdornerLayer(AssociatedObject)?.GetAdorners(AssociatedObject)?.OfType<EllipseAdorner>().ToArray()?? Array.Empty<EllipseAdorner>())
                     {
                         DoubleAnimation doubleAnimation = new DoubleAnimation(0.0, new Duration(TimeSpan.FromSeconds(1)));
-                        doubleAnimation.Completed += new EventHandler(fadeOutAnimation_Completed);
+                        doubleAnimation.Completed += fadeOutAnimation_Completed;
                         doubleAnimation.Freeze();
 
-                        adorner.BeginAnimation(FrameworkElement.OpacityProperty, doubleAnimation);
+                        ellipseAdorner.BeginAnimation(UIElement.OpacityProperty, doubleAnimation);
                     }
                 }
             }
         }
 
-        private void fadeOutAnimation_Completed(object sender, EventArgs e)
+        private void fadeOutAnimation_Completed(object? sender, EventArgs e)
         {
             if (adorner != null)
             {
-                AdornerLayer adLayer = AdornerLayer.GetAdornerLayer(AssociatedObject);
-                if (adLayer != null)
+                if (AdornerLayer.GetAdornerLayer(AssociatedObject) is {} adornerLayer)
                 {
                     adorner.MouseLeave -= Ad_MouseLeave;
-                    adLayer.Remove(adorner);
+                    adornerLayer.Remove(adorner);
                 }
             }
         }

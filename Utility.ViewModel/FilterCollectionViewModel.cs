@@ -4,11 +4,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Windows.Input;
 using Utility.Service;
 using UtilityInterface.NonGeneric;
+using UtilityWpf;
 
 namespace Utility.ViewModel;
 
@@ -47,21 +51,24 @@ public class FilterCollectionCommandViewModel<T, TR> : FilterCollectionBaseViewM
 {
     private readonly ReadOnlyObservableCollection<CheckContentViewModel> filterCollection;
     private readonly ReactiveCommand<Dictionary<object, bool?>, Func<T, bool>> command;
+    //private Dictionary<object, bool?>? dictionary;
 
     public FilterCollectionCommandViewModel(IObservable<IChangeSet<TR>> changeSet, FilterService<T> filter, Settings settings) : base(changeSet, settings)
     {
         command = ReactiveCommand.Create<Dictionary<object, bool?>, Func<T, bool>>(dictionary =>
         {
-            var output = from kvp in dictionary
-                         join item in filterCollection
-                         on kvp.Key.ToString() equals item.Header
-                         where kvp.Value.Value == true
-                         select item;
 
-            return new Func<T, bool>(a => output.All(o => ((TR)o.Content).Check(a)));
+            //var output = from kvp in dictionary
+            //             join item in filterCollection
+            //             on kvp.Key.ToString() equals item.Header
+            //             where kvp.Value == true
+            //             select item;
+
+            return a => filterCollection.All(o => !o.IsChecked || ((TR)o.Content).Invoke(a));
         });
 
-        command.Subscribe(filter);
+        command.Subscribe(filterService);
+        command.Select(a => Unit.Default).Subscribe(replaySubject);
     }
 
     public ICommand Command => command;

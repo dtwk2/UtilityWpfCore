@@ -53,14 +53,14 @@ namespace UtilityWpf.Demo.Buttons
 
         public object Shape { get; set; }
 
-        public bool Equals(ViewModelItem other)
+        public bool Equals(ViewModelItem? other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
             return Key == other.Key;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;

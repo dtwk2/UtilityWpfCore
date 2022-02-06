@@ -55,7 +55,7 @@
 		<ProjectReference Include="..\UtilityWpf\UtilityWpf.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
+	<ItemGroup>		
 		<Compile Update="CollapseBox.cs">
 			<DependentUpon>CollapseBox.xaml</DependentUpon>
 		</Compile>

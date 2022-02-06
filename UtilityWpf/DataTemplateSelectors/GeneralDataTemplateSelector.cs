@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows;
+using System.Windows.Controls;
+using UtilityWpf.Utility;
 
 namespace UtilityWpf.DataTemplateSelectors
 {
@@ -46,10 +48,17 @@ namespace UtilityWpf.DataTemplateSelectors
                 return StringDataTemplate;
             if (type == typeof(int) || type == typeof(long) || type == typeof(double) || type == typeof(decimal))
                 return NumberDataTemplate;
-            else
-                return DefaultDataTemplate;
+            return DefaultDataTemplate ??= TemplateGenerator.CreateDataTemplate
+            (
+                () => new TextBlock
+                {
+                    Text = "(x)",
+                    Margin = new Thickness(1),
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Opacity = 0.5
+                });
         }
 
-        public static GeneralDataTemplateSelector Instance => new GeneralDataTemplateSelector();
+        public static GeneralDataTemplateSelector Instance => new();
     }
 }

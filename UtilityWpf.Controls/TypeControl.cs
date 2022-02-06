@@ -39,7 +39,7 @@ namespace UtilityWpf.Controls
 
         private ComboBox comboBox;
         private Button buttonClear;
-        private TextBox? textBox;
+        private TextBox textBox = new();
         public static readonly DependencyProperty ShowValueProperty = DependencyProperty.Register("ShowValue", typeof(bool), typeof(TypeControl), new PropertyMetadata(true));
         public static readonly DependencyProperty PropertyProperty = DependencyProperty.Register("Property", typeof(string), typeof(TypeControl), new PropertyMetadata(null));
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register("Value", typeof(string), typeof(TypeControl), new PropertyMetadata(null));
@@ -91,10 +91,10 @@ namespace UtilityWpf.Controls
 
         public override void OnApplyTemplate()
         {
-            comboBox = this.GetTemplateChild("cmbProperty") as ComboBox;
+            comboBox = this.GetTemplateChild("cmbProperty") as ComboBox ?? throw new Exception("4fgd55  dd");
             //buttonFilter = this.GetTemplateChild("buttonAppy") as Button;
-            buttonClear = this.GetTemplateChild("btnClear") as Button;
-            textBox = this.GetTemplateChild("textBox") as TextBox;
+            buttonClear = this.GetTemplateChild("btnClear") as Button ?? throw new Exception("4e efgd55  dd"); ;
+            textBox = this.GetTemplateChild("textBox") as TextBox ?? throw new Exception("yyy4fgd55  dd"); ;
             if (ShowValue == false)
                 textBox.Visibility = Visibility.Collapsed;
             textBox.SelectionChanged += (a, e) => { Value = textBox.Text; RaiseChangedEvent(); };
@@ -106,7 +106,7 @@ namespace UtilityWpf.Controls
 
         private void ButtonClear_Click(object sender, RoutedEventArgs e)
         {
-            Value = textBox.Text = null;
+            Value = textBox.Text = string.Empty;
             RaiseChangedEvent();
         }
 

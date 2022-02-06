@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using UtilityWpf.Demo.Data.Factory;
 using UtilityWpf.Demo.Data.Model;
 
 namespace UtilityWpf.Demo.Master.ViewModel

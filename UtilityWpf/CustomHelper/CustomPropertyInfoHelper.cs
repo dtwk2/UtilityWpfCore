@@ -10,8 +10,8 @@ namespace CustomHelper
     {
         private readonly string _name;
         internal readonly Type _type;
-        private readonly MethodInfo _getMethod, _setMethod;
-        private readonly List<Attribute> _attributes = new List<Attribute>();
+        private readonly MethodInfo? _getMethod, _setMethod;
+        private readonly List<Attribute> _attributes = new ();
 
         public CustomPropertyInfoHelper(string name, Type type, Type ownerType)
         {
@@ -28,45 +28,36 @@ namespace CustomHelper
             _attributes = attributes;
         }
 
-        public override PropertyAttributes Attributes
-        {
-            get { throw new NotImplementedException(); }
-        }
+        public override PropertyAttributes Attributes => throw new NotImplementedException();
 
-        public override bool CanRead
-        {
-            get { return true; }
-        }
+        public override bool CanRead => true;
 
-        public override bool CanWrite
-        {
-            get { return true; }
-        }
+        public override bool CanWrite => true;
 
         public override MethodInfo[] GetAccessors(bool nonPublic)
         {
             throw new NotImplementedException();
         }
 
-        public override MethodInfo GetGetMethod(bool nonPublic)
+        public override MethodInfo? GetGetMethod(bool nonPublic)
         {
             return _getMethod;
         }
 
         public override ParameterInfo[] GetIndexParameters()
         {
-            return null;
+            return Array.Empty<ParameterInfo>();
         }
 
-        public override MethodInfo GetSetMethod(bool nonPublic)
+        public override MethodInfo? GetSetMethod(bool nonPublic)
         {
             return _setMethod;
         }
 
         // Returns the value from the dictionary stored in the Dynamic's instance.
-        public override object GetValue(object obj, BindingFlags invokeAttr, Binder binder, object[] index, System.Globalization.CultureInfo culture)
+        public override object? GetValue(object? obj, BindingFlags invokeAttr, Binder? binder, object?[]? index, System.Globalization.CultureInfo? culture)
         {
-            return _getMethod.Invoke(obj, new object[] { _name });
+            return _getMethod?.Invoke(obj, new object[] { _name });
             //return obj.GetType().GetMethod("GetPropertyValue").Invoke(obj, new object[] { _name });
         }
 
@@ -76,16 +67,13 @@ namespace CustomHelper
         }
 
         // Sets the value in the dictionary stored in the Dynamic's instance.
-        public override void SetValue(object obj, object value, BindingFlags invokeAttr, Binder binder, object[] index, System.Globalization.CultureInfo culture)
+        public override void SetValue(object? obj, object? value, BindingFlags invokeAttr, Binder? binder, object?[]? index, System.Globalization.CultureInfo? culture)
         {
-            _setMethod.Invoke(obj, new[] { _name, value });
+            _setMethod?.Invoke(obj, new[] { _name, value });
             //obj.GetType().GetMethod("SetPropertyValue").Invoke(obj, new[] { _name, value });
         }
 
-        public override Type DeclaringType
-        {
-            get { throw new NotImplementedException(); }
-        }
+        public override Type DeclaringType => throw new NotImplementedException();
 
         public override object[] GetCustomAttributes(Type attributeType, bool inherit)
         {
@@ -93,7 +81,7 @@ namespace CustomHelper
             return attrs.ToArray();
         }
 
-        public override object[] GetCustomAttributes(bool inherit)
+        public override Attribute[] GetCustomAttributes(bool inherit)
         {
             return _attributes.ToArray();
         }
@@ -103,19 +91,10 @@ namespace CustomHelper
             throw new NotImplementedException();
         }
 
-        public override string Name
-        {
-            get { return _name; }
-        }
+        public override string Name => _name;
 
-        public override Type ReflectedType
-        {
-            get { throw new NotImplementedException(); }
-        }
+        public override Type ReflectedType => throw new NotImplementedException();
 
-        internal List<Attribute> CustomAttributesInternal
-        {
-            get { return _attributes; }
-        }
+        internal List<Attribute> CustomAttributesInternal => _attributes;
     }
 }

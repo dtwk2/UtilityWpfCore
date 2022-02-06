@@ -11,5 +11,10 @@ namespace UtilityWpf.Model
 
         public string? Key => Assembly.FullName;
         public Assembly Assembly { get; }
+
+        public override string ToString()
+        {
+            return Key?? "No Key!";
+        }
     }
 }

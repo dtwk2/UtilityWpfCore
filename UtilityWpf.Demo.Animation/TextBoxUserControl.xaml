@@ -41,6 +41,6 @@
             </WrapPanel>
         </GroupBox>
 
-        <local1:AnimatedTextBox x:Name="txtAnimated" Grid.Row="2" Margin="10" />
+        <local1:AnimatedTextBox x:Name="TxtAnimated" Grid.Row="2" Margin="10" />
     </Grid>
 </UserControl>

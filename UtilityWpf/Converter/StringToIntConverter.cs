@@ -18,7 +18,7 @@ namespace UtilityWpf.Converter
             return !(bool)value ? new object() : null;
         }
 
-        public static StringToIntConverter Instance { get; } = StringToIntConverter.Instance;
+        public static StringToIntConverter Instance { get; } = new();
 
     }
 }

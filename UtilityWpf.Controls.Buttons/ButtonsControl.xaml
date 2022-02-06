@@ -41,16 +41,5 @@
 
     <Style TargetType="{x:Type local:ButtonsControl}" BasedOn="{StaticResource GenericListBox}">
         <Setter Property="ItemContainerStyle" Value="{StaticResource ButtonStyle}" />
-        <Style.Triggers>
-            <Trigger Property="Orientation" Value="Horizontal">
-                <Setter Property="ItemsPanel">
-                    <Setter.Value>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal" />
-                        </ItemsPanelTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Trigger>
-        </Style.Triggers>
     </Style>
 </ResourceDictionary>

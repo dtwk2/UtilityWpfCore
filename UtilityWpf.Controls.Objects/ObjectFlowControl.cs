@@ -85,14 +85,14 @@ namespace UtilityWpf.Controls.Objects
 
         public override void OnApplyTemplate()
         {
-            treeCol = this.GetTemplateChild("treeCol") as ColumnDefinition;
-            textCol = this.GetTemplateChild("textCol") as ColumnDefinition;
-            treeView1 = this.GetTemplateChild("treeView1") as TreeView;
-            gridSplitter = this.GetTemplateChild("gridSplitter") as GridSplitter;
-            docViewer = this.GetTemplateChild("docViewer") as FlowDocumentScrollViewer;
-            innerGrid = this.GetTemplateChild("innerGrid") as Grid;
-            mainGrid = this.GetTemplateChild("mainGrid") as Grid;
-            var btnCopy = this.GetTemplateChild("btnCopy") as Button;
+            treeCol = this.GetTemplateChild("treeCol") as ColumnDefinition ?? throw new Exception("4fgd55 1 dd"); ;
+            textCol = this.GetTemplateChild("textCol") as ColumnDefinition ?? throw new Exception("4fgd55 2 dd"); ;
+            treeView1 = this.GetTemplateChild("treeView1") as TreeView ?? throw new Exception("4fgd55 3 dd"); ;
+            gridSplitter = this.GetTemplateChild("gridSplitter") as GridSplitter ?? throw new Exception("4fgd55 4 dd"); ;
+            docViewer = this.GetTemplateChild("docViewer") as FlowDocumentScrollViewer ?? throw new Exception("4fgd55 5 dd"); ;
+            innerGrid = this.GetTemplateChild("innerGrid") as Grid ?? throw new Exception("4fgd55 6 dd"); ;
+            mainGrid = this.GetTemplateChild("mainGrid") as Grid ?? throw new Exception("4fgd55 7 dd"); ;
+            var btnCopy = this.GetTemplateChild("btnCopy") as Button ?? throw new Exception("4fgd55 8 dd"); ;
             btnCopy.Click += BtnCopy_Click;
             treeView1.SelectedItemChanged += TreeView1_SelectedItemChanged;
 
@@ -101,7 +101,7 @@ namespace UtilityWpf.Controls.Objects
             Initialize(headerMessage, @object ?? this.Object);
         }
 
-        private void Initialize(string? headerMessage, object? e)
+        private void Initialize(string? hdrMessage, object? e)
         {
             if (!_initialized)
             {
@@ -126,7 +126,7 @@ namespace UtilityWpf.Controls.Objects
             if (e != null)
                 this.Dispatcher.Invoke(() =>
                 {
-                    BuildTree(treeView1, e, headerMessage, InnerProperty);
+                    BuildTree(treeView1, e, hdrMessage, InnerProperty);
                 });
 
             //this.treeView1.SizeChanged += MainGrid_SizeChanged;
@@ -292,7 +292,7 @@ namespace UtilityWpf.Controls.Objects
         }
 
         private bool? isCompleted = true;
-        private double height;
+        // private double height;
         private ColumnDefinition treeCol;
         private TreeView treeView1;
         private GridSplitter gridSplitter;
@@ -391,18 +391,22 @@ namespace UtilityWpf.Controls.Objects
             while (obj != null)
             {
                 var aa = await GetObjectInformation(obj, innerProperty, fontSizes);
-                var items = (aa.Properties as IEnumerable)
-                               .Cast<(string name, Inline[] inlines)>()
-                               .ToArray();
-
-                treeView.Items.Add(new TreeViewItem
+                if (aa.Properties is IEnumerable enumerable)
                 {
-                    IsSelected = treeView.Items.Count == 0,
-                    IsExpanded = treeView.Items.Count == 0,
-                    Header = aa.Name,
-                    Tag = inlines.Concat(items.SelectMany(ac => ac.inlines)).ToArray(),
-                    ItemsSource = items.Select(va => new TreeViewItem { Header = va.name, Tag = va.inlines }).ToArray()
-                });
+                    var items = enumerable
+                        .Cast<(string name, Inline[] inlines)>()
+                        .ToArray();
+
+                    treeView.Items.Add(new TreeViewItem
+                    {
+                        IsSelected = treeView.Items.Count == 0,
+                        IsExpanded = treeView.Items.Count == 0,
+                        Header = aa.Name,
+                        Tag = inlines.Concat(items.SelectMany(ac => ac.inlines)).ToArray(),
+                        ItemsSource = items.Select(va => new TreeViewItem { Header = va.name, Tag = va.inlines })
+                            .ToArray()
+                    });
+                }
 
                 obj = await Task.Run(() => GetInnerObject(obj, innerProperty));
             }
@@ -410,7 +414,7 @@ namespace UtilityWpf.Controls.Objects
             static object? GetInnerObject(object obj, string? innerProperty)
             {
                 return !(string.IsNullOrEmpty(innerProperty))
-                    ? obj.GetType().GetProperty(innerProperty).GetValue(obj)
+                    ? obj.GetType()?.GetProperty(innerProperty)?.GetValue(obj)
                       : null;
             }
         }
@@ -421,7 +425,7 @@ namespace UtilityWpf.Controls.Objects
         {
             // Create a list of Inlines containing all the properties of the exception object.
             var type = await Task.Run(() => e.GetType());
-            var inlines = new Inline[]
+            var inLines = new Inline[]
             {
                 new Bold(new Run(type.ToString()))    {   FontSize = fontSizes.Large },
                 new LineBreak()
@@ -430,14 +434,11 @@ namespace UtilityWpf.Controls.Objects
             return new
             {
                 type.Name,
-                inlines,
+                inlines = inLines,
                 Properties = EnumerateProperties(await Task.Run(() => GetInformation(e).Where(a => a != default).ToArray()), innerProperty, fontSizes.Medium).ToArray()
             };
 
-            static IEnumerable<(PropertyInfo, object?)> GetInformation(object e) => e.GetType().GetProperties().Select(info =>
-            {
-                return (info, info.GetValue(e, null));
-            });
+            static IEnumerable<(PropertyInfo, object?)> GetInformation(object e) => e.GetType().GetProperties().Select(info => (info, info.GetValue(e, null)));
 
             static IEnumerable<(string name, Inline[] inlines)> EnumerateProperties((PropertyInfo, object?)[] props, string? innerProperty, double fontSize)
             {
@@ -463,7 +464,7 @@ namespace UtilityWpf.Controls.Objects
 
                     foreach (var obj in data)
                     {
-                        result.AppendFormat("{0}\n", obj);
+                        result.Append($"{obj}\n");
                     }
 
                     if (result.Length > 0) result.Length -= 1;
@@ -544,7 +545,7 @@ namespace UtilityWpf.Controls.Objects
                     inlines.Add(new LineBreak());
                 }
 
-                if (treeItem.Tag != null && treeItem.Tag is IEnumerable<Inline> tagInlines)
+                if (treeItem.Tag is IEnumerable<Inline> tagInlines)
                 {
                     inlines.AddRange(tagInlines);
                 }
@@ -628,7 +629,7 @@ namespace UtilityWpf.Controls.Objects
 
             // mainGrid.MaxWidth = ActualWidth - _chromeWidth;
 
-            treeCol.MaxWidth = mainGrid.MaxWidth - textCol.MinWidth;
+            treeCol.MaxWidth = mainGrid.MaxWidth - textCol?.MinWidth ?? 0;
         }
 
         private static class AssemblyHelper
@@ -642,7 +643,7 @@ namespace UtilityWpf.Controls.Objects
                 {
                     var customAttributes = GetAppAssembly()?.GetCustomAttributes(typeof(AssemblyProductAttribute), false);
 
-                    if (customAttributes != null && customAttributes.Length > 0)
+                    if (customAttributes is { Length: > 0 })
                     {
                         result = ((AssemblyProductAttribute)customAttributes[0]).Product;
                     }
