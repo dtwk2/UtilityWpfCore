@@ -25,5 +25,5 @@ public class AbbreviationConverter : IValueConverter
     public object ConvertBack(object value, Type targetTypes, object parameter, CultureInfo culture)
        => throw new NotImplementedException();
 
-    public static AbbreviationConverter Instance { get; } = new AbbreviationConverter();
+    public static AbbreviationConverter Instance { get; } = new ();
 }

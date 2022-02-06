@@ -23,7 +23,7 @@ namespace UtilityWpf.Converter
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            object x = null;
+            object x;
             try
             {
                 x = ((dynamic)value).Value;

@@ -8,27 +8,9 @@
         <utl:SharedResourceDictionary Source="/Utility.WPF.Themes;component/Themes/CheckBox.xaml"></utl:SharedResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
-    <!--<local:CheckBoxesDataTemplateSelector x:Key="CheckBoxesDataTemplateSelector">
-        <local:CheckBoxesDataTemplateSelector.TextDataTemplate>
-            <DataTemplate>
-                <TextBlock Text="{Binding}"></TextBlock>
-            </DataTemplate>
-        </local:CheckBoxesDataTemplateSelector.TextDataTemplate>
-    </local:CheckBoxesDataTemplateSelector>-->
 
     <Style TargetType="{x:Type local:CheckBoxesControl}" BasedOn="{StaticResource GenericListBox}">
         <Setter Property="ItemContainerStyle" Value="{StaticResource OtherStyle}" />
         <!--<Setter Property="ItemTemplateSelector" Value="{StaticResource CheckBoxesDataTemplateSelector}" />-->
-        <Style.Triggers>
-            <Trigger Property="Orientation" Value="Horizontal">
-                <Setter Property="ItemsPanel">
-                    <Setter.Value>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal" />
-                        </ItemsPanelTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Trigger>
-        </Style.Triggers>
     </Style>
 </ResourceDictionary>

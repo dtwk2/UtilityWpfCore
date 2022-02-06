@@ -16,6 +16,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+using Endless;
 using static UtilityWpf.Behavior.EnumSelectorBehavior;
 
 namespace UtilityWpf.Behavior
@@ -75,15 +76,15 @@ namespace UtilityWpf.Behavior
 
             static int Index(Enum? @enum, IEnumerable? enumerable)
             {
-                var arr = enumerable.Cast<EnumMember>().ToArray();
-                var def = arr.SingleOrDefault(a => a.StringValue == @enum.ToString());
+                var arr = enumerable?.Cast<EnumMember>().ToArray()?? throw new Exception("SDDf44 44 h");
+                var def = arr.SingleOrDefault(a => a.StringValue == @enum?.ToString());
                 return Array.IndexOf(arr, def);
             }
 
             static EnumMember[] ToEnumMembers(IEnumerable enumerable)
             {
                 var flags = EnumHelper.Filter(enumerable).ToArray();
-                var members = EnumMember.EnumerateEnumMembers(enumerable.GetType().GetElementType());
+                var members = EnumMember.EnumerateEnumMembers(enumerable.GetType().GetElementType()?? throw new Exception("dsg33  55"));
                 var joins = from flag in flags
                             join mem in members on flag equals mem.Value
                             select mem;
@@ -217,10 +218,10 @@ namespace UtilityWpf.Behavior
     {
         public static IEnumerable<Enum> Filter(IEnumerable input)
         {
-            var elementType = input.GetType().GetElementType();
-
+            var elementType = input.GetType().GetElementType() ??  throw new Exception("SDg4 gfd");
+            var cached = input.OfType<Enum>().Cached();
             foreach (Enum value in Enum.GetValues(elementType))
-                if (input.OfType<Enum>().Contains(value))
+                if (cached.Contains(value))
                     yield return value;
         }
 

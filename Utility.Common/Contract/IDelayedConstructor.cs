@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace UtilityWpf.Abstract
+namespace Utility.Common.Contract
 {
     public interface IDelayedConstructor
     {

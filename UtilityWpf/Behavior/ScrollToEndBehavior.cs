@@ -18,34 +18,34 @@
     {
         protected override void OnAttached()
         {
-            if (AssociatedObject.Items is INotifyCollectionChanged)
-                ((INotifyCollectionChanged)AssociatedObject.Items).CollectionChanged += ListView_CollectionChanged;
+            if (AssociatedObject.Items is INotifyCollectionChanged notifyCollectionChanged)
+                notifyCollectionChanged.CollectionChanged += ListView_CollectionChanged;
             base.OnAttached();
         }
 
         protected override void OnDetaching()
         {
-            if (AssociatedObject.Items is INotifyCollectionChanged)
-                ((INotifyCollectionChanged)AssociatedObject.Items).CollectionChanged -= ListView_CollectionChanged;
+            if (AssociatedObject.Items is INotifyCollectionChanged notifyCollectionChanged)
+                notifyCollectionChanged.CollectionChanged -= ListView_CollectionChanged;
             base.OnDetaching();
         }
 
         public bool WithAnimation
         {
-            get { return (bool)GetValue(WithAnimationProperty); }
-            set { SetValue(WithAnimationProperty, value); }
+            get => (bool)GetValue(WithAnimationProperty);
+            set => SetValue(WithAnimationProperty, value);
         }
 
         public static readonly DependencyProperty WithAnimationProperty =
             DependencyProperty.Register("WithAnimation", typeof(bool), typeof(SmoothScrollToEndBehavior), new PropertyMetadata(true));
 
-        private void ListView_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void ListView_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
-            if ((e.Action == NotifyCollectionChangedAction.Add) || e.Action == NotifyCollectionChangedAction.Remove)
+            if (e.Action is NotifyCollectionChangedAction.Add or NotifyCollectionChangedAction.Remove)
             {
                 try
                 {
-                    var scrollViewer = Helper.GetDescendantByType(this.AssociatedObject, typeof(ScrollViewer)) as ScrollViewer;
+                    var scrollViewer = Helper.GetDescendantByType(this.AssociatedObject, typeof(ScrollViewer)) as ScrollViewer ?? throw new Exception("sddg4 444 f");
                     if (WithAnimation)
                     {
                         var storyboard = Helper.MakeScrollAnimation(scrollViewer, Helper.GetRatio(this.AssociatedObject, this.AssociatedObject.Items.Count), 20);
@@ -61,16 +61,18 @@
             }
         }
 
-        private class Helper
+        private static class Helper
         {
             public static Storyboard MakeScrollAnimation(ScrollViewer scrollViewer, double ratio, int offset)
             {
                 double toValue = scrollViewer.ScrollableHeight * ratio;
-                DoubleAnimation verticalAnimation = new DoubleAnimation();
-                verticalAnimation.From = scrollViewer.VerticalOffset;
-                verticalAnimation.To = toValue + offset;
-                verticalAnimation.DecelerationRatio = .2;
-                verticalAnimation.Duration = new Duration(TimeSpan.FromMilliseconds(1000));
+                DoubleAnimation verticalAnimation = new ()
+                {
+                    From = scrollViewer.VerticalOffset,
+                    To = toValue + offset,
+                    DecelerationRatio = .2,
+                    Duration = new Duration(TimeSpan.FromMilliseconds(1000))
+                };
                 Storyboard storyboard = new Storyboard();
                 storyboard.Children.Add(verticalAnimation);
                 Storyboard.SetTarget(verticalAnimation, scrollViewer);
@@ -83,22 +85,26 @@
                 return ((double)index) / itemsControl.Items.Count;
             }
 
-            public static Visual GetDescendantByType(Visual element, Type type)
+            public static Visual? GetDescendantByType(Visual? element, Type type)
             {
                 if (element == null) return null;
                 if (element.GetType() == type) return element;
-                Visual foundElement = null;
-                if (element is FrameworkElement)
+                Visual? foundElement = null;
+                if (element is FrameworkElement frameworkElement)
                 {
-                    (element as FrameworkElement).ApplyTemplate();
+                    frameworkElement.ApplyTemplate();
                 }
+
                 for (int i = 0; i < VisualTreeHelper.GetChildrenCount(element); i++)
                 {
-                    Visual visual = VisualTreeHelper.GetChild(element, i) as Visual;
-                    foundElement = GetDescendantByType(visual, type);
-                    if (foundElement != null)
-                        break;
+                    if (VisualTreeHelper.GetChild(element, i) is Visual visual)
+                    {
+                        foundElement = GetDescendantByType(visual, type);
+                        if (foundElement != null)
+                            break;
+                    }
                 }
+
                 return foundElement;
             }
         }
@@ -129,8 +135,7 @@
 
         private static void OnVerticalOffsetChanged(DependencyObject target, DependencyPropertyChangedEventArgs e)
         {
-            ScrollViewer scrollViewer = target as ScrollViewer;
-            if (scrollViewer != null)
+            if (target is ScrollViewer scrollViewer)
             {
                 scrollViewer.ScrollToVerticalOffset((double)e.NewValue);
             }

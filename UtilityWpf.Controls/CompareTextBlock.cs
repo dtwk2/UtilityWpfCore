@@ -30,10 +30,10 @@ namespace UtilityWpf.Controls
     /// <summary>
     /// based on <a href="https://github.com/deanchalk/SearchMatchTextblock"></a>
     /// </summary>
-    [TemplatePart(Name = CompareTextblockName, Type = typeof(TextBlock))]
+    [TemplatePart(Name = compareTextBlockName, Type = typeof(TextBlock))]
     public class CompareTextBlock : Control
     {
-        private const string CompareTextblockName = "PART_CompareTextblock";
+        private const string compareTextBlockName = "PART_CompareTextblock";
 
         private static readonly DependencyPropertyKey AdditionsCountPropertyKey = DependencyProperty.RegisterReadOnly("AdditionsCount", typeof(int), typeof(CompareTextBlock), new PropertyMetadata(0));
         public static readonly DependencyProperty AdditionsCountProperty = AdditionsCountPropertyKey.DependencyProperty;
@@ -62,7 +62,7 @@ namespace UtilityWpf.Controls
         public static readonly DependencyProperty HighlightBackground3Property = DependencyProperty.Register("HighlightBackground3", typeof(Brush), typeof(CompareTextBlock), new PropertyMetadata(Brushes.LightPink));
         public static readonly DependencyProperty HighlightBackground4Property = DependencyProperty.Register("HighlightBackground4", typeof(Brush), typeof(CompareTextBlock), new PropertyMetadata(Brushes.Purple));
 
-        private TextBlock compareTextBlock;
+        private TextBlock? compareTextBlock;
 
         static CompareTextBlock()
         {
@@ -154,13 +154,13 @@ namespace UtilityWpf.Controls
         private static void OnCompareTextPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var textblock = (CompareTextBlock)d;
-            textblock.ProcessTextChanged(textblock.Text, e.NewValue as string);
+            textblock.ProcessTextChanged(textblock.Text, e.NewValue as string ?? throw new Exception("sddd fd3 4!!4"));
         }
 
         private static void OnTextPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var textblock = (CompareTextBlock)d;
-            textblock.ProcessTextChanged(e.NewValue as string, textblock.CompareText);
+            textblock.ProcessTextChanged(e.NewValue as string ?? throw new Exception("sdfd3 4!!4"), textblock.CompareText);
         }
 
         private CancellationTokenSource tokenSource = new();
@@ -223,9 +223,7 @@ namespace UtilityWpf.Controls
 
         public override void OnApplyTemplate()
         {
-            compareTextBlock = GetTemplateChild(CompareTextblockName) as TextBlock;
-            if (compareTextBlock == null)
-                return;
+            compareTextBlock = GetTemplateChild(compareTextBlockName) as TextBlock ?? throw new InvalidOperationException("ffd ff");
             ProcessTextChanged(Text, CompareText);
         }
 

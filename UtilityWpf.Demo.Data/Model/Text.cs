@@ -5,9 +5,9 @@ namespace UtilityWpf.Demo.Data.Model
 {
     public class Text
     {
-        public string Value { get; } = stringFaker.Value.Generate(1).Single();
+        public string Value { get; } = StringFaker.Value.Generate(1).Single();
 
-        private static Lazy<Bogus.Faker<string>> stringFaker = new(() =>
+        private static readonly Lazy<Bogus.Faker<string>> StringFaker = new(() =>
                   {
                       return new Bogus.Faker<string>().CustomInstantiator((fake) => fake.Lorem.Sentence(10));
                   });

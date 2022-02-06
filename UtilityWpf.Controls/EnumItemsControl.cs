@@ -8,17 +8,17 @@ using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using UtilityEnum;
+using UtilityWpf.Base;
 
 namespace UtilityWpf.Controls
 {
-    public class EnumItemsControl : ItemsControl
+    public class EnumItemsControl : LayOutItemsControl
     {
         private static readonly DependencyPropertyKey OutputPropertyKey = DependencyProperty.RegisterReadOnly(nameof(Output), typeof(Enum), typeof(EnumItemsControl), new FrameworkPropertyMetadata(default(Enum)));
 
         public static readonly DependencyProperty EnumProperty = DependencyProperty.Register("Enum", typeof(Type), typeof(EnumItemsControl), new PropertyMetadata(typeof(Switch)));
         public static readonly DependencyProperty IsReadOnlyProperty = DependencyProperty.Register("IsReadOnly", typeof(bool), typeof(EnumItemsControl), new PropertyMetadata(false));
         public static readonly DependencyProperty OutputProperty = OutputPropertyKey.DependencyProperty;
-        public static readonly DependencyProperty OrientationProperty = DependencyProperty.Register("Orientation", typeof(System.Windows.Controls.Orientation), typeof(EnumItemsControl), new PropertyMetadata(System.Windows.Controls.Orientation.Vertical));
 
         static EnumItemsControl()
         {
@@ -36,7 +36,6 @@ namespace UtilityWpf.Controls
                     Output = enums.First().Enum;
                     disposable?.Dispose();
                     disposable = new();
-                    //Enums = enums;
                     ItemsSource = enums;
                     foreach (var item in enums)
                     {
@@ -48,29 +47,27 @@ namespace UtilityWpf.Controls
                 });
         }
 
+        #region properties
         public bool IsReadOnly
         {
-            get { return (bool)GetValue(IsReadOnlyProperty); }
-            set { SetValue(IsReadOnlyProperty, value); }
+            get => (bool)GetValue(IsReadOnlyProperty);
+            set => SetValue(IsReadOnlyProperty, value);
         }
 
         public Type Enum
         {
-            get { return (Type)GetValue(EnumProperty); }
-            set { SetValue(EnumProperty, Enum); }
+            get => (Type)GetValue(EnumProperty);
+            set => SetValue(EnumProperty, Enum);
         }
 
         public Enum Output
         {
-            get { return (Enum)GetValue(OutputProperty); }
-            protected set { SetValue(OutputPropertyKey, value); }
+            get => (Enum)GetValue(OutputProperty);
+            protected set => SetValue(OutputPropertyKey, value);
         }
 
-        public System.Windows.Controls.Orientation Orientation
-        {
-            get { return (System.Windows.Controls.Orientation)GetValue(OrientationProperty); }
-            set { SetValue(OrientationProperty, value); }
-        }
+
+        #endregion properties
 
         public static IEnumerable<EnumItem> BuildFromEnum(Type t, bool isReadOnly)
         {

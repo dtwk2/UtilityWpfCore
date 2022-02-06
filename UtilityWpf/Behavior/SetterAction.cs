@@ -14,31 +14,31 @@
     /// </summary>
     public class SetterAction : TargetedTriggerAction<FrameworkElement>
     {
+        public static readonly DependencyProperty PropertyNameProperty =
+            DependencyProperty.Register("PropertyName", typeof(string), typeof(SetterAction),
+                new PropertyMetadata(string.Empty));
+
+        public static readonly DependencyProperty ValueProperty =
+            DependencyProperty.Register("Value", typeof(object), typeof(SetterAction),
+                new PropertyMetadata(null));
+
         /// <summary>
         /// Property that is being set by this setter.
         /// </summary>
         public string PropertyName
         {
-            get { return (string)GetValue(PropertyNameProperty); }
-            set { SetValue(PropertyNameProperty, value); }
+            get => (string)GetValue(PropertyNameProperty);
+            set => SetValue(PropertyNameProperty, value);
         }
-
-        public static readonly DependencyProperty PropertyNameProperty =
-            DependencyProperty.Register("PropertyName", typeof(string), typeof(SetterAction),
-            new PropertyMetadata(String.Empty));
 
         /// <summary>
         /// Property value that is being set by this setter.
         /// </summary>
-        public object Value
+        public object? Value
         {
-            get { return (object)GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
+            get => (object)GetValue(ValueProperty);
+            set => SetValue(ValueProperty, value);
         }
-
-        public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(object), typeof(SetterAction),
-            new PropertyMetadata(null));
 
         protected override void Invoke(object parameter)
         {
@@ -48,12 +48,12 @@
 
             var property = targetType.GetProperty(PropertyName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance);
             if (property == null)
-                throw new ArgumentException(String.Format("Property not found: {0}", PropertyName));
+                throw new ArgumentException($"Property not found: {PropertyName}");
 
             if (property.CanWrite == false)
-                throw new ArgumentException(String.Format("Property is not settable: {0}", PropertyName));
+                throw new ArgumentException($"Property is not settable: {PropertyName}");
 
-            object convertedValue;
+            object? convertedValue;
 
             if (Value == null)
                 convertedValue = null;
@@ -73,7 +73,7 @@
                     else if (valueType.IsSubclassOf(propertyType))
                         convertedValue = Value;
                     else
-                        throw new ArgumentException(String.Format("Cannot convert type '{0}' to '{1}'.", valueType, propertyType));
+                        throw new ArgumentException($"Cannot convert type '{valueType}' to '{propertyType}'.");
                 }
             }
 

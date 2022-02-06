@@ -5,9 +5,9 @@ using System.ComponentModel;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using Endless;
 using Utility.Common.Contract;
 using Utility.Common.Helper;
-using UtilityHelper.NonGeneric;
 using UtilityHelperEx;
 using UtilityWpf;
 using UtilityWpf.Common;
@@ -36,12 +36,12 @@ namespace Utility.Service
               .WithLatestFrom(repositoryMessages.Select(a => a.Service).WhereNotDefault())
               .Subscribe(cc =>
               {
-                  var ((a, b), repository) = cc;
+                  var ((a, (action, enumerable)), repository) = cc;
 
                   if (a?.Action == NotifyCollectionChangedAction.Reset)
                       return;
-
-                  switch (b.Action)
+                  var cachedEnumerable = enumerable.Cached();
+                  switch (action)
                   {
                       case NotifyCollectionChangedAction.Reset:
                           {
@@ -49,25 +49,29 @@ namespace Utility.Service
                           }
                       case NotifyCollectionChangedAction.Replace:
                           {
-                              foreach (var item in b.Items)
+                              foreach (var item in cachedEnumerable)
                                   repository.Update(item);
                               break;
                           }
 
                       case NotifyCollectionChangedAction.Add:
                           {
-                              foreach (var item in b.Items)
+                              foreach (var item in cachedEnumerable)
                                   repository.Add(item);
                               break;
                           }
                       case NotifyCollectionChangedAction.Remove:
                           {
-                              foreach (var item in b.Items)
+                              foreach (var item in cachedEnumerable)
                                   repository.Remove(item);
                               break;
                           }
+                      case NotifyCollectionChangedAction.Move:
+                          break;
+                      default:
+                          throw new ArgumentOutOfRangeException();
                   }
-                  collectionChangeMessages.OnNext(new CollectionChangeMessage(new CollectionChange(b.Action, b.Items)));
+                  collectionChangeMessages.OnNext(new CollectionChangeMessage(new CollectionChange(action, enumerable)));
 
                   var count = repository.Count();
                   if (count != Items.Count)
@@ -88,9 +92,14 @@ namespace Utility.Service
                         .Select(a => a.FindAll<object>())
                         .Subscribe(objects =>
                         {
-                            if (objects.Any() == false)
+                            var cachedObjects = objects.ToArray();
+
+                            if (cachedObjects.Cached().Any() == false)
                                 return;
-                            foreach (var change in objects.OfType<INotifyPropertyChanged>())
+
+                            var objectsArray = cachedObjects.ToArray();
+
+                            foreach (var change in objectsArray.OfType<INotifyPropertyChanged>())
                             {
                                 change
                                 .Changes()
@@ -102,15 +111,15 @@ namespace Utility.Service
                             observer.Edit(a =>
                             {
                                 a.Clear();
-                                foreach (var change in objects.OfType<INotifyPropertyChanged>())
+                                foreach (var change in objectsArray.OfType<INotifyPropertyChanged>())
                                 {
                                     a.AddOrUpdate(change);
                                 }
                             });
 
-                            items.ReplaceWithRange(objects);
+                            items.ReplaceWithRange(objectsArray);
                         });
-            }, a => a.ToString());
+            }, a => a?.ToString() ?? string.Empty);
 
             var dis2 = changeSet
                 .OnItemUpdated((a, sd) =>

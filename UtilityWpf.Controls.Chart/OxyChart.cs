@@ -11,6 +11,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using UtilityHelperEx;
 using UtilityWpf.Abstract;
+using UtilityWpf.Base;
 
 namespace UtilityWpf.Controls.Chart
 {

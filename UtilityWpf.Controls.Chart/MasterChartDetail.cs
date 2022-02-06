@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using UtilityWpf.Abstract;
 using UtilityWpf.Controls.Master;
 using UtilityWpf.Mixins;
+using UtilityWpf.Utility;
 
 namespace UtilityWpf.Controls.Chart
 {
@@ -60,9 +61,9 @@ namespace UtilityWpf.Controls.Chart
         //    set => SetValue(DataProperty, value);
         //}
 
-        protected override IObservable<object> SelectFromMaster(Control slctr)
+        protected override IObservable<object> SelectFromMaster(Control control)
         {
-            return slctr switch
+            return control switch
             {
                 ICheckedSelector selector => Collections(selector),
                 _ => throw new Exception("556ds777f")
@@ -70,7 +71,7 @@ namespace UtilityWpf.Controls.Chart
 
             IObservable<IReadOnlyCollection<object>> Collections(ICheckedSelector selector)
             {
-                return this.Observable<string>(nameof(IdKey))
+                return this.WhenAnyValue(a => a.IdKey)
                              .Select(prop =>
                                     selector.SelectCheckedAndUnCheckedItems()
                                         .WhereNotNull()
@@ -83,9 +84,9 @@ namespace UtilityWpf.Controls.Chart
             }
         }
 
-        protected override void SetDetail(object content, object objects)
+        protected override void SetDetail(object content, object masterObject)
         {
-            if (content is OxyChart oview && objects is IEnumerable enumerable)
+            if (content is OxyChart oview && masterObject is IEnumerable enumerable)
             {
                 oview.ItemsSource = enumerable;
                 oview.DataKey = DataKey;

@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using UtilityWpf.Mixins;
+using UtilityWpf.Utility;
 
-namespace UtilityWpf.Controls
+namespace UtilityWpf.Base
 {
-    using Mixins;
-    using System.Reactive.Linq;
-
     public abstract class ListBoxx : ListBox, IPropertyListener, IControlListener
     {
         private readonly NameTypeDictionary<SingleReplaySubject<object>> dict;

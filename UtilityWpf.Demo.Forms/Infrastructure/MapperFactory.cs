@@ -5,6 +5,7 @@ using LiteDB;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Utility.Common.Helper;
 using UtilityWpf.Demo.Forms.Model;
 using UtilityWpf.Demo.Forms.ViewModel;
@@ -26,6 +27,7 @@ namespace UtilityWpf.Demo.Forms.Infrastructure
                 1 => "Shoulder",
                 2 => "SleeveLength",
                 3 => "Length",
+                _ => throw new ArgumentOutOfRangeException(nameof(index), index, null)
             };
         }
 
@@ -73,15 +75,12 @@ namespace UtilityWpf.Demo.Forms.Infrastructure
                 serialize: a => new BsonMapper().Serialize(a),
                 deserialize: (bson) =>
                 {
-                    List<HeaderModel> headerModels = new();
+                    var headerModels = 
+                        from arr in bson["Collection"].AsArray 
+                        let type = Type.GetType(arr["_type"]) ?? throw new Exception("g 33fgfd4 444") 
+                        select (HeaderModel?)BsonHelper.Deserialise(arr.ToString(), type);
 
-                    foreach (var arr in bson["Collection"].AsArray)
-                    {
-                        var type = Type.GetType(arr["_type"]);
-                        var model = (HeaderModel)BsonHelper.Deserialise(arr.ToString(), type);
-                        headerModels.Add(model);
-                    }
-                    return new EditModel(bson["_id"].AsGuid, headerModels);
+                    return new EditModel(bson["_id"].AsGuid, headerModels.ToArray());
                 });
         }
     }

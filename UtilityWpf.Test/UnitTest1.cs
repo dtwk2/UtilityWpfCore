@@ -14,26 +14,32 @@ namespace UtilityWpf.Test
         [Test]
         public void Test1()
         {
-            var listofLists = Enumerable.Range(0, 4).Select((a, i) => Enumerable.Range(0, 5 - i).ToArray()).ToArray();
-            var combos = SelectCombinations(listofLists).ToArray();
+            var setOfSets = Enumerable.Range(0, 4).Select((a, i) => Enumerable.Range(0, 5 - i).ToArray()).ToArray();
+            var combos = SelectCombinations(setOfSets).ToArray();
             Assert.Pass();
         }
 
         private static IEnumerable<IEnumerable<T>> SelectCombinations<T>(IEnumerable<IList<T>> setOfSets)
         {
-            using var enumr = setOfSets.GetEnumerator();
-            enumr.MoveNext();
-            IEnumerable<IEnumerable<T>> combinations = enumr.Current.Select(a => new[] { a });
-            while (enumr.MoveNext())
-                combinations = AddToCollection(combinations, enumr.Current);
+            using var enumerable = setOfSets.GetEnumerator();
+            enumerable.MoveNext();
+            IEnumerable<IEnumerable<T>> combinations = enumerable.Current.Select(a => new[] { a });
+            while (enumerable.MoveNext())
+                combinations = AddToCollection(combinations, enumerable.Current);
 
             return combinations;
 
-            static IEnumerable<IEnumerable<T>> AddToCollection<T>(IEnumerable<IEnumerable<T>> elementSets, IEnumerable<T> newElements)
+            static IEnumerable<IEnumerable<TT>> AddToCollection<TT>(IEnumerable<IEnumerable<TT>> elementSets,
+                IEnumerable<TT> newElements)
             {
+                var enumerable = newElements as TT[] ?? newElements.ToArray();
                 foreach (var elements in elementSets)
-                    foreach (var newElement in newElements)
-                        yield return elements.Concat(new[] { newElement });
+                {
+                    var array = elements as TT[] ?? elements.ToArray();
+
+                    foreach (var newElement in enumerable)
+                        yield return array.Concat(new[] { newElement });
+                }
             }
         }
     }

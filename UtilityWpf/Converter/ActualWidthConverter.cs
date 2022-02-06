@@ -27,6 +27,6 @@ namespace UtilityWpf.Converter
             throw new NotImplementedException();
         }
 
-        public static ActualWidthConverter Instance => new ActualWidthConverter();
+        public static ActualWidthConverter Instance => new ();
     }
 }

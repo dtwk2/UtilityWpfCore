@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Threading;
 using UtilityHelperEx;
+using UtilityWpf.Base;
 
 namespace UtilityWpf.Controls.Master
 {

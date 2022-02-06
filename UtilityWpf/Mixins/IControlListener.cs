@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Windows;
 using UtilityHelperEx;
+using UtilityWpf.Utility;
 
 namespace UtilityWpf.Mixins
 {

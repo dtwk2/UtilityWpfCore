@@ -4,7 +4,10 @@ using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using UtilityInterface.NonGeneric;
 using UtilityWpf.Abstract;
+using UtilityWpf.Base;
+using ItemsControl = System.Windows.Controls.ItemsControl;
 
 namespace UtilityWpf.Controls.Master
 {
@@ -12,45 +15,48 @@ namespace UtilityWpf.Controls.Master
     using ReactiveUI;
     using System.Reactive.Subjects;
     using System.Windows.Controls.Primitives;
-    using UtilityWpf.Mixins;
-    using fac = DependencyPropertyFactory<ReadOnlyMasterDetail>;
-
+    using UtilityWpf.Utility;
     /// <summary>
     /// Only transforms master-list items to the detail-item; and not vice-versa
     /// </summary>
-    public class ReadOnlyMasterDetail : ContentControlx, ISelector
+    public class ReadOnlyMasterDetail : SelectorAndContentControl
     {
-        public static readonly DependencyProperty ConverterProperty = fac.Register<IValueConverter>();
-        public static readonly DependencyProperty ConverterParameterProperty = fac.Register<object>();
-        public static readonly DependencyProperty PropertyKeyProperty = fac.Register<string>(nameof(PropertyKey));
-        public static readonly DependencyProperty UseDataContextProperty = fac.Register<bool>();
-        public static readonly DependencyProperty SelectorProperty = DependencyHelper.Register(new PropertyMetadata(null));
-        public static readonly DependencyProperty OrientationProperty = DependencyHelper.Register(new PropertyMetadata(Orientation.Horizontal));
+        public static readonly DependencyProperty ConverterProperty = DependencyHelper.Register<IValueConverter>();
+        public static readonly DependencyProperty ConverterParameterProperty = DependencyHelper.Register<object>();
+        public static readonly DependencyProperty PropertyKeyProperty = DependencyHelper.Register<string>();
+        public static readonly DependencyProperty UseDataContextProperty = DependencyHelper.Register<bool>();
 
-        private ReplaySubject<object> dataContextSubject = new(1);
+        private readonly ReplaySubject<object> dataContextSubject = new(1);
 
         static ReadOnlyMasterDetail()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(ReadOnlyMasterDetail), new FrameworkPropertyMetadata(typeof(ReadOnlyMasterDetail)));
+            //   DefaultStyleKeyProperty.OverrideMetadata(typeof(ReadOnlyMasterDetail), new FrameworkPropertyMetadata(typeof(ReadOnlyMasterDetail)));
             DataContextProperty.OverrideMetadata(typeof(ReadOnlyMasterDetail), new FrameworkPropertyMetadata(null, Changed));
         }
 
         public ReadOnlyMasterDetail()
         {
             _ = this
-                .WhenAnyValue(a => a.Selector)
+                .WhenAnyValue(a => a.Content)
+                .WhereNotNull()
+                .Select(a => this.Selector)
                 .WhereNotNull()
                 .CombineLatest(dataContextSubject.WhereNotNull())
                 .Subscribe(c =>
                 {
-                    c.First.DataContext = c.Second;
+                    var (first, second) = c;
+                    first.DataContext = second;
                 });
 
             TransformObservable = UtilityHelperEx.ObservableHelper.ToReplaySubject(Transform(
-                this.WhenAnyValue(a => a.Selector).WhereNotNull().ObserveOnDispatcher().Select(SelectFromMaster).Switch(),
-                this.Observable<IValueConverter>(nameof(Converter)),
-                this.Observable<object>(nameof(ConverterParameter)),
-                this.Observable<string>(nameof(PropertyKey))));
+                this.WhenAnyValue(a => a.Selector)
+                    .WhereNotNull()
+                    .ObserveOnDispatcher()
+                    .Select(SelectFromMaster)
+                    .Switch(),
+                this.WhenAnyValue(a => a.Converter),
+                this.WhenAnyValue(a => a.ConverterParameter),
+                this.WhenAnyValue(a => a.PropertyKey)));
 
             _ = TransformObservable
                 .Select(a => a.New)
@@ -64,14 +70,15 @@ namespace UtilityWpf.Controls.Master
                 .CombineLatest(this.WhenAnyValue(a => a.Selector))
                 .Subscribe(combined =>
                 {
-                    if (combined.Second is IOrientation iori)
+                    var (first, second) = combined;
+                    if (second is IOrientation orientation)
                     {
-                        iori.Orientation = (Orientation)(((int)combined.First + 1) % ((int)Orientation.Vertical + 1));
+                        orientation.Orientation = (Orientation)(((int)first + 1) % ((int)Orientation.Vertical + 1));
                     }
                 });
         }
 
-        event SelectionChangedEventHandler ISelector.SelectionChanged
+        public override event SelectionChangedEventHandler SelectionChanged
         {
             add
             {
@@ -85,7 +92,7 @@ namespace UtilityWpf.Controls.Master
                         selector.SelectionChanged += value;
                         break;
 
-                    default: throw new ApplicationException($"Unexpected type,{Selector.GetType().Name} for {nameof(Selector)} ");
+                    default: throw new ApplicationException($"Unexpected type, {Selector.GetType().Name}, for {nameof(Selector)} ");
                 };
             }
 
@@ -101,7 +108,7 @@ namespace UtilityWpf.Controls.Master
                         selector.SelectionChanged -= value;
                         break;
 
-                    default: throw new ApplicationException($"Unexpected type,{Selector.GetType().Name} for {nameof(Selector)} ");
+                    default: throw new ApplicationException($"Unexpected type, {Selector.GetType().Name}, for {nameof(Selector)} ");
                 };
             }
         }
@@ -110,118 +117,106 @@ namespace UtilityWpf.Controls.Master
 
         public IValueConverter Converter
         {
-            get { return (IValueConverter)GetValue(ConverterProperty); }
-            set { SetValue(ConverterProperty, value); }
+            get => (IValueConverter)GetValue(ConverterProperty);
+            set => SetValue(ConverterProperty, value);
         }
 
         public object ConverterParameter
         {
-            get { return (object)GetValue(ConverterParameterProperty); }
-            set { SetValue(ConverterParameterProperty, value); }
+            get => (object)GetValue(ConverterParameterProperty);
+            set => SetValue(ConverterParameterProperty, value);
         }
 
-        public Control Selector
-        {
-            get { return (Control)GetValue(SelectorProperty); }
-            set { SetValue(SelectorProperty, value); }
-        }
+        public Control? Selector => Content as Control;
 
+        // set { SetValue(SelectorProperty, value); }
         public string PropertyKey
         {
-            get { return (string)GetValue(PropertyKeyProperty); }
-            set { SetValue(PropertyKeyProperty, value); }
+            get => (string)GetValue(PropertyKeyProperty);
+            set => SetValue(PropertyKeyProperty, value);
         }
 
         public bool UseDataContext
         {
-            get { return (bool)GetValue(UseDataContextProperty); }
-            set { SetValue(UseDataContextProperty, value); }
-        }
-
-        public Orientation Orientation
-        {
-            get { return (Orientation)GetValue(OrientationProperty); }
-            set { SetValue(OrientationProperty, value); }
+            get => (bool)GetValue(UseDataContextProperty);
+            set => SetValue(UseDataContextProperty, value);
         }
 
         #endregion properties
 
         protected IObservable<TransformProduct?> TransformObservable { get; }
 
-        object ISelector.SelectedItem
-        {
-            get
-            {
-                return Selector switch
-                {
-                    ISelector selector => selector.SelectedItem,
-                    Selector selector => selector.SelectedItem,
-                    _ => throw new ApplicationException($"Unexpected type,{Selector.GetType().Name} for {nameof(Selector)} "),
-                };
-            }
-        }
+        //object ISelector.SelectedItem
+        //{
+        //    get
+        //    {
+        //        return Selector switch
+        //        {
+        //            ISelector selector => selector.SelectedItem,
+        //            Selector selector => selector.SelectedItem,
+        //            _ => throw new ApplicationException($"Unexpected type,{Selector.GetType().Name} for {nameof(Selector)} "),
+        //        };
+        //    }
+        //}
 
-        int ISelector.SelectedIndex
-        {
-            get
-            {
-                return Selector switch
-                {
-                    ISelector selector => selector.SelectedIndex,
-                    Selector selector => selector.SelectedIndex,
-                    _ => throw new ApplicationException($"Unexpected type,{Selector.GetType().Name} for {nameof(Selector)} "),
-                };
-            }
-        }
+        //int ISelector.SelectedIndex
+        //{
+        //    get
+        //    {
+        //        return Selector switch
+        //        {
+        //            ISelector selector => selector.SelectedIndex,
+        //            Selector selector => selector.SelectedIndex,
+        //            _ => throw new ApplicationException($"Unexpected type,{Selector.GetType().Name} for {nameof(Selector)} "),
+        //        };
+        //    }
+        //}
 
-        IEnumerable ISelector.ItemsSource
-        {
-            get
-            {
-                return Selector switch
-                {
-                    ISelector selector => selector.ItemsSource,
-                    Selector selector => selector.ItemsSource,
-                    _ => throw new ApplicationException($"Unexpected type,{Selector.GetType().Name} for {nameof(Selector)} "),
-                };
-            }
-        }
+        //IEnumerable ISelector.ItemsSource
+        //{
+        //    get
+        //    {
+        //        return Selector switch
+        //        {
+        //            ISelector selector => selector.ItemsSource,
+        //            Selector selector => selector.ItemsSource,
+        //            _ => throw new ApplicationException($"Unexpected type,{Selector.GetType().Name} for {nameof(Selector)} "),
+        //        };
+        //    }
+        //}
 
         private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is not ReadOnlyMasterDetail readOnly)
                 return;
 
-            //if (e.NewValue is Control control)
-            //    d.Dispatcher.InvokeAsync(() => readOnly.controlSubject.OnNext(control));
-
-            if (e.NewValue is object obj)
+            if (e.NewValue is { } obj)
                 d.Dispatcher.InvokeAsync(() => readOnly.dataContextSubject.OnNext(obj));
         }
 
         /// <summary>
         /// Gets the selections made in the master-list
         /// </summary>
-        protected virtual IObservable<object> SelectFromMaster(Control slctr)
+        protected virtual IObservable<object> SelectFromMaster(Control control)
         {
-            return slctr switch
+            return control switch
             {
                 ISelector selector => selector.SelectSingleSelectionChanges(),
                 Selector selector => selector.SelectSingleSelectionChanges(),
-                _ => throw new ApplicationException($"Unexpected type,{slctr.GetType().Name} for {nameof(Selector)} "),
+                _ => throw new ApplicationException($"Unexpected type,{control.GetType().Name} for {nameof(Selector)} "),
             };
         }
 
         /// <summary>
         /// Updates the detail-item with changes made to the  master-list
         /// </summary>
-        protected virtual void SetDetail(object content, object @object)
+        protected virtual void SetDetail(object content, object masterObject)
         {
             if (UseDataContext)
             {
-                if (content is FrameworkElement frameworkElement)
+                if (Header is FrameworkElement frameworkElement)
                 {
-                    frameworkElement.DataContext = @object;
+                    frameworkElement.DataContext = masterObject;
                     return;
                 }
                 else
@@ -229,31 +224,36 @@ namespace UtilityWpf.Controls.Master
                     throw new ApplicationException("Content needs to be framework element is UseDataContext set to true");
                 }
             }
-            if (@object is IEnumerable enumerable)
+            if (masterObject is IEnumerable enumerable and not string)
             {
-                if (content is IItemsSource oview)
+                switch (Header)
                 {
-                    oview.ItemsSource = enumerable;
-                    return;
-                }
-                else if (content is ItemsControl itemsControl)
-                {
-                    itemsControl.ItemsSource = enumerable;
-                    return;
+                    case IItemsSource oview:
+                        oview.ItemsSource = enumerable;
+                        return;
+                    case ItemsControl itemsControl:
+                        itemsControl.ItemsSource = enumerable;
+                        return;
+                    default:
+                        return;
                 }
             }
             //else if (content is JsonView propertyGrid)
             //{
             //    propertyGrid.Object = propertyGrid;
             //}
-            if (content is ContentControl contentControl && @object is not ContentControl _)
+
+            if (masterObject is UIElement)
             {
-                contentControl.Content = @object;
-                return;
+                Header = CloneHelper.XamlClone(masterObject);
+            }
+            else if (headerPresenter != null)
+            {
+                headerPresenter.Content = masterObject;
             }
             else
             {
-                Content = @object;
+                throw new Exception("dgsf33 gggdsfsd");
             }
         }
 
@@ -268,8 +268,8 @@ namespace UtilityWpf.Controls.Master
             IObservable<object> converterParameters,
             IObservable<string> dataKeys)
         {
-            return ObservableEx
-                .CombineLatest(collectionViewModel, dataConversions, converterParameters, dataKeys)
+            return collectionViewModel
+                .CombineLatest(dataConversions, converterParameters, dataKeys)
                 .ObserveOnDispatcher()
                 .Scan(default(TransformProduct), (a, b) =>
                 {
@@ -287,15 +287,15 @@ namespace UtilityWpf.Controls.Master
         {
             return (converter, dataKey) switch
             {
-                (IValueConverter conv, _) => conv.Convert(selected, default, converterParameter, default),
-                (_, string key) => PropertyConverter.Convert(selected, key),
+                ({ } conv, _) => conv.Convert(selected, default, converterParameter, default),
+                (_, { } key) => PropertyConverter.Convert(selected, key),
                 (null, null) => selected
             };
         }
 
-        protected class PropertyConverter
+        protected class PropertyConverter : IConverter
         {
-            public static object Convert(object selected, string key)
+            public static object? Convert(object selected, string key)
             {
                 return UtilityHelper.PropertyHelper.GetPropertyRefValue<object>(selected, key);
             }
@@ -306,14 +306,6 @@ namespace UtilityWpf.Controls.Master
                 return selectedValueOld;
             }
         }
-
-        //protected class DefaultFilter : UtilityInterface.NonGeneric.IFilter
-        //{
-        //    public bool Filter(object o)
-        //    {
-        //        return true;
-        //    }
-        //}
     }
 
     public class MasterDetail : ReadOnlyMasterDetail

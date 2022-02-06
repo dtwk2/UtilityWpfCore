@@ -10,7 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using UtilityHelper;
 using UtilityHelper.NonGeneric;
-using UtilityHelperEx;
+using UtilityWpf.Base;
 
 namespace UtilityWpf.Attached
 {
@@ -68,7 +68,11 @@ namespace UtilityWpf.Attached
         private static void NewItemChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var collection = new ObservableCollection<object>(((d as ItemsControl)?.Items?.Cast<object>() ?? Array.Empty<object>()).Concat(new[] { e.NewValue }));
-            Application.Current.Dispatcher.InvokeAsync(() => (d as ItemsControl).ItemsSource = collection);
+            Application.Current.Dispatcher.InvokeAsync(() =>
+            {
+                if (d is ItemsControl { ItemsSource: { } } itemsControl)
+                    itemsControl.ItemsSource = collection;
+            });
         }
 
         #endregion NewItem
@@ -89,9 +93,9 @@ namespace UtilityWpf.Attached
 
         private static void VariableChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ItemsControl control = d as ItemsControl;
+            ItemsControl? control = d as ItemsControl;
             string arg = (string)e.NewValue;
-            if (control.ItemsSource != null)
+            if (control?.ItemsSource != null)
                 if (control.ItemsSource?.Count() > 0)
                     control.ItemsSource = control.ItemsSource.GetPropertyRefValues<object>(arg);
         }
@@ -114,11 +118,12 @@ namespace UtilityWpf.Attached
 
         private static void ItemsSourceExChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ItemsControl control = d as ItemsControl;
-            IEnumerable arg = (IEnumerable)e.NewValue;
-            if (arg.Count() > 0)
+            ItemsControl? control = d as ItemsControl;
+            IEnumerable? arg = (IEnumerable?)e.NewValue;
+            // ReSharper disable once PossibleMultipleEnumeration
+            if (arg?.Count() > 0)
                 Application.Current.Dispatcher.InvokeAsync(() =>
-                control.SetValue(ItemsSourceProperty, arg.GetPropertyRefValues<object>((string)control.GetValue(VariableProperty)).Cast<IEnumerable<object>>().SelectMany(_s => _s)),
+                (control ?? throw new Exception("sd3 443 ")).SetValue(ItemsSourceProperty, arg.GetPropertyRefValues<object>((string)control.GetValue(VariableProperty)).Cast<IEnumerable<object>>().SelectMany(_s => _s)),
                     System.Windows.Threading.DispatcherPriority.Background, default);
             ;
         }
@@ -141,66 +146,32 @@ namespace UtilityWpf.Attached
 
         private static void FilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ItemsControl control = d as ItemsControl;
-            if (control.ItemsSource != null)
+            if (d is ItemsControl { ItemsSource: { } source })
             {
-                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(control.ItemsSource);
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(source);
                 view.Filter = (obj) => obj.GetType().GetProperties()
                 .Where(a => a.PropertyType == e.NewValue.GetType() && a.GetMethod != null)
                 .Select(a => a.GetValue(obj))
-                .Any(a => a.ToString()?.Contains((string)e.NewValue) ?? false);
+                .Any(a => a?.ToString()?.Contains((string)e.NewValue) ?? false);
             }
         }
 
-        #endregion Filter
+        #endregion Filter       
+        
+        #region Orientation
 
-        //private void txtFilter_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        //{
-        //    CollectionViewSource.GetDefaultView(lvUsers.ItemsSource).Refresh();
-        //}
+        public static Orientation GetOrientation(DependencyObject d)
+        {
+            return (Orientation)d.GetValue(OrientationProperty);
+        }
 
-        //      CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(lvUsers.ItemsSource);
-        //      view.Filter = UserFilter;
-        //}
+        public static void SetOrientation(DependencyObject d, object value)
+        {
+            d.SetValue(OrientationProperty, value);
+        }
 
-        //  private bool UserFilter(object item)
-        //  {
-        //      if (String.IsNullOrEmpty(txtFilter.Text))
-        //          return true;
-        //      else
-        //          return ((item as User).Name.IndexOf(txtFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0);
-        //  }
+        public static readonly DependencyProperty OrientationProperty = DependencyProperty.RegisterAttached("Orientation", typeof(Orientation), typeof(ItemsControlEx), new PropertyMetadata(Orientation.Vertical, LayOutHelper.Changed));
 
-        //  private void txtFilter_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        //  {
-        //      CollectionViewSource.GetDefaultView(lvUsers.ItemsSource).Refresh();
-        //  }
-
-        // public static EventHandler OnValueChanged { get; private set; }
-        //    var property = (string)e.NewValue;
-
-        //    ItemsControl i = (d as ItemsControl);
-        //    WeakReference wr = new WeakReference(i);
-        //    PropertyChangeNotifier notifier = new PropertyChangeNotifier(i, nameof(ItemsControl.ItemsSourceEx));
-        //    notifier.ValueChanged += new EventHandler(OnValueChanged);
-        //    i = null;
-        //    GC.Collect();
-        //    bool isAlive = wr.IsAlive;
-
-        //    //(d as PropertyListControl).PropertyChanges.OnNext((string)e.NewValue);
-        //    if ((d as ItemsControl).ItemsSourceEx.First().GetType().GetProperties().SingleOrDefault(a => a.Name == _).PropertyType.GetInterfaces().Contains(typeof(System.Collections.IEnumerable)))
-        //        ItemsSourceExSubject.OnNext(ItemsSourceEx.GetPropertyValues<IEnumerable<object>>(_).SelectMany(a => a));
-        //    else
-        //        ItemsSourceExSubject.OnNext(ItemsSourceEx.GetPropertyValues<object>(_));
-        //});
-        //}
-        //ISubject<string> PropertyChanges = new Subject<string>();
-        //public PropertyListControl()
-        //{
-        //    //Uri resourceLocater = new Uri("/UtilityWpf.ViewCore;component/Themes/PropertyControl.xaml", System.UriKind.Relative);
-        //    //ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
-        //    //Style = resourceDictionary["PropertyControlStyle"] as Style;
-
-        //}
+        #endregion Orientation
     }
 }

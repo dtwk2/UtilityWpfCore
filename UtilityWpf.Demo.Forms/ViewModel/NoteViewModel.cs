@@ -8,7 +8,7 @@ namespace UtilityWpf.Demo.Forms.ViewModel
 
         public NoteViewModel(string text)
         {
-            Text = text;
+            this.text = text;
         }
 
         public string Text { get => text; set => this.RaiseAndSetIfChanged(ref text, value); }

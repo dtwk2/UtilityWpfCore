@@ -13,7 +13,7 @@ namespace UtilityWpf.Demo.Forms.ViewModel
 {
     public class ImagesViewModel : _ViewModel
     {
-        private ICommand changeCommand;
+        private ICommand? changeCommand;
 
         public ImagesViewModel(string header, IReadOnlyCollection<string> enumerable) : this(header, enumerable.Select(a => new ImageViewModel(a)).ToArray())
         {
@@ -21,8 +21,19 @@ namespace UtilityWpf.Demo.Forms.ViewModel
 
         public ImagesViewModel(string header) : this(header, Array.Empty<ImageViewModel>())
         {
+        }
+
+        public ImagesViewModel(string header, IReadOnlyCollection<ImageViewModel> collection) : base(header)
+        {
+            foreach (var item in collection)
+            {
+                Subscribe(item);
+            }
+
             Dictionary<ImageViewModel, IDisposable> list = new();
-            Collection
+            var obsCollection = new ObservableCollection<ImageViewModel>(collection);
+
+            obsCollection
                 .SelectNewItems<ImageViewModel>()
                 .Subscribe(a =>
                 {
@@ -34,7 +45,7 @@ namespace UtilityWpf.Demo.Forms.ViewModel
                     this.OnPropertyChanged(nameof(Collection));
                 });
 
-            Collection
+            obsCollection
                 .SelectOldItems<ImageViewModel>()
                 .Subscribe(a =>
                 {
@@ -45,16 +56,7 @@ namespace UtilityWpf.Demo.Forms.ViewModel
                     }
                     this.OnPropertyChanged(nameof(Collection));
                 });
-        }
-
-        public ImagesViewModel(string header, IReadOnlyCollection<ImageViewModel> collection) : base(header)
-        {
-            foreach (var item in collection)
-            {
-                Subscribe(item);
-            }
-
-            Collection = new ObservableCollection<ImageViewModel>(collection);
+            Collection = obsCollection;
             Intialise();
         }
 
@@ -64,9 +66,9 @@ namespace UtilityWpf.Demo.Forms.ViewModel
 
         public ICommand ChangeCommand => changeCommand ??= ReactiveCommand.Create<object, Unit>(Change);
 
-        private Unit Change(object xx)
+        private Unit Change(object change)
         {
-            if (xx is CollectionEventArgs { Item: string item })
+            if (change is CollectionEventArgs { Item: string item })
             {
                 var ivm = new ImageViewModel(item);
                 Subscribe(ivm);

@@ -18,9 +18,8 @@ namespace CustomHelper
         /// </summary>
         public CustomTypeHelper()
         {
-            foreach (var property in GetCustomType().GetProperties())
-                if (property.Name != null)
-                    _customPropertyValues.Add(property.Name, null);
+            foreach (var property in GetCustomType().GetProperties()) 
+                _customPropertyValues.Add(property.Name, null);
         }
 
         /// <summary>
@@ -79,12 +78,21 @@ namespace CustomHelper
         /// </summary>
         /// <param name="propertyName"></param>
         /// <param name="value"></param>
-        public void SetPropertyValue(string propertyName, object value)
+        public void SetPropertyValue(string? propertyName, object value)
         {
-            CustomPropertyInfoHelper propertyInfo = CustomProperties.FirstOrDefault(prop => prop.Name == propertyName);
+            CustomPropertyInfoHelper? propertyInfo = CustomProperties.FirstOrDefault(prop => prop.Name == propertyName);
             if (propertyName != null)
+            {
                 if (propertyInfo == null || !_customPropertyValues.ContainsKey(propertyName))
                     throw new Exception("There is no property with the name " + propertyName);
+            }
+            else
+            {
+                throw new Exception("Th;k000ee " + propertyName);
+            }
+
+            if (propertyInfo == null)
+                throw new Exception("Thee " + propertyName);
 
             if (ValidateValueType(value, propertyInfo._type))
             {
@@ -141,13 +149,13 @@ namespace CustomHelper
         /// </returns>
         public Type GetCustomType()
         {
-            return _ctype.Value;
+            return ctype.Value;
         }
 
         /// <summary>
         /// Occurs when a property value changes.
         /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        public event PropertyChangedEventHandler? PropertyChanged = delegate { };
 
         /// <summary>
         /// Raises a property change notification
@@ -155,7 +163,7 @@ namespace CustomHelper
         /// <param name="propertyName"></param>
         protected void RaisePropertyChanged([CallerMemberName] string propertyName = "")
         {
-            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         /// <summary>
@@ -164,11 +172,11 @@ namespace CustomHelper
         /// <param name="value"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        private bool ValidateValueType(object value, Type type)
+        private static bool ValidateValueType(object? value, Type type)
         {
             return value == null
                 ? !type.IsValueType || type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>)
-                : type.IsAssignableFrom(value.GetType());
+                : type.IsInstanceOfType(value);
         }
 
         private static bool CheckIfNameExists(string name)
@@ -183,8 +191,8 @@ namespace CustomHelper
         #region Data
 
         private static readonly List<CustomPropertyInfoHelper> CustomProperties = new List<CustomPropertyInfoHelper>();
-        private readonly Dictionary<string, object> _customPropertyValues = new Dictionary<string, object>();
-        private readonly Lazy<CustomType> _ctype = new Lazy<CustomType>(() => new CustomType(typeof(T)));
+        private readonly Dictionary<string, object?> _customPropertyValues = new Dictionary<string, object?>();
+        private readonly Lazy<CustomType> ctype = new Lazy<CustomType>(() => new CustomType(typeof(T)));
 
         #endregion Data
     }

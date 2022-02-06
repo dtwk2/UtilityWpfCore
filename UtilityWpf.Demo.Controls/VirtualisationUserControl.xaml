@@ -9,13 +9,14 @@
     xmlns:pt="http://propertytools.org/wpf"
     xmlns:util="http://schemas.utility.com"
     xmlns:wpftk="clr-namespace:WpfToolkit.Controls;assembly=VirtualizingWrapPanel"
-    d:DataContext="{d:DesignInstance test:ProfileCollectionSlow }"
+    xmlns:factory="clr-namespace:UtilityWpf.Demo.Data.Factory;assembly=UtilityWpf.Demo.Data"
+    d:DataContext="{d:DesignInstance factory:ProfileCollectionSlow }"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <test:ProfileCollectionSlow x:Key="ProfileCollectionSlow" />
-        <test:ProfileCollectionTimed x:Key="ProfileCollectionTimed" />
+        <factory:ProfileCollectionSlow x:Key="ProfileCollectionSlow" />
+        <factory:ProfileCollectionTimed x:Key="ProfileCollectionTimed" />
     </UserControl.Resources>
     <UniformGrid Rows="1">
 

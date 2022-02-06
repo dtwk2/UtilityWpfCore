@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using Utility.Service;
 using Utility.ViewModel;
+using UtilityWpf.Demo.Data.Factory;
 using UtilityWpf.Demo.Data.Model;
 
 namespace UtilityWpf.Demo.Buttons.Infrastructure
@@ -27,11 +28,10 @@ namespace UtilityWpf.Demo.Buttons.Infrastructure
         public CountViewModel CountViewModel { get; }
     }
 
-    internal class FilteredCheckBoxes2ViewModel
+    internal class FilteredCustomCheckBoxesViewModel
     {
-        public FilteredCheckBoxes2ViewModel()
+        public FilteredCustomCheckBoxesViewModel()
         {
-
             var observable = new ProfileFilterCollectionObservable().ToObservableChangeSet();
 
             FilterService<Profile> filter = new();
@@ -42,10 +42,12 @@ namespace UtilityWpf.Demo.Buttons.Infrastructure
             FilterCollectionViewModel = new(observable, filter, new(false));
             CollectionViewModel = new(changeSet, filter);
             CountViewModel = new(changeSet);
+            FilteredCountViewModel = new(changeSet, filter);
         }
 
         public FilterCollectionViewModel<Profile, ProfileFilter> FilterCollectionViewModel { get; }
         public CollectionViewModel<Profile> CollectionViewModel { get; }
         public CountViewModel CountViewModel { get; }
+        public FilteredCountViewModel<Profile> FilteredCountViewModel { get; }
     }
 }

@@ -6,7 +6,7 @@ namespace UtilityWpf.Demo.Forms.ViewModel
 {
     public class MeasurementsViewModel : _ViewModel
     {
-        private LengthUnit unit;
+        private LengthUnit? unit;
 
         public MeasurementsViewModel(string header, IReadOnlyCollection<MeasurementViewModel> collection) : base(header)
         {
@@ -16,12 +16,12 @@ namespace UtilityWpf.Demo.Forms.ViewModel
 
         public override ObservableCollection<MeasurementViewModel> Collection { get; } /*= new MeasurementViewModel[] { new MeasurementViewModel { Header = "asd", Value = 0 } };*/
 
-        public LengthUnit Unit { get => unit; set => unit = value; }
+        public LengthUnit? Unit { get => unit; set => unit = value; }
     }
 
     public class MeasurementViewModel
     {
-        public string Header { get; init; }
+        public string? Header { get; init; }
         public double Value { get; set; }
     }
 }

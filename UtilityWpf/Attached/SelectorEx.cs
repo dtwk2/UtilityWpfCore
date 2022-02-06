@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
+using UtilityWpf.Utility;
 
 namespace UtilityWpf.Attached
 {
@@ -96,7 +97,7 @@ namespace UtilityWpf.Attached
             // Check whether this attached behaviour is bound to a RoutedCommand
             if (singleclickCommand is RoutedCommand)
                 // Execute the routed command
-                (singleclickCommand as RoutedCommand).Execute(selector.SelectedItem, selector);
+                (singleclickCommand as RoutedCommand)?.Execute(selector.SelectedItem, selector);
             else
                 // Execute the Command as bound delegate
                 singleclickCommand.Execute(selector);
@@ -146,12 +147,12 @@ namespace UtilityWpf.Attached
         //https://stackoverflow.com/questions/4672867/can-i-use-a-different-template-for-the-selected-item-in-a-wpf-combobox-than-for
         public class ComboBoxTemplateSelector : DataTemplateSelector
         {
-            public DataTemplate SelectedItemTemplate { get; set; }
-            public DataTemplateSelector SelectedItemTemplateSelector { get; set; }
-            public DataTemplate DropdownItemsTemplate { get; set; }
-            public DataTemplateSelector DropdownItemsTemplateSelector { get; set; }
+            public DataTemplate? SelectedItemTemplate { get; set; }
+            public DataTemplateSelector? SelectedItemTemplateSelector { get; set; }
+            public DataTemplate? DropdownItemsTemplate { get; set; }
+            public DataTemplateSelector? DropdownItemsTemplateSelector { get; set; }
 
-            public override DataTemplate SelectTemplate(object item, DependencyObject container)
+            public override DataTemplate? SelectTemplate(object item, DependencyObject container)
             {
                 var itemToCheck = container;
 

@@ -16,6 +16,6 @@ namespace UtilityWpf.Converter
             return value;
         }
 
-        public static DefaultConverter Instance => new DefaultConverter();
+        public static DefaultConverter Instance => new();
     }
 }

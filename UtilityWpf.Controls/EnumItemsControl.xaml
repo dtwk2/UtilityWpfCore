@@ -40,7 +40,7 @@
         </Style.Resources>
         <!--<Setter Property="ItemsSource" Value="{Binding Enums, RelativeSource={RelativeSource Mode=TemplatedParent}}" />-->
         <Setter Property="ItemTemplateSelector" Value="{StaticResource DataTemplateSelector}" />
-        <Setter Property="ItemsPanel">
+        <!--<Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Vertical" />
@@ -57,6 +57,6 @@
                     </Setter.Value>
                 </Setter>
             </Trigger>
-        </Style.Triggers>
+        </Style.Triggers>-->
     </Style>
 </ResourceDictionary>

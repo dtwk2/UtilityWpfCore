@@ -32,27 +32,27 @@
 
         <GroupBox Header="Interactivity">
             <Grid Width="100" Height="60">
-                <Button x:Name="optionsButton">
+                <Button x:Name="OptionsButton">
                     Option
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <i:ChangePropertyAction PropertyName="Visibility" Value="Collapsed" />
                             <i:ChangePropertyAction
                                 PropertyName="Visibility"
-                                TargetObject="{Binding ElementName=optionsBackButton}"
+                                TargetObject="{Binding ElementName=OptionsBackButton}"
                                 Value="Visible" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
 
-                <Button x:Name="optionsBackButton" Visibility="Collapsed">
+                <Button x:Name="OptionsBackButton" Visibility="Collapsed">
                     Back
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <i:ChangePropertyAction PropertyName="Visibility" Value="Collapsed" />
                             <i:ChangePropertyAction
                                 PropertyName="Visibility"
-                                TargetObject="{Binding ElementName=optionsButton}"
+                                TargetObject="{Binding ElementName=OptionsButton}"
                                 Value="Visible" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>

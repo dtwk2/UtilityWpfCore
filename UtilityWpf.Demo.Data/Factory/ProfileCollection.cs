@@ -1,12 +1,11 @@
-﻿using DynamicData;
-using Endless;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Reactive.Linq;
+using DynamicData;
+using UtilityWpf.Demo.Data.Model;
 
-namespace UtilityWpf.Demo.Data.Model
+namespace UtilityWpf.Demo.Data.Factory
 {
     public class ProfileCollectionTimed
     {

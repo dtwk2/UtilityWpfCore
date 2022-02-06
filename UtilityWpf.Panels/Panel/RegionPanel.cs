@@ -359,6 +359,7 @@ namespace UtilityWpf.Demo.Panels
                     Region.BottomRight => bag.bottomright,
                     Region.TopLeft => bag.topleft,
                     Region.Middle => bag.middle,
+                    _ => throw new ArgumentOutOfRangeException(nameof(region), region, null)
                 };
             }
         }

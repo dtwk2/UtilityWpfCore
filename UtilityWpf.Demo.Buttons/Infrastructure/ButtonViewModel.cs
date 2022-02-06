@@ -10,7 +10,9 @@ namespace UtilityWpf.Demo.Buttons.Infrastructure
             Command = command;
         }
 
+#pragma warning disable CS8618
         public ButtonViewModel()
+#pragma warning restore CS8618
         {
         }
 

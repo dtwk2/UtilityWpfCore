@@ -200,7 +200,7 @@ namespace Utility.Persist
         protected virtual IEnumerable<object> ConvertBack(IEnumerable<BsonDocument> objs)
         {
             //var doc = _mapper.ToD(obj.GetType(), objs);
-            return objs.Select(obj => ConvertBack(obj));
+            return objs.Select(ConvertBack);
         }
 
         protected virtual BsonDocument Convert(object obj)
@@ -208,7 +208,7 @@ namespace Utility.Persist
             var document = _mapper.ToDocument(obj.GetType(), obj);
             if (Settings.IgnoreBsonDocumentProperties)
                 // removes any complex objects since these can't
-                // be guaranteed to have parameterless contructor
+                // be guaranteed to have parameter-less constructor
                 foreach (var xx in document)
                 {
                     if (xx.Value is BsonDocument)
@@ -259,7 +259,7 @@ namespace Utility.Persist
         //    return ((LiteDatabase)disposable).GetCollection<T>(collectionName);
         //}
 
-        public static ILiteCollection<T> GetCollection<T>(FileInfo file, out IDisposable disposable, string collectionName = null)
+        public static ILiteCollection<T> GetCollection<T>(FileInfo file, out IDisposable disposable, string? collectionName = null)
         {
             var db = new LiteDatabase(file.FullName);
             disposable = db;

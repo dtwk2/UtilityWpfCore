@@ -16,6 +16,7 @@ namespace Utility.ViewModel
         {
         }
 
+        // ReSharper disable once IdentifierTypo
         protected void Intialise()
         {
             if (Collection is IEnumerable collection)
@@ -51,6 +52,6 @@ namespace Utility.ViewModel
 
         public bool IsReadOnly { get => isReadOnly; set => isReadOnly = value; }
 
-        public virtual INotifyCollectionChanged Collection { get; }
+        public virtual INotifyCollectionChanged Collection => throw new Exception("SDFSD 33");
     }
 }

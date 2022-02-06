@@ -20,7 +20,7 @@ namespace CustomHelper
             catch (System.Exception ex)
             {
             }
-            var Customers = new List<Dynamic>();
+            var data = new List<Dynamic>();
 
             foreach (var en in enumerable)
             {
@@ -29,10 +29,10 @@ namespace CustomHelper
                 foreach (var val in values.Cast<object>().Zip(keys.Cast<object>(), (a, b) => new { a, b }))
                     customer1.SetPropertyValue((string)val.b, val.a);
 
-                Customers.Add(customer1);
+                data.Add(customer1);
             }
 
-            return Customers;
+            return data;
         }
     }
 }

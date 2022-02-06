@@ -23,12 +23,12 @@ namespace UtilityWpf.Converter
 
         public static Color GetColor(byte key) => NiceColors.Value[key];
 
-        private static Lazy<Dictionary<int, Color>> NiceColors = new Lazy<Dictionary<int, Color>>(() =>
-                   niceColorsDict
+        private static readonly Lazy<Dictionary<int, Color>> NiceColors = new Lazy<Dictionary<int, Color>>(() =>
+                   niceColorsDictionary
                     .Select((a, i) => Tuple.Create(i, (Color)System.Windows.Media.ColorConverter.ConvertFromString(a.Value)))
                     .ToDictionary(a => a.Item1, a => a.Item2));
 
-        private static Dictionary<string, string> niceColorsDict = new Dictionary<string, string> {
+        private static readonly Dictionary<string, string> niceColorsDictionary = new Dictionary<string, string> {
             { "navy", "#001F3F"} ,
              { "blue", "#0074D9"} ,
               { "aqua", "#7FDBFF"} ,

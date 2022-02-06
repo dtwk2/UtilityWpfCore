@@ -27,7 +27,7 @@ namespace UtilityWpf.Demo.Buttons
             this.ErrorTextBlock.Text = string.Empty;
             try
             {
-                PathButton.Data = (Geometry)converter.ConvertFrom(this.PathTextBox.Text);
+                PathButton.Data = converter.ConvertFrom(this.PathTextBox.Text) as Geometry ?? throw new Exception("fgdgd 443 3"); 
             }
             catch (Exception ex)
             {
