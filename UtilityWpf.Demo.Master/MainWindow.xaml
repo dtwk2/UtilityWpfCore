@@ -4,120 +4,50 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:view1="clr-namespace:UtilityWpf.Demo.View"
-    xmlns:view121="clr-namespace:UtilityWpf.Demo.Master.View"
+    xmlns:utl="http://schemas.utility.com/utilitywpf"
+    xmlns:view="clr-namespace:UtilityWpf.Demo.Master.View"
     xmlns:view2="http://schemas.utility.com/master"
-    xmlns:view11="clr-namespace:UtilityWpf.Demo.Master.Infrastructure"
+    xmlns:base="clr-namespace:UtilityWpf.Base;assembly=UtilityWpf"
     Title="MainWindow"
     Width="825"
     Height="550"
     mc:Ignorable="d">
 
-    <!--<FrameworkElement.Resources>
+    <FrameworkElement.Resources>
         <utl:SharedResourceDictionary Source="/UtilityWpf.Demo.Data;component/DataTemplate/Character.xaml" />
-    </FrameworkElement.Resources>-->
+    </FrameworkElement.Resources>
 
     <TabControl>
+        <TabItem Header="Master-Control">
+            <view:MasterControlUserControl />
+        </TabItem>
+
         <TabItem Header="Master-Detail">
-            <view11:MasterDetailUserControl />
+            <view:MasterDetailUserControl />
         </TabItem>
 
-        <!--<TabItem Header="Master-Detail-Grid">
-            <view11:MasterDetailGridUserControl />
-        </TabItem>
-
-        <TabItem Header="ItemsWrap">
-            <view121:ItemsWrapUserControl />
+        <TabItem Header="Master-Detail-Grid">
+            <view:MasterDetailGridUserControl />
         </TabItem>
 
         <TabItem Header="Two Orientations">
-            <view1:MasterListUserControl />
+            <view:MasterListUserControl />
         </TabItem>
 
         <TabItem Header="Read-Only-Master-Detail">
-            <view11:ReadOnlyMasterDetailUserControl />
+            <view:ReadOnlyMasterDetailUserControl />
         </TabItem>
 
         <TabItem Header="A      ">
             <view2:MasterDetailView Items="{StaticResource Characters}" />
         </TabItem>
 
-        <TabItem Header="B    ">
+        <TabItem Header="B      ">
             <view2:MasterDetail>
-                <view2:MasterDetail.Selector>
+                <view2:MasterDetail>
                     <ListBox ItemsSource="{StaticResource Characters}"></ListBox>
-                </view2:MasterDetail.Selector>
+                </view2:MasterDetail>
             </view2:MasterDetail>
         </TabItem>
-        <TabItem Header="B     2">
-            <view2:MasterDetail>
-                <view2:MasterDetail.Selector>
-                    <view2:MasterControl Position="Bottom">
-                        <ItemsControl ItemsSource="{StaticResource Characters}" />
-                    </view2:MasterControl>
-                </view2:MasterDetail.Selector>
-            </view2:MasterDetail>
-        </TabItem>
-
-        <TabItem Header="B     3">
-            <view2:MasterDetail>
-                <view2:MasterDetail.Selector>
-                    <view2:MasterControl Position="Top">
-                        <ListBox ItemsSource="{StaticResource Characters}" />
-                    </view2:MasterControl>
-                </view2:MasterDetail.Selector>
-            </view2:MasterDetail>
-        </TabItem>
-        <TabItem Header="2Z">
-            <FrameworkElement.Resources>
-                <Style TargetType="HeaderedItemsControl">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type HeaderedItemsControl}">
-                                <StackPanel>
-                                    <Grid>
-                                        <Rectangle Fill="{TemplateBinding Background}" />
-                                        <ContentPresenter ContentSource="Header" />
-                                    </Grid>
-                                    <Grid>
-                                        <Rectangle Stroke="{TemplateBinding BorderBrush}" />
-                                        <ItemsPresenter Margin="2,0,0,0" />
-                                    </Grid>
-                                </StackPanel>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </FrameworkElement.Resources>
-            <HeaderedItemsControl  xmlns:sys="clr-namespace:System;assembly=mscorlib"
-                       Header="My colors"
-                       Background="SteelBlue"
-                       BorderBrush="DarkSlateBlue">
-                <sys:String>Red</sys:String>
-                <sys:String>Yellow</sys:String>
-                <sys:String>Blue</sys:String>
-                <sys:String>Green</sys:String>
-            </HeaderedItemsControl>
-            -->
-        <!--<view:HeaderedListBox Header="!dffsdfs  £" />-->
-        <!--
-        </TabItem>
-
-        <TabItem Header="Master-Detail-Grid">
-            <StackPanel>
-                <view2:OrientationListBox>
-                    <Ellipse Fill="PaleGoldenrod" Height="10" Width="10"></Ellipse>
-                    <Ellipse Fill="PaleGoldenrod" Height="10" Width="10"></Ellipse>
-                    <Ellipse Fill="PaleGoldenrod" Height="10" Width="10"></Ellipse>
-                    <Ellipse Fill="PaleGoldenrod" Height="10" Width="10"></Ellipse>
-                </view2:OrientationListBox>
-                <view2:OrientationListBox Orientation="Vertical">
-                    <Ellipse Fill="PaleGoldenrod" Height="10" Width="10"></Ellipse>
-                    <Ellipse Fill="PaleGoldenrod" Height="10" Width="10"></Ellipse>
-                    <Ellipse Fill="PaleGoldenrod" Height="10" Width="10"></Ellipse>
-                    <Ellipse Fill="PaleGoldenrod" Height="10" Width="10"></Ellipse>
-                </view2:OrientationListBox>
-            </StackPanel>
-        </TabItem>-->
     </TabControl>
 </Window>

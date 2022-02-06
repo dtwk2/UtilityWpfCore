@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,7 +17,7 @@ namespace UtilityWpf.Controls.Meta
         public AssemblyViewsControl(Assembly[] assemblies)
         {
             Content = CreateContent(out var comboBox);
-            comboBox.ItemsSource = assemblies.Select(a => new ViewAssembly(a));
+            comboBox.ItemsSource = assemblies.Select(a => new ViewAssembly(a)).ToArray();
         }
 
         private static object CreateContent(out ComboBox comboBox)
@@ -38,17 +37,6 @@ namespace UtilityWpf.Controls.Meta
 
             return dockPanel;
         }
-
-        //      <DockPanel>
-        //    <ComboBox x:Name="AssemblyComboBox" DockPanel.Dock="Top" SelectedIndex="0" Margin="5" Width="700">
-        //        <ComboBox.ItemTemplate>
-        //            <DataTemplate>
-        //                <TextBlock Text = "{Binding FullName}" ></ TextBlock >
-        //            </ DataTemplate >
-        //        </ ComboBox.ItemTemplate >
-        //    </ ComboBox >
-        //    < view:ViewsDetailControl x:Name="HostUserControl" Assembly="{Binding ElementName=AssemblyComboBox, Path=SelectedItem}" />
-        //</DockPanel>
     }
 
     internal class AssemblyComboBox : ComboBox
@@ -56,8 +44,11 @@ namespace UtilityWpf.Controls.Meta
         public AssemblyComboBox()
         {
             SelectedIndex = 0;
-            Margin = new Thickness(5);
+            FontWeight = FontWeights.DemiBold;
+            FontSize = 14;
+            Margin = new Thickness(4);
             Width = 700;
+            Height = 30;
         }
 
         protected override void PrepareContainerForItemOverride(DependencyObject element, object item)

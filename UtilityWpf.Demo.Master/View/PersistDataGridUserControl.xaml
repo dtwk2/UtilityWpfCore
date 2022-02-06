@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="UtilityWpf.Demo.Master.Infrastructure.PersistDataGridUserControl"
+﻿<UserControl x:Class="UtilityWpf.Demo.Master.View.PersistDataGridUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -38,9 +38,7 @@
         <!--<TabControl>
             <TabItem Header="With Detail">-->
         <view2:MasterDetail Converter="{StaticResource AutoValueConverter}">
-            <view2:MasterDetail.Selector>
                 <DataGrid ItemsSource="{Binding Data, Mode=OneTime}"/>
-            </view2:MasterDetail.Selector>
         </view2:MasterDetail>
         <!--</TabItem>                
             

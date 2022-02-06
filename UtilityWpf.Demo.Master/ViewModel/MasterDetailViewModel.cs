@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using Utility.Service;
 using UtilityWpf.Demo.Common.ViewModel;
 using UtilityWpf.Demo.Data.Factory;
-using UtilityWpf.Demo.Data.Model;
+using UtilityWpf.Demo.Master.Infrastructure;
 using mdvm = Utility.ViewModel.MasterDetailViewModel;
 
-namespace UtilityWpf.Demo.Master.Infrastructure
+namespace UtilityWpf.Demo.Master.ViewModel
 {
     public class MasterDetailViewModel : mdvm
     {

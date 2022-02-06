@@ -13,6 +13,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 using UtilityHelper.NonGeneric;
+using UtilityWpf.Base;
 using UtilityWpf.Property;
 
 namespace UtilityWpf.Controls

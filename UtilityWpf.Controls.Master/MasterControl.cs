@@ -1,18 +1,17 @@
-﻿using DynamicData;
-using Evan.Wpf;
+﻿using Evan.Wpf;
 using Microsoft.Xaml.Behaviors;
 using ReactiveUI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
+using Endless;
 using Utility.Common.Enum;
 using UtilityWpf.Abstract;
-using UtilityWpf.Mixins;
+using UtilityWpf.Base;
 
 namespace UtilityWpf.Controls.Master
 {
@@ -24,7 +23,7 @@ namespace UtilityWpf.Controls.Master
         Last = 2,
     }
 
-    public class MasterControl : ItemsContentControl, IChange
+    public class MasterControl : SelectorAndContentControl, IChange
     {
         [Flags]
         public enum ButtonType
@@ -68,50 +67,58 @@ namespace UtilityWpf.Controls.Master
 
         public IEnumerator CommandParameter
         {
-            get { return (IEnumerator)GetValue(CommandParameterProperty); }
-            set { SetValue(CommandParameterProperty, value); }
+            get => (IEnumerator)GetValue(CommandParameterProperty);
+            set => SetValue(CommandParameterProperty, value);
         }
 
         public RemoveOrder RemoveOrder
         {
-            get { return (RemoveOrder)GetValue(RemoveOrderProperty); }
-            set { SetValue(RemoveOrderProperty, value); }
+            get => (RemoveOrder)GetValue(RemoveOrderProperty);
+            set => SetValue(RemoveOrderProperty, value);
         }
 
         public ButtonType ButtonTypes
         {
-            get { return (ButtonType)GetValue(ButtonTypesProperty); }
-            set { SetValue(ButtonTypesProperty, value); }
+            get => (ButtonType)GetValue(ButtonTypesProperty);
+            set => SetValue(ButtonTypesProperty, value);
         }
 
         public event CollectionChangedEventHandler Change
         {
-            add { AddHandler(ChangeEvent, value); }
-            remove { RemoveHandler(ChangeEvent, value); }
+            add => AddHandler(ChangeEvent, value);
+            remove => RemoveHandler(ChangeEvent, value);
         }
 
         #endregion properties
 
         public override void OnApplyTemplate()
         {
-            var buttonAdd = this.GetTemplateChild("ButtonPlus") as Button;
-            var buttonRemove = this.GetTemplateChild("ButtonMinus") as Button;
-            var buttonMoveUp = this.GetTemplateChild("ButtonMoveUp") as Button;
-            var buttonMoveDown = this.GetTemplateChild("ButtonMoveDown") as Button;
+            base.OnApplyTemplate();
+            if (Header is not Panel header)
+            {
+                header = (this.GetTemplateChild("PART_HeaderPresenter") as ContentPresenter)?.Content as Panel ?? 
+                         throw new Exception("sd ffffff8");
+            }
 
-            this.Observable<ButtonType>().Subscribe(buttonType =>
-           {
-               buttonAdd.Visibility = buttonType.HasFlag(ButtonType.Add) ? Visibility.Visible : Visibility.Collapsed;
-               buttonRemove.Visibility = buttonType.HasFlag(ButtonType.Remove) ? Visibility.Visible : Visibility.Collapsed;
-               buttonMoveUp.Visibility = buttonType.HasFlag(ButtonType.MoveUp) ? Visibility.Visible : Visibility.Collapsed;
-               buttonMoveDown.Visibility = buttonType.HasFlag(ButtonType.MoveDown) ? Visibility.Visible : Visibility.Collapsed;
-           });
+            var buttons = header.Children.OfType<Button>().ToArray();
+            var buttonAdd = buttons.Single(a => a.Name == "ButtonPlus");
+            var buttonRemove = buttons.Single(a => a.Name == "ButtonMinus");
+            var buttonMoveUp = buttons.Single(a => a.Name == "ButtonMoveUp");
+            var buttonMoveDown = buttons.Single(a => a.Name == "ButtonMoveDown");
+
+            this.WhenAnyValue(a => a.ButtonTypes).Subscribe(buttonType =>
+             {
+                 buttonAdd.Visibility = buttonType.HasFlag(ButtonType.Add) ? Visibility.Visible : Visibility.Collapsed;
+                 buttonRemove.Visibility = buttonType.HasFlag(ButtonType.Remove) ? Visibility.Visible : Visibility.Collapsed;
+                 buttonMoveUp.Visibility = buttonType.HasFlag(ButtonType.MoveUp) ? Visibility.Visible : Visibility.Collapsed;
+                 buttonMoveDown.Visibility = buttonType.HasFlag(ButtonType.MoveDown) ? Visibility.Visible : Visibility.Collapsed;
+             });
 
             buttonAdd.Click += (s, e) => ExecuteAdd();
             buttonRemove.Click += (s, e) => ExecuteRemove();
             buttonMoveUp.Click += (s, e) => ExecuteMoveUp();
             buttonMoveDown.Click += (s, e) => ExecuteMoveDown();
-            base.OnApplyTemplate();
+
         }
 
         protected virtual void ExecuteAdd()
@@ -136,22 +143,22 @@ namespace UtilityWpf.Controls.Master
 
         protected virtual void ExecuteRemove()
         {
-            RaiseEvent(new CollectionChangedEventArgs(ItemsControl.ItemsSource, new[] { SelectedItem }, EventType.Remove, SelectedItem, SelectedIndex, ChangeEvent));
+            RaiseEvent(new CollectionChangedEventArgs(ItemsSource, new[] { SelectedItem }, EventType.Remove, SelectedItem, SelectedIndex, ChangeEvent));
 
-            if (ItemsControl != null)
+            if (ItemsSource != null)
             {
-                if (ItemsControl.ItemsSource is IList { IsReadOnly: false, IsFixedSize: false, Count: > 0 } collection)
+                if (ItemsSource is IList { IsReadOnly: false, IsFixedSize: false, Count: > 0 } collection)
                 {
                     if (RemoveOrder == RemoveOrder.Selected && SelectedIndex > -1)
                     {
-                        var item = ItemsControl.ItemsSource.Cast<object>().ElementAt(SelectedIndex);
+                        var item = ItemsSource.Cast<object>().ElementAt(SelectedIndex);
                         collection.RemoveAt(SelectedIndex);
                         RaiseEvent(new CollectionChangedEventArgs(collection, new[] { item }, EventType.Removed, item, SelectedIndex, ChangeEvent));
                     }
 
                     if (RemoveOrder == RemoveOrder.Last)
                     {
-                        var item = ItemsControl.ItemsSource.Cast<object>().Last();
+                        var item = ItemsSource.Cast<object>().Last();
                         collection.RemoveAt(collection.Count - 1);
                         RaiseEvent(new CollectionChangedEventArgs(collection, new[] { item }, EventType.Removed, item, SelectedIndex, ChangeEvent));
                     }
@@ -166,7 +173,7 @@ namespace UtilityWpf.Controls.Master
         {
             var list = IndexedObjects();
             List<IndexedObject> changes = new();
-            var index = ItemsControl.Items.IndexOf(SelectedItem);
+            var index = ItemsSource.OfType<object>().IndexOf(SelectedItem);
             if (index != 0)
             {
                 list[index - 1].Index += 1;
@@ -180,10 +187,9 @@ namespace UtilityWpf.Controls.Master
         {
             var list = IndexedObjects();
             List<IndexedObject> changes = new();
-            if (SelectedItem != null)
-            { }
-            var index = ItemsControl.Items.IndexOf(SelectedItem);
-            if (index != ItemsControl.Items.Count - 1)
+            if (SelectedItem != null) { }
+            var index = ItemsSource.OfType<object>().IndexOf(SelectedItem);
+            if (index != ItemsSource.OfType<object>().Count() - 1)
             {
                 list[index + 1].Index -= 1;
                 list[index].Index += 1;
@@ -195,9 +201,9 @@ namespace UtilityWpf.Controls.Master
         protected virtual List<IndexedObject> IndexedObjects()
         {
             List<IndexedObject> list = new();
-            foreach (var item in ItemsControl.Items)
+            foreach (var item in ItemsSource.OfType<object>())
             {
-                var oldIndex = ItemsControl.Items.IndexOf(item);
+                var oldIndex = ItemsSource.OfType<object>().IndexOf(item);
                 list.Add(new(item, oldIndex, oldIndex));
             }
 
@@ -219,25 +225,25 @@ namespace UtilityWpf.Controls.Master
 
         private void AssociatedObject_Change(object sender, CollectionEventArgs e)
         {
-            if (e.EventType == EventType.Remove)
-            {
-                var element = AssociatedObject.ItemsControl.ItemContainerGenerator.ContainerFromItem(e.Item);
-                if (element is UIElement uiElement)
-                {
-                    Storyboard myStoryboard = OpacityAnimation(uiElement, 0.4);
-                    myStoryboard.Begin();
-                }
-            }
+            //if (e.EventType == EventType.Remove)
+            //{
+            //    var element = AssociatedObject.ItemsControl.ItemContainerGenerator.ContainerFromItem(e.Item);
+            //    if (element is UIElement uiElement)
+            //    {
+            //        Storyboard myStoryboard = OpacityAnimation(uiElement, 0.4);
+            //        myStoryboard.Begin();
+            //    }
+            //}
 
-            if (e.EventType == EventType.Add)
-            {
-                var element = AssociatedObject.ItemsControl.ItemContainerGenerator.ContainerFromItem(e.Item);
-                if (element is UIElement uiElement)
-                {
-                    Storyboard myStoryboard = OpacityAnimation(uiElement, 1);
-                    myStoryboard.Begin();
-                }
-            }
+            //if (e.EventType == EventType.Add)
+            //{
+            //    var element = AssociatedObject.ItemsControl.ItemContainerGenerator.ContainerFromItem(e.Item);
+            //    if (element is UIElement uiElement)
+            //    {
+            //        Storyboard myStoryboard = OpacityAnimation(uiElement, 1);
+            //        myStoryboard.Begin();
+            //    }
+            //}
 
             static Storyboard OpacityAnimation(UIElement uiElement, double opacity)
             {

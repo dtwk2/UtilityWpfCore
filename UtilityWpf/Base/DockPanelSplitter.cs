@@ -17,7 +17,7 @@ namespace PropertyTools.Wpf
     /// <summary>
     /// Represents a control that lets the user change the size of elements in a <see cref="DockPanel" />.
     /// </summary>
-    public class DockPanelSplitter : Control
+    public class DockPanelSplitter : Border
     {
         /// <summary>
         /// Identifies the <see cref="ProportionalResize"/> dependency property.
@@ -72,8 +72,8 @@ namespace PropertyTools.Wpf
         /// </summary>
         static DockPanelSplitter()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(
-                typeof(DockPanelSplitter), new FrameworkPropertyMetadata(typeof(DockPanelSplitter)));
+            //DefaultStyleKeyProperty.OverrideMetadata(
+            //    typeof(DockPanelSplitter), new FrameworkPropertyMetadata(typeof(DockPanelSplitter)));
 
             // override the Background property
             BackgroundProperty.OverrideMetadata(

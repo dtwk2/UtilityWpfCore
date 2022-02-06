@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace UtilityWpf.Demo.Master.Infrastructure
+namespace UtilityWpf.Demo.Master.View
 {
     /// <summary>
     /// Interaction logic for PersistListUserControl.xaml

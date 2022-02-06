@@ -5,12 +5,12 @@ using System.Collections;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using UtilityWpf.Base;
 using UtilityWpf.Behavior;
-using UtilityWpf.Controls.Master;
 
 namespace UtilityWpf.Controls.Hybrid
 {
-    public class MeasurementsControl : ItemsContentControl
+    public class MeasurementsControl : SelectorAndContentControl
     {
         public static readonly DependencyProperty UnitProperty = DependencyProperty.Register("Unit", typeof(Type), typeof(MeasurementsControl));
         public static readonly DependencyProperty DisplayKeyPathProperty = NumbersControl.DisplayKeyPathProperty.AddOwner(typeof(MeasurementsControl));
@@ -41,32 +41,32 @@ namespace UtilityWpf.Controls.Hybrid
 
         public string DisplayKeyPath
         {
-            get { return (string)GetValue(DisplayKeyPathProperty); }
-            set { SetValue(DisplayKeyPathProperty, value); }
+            get => (string)GetValue(DisplayKeyPathProperty);
+            set => SetValue(DisplayKeyPathProperty, value);
         }
 
         public string DisplayMemberPath
         {
-            get { return (string)GetValue(DisplayMemberPathProperty); }
-            set { SetValue(DisplayMemberPathProperty, value); }
+            get => (string)GetValue(DisplayMemberPathProperty);
+            set => SetValue(DisplayMemberPathProperty, value);
         }
 
         public Type Unit
         {
-            get { return (Type)GetValue(UnitProperty); }
-            set { SetValue(UnitProperty, value); }
+            get => (Type)GetValue(UnitProperty);
+            set => SetValue(UnitProperty, value);
         }
 
         public IEnumerable EnumFilterCollection
         {
-            get { return (IEnumerable)GetValue(EnumFilterCollectionProperty); }
-            set { SetValue(EnumFilterCollectionProperty, value); }
+            get => (IEnumerable)GetValue(EnumFilterCollectionProperty);
+            set => SetValue(EnumFilterCollectionProperty, value);
         }
 
         public Enum SelectedUnit
         {
-            get { return (Enum)GetValue(SelectedUnitProperty); }
-            set { SetValue(SelectedUnitProperty, value); }
+            get => (Enum)GetValue(SelectedUnitProperty);
+            set => SetValue(SelectedUnitProperty, value);
         }
 
         #endregion properties

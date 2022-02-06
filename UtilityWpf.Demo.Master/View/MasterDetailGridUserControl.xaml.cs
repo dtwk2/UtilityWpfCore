@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using Endless;
+using NetFabric.Hyperlinq;
 using UtilityWpf.Demo.Common.Meta;
 using UtilityWpf.Demo.Common.ViewModel;
 
-namespace UtilityWpf.Demo.Master.Infrastructure
+namespace UtilityWpf.Demo.Master.View
 {
     /// <summary>
     /// Interaction logic for PersistListUserControl.xaml
@@ -28,7 +31,15 @@ namespace UtilityWpf.Demo.Master.Infrastructure
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return Statics.Service<Factory>().Create<Fields>(Statics.Random.Next(10, 20));
+            try
+            {
+                return Statics.Service<Factory>().Create<Fields>(Statics.Random.Next(10, 20)).Cached();
+
+            }
+            catch
+            {
+                return new[] { new Fields() };
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
