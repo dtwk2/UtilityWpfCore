@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Humanizer;
 using UtilityInterface.NonGeneric.Data;
 
 namespace UtilityWpf.Demo.Master.Infrastructure
@@ -17,10 +20,15 @@ namespace UtilityWpf.Demo.Master.Infrastructure
         //    System.Windows.MessageBox.Show("Insert");
         //    return true;
         //}
+        private int count = 3;
+        List<string> list = new[] { "One", "Two", "Three" }.ToList();
+
         public object Add(object item)
         {
-            System.Windows.MessageBox.Show("Insert");
-            return "Insert";
+            var next = (++count).ToWords();
+            list.Add(next);
+            System.Windows.MessageBox.Show(next);
+            return next;
         }
 
         public object AddBy(IQuery query)
@@ -55,12 +63,13 @@ namespace UtilityWpf.Demo.Master.Infrastructure
 
         public IEnumerable FindManyBy(IQuery query)
         {
-            return new[] { "One", "Two", "Three" };
+            return list;
         }
 
         public object Remove(object item)
         {
-            throw new NotImplementedException();
+            return list.Contains(item.ToString()) == false && 
+                   list.Remove(item.ToString());
         }
 
         public object RemoveBy(IQuery query)
