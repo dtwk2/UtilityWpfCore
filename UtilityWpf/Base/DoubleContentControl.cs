@@ -109,7 +109,7 @@ namespace UtilityWpf.Base
             Header ??= headerPresenter.Content;
 
             var dockPanelSplitter = this.GetTemplateChild("PART_DockPanelSplitter") as DockPanelSplitter ??
-                                    throw new Exception("sdfsdd fff333..");
+                                    throw new Exception($"{"PART_DockPanelSplitter"} fff333.. {this.GetTemplateChild("PART_DockPanelSplitter")?.GetType()}");
 
             if (dockPanel == null)
                 throw new ApplicationException();

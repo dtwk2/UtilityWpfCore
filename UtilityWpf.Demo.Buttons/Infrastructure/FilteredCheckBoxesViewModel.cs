@@ -39,13 +39,13 @@ namespace UtilityWpf.Demo.Buttons.Infrastructure
                             .Take(20)
                             .ToObservableChangeSet();
 
-            FilterCollectionViewModel = new(observable, filter, new(false));
+            FilterCollectionViewModel = new(observable, filter, new (false));
             CollectionViewModel = new(changeSet, filter);
             CountViewModel = new(changeSet);
             FilteredCountViewModel = new(changeSet, filter);
         }
 
-        public FilterCollectionViewModel<Profile, ProfileFilter> FilterCollectionViewModel { get; }
+        public FilterCollectionCommandViewModel<Profile, ProfileFilter> FilterCollectionViewModel { get; }
         public CollectionViewModel<Profile> CollectionViewModel { get; }
         public CountViewModel CountViewModel { get; }
         public FilteredCountViewModel<Profile> FilteredCountViewModel { get; }

@@ -53,7 +53,7 @@ public class FilterCollectionCommandViewModel<T, TR> : FilterCollectionBaseViewM
     private readonly ReactiveCommand<Dictionary<object, bool?>, Func<T, bool>> command;
     //private Dictionary<object, bool?>? dictionary;
 
-    public FilterCollectionCommandViewModel(IObservable<IChangeSet<TR>> changeSet, FilterService<T> filter, Settings settings) : base(changeSet, settings)
+    public FilterCollectionCommandViewModel(IObservable<IChangeSet<TR>> changeSet, FilterService<T> filterService, Settings settings) : base(changeSet, settings)
     {
         command = ReactiveCommand.Create<Dictionary<object, bool?>, Func<T, bool>>(dictionary =>
         {
@@ -68,7 +68,7 @@ public class FilterCollectionCommandViewModel<T, TR> : FilterCollectionBaseViewM
         });
 
         command.Subscribe(filterService);
-        command.Select(a => Unit.Default).Subscribe(replaySubject);
+        //command.Select(a => Unit.Default).Subscribe(replaySubject);
     }
 
     public ICommand Command => command;
@@ -81,10 +81,10 @@ public class FilterCollectionViewModel<T, TR> : FilterCollectionBaseViewModel<TR
         Observable.Return(filter).Subscribe(filterService);
     }
 }
+public record Settings(bool DefaultValue = true);
 
 public class FilterCollectionBaseViewModel<TR> : ReactiveObject where TR : IPredicate, IKey
 {
-    public record Settings(bool DefaultValue = true);
 
     private readonly ReadOnlyObservableCollection<CheckContentViewModel> filterCollection;
 
