@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ReactiveUI;
+using System;
 using System.Collections.Generic;
+using System.Reactive.Linq;
 
 namespace Utility.Common.Helper
 {
@@ -49,6 +51,22 @@ namespace Utility.Common.Helper
                 }
                 return null;
             }
+        }
+
+        public static T? OfGenericType<T>(object value, Type? type = null)
+        {
+            type ??= typeof(object);
+            if (value.GetType().GetGenericArguments()[0].IsAssignableFrom(type))
+            {
+                return (T)value;
+            }
+
+            return default;
+        }
+
+        public static IObservable<T> OfGenericType<T>(this IObservable<object> value, Type? type = null)
+        {
+            return value.Select(v => OfGenericType<T>(v, type)).WhereNotNull();
         }
     }
 }

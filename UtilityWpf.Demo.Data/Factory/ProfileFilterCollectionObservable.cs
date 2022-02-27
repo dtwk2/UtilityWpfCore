@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reactive.Linq;
+﻿using DynamicData;
 using ReactiveUI;
+using System;
+using System.Collections.ObjectModel;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using UtilityInterface.NonGeneric;
-using UtilityWpf.Demo.Data.Common;
 using UtilityWpf.Demo.Data.Model;
 
 namespace UtilityWpf.Demo.Data.Factory
 {
-    public sealed class ProfileFilterCollectionObservable : IObservable<ProfileFilter>
+    public sealed class ProfileFilterCollectionObservable : IObservable<Filter>
     {
-        private readonly ProfileFilter[] profiles =
+        private readonly Filter[] profiles =
         {
             new PositiveProfileFilter(),
             new NegativeProfileFilter(),
@@ -19,7 +19,7 @@ namespace UtilityWpf.Demo.Data.Factory
             new TopFilter(5)
         };
 
-        public IDisposable Subscribe(IObserver<ProfileFilter> observer)
+        public IDisposable Subscribe(IObserver<Filter> observer)
         {
             return profiles
                     .ToObservable()
@@ -27,7 +27,7 @@ namespace UtilityWpf.Demo.Data.Factory
         }
     }
 
-    public class PositiveProfileFilter : ProfileFilter, IPredicate
+    public class PositiveProfileFilter : Filter, IPredicate
     {
         public PositiveProfileFilter() : base("Positive")
         {
@@ -39,7 +39,7 @@ namespace UtilityWpf.Demo.Data.Factory
         }
     }
 
-    public class NegativeProfileFilter : ProfileFilter, IPredicate
+    public class NegativeProfileFilter : Filter, IPredicate
     {
         public NegativeProfileFilter() : base("Negative")
         {
@@ -51,7 +51,7 @@ namespace UtilityWpf.Demo.Data.Factory
         }
     }
 
-    public class RandomProfileFilter : ProfileFilter, IPredicate
+    public class RandomProfileFilter : Filter, IPredicate
     {
         private readonly Random random = new();
 
@@ -65,58 +65,32 @@ namespace UtilityWpf.Demo.Data.Factory
         }
     }
 
-
-    public class TopFilter : ProfileFilter, IRefresh
+    public class TopFilter : ObserverFilter<Profile>
     {
         private record ObjectFlag(object Value, int Index);
-        private readonly List<object> masterObjects = new();
-        private int count;
-        private Dictionary<object, Enumerator<ObjectFlag>> indices;
+        private int takeFromTopLimit;
+        private readonly Subject<IChangeSet<Profile>> subjects = new();
+        private readonly ReadOnlyObservableCollection<Profile> collection;
 
         public TopFilter(int count) : base("Top")
         {
-            Count = count;
-            this.WhenAnyValue(a => a.Count)
-                .Subscribe(a => Refresh());
+            takeFromTopLimit = count;
+
+            subjects
+                .Bind(out collection)
+                .Subscribe();
         }
 
         public override bool Invoke(object value)
         {
-            masterObjects.Add(value);
-
-            if (indices == null)
-                Refresh();
-
-            if (indices.ContainsKey(value) == false)
-            {
-                indices[value] = new Enumerator<ObjectFlag>(new[] { Value() });
-            }
-
-            while (!indices[value].MoveNext())
-            {
-                indices[value].Add(Value());
-                indices[value].Reset();
-            }
-
-            return (indices[value] as IEnumerator<ObjectFlag>).Current?.Index < count;
-
-            ObjectFlag Value()
-            {
-                return new ObjectFlag(value, masterObjects.Count - 1);
-            }
+            return collection.IndexOf(value) < TakeFromTopLimit;
         }
 
-        public int Count { get => count; set => this.RaiseAndSetIfChanged(ref count, value); }
+        public int TakeFromTopLimit { get => takeFromTopLimit; set => this.RaiseAndSetIfChanged(ref takeFromTopLimit, value); }
 
-        public void Refresh()
+        public override void OnNext(IChangeSet<Profile> value)
         {
-            if (!masterObjects.Any()) return;
-
-            indices = masterObjects
-                .Select((a, i) => new ObjectFlag(a, i))
-                .GroupBy(a => a.Value)
-                .ToDictionary(grp => grp.Key, grp => new Enumerator<ObjectFlag>(grp));
-            masterObjects.Clear();
+            subjects.OnNext(value);
         }
     }
 }

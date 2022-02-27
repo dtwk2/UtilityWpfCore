@@ -25,7 +25,7 @@ namespace UtilityWpf.Controls.Buttons
         public static readonly DependencyProperty IsCheckedPathProperty = DependencyProperty.Register("IsCheckedPath", typeof(string), typeof(CheckBoxesControl), new PropertyMetadata(null));
         public static readonly DependencyProperty OutputProperty = DependencyProperty.Register("Output", typeof(object), typeof(CheckBoxesControl));
         public static readonly RoutedEvent OutputChangeEvent = EventManager.RegisterRoutedEvent("OutputChange", RoutingStrategy.Bubble, typeof(OutputChangedEventHandler), typeof(CheckBoxesControl));
-        
+
         static CheckBoxesControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(CheckBoxesControl), new FrameworkPropertyMetadata(typeof(CheckBoxesControl)));
@@ -53,10 +53,9 @@ namespace UtilityWpf.Controls.Buttons
 
         #endregion properties
 
-
         protected override void PrepareContainerForItemOverride(CheckBox element, object item)
         {
-            BindingFactory factory = new (element);
+            BindingFactory factory = new(item);
             if (string.IsNullOrEmpty(IsCheckedPath) == false)
                 BindingOperations.SetBinding(element, System.Windows.Controls.Primitives.ToggleButton.IsCheckedProperty, factory.TwoWay(IsCheckedPath));
 
@@ -75,7 +74,6 @@ namespace UtilityWpf.Controls.Buttons
 
             element.Checked += Button_Click;
             element.Unchecked += Button_Click;
-
 
             Button_Click(null, null);
         }

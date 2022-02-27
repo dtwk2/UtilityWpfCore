@@ -26,7 +26,7 @@ namespace Utility.Common
         public Groupable(object value, PropertyType propertyType, ClassProperty? classProperty = null, IObservable<ClassProperty>? observable = null) :
             this(value, propertyType, classProperty?.Name ?? propertyType.Names.First(), observable)
         {
-            if (classProperty.HasValue && classProperty.Value.ClassName != propertyType.Name)
+            if (classProperty.HasValue && propertyType.Type.GetProperty(classProperty.Value.Name) is null)
                 throw new Exception("99df 33");
         }
 
@@ -54,8 +54,8 @@ namespace Utility.Common
 
         public void OnNext(ClassProperty classProperty)
         {
-            if (classProperty.ClassName != propertyType.Name)
-                throw new Exception("99df 33");
+            //if (classProperty.ClassName != propertyType.Name)
+            //    throw new Exception("99df 33");
             if (propertyType.Has(classProperty.Name) == false)
                 throw new Exception("j 977  9df 33");
             GroupProperty = propertyType.Value(this.value, classProperty.Name);
@@ -99,19 +99,20 @@ namespace Utility.Common
 
     public class PropertyType
     {
-        protected Type type;
         protected Dictionary<string, PropertyInfo> properties;
 
         public string Name { get; private set; }
 
         public PropertyType(Type type)
         {
-            this.type = type;
+            this.Type = type;
             this.properties = type.GetProperties(BindingFlags.Instance | BindingFlags.Public).ToDictionary(a => a.Name, a => a);
             Name = type.Name;
         }
 
         public IReadOnlyCollection<string> Names => properties.Keys;
+
+        public Type Type { get; }
 
         public bool Has(string property) => properties.ContainsKey(property);
 

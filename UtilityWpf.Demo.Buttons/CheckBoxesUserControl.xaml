@@ -80,25 +80,23 @@
                     Orientation="{Binding ElementName=ToggleButton, Path=IsChecked, Converter={StaticResource BooleanToOrientationConverter}}">
                 </view:CheckBoxesControl>
 
-                <DataGrid ItemsSource="{Binding CollectionViewModel.Collection}"/>
+                <DataGrid ItemsSource="{Binding CollectionViewModel.Collection}" />
             </DockPanel>
         </GroupBox>
 
-
-
         <GroupBox d:DataContext="{d:DesignInstance infra:FilteredCustomCheckBoxesViewModel }">
             <FrameworkElement.DataContext>
-                <infra:FilteredCustomCheckBoxesViewModel/>
+                <infra:FilteredCustomCheckBoxesViewModel />
             </FrameworkElement.DataContext>
             <FrameworkElement.Resources>
                 <DataTemplate DataType="{x:Type factory:TopFilter}">
-                    <controls:SpinnerControl Value="{Binding Count}"></controls:SpinnerControl>
+                    <controls:SpinnerControl Value="{Binding TakeFromTopLimit}"></controls:SpinnerControl>
                 </DataTemplate>
 
                 <DataTemplate DataType="{x:Type viewModel:CheckContentViewModel}">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Header}"/>
-                        <ContentControl Content="{Binding Content}" 
+                        <TextBlock Text="{Binding Header}" />
+                        <ContentControl Content="{Binding Content}"
                                         ContentTemplateSelector="{x:Static utl:GeneralDataTemplateSelector.Instance}"
                                         ></ContentControl>
                     </StackPanel>
@@ -117,7 +115,7 @@
                     IsCheckedPath="IsChecked"
                     Orientation="{Binding ElementName=ToggleButton, Path=IsChecked, Converter={StaticResource BooleanToOrientationConverter}}">
                 </view:CheckBoxesControl>
-                <DataGrid ItemsSource="{Binding CollectionViewModel.Collection}"/>
+                <DataGrid ItemsSource="{Binding CollectionViewModel.Collection}" />
             </DockPanel>
         </GroupBox>
     </UniformGrid>
