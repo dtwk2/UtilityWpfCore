@@ -1,4 +1,7 @@
-﻿using System.Windows.Controls;
+﻿using System.Collections;
+using System.Linq;
+using System.Windows.Controls;
+using UtilityWpf.Demo.Data.Factory;
 
 namespace UtilityWpf.Demo.Master.View
 {
@@ -11,5 +14,12 @@ namespace UtilityWpf.Demo.Master.View
         {
             InitializeComponent();
         }
+    }
+
+    public class MasterControlViewModel
+    {
+        private static FieldsFactory Factory { get; } = new();
+
+        public IEnumerable Data { get; } = Factory.BuildCollection().ToArray();
     }
 }

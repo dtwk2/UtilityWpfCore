@@ -1,4 +1,5 @@
-﻿using Evan.Wpf;
+﻿using Endless;
+using Evan.Wpf;
 using Microsoft.Xaml.Behaviors;
 using ReactiveUI;
 using System;
@@ -8,7 +9,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
-using Endless;
 using Utility.Common.Enum;
 using UtilityWpf.Abstract;
 using UtilityWpf.Base;
@@ -28,7 +28,8 @@ namespace UtilityWpf.Controls.Master
         [Flags]
         public enum ButtonType
         {
-            None = 0, Add = 1, Remove = 2, MoveUp = 4, MoveDown = 8, All = Add | Remove | MoveUp | MoveDown
+            None = 0, Add = 1, Remove = 2, MoveUp = 4, MoveDown = 8, Enable = 16, All = Add | Remove | MoveUp | MoveDown | Enable,
+            Disable = 32
         }
 
         public static readonly DependencyProperty CommandParameterProperty = DependencyHelper.Register<IEnumerator>();
@@ -40,6 +41,8 @@ namespace UtilityWpf.Controls.Master
 
         public static readonly DependencyProperty ButtonTypesProperty = DependencyHelper.Register<ButtonType>(new PropertyMetadata(ButtonType.All));
         public static readonly RoutedEvent ChangeEvent = EventManager.RegisterRoutedEvent(nameof(Change), RoutingStrategy.Bubble, typeof(CollectionChangedEventHandler), typeof(MasterControl));
+        private Button buttonEnable;
+        private Button buttonDisable;
 
         static MasterControl()
         {
@@ -96,7 +99,7 @@ namespace UtilityWpf.Controls.Master
             base.OnApplyTemplate();
             if (Header is not Panel header)
             {
-                header = (this.GetTemplateChild("PART_HeaderPresenter") as ContentPresenter)?.Content as Panel ?? 
+                header = (GetTemplateChild("PART_HeaderPresenter") as ContentPresenter)?.Content as Panel ??
                          throw new Exception("sd ffffff8");
             }
 
@@ -105,6 +108,8 @@ namespace UtilityWpf.Controls.Master
             var buttonRemove = buttons.Single(a => a.Name == "ButtonMinus");
             var buttonMoveUp = buttons.Single(a => a.Name == "ButtonMoveUp");
             var buttonMoveDown = buttons.Single(a => a.Name == "ButtonMoveDown");
+            buttonEnable = buttons.Single(a => a.Name == "ButtonEnable");
+            buttonDisable = buttons.Single(a => a.Name == "ButtonDisable");
 
             this.WhenAnyValue(a => a.ButtonTypes).Subscribe(buttonType =>
              {
@@ -112,13 +117,17 @@ namespace UtilityWpf.Controls.Master
                  buttonRemove.Visibility = buttonType.HasFlag(ButtonType.Remove) ? Visibility.Visible : Visibility.Collapsed;
                  buttonMoveUp.Visibility = buttonType.HasFlag(ButtonType.MoveUp) ? Visibility.Visible : Visibility.Collapsed;
                  buttonMoveDown.Visibility = buttonType.HasFlag(ButtonType.MoveDown) ? Visibility.Visible : Visibility.Collapsed;
+                 buttonEnable.Visibility = buttonType.HasFlag(ButtonType.Enable) ? Visibility.Visible : Visibility.Collapsed;
+                 buttonDisable.Visibility = buttonType.HasFlag(ButtonType.Disable) ? Visibility.Visible : Visibility.Collapsed;
              });
 
-            buttonAdd.Click += (s, e) => ExecuteAdd();
-            buttonRemove.Click += (s, e) => ExecuteRemove();
-            buttonMoveUp.Click += (s, e) => ExecuteMoveUp();
-            buttonMoveDown.Click += (s, e) => ExecuteMoveDown();
-
+            buttonAdd.Click += (_, _) => ExecuteAdd();
+            buttonRemove.Click += (_, _) => ExecuteRemove();
+            buttonMoveUp.Click += (_, _) => ExecuteMoveUp();
+            buttonMoveDown.Click += (_, _) => ExecuteMoveDown();
+            buttonEnable.Click += (_, _) => ExecuteEnable(true);
+            buttonDisable.Click += (_, _) => ExecuteEnable(false);
+            ExecuteEnable(true);
         }
 
         protected virtual void ExecuteAdd()
@@ -196,6 +205,13 @@ namespace UtilityWpf.Controls.Master
                 changes.Add(list[index]);
             }
             RaiseEvent(new MovementEventArgs(list, changes, EventType.MoveUp, SelectedItem, SelectedIndex, ChangeEvent));
+        }
+
+        protected virtual void ExecuteEnable(bool v)
+        {
+            if (contentPresenter == null)
+                throw new Exception("sfd3 vdfgdf");
+            buttonEnable.IsEnabled = !(buttonDisable.IsEnabled = contentPresenter.IsEnabled = v);
         }
 
         protected virtual List<IndexedObject> IndexedObjects()

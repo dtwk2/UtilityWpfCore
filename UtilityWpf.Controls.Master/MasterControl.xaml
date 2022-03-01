@@ -3,7 +3,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:UtilityWpf.Controls.Master"
-    xmlns:local1="clr-namespace:UtilityWpf;assembly=UtilityWpf"
+    xmlns:local1="http://schemas.utility.com/utilitywpf"
     xmlns:base="clr-namespace:UtilityWpf.Base;assembly=UtilityWpf"
     xmlns:wpf="clr-namespace:PropertyTools.Wpf;assembly=UtilityWpf">
 
@@ -12,10 +12,11 @@
     </ResourceDictionary.MergedDictionaries>-->
 
     <local1:CountToBooleanConverter x:Key="CountToBoolean" />
+    <local1:InverseBooleanConverter x:Key="InverseBooleanConverter" />
     <local1:IsFirstItemSelectedConverter x:Key="IsFirstItemSelected" Invert="True" />
     <local1:IsLastItemSelectedConverter x:Key="IsLastItemSelected" Invert="True" />
 
-    <Style TargetType="{x:Type local:MasterControl}" 
+    <Style TargetType="{x:Type local:MasterControl}"
            BasedOn="{StaticResource {x:Type base:DoubleContentControl}}">
         <Setter Property="Template">
             <Setter.Value>
@@ -35,7 +36,6 @@
                                 Style="{DynamicResource MaterialDesignIconButton}">
                                         <materialDesign:PackIcon Kind="Add" />
                                     </Button>
-
                                     <Button x:Name="ButtonMoveUp"
                                 Margin="2"
                                 Style="{DynamicResource MaterialDesignIconButton}">
@@ -48,8 +48,8 @@
                                         <materialDesign:PackIcon Kind="ArrowUp" />
                                     </Button>
                                     <Button x:Name="ButtonMoveDown"
-                                Margin="2"
-                                Style="{DynamicResource MaterialDesignIconButton}">
+                                            Margin="2"
+                                            Style="{DynamicResource MaterialDesignIconButton}">
                                         <Button.IsEnabled>
                                             <MultiBinding Converter="{StaticResource IsLastItemSelected}">
                                                 <Binding Path="Content" RelativeSource="{RelativeSource TemplatedParent}" />
@@ -58,13 +58,29 @@
                                         </Button.IsEnabled>
                                         <materialDesign:PackIcon Kind="ArrowDown" />
                                     </Button>
+                                    <Button x:Name="ButtonEnable"
+                                            Margin="2"
+                                            Style="{DynamicResource MaterialDesignIconButton}">
+                                        <Button.IsEnabled>
+                                            <Binding Path="Content.IsEnabled" ElementName="PART_ContentPresenter"
+                                                     Mode="OneWay"
+                                                     Converter="{StaticResource InverseBooleanConverter}" />
+                                        </Button.IsEnabled>
+                                        <materialDesign:PackIcon Kind="Check" />
+                                    </Button>
+                                    <Button x:Name="ButtonDisable"
+                                            Margin="2"
+                                            IsEnabled="{Binding ElementName=PART_ContentPresenter, Path=IsEnabled, Mode=OneWay}"
+                                            Style="{DynamicResource MaterialDesignIconButton}">
+                                        <materialDesign:PackIcon Kind="BlockHelper" />
+                                    </Button>
                                 </WrapPanel>
                             </ContentPresenter.Content>
                         </ContentPresenter>
                         <wpf:DockPanelSplitter x:Name="PART_DockPanelSplitter"
                                                BorderThickness="2"
                                                BorderBrush="WhiteSmoke"></wpf:DockPanelSplitter>
-                        <ContentPresenter x:Name="PART_ContentPresenter"/>
+                        <ContentPresenter x:Name="PART_ContentPresenter" />
                     </DockPanel>
                 </ControlTemplate>
             </Setter.Value>
