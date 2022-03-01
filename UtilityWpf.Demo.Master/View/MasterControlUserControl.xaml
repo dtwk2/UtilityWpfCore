@@ -6,7 +6,6 @@
              xmlns:utl="http://schemas.utility.com/utilitywpf"
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:viewModel1="clr-namespace:UtilityWpf.Demo.Master.View"
-             xmlns:view1="http://schemas.utility.com"
              xmlns:base="clr-namespace:UtilityWpf.Base;assembly=UtilityWpf" 
              xmlns:view11="http://schemas.utility.com/master"
              mc:Ignorable="d"
@@ -39,9 +38,6 @@
                                              Change="{utl:Command ChangeCommand, ConversionType=Default}"
                                              CommandParameter="{Binding NewItem}"
                                              ButtonTypes="Add,Remove">
-                <!--<dragablz:DragablzVerticalItemsControl
-                                            VerticalAlignment="Center">
-                </dragablz:DragablzVerticalItemsControl>-->
                 <base:LayOutListBox
                       VerticalAlignment="Center" />
             </view11:MasterControl>

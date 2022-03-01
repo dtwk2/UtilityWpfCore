@@ -50,8 +50,11 @@ namespace UtilityWpf.Demo.Buttons.Infrastructure
                 })
                 .OnItemRemoved(filter =>
                 {
-                    dictionary[filter].Dispose();
-                    dictionary.Remove(filter);
+                    if (dictionary.ContainsKey(filter))
+                    {
+                        dictionary[filter].Dispose();
+                        dictionary.Remove(filter);
+                    }
                 })
                 .Subscribe();
 

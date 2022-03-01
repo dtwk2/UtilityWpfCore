@@ -1,13 +1,12 @@
-﻿using System;
+﻿using Evan.Wpf;
+using PropertyTools.Wpf;
+using ReactiveUI;
+using System;
 using System.Linq;
-using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
-using Evan.Wpf;
-using PropertyTools.Wpf;
-using ReactiveUI;
 using Utility.Common.Helper;
 using UtilityWpf.Abstract;
 
@@ -48,7 +47,6 @@ namespace UtilityWpf.Base
                     Change(position, splitter);
                 });
 
-            
             Orientations.CombineLatest(
                     headerPresenter
                 .WhenAnyValue(a => a.Content)
@@ -68,7 +66,6 @@ namespace UtilityWpf.Base
                     var (orientation, content) = a;
                     ChangeOrientation(content, orientation);
                 });
-
 
             void Change(Dock position, DockPanelSplitter splitter)
             {
@@ -115,32 +112,32 @@ namespace UtilityWpf.Base
                 throw new ApplicationException();
 
             DockPanelSplitterSubject.OnNext(dockPanelSplitter);
-      
         }
 
         private static void ChangeOrientation(object content, Orientation orientation)
+        {
+            switch (content)
             {
-                switch (content)
-                {
-                    case IOrientation ori:
-                        ori.Orientation = orientation switch
-                        {
-                            Orientation.Horizontal => Orientation.Vertical,
-                            Orientation.Vertical => Orientation.Horizontal,
-                            _ => throw new ArgumentOutOfRangeException()
-                        };
-                        break;
-                    case DependencyObject dp:
-                        dp.SetValue(StackPanel.OrientationProperty, orientation switch
-                        {
-                            Orientation.Horizontal => Orientation.Vertical,
-                            Orientation.Vertical => Orientation.Horizontal,
-                            _ => throw new ArgumentOutOfRangeException()
-                        });
-                        //throw new Exception("Dsf4 444");
-                        break;
-                }
+                case IOrientation ori:
+                    ori.Orientation = orientation switch
+                    {
+                        Orientation.Horizontal => Orientation.Vertical,
+                        Orientation.Vertical => Orientation.Horizontal,
+                        _ => throw new ArgumentOutOfRangeException()
+                    };
+                    break;
+
+                case DependencyObject dp:
+                    dp.SetValue(StackPanel.OrientationProperty, orientation switch
+                    {
+                        Orientation.Horizontal => Orientation.Vertical,
+                        Orientation.Vertical => Orientation.Horizontal,
+                        _ => throw new ArgumentOutOfRangeException()
+                    });
+                    //throw new Exception("Dsf4 444");
+                    break;
             }
+        }
 
         private IObservable<Dock> Docks =>
             Changes
@@ -155,8 +152,10 @@ namespace UtilityWpf.Base
                         {
                             case Orientation.Horizontal:
                                 return Dock.Left;
+
                             case Orientation.Vertical:
                                 return Dock.Top;
+
                             default:
                                 throw new ArgumentOutOfRangeException("sdfsd dssd 77");
                         }
@@ -164,7 +163,6 @@ namespace UtilityWpf.Base
 
                     throw new Exception("FSD£FFF");
                 });
-
 
         private IObservable<Orientation> Orientations =>
             Changes
@@ -180,9 +178,11 @@ namespace UtilityWpf.Base
                             case Dock.Left:
                             case Dock.Right:
                                 return Orientation.Horizontal;
+
                             case Dock.Top:
                             case Dock.Bottom:
                                 return Orientation.Vertical;
+
                             default:
                                 throw new ArgumentOutOfRangeException("sdfsd dssd 77");
                         }

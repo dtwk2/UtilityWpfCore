@@ -7,7 +7,6 @@
     xmlns:utl="http://schemas.utility.com/utilitywpf"
     xmlns:view="clr-namespace:UtilityWpf.Demo.Master.View"
     xmlns:view2="http://schemas.utility.com/master"
-    xmlns:base="clr-namespace:UtilityWpf.Base;assembly=UtilityWpf"
     Title="MainWindow"
     Width="825"
     Height="550"
@@ -18,6 +17,7 @@
     </FrameworkElement.Resources>
 
     <TabControl>
+
         <TabItem Header="Master-Control">
             <view:MasterControlUserControl />
         </TabItem>
@@ -37,17 +37,14 @@
         <TabItem Header="Read-Only-Master-Detail">
             <view:ReadOnlyMasterDetailUserControl />
         </TabItem>
-
-        <TabItem Header="A      ">
-            <view2:MasterDetailView Items="{StaticResource Characters}" />
+        <TabItem Header="Simple-Master-Detail">
+            <view2:MasterDetail Orientation="Horizontal">
+                <ListBox ItemsSource="{StaticResource Characters}" ></ListBox>
+            </view2:MasterDetail>
         </TabItem>
 
-        <TabItem Header="B      ">
-            <view2:MasterDetail>
-                <view2:MasterDetail>
-                    <ListBox ItemsSource="{StaticResource Characters}"></ListBox>
-                </view2:MasterDetail>
-            </view2:MasterDetail>
+        <TabItem Header="Deprecated">
+            <view2:MasterDetailView Items="{StaticResource Characters}" />
         </TabItem>
     </TabControl>
 </Window>

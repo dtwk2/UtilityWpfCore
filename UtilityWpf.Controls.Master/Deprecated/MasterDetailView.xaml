@@ -36,19 +36,16 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:MasterDetailView}">
-
                     <Grid x:Name="DockPanel">
                         <FrameworkElement.Resources>
                             <CollectionViewSource x:Key="GroupedItems" Source="{Binding Items, RelativeSource={RelativeSource TemplatedParent}}" />
                             <utility:NullToBooleanConverter x:Key="ntobconverter" />
                         </FrameworkElement.Resources>
-
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="5" />
                             <ColumnDefinition Width="5*" />
                         </Grid.ColumnDefinitions>
-
                         <ListBox
                             DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                             ItemsSource="{Binding Source={StaticResource GroupedItems}}"
@@ -58,11 +55,13 @@
                                     <StackPanel Orientation="Vertical" />
                                 </ItemsPanelTemplate>
                             </ListBox.ItemsPanel>
-                            <ListBox.GroupStyle>
+                            <!--<ListBox.GroupStyle>
                                 <GroupStyle>
                                     <GroupStyle.HeaderTemplate>
                                         <DataTemplate>
-                                            <!--<TextBlock FontWeight="Bold" FontSize="14" Text="{Binding .,Converter={StaticResource Converter}}" />-->
+                                            -->
+                            <!--<TextBlock FontWeight="Bold" FontSize="14" Text="{Binding .,Converter={StaticResource Converter}}" />-->
+                            <!--
                                             <Button
                                                 HorizontalContentAlignment="Left"
                                                 Background="Transparent"
@@ -75,7 +74,7 @@
                                         </DataTemplate>
                                     </GroupStyle.HeaderTemplate>
                                 </GroupStyle>
-                            </ListBox.GroupStyle>
+                            </ListBox.GroupStyle>-->
                         </ListBox>
                         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
                         <TextBlock

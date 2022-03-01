@@ -2,10 +2,11 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using UtilityWpf.Controls.Master;
 
 namespace UtilityWpf.Controls.Hybrid
 {
-    public class MasterBindableControl : UtilityWpf.Controls.Master.MasterControl
+    public class MasterBindableControl : MasterControl
     {
         public static readonly DependencyProperty DisplayMemberPathProperty = ItemsControl.DisplayMemberPathProperty.AddOwner(typeof(MasterBindableControl));
 

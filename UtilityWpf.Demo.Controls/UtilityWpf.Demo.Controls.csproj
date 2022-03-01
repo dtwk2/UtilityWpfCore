@@ -53,6 +53,9 @@
     <Compile Update="LogUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="MasterControlUserControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="ScrollUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -124,6 +127,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="LogUserControl.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MasterControlUserControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
