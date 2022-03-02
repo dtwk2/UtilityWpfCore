@@ -22,7 +22,7 @@
                     <i:InvokeCommandAction Command="{Binding ChangeCommand}"
                                                            PassEventArgsToCommand="True"
                                                            EventArgsConverter="{x:Static mk:AutoMapperConverter.Instance}"
-                                                           EventArgsConverterParameter="{x:Type common:CollectionEventArgs}"></i:InvokeCommandAction>
+                                                           EventArgsConverterParameter="{x:Type common:CollectionItemEventArgs}"></i:InvokeCommandAction>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <view:DragablzHorizontalItemsControl

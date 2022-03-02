@@ -12,7 +12,7 @@ namespace UtilityWpf.Demo.Master.ViewModel
             {
                 switch (a)
                 {
-                    case CollectionEventArgs { EventType: EventType.Add }:
+                    case CollectionItemEventArgs { EventType: EventType.Add }:
                         if (NewItem.MoveNext())
                             Data.Add(NewItem.Current as Common.ViewModel.ElementViewModel);
                         break;

@@ -20,11 +20,11 @@ namespace Utility.ViewModel
         {
             this.service = service;
             service.OnNext(new(repository));
-            ChangeCommand = ReactiveCommand.Create<CollectionEventArgs, Unit>(Switch);
+            ChangeCommand = ReactiveCommand.Create<CollectionItemEventArgs, Unit>(Switch);
             this.repository = repository;
         }
 
-        private Unit Switch(CollectionEventArgs args)
+        private Unit Switch(CollectionItemEventArgs args)
         {
             switch (args)
             {
@@ -56,6 +56,6 @@ namespace Utility.ViewModel
 
         public ObservableCollection<object> Data => service.Items;
 
-        public ReactiveCommand<CollectionEventArgs, Unit> ChangeCommand { get; }
+        public ReactiveCommand<CollectionItemEventArgs, Unit> ChangeCommand { get; }
     }
 }

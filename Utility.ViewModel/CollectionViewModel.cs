@@ -74,9 +74,11 @@ public class CollectionViewModel<T, TKey, TGroupKey> : CollectionViewModel
     public override ICollection Collection { get; }
 }
 
-public class CollectionGroupViewModel<T, TKey> : CollectionViewModel, IObserver<ClassProperty> where T : class
+public class CollectionGroupViewModel<T, TKey> : CollectionViewModel, IObserver<ClassProperty?> where T : class
 {
-    private ReplaySubject<ClassProperty> subject = new(1);
+    private readonly ReplaySubject<ClassProperty?> subject = new(1);
+    private ICollection collection;
+
     private readonly GroupCollectionViewModel<Groupable<T>, T, TKey, string> viewModel;
 
     public CollectionGroupViewModel(IObservable<IChangeSet<T, TKey>> changeSet, FilterDictionaryService<T> filter, string propertyName)
@@ -84,19 +86,29 @@ public class CollectionGroupViewModel<T, TKey> : CollectionViewModel, IObserver<
         var type = typeof(T).Name;
 
         viewModel = changeSet
-            .Filter(filter)
-            .Transform(a => new Groupable<T>(a, new ClassProperty(propertyName, type), subject))
-            .ToGroupOnViewModel();
+                        .Filter(filter)
+                        .Transform(a => new Groupable<T>(a, new ClassProperty(propertyName, type), subject.WhereNotNull().Select(a => a.Value)))
+                        .ToGroupOnViewModel();
 
-        //    var aa = GroupHelper.Convert<Groupable<T>, T, TKey, string>(
-        //changeSet
-        //.Filter(filter)
-        //.Transform(a => new Groupable<T>(a, new ClassProperty(propertyName, type), subject))
-        //.GroupOnProperty(a => a.GroupProperty)
-        //);
+        changeSet
+                   .ObserveOn(RxApp.MainThreadScheduler)
+                   .Filter(filter)
+                       .Bind(out var ungroupedCollection)
+                       .Subscribe();
+
+        filter.OnNext(new Dictionary<string, bool>());
+
+        this.collection = ungroupedCollection;
+
+        subject
+            .Subscribe(a =>
+            {
+                this.collection = a.HasValue == false ? ungroupedCollection : viewModel.Collection;
+                this.RaisePropertyChanged(nameof(Collection));
+            });
     }
 
-    public override ICollection Collection => viewModel.Collection;
+    public override ICollection Collection => collection;
 
     public IReadOnlyCollection<ClassProperty> Properties => viewModel.Properties;
 
@@ -110,7 +122,7 @@ public class CollectionGroupViewModel<T, TKey> : CollectionViewModel, IObserver<
         throw new NotImplementedException();
     }
 
-    public void OnNext(ClassProperty value)
+    public void OnNext(ClassProperty? value)
     {
         subject.OnNext(value);
     }

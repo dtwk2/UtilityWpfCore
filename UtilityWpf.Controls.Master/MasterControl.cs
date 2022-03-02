@@ -147,12 +147,12 @@ namespace UtilityWpf.Controls.Master
             //else
             //{
             //}
-            RaiseEvent(new CollectionEventArgs(EventType.Add, SelectedItem, SelectedIndex, ChangeEvent));
+            RaiseEvent(new CollectionItemEventArgs(EventType.Add, SelectedItem, SelectedIndex, ChangeEvent));
         }
 
         protected virtual void ExecuteRemove()
         {
-            RaiseEvent(new CollectionChangedEventArgs(ItemsSource, new[] { SelectedItem }, EventType.Remove, SelectedItem, SelectedIndex, ChangeEvent));
+            RaiseEvent(new CollectionItemChangedEventArgs(ItemsSource, new[] { SelectedItem }, EventType.Remove, SelectedItem, SelectedIndex, ChangeEvent));
 
             if (ItemsSource != null)
             {
@@ -162,14 +162,14 @@ namespace UtilityWpf.Controls.Master
                     {
                         var item = ItemsSource.Cast<object>().ElementAt(SelectedIndex);
                         collection.RemoveAt(SelectedIndex);
-                        RaiseEvent(new CollectionChangedEventArgs(collection, new[] { item }, EventType.Removed, item, SelectedIndex, ChangeEvent));
+                        RaiseEvent(new CollectionItemChangedEventArgs(collection, new[] { item }, EventType.Removed, item, SelectedIndex, ChangeEvent));
                     }
 
                     if (RemoveOrder == RemoveOrder.Last)
                     {
                         var item = ItemsSource.Cast<object>().Last();
                         collection.RemoveAt(collection.Count - 1);
-                        RaiseEvent(new CollectionChangedEventArgs(collection, new[] { item }, EventType.Removed, item, SelectedIndex, ChangeEvent));
+                        RaiseEvent(new CollectionItemChangedEventArgs(collection, new[] { item }, EventType.Removed, item, SelectedIndex, ChangeEvent));
                     }
                 }
             }
@@ -212,6 +212,8 @@ namespace UtilityWpf.Controls.Master
             if (contentPresenter == null)
                 throw new Exception("sfd3 vdfgdf");
             buttonEnable.IsEnabled = !(buttonDisable.IsEnabled = contentPresenter.IsEnabled = v);
+
+            RaiseEvent(new CollectionItemChangedEventArgs(ItemsSource, default, v ? EventType.Enable : EventType.Disable, default, default, ChangeEvent));
         }
 
         protected virtual List<IndexedObject> IndexedObjects()

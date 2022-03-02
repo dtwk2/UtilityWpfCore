@@ -9,6 +9,10 @@
 
     <TabControl>
 
+        <TabItem Header="Grouping">
+            <local:GroupingUserControl />
+        </TabItem>
+
         <TabItem Header="Data">
             <local:DataUserControl />
         </TabItem>
