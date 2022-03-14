@@ -1,0 +1,31 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ctrl="clr-namespace:Utility.WPF.Controls.Date">
+
+    <Style TargetType="ctrl:CalendarControl">
+        <!--<Setter Property="Background" Value="#FFB900"></Setter>
+        <Setter Property="Foreground" Value="White"></Setter>-->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ctrl:CalendarControl">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="10*"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <ctrl:DatePickerControl x:Name="DatePickerControl" VerticalAlignment="Center"></ctrl:DatePickerControl>
+                        <Grid Background="#FAFAFA" Grid.Row="1">
+                            <Viewbox >
+
+                                <ctrl:MonthGridControl x:Name="MonthGridControl" />
+
+                            </Viewbox>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
