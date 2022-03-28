@@ -16,6 +16,7 @@ namespace UtilityWpf.Controls.Master
     using System.Reactive.Subjects;
     using System.Windows.Controls.Primitives;
     using UtilityWpf.Utility;
+
     /// <summary>
     /// Only transforms master-list items to the detail-item; and not vice-versa
     /// </summary>
@@ -219,9 +220,13 @@ namespace UtilityWpf.Controls.Master
                     frameworkElement.DataContext = masterObject;
                     return;
                 }
+                else if (masterObject is FrameworkElement frameworkElement1)
+                {
+                    Header = frameworkElement1.DataContext;
+                }
                 else
                 {
-                    throw new ApplicationException("Content needs to be framework element is UseDataContext set to true");
+                    //throw new ApplicationException("Content needs to be framework element is UseDataContext set to true");
                 }
             }
             if (masterObject is IEnumerable enumerable and not string)
@@ -231,9 +236,11 @@ namespace UtilityWpf.Controls.Master
                     case IItemsSource oview:
                         oview.ItemsSource = enumerable;
                         return;
+
                     case ItemsControl itemsControl:
                         itemsControl.ItemsSource = enumerable;
                         return;
+
                     default:
                         return;
                 }
@@ -242,10 +249,9 @@ namespace UtilityWpf.Controls.Master
             //{
             //    propertyGrid.Object = propertyGrid;
             //}
-
-            if (masterObject is UIElement)
+            if (masterObject is UIElement uiElement)
             {
-                Header = CloneHelper.XamlClone(masterObject);
+                Header = NewMethod(uiElement);
             }
             else if (headerPresenter != null)
             {
@@ -253,7 +259,31 @@ namespace UtilityWpf.Controls.Master
             }
             else
             {
-                throw new Exception("dgsf33 gggdsfsd");
+                //throw new Exception("dgsf33 gggdsfsd");
+            }
+        }
+
+        private object NewMethod(UIElement uiElement)
+        {
+            if (uiElement is HeaderedContentControl headeredContentControl)
+            {
+                return headeredContentControl.Content;
+            }
+            else if (uiElement is HeaderedItemsControl headeredItemsControl)
+            {
+                return new ItemsControl { ItemsSource = headeredItemsControl.ItemsSource };
+            }
+            try
+            {
+                return CloneHelper.XamlClone(uiElement);
+            }
+            catch (Exception ex)
+            {
+                //Header = Force.DeepCloner.DeepClonerExtensions.DeepClone(masterObject);
+                if (uiElement is FrameworkElement frameworkElement)
+                    return frameworkElement.DataContext;
+                else
+                    throw;
             }
         }
 

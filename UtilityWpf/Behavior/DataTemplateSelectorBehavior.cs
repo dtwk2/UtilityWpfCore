@@ -17,6 +17,10 @@ using System.Windows.Data;
 
 namespace UtilityWpf.Behavior
 {
+    /// <summary>
+    /// Assigns available <see cref="DataTemplate"/>s as the <see cref="ItemsControl.ItemsSource"/> 
+    /// of the <see cref="Microsoft.Xaml.Behaviors.Behavior.AssociatedObject"/>
+    /// </summary>
     public class DataTemplateSelectorBehavior : Behavior<Selector>
     {
         private CompositeDisposable? disposable = null;

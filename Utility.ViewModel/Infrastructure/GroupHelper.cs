@@ -9,14 +9,14 @@ namespace Utility.ViewModel;
 
 public static class GroupHelper
 {
-    public static IObservable<IChangeSet<GroupViewModel<T, TKey, TGroupKey>, TGroupKey>> Convert<T, TKey, TGroupKey>(this IObservable<IGroupChangeSet<T, TKey, TGroupKey>> groups, Func<IGroup<T, TKey, TGroupKey>, GroupViewModel<T, TKey, TGroupKey>> createFunc)
+    public static IObservable<IChangeSet<GroupViewModel<T, TKey, TGroupKey>, TGroupKey>> ConvertGroups<T, TKey, TGroupKey>(this IObservable<IGroupChangeSet<T, TKey, TGroupKey>> groups, Func<IGroup<T, TKey, TGroupKey>, GroupViewModel<T, TKey, TGroupKey>> createFunc)
     {
         return groups
              .Transform(createFunc)
              .ObserveOn(RxApp.MainThreadScheduler);
     }
 
-    public static IObservable<IChangeSet<GroupViewModel<T, TKey, TGroupKey>, TGroupKey>> Convert<TGroup, T, TKey, TGroupKey>(this IObservable<IGroupChangeSet<TGroup, TKey, TGroupKey>> groups)
+    public static IObservable<IChangeSet<GroupViewModel<T, TKey, TGroupKey>, TGroupKey>> ConvertGroups<TGroup, T, TKey, TGroupKey>(this IObservable<IGroupChangeSet<TGroup, TKey, TGroupKey>> groups)
         where TGroup : IGroupable<T>
         where T : class
     {
@@ -25,7 +25,7 @@ public static class GroupHelper
             .ObserveOn(RxApp.MainThreadScheduler);
     }
 
-    public static IObservable<IChangeSet<GroupViewModel<T, TGroupKey>>> Convert<TGroup, T, TGroupKey>(this IObservable<IChangeSet<IGroup<TGroup, TGroupKey>>> groups)
+    public static IObservable<IChangeSet<GroupViewModel<T, TGroupKey>>> ConvertGroups<TGroup, T, TGroupKey>(this IObservable<IChangeSet<IGroup<TGroup, TGroupKey>>> groups)
         where TGroup : IGroupable<T>
         where T : class
     {

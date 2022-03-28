@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Evan.Wpf;
+using ReactiveUI;
+using System;
 using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using Evan.Wpf;
-using ReactiveUI;
 using UtilityHelper.NonGeneric;
 using UtilityWpf.Abstract;
 
@@ -83,6 +83,7 @@ namespace UtilityWpf.Base
             {
                 selector
                     .WhenAnyValue(c => c.ItemsSource)
+                    .WhereNotNull()
                     .Subscribe(itemsSource => { this.ItemsSource ??= itemsSource; });
                 selector.SelectionChanged += (_, e) =>
                 {
@@ -95,6 +96,7 @@ namespace UtilityWpf.Base
             {
                 iSelector
                     .WhenAnyValue(c => c.ItemsSource)
+                    .WhereNotNull()
                     .Subscribe(itemsSource => { this.ItemsSource ??= itemsSource; });
                 iSelector.SelectionChanged += (_, e) =>
                 {
@@ -146,7 +148,6 @@ namespace UtilityWpf.Base
                 {
                     if (Content is ItemsControl itemsControl)
                         itemsControl.ItemsSource = a;
-
                 });
 
             base.OnApplyTemplate();
