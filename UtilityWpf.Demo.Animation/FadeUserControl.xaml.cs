@@ -13,23 +13,31 @@ namespace UtilityWpf.Demo.Animation
         {
             InitializeComponent();
 
-            var interval = Observable
-                .Interval(TimeSpan.FromSeconds(2));
 
-            var progress = interval.Select(a => Observable
+
+            var progress = Observable
                                                         .Interval(TimeSpan.FromSeconds(0.1))
-                                                        .Scan(0, (a, b) => ++a)
-                                                        .Select(a => a * 100 / (2 / 0.1)))
-                .Switch()
+
+                                                        .Select(a => (a * 0.05 * 100) % 101)
+
                 .ObserveOnDispatcher()
                 .Subscribe(a =>
                 {
                     MainProgressBar.Value = a;
+                    if ((int)a == 100)
+                    {
+                        MainFadeControl.FadeCommand.Execute(default);
+                    }
                 });
+
+
+            var interval = Observable
+                .Interval(TimeSpan.FromSeconds(3));
+
 
             interval.ObserveOnDispatcher().Subscribe(a =>
             {
-                MainFadeControl.FadeCommand.Execute(default);
+                FadeText.FadeCommand.Execute(default);
             });
         }
     }
