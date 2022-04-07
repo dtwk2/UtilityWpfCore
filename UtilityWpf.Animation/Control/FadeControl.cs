@@ -20,7 +20,7 @@ namespace UtilityWpf.Animation
 
         public static readonly DependencyProperty AnimationTimeProperty = DependencyProperty.Register("AnimationTime", typeof(int), typeof(FadeControl), new PropertyMetadata(1000, Changed));
 
-        public static readonly DependencyProperty FadeToNothingProperty = DependencyProperty.Register("FadeToNothing", typeof(bool), typeof(FadeControl), new PropertyMetadata(true, Changed));
+        public static readonly DependencyProperty IsInvertFadeProperty = DependencyProperty.Register("IsInvertFade", typeof(bool), typeof(FadeControl), new PropertyMetadata(false, Changed));
 
         public static readonly DependencyProperty ReverseProperty = DependencyProperty.Register("Reverse", typeof(bool), typeof(FadeControl), new PropertyMetadata(true, Changed));
 
@@ -42,10 +42,10 @@ namespace UtilityWpf.Animation
             set => SetValue(ReverseProperty, value);
         }
 
-        public bool FadeToNothing
+        public bool IsInvertFade
         {
-            get => (bool)GetValue(FadeToNothingProperty);
-            set => SetValue(FadeToNothingProperty, value);
+            get => (bool)GetValue(IsInvertFadeProperty);
+            set => SetValue(IsInvertFadeProperty, value);
         }
 
         public ICommand FadeCommand
@@ -75,14 +75,14 @@ namespace UtilityWpf.Animation
                     {
                         //element.Opacity = 0;
                         if (storyboard.Children.Count == 0)
-                            AnimationHelper.CreateFadeStoryboard(element, storyboard, FadeToNothing, Reverse, AnimationTime);
+                            AnimationHelper.CreateFadeStoryboard(element, storyboard, IsInvertFade, Reverse, AnimationTime);
 
                         storyboard.Begin();
                     }
                     // because FillBehavior is Stop is Reverse not true have to set opacity at end of animation
                     else if (Reverse == false)
                     {
-                        element.Opacity = FadeToNothing ? 0 : 1;
+                        element.Opacity = IsInvertFade ? 1 : 0;
                     }
 
                     animatingFlag = false;
@@ -119,12 +119,12 @@ namespace UtilityWpf.Animation
 
     public static class AnimationHelper
     {
-        public static void CreateFadeStoryboard(UIElement element, Storyboard storyboard, bool fadeToNothing = true, bool reverse = true, int animationTime = 500)
+        public static void CreateFadeStoryboard(UIElement element, Storyboard storyboard, bool isInvertFade = false, bool reverse = true, int animationTime = 500)
         {
             storyboard.Children.Clear();
             TimeSpan duration = TimeSpan.FromMilliseconds(animationTime);
 
-            DoubleAnimation fadeOutAnimation = new DoubleAnimation(element.Opacity > 0 ? element.Opacity : fadeToNothing ? 1 : 0, toValue: fadeToNothing ? 0 : 1, duration: new Duration(duration))
+            DoubleAnimation fadeOutAnimation = new(element.Opacity > 0 ? element.Opacity : isInvertFade ? 0 : 1, toValue: isInvertFade ? 1 : 0, duration: new Duration(duration))
             { EasingFunction = new SineEase(), AutoReverse = reverse, FillBehavior = reverse ? FillBehavior.HoldEnd : FillBehavior.Stop };
 
             Storyboard.SetTarget(fadeOutAnimation, element);

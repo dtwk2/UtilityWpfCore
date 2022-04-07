@@ -15,7 +15,7 @@
                          VerticalAlignment="Center"
                          Width="{Binding ElementName=MainDockPanel, Path=ActualWidth}"
                         Foreground="Red" Minimum="0" Maximum="100" />
-                <ani:FadeControl x:Name="MainFadeControl" FadeToNothing="False" VerticalAlignment="Center" HorizontalAlignment="Right" 
+                <ani:FadeControl x:Name="MainFadeControl" IsInvertFade="False" VerticalAlignment="Center" HorizontalAlignment="Right" 
                                  AnimationTime="200" 
                                  Reverse="True" >
                     <Ellipse Fill="Red" Height="60" Width="60" Opacity="0.5" />
@@ -79,7 +79,7 @@
                     <TextBlock VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Center">Click to change colour</TextBlock>
                 </Grid>
                 <Grid>
-                    <ani:FadeControl x:Name="Fade2" AnimationTime="3000" FadeToNothing="False" Reverse="False">
+                    <ani:FadeControl x:Name="Fade2" AnimationTime="3000" IsInvertFade="True" Reverse="False">
                         <!--<i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseDown">
                                 <i:InvokeCommandAction Command="{Binding FadeCommand, RelativeSource={RelativeSource AncestorType=ani:FadeControl}}">
@@ -96,19 +96,18 @@
                     <TextBlock VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Center">Click to change colour</TextBlock>
                 </Grid>
 
-                <ani:FadeControl x:Name="FadeText" AnimationTime="5000" FadeToNothing="False" Reverse="True">
+                <ani:FadeControl x:Name="FadeText" AnimationTime="5000" IsInvertFade="True" Reverse="True">
                     <TextBlock x:Name="TextBlock" Text="T E X T" FontSize="64" Opacity="0.5">
                     </TextBlock>
                 </ani:FadeControl>
 
-                <ani:FadeControl x:Name="FadeTextBox" AnimationTime="1000" FadeToNothing="False" Reverse="True">
+                <ani:FadeControl x:Name="FadeTextBox" AnimationTime="1000" IsInvertFade="True" Reverse="True">
                     <TextBox x:Name="TextBox" Text="T E X T" FontSize="64" Opacity="0.5">
                         <i:Interaction.Triggers>
                             <i:PropertyChangedTrigger Binding="{Binding ElementName =TextBox, Path=Text}">
                                 <i:InvokeCommandAction Command="{Binding ElementName=FadeTextBox, Path=FadeCommand}"/>
                             </i:PropertyChangedTrigger>
                         </i:Interaction.Triggers>
-
                     </TextBox>
                 </ani:FadeControl>
             </UniformGrid>
