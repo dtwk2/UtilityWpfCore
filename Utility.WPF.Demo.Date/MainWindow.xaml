@@ -10,6 +10,8 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:DateWork.Models"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:anim="http://schemas.utility.com/animation"
     Title="Utility Journal"
     Width="800"
     Height="850"
@@ -29,44 +31,48 @@
         <local:CountToBooleanConverter x:Key="CountToBooleanConverter" />
     </FrameworkElement.Resources>
 
-    <DockPanel>
-        <materialDesign:ColorZone
-            Margin="10"
-            Padding="16"
-            materialDesign:ShadowAssist.ShadowDepth="Depth3"
-            CornerRadius="3"
-            DockPanel.Dock="Top"
-            Mode="PrimaryMid">
-
-            <TextBlock Style="{DynamicResource MaterialDesignHeadline6TextBlock}" TextAlignment="Center">
-                Utility Journal
-            </TextBlock>
-        </materialDesign:ColorZone>
+    <!--<TabControl>
+        <TabItem Header="Main">-->
 
 
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+ 
+            <DockPanel>
+                <!--<Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>-->
 
-            <date:CalendarControl x:Name="CalendarControl" ValueConverter="{StaticResource Value2Converter}" />
+                <Viewbox Width="400"       DockPanel.Dock="Right">
 
-            <Grid Grid.Column="1" DockPanel.Dock="Right">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
+             
+                    <date:CalendarControl  x:Name="CalendarControl" 
+                                           ValueConverter="{StaticResource Value2Converter}" 
+                                           Grid.Column="1" DockPanel.Dock="Right"/>
+                </Viewbox>
+                    <materialDesign:ColorZone
+                        
+                        Margin="8"
+                        Padding="8"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                        CornerRadius="3"
+                  
+                        Mode="PrimaryMid">
+                    <!--<Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>-->
 
-                <Border
+                        <!--<Border
                     Grid.Row="1"
                     BorderBrush="{DynamicResource SecondaryHueMidBrush}"
-                    BorderThickness="1">
-                    <FrameworkElement.Resources>
-                        <infra:NoteDateConverter x:Key="NoteDateConverter" />
-                        <DataTemplate DataType="{x:Type local:DayNotesViewModel}">
-                            <DockPanel>
-                                <ComboBox
+                    BorderThickness="1">-->
+                        <FrameworkElement.Resources>
+                            <infra:NoteDateConverter x:Key="NoteDateConverter" />
+                            <DataTemplate DataType="{x:Type local:DayNotesViewModel}">
+                                <DockPanel>
+                                    <ComboBox
                                     Height="40"
                                     HorizontalContentAlignment="Center"
                                     VerticalContentAlignment="Center"
@@ -80,24 +86,24 @@
                                     ItemsSource="{Binding Notes}"
                                     SelectedIndex="{Binding SelectedIndex}" />
 
-                                <ContentControl Content="{Binding SelectedNote}" />
-                            </DockPanel>
-                        </DataTemplate>
-                        <DataTemplate DataType="{x:Type models:Note}">
-                            <DockPanel Background="Transparent">
-                                <WrapPanel
+                                    <ContentControl Content="{Binding SelectedNote}" />
+                                </DockPanel>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type models:Note}">
+                                <DockPanel Background="Transparent">
+                                    <WrapPanel
                                     Background="Transparent"
                                     DockPanel.Dock="Top"
                                     Opacity="0.4"
                                     Orientation="Horizontal">
-                                    <TextBlock Margin="4" Text="Date" />
-                                    <TextBlock Margin="4" Text="{Binding DateTime}" />
-                                    <Rectangle Margin="10,0,10,0" />
-                                    <TextBlock Margin="4" Text="Revision Date" />
-                                    <TextBlock Margin="4" Text="{Binding RevisionDateTime}" />
-                                </WrapPanel>
+                                        <TextBlock Margin="4" Text="Date" />
+                                        <TextBlock Margin="4" Text="{Binding DateTime}" />
+                                        <Rectangle Margin="10,0,10,0" />
+                                        <TextBlock Margin="4" Text="Revision Date" />
+                                        <TextBlock Margin="4" Text="{Binding RevisionDateTime}" />
+                                    </WrapPanel>
 
-                                <TextBox TextWrapping="Wrap"
+                                    <TextBox TextWrapping="Wrap"
                                              AcceptsReturn="True"
                                         MinWidth="20"
                                         MinHeight="20"
@@ -105,25 +111,53 @@
                                         FontSize="18"
                                         Text="{Binding Text, TargetNullValue='Text Here'}" />
 
-                            </DockPanel>
-                        </DataTemplate>
-                    </FrameworkElement.Resources>
-                    <Grid>
-                        <Viewbox>
+                                </DockPanel>
+                            </DataTemplate>
+                        </FrameworkElement.Resources>
 
-                            <TextBlock Margin="10"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"                         
-                            Opacity="0.04"
-                            Text="{Binding ElementName=CalendarControl, Path=SelectedItem, StringFormat='{}{0:MM/dd/yyyy}'}" />
-                        </Viewbox>
-                        <ContentControl
-                            Grid.Row="1"
-                            Background="Transparent"
-                            Content="{Binding ElementName=CalendarControl, Path=SelectedItem, Converter={StaticResource ValueConverter}}" />
-                    </Grid>
-                </Border>
-            </Grid>
-        </Grid>
-    </DockPanel>
+              
+                            <Grid Height="1000">
+                                <Viewbox >
+
+                                    <!--<TextBlock Margin="10" 
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"                         
+                                               Opacity="0.04"
+                                               Text="{Binding ElementName=CalendarControl, Path=SelectedItem, StringFormat='{}{0:dd/MM/yyyy}'}" />-->
+
+
+                                    <anim:FadeControl x:Name="FadeControl" AnimationTime="1000" IsInvertFade="True" Reverse="True">
+                                        <TextBlock Margin="10" 
+                                                   x:Name="DateTextBlock"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"                         
+                                                   Opacity="0.1"
+                                                   Text="{Binding ElementName=CalendarControl, Path=SelectedItem, StringFormat='{}{0:dd/MM/yyyy}'}" >
+                                            <b:Interaction.Triggers>
+                                                <b:PropertyChangedTrigger Binding="{Binding ElementName =DateTextBlock, Path=Text}">
+                                                    <b:InvokeCommandAction Command="{Binding ElementName=FadeControl, Path=FadeCommand}"/>
+                                                </b:PropertyChangedTrigger>
+                                            </b:Interaction.Triggers>
+                                        </TextBlock>
+                                    </anim:FadeControl>
+
+                                </Viewbox>
+                                <ContentControl
+                                    Grid.Row="1"
+                                    Background="Transparent"
+                                    Content="{Binding ElementName=CalendarControl, Path=SelectedItem, Converter={StaticResource ValueConverter}}" />
+                            </Grid>
+
+                        </materialDesign:ColorZone>
+
+                        <!--</Border>-->
+                    <!--</Grid>-->
+                <!--</Grid>-->
+            </DockPanel>
+
+        <!--</TabItem>
+        <TabItem Header="Other">
+        </TabItem>
+    </TabControl>-->
+
 </Window>

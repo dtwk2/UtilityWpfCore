@@ -11,6 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\UtilityWpf.Controls.Buttons\UtilityWpf.Controls.Buttons.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Controls.Extrinsic\UtilityWpf.Controls.Extrinsic.csproj" />
     <ProjectReference Include="..\UtilityWpf\UtilityWpf.csproj" />
   </ItemGroup>
 
@@ -18,6 +20,9 @@
     <Compile Update="DayControl.cs">
       <DependentUpon>DayControl.xaml</DependentUpon>
     </Compile>
+	  <Compile Update="MonthListControl.cs">
+		  <DependentUpon>MonthListControl.xaml</DependentUpon>
+	  </Compile>
     <Compile Update="MonthGridControl.cs">
       <DependentUpon>MonthGridControl.xaml</DependentUpon>
     </Compile>
@@ -30,6 +35,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="MonthListControl.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="MonthGridControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>

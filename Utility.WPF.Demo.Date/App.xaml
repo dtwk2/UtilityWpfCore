@@ -16,7 +16,9 @@
             <infra:AbridgeConverter x:Key="AbridgeConverter"/>
 
             <DataTemplate DataType="{x:Type models:Note}">
-                <TextBlock Text="{Binding Text, Converter={StaticResource AbridgeConverter}}"  />
+                <TextBlock Text="{Binding Text, 
+                    Converter={StaticResource AbridgeConverter}}"  />
+                <!--<TextBlock Text="{Binding Text}"></TextBlock>-->
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

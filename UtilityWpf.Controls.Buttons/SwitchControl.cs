@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using UtilityInterface.NonGeneric;
 
 namespace UtilityWpf.Controls.Buttons
 {
@@ -25,6 +26,8 @@ namespace UtilityWpf.Controls.Buttons
         public static readonly DependencyProperty ValueProperty =
             DependencyProperty.Register("Value", typeof(bool), typeof(SwitchControl), new PropertyMetadata(true, null));
 
+        public static readonly DependencyProperty KeyValueProperty = DependencyProperty.Register("KeyValue", typeof(object), typeof(SwitchControl));
+
         public static readonly DependencyProperty ButtonWidthProperty =
             DependencyProperty.Register("ButtonWidth", typeof(double), typeof(SwitchControl), new PropertyMetadata(120d));
 
@@ -40,12 +43,13 @@ namespace UtilityWpf.Controls.Buttons
         public SwitchControl()
         {
             setValueCommand = ReactiveCommand.Create<object, object>(a => a);
+            //KeyValue = ValueToKey();
         }
 
         public override void OnApplyTemplate()
         {
             EditButton = GetTemplateChild("EditButton") as ButtonBase;
-            if (EditButton != null) EditButton.Click += EditButton_OnClick;
+
             setValueCommand.DistinctUntilChanged().Subscribe(a =>
             {
                 Value = Main.Equals(a);
@@ -56,8 +60,13 @@ namespace UtilityWpf.Controls.Buttons
 
         protected virtual void EditButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (EditButton is ToggleButton toggle)
-                RaiseToggleEvent(toggle.IsChecked.HasValue ? toggle.IsChecked.Value ? Main : Alternate : throw new NullReferenceException("key object is null"), toggle.IsChecked);
+            //if (EditButton is ToggleButton toggle)
+            RaiseToggleEvent(ValueToKey(), this.Value);
+        }
+
+        public virtual object ValueToKey()
+        {
+            return Value ? Main : Alternate;
         }
 
         public event ToggleEventHandler ButtonToggle
@@ -72,6 +81,7 @@ namespace UtilityWpf.Controls.Buttons
             RaiseEvent(newEventArgs);
         }
 
+        #region properties
         public object Main
         {
             get => GetValue(MainProperty);
@@ -96,12 +106,18 @@ namespace UtilityWpf.Controls.Buttons
             set => SetValue(ValueProperty, value);
         }
 
+        //public object KeyValue
+        //{
+        //    get => (object)GetValue(KeyValueProperty);
+        //    set => SetValue(KeyValueProperty, value);
+        //}
+
         public double ButtonWidth
         {
             get => (double)GetValue(ButtonWidthProperty);
             set => SetValue(ButtonWidthProperty, value);
         }
-
+        #endregion properties
         public ICommand SetValueCommand => setValueCommand;
 
         public class ToggleEventArgs : RoutedEventArgs

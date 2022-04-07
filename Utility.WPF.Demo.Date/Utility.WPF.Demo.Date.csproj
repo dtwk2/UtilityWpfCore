@@ -9,11 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Images\calendar.ico" />
+    <Compile Remove="bin\**" />
+    <EmbeddedResource Remove="bin\**" />
+    <None Remove="bin\**" />
+    <Page Remove="bin\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="bin\" />
+    <Content Include="Images\calendar.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Utility.WPF.Controls.Date\Utility.WPF.Controls.Date.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Animation\UtilityWpf.Animation.csproj" />
   </ItemGroup>
 
 </Project>

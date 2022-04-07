@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
-namespace DateWork.Helpers
+namespace Utility.WPF.Controls.Date.Helper
 {
     public static class DateHelper
     {
@@ -35,6 +36,12 @@ namespace DateWork.Helpers
             {
                 yield return day_last.AddDays(i);
             }
+        }
+
+        public static IEnumerable<DateTime> PlusMinusDateRange(this DateTime date, int deviation = 10)
+        {
+            return Enumerable.Range(0, (deviation * 2) + 1)
+                .Select(a => date.AddDays(-deviation + a));
         }
     }
 }

@@ -156,7 +156,7 @@ namespace Viamo
             if (e == _lastMouseWheelEventArgs)
                 return;
 
-            if ((WheelOrientation == WheelOrientation.Vertical || WheelOrientation == WheelOrientation.Auto)
+            if (WheelOrientation is WheelOrientation.Vertical or WheelOrientation.Auto
                 && VerticalScrollBarVisibility != ScrollBarVisibility.Disabled)
             {
                 if (ScrollableHeight > 0)
@@ -165,7 +165,7 @@ namespace Viamo
                 _lastMouseWheelEventArgs = e;
                 e.Handled = true;
             }
-            else if ((WheelOrientation == WheelOrientation.Horizontal || WheelOrientation == WheelOrientation.Auto)
+            else if (WheelOrientation is WheelOrientation.Horizontal or WheelOrientation.Auto
                 && HorizontalScrollBarVisibility != ScrollBarVisibility.Disabled)
             {
                 if (ScrollableWidth > 0)

@@ -12,6 +12,7 @@ using System.Windows.Markup;
 [assembly: XmlnsPrefix("http://schemas.utility.com/utilitywpf", "utl")]
 [assembly: XmlnsDefinition("http://schemas.utility.com/utilitywpf", "UtilityWpf")]
 [assembly: XmlnsDefinition("http://schemas.utility.com/utilitywpf", "UtilityWpf.Behavior")]
+[assembly: XmlnsDefinition("http://schemas.utility.com/utilitywpf", "UtilityWpf.Behavior.UniformGrids")]
 [assembly: XmlnsDefinition("http://schemas.utility.com/utilitywpf", "UtilityWpf.Adorners")]
 [assembly: XmlnsDefinition("http://schemas.utility.com/utilitywpf", "UtilityWpf.Attached")]
 [assembly: XmlnsDefinition("http://schemas.utility.com/utilitywpf", "UtilityWpf.Converter")]

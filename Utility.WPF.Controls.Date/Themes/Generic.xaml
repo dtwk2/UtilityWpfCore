@@ -4,6 +4,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Utility.WPF.Controls.Date;component/DayControl.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Utility.WPF.Controls.Date;component/MonthGridControl.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/Utility.WPF.Controls.Date;component/MonthListControl.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Utility.WPF.Controls.Date;component/DatePickerControl.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/Utility.WPF.Controls.Date;component/CalendarControl.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>

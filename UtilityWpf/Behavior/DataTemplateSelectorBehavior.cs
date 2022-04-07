@@ -159,9 +159,9 @@ namespace UtilityWpf.Behavior
             foreach (var entry in res.Cast<DictionaryEntry>())
             {
                 var (key, value) = entry;
-                if (value is DataTemplate { DataType: Type datatype })
+                if (value is DataTemplate { DataType: Type dataType })
                 {
-                    if (datatype.IsAssignableFrom(type))
+                    if (dataType.IsAssignableFrom(type))
                     {
                         yield return entry;
                     }
