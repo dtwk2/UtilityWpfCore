@@ -50,7 +50,6 @@
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
     <PackageReference Include="ControlzEx" Version="5.0.1" />
     <PackageReference Include="Evan.Wpf" Version="1.2.0" />
-    <PackageReference Include="MaterialDesignColors" Version="2.0.5-ci32-ci32" />
     <PackageReference Include="MaterialDesignThemes" Version="4.4.0-ci32-ci32" />
     <PackageReference Include="MaterialDesignExtensions" Version="4.0.0-a02" />
     <PackageReference Include="HandyControl" Version="3.3.0" />

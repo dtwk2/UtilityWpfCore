@@ -179,9 +179,10 @@ namespace UtilityWpf
         /// <typeparam name="T"></typeparam>
         /// <param name="depObj"></param>
         /// <returns></returns>
-        public static T? ChildOfType<T>(this DependencyObject? depObj) where T : DependencyObject
+        public static T? ChildOfType<T>(this DependencyObject? depObj, bool includeSelf = false) where T : DependencyObject
         {
             if (depObj == null) return null;
+            if (includeSelf && depObj is T t) return t;
 
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
             {

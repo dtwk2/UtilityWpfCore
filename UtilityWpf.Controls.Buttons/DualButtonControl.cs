@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using UtilityWpf.Base;
 
 namespace UtilityWpf.Controls.Buttons
 {
@@ -15,12 +17,31 @@ namespace UtilityWpf.Controls.Buttons
         {
             var edit2Button = GetTemplateChild("Edit2Button") as ButtonBase ?? throw new NullReferenceException("Deserialized object is null");
             edit2Button.Click += EditButton_OnClick;
+
+            var editButton = GetTemplateChild("EditButton") as ButtonBase ?? throw new NullReferenceException("Deserialized object is null");
+            editButton.Click += Edit_Button_OnClick;
             base.OnApplyTemplate();
         }
 
         protected override void EditButton_OnClick(object sender, RoutedEventArgs e)
         {
-            SetValueCommand.Execute(!Value ? Main : Alternate);
+            if (Value)
+                SetValueCommand.Execute(Alternate);
+        }
+
+        protected void Edit_Button_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (!Value)
+                SetValueCommand.Execute(Main);
+        }
+
+        public static readonly DependencyProperty OrientationProperty = WrapPanel.OrientationProperty.AddOwner(typeof(DualButtonControl));
+
+
+        public Orientation Orientation
+        {
+            get => (Orientation)GetValue(OrientationProperty);
+            set => SetValue(OrientationProperty, value);
         }
     }
 }
