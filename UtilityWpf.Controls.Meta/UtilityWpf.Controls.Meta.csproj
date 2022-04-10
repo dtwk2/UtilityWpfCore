@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Utility.Persist\Utility.Persist.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Controls.Buttons\UtilityWpf.Controls.Buttons.csproj" />
     <ProjectReference Include="..\UtilityWpf.Controls.Master\UtilityWpf.Controls.Master.csproj" />
   </ItemGroup>
 

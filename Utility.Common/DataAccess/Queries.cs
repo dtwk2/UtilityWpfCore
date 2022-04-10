@@ -41,6 +41,21 @@ namespace Utility.Common
         public AbsoluteOrder AbsoluteOrder { get; }
     }
 
+    public class MatchesStringOrderQuery : IQuery
+    {
+        public MatchesStringOrderQuery(string text, string property, AbsoluteOrder absoluteOrder)
+        {
+            Text = text;
+            Property = property;
+            AbsoluteOrder = absoluteOrder;
+        }
+
+        public string Text { get; }
+        public string Property { get; }
+
+        public AbsoluteOrder AbsoluteOrder { get; }
+    }
+
     public enum AbsoluteOrder
     {
         First, Last

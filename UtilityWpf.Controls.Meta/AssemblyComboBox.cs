@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FreeSql;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
@@ -9,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using Utility.Common;
 using Utility.Persist;
+using UtilityInterface.NonGeneric;
 using UtilityWpf.Model;
 using UtilityWpf.Utility;
 
@@ -16,7 +18,12 @@ namespace UtilityWpf.Controls.Meta
 {
     using static UtilityWpf.DependencyPropertyFactory<AssemblyComboBox>;
 
-    public record AssemblyRecord(string Key, DateTime Accessed);
+    public record AssemblyRecord(string Key, DateTime Inserted);
+
+    public class AssemblyEntity : BaseEntity<AssemblyEntity, Guid>, IKey
+    {
+        public string Key { get; init; }
+    }
 
     internal class AssemblyComboBox : ComboBox
     {
@@ -34,8 +41,9 @@ namespace UtilityWpf.Controls.Meta
             Height = 30;
             DisplayMemberPath = nameof(AssemblyKeyValue.Key);
             SelectedValuePath = nameof(AssemblyKeyValue.Value);
-            var repo = new LiteDbRepository(new(typeof(AssemblyRecord), "AssemblyRecords"));
-            var aa = new A(repo);
+
+            FreeSqlFactory.InitialiseSQLite();
+
             subject
                 .StartWith(DemoType.ResourceDictionary)
                 .Select(a =>
@@ -49,39 +57,57 @@ namespace UtilityWpf.Controls.Meta
                 })
                 .Subscribe(a =>
                 {
-                    var array = a.Select(a => new AssemblyKeyValue(a)).OrderBy(a => aa.Order(a.Key)).ToArray();
+                    //    var array2 = a.Select(a => new AssemblyKeyValue(a))
+                    //.Where(a => a.Key != null)
+                    //.Select(a => A<AssemblyEntity>.Order(a.Key))
+                    //.ToArray();
+
+                    var array = a.Select(a => new AssemblyKeyValue(a))
+                    .Where(a => a.Key != null)
+                    .OrderByDescending(a => A<AssemblyEntity>.Order(a.Key))
+                    .ToArray();
+
                     var view = CollectionViewSource.GetDefaultView(array);
                     view.GroupDescriptions.Clear();
                     view.GroupDescriptions.Add(new PropertyGroupDescription(nameof(UtilityWpf.Model.KeyValue.GroupKey)));
-                    ItemsSource = view;
+                    ItemsSource = array;
+                    this.SelectedIndex = 0;
+
                     //ItemsSource = a.Select(a => new AssemblyKeyValue(a)).ToArray();
                 });
+
             GroupStyle.Add(new GroupStyle());
+
             this.SelectSingleSelectionChanges()
-                .Subscribe(a =>
+                .Subscribe(async a =>
                 {
                     var item = (AssemblyKeyValue)a;
                     if (item.Key != null)
-                        repo.Add(new AssemblyRecord(item.Key, DateTime.Now));
+                    {
+                        var assemblyEntity = new AssemblyEntity { Key = item.Key };
+                        var sort = assemblyEntity.Sort;
+                        var x = await AssemblyEntity.Where(a => a.Key == item.Key).FirstAsync();
+                        if (x == null)
+                            //repo.Add(new AssemblyRecord(item.Key, DateTime.Now));
+
+                            await assemblyEntity.InsertAsync();
+                        else
+                            await x.UpdateAsync();
+                    }
                 });
         }
 
-        private class A
+        private class A<T> where T : BaseEntity, IKey
         {
-            private readonly LiteDbRepository repo;
-
-            public A(LiteDbRepository repo)
+            public static DateTime Order(string key)
             {
-                this.repo = repo;
-            }
-
-            public int Order(string key)
-            {
-                //var match = repo.FindBy(new MatchesStringQuery(key, nameof(AssemblyRecord.Key), AbsoluteOrder.Last));
-                //if (match != null)
-                //{
-                //}
-                return 0;
+                var where = BaseEntity.Orm.Select<T>().Where(a => a.Key == key);
+                var match = where.MaxAsync(a => a.UpdateTime);
+                if (match.Result == default)
+                {
+                    return where.MaxAsync(a => a.CreateTime).Result;
+                }
+                return match.Result;
             }
         }
 
