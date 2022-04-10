@@ -21,7 +21,7 @@ namespace UtilityWpf.Demo.Animation
             new Window
             {
                 WindowState = WindowState.Maximized,
-                Content = new UserControls()
+                Content = new UserControlsGrid()
             }.Show();
         }
     }

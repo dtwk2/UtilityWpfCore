@@ -1,60 +1,39 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using UtilityWpf.Model;
 
 namespace UtilityWpf.Controls.Meta
 {
     public class AssemblyViewsControl : ContentControl
     {
-        public AssemblyViewsControl(Type[] types) : this(types.Select(t => t.Assembly).ToArray())
-        {
-        }
-
-        public AssemblyViewsControl(Assembly[] assemblies)
-        {
-            Content = CreateContent(out var comboBox);
-            comboBox.ItemsSource = assemblies.Select(a => new ViewAssembly(a)).ToArray();
-        }
-
-        private static object CreateContent(out ComboBox comboBox)
+        public AssemblyViewsControl(/*Assembly[] assemblies*/)
         {
             var dockPanel = new DockPanel();
-            comboBox = new AssemblyComboBox();
+            var (comboBox, viewsDetailControl) = CreateChildren();
             dockPanel.Children.Add(comboBox);
+            dockPanel.Children.Add(viewsDetailControl);
+            Content = dockPanel;
+        }
+
+        private static (ComboBox comboBox, ViewsMasterDetailControl viewsDetailControl) CreateChildren()
+        {
+            var comboBox = new AssemblyComboBox();
             DockPanel.SetDock(comboBox, Dock.Top);
-            var viewsDetailControl = new ViewsDetailControl { };
             Binding binding = new()
             {
-                Path = new PropertyPath(nameof(ComboBox.SelectedItem) + "." + nameof(ViewAssembly.Assembly)),
+                Path = new PropertyPath(nameof(ComboBox.SelectedValue)),
                 Source = comboBox
             };
-            BindingOperations.SetBinding(viewsDetailControl, ViewsDetailControl.AssemblyProperty, binding);
-            dockPanel.Children.Add(viewsDetailControl);
+            comboBox.SelectionChanged += ComboBox_SelectionChanged;
 
-            return dockPanel;
-        }
-    }
-
-    internal class AssemblyComboBox : ComboBox
-    {
-        public AssemblyComboBox()
-        {
-            SelectedIndex = 0;
-            FontWeight = FontWeights.DemiBold;
-            FontSize = 14;
-            Margin = new Thickness(4);
-            Width = 700;
-            Height = 30;
+            var viewsDetailControl = new ViewsMasterDetailControl { };
+            BindingOperations.SetBinding(viewsDetailControl, ViewsMasterDetailControl.AssemblyProperty, binding);
+            viewsDetailControl.DemoType = DemoType.ResourceDictionary;
+            return (comboBox, viewsDetailControl);
         }
 
-        protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
+        private static void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            BindingOperations.SetBinding(element, ComboBoxItem.ContentProperty, new Binding(nameof(ViewAssembly.Key)));
-            base.PrepareContainerForItemOverride(element, item);
         }
     }
 }

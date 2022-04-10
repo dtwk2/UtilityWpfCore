@@ -5,7 +5,6 @@ using Microsoft.Xaml.Behaviors;
 using ReactiveUI;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
@@ -14,11 +13,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+using UtilityWpf.Utility;
 
 namespace UtilityWpf.Behavior
 {
     /// <summary>
-    /// Assigns available <see cref="DataTemplate"/>s as the <see cref="ItemsControl.ItemsSource"/> 
+    /// Assigns available <see cref="DataTemplate"/>s as the <see cref="ItemsControl.ItemsSource"/>
     /// of the <see cref="Microsoft.Xaml.Behaviors.Behavior.AssociatedObject"/>
     /// </summary>
     public class DataTemplateSelectorBehavior : Behavior<Selector>
@@ -77,12 +77,12 @@ namespace UtilityWpf.Behavior
                 })
                 .DisposeWith(disposable);
 
-            this.WhenAnyValue(a => a.Type)
+            _ = this.WhenAnyValue(a => a.Type)
                 .Merge(this.WhenAnyValue(a => a.Object).Select(a => a?.GetType()))
                 .WhereNotNull()
                 .Select(type =>
                 {
-                    return DataTemplateEnumerable(type).Concat(DataTemplateEnumerable(this.AssociatedObject.Resources, type)).ToArray();
+                    return type.DefaultDataTemplates().Concat(type.CustomDataTemplates(this.AssociatedObject.Resources)).ToArray();
                 })
                 .Subscribe(dts => this.itemsSourceSubject.OnNext(dts))
                 .DisposeWith(disposable);
@@ -151,26 +151,5 @@ namespace UtilityWpf.Behavior
 
         #endregion properties
 
-        private static IEnumerable<DictionaryEntry> DataTemplateEnumerable(Type type)
-        {
-            var dataTemplateKey = new DataTemplateKey(type);
-            var dt = (DataTemplate)Application.Current.Resources[dataTemplateKey];
-            yield return new DictionaryEntry("Default", dt);
-        }
-
-        private static IEnumerable<DictionaryEntry> DataTemplateEnumerable(ResourceDictionary res, Type type)
-        {
-            foreach (var entry in res.Cast<DictionaryEntry>())
-            {
-                var (key, value) = entry;
-                if (value is DataTemplate { DataType: Type datatype })
-                {
-                    if (datatype.IsAssignableFrom(type))
-                    {
-                        yield return entry;
-                    }
-                }
-            }
-        }
     }
 }

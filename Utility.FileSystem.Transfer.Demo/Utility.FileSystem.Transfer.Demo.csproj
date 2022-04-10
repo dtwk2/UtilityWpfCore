@@ -7,8 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Data\Destination\huge_dummy_file" />
-    <None Remove="Data\Source\huge_dummy_file" />
+    <Compile Remove="Data\**" />
+    <EmbeddedResource Remove="Data\**" />
+    <None Remove="Data\**" />
+    <Page Remove="Data\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,10 +23,6 @@
     <ProjectReference Include="..\Suggest.WPF\Suggest.WPF.csproj" />
     <ProjectReference Include="..\Utility.FileSystem.Transfer.Service\Utility.FileSystem.Transfer.Service.csproj" />
     <ProjectReference Include="..\Utility.FileSystem.Transfer.WPF.Controls\Utility.FileSystem.Transfer.WPF.Controls.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Data\Destination\" />
   </ItemGroup>
 
   <ItemGroup>

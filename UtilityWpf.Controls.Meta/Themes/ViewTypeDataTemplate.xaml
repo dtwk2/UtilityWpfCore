@@ -4,8 +4,17 @@
                     xmlns:system="clr-namespace:System;assembly=System.Runtime"
                     xmlns:local="clr-namespace:UtilityWpf.Controls.Meta">
 
-    <!-- Used by ViewHostControl-->
-    <DataTemplate x:Key="ViewType" DataType="{x:Type local1:ViewType}">
+    <!--<DataTemplate DataType="{x:Type local1:ResourceDictionaryKeyValue}">
+        <Grid>
+        </Grid>
+    </DataTemplate>-->
+    <!-- Used by ViewsMasterDetailControl-->
+
+    <DataTemplate x:Key="KeyValueTemplate" DataType="{x:Type local1:KeyValue}">
+        <!--<ContentControl>
+            <StaticResource ResourceKey="KeyValueGrid"></StaticResource>
+        </ContentControl>-->
+
         <Grid>
             <Grid.Resources>
                 <system:Double x:Key="SlideOffSet">130</system:Double>
@@ -64,6 +73,6 @@
     <Style TargetType="{x:Type local:ViewTypeItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
         <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
         <Setter Property="MinWidth" Value="100"></Setter>
-        <Setter Property="ContentTemplate" Value="{StaticResource ViewType}" />
+        <Setter Property="ContentTemplate" Value="{StaticResource KeyValueTemplate}" />
     </Style>
 </ResourceDictionary>
