@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using UtilityInterface.NonGeneric;
 
 namespace UtilityWpf.Controls.Buttons
 {
@@ -69,6 +68,11 @@ namespace UtilityWpf.Controls.Buttons
             return Value ? Main : Alternate;
         }
 
+        public virtual bool KeyToValue(object key)
+        {
+            return key.Equals(Main) || (key.Equals(Alternate) ? false : throw new Exception("SD£VVvvvv"));
+        }
+
         public event ToggleEventHandler ButtonToggle
         {
             add => AddHandler(ButtonToggleEvent, value);
@@ -82,6 +86,7 @@ namespace UtilityWpf.Controls.Buttons
         }
 
         #region properties
+
         public object Main
         {
             get => GetValue(MainProperty);
@@ -117,7 +122,9 @@ namespace UtilityWpf.Controls.Buttons
             get => (double)GetValue(ButtonWidthProperty);
             set => SetValue(ButtonWidthProperty, value);
         }
+
         #endregion properties
+
         public ICommand SetValueCommand => setValueCommand;
 
         public class ToggleEventArgs : RoutedEventArgs

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FreeSql;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -12,9 +13,10 @@ namespace UtilityWpf.Controls.Meta
         {
             var dockPanel = new DockPanel();
             var (comboBox, viewsDetailControl, dualButtonControl) = CreateChildren();
-            dockPanel.Children.Add(viewsDetailControl);
+
             dockPanel.Children.Add(dualButtonControl);
             dockPanel.Children.Add(comboBox);
+            dockPanel.Children.Add(viewsDetailControl);
             Content = dockPanel;
         }
 
@@ -30,11 +32,22 @@ namespace UtilityWpf.Controls.Meta
 
             var viewsDetailControl = new ViewsMasterDetailControl { };
             BindingOperations.SetBinding(viewsDetailControl, ViewsMasterDetailControl.AssemblyProperty, binding);
-            viewsDetailControl.DemoType = DemoType.ResourceDictionary;
 
-            DualButtonControl dualButtonControl = new();
-            dualButtonControl.Main = DemoType.UserControl;
-            dualButtonControl.Alternate = DemoType.ResourceDictionary;
+            var dualButtonControl = new DualButtonControl
+            {
+                Main = DemoType.UserControl,
+                Alternate = DemoType.ResourceDictionary
+            };
+
+            var first = DualButtonEntity.Select.First();
+            if (first == null)
+            {
+                first = new DualButtonEntity { DemoType = DemoType.UserControl };
+                first.Insert();
+            }
+
+            dualButtonControl.Value = dualButtonControl.KeyToValue(viewsDetailControl.DemoType = comboBox.DemoType = first.DemoType);
+
             dualButtonControl.ButtonToggle += DualButtonControl_ButtonToggle;
             DockPanel.SetDock(dualButtonControl, Dock.Top);
 
@@ -42,8 +55,15 @@ namespace UtilityWpf.Controls.Meta
 
             void DualButtonControl_ButtonToggle(object sender, SwitchControl.ToggleEventArgs size)
             {
-                comboBox.DemoType = Enum.Parse<DemoType>(size.Key.ToString());
+                var demoType = Enum.Parse<DemoType>(size.Key.ToString());
+                viewsDetailControl.DemoType = comboBox.DemoType = first.DemoType = demoType;
+                first.Update();
             }
         }
+    }
+
+    public class DualButtonEntity : BaseEntity<DualButtonEntity, Guid>
+    {
+        public DemoType DemoType { get; set; }
     }
 }

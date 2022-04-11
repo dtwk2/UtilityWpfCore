@@ -71,9 +71,7 @@ namespace UtilityWpf.Controls.Meta
                     view.GroupDescriptions.Clear();
                     view.GroupDescriptions.Add(new PropertyGroupDescription(nameof(UtilityWpf.Model.KeyValue.GroupKey)));
                     ItemsSource = array;
-                    this.SelectedIndex = 0;
-
-                    //ItemsSource = a.Select(a => new AssemblyKeyValue(a)).ToArray();
+                    SelectedIndex = 0;
                 });
 
             GroupStyle.Add(new GroupStyle());
