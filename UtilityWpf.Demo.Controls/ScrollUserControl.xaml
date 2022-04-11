@@ -190,8 +190,8 @@
                         </Style>
                     </ListView.ItemContainerStyle>
                     <i:Interaction.Behaviors>
-                        <behaviors:SmoothScrollToEndBehavior />
-                        <behaviors:ScrollToSelectedBehavior />
+                        <behaviors:SmoothAutoScrollBehavior />
+                        <!--<behaviors:ScrollToSelectedBehavior />-->
                     </i:Interaction.Behaviors>
                 </ListView>
             </Grid>
