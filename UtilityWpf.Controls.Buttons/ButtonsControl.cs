@@ -1,4 +1,6 @@
 ﻿using Fasterflect;
+using ReactiveUI;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -23,6 +25,13 @@ namespace UtilityWpf.Controls.Buttons
         static ButtonsControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ButtonsControl), new FrameworkPropertyMetadata(typeof(ButtonsControl)));
+        }
+
+        public ButtonsControl()
+        {
+            this
+                .WhenAnyValue(a => a.SelectedValue)
+                .Subscribe(a => Output = a);
         }
 
         #region properties

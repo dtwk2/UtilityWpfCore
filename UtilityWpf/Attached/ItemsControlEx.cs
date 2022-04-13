@@ -8,6 +8,7 @@ using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using Utility.Common.Enum;
 using UtilityHelper;
 using UtilityHelper.NonGeneric;
 using UtilityWpf.Base;
@@ -156,8 +157,8 @@ namespace UtilityWpf.Attached
             }
         }
 
-        #endregion Filter       
-        
+        #endregion Filter
+
         #region Orientation
 
         public static Orientation GetOrientation(DependencyObject d)
@@ -170,8 +171,28 @@ namespace UtilityWpf.Attached
             d.SetValue(OrientationProperty, value);
         }
 
-        public static readonly DependencyProperty OrientationProperty = DependencyProperty.RegisterAttached("Orientation", typeof(Orientation), typeof(ItemsControlEx), new PropertyMetadata(Orientation.Vertical, LayOutHelper.Changed));
+        public static readonly DependencyProperty OrientationProperty =
+            DependencyProperty.RegisterAttached("Orientation", typeof(Orientation), typeof(ItemsControlEx),
+                new FrameworkPropertyMetadata(LayOutHelper.OrientationChanged));
 
         #endregion Orientation
+
+        #region Arrangement
+
+        public static Arrangement GetArrangement(DependencyObject d)
+        {
+            return (Arrangement)d.GetValue(ArrangementProperty);
+        }
+
+        public static void SetArrangement(DependencyObject d, object value)
+        {
+            d.SetValue(ArrangementProperty, value);
+        }
+
+        public static readonly DependencyProperty ArrangementProperty =
+            DependencyProperty.RegisterAttached("Arrangement", typeof(Arrangement), typeof(ItemsControlEx),
+                new FrameworkPropertyMetadata(LayOutHelper.ArrangementChanged));
+
+        #endregion Arrangement
     }
 }

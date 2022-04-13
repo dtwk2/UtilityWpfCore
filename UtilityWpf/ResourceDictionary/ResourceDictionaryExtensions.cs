@@ -12,19 +12,21 @@ namespace UtilityWpf
 {
     public static class ResourceDictionaryExtensions
     {
-        public static IEnumerable<ResourceDictionary> SelectResourceDictionaries(this Assembly assembly, Predicate<DictionaryEntry>? predicate = null)
+        public static IEnumerable<(DictionaryEntry entry, ResourceDictionary resourceDictionary)>
+            SelectResourceDictionaries(this Assembly assembly, Predicate<DictionaryEntry>? predicate = null, bool ignoreXamlReaderExceptions = false)
         {
             // Only interested in main resource file
             return GetResourceNames().SelectMany(GetDictionaries);
 
-            IEnumerable<ResourceDictionary> GetDictionaries(string resourceName)
+            IEnumerable<(DictionaryEntry, ResourceDictionary)> GetDictionaries(string resourceName)
             {
                 Stream? resourceStream = assembly.GetManifestResourceStream(resourceName);
                 if (resourceStream == null)
                     throw new Exception("dsf33211..33");
                 using (ResourceReader reader = new ResourceReader(resourceStream))
                 {
-                    foreach (DictionaryEntry entry in GetDictionaryEntries(reader))
+                    var entries = GetDictionaryEntries(reader);
+                    foreach (DictionaryEntry entry in entries)
                     {
                         if (predicate?.Invoke(entry) == false)
                             continue;
@@ -33,7 +35,15 @@ namespace UtilityWpf
                         var readStream = entry.Value as Stream;
                         Baml2006Reader bamlReader = new Baml2006Reader(readStream);
                         ResourceDictionary? loadedObject = null;
-                        loadedObject = System.Windows.Markup.XamlReader.Load(bamlReader) as ResourceDictionary;
+                        try
+                        {
+                            loadedObject = System.Windows.Markup.XamlReader.Load(bamlReader) as ResourceDictionary;
+                        }
+                        catch (Exception ex)
+                        {
+                            if (ignoreXamlReaderExceptions == false)
+                                throw;
+                        }
 
                         if (loadedObject != null)
                         {
@@ -43,7 +53,7 @@ namespace UtilityWpf
                         {
                             continue;
                         }
-                        yield return dictionary;
+                        yield return (entry, dictionary);
                     }
                 }
             }

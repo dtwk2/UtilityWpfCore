@@ -7,7 +7,9 @@ using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Utility.Common.Enum;
 using UtilityEnum;
+using UtilityWpf.Attached;
 using UtilityWpf.Base;
 
 namespace UtilityWpf.Controls
@@ -27,6 +29,7 @@ namespace UtilityWpf.Controls
 
         public EnumItemsControl()
         {
+            this.SetValue(ItemsControlEx.ArrangementProperty, Arrangement.Wrapped);
             CompositeDisposable? disposable = null;
             this.WhenAnyValue(a => a.Enum)
                 .CombineLatest(this.WhenAnyValue(a => a.IsReadOnly))
@@ -48,6 +51,7 @@ namespace UtilityWpf.Controls
         }
 
         #region properties
+
         public bool IsReadOnly
         {
             get => (bool)GetValue(IsReadOnlyProperty);
@@ -65,7 +69,6 @@ namespace UtilityWpf.Controls
             get => (Enum)GetValue(OutputProperty);
             protected set => SetValue(OutputPropertyKey, value);
         }
-
 
         #endregion properties
 

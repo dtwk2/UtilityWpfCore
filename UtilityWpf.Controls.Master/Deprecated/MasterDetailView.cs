@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Threading;
+using Utility.Common;
 using UtilityHelperEx;
 using UtilityWpf.Base;
 
@@ -144,7 +145,7 @@ namespace UtilityWpf.Controls.Master
                             return result;
                         })
                         .Select(viewmodel =>
-                        new Property.KeyValue(
+                        new KeyValue(
                             viewmodel.GetType().GetProperty(id).GetValue(viewmodel).ToString(),
                             viewmodel));
                         Convert(group, conv, (items, conv) => conv.Convert(items, null, null, null));

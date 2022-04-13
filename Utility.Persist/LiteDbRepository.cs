@@ -111,6 +111,15 @@ namespace Utility.Persist
             throw new NotImplementedException();
         }
 
+        public IEnumerable AddMany(IEnumerable items)
+        {
+            using (GetCollection(out var collection))
+            {
+                var bulk = collection.InsertBulk(Convert(items));
+                return Enumerable.Range(0, bulk);
+            }
+        }
+
         public object? FindBy(IQuery query)
         {
             using (GetCollection(out var collection))
@@ -120,6 +129,11 @@ namespace Utility.Persist
                     CountQuery => collection.Count(),
                     FirstQuery => ConvertBack(collection.Query().First()),
                     FirstOrDefaultQuery => collection.Query().FirstOrDefault() is { } bson ? ConvertBack(bson) : null,
+                    MatchesStringQuery { Text: string text, Property: string property, AbsoluteOrder: AbsoluteOrder.First } =>
+                    ConvertBack(collection.Find(Query.EQ(property, new BsonValue(text))).FirstOrDefault()),
+                    MatchesStringQuery { Text: string text, Property: string property, AbsoluteOrder: AbsoluteOrder.Last } =>
+                    ConvertBack(collection.Find(Query.EQ(property, new BsonValue(text))).LastOrDefault()),
+
                     _ => throw new ArgumentOutOfRangeException("789uu7fssd"),
                 };
             }
@@ -140,15 +154,6 @@ namespace Utility.Persist
             throw new NotImplementedException();
         }
 
-        public IEnumerable AddMany(IEnumerable items)
-        {
-            using (GetCollection(out var collection))
-            {
-                var bulk = collection.InsertBulk(Convert(items));
-                return Enumerable.Range(0, bulk);
-            }
-        }
-
         public IEnumerable AddManyBy(IQuery query)
         {
             throw new NotImplementedException();
@@ -159,9 +164,27 @@ namespace Utility.Persist
             throw new NotImplementedException();
         }
 
-        public IEnumerable RemoveMany(IQuery query)
+        public IEnumerable RemoveManyBy(IQuery query)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable FindManyBy(IQuery query)
+        {
+            using (GetCollection(out var collection))
+            {
+                switch (query)
+                {
+                    case AllQuery:
+                        return ConvertBack(collection.FindAll()).ToArray();
+
+                    case ContainsStringQuery { Text: string text, Property: string property }:
+                        return ConvertBack(collection.Find(Query.Contains(property, text))).ToArray();
+
+                    default:
+                        throw new ArgumentOutOfRangeException("777fssd");
+                }
+            }
         }
 
         public object FindById(long id)
@@ -219,8 +242,10 @@ namespace Utility.Persist
             return document;
         }
 
-        protected virtual object ConvertBack(BsonDocument document)
+        protected virtual object? ConvertBack(BsonDocument? document)
         {
+            if (document == null)
+                return null;
             if (Settings.IgnoreBsonDocumentProperties)
                 // removes any complex objects since these can't
                 // be guaranteed to have parameterless contructor
@@ -233,21 +258,6 @@ namespace Utility.Persist
                 }
             var doc = _mapper.ToObject(Settings.Type, document);
             return doc;
-        }
-
-        public IEnumerable FindManyBy(IQuery query)
-        {
-            using (GetCollection(out var collection))
-            {
-                switch (query)
-                {
-                    case AllQuery:
-                        return ConvertBack(collection.FindAll()).ToArray();
-
-                    default:
-                        throw new ArgumentOutOfRangeException("777fssd");
-                }
-            }
         }
     }
 

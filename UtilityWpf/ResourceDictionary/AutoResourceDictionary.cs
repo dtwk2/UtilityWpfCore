@@ -13,7 +13,7 @@ namespace UtilityWpf
                 if (type == value)
                     return;
                 type = value;
-                foreach (var resourceDictionary in type.Assembly.SelectResourceDictionaries())
+                foreach (var (_, resourceDictionary) in type.Assembly.SelectResourceDictionaries())
                 {
                     AddToMergedDictionaries(resourceDictionary);
                 }

@@ -18,7 +18,9 @@ namespace UtilityWpf.Demo.Hybrid.ViewModel
             var dictionaries = typeof(UtilityWpf.Demo.Common.ViewModel.ResourceDictionariesViewModel)
                 .Assembly
                 .SelectResourceDictionaries(a => a.Key.ToString().EndsWith("themes.baml", System.StringComparison.CurrentCultureIgnoreCase))
-                .Single().MergedDictionaries;
+                .Single()
+                .resourceDictionary
+                .MergedDictionaries;
 
             var themes = ThemesViewModelFactory
                 .CreateViewModels(dictionaries)

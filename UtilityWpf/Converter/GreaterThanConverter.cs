@@ -13,7 +13,7 @@ namespace UtilityWpf.Converter
             int param = System.Convert.ToInt32(parameter);
             int val = System.Convert.ToInt32(value);
 
-            return (param > val) == (!Invert);
+            return val > param == !Invert;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter,

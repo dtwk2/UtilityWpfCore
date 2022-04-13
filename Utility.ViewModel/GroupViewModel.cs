@@ -5,11 +5,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
+using Utility.Common.Contract;
 using Utility.Common.Model;
 
 namespace Utility.ViewModel;
 
-public class GroupViewModel : BaseReactiveDisposable
+public class GroupViewModel : BaseReactiveDisposable, IIsSelected, ISetIsSelected
 {
     private bool isSelected = false;
 

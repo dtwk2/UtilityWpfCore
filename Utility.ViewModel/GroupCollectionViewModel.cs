@@ -10,6 +10,7 @@ using System.Linq.Expressions;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using Utility.Common;
+using Utility.Common.Contract;
 using Utility.Common.Helper;
 using Utility.Common.Model;
 
@@ -69,6 +70,42 @@ public static class GroupCollectionBuilder
     {
         return new(changeSet.Group(func));
     }
+
+    public static IObservable<IChangeSet<T>> OnSelectableItemAdded<T>(this IObservable<IChangeSet<T>> objects)
+        where T : class, IIsSelected
+    {
+        return objects
+            .OnItemAdded(addItem =>
+                                addItem
+                                    .WhenAnyValue(a => a.IsSelected)
+                                    .Where(a => a)
+                                    .WithLatestFrom(objects.ToCollection(), (a, b) => b)
+                                    .Subscribe(collection =>
+                                    {
+                                        foreach (var item in collection.ToArray())
+                                        {
+                                            (item as ISetIsSelected).IsSelected = item == addItem;
+                                        }
+                                    }));
+    }
+
+    public static IObservable<IChangeSet<T, TKey>> OnSelectableItemAdded<T, TKey>(this IObservable<IChangeSet<T, TKey>> objects)
+    where T : class, IIsSelected
+    {
+        return objects
+            .OnItemAdded(addItem =>
+                                addItem
+                                    .WhenAnyValue(a => a.IsSelected)
+                                    .Where(a => a)
+                                    .WithLatestFrom(objects.ToCollection(), (a, b) => b)
+                                    .Subscribe(collection =>
+                                    {
+                                        foreach (var item in collection.ToArray())
+                                        {
+                                            (item as ISetIsSelected).IsSelected = item == addItem;
+                                        }
+                                    }));
+    }
 }
 
 public class GroupCollectionViewModel<TGroupable, T, TKey, TGroupKey> : GroupCollectionViewModel
@@ -79,17 +116,11 @@ public class GroupCollectionViewModel<TGroupable, T, TKey, TGroupKey> : GroupCol
 
     public GroupCollectionViewModel(IObservable<IGroupChangeSet<TGroupable, TKey, TGroupKey>> changeSet)
     {
-        collection = GroupHelper.Convert<TGroupable, T, TKey, TGroupKey>(changeSet)
-            .OnItemAdded(addItem => addItem.WhenAnyValue(a => a.IsSelected)
-            .Where(a => a)
-            .Subscribe(a =>
-            {
-                foreach (var item in collection.ToArray())
-                {
-                    item.IsSelected = item == addItem;
-                }
-            }))
-            .ToCollection(out var disposable);
+        collection = GroupHelper
+                            .ConvertGroups<TGroupable, T, TKey, TGroupKey>(changeSet)
+                            .OnSelectableItemAdded()
+                            .ToCollection(out var disposable);
+
         CompositeDisposable.Add(disposable);
     }
 
@@ -102,7 +133,7 @@ public class GroupCollectionViewModel<T, TKey, TGroupKey> : GroupCollectionViewM
 {
     public GroupCollectionViewModel(IObservable<IGroupChangeSet<T, TKey, TGroupKey>> changeSet)
     {
-        Collection = GroupHelper.Convert(changeSet, Create).ToCollection(CompositeDisposable);
+        Collection = GroupHelper.ConvertGroups(changeSet, Create).ToCollection(CompositeDisposable);
     }
 
     public override IReadOnlyCollection<ClassProperty> Properties => typeof(T).GetProperties().Select(a => new ClassProperty(a.Name, typeof(T).Name)).ToArray();
@@ -121,7 +152,7 @@ public class GroupCollection2ViewModel<TGroupable, T, TGroupKey> : GroupCollecti
 {
     public GroupCollection2ViewModel(IObservable<IChangeSet<IGroup<TGroupable, TGroupKey>>> changeSet)
     {
-        Collection = GroupHelper.Convert<TGroupable, T, TGroupKey>(changeSet).ToCollection(CompositeDisposable);
+        Collection = GroupHelper.ConvertGroups<TGroupable, T, TGroupKey>(changeSet).ToCollection(CompositeDisposable);
     }
 
     public override IReadOnlyCollection<ClassProperty> Properties => typeof(T).GetProperties().Select(a => new ClassProperty(a.Name, typeof(T).Name)).ToArray();
