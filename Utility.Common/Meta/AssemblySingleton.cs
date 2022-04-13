@@ -14,9 +14,11 @@ namespace Utility.Common
 
             static IEnumerable<Assembly> UtilitySolutionAssemblies()
             {
-                var files = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*" + Meta.Constants.GeneralAssemblyName + "*.dll").ToArray();
+                var files = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*" /*+ Meta.Constants.GeneralAssemblyName*/ + "*.dll").ToArray();
                 return files
-                    .Select(x => Assembly.Load(AssemblyName.GetAssemblyName(x)));
+                    //.Where(a => a.Contains("System") == false)
+                    .Select(x => Assembly.Load(AssemblyName.GetAssemblyName(x)))
+                    .Where(a => { return a == a; });
             }
         }
 

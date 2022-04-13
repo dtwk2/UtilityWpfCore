@@ -13,7 +13,9 @@ namespace UtilityWpf.Demo.Dragablz.ViewModel
             var dictionaries = typeof(UtilityWpf.Demo.Common.ViewModel.ResourceDictionariesViewModel)
                  .Assembly
                  .SelectResourceDictionaries(a => a.Key.ToString().EndsWith("themes.baml", System.StringComparison.CurrentCultureIgnoreCase))
-                 .Single().MergedDictionaries;
+                 .Single()
+                 .resourceDictionary
+                 .MergedDictionaries;
 
             collection = ThemesViewModelFactory
                 .CreateViewModels(dictionaries)

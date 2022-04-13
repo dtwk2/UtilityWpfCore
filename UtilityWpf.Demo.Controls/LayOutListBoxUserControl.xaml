@@ -44,7 +44,7 @@
             </base:LayOutListBox>
             <GroupBox Header="LayOutListBox">
                 <StackPanel>
-                    <base:LayOutListBox Orientation="Horizontal" IsWrapping="True" Width="60">
+                    <base:LayOutListBox Orientation="Horizontal" utl:ItemsControlEx.Arrangement="Wrapped" Width="60">
                         <Ellipse Fill="PaleGoldenrod" Height="10" Width="10"></Ellipse>
                         <Ellipse Fill="PaleGoldenrod" Height="10" Width="10"></Ellipse>
                         <Ellipse Fill="PaleGoldenrod" Height="10" Width="10"></Ellipse>

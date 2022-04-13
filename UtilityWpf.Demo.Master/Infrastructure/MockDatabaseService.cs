@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Humanizer;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Humanizer;
 using UtilityInterface.NonGeneric.Data;
 
 namespace UtilityWpf.Demo.Master.Infrastructure
@@ -21,7 +21,8 @@ namespace UtilityWpf.Demo.Master.Infrastructure
         //    return true;
         //}
         private int count = 3;
-        List<string> list = new[] { "One", "Two", "Three" }.ToList();
+
+        private List<string> list = new[] { "One", "Two", "Three" }.ToList();
 
         public object Add(object item)
         {
@@ -68,7 +69,7 @@ namespace UtilityWpf.Demo.Master.Infrastructure
 
         public object Remove(object item)
         {
-            return list.Contains(item.ToString()) == false && 
+            return list.Contains(item.ToString()) == false &&
                    list.Remove(item.ToString());
         }
 
@@ -82,7 +83,7 @@ namespace UtilityWpf.Demo.Master.Infrastructure
             throw new NotImplementedException();
         }
 
-        public IEnumerable RemoveMany(IQuery query)
+        public IEnumerable RemoveManyBy(IQuery query)
         {
             throw new NotImplementedException();
         }

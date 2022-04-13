@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using UtilityHelperEx;
-using UtilityWpf.Demo.Buttons.Infrastructure;
+using UtilityWpf.Demo.Common.ViewModel;
 
 namespace UtilityWpf.Demo.Buttons
 {

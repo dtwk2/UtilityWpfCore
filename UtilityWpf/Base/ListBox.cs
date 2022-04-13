@@ -42,6 +42,7 @@ namespace UtilityWpf.Base
 
         protected virtual void PrepareContainerForItemOverride(T element, object item)
         {
+
         }
 
         protected override bool IsItemItsOwnContainerOverride(object item) => item is T;

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace UtilityWpf.Property
+namespace Utility.Common
 {
     public class KeyValue
     {

@@ -17,12 +17,12 @@
         <UniformGrid Columns="1">
 
             <view:EnumItemsControl
-                x:Name="TenseSwitch"
+                x:Name="TenseEnumItemsControl"
                 Orientation="Horizontal"
                 Enum="{x:Type enum:Tense}">
             </view:EnumItemsControl>
 
-            <view:DatesList x:Name="DatesList" ItemsSource="{Binding ElementName=TenseSwitch, Path=Output, Converter={StaticResource TenseConverter}}" />
+            <view:DatesList x:Name="DatesList" ItemsSource="{Binding ElementName=TenseEnumItemsControl, Path=Output, Converter={StaticResource TenseConverter}}" />
         </UniformGrid>
     </Grid>
 </UserControl>
