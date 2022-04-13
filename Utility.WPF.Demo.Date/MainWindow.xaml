@@ -12,6 +12,7 @@
     xmlns:models="clr-namespace:DateWork.Models"
     xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:anim="http://schemas.utility.com/animation"
+    xmlns:model="clr-namespace:Utility.WPF.Demo.Date.Infrastructure.Model"
     Title="Utility Journal"
     Width="800"
     Height="850"
@@ -89,7 +90,7 @@
                                     <ContentControl Content="{Binding SelectedNote}" />
                                 </DockPanel>
                             </DataTemplate>
-                            <DataTemplate DataType="{x:Type models:Note}">
+                            <DataTemplate DataType="{x:Type model:Note}">
                                 <DockPanel Background="Transparent">
                                     <WrapPanel
                                     Background="Transparent"

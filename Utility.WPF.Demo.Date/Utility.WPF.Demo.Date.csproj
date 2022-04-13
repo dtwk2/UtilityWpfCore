@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Utility.Persist\Utility.Persist.csproj" />
     <ProjectReference Include="..\Utility.WPF.Controls.Date\Utility.WPF.Controls.Date.csproj" />
     <ProjectReference Include="..\UtilityWpf.Animation\UtilityWpf.Animation.csproj" />
   </ItemGroup>

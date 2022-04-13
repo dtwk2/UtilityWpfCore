@@ -3,6 +3,7 @@ using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
+using Utility.WPF.Demo.Date.Infrastructure.Model;
 
 namespace Utility.WPF.Demo.Date.Infrastructure
 {

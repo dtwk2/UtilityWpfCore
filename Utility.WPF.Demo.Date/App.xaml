@@ -4,6 +4,7 @@
              xmlns:models="clr-namespace:DateWork.Models"
              xmlns:infra="clr-namespace:Utility.WPF.Demo.Date.Infrastructure"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:model="clr-namespace:Utility.WPF.Demo.Date.Infrastructure.Model"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -15,7 +16,7 @@
 
             <infra:AbridgeConverter x:Key="AbridgeConverter"/>
 
-            <DataTemplate DataType="{x:Type models:Note}">
+            <DataTemplate DataType="{x:Type model:Note}">
                 <TextBlock Text="{Binding Text, 
                     Converter={StaticResource AbridgeConverter}}"  />
                 <!--<TextBlock Text="{Binding Text}"></TextBlock>-->

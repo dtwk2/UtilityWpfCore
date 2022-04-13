@@ -40,7 +40,7 @@ namespace Utility.WPF.Controls.Date
         public override void OnApplyTemplate()
         {
             monthControl = this.GetTemplateChild("MonthControl") as MonthControl;
-            dateModel = monthControl is MonthGridControl ? new Date1Model() : new Date2Model();
+            dateModel = monthControl is MonthGridControl ? new DateMonthModel() : new DateRangeModel();
             datePickerControl = this.GetTemplateChild("DatePickerControl") as DatePickerControl;
             dualButtonControl = this.GetTemplateChild("DualButtonControl") as DualButtonControl;
             monthGrid = this.GetTemplateChild("MonthGrid") as Grid;
@@ -107,7 +107,7 @@ namespace Utility.WPF.Controls.Date
 
                         if (monthControl is not MonthGridControl)
                         {
-                            dateModel = new Date1Model();
+                            dateModel = new DateMonthModel();
                             SetMonthControl(new MonthGridControl());
                             SetUIContent();
                         }
@@ -119,7 +119,7 @@ namespace Utility.WPF.Controls.Date
 
                         if (monthControl is not MonthListControl)
                         {
-                            dateModel = new Date2Model();
+                            dateModel = new DateRangeModel();
                             SetMonthControl(new MonthListControl());
                             SetUIContent();
                         }
