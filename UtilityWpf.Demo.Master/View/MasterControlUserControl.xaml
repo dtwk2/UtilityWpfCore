@@ -3,15 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:view="http://schemas.utility.com/master"
              xmlns:utl="http://schemas.utility.com/utilitywpf"
-             xmlns:dragablz="http://schemas.utility.com/dragablz"
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:viewModel="clr-namespace:UtilityWpf.Demo.Master.ViewModel"
+             xmlns:viewModel1="clr-namespace:UtilityWpf.Demo.Master.View"
+             xmlns:base="clr-namespace:UtilityWpf.Base;assembly=UtilityWpf" 
+             xmlns:view11="http://schemas.utility.com/master"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <FrameworkElement.DataContext>
-        <viewModel:MasterDetailViewModel />
+        <viewModel1:MasterControlViewModel />
     </FrameworkElement.DataContext>
     <DockPanel>
         <WrapPanel DockPanel.Dock="Top">
@@ -31,25 +31,29 @@
         </WrapPanel>
 
         <UniformGrid Rows="1">
-            <view:MasterControl
+            <view11:MasterControl
             Position="{Binding ElementName=ToggleButton2, Path=Content}"
             Orientation="{Binding ElementName=ToggleButton1, Path=Content}"
-            ItemsSource="{Binding Data, Mode=OneWay, Converter={x:Static utl:DefaultConverter.Instance}}"
+            ItemsSource="{Binding Data, Mode=OneWay}"
                                              Change="{utl:Command ChangeCommand, ConversionType=Default}"
                                              CommandParameter="{Binding NewItem}"
                                              ButtonTypes="Add,Remove">
+                <base:LayOutListBox
+                      VerticalAlignment="Center" />
+            </view11:MasterControl>
 
-                <dragablz:DragablzVerticalItemsControl 
-                                            VerticalAlignment="Center">
-                </dragablz:DragablzVerticalItemsControl>
-            </view:MasterControl>
-
-
-            <view:MasterControl
+            <view11:MasterControl
                 ItemsSource="{Binding Data, Mode=OneWay, Converter={x:Static utl:DefaultConverter.Instance}}">
-                <ListBox  Width="200"
-                      VerticalAlignment="Center"/>
-            </view:MasterControl>
+                <ListBox
+                      VerticalAlignment="Center" />
+            </view11:MasterControl>
+
+            <view11:MasterControl
+                ButtonTypes="Enable,Disable"
+                ItemsSource="{Binding Data, Mode=OneWay, Converter={x:Static utl:DefaultConverter.Instance}}">
+                <ComboBox  Width="200" SelectedIndex="0"
+                      VerticalAlignment="Center" />
+            </view11:MasterControl>
         </UniformGrid>
     </DockPanel>
 </UserControl>

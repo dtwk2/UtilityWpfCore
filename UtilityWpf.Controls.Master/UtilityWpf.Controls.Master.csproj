@@ -7,18 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UtilityWpf\UtilityWpf.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Controls\UtilityWpf.Controls.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Update="MasterControl.cs">
       <DependentUpon>MasterControl.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Deprecated\MasterDetailView.cs">
+      <DependentUpon>MasterDetailView.xaml</DependentUpon>
+    </Compile>
     <Compile Update="MasterDetail.cs">
       <DependentUpon>MasterDetail.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="MasterDetailView.cs">
-      <DependentUpon>MasterDetailView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -27,11 +27,7 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="MasterDetail.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="MasterDetailView.xaml">
+    <Page Update="Deprecated\MasterDetailView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

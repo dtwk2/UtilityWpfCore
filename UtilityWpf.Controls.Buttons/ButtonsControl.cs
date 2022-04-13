@@ -38,7 +38,7 @@ namespace UtilityWpf.Controls.Buttons
             get => GetValue(OutputProperty);
             set => SetValue(OutputProperty, value);
         }
-        
+
         #endregion properties
 
         protected override void PrepareContainerForItemOverride(ButtonTextControl element, object item)
@@ -49,7 +49,7 @@ namespace UtilityWpf.Controls.Buttons
             if (string.IsNullOrEmpty(CommandPath) == false)
                 button.Command = (System.Windows.Input.ICommand)item.TryGetValue(CommandPath);
 
-            BindingFactory factory = new(element);
+            BindingFactory factory = new(item);
             if (string.IsNullOrEmpty(SelectedValuePath) == false)
             {
                 BindingOperations.SetBinding(button, FrameworkElement.TagProperty, factory.OneWay(SelectedValuePath));

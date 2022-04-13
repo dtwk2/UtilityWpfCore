@@ -16,7 +16,6 @@
 
         public string Header { get; init; }
 
-
         public override string ToString()
         {
             return $"{Header} {IsChecked}";

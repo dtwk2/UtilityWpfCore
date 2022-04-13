@@ -68,7 +68,7 @@ namespace UtilityWpf.Demo.Forms.ViewModel
 
         private Unit Change(object change)
         {
-            if (change is CollectionEventArgs { Item: string item })
+            if (change is CollectionItemEventArgs { Item: string item })
             {
                 var ivm = new ImageViewModel(item);
                 Subscribe(ivm);

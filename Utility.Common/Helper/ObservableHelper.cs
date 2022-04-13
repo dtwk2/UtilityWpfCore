@@ -14,7 +14,7 @@ namespace Utility.Common.Helper
                 .Skip(1);
         }
 
-        public static IObservable<(T?, TR?)> Combine<T, TR>(this IObservable<T> observable, IObservable<TR> observable2) 
+        public static IObservable<(T?, TR?)> Combine<T, TR>(this IObservable<T> observable, IObservable<TR> observable2)
             where T : struct
             where TR : struct
         {

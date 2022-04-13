@@ -22,7 +22,7 @@ namespace UtilityWpf.Demo.Forms.Controls
 
         private void Command_TextChanged(string obj)
         {
-            RaiseEvent(new UtilityWpf.Abstract.CollectionEventArgs(EventType.Add, obj, -1, ChangeEvent));
+            RaiseEvent(new UtilityWpf.Abstract.CollectionItemEventArgs(EventType.Add, obj, -1, ChangeEvent));
         }
 
         protected override void ExecuteAdd()

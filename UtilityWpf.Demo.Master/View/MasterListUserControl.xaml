@@ -20,7 +20,7 @@
     </UserControl.DataContext>
 
     <local1:AddRowControl CommandParameter="{Binding {x:Null}}" Position="Bottom" RemoveOrder="Selected" VerticalContentAlignment="Center"
-                         ButtonTypes="Remove,MoveDown,MoveUp">
+                            ButtonTypes="Remove,MoveDown,MoveUp">
         <i:Interaction.Triggers>
             <i:EventTrigger  EventName="Change">
                 <i:InvokeCommandAction Command="{Binding ChangeCommand}" PassEventArgsToCommand="True"></i:InvokeCommandAction>

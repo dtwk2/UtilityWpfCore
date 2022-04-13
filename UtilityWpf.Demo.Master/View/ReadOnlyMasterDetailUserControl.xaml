@@ -9,7 +9,7 @@
              xmlns:view="http://schemas.utility.com/master"
              xmlns:vm="clr-namespace:UtilityWpf.Demo.Master.ViewModel"
              xmlns:view1="http://schemas.utility.com/dragablz"
-             xmlns:math="http://hexinnovation.com/math"
+             xmlns:math="http://hexinnovation.com/math" xmlns:view2="http://schemas.utility.com"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
@@ -31,9 +31,6 @@
 
             <math:MathConverter x:Key="math" />
         </ResourceDictionary>
-  
-
-      
     </UserControl.Resources>
     <DockPanel>
         <!--<view:DualButtonControl Main="{Binding Path=Name, Source={StaticResource DatabaseService}}"
@@ -91,11 +88,10 @@
                                             ButtonTypes="Add,Remove"
                                             Position="Bottom">
 
-                                <view1:DragablzVerticalItemsControl x:Name="DragablzItemsControl" Width="300" 
+                                <view1:DragablzVerticalItemsControl x:Name="DragablzItemsControl" Width="300"
                                                                 VerticalAlignment="Center"
                                                                 ItemContainerStyle="{StaticResource VerticalItemStyle}"
                                                                 MouseDown="DragablzItemsControl_MouseDown">
-
                                 </view1:DragablzVerticalItemsControl>
                             </view:MasterControl>
                             <HeaderedContentControl.Header>
@@ -109,14 +105,11 @@
                                                 ItemsSource="{Binding Data, Mode=OneTime, Converter={x:Static util:DefaultConverter.Instance}}"
                                                 CommandParameter="{Binding NewItem}"
                                                 RemoveOrder="Last"
-                                        
                                                 ButtonTypes="Add,Remove"
                                                 Position="Right">
-
                                 <ListBox x:Name="DragablzItemsControl2" Width="200"
                                                                     VerticalAlignment="Center"
                                                                     MouseDown="DragablzItemsControl_MouseDown">
-
                                 </ListBox>
                             </view:MasterControl>
                             <HeaderedContentControl.Header>
@@ -124,10 +117,9 @@
                             </HeaderedContentControl.Header>
                         </view:ReadOnlyMasterDetail>
                     </UniformGrid>
-
                 </Border>
             </TabItem>
-            <TabItem Header="Without Detail" >
+            <TabItem Header="Without Detail">
                 <view:MasterControl Width="300"
                                     Change="{util:Command ChangeCommand, ConversionType=Default}"
                                     ItemsSource="{Binding Data, Mode=OneTime}"
@@ -142,7 +134,6 @@
                     </view1:DragablzVerticalItemsControl>
                 </view:MasterControl>
             </TabItem>
-
         </TabControl>
     </DockPanel>
 </UserControl>

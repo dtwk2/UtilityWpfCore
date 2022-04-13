@@ -4,7 +4,7 @@ using Utility.Common.Enum;
 
 namespace Utility.Common.EventArgs
 {
-    public class CollectionChangedEventArgs : CollectionEventArgs
+    public class CollectionChangedEventArgs : CollectionItemEventArgs
     {
         public CollectionChangedEventArgs(IEnumerable array, IReadOnlyCollection<object> changes, EventType eventType, object item, int index) : base(eventType, item, index)
         {
@@ -18,20 +18,28 @@ namespace Utility.Common.EventArgs
 
     public class CollectionEventArgs
     {
-        public CollectionEventArgs(EventType eventType, object item, int index)
+        public CollectionEventArgs(EventType eventType)
         {
             EventType = eventType;
-            Item = item;
-            Index = index;
+
         }
 
         public EventType EventType { get; }
+    }
+
+    public class CollectionItemEventArgs : CollectionEventArgs
+    {
+        public CollectionItemEventArgs(EventType eventType, object item, int index) : base(eventType)
+        {
+            Item = item;
+            Index = index;
+        }
 
         public object Item { get; }
         public int Index { get; }
     }
 
-    public class MovementEventArgs : CollectionEventArgs
+    public class MovementEventArgs : CollectionItemEventArgs
     {
         public MovementEventArgs(IReadOnlyCollection<IndexedObject> array, IReadOnlyCollection<IndexedObject> changes, EventType eventType, object item, int index) : base(eventType, item, index)
         {

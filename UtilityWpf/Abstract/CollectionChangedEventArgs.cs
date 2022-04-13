@@ -5,9 +5,31 @@ using Utility.Common.Enum;
 
 namespace UtilityWpf.Abstract
 {
-    public class CollectionChangedEventArgs : CollectionEventArgs
+    public class CollectionEventArgs : RoutedEventArgs
     {
-        public CollectionChangedEventArgs(IEnumerable array, IReadOnlyCollection<object> changes, EventType eventType, object? item, int index, RoutedEvent @event) : base(eventType, item, index, @event)
+        public CollectionEventArgs(EventType eventType, RoutedEvent @event) : base(@event)
+        {
+            EventType = eventType;
+        }
+
+        public EventType EventType { get; }
+    }
+
+    public class CollectionItemEventArgs : CollectionEventArgs
+    {
+        public CollectionItemEventArgs(EventType eventType, object? item, int index, RoutedEvent @event) : base(eventType, @event)
+        {
+            Item = item;
+            Index = index;
+        }
+
+        public object? Item { get; }
+        public int Index { get; }
+    }
+
+    public class CollectionItemChangedEventArgs : CollectionItemEventArgs
+    {
+        public CollectionItemChangedEventArgs(IEnumerable array, IReadOnlyCollection<object> changes, EventType eventType, object? item, int index, RoutedEvent @event) : base(eventType, item, index, @event)
         {
             Objects = array;
             Changes = changes;
@@ -17,22 +39,7 @@ namespace UtilityWpf.Abstract
         public IReadOnlyCollection<object> Changes { get; }
     }
 
-    public class CollectionEventArgs : RoutedEventArgs
-    {
-        public CollectionEventArgs(EventType eventType, object? item, int index, RoutedEvent @event) : base(@event)
-        {
-            EventType = eventType;
-            Item = item;
-            Index = index;
-        }
-
-        public EventType EventType { get; }
-
-        public object? Item { get; }
-        public int Index { get; }
-    }
-
-    public class MovementEventArgs : CollectionEventArgs
+    public class MovementEventArgs : CollectionItemEventArgs
     {
         public MovementEventArgs(IReadOnlyCollection<IndexedObject> array, IReadOnlyCollection<IndexedObject> changes, EventType eventType, object? item, int index, RoutedEvent @event) : base(eventType, item, index, @event)
         {

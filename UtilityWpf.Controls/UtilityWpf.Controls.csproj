@@ -58,6 +58,12 @@
 	<ItemGroup>		
 		<Compile Update="CollapseBox.cs">
 			<DependentUpon>CollapseBox.xaml</DependentUpon>
+		</Compile>		
+		<Compile Update="MasterControl.cs">
+		  <DependentUpon>MasterControl.xaml</DependentUpon>
+		</Compile>		
+		<Compile Update="MasterDetail.cs">
+		  <DependentUpon>MasterDetail.xaml</DependentUpon>
 		</Compile>
 		<Compile Update="SliderWithTickLabels.cs">
 			<DependentUpon>SliderWithTickLabels.xaml</DependentUpon>
@@ -166,6 +172,10 @@
 		</Page>
 		<Page Update="DataTemplate\TypeDataTemplate.xaml">
 			<SubType>Designer</SubType>
+		</Page>
+		<Page Update="MasterControl.xaml">
+		  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+		  <SubType>Designer</SubType>
 		</Page>
 		<Page Update="SliderWithTickLabels.xaml">
 			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>

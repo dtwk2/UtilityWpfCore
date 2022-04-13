@@ -2,6 +2,6 @@
 {
     public enum EventType
     {
-        Add, Remove, Removed, MoveUp, MoveDown
+        Add, Remove, Removed, MoveUp, MoveDown, Enable, Disable
     }
 }

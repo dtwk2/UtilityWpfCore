@@ -5,12 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:drag="http://dragablz.net/winfx/xaml/dragablz"
              xmlns:util="http://schemas.utility.com/utilitywpf"
-             xmlns:local11="clr-namespace:UtilityWpf.Demo.Master.Infrastructure"
              xmlns:cmn="clr-namespace:UtilityWpf.Demo.Common.ViewModel;assembly=UtilityWpf.Demo.Common"
              xmlns:utilitywpf="clr-namespace:UtilityWpf;assembly=UtilityWpf"
              xmlns:view1="http://schemas.utility.com/dragablz"
              xmlns:view2="http://schemas.utility.com/master"
-             xmlns:viewModel="clr-namespace:UtilityWpf.Demo.Master.ViewModel"
+             xmlns:viewModel="clr-namespace:UtilityWpf.Demo.Master.ViewModel" xmlns:view21="http://schemas.utility.com" xmlns:view22="clr-namespace:UtilityWpf.Controls.Master;assembly=UtilityWpf.Controls"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <FrameworkElement.DataContext>
