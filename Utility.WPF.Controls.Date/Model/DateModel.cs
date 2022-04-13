@@ -57,13 +57,8 @@ namespace Utility.WPF.Controls.Date.Model {
    public class DateMonthModel : DateModel {
 
       public override void RefreshDays() {
-         try {
-            var days = DateHelper.VisibleDays(Month, Year).ToArray();
-            comparableModel.Replace(days);
-         }
-         catch (Exception ex) {
-            MessageBox.Show(ex.Message);
-         }
+         var days = DateHelper.VisibleDays(Month, Year).ToArray();
+         comparableModel.Replace(days);
       }
    }
 
@@ -71,9 +66,6 @@ namespace Utility.WPF.Controls.Date.Model {
 
    public class DateRangeModel : DateModel {
       private DateTime dateTime;
-
-      public DateRangeModel() {
-      }
 
       public override void RefreshDays() {
          if (dateTime == Current)

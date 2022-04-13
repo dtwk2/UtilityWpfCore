@@ -1,52 +1,62 @@
-﻿using DateWork.Models;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Data;
-using Utility.WPF.Controls.Date.Model;
 using Utility.WPF.Demo.Date.Infrastructure;
-using Utility.WPF.Demo.Date.Infrastructure.Model;
+using Utility.WPF.Demo.Date.Infrastructure.Entity;
 
 namespace Utility.WPF.Demo.Date {
    public class NotesConverter : IValueConverter {
-      DayNotesViewModel? viewmodel = null;
+      private DayNotesViewModel viewmodel;
 
-      public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+      public object Convert(object? value, Type targetType, object parameter, CultureInfo culture) {
          if (value == null)
             return DependencyProperty.UnsetValue;
 
-         var date = (DateTime)value;
-         if (viewmodel != null) {
-            var vee = viewmodel.SelectedNote;
-            var orderedNotes = Notes.Current.Items.Where(a => a.Date == viewmodel.SelectedNote.Date).OrderBy(a => a.RevisionDate).ToArray();
-            var last = orderedNotes.LastOrDefault();
 
-            if (last == null) {
-               if (string.IsNullOrEmpty(vee.Text)) {
-               }
-               else {
-                  SaveNote();
-               }
+         var orderedNotes = viewmodel?
+            .Notes
+            .OfType<NoteEntity>()
+            .OrderByDescending(a => a.CreateTime)
+            .FirstOrDefault();
+
+         var last = orderedNotes;
+
+         if (last != null) {
+            if (string.IsNullOrEmpty(last.Text)) {
             }
-            else if (last.InitialText != vee.Text) {
-
+            else {
                SaveNote();
-            }
-
-            void SaveNote() {
-               var note = new Note { Date = viewmodel.SelectedNote.Date, InitialText = viewmodel.SelectedNote.Text, Text = viewmodel.SelectedNote.Text, RevisionDate = Note.GetTimeStamp(DateTime.Now) };
-               // reset
-               viewmodel.Reset();
-               Notes.Current.Items.Add(note);
-               Notes.Current.Save();
             }
          }
 
-         var notes = NotesHelper.SelectNotes((DateTime)value).ToArray();
-         viewmodel = new DayNotesViewModel(notes, notes.LastOrDefault() ?? new Note { Date = Note.GetTimeStamp(date) });
+         var date = (DateTime)value;
+         //if (viewmodel != null) {
+         viewmodel = DayNotesViewModel.Instance;
+         var vee = viewmodel.SelectedNote;
+         var selectedDate = viewmodel.SelectedNote?.Date;
+
+         // if (selectedDate == default) {
+
+
+         var notes = NotesHelper.SelectNotes((DateTime)value).Result;
+         if (notes.Any()) {
+            viewmodel.Replace(notes, notes.Last());
+         }
+         else {
+            var nt = new NoteEntity { Date = date, Text = string.Empty };
+            viewmodel.Replace(new[] { nt }, nt);
+         }
+
+
+
          return viewmodel;
+
+
+         void SaveNote() {
+            viewmodel.SelectedNote.SaveAsync();
+         }
       }
 
       public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {

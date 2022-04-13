@@ -4,15 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:date="clr-namespace:Utility.WPF.Controls.Date;assembly=Utility.WPF.Controls.Date"
-    xmlns:helper="clr-namespace:Utility.WPF.Controls.Date.Helper;assembly=Utility.WPF.Controls.Date"
-    xmlns:infra="clr-namespace:Utility.WPF.Demo.Date.Infrastructure"
     xmlns:local="clr-namespace:Utility.WPF.Demo.Date"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="clr-namespace:DateWork.Models"
     xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:anim="http://schemas.utility.com/animation"
-    xmlns:model="clr-namespace:Utility.WPF.Demo.Date.Infrastructure.Model"
+    xmlns:entity="clr-namespace:Utility.WPF.Demo.Date.Infrastructure.Entity"
+    xmlns:utl="http://schemas.utility.com/utilitywpf"
     Title="Utility Journal"
     Width="800"
     Height="850"
@@ -28,7 +26,7 @@
     <FrameworkElement.Resources>
         <local:NotesConverter x:Key="ValueConverter" />
         <local:NoteConverter x:Key="Value2Converter" />
-        <helper:DefaultConverter x:Key="DefaultConverter" />
+        <utl:DefaultConverter x:Key="DefaultConverter" />
         <local:CountToBooleanConverter x:Key="CountToBooleanConverter" />
     </FrameworkElement.Resources>
 
@@ -36,22 +34,22 @@
         <TabItem Header="Main">-->
 
 
- 
-            <DockPanel>
-                <!--<Grid>
+
+    <DockPanel>
+        <!--<Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>-->
 
-                <Viewbox Width="400"       DockPanel.Dock="Right">
+        <Viewbox Width="400"       DockPanel.Dock="Right">
 
-             
-                    <date:CalendarControl  x:Name="CalendarControl" 
+
+            <date:CalendarControl  x:Name="CalendarControl" 
                                            ValueConverter="{StaticResource Value2Converter}" 
                                            Grid.Column="1" DockPanel.Dock="Right"/>
-                </Viewbox>
-                    <materialDesign:ColorZone
+        </Viewbox>
+        <materialDesign:ColorZone
                         
                         Margin="8"
                         Padding="8"
@@ -59,26 +57,26 @@
                         CornerRadius="3"
                   
                         Mode="PrimaryMid">
-                    <!--<Grid Grid.Column="0">
+            <!--<Grid Grid.Column="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>-->
 
-                        <!--<Border
+            <!--<Border
                     Grid.Row="1"
                     BorderBrush="{DynamicResource SecondaryHueMidBrush}"
                     BorderThickness="1">-->
-                        <FrameworkElement.Resources>
-                            <infra:NoteDateConverter x:Key="NoteDateConverter" />
-                            <DataTemplate DataType="{x:Type local:DayNotesViewModel}">
-                                <DockPanel>
-                                    <ComboBox
+            <FrameworkElement.Resources>
+                <!--<infra:NoteDateConverter x:Key="NoteDateConverter" />-->
+                <DataTemplate DataType="{x:Type local:DayNotesViewModel}">
+                    <DockPanel>
+                        <ComboBox
                                     Height="40"
                                     HorizontalContentAlignment="Center"
                                     VerticalContentAlignment="Center"
                                     Background="Transparent"
-                                    DisplayMemberPath="RevisionDateTime"
+                                    DisplayMemberPath="CreateTime"
                                     DockPanel.Dock="Top"
                                     FontSize="16"
                                     IsEnabled="{Binding Notes.Count,
@@ -87,24 +85,30 @@
                                     ItemsSource="{Binding Notes}"
                                     SelectedIndex="{Binding SelectedIndex}" />
 
-                                    <ContentControl Content="{Binding SelectedNote}" />
-                                </DockPanel>
-                            </DataTemplate>
-                            <DataTemplate DataType="{x:Type model:Note}">
-                                <DockPanel Background="Transparent">
-                                    <WrapPanel
-                                    Background="Transparent"
-                                    DockPanel.Dock="Top"
-                                    Opacity="0.4"
-                                    Orientation="Horizontal">
-                                        <TextBlock Margin="4" Text="Date" />
-                                        <TextBlock Margin="4" Text="{Binding DateTime}" />
-                                        <Rectangle Margin="10,0,10,0" />
-                                        <TextBlock Margin="4" Text="Revision Date" />
-                                        <TextBlock Margin="4" Text="{Binding RevisionDateTime}" />
-                                    </WrapPanel>
+                        <ContentControl Content="{Binding SelectedNote}" />
+                    </DockPanel>
+                </DataTemplate>
+                <!--<DataTemplate DataType="{x:Type model:NoteViewModel}">-->
+                <DataTemplate DataType="{x:Type entity:NoteEntity}">
+                    <DockPanel Background="Transparent">
+                        <!--<Expander Header="Information"    DockPanel.Dock="Top">
+                            <materialDesign:ColorZone>
+                                <WrapPanel
+                                            Background="Transparent"
+                                         
+                                            Opacity="0.4"
+                                            Orientation="Horizontal">
+                                    <TextBlock Margin="4" Text="Date" />
+                                    <TextBlock Margin="4" Text="{Binding Date}" />
+                                    <Rectangle Margin="10,0,10,0" />
+                                    <TextBlock Margin="4" Text="Revision Date" />
+                                    <TextBlock Margin="4" Text="{Binding CreateTime}" />
+                                </WrapPanel>
+                            </materialDesign:ColorZone>
+                        </Expander>-->
 
-                                    <TextBox TextWrapping="Wrap"
+
+                        <TextBox TextWrapping="Wrap"
                                              AcceptsReturn="True"
                                         MinWidth="20"
                                         MinHeight="20"
@@ -112,23 +116,23 @@
                                         FontSize="18"
                                         Text="{Binding Text, TargetNullValue='Text Here'}" />
 
-                                </DockPanel>
-                            </DataTemplate>
-                        </FrameworkElement.Resources>
+                    </DockPanel>
+                </DataTemplate>
+            </FrameworkElement.Resources>
 
-              
-                            <Grid Height="1000">
-                                <Viewbox >
 
-                                    <!--<TextBlock Margin="10" 
+            <Grid Height="1000">
+                <Viewbox >
+
+                    <!--<TextBlock Margin="10" 
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center"                         
                                                Opacity="0.04"
                                                Text="{Binding ElementName=CalendarControl, Path=SelectedItem, StringFormat='{}{0:dd/MM/yyyy}'}" />-->
 
 
-                                    <anim:FadeControl x:Name="FadeControl" AnimationTime="1000" IsInvertFade="True" Reverse="True">
-                                        <TextBlock Margin="10" 
+                    <anim:FadeControl x:Name="FadeControl" AnimationTime="1000" IsInvertFade="True" Reverse="True">
+                        <TextBlock Margin="10" 
                                                    x:Name="DateTextBlock"
                                                    HorizontalAlignment="Center"
                                                    VerticalAlignment="Center"                         
@@ -139,24 +143,24 @@
                                                     <b:InvokeCommandAction Command="{Binding ElementName=FadeControl, Path=FadeCommand}"/>
                                                 </b:PropertyChangedTrigger>
                                             </b:Interaction.Triggers>
-                                        </TextBlock>
-                                    </anim:FadeControl>
+                        </TextBlock>
+                    </anim:FadeControl>
 
-                                </Viewbox>
-                                <ContentControl
+                </Viewbox>
+                <ContentControl
                                     Grid.Row="1"
                                     Background="Transparent"
                                     Content="{Binding ElementName=CalendarControl, Path=SelectedItem, Converter={StaticResource ValueConverter}}" />
-                            </Grid>
+            </Grid>
 
-                        </materialDesign:ColorZone>
+        </materialDesign:ColorZone>
 
-                        <!--</Border>-->
-                    <!--</Grid>-->
-                <!--</Grid>-->
-            </DockPanel>
+        <!--</Border>-->
+        <!--</Grid>-->
+        <!--</Grid>-->
+    </DockPanel>
 
-        <!--</TabItem>
+    <!--</TabItem>
         <TabItem Header="Other">
         </TabItem>
     </TabControl>-->

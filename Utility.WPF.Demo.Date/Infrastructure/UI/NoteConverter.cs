@@ -6,7 +6,8 @@ using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Data;
 using Utility.WPF.Demo.Date.Infrastructure;
-using Utility.WPF.Demo.Date.Infrastructure.Model;
+using Utility.WPF.Demo.Date.Infrastructure.Entity;
+using Utility.WPF.Demo.Date.Infrastructure.ViewModel;
 
 namespace Utility.WPF.Demo.Date {
    public class NoteConverter : IValueConverter {
@@ -18,13 +19,12 @@ namespace Utility.WPF.Demo.Date {
          if (value is not DateTime dateTime)
             return DependencyProperty.UnsetValue;
 
-         var sDate = Note.GetTimeStamp(dateTime);
-         var last = Notes.Current.Items
-                                 .Where(a => a.Date == sDate)
-                                 .OrderBy(a => a.RevisionDate)
-                                 .LastOrDefault();
+         var last = NoteEntity
+            .Where(a => a.Date == dateTime)
+            .OrderByDescending(a => a.CreateTime)
+            .First();
 
-         return last ?? new Note { Date = Note.GetTimeStamp(dateTime), Text = "  " };
+         return last ?? new NoteEntity { Date = dateTime };
       }
 
       public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {

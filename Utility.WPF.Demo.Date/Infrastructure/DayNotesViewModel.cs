@@ -1,68 +1,41 @@
-﻿using DateWork.Models;
-using ReactiveUI;
+﻿using ReactiveUI;
 using System;
 using System.Collections;
-using System.Reactive.Linq;
-using Utility.WPF.Demo.Date.Infrastructure.Model;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using DynamicData;
+using Utility.WPF.Demo.Date.Infrastructure.Entity;
 
 namespace Utility.WPF.Demo.Date;
 
 public class DayNotesViewModel : ReactiveObject {
-   private Note[] notes;
+   private readonly ObservableCollection<NoteEntity> notes = new();
 
    //private readonly ICollection notes;
-   private Note selectedNote;
+   private NoteEntity selectedNote;
    private int selectedIndex;
 
-   public void Reset() {
-      foreach (var note in notes) {
-         note.Text = note.InitialText;
+
+
+   public void Replace(NoteEntity[] notes, NoteEntity selectedNote) {
+
+      for (int i = this.notes.Count - 1; i >= 0; i--) {
+         //await Task.Delay(50);
+         this.notes.RemoveAt(i);
       }
-   }
 
-   //public DayNotesViewModel(IObservable<Note[]> notes, Note selectedNote)
-   //{
-   //    notes.Subscribe(n => Notes = n);
-   //    this.selectedNote = selectedNote;
+      for (int i = notes.Length - 1; i >= 0; i--) {
+         //await Task.Delay(50);
+         this.notes.Add(notes[i]);
+      }
 
-   //    this.WhenAnyValue(a => a.SelectedNote)
-   //        .CombineLatest(notes)
-   //        .Subscribe(ad =>
-   //        {
-   //            var (a, notes) = ad;
-   //            SelectedIndex = Array.IndexOf(notes, a);
-   //        });
-
-   //    this.WhenAnyValue(a => a.SelectedIndex)
-   //          .CombineLatest(notes)
-   //          .Subscribe(ad =>
-   //          {
-   //              var (a, notes) = ad;
-
-   //              if (a < 0)
-   //              {
-   //                  if (notes.Length > 0)
-   //                      SelectedIndex = 0;
-   //                  return;
-   //              }
-   //              if (notes.Length == 1)
-   //              {
-   //                  SelectedNote = notes[0];
-   //                  return;
-   //              }
-   //              SelectedNote = notes[a];
-   //          });
-
-   //}
-
-   public DayNotesViewModel(Note[] notes, Note selectedNote) {
-      this.notes = notes;
+      this.selectedNote = null;
+      //await Task.Delay(500);
       this.selectedNote = selectedNote;
 
       this.WhenAnyValue(a => a.SelectedNote)
-         .Subscribe(a => {
-            SelectedIndex = Array.IndexOf(notes, a);
-         });
+         .Subscribe(a => { SelectedIndex = Array.IndexOf(notes, a); });
 
       this.WhenAnyValue(a => a.SelectedIndex)
          .Subscribe(a => {
@@ -71,17 +44,25 @@ public class DayNotesViewModel : ReactiveObject {
                   SelectedIndex = 0;
                return;
             }
+
             if (notes.Length == 1) {
                if (SelectedNote != default)
                   return;
                SelectedNote = notes[0];
+               SelectedIndex = 0;
                return;
             }
-            SelectedNote = notes[a];
+
+            if (notes.Length > a) {
+               SelectedNote = notes[a];
+               SelectedIndex = a;
+            } //else {
+            //   SelectedNote = new[] { selectedNote }
+            //}
          });
    }
 
-   public Note SelectedNote {
+   public NoteEntity SelectedNote {
       get => selectedNote;
       set => this.RaiseAndSetIfChanged(ref selectedNote, value);
    }
@@ -92,6 +73,9 @@ public class DayNotesViewModel : ReactiveObject {
    }
 
    public ICollection Notes {
-      get => notes; set => this.RaiseAndSetIfChanged(ref notes, (Note[])value);
+      get => notes;
    }
+
+   public static DayNotesViewModel Instance => new();
+
 }

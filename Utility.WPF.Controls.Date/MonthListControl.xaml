@@ -20,7 +20,7 @@
         <Setter Property="Padding" Value="0" />
     </Style>
 
-    <aa:DefaultConverter x:Key="DefaultConverter" />
+    <utl:DefaultConverter x:Key="DefaultConverter" />
 
 
     <Style x:Key="Day2ListBoxItem" TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource DayListBoxItem}">
