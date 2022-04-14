@@ -353,3 +353,4 @@ MigrationBackup/
 .ionide/
 /Utility.FileSystem/Utility.FileSystem.Transfer.WPF.Demo/Data/Source/huge_dummy_file
 /.idea/.idea.UtilityWpf/.idea
+*.sqlite
