@@ -8,8 +8,11 @@ namespace Utility.WPF.Demo.Date.Infrastructure
 {
     public class AbridgeConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object? value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (value == null)
+                return DependencyProperty.UnsetValue;
+
             switch (value)
             {
                 case string { Length: > 10 } sValue:

@@ -1,29 +1,38 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using Utility.Common;
 using Utility.Persist;
+using Utility.WPF.Demo.Date.Infrastructure.Entity;
+using Utility.WPF.Demo.Date.Infrastructure.ViewModel;
 
-namespace Utility.WPF.Demo.Date {
-   /// <summary>
-   /// Interaction logic for App.xaml
-   /// </summary>
-   public partial class App : Application {
+namespace Utility.WPF.Demo.Date
+{
+    /// <summary>
+    /// Interaction logic for App.xaml
+    /// </summary>
+    public partial class App : Application
+    {
 
-      public App() {
-         FreeSqlFactory.InitialiseSQLite();
-      }
+        public App()
+        {
+            FreeSqlFactory.InitialiseSQLite();
+        }
 
-      protected override void OnExit(ExitEventArgs e) {
+        public static DateTime CurrentDate { get; set; }
 
+        protected override void OnExit(ExitEventArgs e)
+        {
+            SaveNote();
+            base.OnExit(e);
+        }
 
-         base.OnExit(e);
-      }
+        void SaveNote()
+        {
+            if (CurrentDate != default)
+                NotesViewModel.Instance.Save(Utility.WPF.Demo.Date.App.CurrentDate);
+            //var map = AutoMapperSingleton.Instance.Map<NoteEntity>(DayNotesViewModel.Instance.SelectedNote);
+            //map.Save();
 
-      void SaveNote() {
-         DayNotesViewModel.Instance.SelectedNote.SaveAsync();
-         //var note = new NoteViewModel { Date = viewmodel.SelectedNoteViewModel.Date, InitialText = viewmodel.SelectedNoteViewModel.Text, Text = viewmodel.SelectedNoteViewModel.Text, RevisionDate = NoteViewModel.GetTimeStamp(DateTime.Now) };
-         //// reset
-         //viewmodel.Reset();
-         //Notes.Current.Items.Add(note);
-         //Notes.Current.Save();
-      }
-   }
+        }
+    }
 }

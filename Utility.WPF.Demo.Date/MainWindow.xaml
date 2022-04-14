@@ -25,7 +25,7 @@
 
     <FrameworkElement.Resources>
         <local:NotesConverter x:Key="ValueConverter" />
-        <local:NoteConverter x:Key="Value2Converter" />
+        <local:NoteConverter x:Key="NoteConverter" />
         <utl:DefaultConverter x:Key="DefaultConverter" />
         <local:CountToBooleanConverter x:Key="CountToBooleanConverter" />
     </FrameworkElement.Resources>
@@ -46,7 +46,7 @@
 
 
             <date:CalendarControl  x:Name="CalendarControl" 
-                                           ValueConverter="{StaticResource Value2Converter}" 
+                                           ValueConverter="{StaticResource NoteConverter}" 
                                            Grid.Column="1" DockPanel.Dock="Right"/>
         </Viewbox>
         <materialDesign:ColorZone
@@ -89,7 +89,7 @@
                     </DockPanel>
                 </DataTemplate>
                 <!--<DataTemplate DataType="{x:Type model:NoteViewModel}">-->
-                <DataTemplate DataType="{x:Type entity:NoteEntity}">
+                <DataTemplate DataType="{x:Type viewModel:NoteViewModel}">
                     <DockPanel Background="Transparent">
                         <!--<Expander Header="Information"    DockPanel.Dock="Top">
                             <materialDesign:ColorZone>
