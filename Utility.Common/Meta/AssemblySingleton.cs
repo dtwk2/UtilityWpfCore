@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Utility.Common
 {
-    public class AssemblySingleton
+    public sealed class AssemblySingleton
     {
         private AssemblySingleton()
         {
@@ -17,7 +17,8 @@ namespace Utility.Common
                 var files = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*" /*+ Meta.Constants.GeneralAssemblyName*/ + "*.dll").ToArray();
                 return files
                     //.Where(a => a.Contains("System") == false)
-                    .Select(x => Assembly.Load(AssemblyName.GetAssemblyName(x)))
+                    .Select(x =>
+                       Assembly.Load(AssemblyName.GetAssemblyName(x)))
                     .Where(a => { return a == a; });
             }
         }
