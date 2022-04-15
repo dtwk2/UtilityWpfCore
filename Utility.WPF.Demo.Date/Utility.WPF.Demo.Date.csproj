@@ -20,12 +20,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MaterialDesignThemes" Version="4.4.0-ci94" />
+    <ProjectReference Include="..\Utility.Persist\Utility.Persist.csproj" />
+    <ProjectReference Include="..\Utility.WPF.Controls.Date\Utility.WPF.Controls.Date.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Animation\UtilityWpf.Animation.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Utility.WPF.Controls.Date\Utility.WPF.Controls.Date.csproj" />
-    <ProjectReference Include="..\UtilityWpf.Animation\UtilityWpf.Animation.csproj" />
+    <Folder Include="Data\" />
   </ItemGroup>
 
 </Project>

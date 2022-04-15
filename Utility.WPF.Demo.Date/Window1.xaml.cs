@@ -10,7 +10,8 @@ namespace Utility.WPF.Demo.Date
     /// </summary>
     public partial class Window1 : Window
     {
-        DateModel dateModel = new Date1Model();
+       readonly DateModel dateModel = new DateMonthModel();
+
         public Window1()
         {
             InitializeComponent();

@@ -60,9 +60,9 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ctrl:DayControl">
-                    <Border
+                    <Border 
                         Name="Bd"
-                        Margin="2"
+                   
                         Padding="0"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="16"
@@ -76,15 +76,19 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <TextBlock TextAlignment="Center" FontSize="128" Margin="0,4,0,0"
+                            <TextBlock TextAlignment="Center" 
+                                       Margin="24"
+                                       FontSize="128"
                                        VerticalAlignment="Center"
                                        Text="{TemplateBinding DayName}"/>
+                            
                             <ContentPresenter 
                                 HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="1" 
-
-                                Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="8" />
+                                Margin="80,8,8,8"
+                                Grid.ColumnSpan="2" VerticalAlignment="Top" />
                             <TextBlock TextAlignment="Center" FontSize="128" Grid.Column="1"
                                        Grid.Row="0"
+                                       Margin="24"
                                        VerticalAlignment="Center"
                                        Opacity="0.3"
                                        Text="{TemplateBinding MonthDayName}"/>

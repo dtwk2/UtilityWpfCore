@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Threading.Tasks;
-using NetFabric.Hyperlinq;
 
 namespace UtilityWpf.Behavior
 {
@@ -38,6 +37,7 @@ namespace UtilityWpf.Behavior
                 new PropertyMetadata(ScrollablePosition.Selected));
 
         private ScrollViewer? scrollViewer;
+        private Storyboard? storyboard;
 
         #region properties
         public ScrollablePosition ScrollablePosition
@@ -107,6 +107,8 @@ namespace UtilityWpf.Behavior
 
         private async void Run()
         {
+            storyboard?.SkipToFill();
+
             if (scrollViewer == null)
             {
                 scrollViewer =
@@ -140,14 +142,12 @@ namespace UtilityWpf.Behavior
 
             }
 
-            await Task.Delay(500);
+            await Task.Delay(300);
             if (WithAnimation)
             {
-                var storyboard =
+                storyboard =
                     Helper.MakeScrollAnimation(scrollViewer, Helper.GetRatio(this.AssociatedObject, position), 0);
                 // Add delay to make things appear smoother
-
-
 
                 storyboard.Begin();
             }

@@ -17,7 +17,7 @@
         <Setter Property="Padding" Value="0" />
     </Style>
 
-    <aa:DefaultConverter x:Key="DefaultConverter" />
+    <utl:DefaultConverter x:Key="DefaultConverter" />
 
     <Style x:Key="DayListBoxItem" TargetType="ListBoxItem">
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />

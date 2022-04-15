@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using Utility.Persist;
+using Utility.WPF.Demo.Date.Infrastructure.Repository;
 
 namespace Utility.WPF.Demo.Date
 {
@@ -7,5 +10,24 @@ namespace Utility.WPF.Demo.Date
     /// </summary>
     public partial class App : Application
     {
+
+        public App()
+        {
+            FreeSqlFactory.InitialiseSQLite();
+        }
+
+        public static DateTime CurrentDate { get; set; }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            SaveNote();
+            base.OnExit(e);
+        }
+
+        private void SaveNote()
+        {
+            if (CurrentDate != default)
+                _ = NotesRepository.Instance.Save(CurrentDate).Result;
+        }
     }
 }
