@@ -11,6 +11,7 @@
     xmlns:anim="http://schemas.utility.com/animation"
     xmlns:entity="clr-namespace:Utility.WPF.Demo.Date.Infrastructure.Entity"
     xmlns:utl="http://schemas.utility.com/utilitywpf"
+    xmlns:viewModel="clr-namespace:Utility.WPF.Demo.Date.Infrastructure.ViewModel"
     Title="Utility Journal"
     Width="800"
     Height="850"
@@ -69,7 +70,7 @@
                     BorderThickness="1">-->
             <FrameworkElement.Resources>
                 <!--<infra:NoteDateConverter x:Key="NoteDateConverter" />-->
-                <DataTemplate DataType="{x:Type local:DayNotesViewModel}">
+                <DataTemplate DataType="{x:Type local:NotesViewModel}">
                     <DockPanel>
                         <ComboBox
                                     Height="40"

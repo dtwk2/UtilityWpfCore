@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections;
+using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using ReactiveUI;
@@ -99,6 +99,7 @@ public class DayListBox : ListBox
         var dayControl = t.ChildOfType<DayControl>();
         _ = this.WhenAnyValue(a => a.ValueConverter)
             .WhereNotNull()
+            .Take(1)
             .Subscribe(a => dayControl.Content = a.Convert(item, null, null, null));
         base.PrepareContainerForItemOverride(element, item);
     }

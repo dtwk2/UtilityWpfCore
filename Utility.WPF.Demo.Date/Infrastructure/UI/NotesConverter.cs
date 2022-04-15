@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reactive.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
-using Utility.WPF.Demo.Date.Infrastructure.ViewModel;
+using Utility.WPF.Demo.Date.Infrastructure.Repository;
 
 namespace Utility.WPF.Demo.Date
 {
@@ -18,13 +18,13 @@ namespace Utility.WPF.Demo.Date
                 return DependencyProperty.UnsetValue;
 
             if (App.CurrentDate != default)
-                NotesViewModel.Instance.Save(App.CurrentDate);
+                NotesRepository.Instance.Save(App.CurrentDate).WaitAsync(TimeSpan.FromSeconds(10));
 
             App.CurrentDate = date;
 
-            var notesViewModel = new DayNotesViewModel();
+            var notesViewModel = new NotesViewModel();
 
-            var _ = NotesViewModel.Instance.FindAsync(date)
+            var _ = NotesRepository.Instance.FindAllAsync(date)
                 .ToObservable()
                 .Subscribe(notes =>
                 {

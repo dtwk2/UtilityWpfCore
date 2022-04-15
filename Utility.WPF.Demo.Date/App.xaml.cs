@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Windows;
-using Utility.Common;
 using Utility.Persist;
-using Utility.WPF.Demo.Date.Infrastructure.Entity;
-using Utility.WPF.Demo.Date.Infrastructure.ViewModel;
+using Utility.WPF.Demo.Date.Infrastructure.Repository;
 
 namespace Utility.WPF.Demo.Date
 {
@@ -26,13 +24,10 @@ namespace Utility.WPF.Demo.Date
             base.OnExit(e);
         }
 
-        void SaveNote()
+        private void SaveNote()
         {
             if (CurrentDate != default)
-                NotesViewModel.Instance.Save(Utility.WPF.Demo.Date.App.CurrentDate);
-            //var map = AutoMapperSingleton.Instance.Map<NoteEntity>(DayNotesViewModel.Instance.SelectedNote);
-            //map.Save();
-
+                _ = NotesRepository.Instance.Save(CurrentDate).Result;
         }
     }
 }
