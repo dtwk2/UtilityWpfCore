@@ -1,90 +1,89 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <UseWPF>true</UseWPF>
-    <AssemblyName>UtilityWpf</AssemblyName>
-    <RootNamespace>UtilityWpf</RootNamespace>
-    <Version>1.0.110</Version>
-    <AssemblyVersion>1.0.41.0</AssemblyVersion>
-    <FileVersion>1.0.41.0</FileVersion>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<AssemblyName>UtilityWpf</AssemblyName>
+		<RootNamespace>UtilityWpf</RootNamespace>
+		<Version>1.0.110</Version>
+		<AssemblyVersion>1.0.41.0</AssemblyVersion>
+		<FileVersion>1.0.41.0</FileVersion>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <ShouldCreateLogs>True</ShouldCreateLogs>
-    <AdvancedSettingsExpanded>False</AdvancedSettingsExpanded>
-    <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
-    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
-    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
-    <UpdatePackageVersion>True</UpdatePackageVersion>
-    <PackageVersionSettings>AssemblyVersion.Increment.None</PackageVersionSettings>
-    <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
-    <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<ShouldCreateLogs>True</ShouldCreateLogs>
+		<AdvancedSettingsExpanded>False</AdvancedSettingsExpanded>
+		<UpdateAssemblyVersion>False</UpdateAssemblyVersion>
+		<UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+		<UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+		<UpdatePackageVersion>True</UpdatePackageVersion>
+		<PackageVersionSettings>AssemblyVersion.Increment.None</PackageVersionSettings>
+		<AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
+		<InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <ShouldCreateLogs>True</ShouldCreateLogs>
-    <AdvancedSettingsExpanded>False</AdvancedSettingsExpanded>
-    <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
-    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
-    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
-    <UpdatePackageVersion>True</UpdatePackageVersion>
-    <PackageVersionSettings>AssemblyVersion.Increment.None</PackageVersionSettings>
-    <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
-    <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<ShouldCreateLogs>True</ShouldCreateLogs>
+		<AdvancedSettingsExpanded>False</AdvancedSettingsExpanded>
+		<UpdateAssemblyVersion>False</UpdateAssemblyVersion>
+		<UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
+		<UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+		<UpdatePackageVersion>True</UpdatePackageVersion>
+		<PackageVersionSettings>AssemblyVersion.Increment.None</PackageVersionSettings>
+		<AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
+		<InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="ColorCode.Core" Version="2.0.13" />
-    <PackageReference Include="Evan.Wpf" Version="1.2.0" />
-	<PackageReference Include="AdonisUI.ClassicTheme" Version="1.17.1" />
-	<PackageReference Include="AdonisUI.NET5" Version="1.17.1" />
-	<PackageReference Include="FluentWPF" Version="0.10.2" />
-    <PackageReference Include="Kaos.Collections" Version="4.1.0" />
-    <PackageReference Include="LambdaConverters" Version="4.0.0" />
-    <PackageReference Include="MathConverter" Version="2.1.0-alpha0001" />
-    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
-    <PackageReference Include="ReactiveUI.Events.WPF" Version="15.1.1" />
-    <PackageReference Include="ReactiveUI.WPF" Version="18.0.7" />
-    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
-    <PackageReference Include="ControlzEx" Version="5.0.1" />
-    <PackageReference Include="Evan.Wpf" Version="1.2.0" />
-    <PackageReference Include="MaterialDesignThemes" Version="4.4.0-ci32-ci32" />
-    <PackageReference Include="MaterialDesignExtensions" Version="4.0.0-a02" />
-    <PackageReference Include="HandyControl" Version="3.3.0" />
-    <PackageReference Include="LambdaConverters" Version="4.0.0" />
-    <PackageReference Include="WPFTransitionals" Version="1.1.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="ColorCode.Core" Version="2.0.13" />
+		<PackageReference Include="Evan.Wpf" Version="1.2.0" />
+		<PackageReference Include="AdonisUI.ClassicTheme" Version="1.17.1" />
+		<PackageReference Include="AdonisUI.NET5" Version="1.17.1" />
+		<PackageReference Include="FluentWPF" Version="0.10.2" />
+		<PackageReference Include="LambdaConverters" Version="4.0.0" />
+		<PackageReference Include="MathConverter" Version="2.1.0-alpha0001" />
+		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
+		<PackageReference Include="ReactiveUI.Events.WPF" Version="15.1.1" />
+		<PackageReference Include="ReactiveUI.WPF" Version="18.0.7" />
+		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+		<PackageReference Include="ControlzEx" Version="6.0.0-alpha0204" />
+		<PackageReference Include="Evan.Wpf" Version="1.2.0" />
+		<PackageReference Include="MaterialDesignThemes" Version="4.5.0-ci147" />
+		<PackageReference Include="MaterialDesignExtensions" Version="4.0.0-a02" />
+		<PackageReference Include="HandyControl" Version="3.3.0" />
+		<PackageReference Include="LambdaConverters" Version="4.0.0" />
+		<PackageReference Include="WPFTransitionals" Version="1.1.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Utility.Common\Utility.Common.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Utility.Common\Utility.Common.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Base\DoubleContentControl.cs">
-      <DependentUpon>DoubleContentControl.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Update="Base\DoubleContentControl.cs">
+			<DependentUpon>DoubleContentControl.xaml</DependentUpon>
+		</Compile>
+	</ItemGroup>
 
-  <ItemGroup>
-    <Page Update="Base\DoubleContentControl.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
+	<ItemGroup>
+		<Page Update="Base\DoubleContentControl.xaml">
+			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+			<SubType>Designer</SubType>
+		</Page>
+	</ItemGroup>
 
-  <!-- Only packs project if Configuration set to Release-->
-   <Target Name="CustomPack" AfterTargets="build" Condition="'$(Configuration)'=='Release'">
-        <Message Text="Custom Pack command starts ..." Importance="high" />
-     <!--  <Message Text="nuget pack $(MSBuildProjectFile) -IncludeReferencedProjects -OutputDirectory &quot;$(ProjectDir)bin\release&quot;  -Properties Configuration=Release" Importance="high" />-->
-     <Message Text="dotnet pack $(MSBuildProjectFile)  -o &quot;$(ProjectDir)bin\release&quot;" Importance="high" />
-     <Exec Command="dotnet pack $(MSBuildProjectFile)  -o &quot;$(ProjectDir)bin\release&quot;" />
-  </Target>
+	<!-- Only packs project if Configuration set to Release-->
+	<Target Name="CustomPack" AfterTargets="build" Condition="'$(Configuration)'=='Release'">
+		<Message Text="Custom Pack command starts ..." Importance="high" />
+		<!--  <Message Text="nuget pack $(MSBuildProjectFile) -IncludeReferencedProjects -OutputDirectory &quot;$(ProjectDir)bin\release&quot;  -Properties Configuration=Release" Importance="high" />-->
+		<Message Text="dotnet pack $(MSBuildProjectFile)  -o &quot;$(ProjectDir)bin\release&quot;" Importance="high" />
+		<Exec Command="dotnet pack $(MSBuildProjectFile)  -o &quot;$(ProjectDir)bin\release&quot;" />
+	</Target>
 
-    <!-- Only copy packages if Configuration set to Release-->
-  <Target Name="PostPack" AfterTargets="CustomPack" Condition="'$(Configuration)'=='Release'">
-    <Exec Command="&#xD;&#xA;      set source=&quot;$(ProjectDir)bin\release &quot;&#xD;&#xA;&#xD;&#xA;      set target=&quot;C:\Users\rytal\Documents\Visual Studio 2019\NugetPackages &quot;  &#xD;&#xA;&#xD;&#xA;      RoboCopy %25source%25 %25target%25 *.nupkg  /XO  /NFL /NDL /NJH   &#xD;&#xA;&#xD;&#xA;      IF %ERRORLEVEL% GEQ 8 exit 1&#xD;&#xA;&#xD;&#xA;      exit 0" />
-  </Target>
+	<!-- Only copy packages if Configuration set to Release-->
+	<Target Name="PostPack" AfterTargets="CustomPack" Condition="'$(Configuration)'=='Release'">
+		<Exec Command="&#xD;&#xA;      set source=&quot;$(ProjectDir)bin\release &quot;&#xD;&#xA;&#xD;&#xA;      set target=&quot;C:\Users\rytal\Documents\Visual Studio 2019\NugetPackages &quot;  &#xD;&#xA;&#xD;&#xA;      RoboCopy %25source%25 %25target%25 *.nupkg  /XO  /NFL /NDL /NJH   &#xD;&#xA;&#xD;&#xA;      IF %ERRORLEVEL% GEQ 8 exit 1&#xD;&#xA;&#xD;&#xA;      exit 0" />
+	</Target>
 
 </Project>

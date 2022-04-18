@@ -7,10 +7,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<Compile Update="ButtonsControl.cs">
 			<DependentUpon>ButtonsControl.xaml</DependentUpon>
 		</Compile>
@@ -68,7 +64,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Utility.WPF.Themes\Utility.WPF.Themes.csproj" />
-		<ProjectReference Include="..\UtilityWpf\UtilityWpf.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -52,7 +52,6 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Utility.WPF.Themes\Utility.WPF.Themes.csproj" />
 		<ProjectReference Include="..\UtilityWpf.Panels\UtilityWpf.Panels.csproj" />
-		<ProjectReference Include="..\UtilityWpf\UtilityWpf.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>		
