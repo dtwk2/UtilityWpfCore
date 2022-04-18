@@ -36,11 +36,11 @@ namespace UtilityWpf.Controls.FileSystem
 
         protected static (bool? result, string path) OpenDialog(string filter, string extension)
         {
-            using (var dialog = new FolderBrowserDialog())
+            var dialog = new FolderBrowserEx.FolderBrowserDialog();
             {
                 DialogResult result = dialog.ShowDialog();
 
-                return result == DialogResult.OK ? (true, dialog.SelectedPath) : (false, null);
+                return result == DialogResult.OK ? (true, dialog.SelectedFolder) : (false, null);
             }
         }
     }
