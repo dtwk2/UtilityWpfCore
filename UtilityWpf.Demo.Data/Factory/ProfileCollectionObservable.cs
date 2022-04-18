@@ -1,15 +1,17 @@
-﻿using System;
+﻿using Endless;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using Endless;
+using System.Windows.Threading;
 using UtilityWpf.Demo.Data.Model;
 
 namespace UtilityWpf.Demo.Data.Factory
 {
     public sealed class ProfileCollectionObservable : IObservable<Profile>, IDisposable
     {
+        private readonly Dispatcher dispatcher;
         private readonly int startCount;
         private readonly int speed;
         private IDisposable? observable;
@@ -18,6 +20,7 @@ namespace UtilityWpf.Demo.Data.Factory
 
         public ProfileCollectionObservable(int startCount = 0, int speed = 1)
         {
+            dispatcher = Dispatcher.CurrentDispatcher;
             this.startCount = startCount;
             this.speed = speed;
         }
@@ -27,12 +30,11 @@ namespace UtilityWpf.Demo.Data.Factory
             observable ??= Observable
               .Interval(TimeSpan.FromSeconds(speed))
               .StartWith(Enumerable.Repeat(0L, startCount).ToArray())
-              .ObserveOnDispatcher()
               .Select(a => pool.Value.Random())
               .Subscribe(profiles);
 
             return profiles
-                    .Subscribe(observer);
+                .Subscribe(a => dispatcher.Invoke(() => observer.OnNext(a)));
         }
 
         public void Dispose()
