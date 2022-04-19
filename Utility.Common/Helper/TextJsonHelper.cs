@@ -5,11 +5,19 @@ namespace Utility.Common.Helper
 {
     public static class TextJsonHelper
     {
+        static JsonSerializerOptions options = new();
+
         public static object? Deserialise(string str, Type type)
         {
+            return JsonSerializer.Deserialize(str, type, options);
+        }
 
-            var options = new JsonSerializerOptions();
-            return System.Text.Json.JsonSerializer.Deserialize(str, type, options);
+        public static bool Compare<T>(T item1, T item2)
+        {
+            var type = typeof(T);
+            var string1 = JsonSerializer.Serialize(item1, type, options);
+            var string2 = JsonSerializer.Serialize(item2, type, options);
+            return string1.Equals(string2);
         }
     }
 }
