@@ -11,6 +11,20 @@ namespace Utility.Common.Helper
         {
             return JsonSerializer.Deserialize(str, type, options);
         }
+        public static object? Serialise(object obj, Type type)
+        {
+            return JsonSerializer.Serialize(obj, type, options);
+        }
+
+        public static object? Deserialise<T>(string str)
+        {
+            return JsonSerializer.Deserialize<T>(str, options);
+        }
+        public static string Serialise<T>(object obj)
+        {
+            return JsonSerializer.Serialize(obj, typeof(T), options);
+        }
+
 
         public static bool Compare<T>(T item1, T item2)
         {
