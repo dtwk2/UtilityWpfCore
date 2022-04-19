@@ -1,10 +1,11 @@
 ﻿using System;
 using ReactiveUI;
+using UtilityInterface.Generic.Data;
 
 namespace Utility.WPF.Demo.Date.Infrastructure.ViewModel
 {
 
-    public class NoteViewModel : ReactiveObject, IComparable<NoteViewModel>, IEquatable<NoteViewModel>
+    public class NoteViewModel : ReactiveObject, IComparable<NoteViewModel>, IEquatable<NoteViewModel>, IId<Guid>
     {
         private DateTime date;
         private string? text;
@@ -32,7 +33,7 @@ namespace Utility.WPF.Demo.Date.Infrastructure.ViewModel
 
         public int CompareTo(NoteViewModel? other)
         {
-            return this.Date.CompareTo(other.Date);
+            return this.CreateTime.CompareTo(other.CreateTime);
         }
 
         public bool Equals(NoteViewModel? other)
@@ -53,6 +54,11 @@ namespace Utility.WPF.Demo.Date.Infrastructure.ViewModel
         public override int GetHashCode()
         {
             return Id.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return Id + " " + Date + " " + CreateTime + " " + Text;
         }
     }
 }

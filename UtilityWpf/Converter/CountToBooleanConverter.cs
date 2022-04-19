@@ -22,7 +22,6 @@ namespace UtilityWpf
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            var evaluator = new Evaluator(new EvaluationContext());
             int param;
             if (int.TryParse(parameter.ToString(), out param))
             {
@@ -31,14 +30,18 @@ namespace UtilityWpf
             }
 
             if (ExpressionCharacters(parameter.ToString() ?? string.Empty).Any())
-                if (GetInt(value) is int i2)
-                    return (int.Parse(evaluator.Evaluate($"{i2}{parameter}").Value) == 1) != Invert;
+                if (GetInt(value) is var i2)
+                {
+                    var evaluate = lazy.Value.Evaluate($"{i2}{parameter}").Value;
+                    var result = int.Parse(evaluate) == 1;
+                    return result != Invert;
+                }
 
             return DependencyProperty.UnsetValue;
 
             static int? GetInt(object value)
             {
-                if (TypeHelper.IsNumericType(value.GetType()))
+                if (value.GetType().IsNumericType())
                 {
                     return (int)value;
                 }
@@ -48,22 +51,24 @@ namespace UtilityWpf
                     {
                         return ic.ItemsSource?.Count();
                     }
-                    var itemsControl = VisualTreeExHelper.ChildOfType<ItemsControl>(ui);
+                    var itemsControl = ui.ChildOfType<ItemsControl>();
                     return itemsControl?.ItemsSource?.Count();
                 }
-                if (value.ToString() is string str)
-                    if (int.TryParse(str, out int pValue))
+                if (value.ToString() is var str)
+                    if (int.TryParse(str, out var pValue))
+                    {
                         return pValue;
+                    }
 
                 return null;
             }
 
             static IEnumerable<char> ExpressionCharacters(string value)
             {
-                return (from chr in value.ToCharArray()
-                        join exp in expressionCharacters
-                        on chr equals exp
-                        select chr);
+                return from chr in value.ToCharArray()
+                       join exp in expressionCharacters
+                       on chr equals exp
+                       select chr;
             }
         }
 

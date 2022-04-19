@@ -9,7 +9,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:anim="http://schemas.utility.com/animation"
-    xmlns:entity="clr-namespace:Utility.WPF.Demo.Date.Infrastructure.Entity"
     xmlns:utl="http://schemas.utility.com/utilitywpf"
     xmlns:viewModel="clr-namespace:Utility.WPF.Demo.Date.Infrastructure.ViewModel"
     Title="Utility Journal"
@@ -28,7 +27,7 @@
         <local:NotesConverter x:Key="ValueConverter" />
         <local:NoteConverter x:Key="NoteConverter" />
         <utl:DefaultConverter x:Key="DefaultConverter" />
-        <local:CountToBooleanConverter x:Key="CountToBooleanConverter" />
+        <utl:CountToBooleanConverter x:Key="CountToBooleanConverter" />
     </FrameworkElement.Resources>
 
     <!--<TabControl>
@@ -76,16 +75,19 @@
                                     Height="40"
                                     HorizontalContentAlignment="Center"
                                     VerticalContentAlignment="Center"
-                                    Background="Transparent"
-                                    DisplayMemberPath="CreateTime"
                                     DockPanel.Dock="Top"
                                     FontSize="16"
                                     IsEnabled="{Binding Notes.Count,
-                                    ConverterParameter=1,
+                                    ConverterParameter='>1',
                                     Converter={StaticResource CountToBooleanConverter}}"
                                     ItemsSource="{Binding Notes}"
-                                    SelectedIndex="{Binding SelectedIndex}" />
-
+                                    SelectedIndex="{Binding SelectedIndex}" >
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate DataType="viewModel:NoteViewModel">
+                                    <TextBlock Text="{Binding CreateTime, StringFormat='{}{0:dd/MM/yyyy HH:mm:ss}'}"></TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                         <ContentControl Content="{Binding SelectedNote}" />
                     </DockPanel>
                 </DataTemplate>
