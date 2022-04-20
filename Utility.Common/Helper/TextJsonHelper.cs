@@ -11,7 +11,7 @@ namespace Utility.Common.Helper
         {
             return JsonSerializer.Deserialize(str, type, options);
         }
-        public static object? Serialise(object obj, Type type)
+        public static string Serialise(object obj, Type type)
         {
             return JsonSerializer.Serialize(obj, type, options);
         }

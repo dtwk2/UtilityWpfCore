@@ -72,15 +72,6 @@ namespace Utility.WPF.Demo.Date.Infrastructure.Repository
                     if (list == null || list.Count == 0)
                     {
                         var noteViewModel = new NoteViewModel { Date = date };
-                        //noteViewModel.WhenAnyValue(a => a.Text)
-                        //    .Subscribe(async a =>
-                        //    {
-                        //        var find = await NoteEntity.FindAsync(noteViewModel.Id);
-                        //        if (find == null)
-                        //        {
-                        //            var map = AutoMapperSingleton.Instance.Map<NoteEntity>(find);
-                        //            NoteEntity.Orm.Insert(map);
-                        //    });
                         notes[date].InsertInOrderIfMissing(noteViewModel);
                     }
                     else

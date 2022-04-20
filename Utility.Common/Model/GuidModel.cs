@@ -31,7 +31,7 @@ namespace Utility.Common.Model
 
         public override string ToString()
         {
-            return TextJsonHelper.Serialise<GuidModel<T>>(this);
+            return TextJsonHelper.Serialise(this, this.GetType());
         }
     }
 }
