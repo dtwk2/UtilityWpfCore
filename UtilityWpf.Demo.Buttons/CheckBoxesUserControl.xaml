@@ -28,12 +28,12 @@
                     <demoApp:CheckBoxesViewModel />
                 </FrameworkElement.DataContext>
                 <DockPanel>
-                    <view:CheckBoxesControl Width="200"
+                    <view:CheckBoxesComboControl Width="200"
                         x:Name="CheckBoxesControl"
                         DisplayMemberPath="Header"
                         ItemsSource="{Binding Data}"
                         IsCheckedPath="IsChecked">
-                    </view:CheckBoxesControl>
+                    </view:CheckBoxesComboControl>
 
                     <ListBox ItemsSource="{Binding ElementName=CheckBoxesControl, Path=Output}">
                         <ListBox.ItemTemplate>
