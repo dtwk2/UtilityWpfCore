@@ -5,6 +5,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <utl:SharedResourceDictionary Source="/UtilityWpf.Controls.Buttons;component/Themes/ListBox.xaml"></utl:SharedResourceDictionary>
+        <utl:SharedResourceDictionary Source="/UtilityWpf.Controls.Buttons;component/Themes/Button.xaml"></utl:SharedResourceDictionary>
         <utl:SharedResourceDictionary Source="/Utility.WPF.Themes;component/Themes/CheckBox.xaml"></utl:SharedResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
@@ -15,8 +16,7 @@
     </Style>
 
     <Style TargetType="{x:Type local:CheckBoxesFilteredControl}" BasedOn="{StaticResource GenericListBox}">
-        <Setter Property="ItemContainerStyle" Value="{StaticResource OtherStyle}" />
-        <!--<Setter Property="ItemTemplateSelector" Value="{StaticResource CheckBoxesDataTemplateSelector}" />-->
+        <Setter Property="ItemContainerStyle" Value="{StaticResource CloseListBoxItemStyle}" />
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
@@ -27,20 +27,32 @@
     </Style>
 
     <Style x:Key="ComboboxButtonStyle" TargetType="{x:Type ToggleButton}">
+        <Setter Property="BorderBrush" Value="Gray"></Setter>
+        <Setter Property="Background" Value="White"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
-                    <Border
-                        Background="White"
+                    <Border Margin="0,0,0,8"
+                        Background="{TemplateBinding Background}"
                         x:Name="border"
                         CornerRadius="0,5,5,0"
-                        BorderThickness="0,1,1,1"
-                        BorderBrush="Black">
+                        BorderThickness="2"
+                        BorderBrush="{TemplateBinding BorderBrush}">
                         <ContentPresenter />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Background" Value="WhiteSmoke" />
+                <Setter Property="Cursor" Value="Hand" />
+            </Trigger>
+            <Trigger Property="IsChecked" Value="true">
+                <Setter Property="Background" Value="LightGray" />
+                <Setter Property="BorderBrush" Value="DarkGray" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <Style x:Key="ComboboxTextBoxStyle" TargetType="{x:Type TextBox}">
@@ -78,11 +90,13 @@
                             <Border CornerRadius="5,0,0,5"
                BorderThickness="1,1,0,1"
                Background="{TemplateBinding Background}"
-               BorderBrush="Black">
+               BorderBrush="Gray">
                                 <local:CheckBoxesFilteredControl
                            VerticalAlignment="Center"
                             HorizontalAlignment="Left"
                             Margin="4"
+                            IsDisabledShown="{Binding IsDisabledShown, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                            IsSelectedPath="{Binding IsSelectedPath, RelativeSource={RelativeSource Mode=TemplatedParent}}"
                             ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource Mode=TemplatedParent}}"
                             IsCheckedPath="{Binding IsCheckedPath, RelativeSource={RelativeSource Mode=TemplatedParent}}"
                             SelectedValuePath="{Binding SelectedValuePath, RelativeSource={RelativeSource Mode=TemplatedParent}}"
@@ -97,11 +111,11 @@
                                       Focusable="False"
                                       IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                       ClickMode="Press">
-                            <Path Grid.Column="1"
+                            <Path
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   Data="M 0 0 L 4 4 L 8 0 Z"
-                                  Fill="DodgerBlue" />
+                                  Fill="Gray" />
                         </ToggleButton>
                         <ContentPresenter Name="ContentSite"
                                           Content="{TemplateBinding SelectionBoxItem}"
@@ -113,7 +127,7 @@
                         <Popup Name="Popup"
                                Placement="Bottom"
                                IsOpen="{TemplateBinding IsDropDownOpen}"
-
+AllowsTransparency="True"
                                Focusable="False"
                                PopupAnimation="Slide">
                             <Grid Name="DropDown"
@@ -122,11 +136,10 @@
                                   MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                 <Border
                                     x:Name="DropDownBorder"
-                                    BorderThickness="1"
                                     CornerRadius="5"
                                     Background="White"
-                                    BorderBrush="Black" />
-                                <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                    Opacity="0.5" />
+                                <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True" VerticalScrollBarVisibility="Auto">
                                     <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
                                 </ScrollViewer>
                             </Grid>

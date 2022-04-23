@@ -7,18 +7,6 @@
              xmlns:uc="clr-namespace:Utility.Common.Enum;assembly=Utility.Common"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-    <FrameworkElement.Resources>
-        <PathGeometry x:Key="XGeometry">
-            <PathGeometry.Figures>
-                <PathFigure StartPoint="0.5,0">
-                    <LineSegment Point="-1,0" />
-                </PathFigure>
-                <PathFigure StartPoint="-0.5,0">
-                    <LineSegment Point="1,0" />
-                </PathFigure>
-            </PathGeometry.Figures>
-        </PathGeometry>
-    </FrameworkElement.Resources>
 
     <UniformGrid Rows="1">
         <StackPanel>
@@ -50,25 +38,5 @@
                         Enum="{x:Type enum:Tense}" />
             </Viewbox>
         </StackPanel>
-
-        <UniformGrid Columns="1">
-            <view:GeometryButton
-                    Height="70"
-                    Data="{StaticResource XGeometry}"
-                    HoverBackground="RoyalBlue" />
-
-            <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
-                <view:GeometryButton x:Name="PathButton" Height="100" />
-                <TextBox
-                        x:Name="PathTextBox"
-                        Width="200"
-                        Height="30"
-                        Margin="4"
-                        FontSize="14" />
-                <TextBlock x:Name="ErrorTextBlock" Foreground="Red" />
-            </StackPanel>
-
-            <view:XGeometryButton />
-        </UniformGrid>
     </UniformGrid>
 </UserControl>
