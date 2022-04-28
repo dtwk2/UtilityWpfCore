@@ -76,6 +76,9 @@
                 <Setter Property="Background" Value="LightGray" />
                 <Setter Property="BorderBrush" Value="DarkGray" />
             </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Opacity" Value="0.5" />
+            </Trigger>
         </Style.Triggers>
     </Style>
 
@@ -88,41 +91,41 @@
                             SnapsToDevicePixels="true">
             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsSelected"
                                  Value="true">
                 <Setter TargetName="Bd"
                                     Property="Background"
-                                    Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                    Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
                 <Setter Property="Foreground"
-                                    Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+                                    Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="IsSelected"
-                                           Value="true"/>
+                                           Value="true" />
                     <Condition Property="Selector.IsSelectionActive"
-                                           Value="false"/>
+                                           Value="false" />
                 </MultiTrigger.Conditions>
                 <Setter TargetName="Bd"
                                     Property="Background"
-                                    Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                                    Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
                 <Setter Property="Foreground"
-                                    Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}}"/>
+                                    Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}}" />
             </MultiTrigger>
             <Trigger Property="IsEnabled"
                                  Value="false">
                 <Setter Property="Foreground"
-                                    Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                    Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
             </Trigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Path=(base:AccessibilitySwitches.UseNetFx47CompatibleAccessibilityFeatures)}" Value="false"/>
-                    <Condition Binding="{Binding Path=(SystemParameters.HighContrast)}" Value="true"/>
+                    <Condition Binding="{Binding Path=(base:AccessibilitySwitches.UseNetFx47CompatibleAccessibilityFeatures)}" Value="false" />
+                    <Condition Binding="{Binding Path=(SystemParameters.HighContrast)}" Value="true" />
                 </MultiDataTrigger.Conditions>
-                <Setter Property="FocusVisualStyle" Value="{StaticResource ListBoxItemHighContrastFocusVisual}"/>
+                <Setter Property="FocusVisualStyle" Value="{StaticResource ListBoxItemHighContrastFocusVisual}" />
             </MultiDataTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
