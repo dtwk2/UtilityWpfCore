@@ -54,7 +54,6 @@ namespace UtilityWpf.Controls.Meta
             //listBox.ItemTemplate = (DataTemplate)resource[dataTemplateKey];
             Content = listBox;
             UseDataContext = true;
-
             _ = subject
                 .StartWith(Assembly)
                 .WhereNotNull()
@@ -73,6 +72,7 @@ namespace UtilityWpf.Controls.Meta
                     listBox.ItemsSource = pairs.ToArray();
                     listBox.SelectedIndex = 0;
                 });
+            //subject2.OnNext(DemoType.UserControl);
 
             Header = CreateDetail();
 

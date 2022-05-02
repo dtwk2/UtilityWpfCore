@@ -9,12 +9,7 @@
         <utl:SharedResourceDictionary Source="/Utility.WPF.Themes;component/Themes/CheckBox.xaml"></utl:SharedResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
-    <Style TargetType="{x:Type local:CheckBoxesControl}" BasedOn="{StaticResource GenericListBox}">
-        <Setter Property="ItemContainerStyle" Value="{StaticResource OtherStyle}" />
-
-        <!--<Setter Property="ItemTemplateSelector" Value="{StaticResource CheckBoxesDataTemplateSelector}" />-->
-    </Style>
-
+    
     <Style TargetType="{x:Type local:CheckBoxesFilteredControl}" BasedOn="{StaticResource GenericListBox}">
         <Setter Property="ItemContainerStyle" Value="{StaticResource CloseListBoxItemStyle}" />
         <Setter Property="ItemsPanel">
@@ -84,8 +79,10 @@
                             <ColumnDefinition MaxWidth="18" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBox Name="PART_EditableTextBox"
-                                 Visibility="Collapsed" />
+                        <!--<TextBox Name="PART_EditableTextBox"
+                                 FontSize="0"
+                                 Background="Red"
+                                 Visibility="Collapsed" />-->
                         <Grid>
                             <Border CornerRadius="5,0,0,5"
                BorderThickness="1,1,0,1"
@@ -117,17 +114,17 @@
                                   Data="M 0 0 L 4 4 L 8 0 Z"
                                   Fill="Gray" />
                         </ToggleButton>
-                        <ContentPresenter Name="ContentSite"
+                        <!--<ContentPresenter Name="ContentSite"
                                           Content="{TemplateBinding SelectionBoxItem}"
                                           ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
                                           ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
                                           VerticalAlignment="Center"
                                           HorizontalAlignment="Left"
-                                          Margin="5,0,0,0" />
+                                          Margin="5,0,0,0" />-->
                         <Popup Name="Popup"
                                Placement="Bottom"
                                IsOpen="{TemplateBinding IsDropDownOpen}"
-AllowsTransparency="True"
+                               AllowsTransparency="True"
                                Focusable="False"
                                PopupAnimation="Slide">
                             <Grid Name="DropDown"
@@ -153,4 +150,5 @@ AllowsTransparency="True"
     <Style TargetType="{x:Type local:CheckBoxesComboControl}" BasedOn="{StaticResource ComboboxStyle}">
         <Setter Property="ItemContainerStyle" Value="{StaticResource OtherStyle}" />
     </Style>
+    
 </ResourceDictionary>

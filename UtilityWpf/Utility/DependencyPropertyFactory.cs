@@ -111,9 +111,9 @@ new((d, e) => new DependencyPropertyChangedObserver<TControl, T>(observer, initi
     {
         private readonly Func<TControl, IObserver<T>> observer;
 
-        public DependencyPropertyChangedObserver(Func<TControl, IObserver<T>> observer, T intialValue)
+        public DependencyPropertyChangedObserver(Func<TControl, IObserver<T>> observer, T? initialValue)
         {
-            this.observer = observer;
+            this.observer = observer;  
         }
 
         public void OnNext(DependencyObject d, DependencyPropertyChangedEventArgs e) => observer(d as TControl).OnNext((T)e.NewValue);

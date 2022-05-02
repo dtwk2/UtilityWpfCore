@@ -42,7 +42,14 @@ namespace UtilityWpf.Utility
             .Select(a => a.EventArgs.AddedItems)
             .StartWith(selector.SelectedItem != null ? new[] { selector.SelectedItem } : Array.Empty<object>() as IList)
             .Where(a => a.Count == 1)
+            .DistinctUntilChanged()
             .Select(a => a.Cast<object>().Single());
+
+        public static IObservable<T> SelectOutputChanges<T>(this IOutput<T> selector) where T : RoutedEventArgs =>
+            Observable
+            .FromEventPattern<OutputChangedEventHandler<T>, T>
+            (a => selector.OutputChange += a, a => selector.OutputChange -= a)
+            .Select(a => a.EventArgs);
 
         public static IObservable<ListBoxItem[]> SelectMultiSelectionChanges(this Selector selector) =>
             Observable

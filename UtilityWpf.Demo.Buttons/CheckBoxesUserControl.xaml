@@ -33,16 +33,20 @@
                         x:Name="CheckBoxesControl"
                         DisplayMemberPath="Header"
                         ItemsSource="{Binding Data}"
-                                                          IsSelectedPath="IsSelected"
-                        IsCheckedPath="IsChecked">
-                        </view:CheckBoxesComboControl>
+                        IsSelectedPath="{utl:NameOf Member=IsSelected, Type={x:Type viewModel:CheckViewModel}}"
+                        IsCheckedPath="{utl:NameOf Member=IsChecked, Type={x:Type viewModel:CheckViewModel}}"/>
                         <view:CheckBoxesComboControl Width="100" Height="70"
                         IsDisabledShown="True"
                         DisplayMemberPath="Header"
-                                                     IsSelectedPath="IsSelected"
+                        IsSelectedPath="IsSelected"
                         ItemsSource="{Binding Data}"
-                        IsCheckedPath="IsChecked">
-                        </view:CheckBoxesComboControl>
+                        IsCheckedPath="IsChecked"/>
+                        <view:CheckBoxesFilteredControl Width="100" Height="70"
+                        IsDisabledShown="True"
+                        DisplayMemberPath="Header"
+                        IsSelectedPath="IsSelected"
+                        ItemsSource="{Binding Data}"
+                        IsCheckedPath="IsChecked"/>
                     </UniformGrid>
 
                     <ListBox ItemsSource="{Binding ElementName=CheckBoxesControl, Path=Output}">
@@ -64,13 +68,13 @@
                                    Content="{x:Static Orientation.Horizontal}"
                                    UnCheckedContent="{x:Static Orientation.Vertical}">
                 </view:ToggleButton>
-                <view:CheckBoxesControl x:Name="ButtonsControl"
+                <view:CheckBoxesListControl x:Name="ButtonsControl"
                                         IsCheckedPath="IsChecked"
                                         Orientation="{Binding ElementName=ToggleButton, Path=IsChecked, Converter={StaticResource BooleanToOrientationConverter}}">
                     <i:Interaction.Behaviors>
                         <utl:EnumSelectorBehavior EnumType="{x:Type Visibility}"></utl:EnumSelectorBehavior>
                     </i:Interaction.Behaviors>
-                </view:CheckBoxesControl>
+                </view:CheckBoxesListControl>
             </DockPanel>
         </GroupBox>
         <GroupBox d:DataContext="{d:DesignInstance infra:FilteredCheckBoxesViewModel }">
@@ -80,7 +84,7 @@
             <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
 
                 <TextBlock Text="{Binding CountViewModel.Count}"></TextBlock>
-                <view:CheckBoxesControl
+                <view:CheckBoxesListControl
                     DataContext="{Binding FilterCollectionViewModel}"
                     DockPanel.Dock="Top"
                     DisplayMemberPath="Header"
@@ -88,7 +92,7 @@
                     ItemsSource="{Binding FilterCollection}"
                     IsCheckedPath="IsChecked"
                     Orientation="{Binding ElementName=ToggleButton, Path=IsChecked, Converter={StaticResource BooleanToOrientationConverter}}">
-                </view:CheckBoxesControl>
+                </view:CheckBoxesListControl>
 
                 <DataGrid ItemsSource="{Binding CollectionViewModel.Collection}" />
             </DockPanel>
@@ -116,7 +120,7 @@
             <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock Text="{Binding CountViewModel.Count}" Margin="2"></TextBlock>
                 <TextBlock Text="{Binding FilteredCountViewModel.Count}" Foreground="Gray" Margin="2"></TextBlock>
-                <view:CheckBoxesControl
+                <view:CheckBoxesListControl
                     DataContext="{Binding FilterCollectionViewModel}"
                     DockPanel.Dock="Top"
                     SelectedValuePath="Header"
@@ -124,7 +128,7 @@
                     ItemsSource="{Binding FilterCollection}"
                     IsCheckedPath="IsChecked"
                     Orientation="{Binding ElementName=ToggleButton, Path=IsChecked, Converter={StaticResource BooleanToOrientationConverter}}">
-                </view:CheckBoxesControl>
+                </view:CheckBoxesListControl>
                 <DataGrid ItemsSource="{Binding CollectionViewModel.Collection}" />
             </DockPanel>
         </GroupBox>

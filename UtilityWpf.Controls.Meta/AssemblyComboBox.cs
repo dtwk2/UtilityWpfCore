@@ -11,6 +11,7 @@ using System.Windows.Data;
 using Utility.Common;
 using Utility.Persist;
 using UtilityInterface.NonGeneric;
+using UtilityWpf.Controls.Buttons;
 using UtilityWpf.Model;
 using UtilityWpf.Utility;
 
@@ -23,9 +24,11 @@ namespace UtilityWpf.Controls.Meta
     public class AssemblyEntity : BaseEntity<AssemblyEntity, Guid>, IKey
     {
         public string Key { get; init; }
+        public bool IsSelected { get; set; }
+        public bool IsChecked { get; set; }
     }
 
-    internal class AssemblyComboBox : ComboBox
+    internal class AssemblyComboBox : CheckBoxesComboControl
     {
         private readonly Subject<DemoType> subject = new();
 
@@ -33,19 +36,21 @@ namespace UtilityWpf.Controls.Meta
 
         public AssemblyComboBox()
         {
-            SelectedIndex = 0;
+            //SelectedIndex = 0;
             FontWeight = FontWeights.DemiBold;
             FontSize = 14;
             Margin = new Thickness(4);
-            Width = 700;
-            Height = 30;
+            Width = 1000;
+            Height = 60;
             DisplayMemberPath = nameof(AssemblyKeyValue.Key);
+            IsCheckedPath = nameof(Model.KeyValue.IsChecked);
+            IsSelectedPath = nameof(Model.KeyValue.IsSelected);
             SelectedValuePath = nameof(AssemblyKeyValue.Value);
 
             FreeSqlFactory.InitialiseSQLite();
 
             subject
-                .StartWith(DemoType.ResourceDictionary)
+                //.StartWith(DemoType.ResourceDictionary)
                 .Select(a =>
                 {
                     return a switch
@@ -55,47 +60,105 @@ namespace UtilityWpf.Controls.Meta
                         _ => throw new Exception("££!!!!$$4"),
                     };
                 })
-                .Subscribe(a =>
+                .Subscribe(async a =>
                 {
                     //    var array2 = a.Select(a => new AssemblyKeyValue(a))
                     //.Where(a => a.Key != null)
                     //.Select(a => A<AssemblyEntity>.Order(a.Key))
                     //.ToArray();
 
-                    var array = a.Select(a => new AssemblyKeyValue(a))
+                    var array = a
+                    .Select(a => new AssemblyKeyValue(a))
                     .Where(a => a.Key != null)
-                    .OrderByDescending(a => A<AssemblyEntity>.Order(a.Key))
+                    .OrderByDescending(a => BaseEntityOrderer<AssemblyEntity>.Order(a.Key))
                     .ToArray();
 
+                    var items = await AssemblyEntity.Select.ToListAsync();
+
+                    for (int i = 0; i < array.Length; i++)
+                    {
+                        foreach (var item in items)
+                            if (array[i].Key == item.Key)
+                            {
+                                array[i].IsSelected = item.IsSelected;
+                                array[i].IsChecked = item.IsChecked;
+                            }
+                    }
+
                     var view = CollectionViewSource.GetDefaultView(array);
-                    view.GroupDescriptions.Clear();
-                    view.GroupDescriptions.Add(new PropertyGroupDescription(nameof(UtilityWpf.Model.KeyValue.GroupKey)));
-                    ItemsSource = array;
-                    SelectedIndex = 0;
+                    //view.GroupDescriptions.Clear();
+                    //view.GroupDescriptions.Add(new PropertyGroupDescription(nameof(Model.KeyValue.GroupKey)));
+                    ItemsSource = view;
+                    //SelectedIndex = 0;
                 });
 
-            GroupStyle.Add(new GroupStyle());
+            //GroupStyle.Add(new GroupStyle());
 
             this.SelectSingleSelectionChanges()
+                .DistinctUntilChanged()
                 .Subscribe(async a =>
                 {
                     var item = (AssemblyKeyValue)a;
+
                     if (item.Key != null)
                     {
-                        var assemblyEntity = new AssemblyEntity { Key = item.Key };
-                        var sort = assemblyEntity.Sort;
-                        var x = await AssemblyEntity.Where(a => a.Key == item.Key).FirstAsync();
-                        if (x == null)
+                        var match = await AssemblyEntity.Where(a => a.Key == item.Key).FirstAsync();
+                        if (match == null)
+                        {
                             //repo.Add(new AssemblyRecord(item.Key, DateTime.Now));
-
+                            var assemblyEntity = new AssemblyEntity { Key = item.Key, IsSelected = true, IsChecked = true };
                             await assemblyEntity.InsertAsync();
+                        }
+                        else if (match.IsSelected != true)
+                        {
+                            var matches = await AssemblyEntity.Where(a => a.IsSelected).ToListAsync();
+                            foreach (var match2 in matches)
+                            {
+                                if (match2 != match)
+                                {
+                                    match2.IsSelected = false;
+                                    await match2.UpdateAsync();
+                                }
+                            }
+                            match.IsSelected = true;
+                            await match.UpdateAsync();
+                        }
+                    }
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        SelectedItem = a;
+                    });
+                });
+
+            this.SelectOutputChanges()
+                .Subscribe(async a =>
+                {
+                    var enumerator = a.Dictionary.GetEnumerator();
+                    while (enumerator.MoveNext() && enumerator.Current is { Key: var key, New: var @new })
+                    {
+                        var match = await AssemblyEntity.Where(a => a.Key == key).FirstAsync();
+                        if (match == null)
+                        {
+                            var assemblyEntity = new AssemblyEntity { Key = key.ToString(), IsSelected = true, IsChecked = true };
+                            await assemblyEntity.InsertAsync();
+                        }
                         else
-                            await x.UpdateAsync();
+                        {
+                            if (@new.HasValue)
+                            {
+                                match.IsChecked = @new ?? false;
+                                await match.UpdateAsync();
+                            }
+                            else
+                            {
+                                throw new Exception("gref34 gdfg");
+                            }
+                        }
                     }
                 });
         }
 
-        private class A<T> where T : BaseEntity, IKey
+        private class BaseEntityOrderer<T> where T : BaseEntity, IKey
         {
             public static DateTime Order(string key)
             {
