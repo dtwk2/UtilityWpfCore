@@ -28,12 +28,22 @@
                     <demoApp:CheckBoxesViewModel />
                 </FrameworkElement.DataContext>
                 <DockPanel>
-                    <view:CheckBoxesControl Width="200"
+                    <UniformGrid Columns="1">
+                        <view:CheckBoxesComboControl Width="200" Height="50"
                         x:Name="CheckBoxesControl"
                         DisplayMemberPath="Header"
                         ItemsSource="{Binding Data}"
+                                                          IsSelectedPath="IsSelected"
                         IsCheckedPath="IsChecked">
-                    </view:CheckBoxesControl>
+                        </view:CheckBoxesComboControl>
+                        <view:CheckBoxesComboControl Width="100" Height="70"
+                        IsDisabledShown="True"
+                        DisplayMemberPath="Header"
+                                                     IsSelectedPath="IsSelected"
+                        ItemsSource="{Binding Data}"
+                        IsCheckedPath="IsChecked">
+                        </view:CheckBoxesComboControl>
+                    </UniformGrid>
 
                     <ListBox ItemsSource="{Binding ElementName=CheckBoxesControl, Path=Output}">
                         <ListBox.ItemTemplate>
@@ -51,8 +61,8 @@
         <GroupBox>
             <DockPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <view:ToggleButton x:Name="ToggleButton"
-                                Content="{x:Static Orientation.Horizontal}"
-                                UnCheckedContent="{x:Static Orientation.Vertical}">
+                                   Content="{x:Static Orientation.Horizontal}"
+                                   UnCheckedContent="{x:Static Orientation.Vertical}">
                 </view:ToggleButton>
                 <view:CheckBoxesControl x:Name="ButtonsControl"
                                         IsCheckedPath="IsChecked"

@@ -21,7 +21,8 @@ namespace UtilityWpf.Demo.Controls
             new Window
             {
                 WindowState = WindowState.Maximized,
-                Content = new ResourceDictionariesGrid()
+                Content = new UserControlsGrid()
+                //Content = new ResourceDictionariesGrid()
             }.Show();
         }
     }

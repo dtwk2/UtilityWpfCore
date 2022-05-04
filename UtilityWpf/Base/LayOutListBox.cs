@@ -13,14 +13,6 @@ namespace UtilityWpf.Base
         public static readonly DependencyProperty OrientationProperty =
             WrapPanel.OrientationProperty.AddOwner(typeof(LayOutListBox), new PropertyMetadata(LayOutHelper.OrientationChanged));
 
-        //public static readonly DependencyProperty IsWrappingProperty = DependencyProperty.Register("IsWrapping", typeof(bool), typeof(LayOutListBox), new PropertyMetadata(false));
-
-        //public bool IsWrapping
-        //{
-        //    get => (bool)GetValue(IsWrappingProperty);
-        //    set => SetValue(IsWrappingProperty, value);
-        //}
-
         public Orientation Orientation
         {
             get => (Orientation)GetValue(OrientationProperty);

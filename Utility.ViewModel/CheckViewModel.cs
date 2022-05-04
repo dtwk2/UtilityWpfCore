@@ -14,11 +14,13 @@
 
         public bool IsChecked { get; set; }
 
+        public bool IsSelected { get; set; }
+
         public string Header { get; init; }
 
         public override string ToString()
         {
-            return $"{Header} {IsChecked}";
+            return $"{Header} {IsChecked} {IsSelected}";
         }
     }
 

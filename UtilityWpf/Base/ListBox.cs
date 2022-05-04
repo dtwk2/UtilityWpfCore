@@ -63,14 +63,27 @@ namespace UtilityWpf.Base
     {
         protected override DependencyObject GetContainerForItemOverride() => new T();
 
-        protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
+        protected sealed override void PrepareContainerForItemOverride(DependencyObject element, object item)
         {
-            InitialiseItem(element as T, item);
+            if (element is not T t)
+                throw new System.Exception("s fdsd  77ffs");
+            InitialiseItem(t, item);
+            PrepareContainerForItemOverride(t, item);
             base.PrepareContainerForItemOverride(element, item);
+        }
+
+        protected virtual void PrepareContainerForItemOverride(T element, object item)
+        {
+
         }
 
         protected override bool IsItemItsOwnContainerOverride(object item) => item is T;
 
-        protected virtual T InitialiseItem(T item, object viewmModel) => item;
+        protected virtual T InitialiseItem(T item, object viewmModel)
+        {
+            if (item is FrameworkElement control)
+                _ = control.ApplyTemplate();
+            return item;
+        }
     }
 }

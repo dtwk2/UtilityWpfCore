@@ -1,8 +1,5 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows.Controls;
-using System.Windows.Media;
-using UtilityWpf.Controls.Buttons;
 
 namespace UtilityWpf.Demo.Buttons
 {
@@ -17,22 +14,7 @@ namespace UtilityWpf.Demo.Buttons
         {
             InitializeComponent();
 
-            this.PathTextBox.Text = GeometryButton.InitialData;
-            converter = TypeDescriptor.GetConverter(typeof(Geometry));
-            this.PathTextBox.TextChanged += PathTextBox_TextChanged;
         }
 
-        private void PathTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            this.ErrorTextBlock.Text = string.Empty;
-            try
-            {
-                PathButton.Data = converter.ConvertFrom(this.PathTextBox.Text) as Geometry ?? throw new Exception("fgdgd 443 3"); 
-            }
-            catch (Exception ex)
-            {
-                this.ErrorTextBlock.Text = ex.Message;
-            }
-        }
     }
 }

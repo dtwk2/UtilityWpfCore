@@ -18,22 +18,22 @@ namespace UtilityWpf.Utility
         {
             this.source = source;
         }
-        
-        public Binding OneWay(string path) => Bind(path, BindingMode.OneWay);
 
-        public Binding TwoWay(string path) => Bind(path, BindingMode.TwoWay);
+        public Binding OneWay(string path, IValueConverter? converter = null) => Bind(path, BindingMode.OneWay, converter);
 
-        private Binding Bind(string path, BindingMode bindingMode)
+        public Binding TwoWay(string path, IValueConverter? converter = null) => Bind(path, BindingMode.TwoWay, converter);
+
+        private Binding Bind(string path, BindingMode bindingMode, IValueConverter? converter = null)
         {
             return new Binding
             {
+                Converter = converter,
                 Source = source,
                 Path = new PropertyPath(path),
                 Mode = bindingMode,
             };
         }
     }
-
 
     /// <summary>
     /// Extension methods for the WPF Binding class.

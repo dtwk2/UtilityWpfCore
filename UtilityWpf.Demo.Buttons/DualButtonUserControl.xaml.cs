@@ -10,11 +10,11 @@ using System.Windows.Data;
 namespace UtilityWpf.Demo.Buttons
 {
     /// <summary>
-    /// Interaction logic for SwitchControlAndTransitionControlDemoView.xaml
+    /// Interaction logic for DualButtonUserControl.xaml
     /// </summary>
-    public partial class SwitchControlAndTransitionControlDemoView : UserControl
+    public partial class DualButtonUserControl : UserControl
     {
-        public SwitchControlAndTransitionControlDemoView()
+        public DualButtonUserControl()
         {
             InitializeComponent();
 
