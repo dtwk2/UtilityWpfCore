@@ -7,7 +7,7 @@ using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
 using ReactiveUI;
 using Utility.Common;
-using Utility.WPF.Controls.Date.Model;
+using Utility.Common.Helper;
 using Utility.WPF.Demo.Date.Infrastructure.Entity;
 using Utility.WPF.Demo.Date.Infrastructure.ViewModel;
 
@@ -15,7 +15,7 @@ namespace Utility.WPF.Demo.Date.Infrastructure.Repository
 {
     internal class NotesRepository
     {
-        readonly Dictionary<DateTime, ObservableCollection<NoteViewModel>> notes = new();
+        private readonly Dictionary<DateTime, ObservableCollection<NoteViewModel>> notes = new();
 
         public NoteViewModel FindMostRecent(DateTime date)
         {
@@ -33,14 +33,21 @@ namespace Utility.WPF.Demo.Date.Infrastructure.Repository
                 .ToObservable()
                 .WhereNotNull()
                 .Take(1)
-                .Subscribe(single =>
+                .Select(single =>
                 {
-                    var map = AutoMapperSingleton.Instance.Map<NoteViewModel>(single);
+                    return Task.Run(() =>
+                    {
+                        var map = AutoMapperSingleton.Instance.Map<NoteViewModel>(single);
+                        return map;
+                    });
+                })
+                .Switch()
+                .Subscribe(map =>
+                {
                     noteViewModel.Text = map.Text;
                     noteViewModel.CreateTime = map.CreateTime;
                     noteViewModel.Id = map.Id;
                     notes[date].InsertInOrderIfMissing(noteViewModel);
-
                 });
 
             return noteViewModel;
@@ -50,10 +57,10 @@ namespace Utility.WPF.Demo.Date.Infrastructure.Repository
         {
             if (notes.ContainsKey(date))
             {
-                return await Observable.Return(notes[date]).ToTask();
+                //return await Observable.Return(notes[date]).ToTask();
             }
-
-            notes[date] = new ObservableCollection<NoteViewModel>();
+            else
+                notes[date] = new ObservableCollection<NoteViewModel>();
 
             return await NoteEntity
                 .Where(a => a.Date == date)
@@ -62,18 +69,9 @@ namespace Utility.WPF.Demo.Date.Infrastructure.Repository
                 .ToObservable()
                 .Select(list =>
                 {
-                    if (list == null)
+                    if (list == null || list.Count == 0)
                     {
                         var noteViewModel = new NoteViewModel { Date = date };
-                        //noteViewModel.WhenAnyValue(a => a.Text)
-                        //    .Subscribe(async a =>
-                        //    {
-                        //        var find = await NoteEntity.FindAsync(noteViewModel.Id);
-                        //        if (find == null)
-                        //        {
-                        //            var map = AutoMapperSingleton.Instance.Map<NoteEntity>(find);
-                        //            NoteEntity.Orm.Insert(map);
-                        //    });
                         notes[date].InsertInOrderIfMissing(noteViewModel);
                     }
                     else
@@ -90,7 +88,13 @@ namespace Utility.WPF.Demo.Date.Infrastructure.Repository
         public async Task<NoteEntity?> Save(DateTime date)
         {
             var dayNotes = notes[date];
-            var map = AutoMapperSingleton.Instance.Map<NoteEntity>(dayNotes.Last());
+            var last = dayNotes.Last();
+            // ignore if nothing has been changed
+            if (last.Text == null)
+                return null;
+
+            var map = await Task.Run(() => AutoMapperSingleton.Instance.Map<NoteEntity>(dayNotes.Last()));
+
             if (await NoteEntity.FindAsync(map.Id) is { Text: var text })
                 if (text == map.Text)
                 {
@@ -99,11 +103,11 @@ namespace Utility.WPF.Demo.Date.Infrastructure.Repository
                 }
                 else
                 {
-                    // not possible to insert successfully if id matches one already in the database
+                    // not possible to insert successfully if id matches a record in the database
                     map.Id = default;
                 }
             var insert = await map.InsertAsync();
-            var mapReverse = AutoMapperSingleton.Instance.Map<NoteViewModel>(dayNotes.Last());
+            var mapReverse = await Task.Run(() => AutoMapperSingleton.Instance.Map<NoteViewModel>(insert));
             dayNotes.Add(mapReverse);
             return insert;
         }
