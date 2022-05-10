@@ -19,7 +19,7 @@
                 <factory:Characters x:Key="Characters" />
             </FrameworkElement.Resources>
             <AdornerDecorator>
-                <DockPanel >
+                <DockPanel>
                     <UniformGrid>
                         <Grid>
                             <materialDesign:PopupBox HorizontalAlignment="Right" VerticalAlignment="Top"
@@ -51,7 +51,6 @@
                                  ab:Text.Position="{Binding ElementName=PopupListBox, Path=SelectedItem.Value}">
                             </TextBox>
                         </Grid>
-
                         <TextBox Height="30" Width="200" 
                                  ab:Header.Text="{Binding Text, RelativeSource={RelativeSource Self}}">
                             Edit this text
@@ -281,7 +280,6 @@
                             <TextBlock VerticalAlignment="Stretch" 
                                        HorizontalAlignment="Stretch">3</TextBlock>
                         </Grid>
-
                     </Button>
                 </StackPanel>
             </materialDesign:PopupBox>

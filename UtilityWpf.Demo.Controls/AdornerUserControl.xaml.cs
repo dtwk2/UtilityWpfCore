@@ -1,14 +1,12 @@
 ﻿using HandyControl.Controls;
 using MaterialDesignThemes.Wpf;
 using RandomColorGenerator;
-using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using System.Windows.Forms.Design.Behavior;
 using System.Windows.Input;
 using System.Windows.Media;
 using UtilityWpf.Adorners;
@@ -16,7 +14,6 @@ using UtilityWpf.Attached;
 using UtilityWpf.Base;
 using UtilityWpf.Demo.Data.Factory;
 using UtilityWpf.Utility;
-using Type = UtilityWpf.Adorners.Type;
 
 namespace UtilityWpf.Demo.View
 {
@@ -36,6 +33,7 @@ namespace UtilityWpf.Demo.View
             controlColourer = new(this);
             //adornerController = new(Square3Grid);
             GearGrid.SetValue(AdornerEx.AdornerProperty, new CustomFrameworkElementAdorner(GearGrid));
+            Square3Grid.SetValue(DataContextProperty, new Characters());
             Square3Grid.SetValue(AdornerEx.AdornerProperty, new SettingsAdorner(Square3Grid));
             Square3Grid.SetValue(AdornerEx.IsEnabledProperty, true);
             Square3Grid.AddAdorner(new SettingsControl());
@@ -114,50 +112,6 @@ namespace UtilityWpf.Demo.View
                 if (AdornedElement is Panel panel)
                     panel.Background = panel.Background == Brushes.Red ? Brushes.PowderBlue : Brushes.Red;
             }
-        }
-    }
-
-    public class SettingsAdorner : FrameworkElementAdorner
-    {
-        private IDisposable disposable;
-
-        public SettingsAdorner(FrameworkElement adornedElement) : base(adornedElement)
-        {
-        }
-
-        public override void SetAdornedElement(DependencyObject adorner, FrameworkElement? adornedElement)
-        {
-            if (adorner is SettingsControl settingsControl)
-            {
-                if (adornedElement == null)
-                {
-                    disposable?.Dispose();
-                    return;
-                }
-                else
-                {
-                    adornedElement.SetValue(Type.ShowDataContextProperty, true);
-                    adornedElement.SetValue(DataContextProperty, new Characters());
-
-                    disposable = settingsControl
-                        .WhenAnyValue(a => a.SelectedDock)
-                        .Subscribe(a =>
-                        {
-                            adornedElement.SetValue(Text.PositionProperty, a);
-                            //           < Rectangle Fill = "LightCoral" Height = "100" Width = "300"
-                            //    DataContext = "{StaticResource Characters}"
-                            //ab: Type.ShowDataContext = "True"
-                        });
-                }
-            }
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (AdornedElement is Control control)
-                control.Background = control.Background == Brushes.Red ? Brushes.PowderBlue : Brushes.Red;
-            if (AdornedElement is Panel panel)
-                panel.Background = panel.Background == Brushes.Red ? Brushes.PowderBlue : Brushes.Red;
         }
     }
 
