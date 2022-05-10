@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -28,30 +29,31 @@ namespace UtilityWpf.Adorners
 
         private static void OnChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            if (((string)e.OldValue).Equals((string)e.NewValue, StringComparison.Ordinal))
-                return;
             if (sender is not FrameworkElement adornedElement)
-                return;
+                throw new Exception("s22df234 dfg f,l,lgd");
             if (adornedElement.IsLoaded)
-                AddAdorner(adornedElement);
+                AddAdorner(adornedElement, e);
             else
-                adornedElement.Loaded += AdornedElement_Loaded;
+                adornedElement.Loaded += (s, e) => AddAdorner((FrameworkElement)sender, default);
 
-            void AddAdorner(FrameworkElement adornedElement)
+            static void AddAdorner(FrameworkElement adornedElement, DependencyPropertyChangedEventArgs e)
             {
                 AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(adornedElement);
-                Text.InvalidateAdorners(adornerLayer, adornedElement);
-                adornerLayer.Add(new Text(adornedElement, (string)e.NewValue, Dock.Right, Place.Outside, Brushes.Red));
-            }
-            void AdornedElement_Loaded(object sender, RoutedEventArgs e)
-            {
-                FrameworkElement adornedElement = (FrameworkElement)sender;
-                //adornedElement.Loaded -= AdornedElement_Loaded;
-                if (string.IsNullOrEmpty(GetText(adornedElement)) == false)
-                    AddAdorner(adornedElement);
-                else
+
+                bool flag = false;
+                foreach (var adorner in adornerLayer.GetAdorners(adornedElement) ?? Array.Empty<Adorner>())
                 {
+                    if (adorner is Text text)
+                    {
+                        flag = true;
+                        text.text = (string)e.NewValue;
+                    }
                 }
+
+                if (flag == false)
+                    adornerLayer.Add(new Text(adornedElement, (string)e.NewValue, Dock.Right, Place.Outside, Brushes.Red));
+                else
+                    Text.InvalidateTextAdorners(adornerLayer, adornedElement);
             }
         }
     }

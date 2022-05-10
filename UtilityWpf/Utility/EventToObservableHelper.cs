@@ -83,20 +83,38 @@ namespace UtilityWpf.Utility
             .Select(a => a.EventArgs.RemovedItems)
             .Where(a => a.Count > 0);
 
-        public static IObservable<Unit> LoadedChanges(this FrameworkElement combo)
+        public static IObservable<Unit> LoadedChanges(this FrameworkElement element)
         {
-            var obs = Observable
-            .FromEventPattern<RoutedEventHandler, RoutedEventArgs>
-            (a => combo.Loaded += a, a => combo.Loaded -= a)
-            .Select(a => Unit.Default);
-
-            if (combo.IsLoaded)
+            if (element.IsLoaded)
             {
                 return Observable.Return(default(Unit));
             }
+
+            var obs = Observable
+            .FromEventPattern<RoutedEventHandler, RoutedEventArgs>
+            (a => element.Loaded += a, a => element.Loaded -= a)
+            .Select(a => Unit.Default);
+
             return obs;
         }
 
+
+        public static IObservable<GeneratorStatus> StatusChanges(this ItemContainerGenerator generator)
+        {
+            var obs = Observable
+            .FromEventPattern<EventHandler, EventArgs>
+            (a => generator.StatusChanged += a, a => generator.StatusChanged -= a)
+            .Select(a => generator.Status);
+
+            return obs;
+        }
+
+        public static IObservable<GeneratorStatus> ContainersGeneratedChanges(this ItemContainerGenerator generator)
+        {
+            var obs = StatusChanges(generator).Where(a=>a.Equals(GeneratorStatus.ContainersGenerated));
+
+            return obs;
+        }
         public static IObservable<RoutedEventArgs> VisibleChanges(this FrameworkElement combo) =>
             Observable
             .FromEventPattern<DependencyPropertyChangedEventHandler, RoutedEventArgs>

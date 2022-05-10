@@ -25,7 +25,12 @@ namespace UtilityWpf.Adorners
         /// The internal encapsulating adorner.
         /// </summary>
         public static readonly DependencyProperty AdornerProperty =
-            DependencyProperty.RegisterAttached("Adorner", typeof(FrameworkElementAdorner), typeof(AdornerEx));
+            DependencyProperty.RegisterAttached("Adorner", typeof(FrameworkElementAdorner), typeof(AdornerEx), new PropertyMetadata(Changed));
+
+        private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+
+        }
 
         /// <summary>
         /// Used in XAML to define the collection of adorners.
@@ -73,7 +78,7 @@ namespace UtilityWpf.Adorners
 
         public static AdornerCollection GetAdorners(DependencyObject d)
         {
-            if (!(d.GetValue(AdornersProperty) is AdornerCollection collection))
+            if (d.GetValue(AdornersProperty) is not AdornerCollection collection)
             {
                 var fe = d as FrameworkElement ?? throw new Exception("sdf2 vv");
                 collection = new AdornerCollection(fe);
@@ -153,6 +158,17 @@ namespace UtilityWpf.Adorners
             d.SetValue(OffsetYProperty, value);
         }
 
+        public static Adorner GetAdorner(DependencyObject d)
+        {
+            return (Adorner)d.GetValue(AdornerProperty);
+        }
+
+        public static void SetAdorner(DependencyObject d, Adorner value)
+        {
+            d.SetValue(AdornerProperty, value);
+        }
+
+
         #endregion Dependency Properties Get And Set
 
         /// <summary>
@@ -170,9 +186,10 @@ namespace UtilityWpf.Adorners
                 adorner.DataContext = fe.DataContext;
         }
 
-        private static void Adorners_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private static void Adorners_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            if (!(sender is FrameworkElement adornedElement) || !(adornedElement.GetValue(AdornerProperty) is FrameworkElementAdorner encapsulatingAdorner))
+            if (sender is not FrameworkElement adornedElement ||
+                adornedElement.GetValue(AdornerProperty) is not FrameworkElementAdorner encapsulatingAdorner)
             {
                 // The statically typed Adorners in XAML will not pass through this function, because the view is not rendered yet.
                 return;
@@ -211,81 +228,84 @@ namespace UtilityWpf.Adorners
         /// <summary>
         /// Decide whether to show or hide the adorner collection.
         /// </summary>
-        private static void UpdateAdorner(FrameworkElement fe)
+        private static void UpdateAdorner(FrameworkElement frameworkElement)
         {
-            if (fe == null)
+            if (frameworkElement == null)
                 return;
 
-            if (GetIsEnabled(fe))
-                ShowAdorner(fe);
+            if (GetIsEnabled(frameworkElement))
+                ShowAdorner(frameworkElement);
             else
-                HideAdorner(fe);
+                HideAdorner(frameworkElement);
         }
 
         /// <summary>
         /// Create a new encapsulating adorner or reuse existing and connect the children.
         /// </summary>
-        private static void ShowAdorner(FrameworkElement fe)
+        private static void ShowAdorner(FrameworkElement frameworkElement)
         {
-            if (fe == null)
+            if (frameworkElement == null)
                 return;
 
-            var adorners = GetAdorners(fe);
+            var adorners = GetAdorners(frameworkElement);
             if (adorners == null)
                 return;
 
-            var al = AdornerLayer.GetAdornerLayer(fe);
-            if (al == null)
+            var adornerLayer = AdornerLayer.GetAdornerLayer(frameworkElement);
+            if (adornerLayer == null)
                 return;
 
             // create new adorner if it doesnt exist
-            var adorner = fe.GetValue(AdornerProperty) as FrameworkElementAdorner;
-            if (adorner == null)
+            if (frameworkElement.GetValue(AdornerProperty) is not FrameworkElementAdorner adorner)
             {
-                adorner = new FrameworkElementAdorner(adorners, fe);
-                fe.SetValue(AdornerProperty, adorner);
-                BindAdornerDataContext(fe, adorner);
+                adorner = new FrameworkElementAdorner(frameworkElement) { Adorners = adorners };
+                frameworkElement.SetValue(AdornerProperty, adorner);
             }
+
+            BindAdorner(frameworkElement, adorner);
 
             if (adorner.Parent == null)
             {
-                adorner.ConnectChildren(fe);
-                al.Add(adorner);
+                adorner.ConnectChildren(frameworkElement);
+                adornerLayer.Add(adorner);
             }
         }
 
         /// <summary>
         /// Detach the encapsulating adorner from the visual tree, including children.
         /// </summary>
-        private static void HideAdorner(FrameworkElement fe)
+        private static void HideAdorner(FrameworkElement frameworkElement)
         {
-            if (fe == null)
+            if (frameworkElement == null)
                 return;
 
-            if (fe.GetValue(AdornerProperty) is FrameworkElementAdorner adorner)
+            if (frameworkElement.GetValue(AdornerProperty) is FrameworkElementAdorner adorner)
             {
-                if (AdornerLayer.GetAdornerLayer(fe) is AdornerLayer al)
+                if (AdornerLayer.GetAdornerLayer(frameworkElement) is AdornerLayer al)
                     al.Remove(adorner);
                 adorner.DisconnectChildren();
-                fe.SetValue(AdornerProperty, null);
+                //frameworkElement.SetValue(AdornerProperty, null);
             }
         }
 
         /// <summary>
         /// Bind the adorner collection to the encapsulating adorner.
         /// </summary>
-        private static void BindAdornerDataContext(FrameworkElement fe, FrameworkElementAdorner adorner)
+        private static void BindAdorner(FrameworkElement frameworkElement, FrameworkElementAdorner adorner)
         {
             if (adorner == null)
                 throw new ArgumentNullException(nameof(adorner));
 
-            if (fe == null)
-                throw new ArgumentNullException(nameof(fe));
+            if (frameworkElement == null)
+                throw new ArgumentNullException(nameof(frameworkElement));
 
-            var binding = new Binding() { Path = new PropertyPath(AdornersProperty) };
-            binding.Mode = BindingMode.OneWay;
-            binding.Source = fe;
-            adorner.SetBinding(FrameworkElementAdorner.AdornersProperty, binding);
+            adorner.SetBinding(FrameworkElementAdorner.AdornersProperty,
+                new Binding
+                {
+                    Path = new PropertyPath(AdornersProperty),
+                    Mode = BindingMode.OneWay,
+                    Source = frameworkElement
+                });
         }
     }
 }

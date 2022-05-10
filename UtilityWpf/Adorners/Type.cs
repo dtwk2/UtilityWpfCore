@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -7,67 +8,102 @@ namespace UtilityWpf.Adorners
 {
     public class Type
     {
-        public static readonly DependencyProperty TypeProperty = DependencyProperty.RegisterAttached(
-            "Type", typeof(System.Type), typeof(Type), new FrameworkPropertyMetadata(null, OnChanged));
+        //public static readonly DependencyProperty TypeProperty = DependencyProperty.RegisterAttached(
+        //    "Type", typeof(System.Type), typeof(Type), new FrameworkPropertyMetadata(null, OnChanged));
 
-        public static System.Type? GetType(UIElement adornedElement)
+        //public static System.Type? GetType(UIElement adornedElement)
+        //{
+        //    if (adornedElement == null)
+        //        throw new ArgumentNullException("adornedElement");
+        //    return (System.Type?)adornedElement.GetValue(TypeProperty);
+        //}
+
+        //public static void SetType(UIElement adornedElement, System.Type placeholderType)
+        //{
+        //    if (adornedElement == null)
+        //        throw new ArgumentNullException("adornedElement");
+        //    //offset = -adornedElement.Height;
+        //    adornedElement.SetValue(TypeProperty, placeholderType);
+        //}
+
+        public static readonly DependencyProperty ShowDataContextProperty = DependencyProperty.RegisterAttached(
+            "ShowDataContext", typeof(bool), typeof(System.Type), new FrameworkPropertyMetadata(false, OnChanged));
+
+        public static bool ShowDataContext(UIElement adornedElement)
         {
             if (adornedElement == null)
                 throw new ArgumentNullException("adornedElement");
-            return (System.Type?)adornedElement.GetValue(TypeProperty);
+            return (bool)adornedElement.GetValue(ShowDataContextProperty);
         }
 
-        public static void SetType(UIElement adornedElement, System.Type placeholderType)
+        public static void SetShowDataContext(UIElement adornedElement, bool value)
         {
             if (adornedElement == null)
                 throw new ArgumentNullException("adornedElement");
-            //offset = -adornedElement.Height;
-            adornedElement.SetValue(TypeProperty, placeholderType);
+            adornedElement.SetValue(ShowDataContextProperty, value);
+        }      
+        
+        
+        public static readonly DependencyProperty ShowDimensionsProperty = DependencyProperty.RegisterAttached(
+            "ShowDimensions", typeof(bool), typeof(System.Type), new FrameworkPropertyMetadata(false, OnChanged));
+
+        public static bool ShowDimensions(UIElement adornedElement)
+        {
+            if (adornedElement == null)
+                throw new ArgumentNullException("adornedElement");
+            return (bool)adornedElement.GetValue(ShowDimensionsProperty);
         }
 
-        public static readonly DependencyProperty UseDataContextProperty = DependencyProperty.RegisterAttached(
-            "UseDataContext", typeof(bool), typeof(System.Type), new FrameworkPropertyMetadata(false, OnChanged));
-
-        public static bool GetUseDataContext(UIElement adornedElement)
+        public static void SetShowDimensions(UIElement adornedElement, bool value)
         {
             if (adornedElement == null)
                 throw new ArgumentNullException("adornedElement");
-            return (bool)adornedElement.GetValue(UseDataContextProperty);
-        }
-
-        public static void SetUseDataContext(UIElement adornedElement, bool value)
-        {
-            if (adornedElement == null)
-                throw new ArgumentNullException("adornedElement");
-            adornedElement.SetValue(UseDataContextProperty, value);
+            adornedElement.SetValue(ShowDimensionsProperty, value);
         }
 
         private static void OnChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             if (sender is not FrameworkElement adornedElement)
-                return;
+                throw new Exception("sdf234 dfg f,l,lgd");
             if (adornedElement.IsLoaded)
-                AddAdorner(adornedElement);
+                AddAdorner(adornedElement, e);
             else
-                adornedElement.Loaded += AdornedElement_Loaded;
+                adornedElement.Loaded += (s, e) => AddAdorner((FrameworkElement)sender, default);
 
-            void AddAdorner(FrameworkElement adornedElement)
+            static void AddAdorner(FrameworkElement adornedElement, DependencyPropertyChangedEventArgs e)
             {
                 AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(adornedElement);
-                Text.InvalidateAdorners(adornerLayer, adornedElement);
-                adornerLayer.Add(new Text(adornedElement, Type(adornedElement)?.ToString(), Dock.Bottom, Place.Inside));
-            }
-            void AdornedElement_Loaded(object sender, RoutedEventArgs e)
-            {
-                FrameworkElement adornedElement = (FrameworkElement)sender;
-                AddAdorner(adornedElement);
-            }
 
-            System.Type? Type(FrameworkElement adornedElement)
-            {
-                System.Type? type = GetType(adornedElement);
-                System.Type? func() => GetUseDataContext(adornedElement) ? adornedElement.DataContext?.GetType() : adornedElement.GetType();
-                return type ?? func();
+                bool flag = false;
+                foreach (var adorner in adornerLayer.GetAdorners(adornedElement) ?? Array.Empty<Adorner>())
+                {
+                    if (adorner is Text text)
+                    {
+                        flag = true;
+                        text.text = ToText(adornedElement);
+                    }
+                }
+
+                if (flag == false)
+                    adornerLayer.Add(new Text(adornedElement, ToText(adornedElement), Dock.Bottom, Place.Inside));
+                else
+                    Text.InvalidateTextAdorners(adornerLayer, adornedElement);
+
+                static string ToText(FrameworkElement adornedElement)
+                {
+                    //System.Type? type = GetType(adornedElement);
+                    StringBuilder stringBuilder = new();
+                    if(ShowDataContext(adornedElement))
+                    {
+                        stringBuilder.AppendLine(adornedElement.DataContext?.GetType().ToString());
+                    }              
+                    if(ShowDimensions(adornedElement))
+                    {
+                        stringBuilder.AppendLine("height: " + adornedElement.Height + "  x  width: " + adornedElement.Width);
+                    }
+                        
+                    return stringBuilder.ToString();
+                }
             }
         }
     }

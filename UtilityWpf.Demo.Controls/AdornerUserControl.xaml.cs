@@ -1,16 +1,22 @@
-﻿using MaterialDesignThemes.Wpf;
+﻿using HandyControl.Controls;
+using MaterialDesignThemes.Wpf;
 using RandomColorGenerator;
+using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Forms.Design.Behavior;
 using System.Windows.Input;
 using System.Windows.Media;
 using UtilityWpf.Adorners;
 using UtilityWpf.Attached;
+using UtilityWpf.Base;
+using UtilityWpf.Demo.Data.Factory;
 using UtilityWpf.Utility;
+using Type = UtilityWpf.Adorners.Type;
 
 namespace UtilityWpf.Demo.View
 {
@@ -28,15 +34,11 @@ namespace UtilityWpf.Demo.View
             TextCommand = new Command.RelayCommand(() => TextBlock1.Text += " New Text");
             Grid1.DataContext = this;
             controlColourer = new(this);
-            adornerController = new(Square3Grid, new PackIcon
-            {
-                Height = 24,
-                Width = 24,
-                Kind = PackIconKind.Gear,
-                Margin = new Thickness(4),
-                HorizontalAlignment = HorizontalAlignment.Right,
-                VerticalAlignment = VerticalAlignment.Top
-            });
+            //adornerController = new(Square3Grid);
+            GearGrid.SetValue(AdornerEx.AdornerProperty, new CustomFrameworkElementAdorner(GearGrid));
+            Square3Grid.SetValue(AdornerEx.AdornerProperty, new SettingsAdorner(Square3Grid));
+            Square3Grid.SetValue(AdornerEx.IsEnabledProperty, true);
+            Square3Grid.AddAdorner(new SettingsControl());
         }
 
         public ICommand TextCommand { get; }
@@ -58,26 +60,14 @@ namespace UtilityWpf.Demo.View
 
         private void Remove_Click(object sender, RoutedEventArgs e)
         {
-            var layer = AdornerLayer.GetAdornerLayer(canvas);
-            Adorner[] toRemoveArray;
-
             foreach (UIElement ui in canvas.Children)
             {
-                toRemoveArray = layer.GetAdorners(ui);
-                if (toRemoveArray != null)
-                    foreach (Adorner a in toRemoveArray)
-                    {
-                        layer.Remove(a);
-                    }
+                ui.RemoveAdorners();
             }
 
-            toRemoveArray = layer.GetAdorners(Grid);
-            if (toRemoveArray != null)
-                foreach (Adorner a in toRemoveArray)
-                {
-                    layer.Remove(a);
-                }
+            Grid.RemoveAdorners();
         }
+
 
         private bool flag;
 
@@ -86,41 +76,117 @@ namespace UtilityWpf.Demo.View
             if (flag)
             {
                 controlColourer.Remove();
-                adornerController.Remove();
+                adornerController?.Hide();
             }
             else
             {
                 controlColourer.Apply();
-                adornerController.Apply();
+                adornerController?.Apply();
             }
             flag = !flag;
         }
+    }
 
+    public class CustomFrameworkElementAdorner : FrameworkElementAdorner
+    {
+        public CustomFrameworkElementAdorner(FrameworkElement adornedElement) : base(adornedElement)
+        {
+        }
+
+        public override void SetAdornedElement(DependencyObject adorner, FrameworkElement? adornedElement)
+        {
+            if (adorner is Button button)
+            {
+                if (adornedElement == null)
+                {
+                    button.Click -= Button_Click;
+                }
+                else
+                {
+                    button.Click += Button_Click;
+                }
+            }
+
+            void Button_Click(object sender, RoutedEventArgs e)
+            {
+                if (AdornedElement is Control control)
+                    control.Background = control.Background == Brushes.Red ? Brushes.PowderBlue : Brushes.Red;
+                if (AdornedElement is Panel panel)
+                    panel.Background = panel.Background == Brushes.Red ? Brushes.PowderBlue : Brushes.Red;
+            }
+        }
+    }
+
+    public class SettingsAdorner : FrameworkElementAdorner
+    {
+        private IDisposable disposable;
+
+        public SettingsAdorner(FrameworkElement adornedElement) : base(adornedElement)
+        {
+        }
+
+        public override void SetAdornedElement(DependencyObject adorner, FrameworkElement? adornedElement)
+        {
+            if (adorner is SettingsControl settingsControl)
+            {
+                if (adornedElement == null)
+                {
+                    disposable?.Dispose();
+                    return;
+                }
+                else
+                {
+                    adornedElement.SetValue(Type.ShowDataContextProperty, true);
+                    adornedElement.SetValue(DataContextProperty, new Characters());
+
+                    disposable = settingsControl
+                        .WhenAnyValue(a => a.SelectedDock)
+                        .Subscribe(a =>
+                        {
+                            adornedElement.SetValue(Text.PositionProperty, a);
+                            //           < Rectangle Fill = "LightCoral" Height = "100" Width = "300"
+                            //    DataContext = "{StaticResource Characters}"
+                            //ab: Type.ShowDataContext = "True"
+                        });
+                }
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (AdornedElement is Control control)
+                control.Background = control.Background == Brushes.Red ? Brushes.PowderBlue : Brushes.Red;
+            if (AdornedElement is Panel panel)
+                panel.Background = panel.Background == Brushes.Red ? Brushes.PowderBlue : Brushes.Red;
+        }
     }
 
     class AdornerController
     {
-        private readonly DependencyObject adornedElement;
-        private readonly DependencyObject dependencyObject;
+        private readonly UIElement adornedElement;
+        private readonly DependencyObject adorner;
 
-        public AdornerController(DependencyObject adornedElement, DependencyObject dependencyObject)
+        public AdornerController(UIElement adornedElement, DependencyObject? dependencyObject = null)
         {
             this.adornedElement = adornedElement;
-            this.dependencyObject = dependencyObject;
+            this.adorner = dependencyObject ?? new SettingsControl();
+
         }
 
         public void Apply()
         {
+            adornedElement.AddAdorner(adorner);
             adornedElement.SetValue(AdornerEx.IsEnabledProperty, true);
-            var adorners = AdornerEx.GetAdorners(adornedElement);
-            if (adorners.IndexOf(dependencyObject) == -1)
-                adorners.Add(dependencyObject);
         }
+
+        public void Hide() => adornedElement.SetValue(AdornerEx.IsEnabledProperty, false);
 
         public void Remove()
         {
-            adornedElement.SetValue(AdornerEx.IsEnabledProperty, false);
+            adornedElement.RemoveAdorners();
         }
+
+
     }
 
     class ControlColourer

@@ -61,11 +61,17 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Compile Update="Base\SettingsControl.cs">
+			<DependentUpon>SettingsControl.xaml</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	
+	<ItemGroup>
 		<Compile Update="Base\DoubleContentControl.cs">
 			<DependentUpon>DoubleContentControl.xaml</DependentUpon>
 		</Compile>
 	</ItemGroup>
-
+	
 	<ItemGroup>
 		<Page Update="Base\DoubleContentControl.xaml">
 			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>

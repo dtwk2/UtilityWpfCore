@@ -27,46 +27,31 @@
 
         private static void OnChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            if (((string)e.OldValue).Equals((string)e.NewValue, StringComparison.Ordinal))
-                return;
             if (sender is not FrameworkElement adornedElement)
-                return;
+                throw new Exception("s22df234 dfg f,l,lgd");
             if (adornedElement.IsLoaded)
-                AddAdorner(adornedElement);
+                AddAdorner(adornedElement, e);
             else
-                adornedElement.Loaded += AdornedElement_Loaded;
+                adornedElement.Loaded += (s, e) => AddAdorner((FrameworkElement)sender, default);
 
-            void AddAdorner(FrameworkElement adornedElement)
+            static void AddAdorner(FrameworkElement adornedElement, DependencyPropertyChangedEventArgs e)
             {
                 AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(adornedElement);
-                Text.InvalidateAdorners(adornerLayer, adornedElement);
+
+                bool flag = false;
                 foreach (var adorner in adornerLayer.GetAdorners(adornedElement) ?? Array.Empty<Adorner>())
                 {
-                    if (adorner is Text text
-                        && (Dock?)adorner.GetValue(Text.PositionProperty) == Dock.Bottom
-                        && (Place?)adorner.GetValue(Text.PlaceProperty) == Place.Inside)
+                    if (adorner is Text text)
                     {
-                        adornerLayer.Remove(adorner);
+                        flag = true;
+                        text.text = (string)e.NewValue;
                     }
                 }
-                adornerLayer.Add(new Text(adornedElement, (string)e.NewValue, Dock.Bottom, Place.Inside));
 
-                //foreach (var adorner in adornerLayer.GetAdorners(adornedElement) ?? Array.Empty<Adorner>())
-                //    {
-                //        if (adorner is Text && Footer.GetText(adornedElement) != null)
-                //            adornerLayer.Remove(adorner);
-                //    }
-
-            }
-            void AdornedElement_Loaded(object sender, RoutedEventArgs e)
-            {
-                FrameworkElement adornedElement = (FrameworkElement)sender;
-                //adornedElement.Loaded -= AdornedElement_Loaded;
-                if (string.IsNullOrEmpty(GetText(adornedElement)) == false)
-                    AddAdorner(adornedElement);
+                if (flag == false)
+                    adornerLayer.Add(new Text(adornedElement, (string)e.NewValue, Dock.Bottom, Place.Inside));
                 else
-                {
-                }
+                    Text.InvalidateTextAdorners(adornerLayer, adornedElement);
             }
         }
     }

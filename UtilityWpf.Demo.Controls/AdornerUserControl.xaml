@@ -51,7 +51,7 @@
                                  ab:Text.Position="{Binding ElementName=PopupListBox, Path=SelectedItem.Value}">
                             </TextBox>
                         </Grid>
-              
+
                         <TextBox Height="30" Width="200" 
                                  ab:Header.Text="{Binding Text, RelativeSource={RelativeSource Self}}">
                             Edit this text
@@ -95,7 +95,8 @@
                          ></TextBox>-->
                         <Rectangle Fill="LightCoral" Height="100" Width="300"
                            DataContext="{StaticResource Characters}"
-                       ab:Type.UseDataContext="True"
+                       ab:Type.ShowDataContext="True"
+                       ab:Type.ShowDimensions="True"
                          ></Rectangle>
                     </UniformGrid>
                 </DockPanel>
@@ -124,7 +125,6 @@
 
         <TabItem Header="Canvas">
             <UniformGrid>
-
                 <Button Click="Button_Click" Height="30" Width="100">Dynamic</Button>
                 <StackPanel>
                     <AdornerDecorator>
@@ -157,25 +157,26 @@
                         </Canvas>
                     </AdornerDecorator>
                 </StackPanel>
-                <Grid Height="300" Width="300"  >
+                <Grid Height="300" Width="300" 
+                      x:Name="GearGrid"
+                      ab:AdornerEx.IsEnabled="{Binding ElementName=CheckBox, Path=IsChecked}" >
                     <Grid.Background>
                         <SolidColorBrush Opacity="0.1" Color="CadetBlue"></SolidColorBrush>
                     </Grid.Background>
-
-                    <Grid VerticalAlignment="Top"
-                            HorizontalAlignment="Right"
-                            Height="24"
-                            Width="24"
-                            Margin="4"
-                            ab:AdornerEx.IsEnabled="{Binding ElementName=CheckBox, Path=IsChecked }">
-                        <ab:AdornerEx.Adorners>
-                            <materialDesign:PackIcon Width="24"
+                    <ab:AdornerEx.Adorners>
+                            <Button          Margin="4"
+                                             Background="Transparent"
+                                             BorderBrush="Transparent"
+                                             HorizontalAlignment="Right"
+                                               VerticalAlignment="Top">
+                                <materialDesign:PackIcon Width="24"
+                                                  
                              Height="24"
-                             Kind="Gear"
-                             >
-                            </materialDesign:PackIcon>
+                             Kind="Gear">
+                                </materialDesign:PackIcon>
+                            </Button>
                         </ab:AdornerEx.Adorners>
-                    </Grid>
+                
                     <CheckBox x:Name="CheckBox" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="60" >Show</CheckBox>
                 </Grid>
 
@@ -244,6 +245,8 @@
 
         <TabItem Header="PopupBox">
             <materialDesign:PopupBox
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
   Style="{DynamicResource MaterialDesignMultiFloatingActionAccentPopupBox}"
   PlacementMode="BottomAndAlignCentres">
                 <materialDesign:PopupBox.ToggleCheckedContent>
@@ -260,13 +263,25 @@
                 </materialDesign:PopupBox.ToggleContent>
                 <StackPanel>
                     <Button      ToolTip="One">
-                        1
+                        <UniformGrid Background="Peru" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                            <TextBlock VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                              Background="Red"         >1</TextBlock>
+                        </UniformGrid>
+
                     </Button>
                     <Button ToolTip="Two"      IsEnabled="False">
-                        2
+                        <Grid>
+                            <TextBlock VerticalAlignment="Stretch" 
+                                       HorizontalAlignment="Stretch">2</TextBlock>
+                        </Grid>
+
                     </Button>
                     <Button      ToolTip="Three">
-                        3
+                        <Grid>
+                            <TextBlock VerticalAlignment="Stretch" 
+                                       HorizontalAlignment="Stretch">3</TextBlock>
+                        </Grid>
+
                     </Button>
                 </StackPanel>
             </materialDesign:PopupBox>

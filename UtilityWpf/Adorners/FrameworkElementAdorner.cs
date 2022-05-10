@@ -28,19 +28,23 @@ namespace UtilityWpf.Adorners
     public class FrameworkElementAdorner : Adorner
     {
         /// <summary>
-        /// Position X of adorners.
-        /// </summary>
-        public static readonly DependencyProperty PositionXProperty =
-            DependencyProperty.RegisterAttached("PositionX", typeof(double), typeof(FrameworkElementAdorner), new PropertyMetadata(double.NaN));
-
-        /// <summary>
         /// Collection of adorners.
         /// </summary>
         public static readonly DependencyProperty AdornersProperty =
             DependencyProperty.Register("Adorners", typeof(AdornerCollection), typeof(FrameworkElementAdorner));
 
-        public static readonly DependencyProperty AdornedElementProperty =
-            DependencyProperty.RegisterAttached("AdornedElement", typeof(FrameworkElement), typeof(FrameworkElementAdorner));
+        /// <summary>
+        /// The adorned element.
+        /// </summary>
+        //public static readonly DependencyProperty AdornedElementProperty =
+        //    DependencyProperty.RegisterAttached("AdornedElement", typeof(FrameworkElement), typeof(FrameworkElementAdorner), new PropertyMetadata(Changed));
+
+
+        /// <summary>
+        /// Position X of adorners.
+        /// </summary>
+        public static readonly DependencyProperty PositionXProperty =
+            DependencyProperty.RegisterAttached("PositionX", typeof(double), typeof(FrameworkElementAdorner), new PropertyMetadata(double.NaN));
 
         /// <summary>
         /// Position Y of adorners.
@@ -48,38 +52,38 @@ namespace UtilityWpf.Adorners
         public static readonly DependencyProperty PositionYProperty =
             DependencyProperty.RegisterAttached("PositionY", typeof(double), typeof(FrameworkElementAdorner), new PropertyMetadata(double.NaN));
 
-        public FrameworkElementAdorner(AdornerCollection adorners, FrameworkElement adornedElement) : base(adornedElement)
-        {
-            Adorners = adorners;
+        //public FrameworkElementAdorner(AdornerCollection adorners, FrameworkElement adornedElement) : base(adornedElement)
+        //{
+        //    Adorners = adorners;
 
+        //    // AdornerBehavior is responsible for the connection and disconnection of adorners.
+        //    // this.ConnectChildren(adornedElement);
+
+        //}
+
+        public FrameworkElementAdorner(FrameworkElement adornedElement) : base(adornedElement)
+        {
             // AdornerBehavior is responsible for the connection and disconnection of adorners.
             // this.ConnectChildren(adornedElement);
-
-            adornedElement.SizeChanged += AdornedElement_SizeChanged;
         }
 
         #region Dependency Properties
 
         public AdornerCollection Adorners
         {
-            get
-            {
-                return (AdornerCollection)GetValue(AdornersProperty);
-            }
-            set
-            {
-                SetValue(AdornersProperty, value);
-            }
+            get => (AdornerCollection)GetValue(AdornersProperty);
+            set => SetValue(AdornersProperty, value);
         }
 
-        public static FrameworkElement GetAdornedElement(DependencyObject d)
-        {
-            return (FrameworkElement)d.GetValue(AdornedElementProperty);
-        }
+        //public static FrameworkElement GetAdornedElement(DependencyObject d)
+        //{
+        //    return (FrameworkElement)d.GetValue(AdornedElementProperty);
+        //}
 
-        public static void SetAdornedElement(DependencyObject d, FrameworkElement? value)
+        public virtual void SetAdornedElement(DependencyObject adorner, FrameworkElement? adornedElement)
         {
-            d.SetValue(AdornedElementProperty, value);
+
+            //d.SetValue(AdornedElementProperty, value);
         }
 
         public static double GetPositionX(DependencyObject d)
@@ -117,6 +121,12 @@ namespace UtilityWpf.Adorners
         #endregion EventHandlers
 
         #region Methods
+
+        private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
 
         /// <summary>
         /// Determine the X coordinate of the adorner.
@@ -331,6 +341,8 @@ namespace UtilityWpf.Adorners
         /// </summary>
         public void DisconnectChildren()
         {
+            if (Adorners == null)
+                return;
             foreach (var adorner in Adorners)
             {
                 DisconnectAdorner(adorner);

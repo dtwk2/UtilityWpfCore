@@ -23,9 +23,9 @@
         public static readonly DependencyProperty PlaceProperty = DependencyProperty.RegisterAttached(
             "Place", typeof(Place?), typeof(Text), new FrameworkPropertyMetadata(default, OnChanged));
 
-        private readonly string? newValue;
-        private readonly Dock? position;
-        private readonly Place? place;
+        public string? text;
+        public Dock? position;
+        public Place? place;
         private readonly Brush? brush;
 
         /// <summary>
@@ -39,13 +39,17 @@
             ClipToBoundsProperty.OverrideMetadata(typeof(Text), new FrameworkPropertyMetadata(true));
         }
 
-        public Text(FrameworkElement adornedElement, string? newValue = null, Dock? position = null, Place? place = null, Brush? brush = null) : base(adornedElement)
+        public Text(FrameworkElement adornedElement, string? text = null, Dock? position = null, Place? place = null, Brush? brush = null) : base(adornedElement)
         {
-            this.newValue = newValue;
+            this.text = text;
             this.position = position;
             this.place = place;
             this.brush = brush;
+            //this.SetValue(TextProperty, text);
+            //this.SetValue(PositionProperty, position);
+            //this.SetValue(PlaceProperty, place);
         }
+
 
         #region Event Handlers
 
@@ -54,45 +58,83 @@
             //if (((string)e.OldValue).Equals((string)e.NewValue, StringComparison.Ordinal))
             //    return;
             if (sender is not FrameworkElement adornedElement)
-                return;
+                throw new Exception("sdf234 dfg f,l,lgd");
             if (adornedElement.IsLoaded)
-                AddAdorner(adornedElement);
+                AddAdorner(adornedElement, e.NewValue);
             else
                 adornedElement.Loaded += AdornedElement_Loaded;
 
-            static void AddAdorner(FrameworkElement adornedElement)
+            static void AddAdorner(FrameworkElement adornedElement, object newValue)
             {
                 AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(adornedElement);
-                InvalidateAdorners(adornerLayer, adornedElement);
+              
+
+                bool flag = false;
                 foreach (var adorner in adornerLayer.GetAdorners(adornedElement) ?? Array.Empty<Adorner>())
                 {
                     if (adorner is Text text)
                     {
-                        var text1 = adorner.GetValue(Text.TextProperty);
-                        var text2 = adornedElement.GetValue(Text.TextProperty);
-                        if (text1 == text2)
-                            adornerLayer.Remove(adorner);
-                        if(string.IsNullOrEmpty(text1.ToString()))
+                        flag = true;
+                        if(newValue is Dock { } _position)
                         {
-                            adornerLayer.Remove(adorner);
+                            text.position = _position;
+                        }          
+                        if(newValue is string { } _text)
+                        {
+                            text.text = _text;
+                        }         
+                        if(newValue is Place { } _place)
+                        {
+                            text.place = _place;
                         }
+
+                        //text.text = (string?)adornedElement.GetValue(Text.TextProperty);
+                        //text.position = (Dock?)adornedElement.GetValue(Text.PositionProperty);
+                        //text.place = (Place?)adornedElement.GetValue(Text.PlaceProperty);
+
+
+                        //adorner
+                        //adornerLayer.Add(new Text(adornedElement, 
+                        //    (string?)adornedElement.GetValue(Text.TextProperty),
+                        //    (Dock?)adornedElement.GetValue(Text.PositionProperty), 
+                        //    (Place?)adornedElement.GetValue(Text.PlaceProperty)));
+                        //var text1 = adorner.GetValue(Text.TextProperty);
+                        //var text2 = adornedElement.GetValue(Text.TextProperty);
+                        //if (text1 == text2)
+                        //    adornerLayer.Remove(adorner);
+                        //if(string.IsNullOrEmpty(text1.ToString()))
+                        //{
+                        //    //adornerLayer.Remove(adorner);
+                        //}
+
+
                     }
                 }
-                adornerLayer.Add(new Text(adornedElement));
+                        //InvalidateTextAdorners(adornerLayer, adornedElement);
+
+                if (flag == false)
+                    adornerLayer.Add(new Text(adornedElement,
+                        (string?)adornedElement.GetValue(Text.TextProperty),
+                        (Dock?)adornedElement.GetValue(Text.PositionProperty),
+                        (Place?)adornedElement.GetValue(Text.PlaceProperty)));
+                else
+                    InvalidateTextAdorners(adornerLayer, adornedElement);
+
             }
+
             static void AdornedElement_Loaded(object sender, RoutedEventArgs e)
             {
                 FrameworkElement adornedElement = (FrameworkElement)sender;
                 //adornedElement.Loaded -= AdornedElement_Loaded;
                 if (string.IsNullOrEmpty(GetText(adornedElement)) == false)
-                    AddAdorner(adornedElement);
+                    AddAdorner(adornedElement, GetText(adornedElement));
                 else
                 {
                 }
             }
         }
 
-        public static void InvalidateAdorners(AdornerLayer adornerLayer, FrameworkElement adornedElement)
+        public static void InvalidateTextAdorners(AdornerLayer adornerLayer, FrameworkElement adornedElement)
         {
             if (adornerLayer == null)
                 return;
@@ -183,7 +225,7 @@
 
         private void OnRenderOutside(DrawingContext drawingContext)
         {
-            string placeholderText = newValue ?? (string)this.AdornedElement.GetValue(TextProperty);
+            string placeholderText = text ?? (string)this.AdornedElement.GetValue(TextProperty);
 
             //bool hideOnFocus = (bool)adornedElement.GetValue(HideOnFocusProperty);
             if (string.IsNullOrEmpty(placeholderText))
@@ -356,7 +398,7 @@
         {
             string placeholderText;
             //bool hideOnFocus = (bool)adornedElement.GetValue(HideOnFocusProperty);
-            if (string.IsNullOrEmpty(placeholderText = newValue ?? (string)this.AdornedElement.GetValue(TextProperty)))
+            if (string.IsNullOrEmpty(placeholderText = text ?? (string)this.AdornedElement.GetValue(TextProperty)))
             {
                 this.isPlaceholderVisible = false;
                 return;

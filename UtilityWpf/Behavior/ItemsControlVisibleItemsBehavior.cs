@@ -48,7 +48,7 @@ namespace UtilityWpf.Behavior
         protected override void OnAttached()
         {
             base.OnAttached();
-            AssociatedObject.Loaded += (_, _) => DataGridLoaded();
+            AssociatedObject.Loaded += (_, _) => DataGridIsLoadedChanges();
         }
 
         protected override void OnDetaching()
@@ -57,11 +57,11 @@ namespace UtilityWpf.Behavior
 
             if (this.AssociatedObject != null)
             {
-                AssociatedObject.Loaded -= (_, _) => DataGridLoaded();
+                AssociatedObject.Loaded -= (_, _) => DataGridIsLoadedChanges();
             }
         }
 
-        private void DataGridLoaded()
+        private void DataGridIsLoadedChanges()
         {
             if (VisualTreeExHelper.FindVisualChildren<ScrollViewer>(AssociatedObject).FirstOrDefault() is ScrollViewer scrollViewer)
             {
