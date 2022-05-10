@@ -1,6 +1,7 @@
 ﻿namespace UtilityWpf.Adorners
 {
     using System;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Documents;
@@ -39,7 +40,23 @@
             {
                 AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(adornedElement);
                 Text.InvalidateAdorners(adornerLayer, adornedElement);
+                foreach (var adorner in adornerLayer.GetAdorners(adornedElement) ?? Array.Empty<Adorner>())
+                {
+                    if (adorner is Text text
+                        && (Dock?)adorner.GetValue(Text.PositionProperty) == Dock.Bottom
+                        && (Place?)adorner.GetValue(Text.PlaceProperty) == Place.Inside)
+                    {
+                        adornerLayer.Remove(adorner);
+                    }
+                }
                 adornerLayer.Add(new Text(adornedElement, (string)e.NewValue, Dock.Bottom, Place.Inside));
+
+                //foreach (var adorner in adornerLayer.GetAdorners(adornedElement) ?? Array.Empty<Adorner>())
+                //    {
+                //        if (adorner is Text && Footer.GetText(adornedElement) != null)
+                //            adornerLayer.Remove(adorner);
+                //    }
+
             }
             void AdornedElement_Loaded(object sender, RoutedEventArgs e)
             {

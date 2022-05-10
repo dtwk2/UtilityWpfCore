@@ -12,8 +12,9 @@ namespace Utility.Common.Helper
         IDictionary<TKey, TValue> dictionary2) => Compare(dictionary1, dictionary2, true);
 
         public static IEnumerable<(TKey key, TValue one, TValue two)> Compare<TKey, TValue>(
- this IDictionary<TKey, TValue> dictionary1,
- IDictionary<TKey, TValue> dictionary2, bool match)
+            this IDictionary<TKey, TValue> dictionary1,
+            IDictionary<TKey, TValue> dictionary2,
+            bool match)
         {
             foreach (var key in dictionary1.Keys)
             {

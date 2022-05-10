@@ -28,7 +28,8 @@ namespace UtilityWpf.Behavior
 
         public static readonly DependencyProperty EnumTypeProperty = DependencyProperty.Register("EnumType", typeof(Type), typeof(EnumSelectorBehavior), new PropertyMetadata(EnumTypeChanged));
         public static readonly DependencyProperty EnumFilterCollectionProperty = DependencyHelper.Register<IEnumerable>();
-
+        public static readonly DependencyProperty IsNullOptionIncludedProperty =
+            DependencyProperty.Register("IsNullOptionIncluded", typeof(bool), typeof(EnumSelectorBehavior), new PropertyMetadata());
         public static readonly DependencyProperty SelectedEnumProperty =
             DependencyProperty.Register("SelectedEnum", typeof(Enum), typeof(EnumSelectorBehavior), new FrameworkPropertyMetadata
             {
@@ -60,6 +61,7 @@ namespace UtilityWpf.Behavior
                 .WhenAnyValue(a => a.EnumFilterCollection)
                 .WhereNotNull()
                 .Select(ToEnumMembers)
+                .Select(AppendNullOptionAndToArray)
                 .Subscribe(itemsSourceSubject.OnNext)
                 .DisposeWith(disposable);
 
@@ -76,19 +78,26 @@ namespace UtilityWpf.Behavior
 
             static int Index(Enum? @enum, IEnumerable? enumerable)
             {
-                var arr = enumerable?.Cast<EnumMember>().ToArray()?? throw new Exception("SDDf44 44 h");
+                var arr = enumerable?.Cast<EnumMember>().ToArray() ?? throw new Exception("SDDf44 44 h");
                 var def = arr.SingleOrDefault(a => a.StringValue == @enum?.ToString());
                 return Array.IndexOf(arr, def);
             }
 
-            static EnumMember[] ToEnumMembers(IEnumerable enumerable)
+            static IEnumerable<EnumMember> ToEnumMembers(IEnumerable enumerable)
             {
                 var flags = EnumHelper.Filter(enumerable).ToArray();
-                var members = EnumMember.EnumerateEnumMembers(enumerable.GetType().GetElementType()?? throw new Exception("dsg33  55"));
+                var members = EnumMember.EnumerateEnumMembers(enumerable.GetType().GetElementType() ?? throw new Exception("dsg33  55"));
                 var joins = from flag in flags
                             join mem in members on flag equals mem.Value
                             select mem;
-                return joins.ToArray();
+                return joins;
+            }
+
+            EnumMember[] AppendNullOptionAndToArray(IEnumerable<EnumMember> members)
+            {
+                if (IsNullOptionIncluded)
+                    return members.Concat(new[] { new EnumMember() }).ToArray();
+                return members.ToArray();
             }
         }
 
@@ -118,6 +127,13 @@ namespace UtilityWpf.Behavior
             set => SetValue(SelectedEnumProperty, value);
         }
 
+        public bool IsNullOptionIncluded
+        {
+            get { return (bool)GetValue(IsNullOptionIncludedProperty); }
+            set { SetValue(IsNullOptionIncludedProperty, value); }
+        }
+
+
         #endregion properties
 
         private static void EnumTypeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -125,7 +141,7 @@ namespace UtilityWpf.Behavior
             if (d is not EnumSelectorBehavior { EnumType: { } type } behavior) return;
 
             if (EnumEnumerable(type) is { } enm)
-                behavior.itemsSourceSubject.OnNext(enm);
+                behavior.itemsSourceSubject.OnNext(enm.Cast<EnumMember>().Concat(new[] { new EnumMember() }));
             else
                 throw new ApplicationException("F c44 SDfd");
         }
@@ -218,7 +234,7 @@ namespace UtilityWpf.Behavior
     {
         public static IEnumerable<Enum> Filter(IEnumerable input)
         {
-            var elementType = input.GetType().GetElementType() ??  throw new Exception("SDg4 gfd");
+            var elementType = input.GetType().GetElementType() ?? throw new Exception("SDg4 gfd");
             var cached = input.OfType<Enum>().Cached();
             foreach (Enum value in Enum.GetValues(elementType))
                 if (cached.Contains(value))

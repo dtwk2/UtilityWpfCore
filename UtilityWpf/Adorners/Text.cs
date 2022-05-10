@@ -47,8 +47,6 @@
             this.brush = brush;
         }
 
-        #region Attached Property Getters and Setters
-
         #region Event Handlers
 
         private static void OnChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
@@ -66,6 +64,20 @@
             {
                 AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(adornedElement);
                 InvalidateAdorners(adornerLayer, adornedElement);
+                foreach (var adorner in adornerLayer.GetAdorners(adornedElement) ?? Array.Empty<Adorner>())
+                {
+                    if (adorner is Text text)
+                    {
+                        var text1 = adorner.GetValue(Text.TextProperty);
+                        var text2 = adornedElement.GetValue(Text.TextProperty);
+                        if (text1 == text2)
+                            adornerLayer.Remove(adorner);
+                        if(string.IsNullOrEmpty(text1.ToString()))
+                        {
+                            adornerLayer.Remove(adorner);
+                        }
+                    }
+                }
                 adornerLayer.Add(new Text(adornedElement));
             }
             static void AdornedElement_Loaded(object sender, RoutedEventArgs e)
@@ -102,6 +114,7 @@
 
         #endregion Event Handlers
 
+        #region Attached Property Getters and Setters
         public static string GetText(UIElement adornedElement)
         {
             if (adornedElement == null)
@@ -113,9 +126,9 @@
         {
             if (adornedElement == null)
                 throw new ArgumentNullException("adornedElement");
-            //offset = -adornedElement.Height;
             adornedElement.SetValue(TextProperty, placeholderText);
         }
+
         public static Dock? GetPosition(UIElement adornedElement)
         {
             if (adornedElement == null)
@@ -127,7 +140,6 @@
         {
             if (adornedElement == null)
                 throw new ArgumentNullException("adornedElement");
-            //offset = -adornedElement.Height;
             adornedElement.SetValue(PositionProperty, dock);
         }
 
@@ -142,7 +154,6 @@
         {
             if (adornedElement == null)
                 throw new ArgumentNullException("adornedElement");
-            //offset = -adornedElement.Height;
             adornedElement.SetValue(PlaceProperty, dock);
         }
 
@@ -199,11 +210,11 @@
                             {
                                 // Somehow everything got drawn reflected. Add a transform to correct.
                                 drawingContext.PushTransform(new ScaleTransform(-1.0, 1.0, RenderSize.Width / 2.0, 0.0));
-                                drawingContext.DrawText(formattedText, new Point(left, top + -formattedText.Height - 2));
+                                drawingContext.DrawText(formattedText, new Point(left, top + -(formattedText?.Height ?? 0) - 2));
                                 drawingContext.Pop();
                             }
                             else
-                                drawingContext.DrawText(formattedText, new Point(left, top + -formattedText.Height - 2));
+                                drawingContext.DrawText(formattedText, new Point(left, top + -(formattedText?.Height ?? 0) - 2));
                             break;
                         }
                     case Dock.Bottom:
@@ -233,7 +244,7 @@
                             }
 
                             left = -formattedText.Width - adornedElement.BorderThickness.Left - adornedElement.Padding.Left - 2.0;
-                            top = (adornedElement.Height - formattedText.Height) / 2d;
+                            top = (adornedElement.Height - (formattedText?.Height ?? 0)) / 2d;
                             drawingContext.DrawText(formattedText, new Point(left, top));
                             break;
                         }
@@ -245,7 +256,7 @@
                             }
 
                             left = +adornedElement.Width + adornedElement.BorderThickness.Left + adornedElement.Padding.Left + 2.0;
-                            top = (adornedElement.Height - formattedText.Height) / 2d;
+                            top = (adornedElement.Height - (formattedText?.Height ?? 0)) / 2d;
                             drawingContext.DrawText(formattedText, new Point(left, top));
                             break;
                         }
@@ -259,7 +270,7 @@
                 {
                     case Dock.Top:
                         {
-                            drawingContext.DrawText(formattedText, new Point(2, -formattedText.Height - 2));
+                            drawingContext.DrawText(formattedText, new Point(2, -(formattedText?.Height ?? 0) - 2));
                             break;
                         }
                     case Dock.Bottom:
@@ -269,19 +280,20 @@
                         }
                     case Dock.Left:
                         {
-                            drawingContext.DrawText(formattedText, new Point(-formattedText.Width - 2.0, (element.Height - formattedText.Height) / 2d));
+                            drawingContext.DrawText(formattedText, new Point(-formattedText.Width - 2.0, (element.Height - (formattedText?.Height ?? 0)) / 2d));
                             break;
                         }
                     case Dock.Right:
                         {
-                            drawingContext.DrawText(formattedText, new Point(element.Width + 2.0, (element.Height - formattedText.Height) / 2d));
+                            drawingContext.DrawText(formattedText, new Point(element.Width + 2.0, (element.Height - (formattedText?.Height ?? 0)) / 2d));
                             break;
                         }
                 }
             }
         }
 
-        private FormattedText FormattedTextForFrameworkElement(string placeholderText)
+        [Obsolete]
+        private FormattedText? FormattedTextForFrameworkElement(string placeholderText)
         {
             TextAlignment computedTextAlignment = this.ComputedTextAlignment();
             Brush foreground = brush ?? (Brush?)this.AdornedElement.GetValue(Control.ForegroundProperty) ?? SystemColors.GrayTextBrush.Clone();
@@ -306,6 +318,7 @@
             };
         }
 
+        [Obsolete]
         private FormattedText? FormattedTextForControl(Control adornedElement, string placeholderText)
         {
             TextAlignment computedTextAlignment = this.ComputedTextAlignment();
@@ -382,15 +395,16 @@
                             else
                                 left = adornedElement.BorderThickness.Left + adornedElement.Padding.Left + 2.0;
 
-                            if (adornedElement.FlowDirection == FlowDirection.RightToLeft)
-                            {
-                                // Somehow everything got drawn reflected. Add a transform to correct.
-                                drawingContext.PushTransform(new ScaleTransform(-1.0, 1.0, RenderSize.Width / 2.0, 0.0));
-                                drawingContext.DrawText(formattedText, new Point(left, top + adornedElement.Height - formattedText.Height));
-                                drawingContext.Pop();
-                            }
-                            else
-                                drawingContext.DrawText(formattedText, new Point(left, top + adornedElement.Height - formattedText.Height));
+                            if (formattedText is not null)
+                                if (adornedElement.FlowDirection == FlowDirection.RightToLeft)
+                                {
+                                    // Somehow everything got drawn reflected. Add a transform to correct.
+                                    drawingContext.PushTransform(new ScaleTransform(-1.0, 1.0, RenderSize.Width / 2.0, 0.0));
+                                    drawingContext.DrawText(formattedText, new Point(left, top + adornedElement.Height - formattedText.Height));
+                                    drawingContext.Pop();
+                                }
+                                else
+                                    drawingContext.DrawText(formattedText, new Point(left, top + adornedElement.Height - formattedText.Height));
                             break;
                         }
 
@@ -402,7 +416,7 @@
                             }
 
                             left = 2;
-                            top = (adornedElement.Height - formattedText.Height) / 2d;
+                            top = (adornedElement.Height - formattedText?.Height ?? 0) / 2d;
                             drawingContext.DrawText(formattedText, new Point(left, top));
                             break;
                         }
@@ -414,7 +428,7 @@
                             }
 
                             left = +adornedElement.Width + adornedElement.BorderThickness.Left + adornedElement.Padding.Left - 2.0 - formattedText.Width;
-                            top = (adornedElement.Height - formattedText.Height) / 2d;
+                            top = (adornedElement.Height - formattedText?.Height ?? 0) / 2d;
                             drawingContext.DrawText(formattedText, new Point(left, top));
                             break;
                         }

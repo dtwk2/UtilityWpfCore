@@ -7,7 +7,7 @@ using UtilityWpf.Controls.Buttons.Infrastructure;
 
 namespace UtilityWpf.Controls.Buttons
 {
-    public class CheckBoxesListControl : ListBox<CheckBox>, IIsCheckedPath, IOutput
+    public class CheckBoxesListControl : ListBox<CheckBox>, IIsCheckedPath, IOutput<CheckedRoutedEventArgs>
     {
         private static readonly DependencyPropertyKey OutputPropertyKey = DependencyProperty.RegisterReadOnly(nameof(Output), typeof(object), typeof(CheckBoxesListControl), new FrameworkPropertyMetadata(null));
 
@@ -28,7 +28,7 @@ namespace UtilityWpf.Controls.Buttons
 
         #region properties
 
-        public event OutputChangedEventHandler OutputChange
+        public event OutputChangedEventHandler<CheckedRoutedEventArgs> OutputChange
         {
             add => AddHandler(OutputChangeEvent, value);
             remove => RemoveHandler(OutputChangeEvent, value);

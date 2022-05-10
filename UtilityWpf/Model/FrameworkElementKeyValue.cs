@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Tynamix.ObjectFiller;
 using Utility.Common;
 using UtilityHelper;
 using UtilityWpf.Meta;
@@ -97,7 +98,7 @@ namespace UtilityWpf.Model
             {
                 try
                 {
-                    return GetFrameworkElement(entry);
+                    return GetFrameworkElement(entry.Value);
                 }
                 catch (Exception ex)
                 {
@@ -106,6 +107,68 @@ namespace UtilityWpf.Model
                 //else
                 //    throw new Exception("sdg33333__d");
             });
+
+            static FrameworkElement GetFrameworkElement(object value)
+            {
+                switch (value)
+                {
+                    case DataTemplate dataTemplate:
+                        {
+                            object? content = null;
+                            if (dataTemplate.DataType is Type datatype)
+                            {
+                                try
+                                {
+                                    content = new Filler(datatype).Create();
+                                }
+                                catch(Exception ex)
+                                {
+                                    content = new AutoMoqer(datatype).Build().Service;
+                                }
+                            }
+                            else
+                            {
+                                content = new object();
+                            }
+                            return new ContentControl
+                            {
+                                ContentTemplate = dataTemplate
+                            };
+                        }
+                    case FrameworkElement frameworkElement:
+                        return frameworkElement;
+                    case Brush solidColorBrush:
+                        {
+                            Viewbox viewBox = new();
+                            var rect = new Rectangle { Fill = solidColorBrush, Height = 1, Width = 1 };
+                            viewBox.Child = rect;
+                            return viewBox;
+                        }
+                    case Geometry geometry:
+                        return new Path
+                        {
+                            Stretch = Stretch.Fill,
+                            Stroke = Brushes.Black,
+                            StrokeThickness = 1,
+                            Data = geometry
+                        };
+                    case Style
+                    { TargetType: var type }
+style:
+                        {
+                            var instance = Activator.CreateInstance(type) as Control;
+                            instance.Style = style;
+                            return instance;
+                        }
+                    case IValueConverter converter:
+                        {
+                            var mb = converter.GetType().GetMethods().First();
+                            return new TextBlock { Text = mb.AsString() };
+                        }
+                    default:
+                        throw new Exception($"Unexpected type {value.GetType().Name} in {nameof(DataTemplateKeyValue)}");
+                }
+            }
         }
 
         public override string Key { get; }
@@ -114,58 +177,18 @@ namespace UtilityWpf.Model
 
         public DictionaryEntry Entry { get; }
 
-        private static FrameworkElement GetFrameworkElement(DictionaryEntry entry)
-        {
-            if (entry.Value is DataTemplate dataTemplate)
-                return new ContentControl
-                {
-                    ContentTemplate = dataTemplate,
-                    Content = dataTemplate.DataType is Type datatype ? Activator.CreateInstance(datatype) : new object()
-                };
-            if (entry.Value is FrameworkElement frameworkElement)
-                return frameworkElement;
-            if (entry.Value is Brush solidColorBrush)
-            {
-                Viewbox viewBox = new();
-                var rect = new Rectangle { Fill = solidColorBrush, Height = 1, Width = 1 };
-                viewBox.Child = rect;
-                return viewBox;
-            }
-            if (entry.Value is Geometry geometry)
-            {
-                return new Path
-                {
-                    Stretch = Stretch.Fill,
-                    Stroke = Brushes.Black,
-                    StrokeThickness = 1,
-                    Data = geometry
-                };
-            }
-            if (entry.Value is Style { TargetType: var type } style)
-            {
-                var instance = Activator.CreateInstance(type) as Control;
-                instance.Style = style;
-                return instance;
-            }
-            if (entry.Value is IValueConverter converter)
-            {
-                var mb = converter.GetType().GetMethods().First();
-                return new TextBlock { Text = mb.AsString() };
-            }
-            else
-                throw new Exception($"Unexpected type {entry.Value.GetType().Name} in {nameof(DataTemplateKeyValue)}");
-        }
+
 
         public static IEnumerable<ResourceDictionaryKeyValue> ResourceViewTypes(Assembly assembly) => assembly
-       .SelectResourceDictionaries(predicate: entry => Predicate(entry.Key.ToString()), ignoreXamlReaderExceptions: true)
-       //.GroupBy(type =>
-       //(type.Name.Contains("UserControl") ? type.Name?.ReplaceLast("UserControl", string.Empty) :
-       //type.Name.Contains("View") ? type.Name?.ReplaceLast("View", string.Empty) :
-       //type.Name)!)
+        .SelectResourceDictionaries(predicate: entry => Predicate(entry.Key.ToString()), ignoreXamlReaderExceptions: true)
+        //.GroupBy(type =>
+        //(type.Name.Contains("UserControl") ? type.Name?.ReplaceLast("UserControl", string.Empty) :
+        //type.Name.Contains("View") ? type.Name?.ReplaceLast("View", string.Empty) :
+        //type.Name)!)
 
-       .OrderBy(a => a.entry.Key)
-       //.ToDictionaryOnIndex()
-       .Select(a => new ResourceDictionaryKeyValue(a.entry.Key.ToString(), a.resourceDictionary));
+        .OrderBy(a => a.entry.Key)
+        //.ToDictionaryOnIndex()
+        .Select(a => new ResourceDictionaryKeyValue(a.entry.Key.ToString(), a.resourceDictionary));
 
         private static bool Predicate(string key)
         {

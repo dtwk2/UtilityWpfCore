@@ -1,6 +1,7 @@
 ﻿namespace UtilityWpf.Adorners
 {
     using System;
+using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Documents;
@@ -21,7 +22,6 @@
         {
             if (adornedElement == null)
                 throw new ArgumentNullException("adornedElement");
-            //offset = -adornedElement.Height;
             adornedElement.SetValue(TextProperty, placeholderText);
         }
 
@@ -39,7 +39,26 @@
             void AddAdorner(FrameworkElement adornedElement)
             {
                 AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(adornedElement);
-                Text.InvalidateAdorners(adornerLayer, adornedElement);
+                //foreach (var adorner in adornerLayer.GetAdorners(adornedElement) ?? Array.Empty<Adorner>())
+                //{
+                //    if (adorner is Text && Header.GetText(adornedElement) != null)
+                //        adornerLayer.Remove(adorner);
+                //}
+                foreach (var adorner in adornerLayer.GetAdorners(adornedElement) ?? Array.Empty<Adorner>())
+                {
+                    if (adorner is Text text
+                        && (Dock?)adorner.GetValue(Text.PositionProperty) == Dock.Top
+                        && (Place?)adorner.GetValue(Text.PlaceProperty) == Place.Outside)
+                    {
+                        adornerLayer.Remove(adorner);
+                    }
+                    var text1 = adorner.GetValue(Text.TextProperty);
+                    if (string.IsNullOrEmpty(text1.ToString()))
+                    {
+                        adornerLayer.Remove(adorner);
+                    }
+                }
+                //Text.InvalidateAdorners(adornerLayer, adornedElement);
                 adornerLayer.Add(new Text(adornedElement, (string)e.NewValue, Dock.Top, Place.Outside));
             }
             void AdornedElement_Loaded(object sender, RoutedEventArgs e)
@@ -89,9 +108,34 @@
             void AddAdorner(FrameworkElement adornedElement)
             {
                 Text.SetText(adornedElement, (string)e.NewValue);
-
                 AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(adornedElement);
-                Text.InvalidateAdorners(adornerLayer, adornedElement);
+                //foreach (var adorner in adornerLayer.GetAdorners(adornedElement) ?? Array.Empty<Adorner>())
+                //{
+                //    if (adorner is Text && LeftHeader.GetText(adornedElement) != null)
+                //        adornerLayer.Remove(adorner);
+                //}
+                //Text.InvalidateAdorners(adornerLayer, adornedElement);
+                //if ((adornerLayer.GetAdorners(adornedElement) ?? Array.Empty<Adorner>()).SingleOrDefault() is Adorner adorner
+                //    && (Dock)adorner.GetValue(Text.PositionProperty)== Dock.Left 
+                //    && (Place)adorner.GetValue(Text.PlaceProperty) == Place.Outside)
+                //{
+                //    adorner.SetValue(Text.TextProperty, e.NewValue);
+                //}
+                //else
+                foreach (var adorner in adornerLayer.GetAdorners(adornedElement) ?? Array.Empty<Adorner>())
+                {
+                    if (adorner is Text text
+                        && (Dock?)adorner.GetValue(Text.PositionProperty) == Dock.Left
+                        && (Place?)adorner.GetValue(Text.PlaceProperty) == Place.Outside)
+                    {
+                        adornerLayer.Remove(adorner);
+                    }
+                    var text1 = adorner.GetValue(Text.TextProperty);
+                    if (string.IsNullOrEmpty(text1.ToString()))
+                    {
+                        adornerLayer.Remove(adorner);
+                    }
+                }
                 adornerLayer.Add(new Text(adornedElement, (string)e.NewValue, Dock.Left, Place.Outside));
             }
             void AdornedElement_Loaded(object sender, RoutedEventArgs e)
