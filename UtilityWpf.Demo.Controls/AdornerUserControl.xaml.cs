@@ -1,5 +1,4 @@
-﻿using HandyControl.Controls;
-using MaterialDesignThemes.Wpf;
+﻿using MaterialDesignThemes.Wpf;
 using RandomColorGenerator;
 using System;
 using System.Collections.Generic;
@@ -22,8 +21,9 @@ namespace UtilityWpf.Demo.View
     /// </summary>
     public partial class AdornerUserControl : UserControl
     {
-        private readonly ControlColourer controlColourer;
         private readonly AdornerController adornerController;
+        private readonly ControlColourer controlColourer;
+        private bool flag;
 
         public AdornerUserControl()
         {
@@ -36,38 +36,21 @@ namespace UtilityWpf.Demo.View
             Square3Grid.SetValue(DataContextProperty, new Characters());
             Square3Grid.SetValue(AdornerEx.AdornerProperty, new SettingsAdorner(Square3Grid));
             Square3Grid.SetValue(AdornerEx.IsEnabledProperty, true);
-            Square3Grid.AddAdorner(new SettingsControl());
+            //Square3Grid.AddIfMissingAdorner(new SettingsControl());
         }
 
         public ICommand TextCommand { get; }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
-        {
-            if (TextBlock1.Text.Length >= 9)
-                TextBlock1.Text = TextBlock1.Text.Remove(TextBlock1.Text.Length - 9);
-        }
-
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            var layer = AdornerLayer.GetAdornerLayer(canvas);
-            foreach (UIElement ui in canvas.Children)
-                layer.Add(new ResizeAdorner(ui));
-
-            layer.Add(new VerticalAxisAdorner(this.Grid));
-        }
-
-        private void Remove_Click(object sender, RoutedEventArgs e)
-        {
+            AdornerLayer layer = AdornerLayer.GetAdornerLayer(canvas);
             foreach (UIElement ui in canvas.Children)
             {
-                ui.RemoveAdorners();
+                layer.Add(new ResizeAdorner(ui));
             }
 
-            Grid.RemoveAdorners();
+            layer.Add(new VerticalAxisAdorner(Grid));
         }
-
-
-        private bool flag;
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -82,6 +65,24 @@ namespace UtilityWpf.Demo.View
                 adornerController?.Apply();
             }
             flag = !flag;
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            if (TextBlock1.Text.Length >= 9)
+            {
+                TextBlock1.Text = TextBlock1.Text.Remove(TextBlock1.Text.Length - 9);
+            }
+        }
+
+        private void Remove_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (UIElement ui in canvas.Children)
+            {
+                ui.RemoveAdorners();
+            }
+
+            Grid.RemoveAdorners();
         }
     }
 
@@ -108,14 +109,19 @@ namespace UtilityWpf.Demo.View
             void Button_Click(object sender, RoutedEventArgs e)
             {
                 if (AdornedElement is Control control)
+                {
                     control.Background = control.Background == Brushes.Red ? Brushes.PowderBlue : Brushes.Red;
+                }
+
                 if (AdornedElement is Panel panel)
+                {
                     panel.Background = panel.Background == Brushes.Red ? Brushes.PowderBlue : Brushes.Red;
+                }
             }
         }
     }
 
-    class AdornerController
+    internal class AdornerController
     {
         private readonly UIElement adornedElement;
         private readonly DependencyObject adorner;
@@ -123,31 +129,31 @@ namespace UtilityWpf.Demo.View
         public AdornerController(UIElement adornedElement, DependencyObject? dependencyObject = null)
         {
             this.adornedElement = adornedElement;
-            this.adorner = dependencyObject ?? new SettingsControl();
-
+            adorner = dependencyObject ?? new SettingsControl();
         }
 
         public void Apply()
         {
-            adornedElement.AddAdorner(adorner);
+            adornedElement.AddIfMissingAdorner(adorner);
             adornedElement.SetValue(AdornerEx.IsEnabledProperty, true);
         }
 
-        public void Hide() => adornedElement.SetValue(AdornerEx.IsEnabledProperty, false);
+        public void Hide()
+        {
+            adornedElement.SetValue(AdornerEx.IsEnabledProperty, false);
+        }
 
         public void Remove()
         {
             adornedElement.RemoveAdorners();
         }
-
-
     }
 
-    class ControlColourer
+    internal class ControlColourer
     {
         private readonly DependencyObject dependencyObject;
-        Dictionary<Guid, Brush> originalBrushes = new();
-        Dictionary<Guid, Brush> tempBrushes = new();
+        private readonly Dictionary<Guid, Brush> originalBrushes = new();
+        private readonly Dictionary<Guid, Brush> tempBrushes = new();
 
         public ControlColourer(DependencyObject dependencyObject)
         {
@@ -156,9 +162,9 @@ namespace UtilityWpf.Demo.View
 
         public void Apply()
         {
-            foreach (var child in dependencyObject.FindChildren<Control>())
+            foreach (Control child in dependencyObject.FindChildren<Control>())
             {
-                var background = child.Background;
+                Brush background = child.Background;
                 Guid guid = (Guid?)child.GetValue(Ex.KeyProperty) ?? Guid.NewGuid();
                 child.SetValue(Ex.KeyProperty, guid);
                 child.Background = tempBrushes.ContainsKey(guid) ? tempBrushes[guid] : RandomColor.GetColor(ColorScheme.Random, Luminosity.Bright).ToMediaBrush();
@@ -170,7 +176,8 @@ namespace UtilityWpf.Demo.View
         public void Remove()
         {
             if (tempBrushes.Any())
-                foreach (var child in dependencyObject.FindChildren<Control>())
+            {
+                foreach (Control child in dependencyObject.FindChildren<Control>())
                 {
                     Guid? guid = (Guid?)child.GetValue(Ex.KeyProperty);
                     if (guid.HasValue && originalBrushes.ContainsKey(guid.Value))
@@ -182,6 +189,7 @@ namespace UtilityWpf.Demo.View
                         // child's been removed
                     }
                 }
+            }
         }
     }
 }
