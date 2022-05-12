@@ -10,15 +10,9 @@ namespace UtilityWpf.Base
     {
         public delegate void CheckedRoutedEventHandler(object sender, CheckedEventArgs e);
 
-        public enum CheckedType
-        {
-            DataContext,
-            Dimensions
-        }
-
         public class CheckedEventArgs : RoutedEventArgs
         {
-            public CheckedEventArgs(CheckedType checkedType, bool isChecked, RoutedEvent routedEvent, object source):base(routedEvent, source)
+            public CheckedEventArgs(CheckedType checkedType, bool isChecked, RoutedEvent routedEvent, object source) : base(routedEvent, source)
             {
                 CheckedType = checkedType;
                 IsChecked = isChecked;
@@ -28,34 +22,47 @@ namespace UtilityWpf.Base
             public bool IsChecked { get; }
         }
 
-        public static readonly DependencyProperty SelectedDockProperty = DependencyProperty.Register("SelectedDock", typeof(Dock?), typeof(SettingsControl), new PropertyMetadata(null, Change /*m,coerceValueCallback: Callback*/));
+        public enum CheckedType
+        {
+            DataContext,
+            Dimensions,
+            HighlightArea
+        }
+
         public static readonly RoutedEvent CheckedEvent = EventManager.RegisterRoutedEvent("Checked", RoutingStrategy.Bubble, typeof(CheckedRoutedEventHandler), typeof(SettingsControl));
-        private MenuItem? dimensionsMenuItem;
-        private MenuItem? dataContextMenuItem;
+
+        public static readonly DependencyProperty SelectedDockProperty = DependencyProperty.Register("SelectedDock", typeof(Dock?), typeof(SettingsControl), new PropertyMetadata(null, Change /*m,coerceValueCallback: Callback*/));
+
+        private MenuItem? dimensionsMenuItem, dataContextMenuItem, highlightColourMenuItem;
 
         static SettingsControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SettingsControl), new FrameworkPropertyMetadata(typeof(SettingsControl)));
         }
 
-        public event CheckedRoutedEventHandler Checked
+        public Dock? SelectedDock
         {
-            add => AddHandler(CheckedEvent, value);         
-            remove => RemoveHandler(CheckedEvent, value);
+            get => (Dock?)GetValue(SelectedDockProperty);
+            set => SetValue(SelectedDockProperty, value);
         }
 
-        private static void Change(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        public event CheckedRoutedEventHandler Checked
         {
+            add => AddHandler(CheckedEvent, value);
+            remove => RemoveHandler(CheckedEvent, value);
         }
 
         public override void OnApplyTemplate()
         {
-            var behavior = this.GetTemplateChild("MenuItemButtonGroupBehavior") as MenuItemButtonGroupBehavior;
+            MenuItemButtonGroupBehavior? behavior = GetTemplateChild("MenuItemButtonGroupBehavior") as MenuItemButtonGroupBehavior;
             behavior.WhenAnyValue(a => a.SelectedItem)
                 .Subscribe(a =>
                 {
                     if (a is null)
+                    {
                         return;
+                    }
+
                     if (a is EnumMember { Value: null })
                     {
                         SelectedDock = null;
@@ -73,15 +80,23 @@ namespace UtilityWpf.Base
             //<MenuItem x:Name="HeightMenuItem"  Header="Height" IsCheckable="True"></MenuItem>
             //                  <MenuItem x:Name="DataContextMenuItem"  Header="DataContext" IsCheckable="True"></MenuItem>
 
-            dimensionsMenuItem = this.GetTemplateChild("DimensionsMenuItem") as MenuItem;
+            dimensionsMenuItem = GetTemplateChild("DimensionsMenuItem") as MenuItem;
             dimensionsMenuItem.Checked += DimensionsMenuItem_Checked;
             dimensionsMenuItem.Unchecked += DimensionsMenuItem_Checked;
 
-            dataContextMenuItem = this.GetTemplateChild("DataContextMenuItem") as MenuItem;
+            dataContextMenuItem = GetTemplateChild("DataContextMenuItem") as MenuItem;
             dataContextMenuItem.Checked += DataContextMenuItem_Checked;
             dataContextMenuItem.Unchecked += DataContextMenuItem_Checked;
 
+            highlightColourMenuItem = GetTemplateChild("HighlightColourMenuItem") as MenuItem;
+            highlightColourMenuItem.Checked += HighlightMenuItem_Checked;
+            highlightColourMenuItem.Unchecked += HighlightMenuItem_Checked;
+
             base.OnApplyTemplate();
+        }
+
+        private static void Change(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
         }
 
         private void DataContextMenuItem_Checked(object sender, RoutedEventArgs e)
@@ -94,6 +109,11 @@ namespace UtilityWpf.Base
             RaiseEvent(new CheckedEventArgs(CheckedType.Dimensions, dimensionsMenuItem.IsChecked, CheckedEvent, this));
         }
 
+        private void HighlightMenuItem_Checked(object sender, RoutedEventArgs e)
+        {
+            RaiseEvent(new CheckedEventArgs(CheckedType.HighlightArea, highlightColourMenuItem.IsChecked, CheckedEvent, this));
+        }
+
         //private static object Callback(DependencyObject d, object baseValue)
         //{
         //    if (baseValue is EnumMember { Value: var value } member)
@@ -102,11 +122,5 @@ namespace UtilityWpf.Base
         //    }
         //    throw new Exception("DGF£FGVV vv446");
         //}
-
-        public Dock? SelectedDock
-        {
-            get { return (Dock?)GetValue(SelectedDockProperty); }
-            set { SetValue(SelectedDockProperty, value); }
-        }
     }
 }
