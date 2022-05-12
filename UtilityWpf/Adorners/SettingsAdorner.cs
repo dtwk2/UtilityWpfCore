@@ -20,8 +20,7 @@ namespace UtilityWpf.Adorners
         private IDisposable disposable;
 
         private SettingsAdorner(FrameworkElement adornedElement) : base(adornedElement)
-        {
-          
+        {          
         }
 
         public static SettingsAdorner AddTo(FrameworkElement adornedElement)

@@ -260,12 +260,6 @@ namespace UtilityWpf.Adorners
             var adornerLayer = AdornerLayer.GetAdornerLayer(frameworkElement);
             if (adornerLayer == null)
                 return;
-            if (frameworkElement.GetValue(AdornerProperty) is not SettingsAdorner)
-            {
-                //SettingsAdorner sadorner = SettingsAdorner.AddTo(frameworkElement);
-                //sadorner.Adorners = adorners;
-                //frameworkElement.SetValue(AdornerProperty, sadorner);
-            }
 
             // create new adorner if it doesnt exist
             if (frameworkElement.GetValue(AdornerProperty) is not FrameworkElementAdorner adorner)
