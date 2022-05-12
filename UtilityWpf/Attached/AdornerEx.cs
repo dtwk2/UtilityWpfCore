@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Documents;
+using UtilityWpf.Base;
+using UtilityWpf.Utility;
 
 namespace UtilityWpf.Adorners
 {
@@ -15,21 +18,24 @@ namespace UtilityWpf.Adorners
     public static class AdornerEx
     {
         /// <summary>
-        /// Apply this on the target element you want to adorn.
+        /// Apply this on the target element you want to adorn
         /// </summary>
         public static readonly DependencyProperty IsEnabledProperty =
             DependencyProperty.RegisterAttached("IsEnabled", typeof(bool), typeof(AdornerEx),
                 new FrameworkPropertyMetadata(OnPropertyChanged));
 
         /// <summary>
-        /// The internal encapsulating adorner.
+        /// The internal encapsulating adorner
         /// </summary>
         public static readonly DependencyProperty AdornerProperty =
             DependencyProperty.RegisterAttached("Adorner", typeof(FrameworkElementAdorner), typeof(AdornerEx), new PropertyMetadata(Changed));
 
         private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-
+            //if (e.NewValue is SettingsAdorner)
+            //{
+            //    d.SetValue(AdornerEx.IsEnabledProperty, true);
+            //}
         }
 
         /// <summary>
@@ -254,6 +260,12 @@ namespace UtilityWpf.Adorners
             var adornerLayer = AdornerLayer.GetAdornerLayer(frameworkElement);
             if (adornerLayer == null)
                 return;
+            if (frameworkElement.GetValue(AdornerProperty) is not SettingsAdorner)
+            {
+                //SettingsAdorner sadorner = SettingsAdorner.AddTo(frameworkElement);
+                //sadorner.Adorners = adorners;
+                //frameworkElement.SetValue(AdornerProperty, sadorner);
+            }
 
             // create new adorner if it doesnt exist
             if (frameworkElement.GetValue(AdornerProperty) is not FrameworkElementAdorner adorner)

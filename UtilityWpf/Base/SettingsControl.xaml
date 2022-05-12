@@ -49,7 +49,7 @@
                             <MenuItem Header="Show">
                                 <MenuItem x:Name="DimensionsMenuItem"  Header="Dimensions" IsCheckable="True"/>
                                 <MenuItem x:Name="DataContextMenuItem"  Header="DataContext" IsCheckable="True" IsChecked="True"/>
-                                <MenuItem x:Name="HighlightColourMenuItem"  Header="DataContext" IsCheckable="True" />
+                                <MenuItem x:Name="HighlightColourMenuItem"  Header="Highlight" IsCheckable="True" />
                             </MenuItem>
                         </Menu>
                     </materialDesign:PopupBox>

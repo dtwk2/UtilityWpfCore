@@ -1,4 +1,5 @@
-﻿using RandomColorGenerator;
+﻿using HandyControl.Controls;
+using RandomColorGenerator;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -18,8 +19,18 @@ namespace UtilityWpf.Adorners
         private ControlColourer? controlColourer;
         private IDisposable disposable;
 
-        public SettingsAdorner(FrameworkElement adornedElement) : base(adornedElement)
+        private SettingsAdorner(FrameworkElement adornedElement) : base(adornedElement)
         {
+          
+        }
+
+        public static SettingsAdorner AddTo(FrameworkElement adornedElement)
+{
+            var settingsAdorner = new SettingsAdorner(adornedElement);
+            adornedElement.SetValue(AdornerEx.AdornerProperty, settingsAdorner);
+            adornedElement.SetValue(AdornerEx.IsEnabledProperty, true);
+            adornedElement.AddIfMissingAdorner(new SettingsControl());
+            return settingsAdorner;
         }
 
         public override void SetAdornedElement(DependencyObject adorner, FrameworkElement? adornedElement)
@@ -28,6 +39,7 @@ namespace UtilityWpf.Adorners
             {
                 if (adornedElement == null)
                 {
+                    settingsControl.Checked -= SettingsControl_Checked;
                     disposable?.Dispose();
                     return;
                 }
@@ -86,31 +98,71 @@ namespace UtilityWpf.Adorners
 
             public void Apply()
             {
-                foreach (Control child in dependencyObject.FindChildren<Control>())
+                foreach (FrameworkElement child in dependencyObject.FindChildren<FrameworkElement>().Prepend(dependencyObject))
                 {
-                    Brush background = child.Background;
-                    Guid guid = (Guid)child.GetValue(Ex.KeyProperty);
+                    Guid guid = (Guid?)child.GetValue(Ex.KeyProperty) ?? Guid.NewGuid();
+                    Brush? background = default;
+                    if (child is Control control)
+                    {
+                        background = ApplyBrush(guid, () => control.Background, b => control.Background = b);
+                    }
+                    else if (child is Panel panel)
+                    {
+                        background = ApplyBrush(guid, () => panel.Background, b => panel.Background = b);
+                    }
+                    else
+                    {
+                        return;
+                    }
+
                     child.SetValue(Ex.KeyProperty, guid);
-                    child.Background = tempBrushes.ContainsKey(guid) ? tempBrushes[guid] : RandomColor.GetColor(ColorScheme.Random, Luminosity.Light).ToMediaBrush();
                     originalBrushes[guid] = background;
-                    tempBrushes[guid] = child.Background;
                 }
+
+                Brush ApplyBrush(Guid guid, Func<Brush> func, Action<Brush> action)
+                {
+                    Brush background = func();
+                    action(tempBrushes[guid] = Brush(guid));
+                    return background;
+
+                    Brush Brush(Guid guid)
+                    {
+                        return tempBrushes.ContainsKey(guid) ?
+                            tempBrushes[guid] :
+                            RandomColor.GetColor(ColorScheme.Random, Luminosity.Light)
+                                       .ToMediaBrush()
+                                       .WithOpacity(0.5);
+                    }
+                }
+
             }
+
 
             public void Remove()
             {
                 if (tempBrushes.Any())
                 {
-                    foreach (Control child in dependencyObject.FindChildren<Control>())
+                    foreach (FrameworkElement child in dependencyObject.FindChildren<FrameworkElement>().Prepend(dependencyObject))
                     {
                         Guid? guid = (Guid?)child.GetValue(Ex.KeyProperty);
                         if (guid.HasValue && originalBrushes.ContainsKey(guid.Value))
                         {
-                            child.Background = originalBrushes[guid.Value];
+                            if (child is Control control)
+                            {
+                                control.Background = originalBrushes[guid.Value];
+                            }
+                            else if (child is Panel panel)
+                            {
+                                panel.Background = originalBrushes[guid.Value];
+                            }
+                            else
+                            {
+                                throw new Exception("REG34 hdfgghfd");
+                            }
                         }
                         else
                         {
-                            // child's been removed
+                            // child's probably been removed
                         }
                     }
                 }

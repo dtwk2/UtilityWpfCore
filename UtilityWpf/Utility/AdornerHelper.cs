@@ -6,7 +6,7 @@ namespace UtilityWpf.Utility
 {
     public static class AdornerHelper
     {
-        public static void AddIfMissingAdorner(this UIElement adornedElement, DependencyObject adorner)
+        public static void AddIfMissingAdorner(this DependencyObject adornedElement, DependencyObject adorner)
         {
             AdornerCollection? adorners = AdornerEx.GetAdorners(adornedElement);
             if (adorners.IndexOf(adorner) == -1)

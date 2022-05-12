@@ -1,4 +1,5 @@
-﻿using MaterialDesignThemes.Wpf;
+﻿using HandyControl.Controls;
+using MaterialDesignThemes.Wpf;
 using RandomColorGenerator;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ using UtilityWpf.Attached;
 using UtilityWpf.Base;
 using UtilityWpf.Demo.Data.Factory;
 using UtilityWpf.Utility;
+using static UtilityWpf.Demo.View.TestInfrastructure;
 
 namespace UtilityWpf.Demo.View
 {
@@ -33,11 +35,16 @@ namespace UtilityWpf.Demo.View
             controlColourer = new(this);
             //adornerController = new(Square3Grid);
             GearGrid.SetValue(AdornerEx.AdornerProperty, new CustomFrameworkElementAdorner(GearGrid));
-            Square3Grid.SetValue(DataContextProperty, new Characters());
-            Square3Grid.SetValue(AdornerEx.AdornerProperty, new SettingsAdorner(Square3Grid));
-            Square3Grid.SetValue(AdornerEx.IsEnabledProperty, true);
-            //Square3Grid.AddIfMissingAdorner(new SettingsControl());
+
+            Square3Grid.DataContext = DataContexts.Random;
+            SettingsAdorner.AddTo(Square3Grid);
         }
+
+
+
+        //Square3Grid.DataContext = new Characters();
+        //var adorner = new SettingsAdorner(Square3Grid);
+        //Square3Grid.SetValue(AdornerEx.AdornerProperty, adorner);
 
         public ICommand TextCommand { get; }
 
@@ -86,107 +93,110 @@ namespace UtilityWpf.Demo.View
         }
     }
 
-    public class CustomFrameworkElementAdorner : FrameworkElementAdorner
+    public class TestInfrastructure
     {
-        public CustomFrameworkElementAdorner(FrameworkElement adornedElement) : base(adornedElement)
+        public class CustomFrameworkElementAdorner : FrameworkElementAdorner
         {
-        }
-
-        public override void SetAdornedElement(DependencyObject adorner, FrameworkElement? adornedElement)
-        {
-            if (adorner is Button button)
+            public CustomFrameworkElementAdorner(FrameworkElement adornedElement) : base(adornedElement)
             {
-                if (adornedElement == null)
-                {
-                    button.Click -= Button_Click;
-                }
-                else
-                {
-                    button.Click += Button_Click;
-                }
             }
 
-            void Button_Click(object sender, RoutedEventArgs e)
+            public override void SetAdornedElement(DependencyObject adorner, FrameworkElement? adornedElement)
             {
-                if (AdornedElement is Control control)
+                if (adorner is Button button)
                 {
-                    control.Background = control.Background == Brushes.Red ? Brushes.PowderBlue : Brushes.Red;
-                }
-
-                if (AdornedElement is Panel panel)
-                {
-                    panel.Background = panel.Background == Brushes.Red ? Brushes.PowderBlue : Brushes.Red;
-                }
-            }
-        }
-    }
-
-    internal class AdornerController
-    {
-        private readonly UIElement adornedElement;
-        private readonly DependencyObject adorner;
-
-        public AdornerController(UIElement adornedElement, DependencyObject? dependencyObject = null)
-        {
-            this.adornedElement = adornedElement;
-            adorner = dependencyObject ?? new SettingsControl();
-        }
-
-        public void Apply()
-        {
-            adornedElement.AddIfMissingAdorner(adorner);
-            adornedElement.SetValue(AdornerEx.IsEnabledProperty, true);
-        }
-
-        public void Hide()
-        {
-            adornedElement.SetValue(AdornerEx.IsEnabledProperty, false);
-        }
-
-        public void Remove()
-        {
-            adornedElement.RemoveAdorners();
-        }
-    }
-
-    internal class ControlColourer
-    {
-        private readonly DependencyObject dependencyObject;
-        private readonly Dictionary<Guid, Brush> originalBrushes = new();
-        private readonly Dictionary<Guid, Brush> tempBrushes = new();
-
-        public ControlColourer(DependencyObject dependencyObject)
-        {
-            this.dependencyObject = dependencyObject;
-        }
-
-        public void Apply()
-        {
-            foreach (Control child in dependencyObject.FindChildren<Control>())
-            {
-                Brush background = child.Background;
-                Guid guid = (Guid?)child.GetValue(Ex.KeyProperty) ?? Guid.NewGuid();
-                child.SetValue(Ex.KeyProperty, guid);
-                child.Background = tempBrushes.ContainsKey(guid) ? tempBrushes[guid] : RandomColor.GetColor(ColorScheme.Random, Luminosity.Bright).ToMediaBrush();
-                originalBrushes[guid] = background;
-                tempBrushes[guid] = child.Background;
-            }
-        }
-
-        public void Remove()
-        {
-            if (tempBrushes.Any())
-            {
-                foreach (Control child in dependencyObject.FindChildren<Control>())
-                {
-                    Guid? guid = (Guid?)child.GetValue(Ex.KeyProperty);
-                    if (guid.HasValue && originalBrushes.ContainsKey(guid.Value))
+                    if (adornedElement == null)
                     {
-                        child.Background = originalBrushes[guid.Value];
+                        button.Click -= Button_Click;
                     }
                     else
                     {
-                        // child's been removed
+                        button.Click += Button_Click;
+                    }
+                }
+
+                void Button_Click(object sender, RoutedEventArgs e)
+                {
+                    if (AdornedElement is Control control)
+                    {
+                        control.Background = control.Background == Brushes.Red ? Brushes.PowderBlue : Brushes.Red;
+                    }
+
+                    if (AdornedElement is Panel panel)
+                    {
+                        panel.Background = panel.Background == Brushes.Red ? Brushes.PowderBlue : Brushes.Red;
+                    }
+                }
+            }
+        }
+
+        internal class AdornerController
+        {
+            private readonly UIElement adornedElement;
+            private readonly DependencyObject adorner;
+
+            public AdornerController(UIElement adornedElement, DependencyObject? dependencyObject = null)
+            {
+                this.adornedElement = adornedElement;
+                adorner = dependencyObject ?? new SettingsControl();
+            }
+
+            public void Apply()
+            {
+                adornedElement.AddIfMissingAdorner(adorner);
+                adornedElement.SetValue(AdornerEx.IsEnabledProperty, true);
+            }
+
+            public void Hide()
+            {
+                adornedElement.SetValue(AdornerEx.IsEnabledProperty, false);
+            }
+
+            public void Remove()
+            {
+                adornedElement.RemoveAdorners();
+            }
+        }
+
+        internal class ControlColourer
+        {
+            private readonly DependencyObject dependencyObject;
+            private readonly Dictionary<Guid, Brush> originalBrushes = new();
+            private readonly Dictionary<Guid, Brush> tempBrushes = new();
+
+            public ControlColourer(DependencyObject dependencyObject)
+            {
+                this.dependencyObject = dependencyObject;
+            }
+
+            public void Apply()
+            {
+                foreach (Control child in dependencyObject.FindChildren<Control>())
+                {
+                    Brush background = child.Background;
+                    Guid guid = (Guid?)child.GetValue(Ex.KeyProperty) ?? Guid.NewGuid();
+                    child.SetValue(Ex.KeyProperty, guid);
+                    child.Background = tempBrushes.ContainsKey(guid) ? tempBrushes[guid] : RandomColor.GetColor(ColorScheme.Random, Luminosity.Bright).ToMediaBrush();
+                    originalBrushes[guid] = background;
+                    tempBrushes[guid] = child.Background;
+                }
+            }
+
+            public void Remove()
+            {
+                if (tempBrushes.Any())
+                {
+                    foreach (Control child in dependencyObject.FindChildren<Control>())
+                    {
+                        Guid? guid = (Guid?)child.GetValue(Ex.KeyProperty);
+                        if (guid.HasValue && originalBrushes.ContainsKey(guid.Value))
+                        {
+                            child.Background = originalBrushes[guid.Value];
+                        }
+                        else
+                        {
+                            // child's been removed
+                        }
                     }
                 }
             }

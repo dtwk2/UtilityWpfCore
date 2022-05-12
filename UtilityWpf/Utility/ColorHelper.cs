@@ -18,6 +18,12 @@ namespace UtilityWpf.Utility
 
         public static MediaBrush ToMediaBrush(this MediaColor color) => new SolidColorBrush(color);
 
+        public static MediaBrush WithOpacity(this MediaBrush brush, double opacity)
+        {
+            brush.Opacity = opacity;
+            return brush;
+        }
+
         public static string ToHexColor(this DrawingColor c) => "#" + c.R.ToString("X2") + c.G.ToString("X2") + c.B.ToString("X2");
 
         public static string ToRGBColor(this DrawingColor c) => "RGB(" + c.R.ToString() + "," + c.G.ToString() + "," + c.B.ToString() + ")";

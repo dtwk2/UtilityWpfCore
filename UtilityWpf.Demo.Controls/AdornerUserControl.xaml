@@ -163,11 +163,12 @@
                         <SolidColorBrush Opacity="0.1" Color="CadetBlue"></SolidColorBrush>
                     </Grid.Background>
                     <ab:AdornerEx.Adorners>
-                            <Button          Margin="4"
-                                             Background="Transparent"
-                                             BorderBrush="Transparent"
-                                             HorizontalAlignment="Right"
-                                               VerticalAlignment="Top">
+                            <Button 
+                                   Margin="4"
+                                   Background="Transparent"
+                                   BorderBrush="Transparent"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Top">
                                 <materialDesign:PackIcon Width="24"
                                                   
                              Height="24"
