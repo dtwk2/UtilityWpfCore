@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Utility.Common.Helper;
 
-namespace UtilityWpf.Utility
+namespace Utility.Common.Helper
 {
     public static class PathHelper
     {

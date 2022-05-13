@@ -5,6 +5,7 @@ using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
+using Utility.WPF.Attached;
 using UtilityWpf.Controls.Dragablz;
 using UtilityWpf.Controls.Master;
 
@@ -90,12 +91,12 @@ namespace UtilityWpf.Controls.Hybrid
         {
             if (SelectedItem is UIElement elem)
             {
-                elem.SetValue(Attached.Ex.IsReadOnlyProperty, isAdd);
+                elem.SetValue(Ex.IsReadOnlyProperty, isAdd);
             }
             else if (SelectedItem is { })
             {
                 var container = (Content as ItemsControl)?.ItemContainerGenerator.ContainerFromItem(SelectedItem);
-                container?.SetValue(Attached.Ex.IsReadOnlyProperty, isAdd);
+                container?.SetValue(Ex.IsReadOnlyProperty, isAdd);
             }
         }
     }

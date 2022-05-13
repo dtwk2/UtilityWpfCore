@@ -7,8 +7,9 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using Utility.Common;
+using Utility.WPF.Attached;
+using Utility.WPF.Helper;
 using UtilityHelper;
-using UtilityWpf.Attached;
 
 namespace UtilityWpf.Controls.Dragablz
 {
@@ -81,8 +82,8 @@ namespace UtilityWpf.Controls.Dragablz
             {
                 if (string.IsNullOrEmpty(IsCheckedPath) == false)
                 {
-                    BindingOperations.SetBinding(element, Attached.Ex.StateProperty, CreateBinding());
-                    BindingOperations.SetBinding(element, Attached.Ex.IsCheckedProperty, CreateBinding2());
+                    BindingOperations.SetBinding(element, Ex.StateProperty, CreateBinding());
+                    BindingOperations.SetBinding(element, Ex.IsCheckedProperty, CreateBinding2());
                 }
 
                 Binding CreateBinding()

@@ -3,8 +3,8 @@ using System.Collections.ObjectModel;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Media.Imaging;
+using Utility.Common.Helper;
 using UtilityWpf.Demo.Data.Model;
-using UtilityWpf.Utility;
 
 namespace UtilityWpf.Demo.Data.Factory
 {

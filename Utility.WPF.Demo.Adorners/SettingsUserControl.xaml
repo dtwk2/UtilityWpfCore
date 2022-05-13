@@ -1,0 +1,80 @@
+﻿<UserControl x:Class="Utility.WPF.Demo.Adorners.SettingsUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"     
+             xmlns:ab="http://schemas.utility.com/adorners"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+
+        <UniformGrid>
+            <Button Click="Button_Click" Height="30" Width="100">Add/Remove</Button>
+            <StackPanel>
+                <AdornerDecorator>
+                    <Canvas Background="IndianRed" Opacity="0.1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="300" Width="300"
+                            Margin="100"
+                            x:Name="MainCanvas"
+                            ab:AdornerEx.IsEnabled="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}">
+                        <ab:AdornerEx.Adorners>
+                            <Ellipse Width="15"
+                            Height="15"
+                            HorizontalAlignment="Left"
+                            ab:AdornerEx.HorizontalPlacement="Inside"
+                            Stroke="Green" />
+                            <Ellipse Width="15"
+                            Height="15"
+                            HorizontalAlignment="Right"
+                            ab:AdornerEx.HorizontalPlacement="Across"
+                            Stroke="Red" />
+                            <Ellipse Width="15"
+                            Height="15"
+                            VerticalAlignment="Top"
+                            ab:AdornerEx.VerticalPlacement="Across"
+                            Stroke="Brown" />
+                            <TextBlock
+                            Text="Header"
+                            VerticalAlignment="Top"
+                            ab:AdornerEx.VerticalPlacement="Outside"
+                            ab:AdornerEx.OffsetY="-20"
+                            Background="Orange" />
+                        </ab:AdornerEx.Adorners>
+                    </Canvas>
+                </AdornerDecorator>
+            </StackPanel>
+            <Grid Height="300" Width="300" 
+                      x:Name="GearGrid"
+                      ab:AdornerEx.IsEnabled="{Binding ElementName=CheckBox, Path=IsChecked}" >
+                <Grid.Background>
+                    <SolidColorBrush Opacity="0.1" Color="CadetBlue"></SolidColorBrush>
+                </Grid.Background>
+                <ab:AdornerEx.Adorners>
+                    <Button 
+                                   Margin="4"
+                                   Background="Transparent"
+                                   BorderBrush="Transparent"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Top">
+                        <materialDesign:PackIcon Width="24"
+                                                  
+                             Height="24"
+                             Kind="Gear">
+                        </materialDesign:PackIcon>
+                    </Button>
+                </ab:AdornerEx.Adorners>
+
+                <CheckBox x:Name="CheckBox" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="60" >Show</CheckBox>
+            </Grid>
+
+            <AdornerDecorator>
+                <Grid x:Name="Square3Grid" Height="300" Width="300"  >
+                    <Grid.Background>
+                        <SolidColorBrush Opacity="0.1" Color="DarkGoldenrod"></SolidColorBrush>
+                    </Grid.Background>
+                </Grid>
+            </AdornerDecorator>
+        </UniformGrid>
+
+    </Grid>
+</UserControl>

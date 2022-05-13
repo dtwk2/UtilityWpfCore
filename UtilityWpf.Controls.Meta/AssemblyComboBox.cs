@@ -13,7 +13,7 @@ using Utility.Persist;
 using UtilityInterface.NonGeneric;
 using UtilityWpf.Controls.Buttons;
 using UtilityWpf.Model;
-using UtilityWpf.Utility;
+using UtilityWpf.Helper;
 
 namespace UtilityWpf.Controls.Meta
 {

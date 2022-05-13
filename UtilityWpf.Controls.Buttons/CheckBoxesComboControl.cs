@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Utility.WPF.Helper;
 using UtilityWpf.Abstract;
 using UtilityWpf.Base;
 using UtilityWpf.Controls.Buttons.Infrastructure;
-using UtilityWpf.Utility;
 
 namespace UtilityWpf.Controls.Buttons
 {

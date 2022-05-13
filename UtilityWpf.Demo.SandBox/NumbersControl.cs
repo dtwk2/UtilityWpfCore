@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 using UniversalWPF;
+using Utility.WPF.Helper;
 using UtilityWpf.Base;
 
 namespace UtilityWpf.Demo.SandBox

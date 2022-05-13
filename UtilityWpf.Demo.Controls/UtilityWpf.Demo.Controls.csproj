@@ -24,6 +24,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Utility.ViewModel\Utility.ViewModel.csproj" />
+    <ProjectReference Include="..\Utility.WPF.Attached\Utility.WPF.Attached.csproj" />
+    <ProjectReference Include="..\Utility.WPF.Behavior\Utility.WPF.Behavior.csproj" />
     <ProjectReference Include="..\UtilityWpf.Controls\UtilityWpf.Controls.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.Data\UtilityWpf.Demo.Data.csproj" />
   </ItemGroup>
@@ -38,9 +40,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="AdornerUserControl.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="DateTimeUserControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -80,10 +79,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="AdornerUserControl.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="CalendarUserControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>

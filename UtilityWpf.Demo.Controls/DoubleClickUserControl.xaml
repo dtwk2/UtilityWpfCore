@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:UtilityWpf.Demo.Controls"
     xmlns:test="clr-namespace:UtilityWpf.Demo.Data.Model;assembly=UtilityWpf.Demo.Data"
-    xmlns:util="http://schemas.utility.com/utilitywpf">
+    xmlns:util="http://schemas.utility.com/attached">
     <UserControl.Resources>
 
         <DataTemplate DataType="{x:Type test:Character}">

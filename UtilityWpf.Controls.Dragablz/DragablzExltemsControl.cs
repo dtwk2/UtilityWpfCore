@@ -8,8 +8,9 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Utility.WPF.Attached;
+using Utility.WPF.Helper;
 using UtilityWpf.Abstract;
-using UtilityWpf.Attached;
 using UtilityWpf.Events;
 
 namespace UtilityWpf.Controls.Dragablz

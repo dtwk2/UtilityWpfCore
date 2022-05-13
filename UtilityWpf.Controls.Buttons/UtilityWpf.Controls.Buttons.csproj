@@ -74,6 +74,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Utility.WPF.Behavior\Utility.WPF.Behavior.csproj" />
 		<ProjectReference Include="..\Utility.WPF.Themes\Utility.WPF.Themes.csproj" />
 	</ItemGroup>
 

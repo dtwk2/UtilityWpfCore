@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Controls;
 
-namespace UtilityWpf.Utility
+namespace UtilityWpf.Helper
 {
     public static class ItemsControlHelper
     {

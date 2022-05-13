@@ -5,8 +5,8 @@ using System.Collections;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Utility.WPF.Behavior;
 using UtilityWpf.Base;
-using UtilityWpf.Behavior;
 
 namespace UtilityWpf.Controls.Hybrid
 {

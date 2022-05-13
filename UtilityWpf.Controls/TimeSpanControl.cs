@@ -7,11 +7,12 @@ using System.Windows.Controls;
 using UtilityEnum;
 using UtilityWpf.Base;
 using UtilityWpf.Controls.Infrastructure;
-using UtilityWpf.Utility;
+using UtilityWpf.Helper;
 
 namespace UtilityWpf.Controls
 {
     using Mixins;
+    using Utility.WPF.Abstract;
 
     public class TimeSpanControl : Controlx
     {

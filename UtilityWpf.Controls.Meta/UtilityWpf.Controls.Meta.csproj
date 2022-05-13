@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0-windows</TargetFramework>
@@ -8,11 +8,23 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Utility.Persist\Utility.Persist.csproj" />
+    <ProjectReference Include="..\Utility.WPF.Adorners\Utility.WPF.Adorners.csproj" />
     <ProjectReference Include="..\UtilityWpf.Controls.Buttons\UtilityWpf.Controls.Buttons.csproj" />
     <ProjectReference Include="..\UtilityWpf.Controls.Master\UtilityWpf.Controls.Master.csproj" />
   </ItemGroup>
 
+
+	<ItemGroup>
+		<Compile Update="SettingsControl.cs">
+			<DependentUpon>SettingsControl.xaml</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	
   <ItemGroup>
+    <Page Update="SettingsControl.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Themes\Generic.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>

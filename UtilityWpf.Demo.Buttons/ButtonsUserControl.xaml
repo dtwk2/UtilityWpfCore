@@ -9,6 +9,7 @@
     xmlns:view="http://schemas.utility.com/buttons"
     xmlns:demoApp="clr-namespace:UtilityWpf.Demo.Buttons"
     xmlns:enum="clr-namespace:Utility.Common.Enum;assembly=Utility.Common"
+    xmlns:att="http://schemas.utility.com/attached"
     xmlns:infra1="clr-namespace:UtilityWpf.Demo.Common.ViewModel;assembly=UtilityWpf.Demo.Common"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -31,8 +32,8 @@
         </ComboBox>
         
         <ScrollViewer>
-            <ItemsControl utl:ItemsControlEx.Orientation="{Binding ElementName=ToggleButton, Path=Content}"
-                          utl:ItemsControlEx.Arrangement="{Binding ElementName=ToggleButton2, Path=SelectedValue}">
+            <ItemsControl att:ItemsControlEx.Orientation="{Binding ElementName=ToggleButton, Path=Content}"
+                          att:ItemsControlEx.Arrangement="{Binding ElementName=ToggleButton2, Path=SelectedValue}">
                 <GroupBox>
                     <ContentControl d:DataContext="{d:DesignInstance demoApp:ButtonsViewModel}">
                         <FrameworkElement.DataContext>

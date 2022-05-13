@@ -43,7 +43,7 @@
                         Stroke="{TemplateBinding Foreground}"
                         StrokeThickness="1">
                 <i:Interaction.Behaviors>
-                    <util:MouseBehavior x:Name="MouseBehavior2" Element="{Binding ElementName=InnerBorder}" />
+                    <util:MouseBehavior x:Name="MouseBehavior2"  />
                 </i:Interaction.Behaviors>
 
                 <Path.InputBindings>

@@ -2,6 +2,8 @@
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+using Utility.WPF.Attached;
+using Utility.WPF.Helper;
 
 namespace UtilityWpf.Controls.Dragablz
 {
@@ -71,7 +73,7 @@ namespace UtilityWpf.Controls.Dragablz
                 Path = new PropertyPath(IsReadOnlyPath),
                 Mode = BindingMode.TwoWay
             };
-            BindingOperations.SetBinding(element, Attached.Ex.IsReadOnlyProperty, myBinding);
+            BindingOperations.SetBinding(element, Ex.IsReadOnlyProperty, myBinding);
         }
     }
 }

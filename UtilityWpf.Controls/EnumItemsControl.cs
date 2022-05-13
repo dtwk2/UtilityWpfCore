@@ -8,8 +8,8 @@ using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Utility.Common.Enum;
+using Utility.WPF.Attached;
 using UtilityEnum;
-using UtilityWpf.Attached;
 using UtilityWpf.Base;
 
 namespace UtilityWpf.Controls

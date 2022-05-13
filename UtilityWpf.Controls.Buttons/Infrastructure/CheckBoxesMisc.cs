@@ -6,8 +6,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using Utility.Common.Helper;
+using Utility.WPF.Helper;
 using UtilityWpf.Abstract;
-using UtilityWpf.Utility;
 
 namespace UtilityWpf.Controls.Buttons.Infrastructure
 {

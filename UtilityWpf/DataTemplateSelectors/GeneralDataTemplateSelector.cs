@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
-using UtilityWpf.Utility;
+using Utility.WPF.Helper;
 
 namespace UtilityWpf.DataTemplateSelectors
 {
