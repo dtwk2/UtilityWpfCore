@@ -37,7 +37,8 @@ namespace UtilityWpf.Demo.Hybrid.ViewModel
                 .Select(a => a.change)
                 .Subscribe(a =>
               {
-                  if (a.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+                  if (a.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add ||
+                  a.Action ==  System.Collections.Specialized.NotifyCollectionChangedAction.Replace)
                   {
                       foreach (var item in a.Items)
                       {
