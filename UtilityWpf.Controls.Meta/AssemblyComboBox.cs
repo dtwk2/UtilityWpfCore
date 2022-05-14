@@ -14,11 +14,11 @@ using UtilityInterface.NonGeneric;
 using UtilityWpf.Controls.Buttons;
 using UtilityWpf.Model;
 using UtilityWpf.Helper;
+using Evan.Wpf;
+using ReactiveUI;
 
 namespace UtilityWpf.Controls.Meta
 {
-    using static UtilityWpf.DependencyPropertyFactory<AssemblyComboBox>;
-
     public record AssemblyRecord(string Key, DateTime Inserted);
 
     public class AssemblyEntity : BaseEntity<AssemblyEntity, Guid>, IKey
@@ -30,18 +30,18 @@ namespace UtilityWpf.Controls.Meta
 
     internal class AssemblyComboBox : CheckBoxesComboControl
     {
-        private readonly Subject<DemoType> subject = new();
-
-        public static readonly DependencyProperty DemoTypeProperty = Register(nameof(DemoType), a => a.subject);
+        public static readonly DependencyProperty DemoTypeProperty = DependencyHelper.Register();
 
         public AssemblyComboBox()
         {
             //SelectedIndex = 0;
             FontWeight = FontWeights.DemiBold;
-            FontSize = 14;
+            //FontSize = 14;
             Margin = new Thickness(4);
-            Width = 1000;
-            Height = 60;
+            //Width = (this.Parent as FrameworkElement)?.ActualWidth ?? 1000;
+            HorizontalContentAlignment = HorizontalAlignment.Stretch;
+            HorizontalAlignment = HorizontalAlignment.Stretch;
+            Height = 80;
             DisplayMemberPath = nameof(AssemblyKeyValue.Key);
             IsCheckedPath = nameof(Model.KeyValue.IsChecked);
             IsSelectedPath = nameof(Model.KeyValue.IsSelected);
@@ -49,7 +49,7 @@ namespace UtilityWpf.Controls.Meta
 
             FreeSqlFactory.InitialiseSQLite();
 
-            subject
+            this.WhenAnyValue(a => a.DemoType)
                 //.StartWith(DemoType.ResourceDictionary)
                 .Select(a =>
                 {
@@ -91,10 +91,8 @@ namespace UtilityWpf.Controls.Meta
                     ItemsSource = view;
                     //SelectedIndex = 0;
                 });
-
-            //GroupStyle.Add(new GroupStyle());
-
-            this.SelectSingleSelectionChanges()
+            Helper.SelectorHelper.SelectSingleSelectionChanges(this)
+                            .CombineLatest(Helper.FrameworkElementHelper.LoadedChanges(this), (a, b) => a)
                 .DistinctUntilChanged()
                 .Subscribe(async a =>
                 {
@@ -106,22 +104,13 @@ namespace UtilityWpf.Controls.Meta
                         if (match == null)
                         {
                             //repo.Add(new AssemblyRecord(item.Key, DateTime.Now));
-                            var assemblyEntity = new AssemblyEntity { Key = item.Key, IsSelected = true, IsChecked = true };
+                            var assemblyEntity = new AssemblyEntity { Key = item.Key, IsChecked = true };
                             await assemblyEntity.InsertAsync();
+                            SelectAndUpdateOtherSelections(assemblyEntity);
                         }
                         else if (match.IsSelected != true)
                         {
-                            var matches = await AssemblyEntity.Where(a => a.IsSelected).ToListAsync();
-                            foreach (var match2 in matches)
-                            {
-                                if (match2 != match)
-                                {
-                                    match2.IsSelected = false;
-                                    await match2.UpdateAsync();
-                                }
-                            }
-                            match.IsSelected = true;
-                            await match.UpdateAsync();
+                            SelectAndUpdateOtherSelections(match);
                         }
                     }
                     this.Dispatcher.Invoke(() =>
@@ -130,8 +119,32 @@ namespace UtilityWpf.Controls.Meta
                     });
                 });
 
-            this.SelectOutputChanges()
-                .Subscribe(async a =>
+            async void SelectAndUpdateOtherSelections(AssemblyEntity match)
+            {
+                if (match.IsSelected != true)
+                {
+                    var matches = await AssemblyEntity.Where(a => a.IsSelected).ToListAsync();
+                    foreach (var match2 in matches)
+                    {
+                        if (match2 != match)
+                        {
+                            match2.IsSelected = false;
+                            await match2.UpdateAsync();
+                        }
+                    }
+                    match.IsSelected = true;
+                    await match.UpdateAsync();
+
+                    var count = await AssemblyEntity.WhereIf(true, a => a.IsSelected).CountAsync();
+                    if (count != 1)
+                    {
+                        throw new Exception("Expected count to be 1 since only item can be selected in any given moment");
+                    }
+                }
+
+            }
+            Helper.OutputHelper.SelectOutputChanges<Buttons.Infrastructure.CheckedRoutedEventArgs>(this)
+                            .Subscribe(async a =>
                 {
                     var enumerator = a.Dictionary.GetEnumerator();
                     while (enumerator.MoveNext() && enumerator.Current is { Key: var key, New: var @new })
@@ -147,6 +160,8 @@ namespace UtilityWpf.Controls.Meta
                             if (@new.HasValue)
                             {
                                 match.IsChecked = @new ?? false;
+                                if (match.IsChecked == false)
+                                    match.IsSelected = false;
                                 await match.UpdateAsync();
                             }
                             else
