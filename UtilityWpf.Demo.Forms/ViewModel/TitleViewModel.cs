@@ -1,4 +1,5 @@
-﻿using _ViewModel = Utility.ViewModel.ViewModel;
+﻿using ReactiveUI;
+using _ViewModel = Utility.ViewModel.ViewModel;
 
 namespace UtilityWpf.Demo.Forms.ViewModel
 {
@@ -11,7 +12,7 @@ namespace UtilityWpf.Demo.Forms.ViewModel
         {
         }
 
-        public string Title { get => title; set => this.OnPropertyChanged(ref title, value); }
-        public string SubTitle { get => subtitle; set => this.OnPropertyChanged(ref subtitle, value); }
+        public string Title { get => title; set => this.RaiseAndSetIfChanged(ref title, value); }
+        public string SubTitle { get => subtitle; set => this.RaiseAndSetIfChanged(ref subtitle, value); }
     }
 }

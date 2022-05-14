@@ -85,19 +85,19 @@
                                  Visibility="Collapsed" />-->
                         <Grid>
                             <Border CornerRadius="5,0,0,5"
-               BorderThickness="1,1,0,1"
-               Background="{TemplateBinding Background}"
-               BorderBrush="Gray">
+                                    BorderThickness="1,1,0,1"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="Gray">
                                 <local:CheckBoxesFilteredControl
-                           VerticalAlignment="Center"
-                            HorizontalAlignment="Left"
-                            Margin="4"
-                            IsDisabledShown="{Binding IsDisabledShown, RelativeSource={RelativeSource Mode=TemplatedParent}}"
-                            IsSelectedPath="{Binding IsSelectedPath, RelativeSource={RelativeSource Mode=TemplatedParent}}"
-                            ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource Mode=TemplatedParent}}"
-                            IsCheckedPath="{Binding IsCheckedPath, RelativeSource={RelativeSource Mode=TemplatedParent}}"
-                            SelectedValuePath="{Binding SelectedValuePath, RelativeSource={RelativeSource Mode=TemplatedParent}}"
-                            DisplayMemberPath="{Binding DisplayMemberPath, RelativeSource={RelativeSource Mode=TemplatedParent}}">
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    Margin="4"
+                                    IsDisabledShown="{Binding IsDisabledShown, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                                    IsSelectedPath="{Binding IsSelectedPath, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                                    ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                                    IsCheckedPath="{Binding IsCheckedPath, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                                    SelectedValuePath="{Binding SelectedValuePath, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                                    DisplayMemberPath="{Binding DisplayMemberPath, RelativeSource={RelativeSource Mode=TemplatedParent}}">
                                 </local:CheckBoxesFilteredControl>
                             </Border>
                         </Grid>

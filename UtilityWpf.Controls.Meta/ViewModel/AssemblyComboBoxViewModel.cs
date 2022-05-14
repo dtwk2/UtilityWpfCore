@@ -1,56 +1,40 @@
-﻿using FreeSql;
+﻿using Evan.Wpf;
+using FreeSql;
+using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reactive.Linq;
-using System.Reactive.Subjects;
 using System.Reflection;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows;
 using Utility.Common;
 using Utility.Persist;
-using UtilityInterface.NonGeneric;
-using UtilityWpf.Controls.Buttons;
 using UtilityWpf.Model;
-using Utility.WPF.Reactive;
-using Evan.Wpf;
-using ReactiveUI;
+using System.Reactive;
+using System.ComponentModel;
+using System.Reactive.Linq;
+using UtilityInterface.NonGeneric;
+using System.Windows.Controls;
+using System.Reactive.Threading.Tasks;
+using Utility.Common.Model;
 
-namespace UtilityWpf.Controls.Meta
+namespace UtilityWpf.Controls.Meta.ViewModel
 {
-    public record AssemblyRecord(string Key, DateTime Inserted);
-
-    public class AssemblyEntity : BaseEntity<AssemblyEntity, Guid>, IKey
-    {
-        public string Key { get; init; }
-        public bool IsSelected { get; set; }
-        public bool IsChecked { get; set; }
-    }
-
-    internal class AssemblyComboBox : CheckBoxesComboControl
+    internal class AssemblyComboBoxViewModel
     {
         public static readonly DependencyProperty DemoTypeProperty = DependencyHelper.Register();
 
-        public AssemblyComboBox()
-        {
-            //SelectedIndex = 0;
-            FontWeight = FontWeights.DemiBold;
-            //FontSize = 14;
-            Margin = new Thickness(4);
-            //Width = (this.Parent as FrameworkElement)?.ActualWidth ?? 1000;
-            HorizontalContentAlignment = HorizontalAlignment.Stretch;
-            HorizontalAlignment = HorizontalAlignment.Stretch;
-            Height = 80;
-            DisplayMemberPath = nameof(AssemblyKeyValue.Key);
-            IsCheckedPath = nameof(Model.KeyValue.IsChecked);
-            IsSelectedPath = nameof(Model.KeyValue.IsSelected);
-            SelectedValuePath = nameof(AssemblyKeyValue.Value);
+        public Connection<DemoType, ICollectionView> demoTypeViewModel;
+        public Connection<object, object> selectedItemViewModel;
+        public Connection<Buttons.Infrastructure.CheckedRoutedEventArgs, Unit> checkedViewModel;
 
+        public AssemblyComboBoxViewModel()
+        {
             FreeSqlFactory.InitialiseSQLite();
 
-            this.WhenAnyValue(a => a.DemoType)
-                //.StartWith(DemoType.ResourceDictionary)
+            demoTypeViewModel = Connection<DemoType, ICollectionView>.Create(@in =>
+
+              @in
                 .Select(a =>
                 {
                     return a switch
@@ -60,21 +44,15 @@ namespace UtilityWpf.Controls.Meta
                         _ => throw new Exception("££!!!!$$4"),
                     };
                 })
-                .Subscribe(async a =>
+                .Select(async a =>
                 {
                     //    var array2 = a.Select(a => new AssemblyKeyValue(a))
                     //.Where(a => a.Key != null)
                     //.Select(a => A<AssemblyEntity>.Order(a.Key))
                     //.ToArray();
 
-                    var array = a
-                    .Select(a => new AssemblyKeyValue(a))
-                    .Where(a => a.Key != null)
-                    .OrderByDescending(a => BaseEntityOrderer<AssemblyEntity>.Order(a.Key))
-                    .ToArray();
-
+                    AssemblyKeyValue[] array = ToKeyValues(a);
                     var items = await AssemblyEntity.Select.ToListAsync();
-
                     for (int i = 0; i < array.Length; i++)
                     {
                         foreach (var item in items)
@@ -88,14 +66,15 @@ namespace UtilityWpf.Controls.Meta
                     var view = CollectionViewSource.GetDefaultView(array);
                     //view.GroupDescriptions.Clear();
                     //view.GroupDescriptions.Add(new PropertyGroupDescription(nameof(Model.KeyValue.GroupKey)));
-                    ItemsSource = view;
+                    return view;
                     //SelectedIndex = 0;
-                });
-            this
-                .SelectSingleSelectionChanges()
-                .CombineLatest(this.LoadedChanges(), (a, b) => a)
-                .DistinctUntilChanged()
-                .Subscribe(async a =>
+                })
+                .SelectMany(a => a.ToObservable())
+            );
+
+            selectedItemViewModel = Connection<object, object>.Create(@in =>
+            @in
+                .Select(async a =>
                 {
                     var item = (AssemblyKeyValue)a;
 
@@ -114,38 +93,16 @@ namespace UtilityWpf.Controls.Meta
                             SelectAndUpdateOtherSelections(match);
                         }
                     }
-                    this.Dispatcher.Invoke(() =>
-                    {
-                        SelectedItem = a;
-                    });
-                });
+                    return item;
+                })
+                .SelectMany(a => a.ToObservable()));
 
-            async void SelectAndUpdateOtherSelections(AssemblyEntity match)
-            {
-                if (match.IsSelected != true)
-                {
-                    var matches = await AssemblyEntity.Where(a => a.IsSelected).ToListAsync();
-                    foreach (var match2 in matches)
-                    {
-                        if (match2 != match)
-                        {
-                            match2.IsSelected = false;
-                            await match2.UpdateAsync();
-                        }
-                    }
-                    match.IsSelected = true;
-                    await match.UpdateAsync();
 
-                    var count = await AssemblyEntity.WhereIf(true, a => a.IsSelected).CountAsync();
-                    if (count != 1)
-                    {
-                        throw new Exception("Expected count to be 1 since only item can be selected in any given moment");
-                    }
-                }
 
-            }
-            this.SelectOutputChanges<Buttons.Infrastructure.CheckedRoutedEventArgs>()
-                            .Subscribe(async a =>
+            checkedViewModel = Connection<Buttons.Infrastructure.CheckedRoutedEventArgs, Unit>.Create(@in =>
+
+                @in
+                .Select(async a =>
                 {
                     var enumerator = a.Dictionary.GetEnumerator();
                     while (enumerator.MoveNext() && enumerator.Current is { Key: var key, New: var @new })
@@ -171,7 +128,18 @@ namespace UtilityWpf.Controls.Meta
                             }
                         }
                     }
-                });
+                    return Unit.Default;
+                })
+                .SelectMany(a => a.ToObservable()));
+        }
+
+        private static AssemblyKeyValue[] ToKeyValues(IEnumerable<Assembly> a)
+        {
+            return a
+            .Select(a => new AssemblyKeyValue(a))
+            .Where(a => a.Key != null)
+            .OrderByDescending(a => BaseEntityOrderer<AssemblyEntity>.Order(a.Key))
+            .ToArray();
         }
 
         private class BaseEntityOrderer<T> where T : BaseEntity, IKey
@@ -188,11 +156,14 @@ namespace UtilityWpf.Controls.Meta
             }
         }
 
-        //protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
-        //{
-        //    BindingOperations.SetBinding(element, ComboBoxItem.ContentProperty, new Binding(nameof(ViewAssembly.Key)));
-        //    base.PrepareContainerForItemOverride(element, item);
-        //}
+        public record AssemblyRecord(string Key, DateTime Inserted);
+
+        public class AssemblyEntity : BaseEntity<AssemblyEntity, Guid>, IKey
+        {
+            public string Key { get; init; }
+            public bool IsSelected { get; set; }
+            public bool IsChecked { get; set; }
+        }
 
         private const string DemoAppNameAppendage = "Demo";
 
@@ -212,10 +183,25 @@ namespace UtilityWpf.Controls.Meta
                    select a;
         }
 
-        public DemoType DemoType
+        private static async void SelectAndUpdateOtherSelections(AssemblyEntity match)
         {
-            get => (DemoType)GetValue(DemoTypeProperty);
-            set => SetValue(DemoTypeProperty, value);
+            var matches = await AssemblyEntity.Where(a => a.IsSelected).ToListAsync();
+            foreach (var match2 in matches)
+            {
+                if (match2 != match)
+                {
+                    match2.IsSelected = false;
+                    await match2.UpdateAsync();
+                }
+            }
+            match.IsSelected = true;
+            await match.UpdateAsync();
+
+            var count = await AssemblyEntity.WhereIf(true, a => a.IsSelected).CountAsync();
+            if (count != 1)
+            {
+                throw new Exception("Expected count to be 1 since only item can be selected in any given moment");
+            }            
         }
     }
 }

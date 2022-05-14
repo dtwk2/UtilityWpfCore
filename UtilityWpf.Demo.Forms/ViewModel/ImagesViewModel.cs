@@ -39,10 +39,10 @@ namespace UtilityWpf.Demo.Forms.ViewModel
                 {
                     var dis = a.WhenAnyValue(a => a.URL).Subscribe(a =>
                     {
-                        this.OnPropertyChanged(nameof(Collection));
+                        this.RaisePropertyChanged(nameof(Collection));
                     });
                     list.Add(a, dis);
-                    this.OnPropertyChanged(nameof(Collection));
+                    this.RaisePropertyChanged(nameof(Collection));
                 });
 
             obsCollection
@@ -54,7 +54,7 @@ namespace UtilityWpf.Demo.Forms.ViewModel
                         list[a].Dispose();
                         list.Remove(a);
                     }
-                    this.OnPropertyChanged(nameof(Collection));
+                    this.RaisePropertyChanged(nameof(Collection));
                 });
             Collection = obsCollection;
             Intialise();

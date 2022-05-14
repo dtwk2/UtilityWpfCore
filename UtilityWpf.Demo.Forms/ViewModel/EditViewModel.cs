@@ -25,7 +25,7 @@ namespace UtilityWpf.Demo.Forms.ViewModel
                 .Select(a => a.ToObservable())
                 .Switch()
                 .SelectMany(a => a.Changes())
-                .Subscribe(a => OnPropertyChanged());
+                .Subscribe(a => this.RaisePropertyChanged());
         }
 
         private void TitleViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -83,7 +83,7 @@ namespace UtilityWpf.Demo.Forms.ViewModel
                         _ => throw new NotImplementedException(),
                     }).Invoke();
                 }
-                this.RaisePropertyChanged();
+                IReactiveObjectExtensions.RaisePropertyChanged(this);
             }
         }
 

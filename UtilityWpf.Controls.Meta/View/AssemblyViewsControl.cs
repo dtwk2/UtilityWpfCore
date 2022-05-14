@@ -37,7 +37,8 @@ namespace UtilityWpf.Controls.Meta
             var dualButtonControl = new DualButtonControl
             {
                 Main = DemoType.UserControl,
-                Alternate = DemoType.ResourceDictionary
+                Alternate = DemoType.ResourceDictionary,
+                Orientation = Orientation.Horizontal
             };
 
             var first = DualButtonEntity.Select.First();

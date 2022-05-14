@@ -9,11 +9,11 @@ namespace UtilityWpf.Controls.Buttons
 {
     public class CheckBoxesListControl : ListBox<CheckBox>, IIsCheckedPath, IOutput<CheckedRoutedEventArgs>
     {
-        private static readonly DependencyPropertyKey OutputPropertyKey = DependencyProperty.RegisterReadOnly(nameof(Output), typeof(object), typeof(CheckBoxesListControl), new FrameworkPropertyMetadata(null));
+        private DifferenceHelper differenceHelper;
 
+        private static readonly DependencyPropertyKey OutputPropertyKey = DependencyProperty.RegisterReadOnly(nameof(Output), typeof(object), typeof(CheckBoxesListControl), new FrameworkPropertyMetadata(null));
         public static readonly DependencyProperty IsCheckedPathProperty = DependencyProperty.Register("IsCheckedPath", typeof(string), typeof(CheckBoxesListControl), new PropertyMetadata(null));
         public static readonly DependencyProperty OutputProperty = OutputPropertyKey.DependencyProperty;
-        private DifferenceHelper differenceHelper;
         public static readonly RoutedEvent OutputChangeEvent = EventManager.RegisterRoutedEvent("OutputChange", RoutingStrategy.Bubble, typeof(OutputChangedEventHandler<CheckedRoutedEventArgs>), typeof(CheckBoxesListControl));
 
         static CheckBoxesListControl()
@@ -52,6 +52,7 @@ namespace UtilityWpf.Controls.Buttons
             CheckBoxesHelper.Bind(element, item, this);
             element.Checked += OnChange;
             element.Unchecked += OnChange;
+            element.Tag = nameof(CheckBoxesListControl);
         }
 
         protected virtual void OnChange(object sender, RoutedEventArgs eventArgs)

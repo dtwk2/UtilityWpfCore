@@ -15,13 +15,13 @@
 
 
 	<ItemGroup>
-		<Compile Update="SettingsControl.cs">
-			<DependentUpon>SettingsControl.xaml</DependentUpon>
+		<Compile Update="View\SettingsControl.cs">
+			<DependentUpon>View\SettingsControl.xaml</DependentUpon>
 		</Compile>
 	</ItemGroup>
 	
   <ItemGroup>
-    <Page Update="SettingsControl.xaml">
+    <Page Update="View\SettingsControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

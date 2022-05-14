@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Xml.Linq;
 using Utility.WPF.Helper;
 using UtilityWpf.Abstract;
 using UtilityWpf.Base;
@@ -10,11 +12,8 @@ namespace UtilityWpf.Controls.Buttons
 {
     public class CheckBoxesComboControl : ComboBox<CheckBox>, IIsCheckedPath, IOutput<CheckedRoutedEventArgs>, IIsSelectedPath
     {
-
         private DifferenceHelper differenceHelper;
         private static readonly DependencyPropertyKey OutputPropertyKey = DependencyProperty.RegisterReadOnly(nameof(Output), typeof(object), typeof(CheckBoxesComboControl), new FrameworkPropertyMetadata(null));
-
-
         public static readonly DependencyProperty IsCheckedPathProperty = DependencyProperty.Register("IsCheckedPath", typeof(string), typeof(CheckBoxesComboControl), new PropertyMetadata(null));
         //public static readonly DependencyProperty OutputProperty = DependencyProperty.RegisterReadOnly("Output", typeof(object), typeof(CheckBoxesComboControl));
         public static readonly RoutedEvent OutputChangeEvent = EventManager.RegisterRoutedEvent("OutputChange", RoutingStrategy.Bubble, typeof(OutputChangedEventHandler<CheckedRoutedEventArgs>), typeof(CheckBoxesComboControl));
@@ -30,10 +29,15 @@ namespace UtilityWpf.Controls.Buttons
         public CheckBoxesComboControl()
         {
             this.Loaded += OnChange;
+            this.AddHandler(Button.ClickEvent, new RoutedEventHandler(this.CloseButtonClick), true);
+        }
+
+        private void CloseButtonClick(object sender, RoutedEventArgs e)
+        {
+             OnChange(sender, e);
         }
 
         #region properties
-
 
         public event OutputChangedEventHandler<CheckedRoutedEventArgs> OutputChange
         {

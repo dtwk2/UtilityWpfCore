@@ -1,14 +1,16 @@
-﻿using System;
+﻿using ReactiveUI;
+using System;
 using System.Collections;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using Utility.ViewModel.Base;
 using UtilityHelperEx;
 using UtilityWpf;
 
 namespace Utility.ViewModel
 {
-    public class ViewModel : HeaderedNPC
+    public class ViewModel : HeaderedReactiveObject
     {
         private bool isReadOnly;
 
@@ -29,7 +31,7 @@ namespace Utility.ViewModel
                             .Changes()
                             .Subscribe(a =>
                             {
-                                OnPropertyChanged(null);
+                                this.RaisePropertyChanged((string)null);
                             });
                     }
                 }
@@ -42,10 +44,10 @@ namespace Utility.ViewModel
                     {
                         changed.Changes().Subscribe(a =>
                         {
-                            OnPropertyChanged(null);
+                            this.RaisePropertyChanged((string)null);
                         });
                     }
-                    OnPropertyChanged(null);
+                    this.RaisePropertyChanged((string)null);
                 });
             }
         }
