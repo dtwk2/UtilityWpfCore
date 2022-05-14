@@ -14,7 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Utility.WPF.Demo.Adorners\Utility.WPF.Demo.Adorners.csproj" />
+    <ProjectReference Include="..\Utility.WPF.Demo.Date\Utility.WPF.Demo.Date.csproj" />
     <ProjectReference Include="..\UtilityWpf.Controls.Meta\UtilityWpf.Controls.Meta.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Demo.Animation\UtilityWpf.Demo.Animation.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.Buttons\UtilityWpf.Demo.Buttons.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.Clocks\UtilityWpf.Demo.Clocks.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.Controls\UtilityWpf.Demo.Controls.csproj" />
@@ -23,6 +26,7 @@
     <ProjectReference Include="..\UtilityWpf.Demo.Dragablz\UtilityWpf.Demo.Dragablz.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.Extrinsic\UtilityWpf.Demo.Extrinsic.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.FileSystem\UtilityWpf.Demo.FileSystem.csproj" />
+    <ProjectReference Include="..\UtilityWpf.Demo.Forms\UtilityWpf.Demo.Forms.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.Hybrid\UtilityWpf.Demo.Hybrid.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.Master\UtilityWpf.Demo.Master.csproj" />
     <ProjectReference Include="..\UtilityWpf.Demo.Objects\UtilityWpf.Demo.Objects.csproj" />
