@@ -1,4 +1,5 @@
-﻿using NetFabric.Hyperlinq;
+﻿using Evan.Wpf;
+using NetFabric.Hyperlinq;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -33,10 +34,13 @@ namespace UtilityWpf.Controls.Meta
 
     public class ViewsMasterDetailControl : MasterDetail
     {
-        private readonly Subject<Assembly> subject = new();
-        private readonly Subject<DemoType> subject2 = new();
-        public static readonly DependencyProperty AssemblyProperty = Register(nameof(Assembly), a => a.subject, initialValue: Assembly.GetEntryAssembly());
-        public static readonly DependencyProperty DemoTypeProperty = Register(nameof(DemoType), a => a.subject2);
+        //private readonly Subject<Assembly> subject = new();
+        //private readonly Subject<DemoType> subject2 = new();
+        //public static readonly DependencyProperty AssemblyProperty = Register(nameof(Assembly), a => a.subject, initialValue: Assembly.GetEntryAssembly());
+        //public static readonly DependencyProperty DemoTypeProperty = Register(nameof(DemoType), a => a.subject2);
+
+        public static readonly DependencyProperty AssemblyProperty = DependencyHelper.Register(new PropertyMetadata(Assembly.GetEntryAssembly()));
+        public static readonly DependencyProperty DemoTypeProperty = DependencyHelper.Register();
 
         public ViewsMasterDetailControl()
         {
@@ -44,7 +48,6 @@ namespace UtilityWpf.Controls.Meta
             var listBox = new ViewTypeItemListBox();
 
             //listBox.GroupStyle.Add(new GroupStyle());
-
             //var resource = new ResourceDictionary
             //{
             //    Source = new Uri("/UtilityWpf.Controls.Meta;component/Themes/Generic.xaml",
@@ -52,12 +55,12 @@ namespace UtilityWpf.Controls.Meta
             //};
             //var dataTemplateKey = new DataTemplateKey(typeof(KeyValue));
             //listBox.ItemTemplate = (DataTemplate)resource[dataTemplateKey];
+            
             Content = listBox;
             UseDataContext = true;
-            _ = subject
-                .StartWith(Assembly)
+            _ = this.WhenAnyValue(a => a.Assembly)
                 .WhereNotNull()
-                .CombineLatest(subject2)
+                .CombineLatest(this.WhenAnyValue(a => a.DemoType))
                 .Select(a =>
                 {
                     return a.Second switch
@@ -72,7 +75,6 @@ namespace UtilityWpf.Controls.Meta
                     listBox.ItemsSource = pairs.ToArray();
                     listBox.SelectedIndex = 0;
                 });
-            //subject2.OnNext(DemoType.UserControl);
 
             Header = CreateDetail();
 
