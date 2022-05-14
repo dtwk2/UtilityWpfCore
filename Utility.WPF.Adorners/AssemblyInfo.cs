@@ -12,4 +12,3 @@ using System.Windows.Markup;
 [assembly: XmlnsPrefix("http://schemas.utility.com/adorners", "ad")]
 [assembly: XmlnsDefinition("http://schemas.utility.com/adorners", "Utility.WPF.Adorners")]
 [assembly: XmlnsDefinition("http://schemas.utility.com/adorners", "Utility.WPF.Adorners.Infrastructure")]
-[assembly: XmlnsDefinition("http://schemas.utility.com/adorners", "UtilityWpf.Adorners")]
