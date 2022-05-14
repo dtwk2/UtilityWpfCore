@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Shapes;
 using Utility.WPF.Adorners;
 using Utility.WPF.Adorners.Infrastructure;
 using Utility.WPF.Attached;
@@ -112,6 +113,10 @@ namespace UtilityWpf.Controls.Meta
                     {
                         background = ApplyBrush(guid, () => panel.Background, b => panel.Background = b);
                     }
+                    else if (child is Shape shape)
+                    {
+                        background = ApplyBrush(guid, () => shape.Fill, b => shape.Fill = b);
+                    }
                     else
                     {
                         return;
@@ -155,6 +160,10 @@ namespace UtilityWpf.Controls.Meta
                             else if (child is Panel panel)
                             {
                                 panel.Background = originalBrushes[guid.Value];
+                            }     
+                            else if (child is Shape shape)
+                            {
+                                shape.Fill = originalBrushes[guid.Value];
                             }
                             else
                             {
