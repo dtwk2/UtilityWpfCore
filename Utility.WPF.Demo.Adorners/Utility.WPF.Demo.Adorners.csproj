@@ -15,7 +15,7 @@
 		<ProjectReference Include="..\UtilityWpf.Demo.Data\UtilityWpf.Demo.Data.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Update="AdornerUserControl.xaml.cs">
+	  <Compile Update="HoverUserControl.xaml.cs">
 	    <SubType>Code</SubType>
 	  </Compile>
 	  <Compile Update="TextUserControl.xaml.cs">
@@ -23,7 +23,7 @@
 	  </Compile>
 	</ItemGroup>
 	<ItemGroup>
-	  <Page Update="AdornerUserControl.xaml">
+	  <Page Update="HoverUserControl.xaml">
 	    <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 	    <SubType>Designer</SubType>
 	  </Page>

@@ -14,13 +14,13 @@ namespace Utility.WPF.Demo.Adorners
     {
         private readonly AdornerController adornerController;
         private readonly ControlColourer controlColourer;
-        private bool flag;
+        private bool flag, flag2;
 
         public SettingsUserControl()
         {
             InitializeComponent();
 
-            controlColourer = new(this);
+            controlColourer = new(MainCanvas);
             adornerController = new(this);
 
             Square3Grid.DataContext = DataContexts.Random;
@@ -32,16 +32,19 @@ namespace Utility.WPF.Demo.Adorners
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (flag)
-            {
                 controlColourer.Remove();
-                adornerController?.Hide();
-            }
             else
-            {
                 controlColourer.Apply();
-                adornerController?.Apply();
-            }
             flag = !flag;
+        }
+
+        private void Button2_Click(object sender, RoutedEventArgs e)
+        {
+            if (flag2)            
+                adornerController?.Hide();
+            else            
+                adornerController?.Apply();            
+            flag2 = !flag2;
         }
     }
 }

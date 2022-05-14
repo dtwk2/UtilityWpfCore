@@ -8,11 +8,11 @@ namespace Utility.WPF.Demo.Adorners
     /// <summary>
     /// Interaction logic for AdornerUser.xaml
     /// </summary>
-    public partial class AdornerUserControl : UserControl
+    public partial class HoverUserControl : UserControl
     {
 
 
-        public AdornerUserControl()
+        public HoverUserControl()
         {
             InitializeComponent();
             TextCommand = new UtilityWpf.Command.RelayCommand(() => TextBlock1.Text += " New Text");

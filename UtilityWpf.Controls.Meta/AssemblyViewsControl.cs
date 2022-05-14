@@ -17,6 +17,7 @@ namespace UtilityWpf.Controls.Meta
             dockPanel.Children.Add(dualButtonControl);
             dockPanel.Children.Add(comboBox);
             dockPanel.Children.Add(viewsDetailControl);
+      
             Content = dockPanel;
         }
 
