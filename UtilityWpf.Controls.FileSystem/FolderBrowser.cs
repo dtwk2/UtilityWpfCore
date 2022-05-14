@@ -3,7 +3,7 @@ using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Utility.WPF.Helper;
-using UtilityWpf.Helper;
+using Utility.WPF.Reactive;
 
 namespace UtilityWpf.Controls.FileSystem
 {
@@ -13,7 +13,7 @@ namespace UtilityWpf.Controls.FileSystem
         {
             textBoxContentChanges
             .OfType<TextBox>()
-            .SelectMany(EventToObservableHelper.ToThrottledObservable)
+            .SelectMany(TextBoxHelper.ToThrottledObservable)
             .Subscribe(textChanges.OnNext);
         }
 

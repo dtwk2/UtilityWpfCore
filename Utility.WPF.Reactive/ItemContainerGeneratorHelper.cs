@@ -4,9 +4,9 @@ using System.Reactive.Linq;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
-namespace UtilityWpf.Helper
+namespace Utility.WPF.Reactive
 {
-    internal static class ItemContainerGeneratorHelper
+    public static class ItemContainerGeneratorHelper
     {
         public static IObservable<GeneratorStatus> StatusChanges(this ItemContainerGenerator generator)
         {
@@ -19,7 +19,7 @@ namespace UtilityWpf.Helper
         }
         public static IObservable<GeneratorStatus> ContainersGeneratedChanges(this ItemContainerGenerator generator)
         {
-            var obs = StatusChanges(generator).Where(a => a.Equals(GeneratorStatus.ContainersGenerated));
+            var obs = generator.StatusChanges().Where(a => a.Equals(GeneratorStatus.ContainersGenerated));
 
             return obs;
         }

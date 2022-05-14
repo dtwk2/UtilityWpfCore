@@ -8,9 +8,9 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using UtilityWpf.Abstract;
 
-namespace UtilityWpf.Helper
+namespace Utility.WPF.Reactive
 {
-    internal static class SelectorHelper
+    public static class SelectorHelper
     {
 
         public static IObservable<object> ToChanges(this Selector selector) =>
@@ -77,11 +77,11 @@ namespace UtilityWpf.Helper
                     (a => selector.SelectionChanged += a, a => selector.SelectionChanged -= a)
                 .Select(a => selector.SelectedValue).StartWith(selector.SelectedValue)
                 .WhereNotNull();
-        public static IObservable<T> ToSelectedValueChanges<T>(this Selector selector) => 
+        public static IObservable<T> ToSelectedValueChanges<T>(this Selector selector) =>
             selector.ToSelectedValueChanges().Cast<T>();
 
 
-        public static IObservable<T> SelectItemChanges<T>(this Selector selector)
+        public static IObservable<T?> SelectItemChanges<T>(this Selector selector)
         {
             var selectionChanged = selector.Events().SelectionChanged;
             var conversionProvider = new TypeConversionProvider();
@@ -90,31 +90,31 @@ namespace UtilityWpf.Helper
           .SelectMany(a => a.AddedItems.OfType<ContentControl>())
           .StartWith(selector.SelectedItem as ContentControl)
           .Where(a => a != null)
-          .Select(a => NewMethod2(a.Content))
-            .Where(a => a.Equals(default(T)) == false);
+          .Select(a => NewMethod2(a?.Content))
+            .Where(a => a?.Equals(default(T)) == false);
 
             // If using type directly
             var directItems = selectionChanged
           .SelectMany(a => a.AddedItems.OfType<T>())
           .StartWith(NewMethod(selector.SelectedItem))
-          .Where(a => a.Equals(default(T)) == false);
+          .Where(a => a?.Equals(default(T)) == false);
 
             // If using type indirectly
             var indirectItems = selectionChanged
-          .SelectMany(a => a.AddedItems.Cast<object>().Select(a => conversionProvider.TryConvert<object, T>(a, out T t2) ? t2 : default))
+          .SelectMany(a => a.AddedItems.Cast<object>().Select(a => conversionProvider.TryConvert(a, out T t2) ? t2 : default))
           .StartWith(NewMethod2(selector.SelectedItem))
-          .Where(a => a.Equals(default(T)) == false);
+          .Where(a => a?.Equals(default(T)) == false);
 
             var c = comboBoxItems.Amb(directItems).Amb(indirectItems);
 
             return c;
 
-            static T NewMethod(object selectedItem)
+            static T? NewMethod(object? selectedItem)
             {
                 return selectedItem is T t ? t : default;
             }
 
-            T NewMethod2(object selectedItem)
+            T? NewMethod2(object? selectedItem)
             {
                 return conversionProvider.TryConvert(selectedItem, out T t2) ? t2 : default;
             }

@@ -16,7 +16,7 @@ namespace UtilityWpf.Controls.Master
     using System.Reactive.Subjects;
     using System.Windows.Controls.Primitives;
     using Utility.WPF.Helper;
-    using UtilityWpf.Helper;
+    using Utility.WPF.Reactive;
 
     /// <summary>
     /// Only transforms master-list items to the detail-item; and not vice-versa

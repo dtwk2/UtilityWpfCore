@@ -14,7 +14,7 @@ using UtilityHelper.NonGeneric;
 using UtilityHelperEx;
 using UtilityWpf.Demo.Data.Factory;
 using UtilityWpf.Demo.Data.Model;
-using UtilityWpf.Helper;
+using Utility.WPF.Reactive;
 
 namespace UtilityWpf.Demo.Controls
 {

@@ -3,11 +3,10 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Controls;
 
-namespace UtilityWpf.Helper
+namespace Utility.WPF.Reactive
 {
-    internal static class TextBoxHelper
+    public static class TextBoxHelper
     {
-
         public static IObservable<string> ToThrottledObservable(this TextBox textBox)
         {
             return Observable.FromEventPattern<TextChangedEventHandler, TextChangedEventArgs>(

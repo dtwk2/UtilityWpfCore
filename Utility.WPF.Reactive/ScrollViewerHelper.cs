@@ -3,12 +3,10 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Controls;
 
-namespace UtilityWpf.Helper
+namespace Utility.WPF.Reactive
 {
-    internal static class ScrollViewerHelper
+    public static class ScrollViewerHelper
     {
-
-
         public static IObservable<ScrollChangedEventArgs> ScrollChanges(this ScrollViewer combo) =>
          Observable
             .FromEventPattern<ScrollChangedEventHandler, ScrollChangedEventArgs>

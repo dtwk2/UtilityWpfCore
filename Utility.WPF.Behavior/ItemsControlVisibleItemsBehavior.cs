@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using Utility.WPF.Helper;
-using UtilityWpf.Helper;
+using Utility.WPF.Reactive;
 
 namespace Utility.WPF.Behavior
 {

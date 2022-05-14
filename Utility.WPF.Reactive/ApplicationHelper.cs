@@ -3,9 +3,9 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Windows;
 
-namespace UtilityWpf.Helper
+namespace Utility.WPF.Reactive
 {
-    internal static class Application
+    public static class ApplicationHelper
     {
         public static IObservable<ExitEventArgs> GetExitEvents(this Application app) =>
             Observable

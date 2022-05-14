@@ -13,7 +13,7 @@ using Utility.Persist;
 using UtilityInterface.NonGeneric;
 using UtilityWpf.Controls.Buttons;
 using UtilityWpf.Model;
-using UtilityWpf.Helper;
+using Utility.WPF.Reactive;
 using Evan.Wpf;
 using ReactiveUI;
 
@@ -91,8 +91,9 @@ namespace UtilityWpf.Controls.Meta
                     ItemsSource = view;
                     //SelectedIndex = 0;
                 });
-            Helper.SelectorHelper.SelectSingleSelectionChanges(this)
-                            .CombineLatest(Helper.FrameworkElementHelper.LoadedChanges(this), (a, b) => a)
+            this
+                .SelectSingleSelectionChanges()
+                .CombineLatest(this.LoadedChanges(), (a, b) => a)
                 .DistinctUntilChanged()
                 .Subscribe(async a =>
                 {
@@ -143,7 +144,7 @@ namespace UtilityWpf.Controls.Meta
                 }
 
             }
-            Helper.OutputHelper.SelectOutputChanges<Buttons.Infrastructure.CheckedRoutedEventArgs>(this)
+            this.SelectOutputChanges<Buttons.Infrastructure.CheckedRoutedEventArgs>()
                             .Subscribe(async a =>
                 {
                     var enumerator = a.Dictionary.GetEnumerator();

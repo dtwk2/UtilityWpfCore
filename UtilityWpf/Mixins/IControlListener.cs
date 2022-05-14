@@ -5,7 +5,7 @@ using System.Reactive.Linq;
 using System.Windows;
 using Utility.WPF.Helper;
 using UtilityHelperEx;
-using UtilityWpf.Helper;
+using Utility.WPF.Reactive;
 
 namespace UtilityWpf.Mixins
 {

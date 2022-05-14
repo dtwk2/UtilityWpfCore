@@ -4,9 +4,9 @@ using System.Reactive.Linq;
 using System.Windows;
 using UtilityWpf.Abstract;
 
-namespace UtilityWpf.Helper
+namespace Utility.WPF.Reactive
 {
-    internal static class OutputHelper
+    public static class OutputHelper
     {
         public static IObservable<T> SelectOutputChanges<T>(this IOutput<T> selector) where T : RoutedEventArgs =>
             Observable

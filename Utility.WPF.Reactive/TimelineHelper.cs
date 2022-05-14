@@ -6,20 +6,23 @@ using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
 using System.Windows.Media.Animation;
 
-namespace UtilityWpf.Helper
+namespace Utility.WPF.Reactive
 {
-    public static class AnimationHelper
+    /// <summary>
+    /// 
+    /// </summary>
+    public static class TimelineHelper
     {
-        public static IObservable<EventArgs> SelectCompletions(this Storyboard storyboard) =>
+        public static IObservable<EventArgs> SelectCompletions(this Timeline storyboard) =>
 
             Observable
             .FromEventPattern<EventHandler, EventArgs>
             (a => storyboard.Completed += a, a => storyboard.Completed -= a)
             .Select(a => a.EventArgs);
 
-        public static Task<EventPattern<object>> ToTask(this DoubleAnimation animation)
+        public static Task<EventArgs> ToTask(this Timeline animation)
         {
-            return Observable.FromEventPattern(a => animation.Completed += a, a => animation.Completed -= a).Take(1).ToTask();
+            return SelectCompletions(animation).Take(1).ToTask();
         }
 
     }

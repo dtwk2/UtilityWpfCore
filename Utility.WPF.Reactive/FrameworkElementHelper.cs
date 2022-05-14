@@ -4,9 +4,9 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows;
 
-namespace UtilityWpf.Helper
+namespace Utility.WPF.Reactive
 {
-    internal static class FrameworkElementHelper
+    public static class FrameworkElementHelper
     {
         public static IObservable<Unit> LoadedChanges(this FrameworkElement element)
         {

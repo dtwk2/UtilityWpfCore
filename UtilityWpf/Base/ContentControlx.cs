@@ -3,7 +3,7 @@ using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using UtilityWpf.Mixins;
-using UtilityWpf.Helper;
+using Utility.WPF.Reactive;
 
 namespace UtilityWpf.Base
 {

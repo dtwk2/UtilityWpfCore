@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
-using UtilityWpf.Helper;
+using Utility.WPF.Reactive;
 
 namespace Utility.WPF.Attached
 {
@@ -125,7 +125,8 @@ namespace Utility.WPF.Attached
             if (d is Selector selector)
             {
                 DataTemplate originalTemplate = selector.ItemTemplate;
-                _ = selector.SelectSelectionAddChanges()
+                _ = selector
+                    .SelectSelectionAddChanges()
                     .Subscribe(add =>
                     {
                         foreach (ListBoxItem lbx in selector.Items.Cast<object>().Select(a => selector.ItemContainerGenerator.ContainerFromItem(a)).OfType<ListBoxItem>())

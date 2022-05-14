@@ -3,14 +3,13 @@ using ReactiveUI;
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using UtilityWpf.Helper;
+using Utility.WPF.Reactive;
 using System.Windows.Controls.Primitives;
 
 namespace Utility.WPF.Behavior
