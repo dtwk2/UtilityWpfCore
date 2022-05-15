@@ -252,7 +252,7 @@ namespace UtilityWpf.Controls.Master
             //}
             if (masterObject is UIElement uiElement)
             {
-                Header = NewMethod(uiElement);
+                Header = Extract(uiElement);
             }
             else if (headerPresenter != null)
             {
@@ -264,15 +264,21 @@ namespace UtilityWpf.Controls.Master
             }
         }
 
-        private object NewMethod(UIElement uiElement)
+        private object Extract(UIElement uiElement)
         {
             if (uiElement is HeaderedContentControl headeredContentControl)
             {
+                if(headeredContentControl.Content is FrameworkElement dependencyObject)
+                {
+                    dependencyObject.DetachFromParent();
+                }
                 return headeredContentControl.Content;
             }
             else if (uiElement is HeaderedItemsControl headeredItemsControl)
             {
-                return new ItemsControl { ItemsSource = headeredItemsControl.ItemsSource };
+                var array = headeredItemsControl.ItemsSource;
+                headeredItemsControl.ItemsSource = null;
+                return new ItemsControl { ItemsSource = array };
             }
             try
             {

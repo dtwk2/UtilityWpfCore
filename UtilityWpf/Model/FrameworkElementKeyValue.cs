@@ -62,8 +62,9 @@ namespace UtilityWpf.Model
 
         public override FrameworkElement Value => lazy.Value;
 
-        public static IEnumerable<ResourceDictionaryKeyValue> ResourceViewTypes(Assembly assembly) => assembly
-       .SelectResourceDictionaries(predicate: entry => Predicate(entry.Key.ToString()), ignoreXamlReaderExceptions: true)
+        public static IEnumerable<ResourceDictionaryKeyValue> ResourceViewTypes(Assembly assembly) => 
+            assembly
+            .SelectResourceDictionaries(predicate: entry => Predicate(entry.Key.ToString()), ignoreXamlReaderExceptions: true)
        //.GroupBy(type =>
        //(type.Name.Contains("UserControl") ? type.Name?.ReplaceLast("UserControl", string.Empty) :
        //type.Name.Contains("View") ? type.Name?.ReplaceLast("View", string.Empty) :

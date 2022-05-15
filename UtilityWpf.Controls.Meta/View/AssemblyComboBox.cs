@@ -13,6 +13,11 @@ namespace UtilityWpf.Controls.Meta
     {
         public static readonly DependencyProperty DemoTypeProperty = DependencyHelper.Register();
 
+        public AssemblyComboBox(DemoType demoType) : this()
+        {
+            DemoType = demoType;
+        }
+
         public AssemblyComboBox()
         {
             //SelectedIndex = 0;
@@ -31,7 +36,7 @@ namespace UtilityWpf.Controls.Meta
             var dis = AssemblyComboBoxViewModelMapper.Connect(this, new AssemblyComboBoxViewModel());
             this.Unloaded += (s, e) => dis.Dispose();
         }
-     
+
 
         public DemoType DemoType
         {

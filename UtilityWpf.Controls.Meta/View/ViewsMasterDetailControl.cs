@@ -16,8 +16,6 @@ using UtilityWpf.Model;
 
 namespace UtilityWpf.Controls.Meta
 {
-    using static UtilityWpf.DependencyPropertyFactory<ViewsMasterDetailControl>;
-
     internal class ViewTypeItem : ListBoxItem
     {
     }
@@ -26,19 +24,8 @@ namespace UtilityWpf.Controls.Meta
     {
     }
 
-    public enum DemoType
-    {
-        UserControl,
-        ResourceDictionary
-    }
-
     public class ViewsMasterDetailControl : MasterDetail
     {
-        //private readonly Subject<Assembly> subject = new();
-        //private readonly Subject<DemoType> subject2 = new();
-        //public static readonly DependencyProperty AssemblyProperty = Register(nameof(Assembly), a => a.subject, initialValue: Assembly.GetEntryAssembly());
-        //public static readonly DependencyProperty DemoTypeProperty = Register(nameof(DemoType), a => a.subject2);
-
         public static readonly DependencyProperty AssemblyProperty = DependencyHelper.Register(new PropertyMetadata(Assembly.GetEntryAssembly()));
         public static readonly DependencyProperty DemoTypeProperty = DependencyHelper.Register();
 

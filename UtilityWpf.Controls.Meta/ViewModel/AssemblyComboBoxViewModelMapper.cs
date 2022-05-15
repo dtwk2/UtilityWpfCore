@@ -26,6 +26,7 @@ namespace UtilityWpf.Controls.Meta.ViewModel
                 .SelectSingleSelectionChanges()
                 .CombineLatest(assemblyComboBox.LoadedChanges(), (a, b) => a)
                 .DistinctUntilChanged()
+                .CombineLatest(assemblyComboBox.WhenAnyValue(a => a.DemoType))
                 .Subscribe(comboBoxViewModel.selectedItemViewModel)
                 .DisposeWith(composite);
 
@@ -36,6 +37,7 @@ namespace UtilityWpf.Controls.Meta.ViewModel
 
             assemblyComboBox
                 .SelectOutputChanges()
+                .CombineLatest(assemblyComboBox.WhenAnyValue(a => a.DemoType))
                 .Subscribe(comboBoxViewModel.checkedViewModel)
                 .DisposeWith(composite);
 

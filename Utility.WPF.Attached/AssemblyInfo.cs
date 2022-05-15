@@ -9,5 +9,5 @@ using System.Windows.Markup;
                                               //(used if a resource is not found in the page,
                                               // app, or any theme specific resource dictionaries)
 )]
-[assembly: XmlnsPrefix("http://schemas.utility.com/attached", "utl")]
+[assembly: XmlnsPrefix("http://schemas.utility.com/attached", "att")]
 [assembly: XmlnsDefinition("http://schemas.utility.com/attached", "Utility.WPF.Attached")]

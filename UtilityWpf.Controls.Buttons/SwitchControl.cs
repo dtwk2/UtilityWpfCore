@@ -5,11 +5,15 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using static UtilityWpf.Controls.Buttons.SwitchControl;
 
 namespace UtilityWpf.Controls.Buttons
 {
     public class SwitchControl : Control
     {
+        public delegate void ToggleEventHandler(object sender, ToggleEventArgs size);
+
+
         private readonly ReactiveCommand<object, object> setValueCommand;
         protected ButtonBase EditButton;
 
@@ -32,7 +36,6 @@ namespace UtilityWpf.Controls.Buttons
 
         public static readonly RoutedEvent ButtonToggleEvent = EventManager.RegisterRoutedEvent("ButtonToggle", RoutingStrategy.Bubble, typeof(ToggleEventHandler), typeof(SwitchControl));
 
-        public delegate void ToggleEventHandler(object sender, ToggleEventArgs size);
 
         static SwitchControl()
         {
@@ -70,7 +73,12 @@ namespace UtilityWpf.Controls.Buttons
 
         public virtual bool KeyToValue(object key)
         {
-            return key.Equals(Main) || (key.Equals(Alternate) ? false : throw new Exception("SD£VVvvvv"));
+            return KeyToValue(key, Main, Alternate);
+        }
+
+        public static bool KeyToValue(object key, object main, object alternative)
+        {
+            return key.Equals(main) || (key.Equals(alternative) ? false : throw new Exception("SD£VVvvvv"));
         }
 
         public event ToggleEventHandler ButtonToggle
@@ -139,5 +147,13 @@ namespace UtilityWpf.Controls.Buttons
 
             public object Key { get; }
         }
+    }
+
+    public static class SwitchControlHelper
+    {
+        public static IObservable<ToggleEventArgs> Toggles(this SwitchControl selector) => 
+            from x in Observable.FromEventPattern<ToggleEventHandler, ToggleEventArgs>(a => selector.ButtonToggle += a, a => selector.ButtonToggle -= a)
+            select x.EventArgs;
+
     }
 }

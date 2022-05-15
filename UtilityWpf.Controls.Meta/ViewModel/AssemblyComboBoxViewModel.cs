@@ -25,8 +25,8 @@ namespace UtilityWpf.Controls.Meta.ViewModel
         public static readonly DependencyProperty DemoTypeProperty = DependencyHelper.Register();
 
         public Connection<DemoType, ICollectionView> demoTypeViewModel;
-        public Connection<object, object> selectedItemViewModel;
-        public Connection<Buttons.Infrastructure.CheckedRoutedEventArgs, Unit> checkedViewModel;
+        public Connection<(object keyValue, DemoType demoType), object> selectedItemViewModel;
+        public Connection<(Buttons.Infrastructure.CheckedRoutedEventArgs, DemoType), Unit> checkedViewModel;
 
         public AssemblyComboBoxViewModel()
         {
@@ -35,24 +35,24 @@ namespace UtilityWpf.Controls.Meta.ViewModel
             demoTypeViewModel = Connection<DemoType, ICollectionView>.Create(@in =>
 
               @in
-                .Select(a =>
+                .Select(demoType =>
                 {
-                    return a switch
+                    return demoType switch
                     {
-                        DemoType.UserControl => FindDemoAppAssemblies(),
-                        DemoType.ResourceDictionary => FindResourceDictionaryAssemblies(),
+                        DemoType.UserControl => (demoType, collection: FindDemoAppAssemblies()),
+                        DemoType.ResourceDictionary => (demoType, collection: FindResourceDictionaryAssemblies()),
                         _ => throw new Exception("££!!!!$$4"),
                     };
                 })
-                .Select(async a =>
+                .Select(async tuple =>
                 {
                     //    var array2 = a.Select(a => new AssemblyKeyValue(a))
                     //.Where(a => a.Key != null)
                     //.Select(a => A<AssemblyEntity>.Order(a.Key))
                     //.ToArray();
 
-                    AssemblyKeyValue[] array = ToKeyValues(a);
-                    var items = await AssemblyEntity.Select.ToListAsync();
+                    AssemblyKeyValue[] array = ToKeyValues(tuple.collection);
+                    var items = await AssemblyEntity.WhereIf(true, a => a.Group == tuple.demoType).ToListAsync();
                     for (int i = 0; i < array.Length; i++)
                     {
                         foreach (var item in items)
@@ -72,11 +72,11 @@ namespace UtilityWpf.Controls.Meta.ViewModel
                 .SelectMany(a => a.ToObservable())
             );
 
-            selectedItemViewModel = Connection<object, object>.Create(@in =>
+            selectedItemViewModel = Connection<(object keyValue, DemoType demoType), object>.Create(@in =>
             @in
                 .Select(async a =>
                 {
-                    var item = (AssemblyKeyValue)a;
+                    var item = (AssemblyKeyValue)a.keyValue;
 
                     if (item.Key != null)
                     {
@@ -84,7 +84,7 @@ namespace UtilityWpf.Controls.Meta.ViewModel
                         if (match == null)
                         {
                             //repo.Add(new AssemblyRecord(item.Key, DateTime.Now));
-                            var assemblyEntity = new AssemblyEntity { Key = item.Key, IsChecked = true };
+                            var assemblyEntity = new AssemblyEntity { Key = item.Key, IsChecked = true, Group = a.demoType };
                             await assemblyEntity.InsertAsync();
                             SelectAndUpdateOtherSelections(assemblyEntity);
                         }
@@ -99,18 +99,18 @@ namespace UtilityWpf.Controls.Meta.ViewModel
 
 
 
-            checkedViewModel = Connection<Buttons.Infrastructure.CheckedRoutedEventArgs, Unit>.Create(@in =>
+            checkedViewModel = Connection<(Buttons.Infrastructure.CheckedRoutedEventArgs args, DemoType demoType), Unit>.Create(@in =>
 
                 @in
                 .Select(async a =>
                 {
-                    var enumerator = a.Dictionary.GetEnumerator();
+                    var enumerator = a.args.Dictionary.GetEnumerator();
                     while (enumerator.MoveNext() && enumerator.Current is { Key: var key, New: var @new })
                     {
                         var match = await AssemblyEntity.Where(a => a.Key == key).FirstAsync();
                         if (match == null)
                         {
-                            var assemblyEntity = new AssemblyEntity { Key = key.ToString(), IsSelected = true, IsChecked = true };
+                            var assemblyEntity = new AssemblyEntity { Key = key.ToString(), IsSelected = true, IsChecked = true, Group = a.demoType };
                             await assemblyEntity.InsertAsync();
                         }
                         else
@@ -161,6 +161,7 @@ namespace UtilityWpf.Controls.Meta.ViewModel
         public class AssemblyEntity : BaseEntity<AssemblyEntity, Guid>, IKey
         {
             public string Key { get; init; }
+            public DemoType Group { get; init; }
             public bool IsSelected { get; set; }
             public bool IsChecked { get; set; }
         }
@@ -201,7 +202,7 @@ namespace UtilityWpf.Controls.Meta.ViewModel
             if (count != 1)
             {
                 throw new Exception("Expected count to be 1 since only item can be selected in any given moment");
-            }            
+            }
         }
     }
 }
