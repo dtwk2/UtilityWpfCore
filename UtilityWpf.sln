@@ -101,21 +101,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility.WPF.Controls.Date",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility.WPF.Demo.Date", "Utility.WPF.Demo.Date\Utility.WPF.Demo.Date.csproj", "{8E6EE9F9-80F1-4F87-A017-25C6001BC70E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tynamix.ObjectFiller", "..\..\Visual Studio 2019\Projects\Wpf Combobox\ObjectFiller.NET\Tynamix.ObjectFiller\Tynamix.ObjectFiller.csproj", "{5DFBE19E-249C-4F85-AF2C-2D807EE81A5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility.WPF.Adorners", "Utility.WPF.Adorners\Utility.WPF.Adorners.csproj", "{8B841CF3-F209-47DD-B3DC-79C64CCB66A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility.WPF.Adorners", "Utility.WPF.Adorners\Utility.WPF.Adorners.csproj", "{8B841CF3-F209-47DD-B3DC-79C64CCB66A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility.WPF.Helper", "Utility.WPF.Utility\Utility.WPF.Helper.csproj", "{5E43B4B1-281B-4E23-B60E-0665FD5846FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility.WPF.Helper", "Utility.WPF.Utility\Utility.WPF.Helper.csproj", "{5E43B4B1-281B-4E23-B60E-0665FD5846FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility.WPF.Demo.Adorners", "Utility.WPF.Demo.Adorners\Utility.WPF.Demo.Adorners.csproj", "{3587E9C2-7255-415C-9FE0-80B11AC3939A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility.WPF.Demo.Adorners", "Utility.WPF.Demo.Adorners\Utility.WPF.Demo.Adorners.csproj", "{3587E9C2-7255-415C-9FE0-80B11AC3939A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility.WPF.Behavior", "Utility.WPF.Behavior\Utility.WPF.Behavior.csproj", "{8C605304-DA17-4E73-A6AF-BC43C0E751A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility.WPF.Behavior", "Utility.WPF.Behavior\Utility.WPF.Behavior.csproj", "{8C605304-DA17-4E73-A6AF-BC43C0E751A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility.WPF.Reactive", "Utility.WPF.Reactive\Utility.WPF.Reactive.csproj", "{5B4277F6-5551-4A9D-A20D-69C2682B4CB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility.WPF.Reactive", "Utility.WPF.Reactive\Utility.WPF.Reactive.csproj", "{5B4277F6-5551-4A9D-A20D-69C2682B4CB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility.WPF.Abstract", "Utility.WPF.Abstract\Utility.WPF.Abstract.csproj", "{ED75EC06-C252-4345-9AC3-EAD6B21C97C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility.WPF.Abstract", "Utility.WPF.Abstract\Utility.WPF.Abstract.csproj", "{ED75EC06-C252-4345-9AC3-EAD6B21C97C9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility.WPF.Attached", "Utility.WPF.Attached\Utility.WPF.Attached.csproj", "{DA0A69FD-A0FC-4BCD-A2AE-4F1A62B786D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility.WPF.Attached", "Utility.WPF.Attached\Utility.WPF.Attached.csproj", "{DA0A69FD-A0FC-4BCD-A2AE-4F1A62B786D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -299,10 +297,6 @@ Global
 		{8E6EE9F9-80F1-4F87-A017-25C6001BC70E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E6EE9F9-80F1-4F87-A017-25C6001BC70E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E6EE9F9-80F1-4F87-A017-25C6001BC70E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5DFBE19E-249C-4F85-AF2C-2D807EE81A5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5DFBE19E-249C-4F85-AF2C-2D807EE81A5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5DFBE19E-249C-4F85-AF2C-2D807EE81A5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5DFBE19E-249C-4F85-AF2C-2D807EE81A5E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8B841CF3-F209-47DD-B3DC-79C64CCB66A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8B841CF3-F209-47DD-B3DC-79C64CCB66A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B841CF3-F209-47DD-B3DC-79C64CCB66A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -381,7 +375,6 @@ Global
 		{A2FE11D7-F281-4D17-98D0-0BCA832873ED} = {2ED92AB3-1BF8-4B9F-85BF-2739EDF1915C}
 		{FD37DAF5-FE10-4553-AFE0-81D02C46A805} = {2ED92AB3-1BF8-4B9F-85BF-2739EDF1915C}
 		{8E6EE9F9-80F1-4F87-A017-25C6001BC70E} = {3E8F851B-BECA-4BAA-9275-2104CDEAEC3D}
-		{5DFBE19E-249C-4F85-AF2C-2D807EE81A5E} = {CF03926E-9E72-4A61-B447-2EF7E3C17461}
 		{8B841CF3-F209-47DD-B3DC-79C64CCB66A5} = {392FD82C-ADC4-4230-8881-89BD4E2B84EE}
 		{5E43B4B1-281B-4E23-B60E-0665FD5846FA} = {392FD82C-ADC4-4230-8881-89BD4E2B84EE}
 		{3587E9C2-7255-415C-9FE0-80B11AC3939A} = {3E8F851B-BECA-4BAA-9275-2104CDEAEC3D}

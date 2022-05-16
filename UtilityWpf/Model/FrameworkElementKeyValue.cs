@@ -9,84 +9,12 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using Tynamix.ObjectFiller;
 using Utility.Common;
 using UtilityHelper;
 using UtilityWpf.Meta;
 
 namespace UtilityWpf.Model
 {
-    public class FrameworkElementKeyValue : KeyValue
-    {
-        private readonly Lazy<FrameworkElement?> lazy;
-
-        public FrameworkElementKeyValue(string key, Type type)
-        {
-            Key = key;
-            Type = type;
-            lazy = new(() => (FrameworkElement?)Activator.CreateInstance(Type));
-        }
-
-        public override string Key { get; }
-
-        public Type Type { get; }
-
-        public override FrameworkElement? Value => lazy.Value;
-
-        public static IEnumerable<FrameworkElementKeyValue> ViewTypes(Assembly assembly) => assembly
-       .GetTypes()
-       .Where(a => typeof(UserControl).IsAssignableFrom(a))
-       .GroupBy(type =>
-       (type.Name.Contains("UserControl") ? type.Name?.ReplaceLast("UserControl", string.Empty) :
-       type.Name.Contains("View") ? type.Name?.ReplaceLast("View", string.Empty) :
-       type.Name)!)
-       .OrderBy(a => a.Key)
-       .ToDictionaryOnIndex()
-       .Select(a => new FrameworkElementKeyValue(a.Key, a.Value));
-    }
-
-    public class ResourceDictionaryKeyValue : KeyValue
-    {
-        private readonly Lazy<MasterDetailGrid> lazy;
-
-        public ResourceDictionaryKeyValue(string key, ResourceDictionary resourceDictionary)
-        {
-            Key = key;
-            ResourceDictionary = resourceDictionary;
-            lazy = new(() => new MasterDetailGrid(resourceDictionary.Cast<DictionaryEntry>().Select(a => new DataTemplateKeyValue(a)).ToArray()));
-        }
-
-        public override string Key { get; }
-
-        public ResourceDictionary ResourceDictionary { get; }
-
-        public override FrameworkElement Value => lazy.Value;
-
-        public static IEnumerable<ResourceDictionaryKeyValue> ResourceViewTypes(Assembly assembly) => 
-            assembly
-            .SelectResourceDictionaries(predicate: entry => Predicate(entry.Key.ToString()), ignoreXamlReaderExceptions: true)
-       //.GroupBy(type =>
-       //(type.Name.Contains("UserControl") ? type.Name?.ReplaceLast("UserControl", string.Empty) :
-       //type.Name.Contains("View") ? type.Name?.ReplaceLast("View", string.Empty) :
-       //type.Name)!)
-
-       .OrderBy(a => a.entry.Key)
-       //.ToDictionaryOnIndex()
-       .Select(a => new ResourceDictionaryKeyValue(a.entry.Key.ToString().Split("/").Last().Remove(".baml"), a.resourceDictionary));
-
-        private static bool Predicate(string key)
-        {
-            var rKey = key.Remove(".baml");
-
-            foreach (var ignore in new[] { "view", "usercontrol", "app" })
-            {
-                if (rKey.EndsWith(ignore))
-                    return false;
-            }
-            return true;
-        }
-    }
-
     public class DataTemplateKeyValue : KeyValue
     {
         private readonly Lazy<FrameworkElement> lazy;
@@ -120,9 +48,9 @@ namespace UtilityWpf.Model
                             {
                                 try
                                 {
-                                    content = new Filler(datatype).Create();
+                                    //content = new Filler(datatype).Create();
                                 }
-                                catch(Exception ex)
+                                catch (Exception)
                                 {
                                     content = new AutoMoqer(datatype).Build().Service;
                                 }
@@ -138,10 +66,11 @@ namespace UtilityWpf.Model
                         }
                     case FrameworkElement frameworkElement:
                         return frameworkElement;
+
                     case Brush solidColorBrush:
                         {
                             Viewbox viewBox = new();
-                            var rect = new Rectangle { Fill = solidColorBrush, Height = 1, Width = 1 };
+                            Rectangle? rect = new Rectangle { Fill = solidColorBrush, Height = 1, Width = 1 };
                             viewBox.Child = rect;
                             return viewBox;
                         }
@@ -153,18 +82,35 @@ namespace UtilityWpf.Model
                             StrokeThickness = 1,
                             Data = geometry
                         };
+
                     case Style
                     { TargetType: var type }
-style:
+                        style:
                         {
-                            var instance = Activator.CreateInstance(type) as Control;
+                            Control? instance = Activator.CreateInstance(type) as Control;
                             instance.Style = style;
                             return instance;
                         }
                     case IValueConverter converter:
                         {
-                            var mb = converter.GetType().GetMethods().First();
+                            MethodInfo? mb = converter.GetType().GetMethods().First();
                             return new TextBlock { Text = mb.AsString() };
+                        }
+                    case ControlTemplate controlTemplate:
+                        {
+                            Type? type = controlTemplate.TargetType;
+                            Control? control;
+                            try
+                            {
+                                control = Activator.CreateInstance(type) as Control;
+                                control.Template = controlTemplate;
+                            }
+                            catch (Exception)
+                            {
+                                control = null;
+                            }
+
+                            return control;
                         }
                     default:
                         throw new Exception($"Unexpected type {value.GetType().Name} in {nameof(DataTemplateKeyValue)}");
@@ -172,33 +118,113 @@ style:
             }
         }
 
+        public DictionaryEntry Entry { get; }
         public override string Key { get; }
 
         public override FrameworkElement Value => lazy.Value;
 
-        public DictionaryEntry Entry { get; }
+        public static IEnumerable<ResourceDictionaryKeyValue> ResourceViewTypes(Assembly assembly)
+        {
+            return assembly
+.SelectResourceDictionaries(predicate: entry => Predicate(entry.Key.ToString()), ignoreXamlReaderExceptions: true)
+//.GroupBy(type =>
+//(type.Name.Contains("UserControl") ? type.Name?.ReplaceLast("UserControl", string.Empty) :
+//type.Name.Contains("View") ? type.Name?.ReplaceLast("View", string.Empty) :
+//type.Name)!)
 
-
-
-        public static IEnumerable<ResourceDictionaryKeyValue> ResourceViewTypes(Assembly assembly) => assembly
-        .SelectResourceDictionaries(predicate: entry => Predicate(entry.Key.ToString()), ignoreXamlReaderExceptions: true)
-        //.GroupBy(type =>
-        //(type.Name.Contains("UserControl") ? type.Name?.ReplaceLast("UserControl", string.Empty) :
-        //type.Name.Contains("View") ? type.Name?.ReplaceLast("View", string.Empty) :
-        //type.Name)!)
-
-        .OrderBy(a => a.entry.Key)
-        //.ToDictionaryOnIndex()
-        .Select(a => new ResourceDictionaryKeyValue(a.entry.Key.ToString(), a.resourceDictionary));
+.OrderBy(a => a.entry.Key)
+//.ToDictionaryOnIndex()
+.Select(a => new ResourceDictionaryKeyValue(a.entry.Key.ToString(), a.resourceDictionary));
+        }
 
         private static bool Predicate(string key)
         {
-            var rKey = key.Remove(".baml");
+            string? rKey = key.Remove(".baml");
 
-            foreach (var ignore in new[] { "view", "usercontrol", "app" })
+            foreach (string? ignore in new[] { "view", "usercontrol", "app" })
             {
                 if (rKey.EndsWith(ignore))
+                {
                     return false;
+                }
+            }
+            return true;
+        }
+    }
+
+    public class FrameworkElementKeyValue : KeyValue
+    {
+        private readonly Lazy<FrameworkElement?> lazy;
+
+        public FrameworkElementKeyValue(string key, Type type)
+        {
+            Key = key;
+            Type = type;
+            lazy = new(() => (FrameworkElement?)Activator.CreateInstance(Type));
+        }
+
+        public override string Key { get; }
+
+        public Type Type { get; }
+
+        public override FrameworkElement? Value => lazy.Value;
+
+        public static IEnumerable<FrameworkElementKeyValue> ViewTypes(Assembly assembly)
+        {
+            return assembly
+.GetTypes()
+.Where(a => typeof(UserControl).IsAssignableFrom(a))
+.GroupBy(type =>
+(type.Name.Contains("UserControl") ? type.Name?.ReplaceLast("UserControl", string.Empty) :
+type.Name.Contains("View") ? type.Name?.ReplaceLast("View", string.Empty) :
+type.Name)!)
+.OrderBy(a => a.Key)
+.ToDictionaryOnIndex()
+.Select(a => new FrameworkElementKeyValue(a.Key, a.Value));
+        }
+    }
+
+    public class ResourceDictionaryKeyValue : KeyValue
+    {
+        private readonly Lazy<MasterDetailGrid> lazy;
+
+        public ResourceDictionaryKeyValue(string key, ResourceDictionary resourceDictionary)
+        {
+            Key = key;
+            ResourceDictionary = resourceDictionary;
+            lazy = new(() => new MasterDetailGrid(resourceDictionary.Cast<DictionaryEntry>().Select(a => new DataTemplateKeyValue(a)).ToArray()));
+        }
+
+        public override string Key { get; }
+
+        public ResourceDictionary ResourceDictionary { get; }
+
+        public override FrameworkElement Value => lazy.Value;
+
+        public static IEnumerable<ResourceDictionaryKeyValue> ResourceViewTypes(Assembly assembly)
+        {
+            return assembly
+.SelectResourceDictionaries(predicate: entry => Predicate(entry.Key.ToString()), ignoreXamlReaderExceptions: true)
+//.GroupBy(type =>
+//(type.Name.Contains("UserControl") ? type.Name?.ReplaceLast("UserControl", string.Empty) :
+//type.Name.Contains("View") ? type.Name?.ReplaceLast("View", string.Empty) :
+//type.Name)!)
+
+.OrderBy(a => a.entry.Key)
+//.ToDictionaryOnIndex()
+.Select(a => new ResourceDictionaryKeyValue(a.entry.Key.ToString().Split("/").Last().Remove(".baml"), a.resourceDictionary));
+        }
+
+        private static bool Predicate(string key)
+        {
+            string? rKey = key.Remove(".baml");
+
+            foreach (string? ignore in new[] { "view", "usercontrol", "app" })
+            {
+                if (rKey.EndsWith(ignore))
+                {
+                    return false;
+                }
             }
             return true;
         }
@@ -207,8 +233,10 @@ style:
     internal static class Helper
     {
         public static Dictionary<string, T> ToDictionaryOnIndex<T>(this IEnumerable<IGrouping<string, T>> groupings)
-            => groupings
-                .SelectMany(grp => grp.Index().ToDictionary(kvp => kvp.Key > 0 ? grp.Key + kvp.Key : grp.Key, c => c.Value))
-                .ToDictionary(a => a.Key, a => a.Value);
+        {
+            return groupings
+                           .SelectMany(grp => grp.Index().ToDictionary(kvp => kvp.Key > 0 ? grp.Key + kvp.Key : grp.Key, c => c.Value))
+                           .ToDictionary(a => a.Key, a => a.Value);
+        }
     }
 }
