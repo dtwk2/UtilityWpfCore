@@ -69,6 +69,7 @@
                                    UnCheckedContent="{x:Static Orientation.Vertical}">
                 </view:ToggleButton>
                 <view:CheckBoxesListControl x:Name="ButtonsControl"
+                                            DisplayMemberPath="Value"
                                         IsCheckedPath="IsChecked"
                                         Orientation="{Binding ElementName=ToggleButton, Path=IsChecked, Converter={StaticResource BooleanToOrientationConverter}}">
                     <i:Interaction.Behaviors>
@@ -123,7 +124,7 @@
                 <view:CheckBoxesListControl
                     DataContext="{Binding FilterCollectionViewModel}"
                     DockPanel.Dock="Top"
-                    SelectedValuePath="Header"
+                    DisplayMemberPath="Header"
                     OutputChange="{utl:Command Command, ConversionType=Default}"
                     ItemsSource="{Binding FilterCollection}"
                     IsCheckedPath="IsChecked"

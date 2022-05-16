@@ -51,7 +51,7 @@ namespace UtilityWpf.Controls.Buttons.Infrastructure
             }
             else
             {
-                throw new Exception($"Expected either {nameof(Selector.SelectedValuePath)} or " +
+                throw new Exception($"Expected " +
                     $"{nameof(Selector.DisplayMemberPath)} " +
                     $"not to be null.");
             }

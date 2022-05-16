@@ -52,7 +52,6 @@ namespace UtilityWpf.Controls.Buttons
             CheckBoxesHelper.Bind(element, item, this);
             element.Checked += OnChange;
             element.Unchecked += OnChange;
-            element.Tag = nameof(CheckBoxesListControl);
         }
 
         protected virtual void OnChange(object sender, RoutedEventArgs eventArgs)
