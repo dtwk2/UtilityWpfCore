@@ -1,8 +1,5 @@
-﻿using BrowseHistory;
-using BrowserHistoryDemoLib.ViewModels;
-using ReactiveUI;
+﻿using ReactiveUI;
 using System;
-using System.ComponentModel;
 using System.Windows.Controls;
 using Utility.FileSystem.Transfer.Demo.ViewModel;
 
@@ -17,18 +14,19 @@ namespace Utility.FileSystem.Transfer.Demo
         {
             InitializeComponent();
 
-
-            (this.DataContext as FileSelectorViewModel)
+            (DataContext as FileSelectorViewModel)
                 .SuggestViewModel
                 .WhenAnyValue(a => a.DirectorySuggestion)
                 .Subscribe(a =>
             {
                 try
                 {
-                    if (a != null && a.Path != null)
-                        Breadcrumb.AddLast(a);
+                    if (a is { Path: { } })
+                    {
+                        //Breadcrumb.AddLast(a);
+                    }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
 
                 }

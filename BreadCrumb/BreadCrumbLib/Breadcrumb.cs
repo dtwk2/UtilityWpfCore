@@ -1,15 +1,10 @@
 ﻿using BreadcrumbLib.Infrastructure;
-using ReactiveUI;
-using System;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Diagnostics;
-using System.Reflection.Emit;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -32,7 +27,7 @@ namespace BreadcrumbLib
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Breadcrumb), new FrameworkPropertyMetadata(typeof(Breadcrumb)));
         }
         public Breadcrumb()
-        { 
+        {
         }
 
         #region properties
@@ -42,8 +37,8 @@ namespace BreadcrumbLib
         /// </remarks>
         public new object SelectedItem
         {
-            get { return GetValue(SelectedItemProperty); }
-            private set { SetValue(SelectedItemPropertyKey, value); }
+            get => GetValue(SelectedItemProperty);
+            private set => SetValue(SelectedItemPropertyKey, value);
         }
 
         /// <summary>
@@ -51,8 +46,8 @@ namespace BreadcrumbLib
         /// </summary>
         public ObservableCollection<ButtonBase> Buttons
         {
-            get { return (ObservableCollection<ButtonBase>)GetValue(ButtonsProperty); }
-            set { SetValue(ButtonsProperty, value); }
+            get => (ObservableCollection<ButtonBase>)GetValue(ButtonsProperty);
+            set => SetValue(ButtonsProperty, value);
         }
 
         #endregion properties
@@ -62,7 +57,7 @@ namespace BreadcrumbLib
             base.OnApplyTemplate();
 
             view = GetTemplateChild(PartNameView) as ItemsControl;
-            var view2 = GetTemplateChild("PART_Buttons") as ItemsControl;
+            ItemsControl view2 = GetTemplateChild("PART_Buttons") as ItemsControl;
 
             view.PreviewMouseDown += (s, e) => Breadcrumb_MouseDown(VisualTreeHelper.HitTest(this, e.GetPosition(this)))?.Focus();
 
@@ -70,12 +65,12 @@ namespace BreadcrumbLib
 
             if (!Items.IsEmpty)
             {
-                var item = Items[0];
+                object item = Items[0];
                 Items.RemoveAt(0);
                 Helper.GoTo(item, view.Items, view.ItemContainerGenerator);
             }
 
-            this.Focus();
+            Focus();
 
             Breadcrumb Breadcrumb_MouseDown(HitTestResult target)
             {
@@ -97,7 +92,10 @@ namespace BreadcrumbLib
         protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
         {
             if (view != null && view.Items.IsEmpty && !Items.IsEmpty)
+            {
                 Helper.GoTo(Items[0], view.Items, view.ItemContainerGenerator);
+            }
+
             base.OnItemsChanged(e);
         }
 
@@ -106,34 +104,39 @@ namespace BreadcrumbLib
             AddTrail(view.Items[^1], item);
         }
 
-
         internal void AddTrail(object parent, object item)
         {
             if (Helper.AddTrail(parent, item, view.Items, view.ItemContainerGenerator) is BreadcrumbItem bitem)
+            {
                 bitem.IsSelected = true;
+            }
         }
-
 
         internal void GoTo(object target)
         {
             Helper.GoTo(target, view.Items, view.ItemContainerGenerator);
         }
 
-
-        class Helper
+        private class Helper
         {
             public static object AddTrail(object parent, object item, IList items, ItemContainerGenerator generator)
             {
                 if (parent == item)
+                {
                     return null;
+                }
 
                 int index = 0;
 
                 if (parent != null)
+                {
                     index = GetIndex(parent, items);
+                }
 
                 for (int i = items.Count - 1; i >= index + 1; i--)
+                {
                     RemoveItem(items, i, generator);
+                }
 
                 return AddAndSelect(item, items);
             }
@@ -143,7 +146,9 @@ namespace BreadcrumbLib
                 int index = GetIndex(target, items);
 
                 for (int i = items.Count - 1; i >= index; i--)
+                {
                     RemoveItem(items, i, generator);
+                }
 
                 AddAndSelect(target, items);
             }
@@ -152,7 +157,9 @@ namespace BreadcrumbLib
             {
 
                 if (items.Contains(item) == false)
+                {
                     items.Add(item);
+                }
 
                 return item;
             }
@@ -175,7 +182,10 @@ namespace BreadcrumbLib
             {
                 BreadcrumbItem container = generator.ContainerFromIndex(i) as BreadcrumbItem;
                 if (container != null)
+                {
                     container.IsSelected = false;
+                }
+
                 items.RemoveAt(i);
             }
         }
@@ -187,9 +197,15 @@ namespace BreadcrumbLib
         {
             object parent = null;
             if (Items.Count > 1)
+            {
                 parent = Items[^2];
+            }
+
             if (parent is DependencyObject dependencyObject)
+            {
                 parent = ItemContainerGenerator.ItemFromContainer(dependencyObject);
+            }
+
             return new BreadcrumbItem(parent);
         }
     }

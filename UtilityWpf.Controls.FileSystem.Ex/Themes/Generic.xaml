@@ -10,7 +10,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/BreadcrumbLib;component/Themes/Geometry.xaml"/>
     </ResourceDictionary.MergedDictionaries>
-    <pu:InvertBoolConverter x:Key="InvertBoolConverter"></pu:InvertBoolConverter>
+    <!--<pu:InvertBoolConverter x:Key="InvertBoolConverter"></pu:InvertBoolConverter>-->
 
 
     <!--<Style TargetType="{x:Type local:NavigationControl}">

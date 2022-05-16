@@ -11,11 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\SuggestBoxLib\source\SuggestBoxLib.Infrastructure\Suggest.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\SuggestBoxLib\source\SuggestBoxLib\Popup.WPF.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Page Update="SuggestBox.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>

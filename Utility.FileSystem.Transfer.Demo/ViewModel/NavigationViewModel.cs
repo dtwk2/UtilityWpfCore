@@ -1,80 +1,73 @@
 ﻿namespace BrowserHistoryDemoLib.ViewModels
 {
-    using BrowseHistory;
-    using HistoryControlLib;
-    using HistoryControlLib.Interfaces;
-    using HistoryControlLib.ViewModels;
-    using HistoryControlLib.ViewModels.Base;
-    using ReactiveUI;
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
+    //using BrowseHistory;
+    //using HistoryControlLib;
+    //using HistoryControlLib.Interfaces;
+    //using HistoryControlLib.ViewModels;
+    //using HistoryControlLib.ViewModels.Base;
     using System.IO;
-    using System.Linq;
-    using System.Reactive.Linq;
     using System.Text.RegularExpressions;
     using System.Windows.Input;
 
-    public class NavigationViewModel : BaseViewModel
+    public class NavigationViewModel /*: BaseViewModel*/
     {
 
-        private readonly BrowseHistory<PathItem> naviHistory;
+        //private readonly BrowseHistory<PathItem> naviHistory;
 
-        /// <summary>
-        /// Class constructor.
-        /// </summary>
-        public NavigationViewModel(BrowseHistory<PathItem> naviHistory)
-        {
-            this.naviHistory = naviHistory;
+        ///// <summary>
+        ///// Class constructor.
+        ///// </summary>
+        //public NavigationViewModel(BrowseHistory<PathItem> naviHistory)
+        //{
+        //    this.naviHistory = naviHistory;
 
-            SelectionCommand = CreateSelectionChanged(naviHistory);
+        //    SelectionCommand = CreateSelectionChanged(naviHistory);
 
-            ForwardCommand = ReactiveCommand.Create<object, object>(a =>
-             {
-                 if (naviHistory.CanForward == false)
-                     throw new Exception("fse333d");
-                 naviHistory.Forward();
-                 return a;
-             }, naviHistory.WhenAnyValue(a => a.CanForward));
+        //    ForwardCommand = ReactiveCommand.Create<object, object>(a =>
+        //     {
+        //         if (naviHistory.CanForward == false)
+        //             throw new Exception("fse333d");
+        //         naviHistory.Forward();
+        //         return a;
+        //     }, naviHistory.WhenAnyValue(a => a.CanForward));
 
-            BackwardCommand = ReactiveCommand.Create<object, object>(a =>
-            {
-                if (naviHistory.CanBackward == false)
-                    throw new Exception("fs3e33333d");
-                naviHistory.Backward();
-                return a;
-            }, naviHistory.WhenAnyValue(a => a.CanBackward));
+        //    BackwardCommand = ReactiveCommand.Create<object, object>(a =>
+        //    {
+        //        if (naviHistory.CanBackward == false)
+        //            throw new Exception("fs3e33333d");
+        //        naviHistory.Backward();
+        //        return a;
+        //    }, naviHistory.WhenAnyValue(a => a.CanBackward));
 
-            var navigateCommand = ReactiveCommand.Create<string, string>(a =>
-            {
+        //    var navigateCommand = ReactiveCommand.Create<string, string>(a =>
+        //    {
 
-                return a;
-            }, Observable.Return(true));
-            NavigateCommand = navigateCommand;
-            navigateCommand
-                .WhereNotNull()
-                .Where(a => PathHelper.IsValidPath(a))
-                .DistinctUntilChanged().Subscribe(a =>
-            {
-                naviHistory.Navigate(new PathItem(a));
-            });
+        //        return a;
+        //    }, Observable.Return(true));
+        //    NavigateCommand = navigateCommand;
+        //    navigateCommand
+        //        .WhereNotNull()
+        //        .Where(a => PathHelper.IsValidPath(a))
+        //        .DistinctUntilChanged().Subscribe(a =>
+        //    {
+        //        naviHistory.Navigate(new PathItem(a));
+        //    });
 
-            UpCommand = CreateUpCommand();
+        //    UpCommand = CreateUpCommand();
 
-            naviHistory.PropertyChanged += NaviHistory_PropertyChanged;
-        }
+        //    naviHistory.PropertyChanged += NaviHistory_PropertyChanged;
+        //}
 
-        private void NaviHistory_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            this.OnPropertyChanged(e.PropertyName);
-        }
+        //private void NaviHistory_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        //{
+        //    this.OnPropertyChanged(e.PropertyName);
+        //}
 
-        public object CurrentItem => naviHistory.CurrentItem;
+        //public object CurrentItem => naviHistory.CurrentItem;
 
-        public int? ForwardCount => naviHistory.ForwardCount;
+        //public int? ForwardCount => naviHistory.ForwardCount;
 
-        public int? BackwardCount => naviHistory.BackwardCount;
-
+        //public int? BackwardCount => naviHistory.BackwardCount;
 
         /// <summary>
         /// Command executes when the user has selected
@@ -99,64 +92,63 @@
         /// </summary>
         public ICommand UpCommand { get; }
 
-        public IEnumerable Collection => naviHistory.Collection;
+        //public IEnumerable Collection => naviHistory.Collection;
 
-        public string? BackwardText => naviHistory.BackwardItem?.ToString();
+        //public string? BackwardText => naviHistory.BackwardItem?.ToString();
 
-        public string? ForwardText => naviHistory.ForwardItem?.ToString();
+        //public string? ForwardText => naviHistory.ForwardItem?.ToString();
 
+        //private ICommand CreateUpCommand()
+        //{
+        //    return ReactiveCommand.Create(() =>
+        //    {
+        //        try
+        //        {
+        //            if (Directory.GetParent(naviHistory.CurrentItem.Path) is DirectoryInfo parent)
+        //                naviHistory.Navigate(new PathItem(parent.FullName));
+        //        }
+        //        catch
+        //        {
+        //        }
+        //    }, Observable.Return(CanExecute()));
+        //}
 
-        private ICommand CreateUpCommand()
-        {
-            return ReactiveCommand.Create(() =>
-            {
-                try
-                {
-                    if (Directory.GetParent(naviHistory.CurrentItem.Path) is DirectoryInfo parent)
-                        naviHistory.Navigate(new PathItem(parent.FullName));
-                }
-                catch
-                {
-                }
-            }, Observable.Return(CanExecute()));
-        }
+        //bool CanExecute()
+        //{
 
-        bool CanExecute()
-        {
+        //    if (naviHistory.CurrentItem == null)
+        //        return false;
+        //    try
+        //    {
+        //        return Directory.GetParent(naviHistory.CurrentItem.Path) != null;
+        //    }
+        //    catch
+        //    {
+        //    }
+        //    return false;
 
-            if (naviHistory.CurrentItem == null)
-                return false;
-            try
-            {
-                return Directory.GetParent(naviHistory.CurrentItem.Path) != null;
-            }
-            catch
-            {
-            }
-            return false;
+        //}
+        //private static ICommand CreateSelectionChanged(IBrowseHistory<PathItem> NaviHistory)
+        //{
+        //    return ReactiveCommand.Create<object>(p =>
+        //    {
 
-        }
-        private static ICommand CreateSelectionChanged(IBrowseHistory<PathItem> NaviHistory)
-        {
-            return ReactiveCommand.Create<object>(p =>
-            {
+        //        if (p is object[] paths && paths[0] is PathItem pss &&
+        //        CreateSelectionChanged(NaviHistory.Collection, pss) is PathItem pathItem1)
+        //            NaviHistory.CurrentItem = pathItem1;
 
-                if (p is object[] paths && paths[0] is PathItem pss &&
-                CreateSelectionChanged(NaviHistory.Collection, pss) is PathItem pathItem1)
-                    NaviHistory.CurrentItem = pathItem1;
+        //        else if (p is string pi &&
+        //           CreateSelectionChanged(NaviHistory.Collection, new PathItem(pi)) is PathItem pathItem)
+        //            NaviHistory.CurrentItem = pathItem;
+        //    });
 
-                else if (p is string pi &&
-                   CreateSelectionChanged(NaviHistory.Collection, new PathItem(pi)) is PathItem pathItem)
-                    NaviHistory.CurrentItem = pathItem;
-            });
-
-            static IEquatable<T> CreateSelectionChanged<T>(IReadOnlyCollection<IEquatable<T>> collection, IEquatable<T> item)
-            {
-                return collection
-                  .Select(histItem => Tuple.Create(histItem, Equals(histItem, item)))
-                  .FirstOrDefault(a => a.Item2)?.Item1;
-            }
-        }
+        //    static IEquatable<T> CreateSelectionChanged<T>(IReadOnlyCollection<IEquatable<T>> collection, IEquatable<T> item)
+        //    {
+        //        return collection
+        //          .Select(histItem => Tuple.Create(histItem, Equals(histItem, item)))
+        //          .FirstOrDefault(a => a.Item2)?.Item1;
+        //    }
+        //}
     }
 
     public static class PathHelper

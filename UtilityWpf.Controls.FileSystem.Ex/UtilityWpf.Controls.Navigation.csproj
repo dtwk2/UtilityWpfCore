@@ -7,8 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\HistoryControlLib\source\NavigationHistory.Controls\BrowseHistory.Controls.csproj" />
-    <ProjectReference Include="..\..\SuggestBoxLib\source\SuggestBoxLib\Popup.WPF.csproj" />
     <ProjectReference Include="..\Suggest.WPF\Suggest.WPF.csproj" />
   </ItemGroup>
 

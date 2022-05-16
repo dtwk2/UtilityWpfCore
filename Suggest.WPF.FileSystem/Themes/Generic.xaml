@@ -3,11 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:Suggest.WPF.FileSystem"
     xmlns:vm="clr-namespace:Suggest.Infrastructure.ViewModel;assembly=Suggest.Infrastructure"
-    xmlns:vm2="clr-namespace:Suggest.FileSystem.ViewModel;assembly=Suggest.FileSystem"
-    >
+    xmlns:vm2="clr-namespace:Suggest.FileSystem.ViewModel;assembly=Suggest.FileSystem">
 
-
-        <!--<DataTemplate DataType="{x:Type vm:ItemSeparator}">
+    <!--<DataTemplate DataType="{x:Type vm:ItemSeparator}">
             <Line
                     Margin="3,0,3,0"
                     HorizontalAlignment="Stretch"
@@ -31,7 +29,7 @@
                     Text="{Binding Value}" />
         </DataTemplate>-->
 
-        <DataTemplate DataType="{x:Type vm2:PathInformation}">
+    <!--<DataTemplate DataType="{x:Type vm2:PathInformation}">
             <WrapPanel>
                 <TextBlock
                         Text="{Binding Path=Information}"
@@ -42,7 +40,6 @@
                         Text="{Binding Path=FullName}"
                         ToolTipService.IsEnabled="True" />
             </WrapPanel>
-
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm2:CachedPathInformation}">
             <Grid HorizontalAlignment="Stretch"
@@ -54,30 +51,26 @@
                         <Run Text="days" />
                 </TextBlock>
             </Grid>
-        </DataTemplate>
+        </DataTemplate>-->
 
     <Style x:Key="SuggestBoxStyle" TargetType="{x:Type local:SuggestPathBox}">
-            <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
-            <Setter Property="FontSize" Value="14" />
-            <!-- this is very important to include since datatemplates won't be applied without it-->
-            <Setter Property="DisplayMemberPath" Value="{x:Null}" />
-            <Setter Property="Hint" Value="Enter a file-system-path or hit the Space key" />
-            <Style.Triggers>
-                <Trigger Property="SuggestSource" Value="{x:Null}">
-                    <Setter Property="Hint" Value="Unable to provide suggestions as the source is null" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+        <Setter Property="Width" Value="{Binding ActualWidth, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+        <Setter Property="FontSize" Value="14" />
+        <!--  this is very important to include since datatemplates won't be applied without it  -->
+        <!--<Setter Property="DisplayMemberPath" Value="{x:Null}" />
+        <Setter Property="Hint" Value="Enter a file-system-path or hit the Space key" />
+        <Style.Triggers>
+            <Trigger Property="SuggestSource" Value="{x:Null}">
+                <Setter Property="Hint" Value="Unable to provide suggestions as the source is null" />
+            </Trigger>
+        </Style.Triggers>-->
+    </Style>
 
-        <ResourceDictionary.MergedDictionaries>
-            <ResourceDictionary Source="pack://application:,,,/BrowseHistory.Controls;component/Themes/Generic.xaml" />
+    <ResourceDictionary.MergedDictionaries>
+        <!--<ResourceDictionary Source="pack://application:,,,/BrowseHistory.Controls;component/Themes/Generic.xaml" />
 
-            <ResourceDictionary Source="pack://application:,,,/Popup.WPF;component/Themes/Generic.xaml" />
-            <ResourceDictionary Source="pack://application:,,,/Suggest.WPF;component/Themes/Generic.xaml" />
-            <ResourceDictionary Source="pack://application:,,,/BreadCrumbLib;component/Themes/Generic.xaml" />
-
-
-
-        </ResourceDictionary.MergedDictionaries>
-
+        <ResourceDictionary Source="pack://application:,,,/Popup.WPF;component/Themes/Generic.xaml" />-->
+        <ResourceDictionary Source="pack://application:,,,/Suggest.WPF;component/Themes/Generic.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BreadCrumbLib;component/Themes/Generic.xaml" />
+    </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

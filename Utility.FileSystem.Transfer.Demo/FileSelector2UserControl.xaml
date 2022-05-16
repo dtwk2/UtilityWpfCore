@@ -3,10 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Utility.FileSystem.Transfer.Demo"
-             xmlns:demo11="clr-namespace:BrowseHistory.Controls;assembly=BrowseHistory.Controls" 
-             xmlns:viewmodels="clr-namespace:BrowserHistoryDemoLib.ViewModels"
-             xmlns:vm="clr-namespace:Suggest.Infrastructure.ViewModel;assembly=Suggest.Infrastructure"
+
              xmlns:converters1="clr-namespace:Utility.FileSystem.Transfer.Demo.Infrastructure" 
              xmlns:suggestBoxLib1="clr-namespace:Suggest.WPF;assembly=Suggest.WPF" 
              xmlns:pu="http://schemas.popup.com" 
@@ -16,6 +13,10 @@
              mc:Ignorable="d" 
              Background="WhiteSmoke"
              d:DesignHeight="450" d:DesignWidth="800">
+    <!--xmlns:local="clr-namespace:Utility.FileSystem.Transfer.Demo"
+    xmlns:demo11="clr-namespace:BrowseHistory.Controls;assembly=BrowseHistory.Controls" 
+    xmlns:viewmodels="clr-namespace:BrowserHistoryDemoLib.ViewModels"
+    xmlns:vm="clr-namespace:Suggest.Infrastructure.ViewModel;assembly=Suggest.Infrastructure"-->
     <FrameworkElement.DataContext>
         <viewmodel:FileSelectorViewModel></viewmodel:FileSelectorViewModel>
     </FrameworkElement.DataContext>
@@ -24,7 +25,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/BreadcrumbLib;component/Themes/Geometry.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <pu:InvertBoolConverter x:Key="InvertBoolConverter"></pu:InvertBoolConverter>
+            <!--<pu:InvertBoolConverter x:Key="InvertBoolConverter"></pu:InvertBoolConverter>-->
             <converters1:DefaultConverter x:Key="DefaultConverter"></converters1:DefaultConverter>
         </ResourceDictionary>
 
@@ -38,7 +39,7 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="10*"></RowDefinition>
         </Grid.RowDefinitions>
-        <demo11:HistoryNavigationControl
+        <!--<demo11:HistoryNavigationControl
               DataContext="{Binding NavigationViewModel}"
             Height="{Binding ElementName=Viewbox, Path=ActualHeight}"
             x:Name="HistoryNavigationControl"
@@ -52,9 +53,9 @@
             BackwardCount="{Binding BackwardCount}"
             Locations="{Binding Collection}"
             SelectionChanged="{Binding SelectionCommand}">
-        </demo11:HistoryNavigationControl>
+        </demo11:HistoryNavigationControl>-->
 
-        <suggestBoxLib1:SuggestBox Name="SuggestBox"
+        <!--<suggestBoxLib1:SuggestBox Name="SuggestBox"
                                       Grid.Column="1" 
                                       DataContext="{Binding SuggestViewModel}"
                                       Height="{Binding ElementName=HistoryNavigationControl, Path=ActualHeight}"
@@ -67,7 +68,7 @@
             <sb:SuggestBox.SelectedValuePath>
                 <pu:NameOf Type='{x:Type vm:BaseItem}' Member='Value' />
             </sb:SuggestBox.SelectedValuePath>       
-        </suggestBoxLib1:SuggestBox>
+        </suggestBoxLib1:SuggestBox>-->
 
     </Grid>
 </UserControl>
