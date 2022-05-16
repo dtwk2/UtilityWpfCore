@@ -4,8 +4,7 @@ namespace UtilityWpf.DataTemplateSelectors
 {
     public class StringDataTemplateSelector : System.Windows.Controls.DataTemplateSelector
     {
-        public override DataTemplate
-            SelectTemplate(object item, DependencyObject container)
+        public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             if (container is FrameworkElement && item is string)
             {
@@ -27,6 +26,6 @@ namespace UtilityWpf.DataTemplateSelectors
 
         public DataTemplate? TextTemplate { get; set; }
 
-        public static StringDataTemplateSelector Instance => new StringDataTemplateSelector();
+        public static StringDataTemplateSelector Instance => new();
     }
 }

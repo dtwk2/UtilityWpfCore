@@ -75,9 +75,6 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-	  <Folder Include="Abstract\" />
-	  <Folder Include="Adorners\" />
-	  <Folder Include="Attached\" />
 	  <Folder Include="Events\" />
 	</ItemGroup>
 
