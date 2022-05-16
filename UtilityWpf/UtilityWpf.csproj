@@ -36,6 +36,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Events\**" />
+	  <EmbeddedResource Remove="Events\**" />
+	  <None Remove="Events\**" />
+	  <Page Remove="Events\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="ColorCode.Core" Version="2.0.13" />
 		<PackageReference Include="Evan.Wpf" Version="1.2.0" />
 		<PackageReference Include="AdonisUI.ClassicTheme" Version="1.17.1" />
@@ -72,10 +79,6 @@
 			<XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
 			<SubType>Designer</SubType>
 		</Page>
-	</ItemGroup>
-	
-	<ItemGroup>
-	  <Folder Include="Events\" />
 	</ItemGroup>
 
 	<!-- Only packs project if Configuration set to Release-->
