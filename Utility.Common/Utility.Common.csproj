@@ -21,6 +21,7 @@
 		<PackageReference Include="Splat.Autofac" Version="9.5.2" />
 		<PackageReference Include="fasterflect" Version="3.0.0" />
 		<PackageReference Include="Netsoft.Diff" Version="2.0.0" />
+		<PackageReference Include="System.Management.Automation" Version="7.2.5" />
 		<PackageReference Include="TreeCollections" Version="1.0.4" />
 		<PackageReference Include="Kaos.Collections" Version="4.1.0" />
 		<PackageReference Include="Tynamix.ObjectFiller" Version="1.5.8" />
